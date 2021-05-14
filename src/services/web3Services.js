@@ -46,19 +46,19 @@ async function enableNabox() {
   }
 }
 
-// async function getContractInstance(contractAbi, contractAddress) {
-//   try {
-//     if (web3) {
-//       const contractInstance = await new web3.eth.Contract(
-//         contractAbi,
-//         contractAddress
-//       );
-//       return contractInstance;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+async function getContractInstance(contractAbi, contractAddress) {
+  try {
+    if (web3) {
+      const contractInstance = await new web3.eth.Contract(
+        contractAbi,
+        contractAddress
+      );
+      return contractInstance;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // async function getRookieContractInstance() {
 //   try {
@@ -91,7 +91,5 @@ export const web3Services = {
   getNetworkId,
   enableMetamask,
   enableNabox,
-  // getRookieContractInstance,
-  // getTokenContractInstance,
-  // getContractInstance,
+  getContractInstance,
 };

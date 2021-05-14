@@ -19,21 +19,9 @@ import {
   fetchNullStakingPool,
   fetchMMWindowStatus,
 } from "./defi.reducer";
-import {
-  fetchRookieContractInstance,
-  fetchTokenContractInstance,
-  fetchUserMetamaskTotalBalances,
-  fetchLegendaryContractInstance,
-  fetchProfessionalContractInstance,
-  fetchLiquidityTokenContractInstance,
-  fetchLiquidityContractInstance,
-  riskType,
-  defaultProvider,
-  providers,
-  fetchNetworkId,
-  fetchNabox,
-} from "./web3.reducer";
+import { fetchNFTContractInstance, fetchNetworkId } from "./web3.reducer";
 const rootReducer = combineReducers({
+  fetchNFTContractInstance,
   fetchNetworkId,
   fetchMMWindowStatus,
   fetchNullStakingPool,
@@ -51,19 +39,8 @@ const rootReducer = combineReducers({
   fetchPriceTrendGraph,
   fetchTweetAnalysis,
   fetchDefiGraphData,
-  fetchRookieContractInstance,
-  fetchTokenContractInstance,
-  fetchUserMetamaskTotalBalances,
-  fetchLegendaryContractInstance,
-  fetchProfessionalContractInstance,
   fetchThirdPartyDefiList,
   getSocialData,
-  riskType,
-  fetchLiquidityContractInstance,
-  fetchLiquidityTokenContractInstance,
-  defaultProvider,
-  providers,
-  fetchNabox,
 });
 
 export default rootReducer;

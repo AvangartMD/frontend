@@ -1,26 +1,12 @@
-// import Web3 from "web3";
-// import web3 from '../web3';
 import { services } from "../services";
+import nftABI from "../contractData/abis/nft.json";
 // import professionalContractABI from "../contracts/professional.json";
 // import legendaryContractABI from "../contracts/legendary.json";
-// import contractAddresses from "../contracts/contractAddresses";
+import contractAddresses from "../contractData/contractAddress/addresses";
 // import rookieContractABI from "../contracts/rookie.json";
 // import liquidityContractABI from "../contracts/liquidity.json";
 // import tokenContractABI from "../contracts/token.json";
 // import liquidityTokenContractABI from "../contracts/liquidityTokenContract.json";
-
-function getWeb3Data(data) {
-  return {
-    type: "FETCH_WEB3_DATA", // dispatch user login event
-    data: data,
-  };
-}
-function fetchMetamask(data) {
-  return {
-    type: "FETCH_METAMASK", // dispatch user login event
-    data: data,
-  };
-}
 
 function fetchUserBalances(data) {
   return {
@@ -28,70 +14,9 @@ function fetchUserBalances(data) {
     data: data,
   };
 }
-function fetchRookieContractInstance(data) {
-  return {
-    type: "FETCH_ROOKIE_CONTRACT_INSTANCE", // dispatch user login event
-    data: data,
-  };
-}
-function fetchTokenContractInstance(data) {
-  return {
-    type: "FETCH_TOKEN_CONTRACT_INSTANCE", // dispatch user login event
-    data: data,
-  };
-}
-function fetchProfessionalContractInstance(data) {
-  return {
-    type: "FETCH_PROFESSIONAL_CONTRACT_INSTANCE",
-    data: data,
-  };
-}
-function fetchLegendaryContractInstance(data) {
-  return {
-    type: "FETCH_LEGENDARY_CONTRACT_INSTANCE",
-    data: data,
-  };
-}
 
-function setProvider(data) {
-  return {
-    type: "DEFAULT_PROVIDER",
-    data: data,
-  };
-}
-
-function setProviderData(data) {
-  return {
-    type: "DEAFULT_PROVIDER_DATA",
-    data: data,
-  };
-}
-
-function fetchLiquidityContractInstance(data) {
-  return {
-    type: "FETCH_LIQUIDITY_CONTRACT_INSTANCE",
-    data: data,
-  };
-}
-function fetchLiquidityTokenContractInstance(data) {
-  return {
-    type: "FETCH_LIQUIDITY_TOKEN_CONTRACT_INSTANCE",
-    data: data,
-  };
-}
-
-function setRiskType(type) {
-  return {
-    type: "RISK_TYPE", // dispatch user risk
-    data: type,
-  };
-}
-function setNetworkId(data) {
-  return { type: "FETCH_NETWORK_ID", data: data };
-}
-
-function fetchNabox(data) {
-  return { type: "FETCH_NABOX", data: data };
+function setDispatchData(data, type) {
+  return { data: data, type: type };
 }
 
 // get defi categories
@@ -99,7 +24,7 @@ function getNetworkId() {
   return (dispatch) => {
     const response = services.getNetworkId();
     response.then((promise) => {
-      dispatch(setNetworkId(promise));
+      dispatch(setDispatchData(promise, "FETCH_NETWORK_ID"));
     });
   };
 }
@@ -107,33 +32,14 @@ function getNetworkId() {
 function getWeb3(val) {
   if (val) {
     return (dispatch) => {
-      dispatch(getWeb3Data(null));
+      dispatch(setDispatchData(null, "FETCH_WEB3_DATA"));
     };
   } else
     return (dispatch) => {
       const response = services.getWeb3();
       response.then((promise) => {
         if (promise && promise.isLoggedIn) {
-          dispatch(getWeb3Data(promise));
-          // if (promise.isLoggedIn) {
-          if (
-            localStorage.getItem("address") &&
-            localStorage.getItem("address").toLocaleLowerCase() ===
-              promise.accounts[0].toLocaleLowerCase() &&
-            localStorage.getItem("risk")
-          ) {
-            const riskType =
-              localStorage.getItem("risk") === "false" ? false : true;
-            dispatch(setRiskType(riskType));
-          } else {
-            localStorage.setItem("risk", "false");
-            localStorage.setItem(
-              "address",
-              promise.accounts[0].toLocaleLowerCase()
-            );
-            dispatch(setRiskType(false));
-          }
-          // }
+          dispatch(setDispatchData(promise, "FETCH_WEB3_DATA"));
         } else {
           console.log("errorrrr in actions");
         }
@@ -146,19 +52,7 @@ function enableMetamask() {
     const response = services.enableMetamask();
     response.then((promise) => {
       if (promise) {
-        dispatch(fetchMetamask(promise));
-      } else {
-        console.log("error in actions");
-      }
-    });
-  };
-}
-function enableNabox() {
-  return (dispatch) => {
-    const response = services.enableNabox();
-    response.then((promise) => {
-      if (promise) {
-        dispatch(fetchNabox(promise));
+        dispatch(setDispatchData(promise, "FETCH_METAMASK"));
       } else {
         console.log("error in actions");
       }
@@ -178,19 +72,20 @@ function getUserBalances(userAddress) {
   };
 }
 
-// function getRookieContractInstance() {
-//   const { rookie } = contractAddresses();
-//   return (dispatch) => {
-//     const response = services.getContractInstance(rookieContractABI, rookie);
-//     response.then((promise) => {
-//       if (promise) {
-//         dispatch(fetchRookieContractInstance(promise));
-//       } else {
-//         console.log("error in actions");
-//       }
-//     });
-//   };
-// }
+function getNFTContractInstance() {
+  const { nftContractAddress } = contractAddresses();
+  return (dispatch) => {
+    const response = services.getContractInstance(nftABI, nftContractAddress);
+    response.then((promise) => {
+      console.log(promise);
+      if (promise) {
+        dispatch(setDispatchData(promise, "NFT_CONTRACT_INSTANCE"));
+      } else {
+        console.log("error in actions");
+      }
+    });
+  };
+}
 
 // function getProfessionalContractInstance() {
 //   const { professional } = contractAddresses();
@@ -273,40 +168,12 @@ function getUserBalances(userAddress) {
 //       }
 //     });
 //   };
-// }
-
-function setRiskForUser(risk) {
-  return (dispatch) => {
-    localStorage.setItem("risk", risk.toString());
-    dispatch(setRiskType(risk));
-  };
-}
-
-function setProviders(provider) {
-  return (dispatch) => {
-    dispatch(setProvider(provider));
-  };
-}
-
-function setProvidersData(data) {
-  return (dispatch) => {
-    dispatch(setProviderData(data));
-  };
-}
+//
 
 export const web3Actions = {
   getNetworkId,
   getWeb3,
   enableMetamask,
   getUserBalances,
-  // getRookieContractInstance,
-  // getTokenContractInstance,
-  // getProfessionalContractInstance,
-  // getLegendaryContractInstance,
-  // getLiquidityTokenContractInstance,
-  // getLiquidityContractInstance,
-  setRiskForUser,
-  setProviders,
-  setProvidersData,
-  enableNabox,
+  getNFTContractInstance,
 };
