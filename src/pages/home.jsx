@@ -14,6 +14,7 @@ class Dashboard extends React.Component {
       creatorTokenIds: null,
       ethEnabled: false,
       nfts: [],
+      selectedFile: null,
     };
   }
 
@@ -106,6 +107,21 @@ class Dashboard extends React.Component {
   }
   onReciept() {}
 
+  onFileChange = (event) => {
+    this.setState({ selectedFile: event.target.files[0] })
+  }
+
+  onFileUpload = () => {
+    const formData = new FormData()
+    const { selectedFile }  = this.state
+    if(!selectedFile){
+      alert('upload a file')
+      return false
+    }
+    formData.append("file", selectedFile, selectedFile.name)
+    // submit formData
+  }
+
   render() {
     console.log("add", this.props);
     const { web3Data, newNFTURI, isApproved, nfts } = this.state;
@@ -147,6 +163,11 @@ class Dashboard extends React.Component {
           onChange={(e) => this.setState({ newNFTURI: e.target.value })}
         />
         <button onClick={() => this.mintNFT()}>Mint your NFT</button>
+
+        <br /><br />
+        <input type="file" name="file" onClick={this.onFileChange} />
+        <button onClick={this.onFileUpload}>Upload</button>
+
       </div>
     );
   }
