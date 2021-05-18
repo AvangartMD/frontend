@@ -108,6 +108,10 @@ class Dashboard extends React.Component {
   onReciept() {}
 
   onFileChange = (event) => {
+    if(event.target.files[0].size > 307200){
+      alert('File size must under 30MB.!')
+      return false
+    }
     this.setState({ selectedFile: event.target.files[0] });
   };
 
@@ -124,7 +128,6 @@ class Dashboard extends React.Component {
 
   render() {
     const { web3Data, newNFTURI, isApproved, nfts } = this.state;
-    console.log("add", nfts);
     return (
       <div>
         <button
@@ -166,7 +169,8 @@ class Dashboard extends React.Component {
 
         <br />
         <br />
-        <input type="file" name="file" onClick={this.onFileChange} />
+        <input type="file" name="file" onChange={this.onFileChange} 
+            accept=".png,.gif,.mp3,.mp4,.webp" />
         <button onClick={this.onFileUpload}>Upload</button>
       </div>
     );
