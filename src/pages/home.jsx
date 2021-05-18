@@ -108,23 +108,23 @@ class Dashboard extends React.Component {
   onReciept() {}
 
   onFileChange = (event) => {
-    this.setState({ selectedFile: event.target.files[0] })
-  }
+    this.setState({ selectedFile: event.target.files[0] });
+  };
 
   onFileUpload = () => {
-    const formData = new FormData()
-    const { selectedFile }  = this.state
-    if(!selectedFile){
-      alert('upload a file')
-      return false
+    const formData = new FormData();
+    const { selectedFile } = this.state;
+    if (!selectedFile) {
+      alert("upload a file");
+      return false;
     }
-    formData.append("file", selectedFile, selectedFile.name)
+    formData.append("file", selectedFile, selectedFile.name);
     // submit formData
-  }
+  };
 
   render() {
-    console.log("add", this.props);
     const { web3Data, newNFTURI, isApproved, nfts } = this.state;
+    console.log("add", nfts);
     return (
       <div>
         <button
@@ -164,10 +164,10 @@ class Dashboard extends React.Component {
         />
         <button onClick={() => this.mintNFT()}>Mint your NFT</button>
 
-        <br /><br />
+        <br />
+        <br />
         <input type="file" name="file" onClick={this.onFileChange} />
         <button onClick={this.onFileUpload}>Upload</button>
-
       </div>
     );
   }
