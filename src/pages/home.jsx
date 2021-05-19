@@ -15,6 +15,8 @@ class Dashboard extends React.Component {
       ethEnabled: false,
       nfts: [],
       selectedFile: null,
+      approvalAddress: null,
+      creatorApproved: false,
     };
   }
 
@@ -121,9 +123,33 @@ class Dashboard extends React.Component {
     formData.append("file", selectedFile, selectedFile.name);
     // submit formData
   };
+  async approveCreator() {
+    const { web3Data, nftContractInstance, approvalAddress } = this.state;
+    await nftContractInstance.methods
+      .approveCreator(approvalAddress)
+      .send({ from: web3Data.accounts[0] })
+      .on("transactionHash", (hash) => {
+        // this.onTransactionHash(hash);
+        console.log(hash);
+      })
+      .on("receipt", (receipt) => {
+        this.setState({ creatorApproved: true });
+        this.onReciept();
+      })
+      .on("error", (error) => {
+        this.onTransactionError(error);
+      });
+  }
 
   render() {
-    const { web3Data, newNFTURI, isApproved, nfts } = this.state;
+    const {
+      web3Data,
+      newNFTURI,
+      isApproved,
+      nfts,
+      approvalAddress,
+      creatorApproved,
+    } = this.state;
     console.log("add", nfts);
     return (
       <div>
@@ -133,6 +159,19 @@ class Dashboard extends React.Component {
         >
           Connect to Metamask
         </button>
+        <br />
+        <input
+          placeholder="Enter Creators Address"
+          value={approvalAddress}
+          onChange={(e) => this.setState({ approvalAddress: e.target.value })}
+        />
+        <button
+          // value="Connet to Metamask"
+          onClick={() => this.approveCreator()}
+        >
+          Approve
+        </button>
+        {creatorApproved && <h3>Creator Approved !!!</h3>}
         <h2>
           Your wallet address is :{" "}
           {web3Data ? web3Data.accounts[0] : "fetching.."}
