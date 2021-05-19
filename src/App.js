@@ -1,13 +1,41 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Home from "./pages/home";
+import React from "react";
+// import Notifications from 'react-notify-toast';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import Home from "./components/Home";
 
-function App() {
-  return (
-    <div className="App">
-      <Home />
-    </div>
-  );
+// import AuthLayout from "./layouts/Auth";
+// import UserLayout from "./layouts/User";
+
+
+class App extends React.Component {
+
+  render() {
+    const isLoggedIn = localStorage.getItem('token') ? true : false;
+
+    return (
+      <div className="App">
+          <BrowserRouter>
+            <Switch>
+                {/* <PrivateRoute
+                      path="/user"
+                      component={(props) => <UserLayout {...props} />}
+                  />
+                  <Route
+                      path="/"
+                      component={(props) => <AuthLayout {...props} isLoggedIn={isLoggedIn} />}
+                  /> */}
+                {/* {
+                    isLoggedIn ? <Redirect to="/user" from="/" /> :
+                      <Redirect from="/" to="/user" />
+                } */}
+                <Home />
+            </Switch>
+          </BrowserRouter>
+          {/* <Notifications /> */}
+      </div>
+    );
+  }
 }
 
 export default App;

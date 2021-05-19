@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { defiActions } from "../actions";
-import { web3Actions } from "../actions";
+// import { web3Actions } from "../actions";
+import { web3Actions } from "../../actions"
 
-class Dashboard extends React.Component {
+class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,10 +152,7 @@ class Dashboard extends React.Component {
               id: {nft.id}, Balance : {nft.balanceOf} , Owner : {nft.owner}
               <br />
               {/* TokenURI : {nft.tokenURI}<br/> */}
-              <img
-                style={{ width: "100px", height: "100px" }}
-                src={nft.tokenURI}
-              />
+              <img style={{ width: "100px", height: "100px" }} src={nft.tokenURI} />
             </li>
           ))}
         </p>
@@ -191,4 +188,4 @@ const mapStateToProps = (state) => {
     nftContractInstance: state.fetchNFTContractInstance,
   };
 };
-export default connect(mapStateToProps, mapDipatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDipatchToProps)(Index);

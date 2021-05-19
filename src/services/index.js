@@ -1,4 +1,4 @@
-import { backendServices } from "./backendServices";
-import { web3Services } from "./web3Services";
+import { backendServices } from "./backend.service";
+import { web3Services } from "./web3.service";
 
 export const services = { ...backendServices, ...web3Services };
