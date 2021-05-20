@@ -17,6 +17,8 @@ class Index extends React.Component {
       selectedFile: null,
       cards: [],
       hasMore: false,
+      tokenCopies: 0,
+      tokenURI: null,
     };
   }
 
@@ -113,6 +115,31 @@ class Index extends React.Component {
         this.onTransactionError(error);
       });
   }
+  async mintTokenCopies() {
+    const { web3Data, nftContractInstance, tokenURI, tokenCopies } = this.state;
+    if(!tokenURI){
+      alert('Enter token uri')
+      return false
+    }
+    if(tokenCopies === 0){
+      alert('Enter token copie number')
+      return false
+    }
+    await nftContractInstance.methods
+      .mintTokenCopies(tokenCopies, tokenURI)
+      .send({ from: web3Data.accounts[0] })
+      .on("transactionHash", (hash) => {
+        // this.onTransactionHash(hash);
+        console.log(hash);
+      })
+      .on("receipt", (receipt) => {
+        console.log('- receipt : ', receipt)
+      })
+      .on("error", (error) => {
+        console.log(' transaction error : ', error)
+      });
+      this.setState({tokenCopies: 0, tokenURI: null})
+  }
   onReciept() {}
 
   onFileChange = (event) => {
@@ -146,7 +173,7 @@ class Index extends React.Component {
   }
 
   render() {
-    const { web3Data, newNFTURI, isApproved, nfts, cards, hasMore } = this.state;
+    const { web3Data, newNFTURI, isApproved, nfts, cards, hasMore, tokenCopies, tokenURI } = this.state;
     return (
       <div>
         <button
@@ -168,10 +195,12 @@ class Index extends React.Component {
         <p>
           {nfts.map((nft) => (
             <li key={nft.id}>
+              tokenURI : {nft.tokenURI}
+              <br/>
               id: {nft.id}, Balance : {nft.balanceOf} , Owner : {nft.owner}
               <br />
-              {/* TokenURI : {nft.tokenURI}<br/> */}
               <img style={{ width: "100px", height: "100px" }} src={nft.tokenURI} />
+              <br/><br/>
             </li>
           ))}
         </p>
@@ -182,6 +211,17 @@ class Index extends React.Component {
           onChange={(e) => this.setState({ newNFTURI: e.target.value })}
         />
         <button onClick={() => this.mintNFT()}>Mint your NFT</button>
+        
+        <br/>
+        <br/>
+        <input
+          placeholder="Enter token URI to create copies"
+          value={tokenURI}
+          onChange={(e) => this.setState({ tokenURI: e.target.value })}
+        />
+        <input type="number" placeholder="Enter number of copies" 
+          onChange={(e) => this.setState({ tokenCopies: e.target.value })}/>
+        <button onClick={() => this.mintTokenCopies()}>Mint Token Copies</button>
 
         <br />
         <br />

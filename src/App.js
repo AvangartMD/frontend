@@ -2,10 +2,11 @@ import "./App.css";
 import React from "react";
 // import Notifications from 'react-notify-toast';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Home from "./components/Home";
+// import Home from "./components/Home";
 
-// import AuthLayout from "./layouts/Auth";
-// import UserLayout from "./layouts/User";
+import AuthLayout from "./layouts/Auth";
+import UserLayout from "./layouts/User";
+import { PrivateRoute }  from "./views/PrivateRoute";
 
 
 class App extends React.Component {
@@ -17,19 +18,18 @@ class App extends React.Component {
       <div className="App">
           <BrowserRouter>
             <Switch>
-                {/* <PrivateRoute
+                  <PrivateRoute
                       path="/user"
                       component={(props) => <UserLayout {...props} />}
                   />
                   <Route
                       path="/"
                       component={(props) => <AuthLayout {...props} isLoggedIn={isLoggedIn} />}
-                  /> */}
-                {/* {
+                  />
+                {
                     isLoggedIn ? <Redirect to="/user" from="/" /> :
-                      <Redirect from="/" to="/user" />
-                } */}
-                <Home />
+                      <Redirect from="/user" to="/" />
+                }
             </Switch>
           </BrowserRouter>
           {/* <Notifications /> */}
