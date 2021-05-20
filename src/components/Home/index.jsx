@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { web3Actions } from "../actions";
 import { web3Actions } from "../../actions"
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 class Index extends React.Component {
   constructor(props) {
@@ -15,6 +15,8 @@ class Index extends React.Component {
       ethEnabled: false,
       nfts: [],
       selectedFile: null,
+      cards: [],
+      hasMore: false,
     };
   }
 
@@ -47,6 +49,12 @@ class Index extends React.Component {
     if (!web3Data) this.props.getWeb3();
     else this.setState({ web3Data: web3Data });
     this.props.getNFTContractInstance();
+
+
+    // set initial cards
+    this.setState({ cards: Array.from({ length: 10 }), hasMore: true }, () => {
+      console.log('after set state : ', this.state.cards)
+    })
   }
   async setUserNFTData(nftContractInstance, web3Data) {
     const creatorTokenIds = await nftContractInstance.methods
@@ -126,8 +134,19 @@ class Index extends React.Component {
     // submit formData
   };
 
+  fetchMoreCards = () => {
+    if(this.state.cards.length > 25){
+      this.setState({ hasMore: false })
+      return;
+    }
+    setTimeout( () => {
+      // add 5 more cards : call api to load another records
+      this.setState({ cards: this.state.cards.concat(Array.from({ length: 5 }))})
+    }, 2000)
+  }
+
   render() {
-    const { web3Data, newNFTURI, isApproved, nfts } = this.state;
+    const { web3Data, newNFTURI, isApproved, nfts, cards, hasMore } = this.state;
     return (
       <div>
         <button
@@ -169,6 +188,23 @@ class Index extends React.Component {
         <input type="file" name="file" onChange={this.onFileChange} 
             accept=".png,.gif,.mp3,.mp4,.webp" />
         <button onClick={this.onFileUpload}>Upload</button>
+
+        <br/>
+        <br/>
+        <p>Cards : </p>
+        <InfiniteScroll 
+          dataLength={cards.length}
+          next={this.fetchMoreCards}
+          hasMore={hasMore}
+          loader={<p>Loading....</p>}
+          endMessage={<p>You have seen it all.!</p>
+          }>
+          {cards.map((card, index) => 
+            <div style={{ height: 40, margin: 3, padding: 4}}>
+              card -- {index} 
+            </div>
+          )}
+        </InfiniteScroll>
       </div>
     );
   }
