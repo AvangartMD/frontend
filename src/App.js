@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import AuthLayout from "./layouts/Auth";
 import UserLayout from "./layouts/User";
-import { PrivateRoute }  from "./views/PrivateRoute";
+import { PrivateRoute,  }  from "./views/PrivateRoute";
+import { PublicRoute }  from "./views/PublicRoute";
 
 
 class App extends React.Component {
@@ -22,7 +23,7 @@ class App extends React.Component {
                       path="/user"
                       component={(props) => <UserLayout {...props} />}
                   />
-                  <Route
+                  <PublicRoute
                       path="/"
                       component={(props) => <AuthLayout {...props} isLoggedIn={isLoggedIn} />}
                   />

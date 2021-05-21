@@ -6,7 +6,7 @@ class Index extends React.Component {
 
         return(
             <>
-                footer html
+                
             </>
         )
     }

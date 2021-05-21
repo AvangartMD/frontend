@@ -17,8 +17,8 @@ var routes = [
         layout: "/",
     },
     {
-        path: "/dashboard",
-        name: "User Home",
+        path: "",
+        name: "User Dashboard",
         component: Dashboard,
         layout: "/user",
     }

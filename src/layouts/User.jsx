@@ -12,7 +12,7 @@ class User extends React.Component {
 
     getRoutes = (routes) => {
         return routes.map( (prop, key) => {
-            if (prop.layout === "/") {
+            if (prop.layout === "/user") {
                 return (
                         <Route exact 
                             path={prop.layout + prop.path}
@@ -27,7 +27,7 @@ class User extends React.Component {
     }
 
     render() {
-
+        console.log('-- user js ')
         return(
             <>
                 <Header />

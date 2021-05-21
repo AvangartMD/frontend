@@ -7,7 +7,6 @@ class Index extends React.Component {
 
         return(
             <>
-                header html
             </>
         )
     }

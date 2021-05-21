@@ -17,13 +17,14 @@ class Auth extends React.Component {
                         />
                     );
             } else {
+                console.log('= logged in ? ', this.props.isLoggedIn)
                 return null;
             }
         })
     }
 
     render() {
-
+        console.log('-- auth js ')
         return(
             <>
                 <section>
