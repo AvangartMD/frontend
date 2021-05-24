@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import routes from "./routes";
+import routes from "../routes";
 
 
 class Auth extends React.Component {
@@ -17,13 +17,14 @@ class Auth extends React.Component {
                         />
                     );
             } else {
+                console.log('= logged in ? ', this.props.isLoggedIn)
                 return null;
             }
         })
     }
 
     render() {
-
+        console.log('-- auth js ')
         return(
             <>
                 <section>
