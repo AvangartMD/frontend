@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { defiActions } from "../actions";
-import { web3Actions } from "../actions";
+// import { web3Actions } from "../actions";
+import { web3Actions } from "../../actions";
 
-class Dashboard extends React.Component {
+class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -110,6 +110,10 @@ class Dashboard extends React.Component {
   onReciept() {}
 
   onFileChange = (event) => {
+    if (event.target.files[0].size > 307200) {
+      alert("File size must under 30MB.!");
+      return false;
+    }
     this.setState({ selectedFile: event.target.files[0] });
   };
 
@@ -142,15 +146,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const {
-      web3Data,
-      newNFTURI,
-      isApproved,
-      nfts,
-      approvalAddress,
-      creatorApproved,
-    } = this.state;
-    console.log("add", nfts);
+    const { web3Data, newNFTURI, isApproved, nfts } = this.state;
     return (
       <div>
         <button
@@ -205,7 +201,12 @@ class Dashboard extends React.Component {
 
         <br />
         <br />
-        <input type="file" name="file" onClick={this.onFileChange} />
+        <input
+          type="file"
+          name="file"
+          onChange={this.onFileChange}
+          accept=".png,.gif,.mp3,.mp4,.webp"
+        />
         <button onClick={this.onFileUpload}>Upload</button>
       </div>
     );
@@ -226,4 +227,4 @@ const mapStateToProps = (state) => {
     nftContractInstance: state.fetchNFTContractInstance,
   };
 };
-export default connect(mapStateToProps, mapDipatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDipatchToProps)(Index);
