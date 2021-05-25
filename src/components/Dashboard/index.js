@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { web3Actions } from "../../actions"
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -186,6 +187,13 @@ class Index extends React.Component {
     }
     return (
       <div>
+
+        <Helmet>
+            <meta property="og:url" content={window.location.href}/>
+            <meta property="og:title" content="Dashoard Page Title — Preview, Edit and Generate" />
+            <meta property="og:image" content="" />
+        </Helmet>
+        
         <h3>You are logged in.!</h3>
         <button onClick={this.signoutHandler}>Signout</button>
         <br/><br/>

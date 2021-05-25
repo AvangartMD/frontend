@@ -1,5 +1,6 @@
 import React from "react";
 import  { Redirect } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 class Index extends React.Component {
@@ -32,6 +33,12 @@ class Index extends React.Component {
         }
         return(
             <div>
+                <Helmet>
+                    <meta property="og:url" content={window.location.href}/>
+                    <meta property="og:title" content="Login Page Title — Preview, Edit and Generate" />
+                    <meta property="og:image" content="" />
+                </Helmet>
+                
                 <form onSubmit={this.handleSignIn}>
                     <h3>Sign in</h3>
                     <p style={{color: "red"}}>{error}</p>
