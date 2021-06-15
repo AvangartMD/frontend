@@ -157,11 +157,13 @@ function addNFT(data) {
     });
   };
 }
-function logIn(address) {
+function logIn(nonce, signature) {
+  console.log(nonce, signature);
   return (dispatch) => {
     const url = `user/login`;
     let params = JSON.stringify({
-      walletAddress: address,
+      nonce: nonce,
+      signature: signature,
     });
     const response = services.post(url, params);
     response.then((promise) => {
@@ -178,6 +180,7 @@ function generateNaunce(address) {
   return async (dispatch) => {
     const url = `user/genrateNonce/${address}`;
     const response = await services.get(url);
+    console.log(response);
     return response.data.data;
     response.then((promise) => {
       if (promise.status === 200) {

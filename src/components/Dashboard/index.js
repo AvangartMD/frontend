@@ -208,8 +208,8 @@ class Index extends React.Component {
 
     console.log("naucne is", naunce, web3.eth.coinbase);
     const Signature = await web3.eth.personal.sign(naunce.nonce, address);
-    const signer = await web3.eth.personal.ecRecover(naunce.nonce, Signature);
-    console.log("signer", signer);
+    this.props.logIn(naunce.nonce, Signature);
+    // console.log("signer", signer, Signature);
     // const signature = signTypedData_v4(address, {
     //   domain: {
     //     chainId: 56,
@@ -222,13 +222,14 @@ class Index extends React.Component {
     // });
     // console.log(signature);
   }
-  async test() {
-    const signer = await web3.eth.personal.ecRecover(
-      "a5fb61ba3ab3eff3a2f241b9982e4d93",
-      "0x987b4b45b4cca1f232c06b062730f7067405401bd78b21a06c529e7684196a0a56225006805aa1b9207ee99823114c66768f7e9e6e0d9426e80736d45f4fb46c1b"
+  test() {
+    const address = web3.eth.personal.ecRecover(
+      "05ee9d08887822b5b34999ea21f7f919",
+      "0x80e190229f8485ee1cb4f4bf41f1c5c0f97b71ce7991bd6af6dd970d47570a7c097bd44b15228806b5a86fe820c4356fff30eafa30e2a488d2b06eceac8ce72d1c"
     );
-    console.log(signer);
+    console.log(address);
   }
+
   render() {
     const {
       isLogout,
@@ -259,6 +260,9 @@ class Index extends React.Component {
         <button onClick={this.signoutHandler}>Signout</button>
         <br />
         <br />
+        <button value="Connet to Metamask" onClick={() => this.test()}>
+          test
+        </button>
         <button
           value="Connet to Metamask"
           onClick={() => this.props.logIn(web3Data.accounts[0])}
@@ -277,7 +281,6 @@ class Index extends React.Component {
         >
           Connect to Metamask
         </button>
-        <button onClick={() => this.test()}>test</button>
         <h2>
           Your wallet address is :{" "}
           {web3Data ? web3Data.accounts[0] : "fetching.."}
@@ -362,7 +365,7 @@ class Index extends React.Component {
 const mapDipatchToProps = (dispatch) => {
   return {
     getWeb3: () => dispatch(web3Actions.getWeb3()),
-    logIn: (walletAddress) => dispatch(defiActions.logIn(walletAddress)),
+    logIn: (nonce, signature) => dispatch(defiActions.logIn(nonce, signature)),
     getNFTContractInstance: () =>
       dispatch(web3Actions.getNFTContractInstance()),
     enableMetamask: () => dispatch(web3Actions.enableMetamask()),
