@@ -1,6 +1,6 @@
-import axios from "../config";
-import { web3 } from "../web3";
-import { uploadToS3 } from "../s3.service";
+import axios from '../config';
+import { web3 } from '../web3';
+import { uploadToS3 } from '../s3.service';
 // import userBalancesContract from "../contracts/userBalances/userBalances";
 // import tokens from "../tokens.json";
 // import { param } from "jquery";
@@ -15,11 +15,11 @@ export const backendServices = {
 
 async function post(url, params) {
   const header = {
-    "content-type": "application/json",
+    'content-type': 'application/json',
   };
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   if (token) {
-    header["x-auth-token"] = token;
+    header['x-auth-token'] = token;
   }
   try {
     const response = await axios.post(url, params, { headers: header });
@@ -31,7 +31,7 @@ async function post(url, params) {
 
 async function get(url) {
   const header = {
-    "content-type": "application/json",
+    'content-type': 'application/json',
   };
   try {
     const response = await axios.get(url, { headers: header });
@@ -43,7 +43,7 @@ async function get(url) {
 
 async function put(url, parameters) {
   const header = {
-    "content-type": "application/json",
+    'content-type': 'application/json',
   };
   try {
     const response = await axios.put(url, parameters, { headers: header });
@@ -85,9 +85,9 @@ async function uploadFileOnBucket(file, folder) {
     var re = /(?:\.([^.]+))?$/;
 
     var extension = re.exec(file.name)[1];
-    var fileName = file.name.substr(0, file.name.lastIndexOf("."));
+    var fileName = file.name.substr(0, file.name.lastIndexOf('.'));
     // const extension = file.name.split(".").pop().toLowerCase();
-    console.log("here=>", extension, fileName, extension);
+    console.log('here=>', extension, fileName, extension);
     const uploadTo = await uploadToS3(fileName, file, folder, extension);
     return uploadTo.Location;
   } catch (error) {

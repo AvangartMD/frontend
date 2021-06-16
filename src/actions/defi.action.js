@@ -1,4 +1,4 @@
-import { services } from "../services";
+import { services } from '../services';
 
 function setData(data, type) {
   return {
@@ -145,14 +145,14 @@ function setData(data, type) {
 
 function addNFT(data) {
   return (dispatch) => {
-    const url = `nft/addNft`;
+    const url = 'nft/addNft';
     let params = JSON.stringify({ data });
     const response = services.post(url, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(setData(promise.data.data, "ADD_NFT"));
+        dispatch(setData(promise.data.data, 'ADD_NFT'));
       } else {
-        console.log("erroer");
+        console.log('erroer');
       }
     });
   };
@@ -160,7 +160,7 @@ function addNFT(data) {
 function logIn(nonce, signature) {
   console.log(nonce, signature);
   return (dispatch) => {
-    const url = `user/login`;
+    const url = 'user/login';
     let params = JSON.stringify({
       nonce: nonce,
       signature: signature,
@@ -168,10 +168,10 @@ function logIn(nonce, signature) {
     const response = services.post(url, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("token", promise.data.data);
-        dispatch(setData(promise.data.data, "ADD_NFT"));
+        console.log('token', promise.data.data);
+        dispatch(setData(promise.data.data, 'ADD_NFT'));
       } else {
-        console.log("erroer");
+        console.log('erroer');
       }
     });
   };
@@ -182,15 +182,15 @@ function generateNaunce(address) {
     const response = await services.get(url);
     console.log(response);
     return response.data.data;
-    response.then((promise) => {
-      if (promise.status === 200) {
-        console.log("token", promise.data.data);
-        return promise.data.data;
-        dispatch(setData(promise.data.data, "ADD_NFT"));
-      } else {
-        console.log("erroer");
-      }
-    });
+    // response.then((promise) => {
+    //   if (promise.status === 200) {
+    //     console.log('token', promise.data.data);
+    //     return promise.data.data;
+    //     dispatch(setData(promise.data.data, 'ADD_NFT'));
+    //   } else {
+    //     console.log('erroer');
+    //   }
+    // }
   };
 }
 

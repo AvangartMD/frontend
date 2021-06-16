@@ -1,5 +1,5 @@
 // import WalletConnectProvider from "@walletconnect/web3-provider";
-import Web3 from "web3";
+import Web3 from 'web3';
 // import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
 
 // var metamaskProvider;
@@ -10,13 +10,13 @@ let web3 = null;
 //   qrcode: false,
 // });
 
-const metamaskConnectInit = async () => {
+const metamaskConnectInit = () => {
   // Check if Web3 has been injected by the browser (Mist/MetaMask).
-  return new Promise(async (resolve, reject) => {
-    if (typeof window.web3 !== "undefined") {
+  return new Promise((resolve, reject) => {
+    if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider.
       web3 = new Web3(window.web3.currentProvider);
-      localStorage.setItem("walletConnect", 0);
+      localStorage.setItem('walletConnect', 0);
       resolve(true);
     } else {
       // Handle the case where the user doesn't have web3. Probably
@@ -24,7 +24,7 @@ const metamaskConnectInit = async () => {
       // order to use the app.
       web3 = new Web3(
         new Web3.providers.HttpProvider(
-          "https://mainnet.infura.io/v3/de21e440aade484290be1e3c89e67f28"
+          'https://mainnet.infura.io/v3/de21e440aade484290be1e3c89e67f28'
           // "https://rinkeby.infura.io/v3/de21e440aade484290be1e3c89e67f28"
         )
       );
@@ -32,14 +32,14 @@ const metamaskConnectInit = async () => {
     }
   });
 };
-const naboxConnectInit = async () => {
+const naboxConnectInit = () => {
   // Check if Web3 has been injected by the browser (Mist/MetaMask).
-  return new Promise(async (resolve, reject) => {
-    if (typeof window.nabox !== "undefined") {
+  return new Promise((resolve, reject) => {
+    if (typeof window.nabox !== 'undefined') {
       // Use Mist/MetaMask's provider.
       web3 = window.nabox;
-      console.log("tt", window);
-      localStorage.setItem("walletConnect", 0);
+      console.log('tt', window);
+      localStorage.setItem('walletConnect', 0);
       resolve(true);
     } else {
       // Handle the case where the user doesn't have web3. Probably
@@ -47,7 +47,7 @@ const naboxConnectInit = async () => {
       // order to use the app.
       web3 = new Web3(
         new Web3.providers.HttpProvider(
-          "https://mainnet.infura.io/v3/de21e440aade484290be1e3c89e67f28"
+          'https://mainnet.infura.io/v3/de21e440aade484290be1e3c89e67f28'
           // "https://rinkeby.infura.io/v3/de21e440aade484290be1e3c89e67f28"
         )
       );
@@ -82,7 +82,7 @@ const naboxConnectInit = async () => {
 // };
 
 if (!web3) {
-  if (Number(localStorage.getItem("walletConnect"))) {
+  if (Number(localStorage.getItem('walletConnect'))) {
     // walletConnectInit();
   } else metamaskConnectInit();
 }
