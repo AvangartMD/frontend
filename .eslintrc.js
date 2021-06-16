@@ -10,7 +10,7 @@ module.exports = {
   rules: {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    quotes: ["error", "single"],
+    // quotes: ["error", "single"],
     "no-debugger": process.env.NODE_ENV === "production" ? 2 : 0,
     "no-console": process.env.NODE_ENV === "production" ? 2 : 0,
     "babel/no-unused-expressions": "error",

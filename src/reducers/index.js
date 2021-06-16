@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 import {
   fetchCategories,
   fetchProjectList,
@@ -18,8 +18,8 @@ import {
   fetchAccessibility,
   fetchNullStakingPool,
   fetchMMWindowStatus,
-} from "./defi.reducer";
-import { fetchNFTContractInstance, fetchNetworkId } from "./web3.reducer";
+} from './defi.reducer';
+import { fetchNFTContractInstance, fetchNetworkId } from './web3.reducer';
 const rootReducer = combineReducers({
   fetchNFTContractInstance,
   fetchNetworkId,

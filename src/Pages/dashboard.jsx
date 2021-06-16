@@ -89,17 +89,17 @@ class Dashboard extends Component {
     console.log(this.props);
     let { web3Data, nftContractInstance } = this.props;
 
-    if (web3Data !== prevProps.web3Data)
-      this.setState({ web3Data: web3Data }, () => {
-        if (nftContractInstance)
-          this.setUserNFTData(nftContractInstance, web3Data);
-      });
-    if (nftContractInstance !== this.state.nftContractInstance) {
-      this.setState({ nftContractInstance }, () => {
-        this.setGeneralNFTData(nftContractInstance);
-        if (web3Data) this.setUserNFTData(nftContractInstance, web3Data);
-      });
-    }
+    // if (web3Data !== prevProps.web3Data)
+    //   this.setState({ web3Data: web3Data }, () => {
+    //     if (nftContractInstance)
+    //       this.setUserNFTData(nftContractInstance, web3Data);
+    //   });
+    // if (nftContractInstance !== this.state.nftContractInstance) {
+    //   this.setState({ nftContractInstance }, () => {
+    //     this.setGeneralNFTData(nftContractInstance);
+    //     if (web3Data) this.setUserNFTData(nftContractInstance, web3Data);
+    //   });
+    // }
   }
 
   componentDidMount() {

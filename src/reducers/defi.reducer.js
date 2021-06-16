@@ -1,6 +1,6 @@
 export function fetchCategories(state = null, action) {
   switch (action.type) {
-    case "FETCH_CATEGORIES":
+    case 'FETCH_CATEGORIES':
       return action.data;
     default:
       return state;
@@ -9,7 +9,7 @@ export function fetchCategories(state = null, action) {
 
 export function fetchProjectList(state = null, action) {
   switch (action.type) {
-    case "FETCH_PROJECT_LIST":
+    case 'FETCH_PROJECT_LIST':
       return action.data;
     default:
       return state;
@@ -18,7 +18,7 @@ export function fetchProjectList(state = null, action) {
 
 export function fetchDefiLendingList(state = [], action) {
   switch (action.type) {
-    case "FETCH_DEFI_LENDING_LIST":
+    case 'FETCH_DEFI_LENDING_LIST':
       return {
         lendingList: action.data,
       };
@@ -29,7 +29,7 @@ export function fetchDefiLendingList(state = [], action) {
 
 export function fetchFearNGreedIndex(state = null, action) {
   switch (action.type) {
-    case "FETCH_FEAR_N_GREED_INDEX":
+    case 'FETCH_FEAR_N_GREED_INDEX':
       return action.data;
     default:
       return state;
@@ -37,7 +37,7 @@ export function fetchFearNGreedIndex(state = null, action) {
 }
 export function fetchDuneAnalytics(state = [], action) {
   switch (action.type) {
-    case "FETCH_DUNE_ANALYTICS":
+    case 'FETCH_DUNE_ANALYTICS':
       return {
         duneAnalytics: action.data,
       };
@@ -48,7 +48,7 @@ export function fetchDuneAnalytics(state = [], action) {
 
 export function fetchWeb3Data(state = null, action) {
   switch (action.type) {
-    case "FETCH_WEB3_DATA":
+    case 'FETCH_WEB3_DATA':
       return action.data;
     default:
       return state;
@@ -57,7 +57,7 @@ export function fetchWeb3Data(state = null, action) {
 
 export function fetchMetamask(state = null, action) {
   switch (action.type) {
-    case "FETCH_METAMASK":
+    case 'FETCH_METAMASK':
       return action.data;
     default:
       return state;
@@ -66,7 +66,7 @@ export function fetchMetamask(state = null, action) {
 
 export function fetchUserBalances(state = null, action) {
   switch (action.type) {
-    case "FETCH_USER_BALANCES":
+    case 'FETCH_USER_BALANCES':
       return action.data;
 
     default:
@@ -76,7 +76,7 @@ export function fetchUserBalances(state = null, action) {
 
 export function fetchSelectedProjectDetails(state = [], action) {
   switch (action.type) {
-    case "FETCH_SELECTED_PROJECT_DETAILS":
+    case 'FETCH_SELECTED_PROJECT_DETAILS':
       return {
         selectedProjectDetails: action.data,
       };
@@ -87,7 +87,7 @@ export function fetchSelectedProjectDetails(state = [], action) {
 
 export function fetchProjectGraph(state = [], action) {
   switch (action.type) {
-    case "FETCH_PROJECT_GRAPH":
+    case 'FETCH_PROJECT_GRAPH':
       return {
         projectGraph: action.data,
       };
@@ -97,7 +97,7 @@ export function fetchProjectGraph(state = [], action) {
 }
 export function fetchPriceTrendGraph(state = [], action) {
   switch (action.type) {
-    case "FETCH_PRICE_TREND_GRAPH":
+    case 'FETCH_PRICE_TREND_GRAPH':
       return {
         priceTrendGraph: action.data,
       };
@@ -107,7 +107,7 @@ export function fetchPriceTrendGraph(state = [], action) {
 }
 export function fetchTweetAnalysis(state = [], action) {
   switch (action.type) {
-    case "FETCH_TWEET_ANALYSIS":
+    case 'FETCH_TWEET_ANALYSIS':
       return {
         tweetAnalysis: action.data,
       };
@@ -117,7 +117,7 @@ export function fetchTweetAnalysis(state = [], action) {
 }
 export function fetchDefiGraphData(state = [], action) {
   switch (action.type) {
-    case "FETCH_DEFI_GRAPH_DATA":
+    case 'FETCH_DEFI_GRAPH_DATA':
       return {
         defiGraphData: action.data,
       };
@@ -128,7 +128,7 @@ export function fetchDefiGraphData(state = [], action) {
 
 export function fetchThirdPartyDefiList(state = null, action) {
   switch (action.type) {
-    case "THIRD_PARTY_DEFI_LIST":
+    case 'THIRD_PARTY_DEFI_LIST':
       return action.data;
     default:
       return state;
@@ -137,7 +137,7 @@ export function fetchThirdPartyDefiList(state = null, action) {
 
 export function fetchUserMetamaskTotalBalances(state = null, action) {
   switch (action.type) {
-    case "THIRD_USER_METAMASK_TOTAL_BALANCES":
+    case 'THIRD_USER_METAMASK_TOTAL_BALANCES':
       return action.data;
     default:
       return state;
@@ -146,7 +146,7 @@ export function fetchUserMetamaskTotalBalances(state = null, action) {
 
 export function getSocialData(state = [], action) {
   switch (action.type) {
-    case "SOCIAL_DATA":
+    case 'SOCIAL_DATA':
       return action.data;
     default:
       return state;
@@ -155,7 +155,7 @@ export function getSocialData(state = [], action) {
 
 export function fetchAccessibility(state = false, action) {
   switch (action.type) {
-    case "USER_ACCESSIBLITY":
+    case 'USER_ACCESSIBLITY':
       return action.data;
     default:
       return state;
@@ -163,7 +163,7 @@ export function fetchAccessibility(state = false, action) {
 }
 export function fetchNullStakingPool(state = [], action) {
   switch (action.type) {
-    case "NULL_STAKING_POOL":
+    case 'NULL_STAKING_POOL':
       return action.data;
     default:
       return state;
@@ -172,7 +172,7 @@ export function fetchNullStakingPool(state = [], action) {
 
 export function fetchMMWindowStatus(state = {}, action) {
   switch (action.type) {
-    case "MM_WINDOW_STATUS":
+    case 'MM_WINDOW_STATUS':
       return action.data;
     default:
       return state;
