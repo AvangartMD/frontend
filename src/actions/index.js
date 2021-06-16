@@ -1,4 +1,9 @@
-export * from './defi.action';
-export * from './web3.action';
-export * from './auth.action';
-export * from './user.action';
+// export * from './defi.action';
+// export * from './web3.action';
+// export * from './auth.action';
+// export * from './user.action';
+
+
+import { authActions } from "./auth.action";
+
+export const actions = { ...authActions };

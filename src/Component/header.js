@@ -40,7 +40,8 @@ class Header extends Component {
               </HeadSbx01>
 
               {/* without Login  */}
-              {/* <HeadSbx01>
+
+              <HeadSbx01>
                 <AvBTN01>Login</AvBTN01>
                 <LanBTN>
                     <button onClick={() => this.toggle(1)}>ENG <i className="fas fa-chevron-down"></i></button> 
@@ -52,10 +53,10 @@ class Header extends Component {
                     </DDContainer>
                     </Collapse>
                 </LanBTN>
-              </HeadSbx01>  */}
+              </HeadSbx01> 
 
               {/* with Login  */}
-              <HeadSbx01>
+              {/* <HeadSbx01>
                 <AvBTN02 className="colorBTN">Become a Creator</AvBTN02> 
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>
@@ -99,7 +100,7 @@ class Header extends Component {
                   </Collapse>
 
                 </AccountBX>
-              </HeadSbx01> 
+              </HeadSbx01>  */}
           </HeadMBX02>
 
 

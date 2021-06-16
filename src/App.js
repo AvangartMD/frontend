@@ -1,44 +1,18 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Dashboard from './Pages/dashboard';
-import NFTPage from './Pages/nftminting';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Gs from './Theme/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import { theme } from './Theme/theme';
 import Header from './Component/header';
 import Footer from './Component/footer';
-import Media from './Theme/media-breackpoint';
 
-function App() {
-  const [isDark, setDarkTheme] = useState(true);
-  const selectedTheme = theme(isDark);
-  function setTheme(flag) {
-    setDarkTheme(flag);
-  }
+import AuthLayout from './layouts/auth.layout';
+import UserLayout from './layouts/user.layout';
+import { PrivateRoute }  from './views/private.route';
+import { PublicRoute }  from './views/public.route';
 
-  return (
-    <Router>
-      <ThemeProvider theme={selectedTheme}>
-        <section className='MainBox clearfix'>
-          <Gs.GlobalStyle />
-          <DMainContainer>
-            <Header isDarkTheme={isDark} setTheme={setTheme} />
-            <Switch>
-              <Route path='/' exact>
-                <Dashboard isDarkTheme={isDark} setTheme={setTheme} />
-              </Route>
-              <Route path='/nftminting' exact>
-                <NFTPage isDarkTheme={isDark} setTheme={setTheme} />
-              </Route>
-            </Switch>
-            <Footer isDarkTheme={isDark} setTheme={setTheme} />
-          </DMainContainer>
-        </section>
-      </ThemeProvider>
-    </Router>
-  );
-}
+
 const FlexDiv = styled.div`
   display: flex;
   align-items: center;
@@ -54,5 +28,44 @@ const DMainContainer = styled(FlexDiv)`
   align-content: flex-start;
   flex-direction: column;
 `;
+
+function App() {
+  
+  const [isDark, setDarkTheme] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token')?true:false)
+  const selectedTheme = theme(isDark);
+
+  function setTheme(flag) {
+    setDarkTheme(flag);
+  }
+
+  return (
+    <Router>
+      <ThemeProvider theme={selectedTheme}>
+          <section className='MainBox clearfix'>
+              <Gs.GlobalStyle />
+              <DMainContainer>
+                  <Header loggedIn={loggedIn} />
+                        <Switch>
+                              <PrivateRoute
+                                  path="/user"
+                                  component={(props) => <UserLayout {...props} />}
+                              />
+                              <PublicRoute
+                                  path="/"
+                                  component={(props) => <AuthLayout {...props} loggedIn={loggedIn} />}
+                              />
+                              {
+                                  loggedIn ? <Redirect to="/user" from="/" /> :
+                                    <Redirect from="/user" to="/" />
+                              }
+                        </Switch>
+                  <Footer loggedIn={loggedIn} />
+              </DMainContainer>
+          </section>
+      </ThemeProvider>
+    </Router>
+  );
+}
 
 export default App;
