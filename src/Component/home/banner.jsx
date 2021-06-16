@@ -2,7 +2,6 @@ import 'react-multi-carousel/lib/styles.css';
 import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -11,6 +10,7 @@ import LArrow from '../../Assets/images/banner-larrow.svg';
 import RArrow from '../../Assets/images/banner-rarrow.svg';
 
 import { actions } from '../../actions';
+import { Context } from '../wrapper'
 
 
 const responsive = {
@@ -51,13 +51,16 @@ const CustomDot = ({ onClick, ...rest }) => {
 
 class BannerTab extends Component {
 
+  static contextType = Context;
+
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
+      locale: 'en'
     }
   }
-  
+
   async componentDidMount() {
     const { banners } = this.props;
     if (!banners) {
@@ -65,6 +68,20 @@ class BannerTab extends Component {
     }
   }
 
+  renderedBanner(banner, index) {
+    let context = this.context;
+    let img = ''
+    if (context.locale === 'tr') {
+      img = banner.banner.tu
+    } else {
+      img = banner.banner.en
+    }
+    return (
+      <div className='item' key={index}>
+        <a target='_blank' rel="noopener noreferrer"  href={banner.url}><img src={img} alt='' id={banner.id} /></a>
+      </div>
+    )
+  }
 
   render() {
     return (
@@ -72,15 +89,9 @@ class BannerTab extends Component {
         <HomeBanner>
             {this.props.banners?
               <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
-                {this.props.banners.map((banner, index) => {
-                  return (
-                    <div className='item' key={index}>
-                      <a target='_blank'  href={banner.url}><img src={banner.banner.en} alt='' id={banner.id} /></a>
-                    </div>
-                  )
-                })}
+                {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
               </Carousel>
-            :''}
+            :'loading..'}
         </HomeBanner>
       </>
     );
