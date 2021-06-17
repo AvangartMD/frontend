@@ -2,8 +2,8 @@
 // import Home from "./components/Home";
 // import Dashboard from "./components/Dashboard";
 import Home from './Pages/home';
-import NFTPage from './Pages/nftminting';
-// import Home from './Pages/dashboard';
+import NFTMinting from './Pages/nftminting';
+import MarketPlace from './Pages/marketplace'
 
 
 var routes = [
@@ -15,8 +15,14 @@ var routes = [
     },
     {
         path: 'nftminting',
-        name: 'NFT',
-        component: NFTPage,
+        name: 'NFT Minting',
+        component: NFTMinting,
+        layout: '/',
+    },
+    {
+        path: 'marketplace',
+        name: 'NFT Minting',
+        component: MarketPlace,
         layout: '/',
     },
     // {

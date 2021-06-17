@@ -87,11 +87,11 @@ async function uploadFileOnBucket(file, folder) {
     var extension = re.exec(file.name)[1];
     var fileName = file.name.substr(0, file.name.lastIndexOf('.'));
     // const extension = file.name.split(".").pop().toLowerCase();
-    console.log('here=>', extension, fileName, extension);
+    // console.log('here=>', extension, fileName, extension);
     const uploadTo = await uploadToS3(fileName, file, folder, extension);
     return uploadTo.Location;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return false;
   }
 }

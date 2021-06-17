@@ -38,7 +38,7 @@ const naboxConnectInit = () => {
     if (typeof window.nabox !== 'undefined') {
       // Use Mist/MetaMask's provider.
       web3 = window.nabox;
-      console.log('tt', window);
+      // console.log('tt', window);
       localStorage.setItem('walletConnect', 0);
       resolve(true);
     } else {

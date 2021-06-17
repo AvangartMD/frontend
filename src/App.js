@@ -3,15 +3,16 @@ import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Gs from './Theme/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
-import { theme } from './Theme/theme';
-import Header from './Component/header';
-import Footer from './Component/footer';
+import { theme } from './Theme/theme' 
+import Header from './Component/header' 
+import Footer from './Component/footer'  
+import MarketPlace from './Pages/marketplace'
+import Media from './Theme/media-breackpoint'  
 
 import AuthLayout from './layouts/auth.layout';
 import UserLayout from './layouts/user.layout';
 import { PrivateRoute }  from './views/private.route';
 import { PublicRoute }  from './views/public.route';
-
 
 const FlexDiv = styled.div`
   display: flex;

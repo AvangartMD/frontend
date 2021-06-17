@@ -5,6 +5,7 @@ import Gs from './../Theme/globalStyles';
 import {NavLink} from 'react-router-dom'
 import Media from './../Theme/media-breackpoint'  
 import Collapse from '@kunukn/react-collapse' 
+import Connect from '../Component/connect' 
 
 import LogoImg from '../Assets/images/logo.png'
 import NotifiIcon from '../Assets/images/notification.svg'
@@ -19,7 +20,8 @@ class Header extends Component {
       this.state = { 
         isOpen1: false,
         isOpen2: false,
-        isOpen3: false
+        isOpen3: false,
+        isOpen4: false
       }; 
   }   
 
@@ -35,7 +37,7 @@ class Header extends Component {
 
               <HeadSbx01>
                 <nav>
-                <NavLink to="/1" exact activeClassName="active" >
+                <NavLink to="/marketplace" exact activeClassName="active" >
                   <FormattedMessage id = "Marketplace" defaultMessage="Marketplace" />
                 </NavLink>
                 <NavLink to="/2" exact activeClassName="active" >
@@ -48,9 +50,8 @@ class Header extends Component {
               </HeadSbx01>
 
               {/* without Login  */}
-
               <HeadSbx01>
-                <AvBTN01><FormattedMessage id = "Login" defaultMessage="Login" /></AvBTN01>
+                <AvBTN01  onClick={() => this.toggle(4)}><FormattedMessage id = "Login" defaultMessage="Login" /></AvBTN01>
                 <Language header={true} />
               </HeadSbx01> 
 
@@ -106,14 +107,20 @@ class Header extends Component {
 
         </HeadMBX>
  
+
+
+        <Collapse  isOpen={this.state.isOpen4} className={ 'app__collapse ' + (this.state.isOpen4 ? 'collapse-active' : '') }> 
+            <Connect   toggle={this.toggle}  />
+        </Collapse>
+
+
       </>
     );
   }
 
   toggle = index => {
     let collapse = 'isOpen' + index; 
-    this.setState(prevState => ({ [collapse]: !prevState[collapse] }));
-    
+    this.setState(prevState => ({ [collapse]: !prevState[collapse] })); 
   }; 
 }
 const FlexDiv = styled.div`
@@ -131,9 +138,11 @@ const HeadSbx01 = styled(FlexDiv)`
   &:nth-child(2){  justify-content:center; 
     & nav:hover{  
       a:not(:hover){ opacity:0.3;}
-    } 
+    }  
+
     a{ color:#000; font-size:16px; font-weight:600; padding:0 20px; line-height:25px;  position:relative; 
-      :hover{ :after{ content:''; left:20px; right:20px;  height:2px; background-color:#000; display:block; position:absolute; bottom:-3px;}} 
+      :hover, &.active{ :after{ content:''; left:20px; right:20px;  height:2px; background-color:#000; display:block; position:absolute; bottom:-3px;} 
+      } 
     }
   } 
   &:nth-child(3){ justify-content:flex-end;}
@@ -209,17 +218,6 @@ const NotificationSBX01 = styled(FlexDiv)`
     span{  font-size:10px; font-weight:400; display:block; width:100%; margin-top:5px;}
     :hover{ background-color:#d9f5f5; }
   
-  }
-
-
-`
-
-
-
-
-
-
-
-
-
+  } 
+` 
 export default Header;

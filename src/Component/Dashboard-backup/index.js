@@ -1,13 +1,13 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import { connect } from "react-redux";
-import { web3Actions, defiActions } from "../../actions";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { services } from "../../services";
-import { web3 } from "../../web3";
-import { signTypedData_v4 } from "eth-sig-util";
-import Web3EthAccounts from "web3-eth-accounts";
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+import { web3Actions, defiActions } from '../../actions';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { services } from '../../services';
+import { web3 } from '../../web3';
+import { signTypedData_v4 } from 'eth-sig-util';
+import Web3EthAccounts from 'web3-eth-accounts';
 
 class Index extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class Index extends React.Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    console.log(this.props);
+    // console.log(this.props);
     let { web3Data, nftContractInstance } = this.props;
 
     if (web3Data !== prevProps.web3Data)
@@ -54,14 +54,14 @@ class Index extends React.Component {
 
   componentDidMount() {
     const { web3Data, nftContractInstance } = this.props;
-    console.log(nftContractInstance);
+    // console.log(nftContractInstance);
     if (!web3Data) this.props.getWeb3();
     else this.setState({ web3Data: web3Data });
     this.props.getNFTContractInstance();
 
     // set initial cards
     this.setState({ cards: Array.from({ length: 8 }), hasMore: true }, () => {
-      console.log("after set state : ", this.state.cards);
+      // console.log("after set state : ", this.state.cards);
     });
   }
   async setUserNFTData(nftContractInstance, web3Data) {
@@ -103,46 +103,46 @@ class Index extends React.Component {
   }
   async setGeneralNFTData(nftContractInstance) {
     const adminAddress = await nftContractInstance.methods.admin().call();
-    console.log(adminAddress);
+    // console.log(adminAddress);
   }
   async mintNFT() {
     const { web3Data, nftContractInstance, newNFTURI } = this.state;
     await nftContractInstance.methods
       .mintEditionToken(newNFTURI)
       .send({ from: web3Data.accounts[0] })
-      .on("transactionHash", (hash) => {
+      .on('transactionHash', (hash) => {
         // this.onTransactionHash(hash);
-        console.log(hash);
+        // console.log(hash);
       })
-      .on("receipt", (receipt) => {
+      .on('receipt', (receipt) => {
         this.onReciept();
       })
-      .on("error", (error) => {
+      .on('error', (error) => {
         this.onTransactionError(error);
       });
   }
   async mintTokenCopies() {
     const { web3Data, nftContractInstance, tokenURI, tokenCopies } = this.state;
     if (!tokenURI) {
-      alert("Enter token uri");
+      alert('Enter token uri');
       return false;
     }
     if (tokenCopies === 0) {
-      alert("Enter token copie number");
+      alert('Enter token copie number');
       return false;
     }
     await nftContractInstance.methods
       .mintTokenCopies(tokenCopies, tokenURI)
       .send({ from: web3Data.accounts[0] })
-      .on("transactionHash", (hash) => {
+      .on('transactionHash', (hash) => {
         // this.onTransactionHash(hash);
-        console.log(hash);
+        // console.log(hash);
       })
-      .on("receipt", (receipt) => {
-        console.log("- receipt : ", receipt);
+      .on('receipt', (receipt) => {
+        // console.log('- receipt : ', receipt);
       })
-      .on("error", (error) => {
-        console.log(" transaction error : ", error);
+      .on('error', (error) => {
+        // console.log(' transaction error : ', error);
       });
     this.setState({ tokenCopies: 0, tokenURI: null });
   }
@@ -150,10 +150,10 @@ class Index extends React.Component {
 
   onFileChange = (event) => {
     if (event.target.files[0].size > 307200) {
-      alert("File size must under 30MB.!");
+      alert('File size must under 30MB.!');
       return false;
     }
-    console.log("selected file 2", event.target.files[0]);
+    // console.log('selected file 2', event.target.files[0]);
     this.setState({ selectedFile: event.target.files[0] });
   };
 
@@ -161,27 +161,27 @@ class Index extends React.Component {
     const formData = new FormData();
     const { selectedFile } = this.state;
     if (!selectedFile) {
-      alert("upload a file");
+      alert('upload a file');
       return false;
     }
-    const en_src = await services.uploadFileOnBucket(selectedFile, "nft");
+    const en_src = await services.uploadFileOnBucket(selectedFile, 'nft');
     let dataObj = {
-      title: "SPORT !!",
-      description: "SPORTS !!!!",
+      title: 'SPORT !!',
+      description: 'SPORTS !!!!',
       image: {
         original: en_src,
         compressed:
-          "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293__340.jpg",
+          'https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293__340.jpg',
       },
       // "collectionId": "60ace3f509005e63311cd510",
       unlockContent: true,
-      digitalKey: "HELLO!!!!!",
+      digitalKey: 'HELLO!!!!!',
     };
     const result = defiActions.addNFT(dataObj);
-    console.log("final result", result);
+    // console.log('final result', result);
 
-    console.log("result", en_src);
-    formData.append("file", selectedFile, selectedFile.name);
+    // console.log('result', en_src);
+    formData.append('file', selectedFile, selectedFile.name);
     // submit formData
   };
 
@@ -206,7 +206,7 @@ class Index extends React.Component {
     const naunce = await this.props.generateNaunce(address);
     // .then((res) => console.log("res is", res));
 
-    console.log("naucne is", naunce, web3.eth.coinbase);
+    // console.log('naucne is', naunce, web3.eth.coinbase);
     const Signature = await web3.eth.personal.sign(naunce.nonce, address);
     this.props.logIn(naunce.nonce, Signature);
     // console.log("signer", signer, Signature);
@@ -224,10 +224,10 @@ class Index extends React.Component {
   }
   test() {
     const address = web3.eth.personal.ecRecover(
-      "05ee9d08887822b5b34999ea21f7f919",
-      "0x80e190229f8485ee1cb4f4bf41f1c5c0f97b71ce7991bd6af6dd970d47570a7c097bd44b15228806b5a86fe820c4356fff30eafa30e2a488d2b06eceac8ce72d1c"
+      '05ee9d08887822b5b34999ea21f7f919',
+      '0x80e190229f8485ee1cb4f4bf41f1c5c0f97b71ce7991bd6af6dd970d47570a7c097bd44b15228806b5a86fe820c4356fff30eafa30e2a488d2b06eceac8ce72d1c'
     );
-    console.log(address);
+    // console.log(address);
   }
 
   render() {
@@ -243,47 +243,47 @@ class Index extends React.Component {
       tokenURI,
     } = this.state;
     if (isLogout) {
-      return <Redirect to="/" />;
+      return <Redirect to='/' />;
     }
     return (
       <div>
         <Helmet>
-          <meta property="og:url" content={window.location.href} />
+          <meta property='og:url' content={window.location.href} />
           <meta
-            property="og:title"
-            content="Dashoard Page Title — Preview, Edit and Generate"
+            property='og:title'
+            content='Dashoard Page Title — Preview, Edit and Generate'
           />
-          <meta property="og:image" content="" />
+          <meta property='og:image' content='' />
         </Helmet>
 
         <h3>You are logged in.!</h3>
         <button onClick={this.signoutHandler}>Signout</button>
         <br />
         <br />
-        <button value="Connet to Metamask" onClick={() => this.test()}>
+        <button value='Connet to Metamask' onClick={() => this.test()}>
           test
         </button>
         <button
-          value="Connet to Metamask"
+          value='Connet to Metamask'
           onClick={() => this.props.logIn(web3Data.accounts[0])}
         >
           Loogin
         </button>
         <button
-          value="Connet to Metamask"
+          value='Connet to Metamask'
           onClick={() => this.generateNaunce(web3Data.accounts[0])}
         >
           generateNounce
         </button>
         <button
-          value="Connet to Metamask"
+          value='Connet to Metamask'
           onClick={() => this.props.enableMetamask()}
         >
           Connect to Metamask
         </button>
         <h2>
-          Your wallet address is :{" "}
-          {web3Data ? web3Data.accounts[0] : "fetching.."}
+          Your wallet address is :{' '}
+          {web3Data ? web3Data.accounts[0] : 'fetching..'}
         </h2>
         {isApproved ? (
           <h2>Your profile is approved by admin</h2>
@@ -299,7 +299,7 @@ class Index extends React.Component {
               id: {nft.id}, Balance : {nft.balanceOf} , Owner : {nft.owner}
               <br />
               <img
-                style={{ width: "100px", height: "100px" }}
+                style={{ width: '100px', height: '100px' }}
                 src={nft.tokenURI}
               />
               <br />
@@ -309,7 +309,7 @@ class Index extends React.Component {
         </p>
 
         <input
-          placeholder="Enter url to create new NFT"
+          placeholder='Enter url to create new NFT'
           value={newNFTURI}
           onChange={(e) => this.setState({ newNFTURI: e.target.value })}
         />
@@ -318,13 +318,13 @@ class Index extends React.Component {
         <br />
         <br />
         <input
-          placeholder="Enter token URI to create copies"
+          placeholder='Enter token URI to create copies'
           value={tokenURI}
           onChange={(e) => this.setState({ tokenURI: e.target.value })}
         />
         <input
-          type="number"
-          placeholder="Enter number of copies"
+          type='number'
+          placeholder='Enter number of copies'
           onChange={(e) => this.setState({ tokenCopies: e.target.value })}
         />
         <button onClick={() => this.mintTokenCopies()}>
@@ -334,10 +334,10 @@ class Index extends React.Component {
         <br />
         <br />
         <input
-          type="file"
-          name="file"
+          type='file'
+          name='file'
           onChange={this.onFileChange}
-          accept=".png,.gif,.mp3,.mp4,.webp"
+          accept='.png,.gif,.mp3,.mp4,.webp'
         />
         <button onClick={this.onFileUpload}>Upload</button>
 
