@@ -25,21 +25,21 @@ async function enableMetamask() {
 
 async function enableNabox() {
   // let ethereum = window.ethereum;
-  console.log('here1');
+  // console.log('here1');
   try {
     let some = window.nabox
       .createSession({ chain: 'Ethereum' })
       .then((res) => {
-        console.log('new', res);
+        // console.log('new', res);
       })
       .catch((err) => {
-        console.log('error', err);
+        // console.log('error', err);
       });
-    console.log('works', some);
+    // console.log('works', some);
     return true;
   } catch (error) {
     if (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
     return false;
@@ -56,7 +56,7 @@ async function getContractInstance(contractAbi, contractAddress) {
       return contractInstance;
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
