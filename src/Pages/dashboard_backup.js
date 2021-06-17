@@ -47,7 +47,7 @@ const CustomDot = ({ onClick, ...rest }) => {
     active,
     carouselState: { currentSlide, deviceType }
   } = rest;
-  const carouselItems = [1, 2, 3, 4, 5, 6];
+  const carouselItems = [1, 2, 3, 4, 5];
   return (
     <button
       className={active ? 'active' : 'inactive'}
@@ -508,7 +508,7 @@ const HomeBanner = styled.div`
     background-color:rgba(255, 255, 255, 0.85); width:320px; height:52px; border-radius:20px; margin:0 auto 20px;
     button
     {
-      position:relative; margin:0px 10px; padding:0px 0px 0px 10px; font-size:14px; color:rgb(0 0 0 / 20%);
+      position:relative; margin:0px 10px; padding:0px 0px 0px 9px; font-size:14px; font-weight:700; color:rgb(0 0 0 / 20%);
       &.active{color:#000;}
       :before{content:'0'; position:absolute; left:0px;}
     }
@@ -582,7 +582,6 @@ const UserImgName = styled(FlexDiv)`
 
 const NFTfourbox = styled(FlexDiv)`  
     flex-wrap:wrap; margin:0px -10px 50px; 
-    .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd;
           .NFT-home-box-inner{ padding:20px 15px;

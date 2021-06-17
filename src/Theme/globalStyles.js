@@ -26,13 +26,30 @@ Gs.W25V2 = styled.div`
 `;
 Gs.W20 = styled.div` 
   width:20%;
-`; 
-Gs.W60 = styled.div` 
-  width:60%;
-`; 
+`;
+Gs.W80 = styled.div` 
+  width:80%;
+`;
+Gs.W200px = styled.div` 
+  width:100%;
+  max-width:200px;
+`;
+Gs.W275px = styled.div` 
+  width:100%;
+  max-width:275px;
+`;
+Gs.W605px = styled.div` 
+  width:100%;
+  max-width:605px;
+`;
+Gs.W880px = styled.div` 
+  width:100%;
+  max-width:880px;
+`;
 Gs.TenpxGutter = styled.div` 
   margin:0px 10px;
 `; 
+
 
 export default Gs;
  

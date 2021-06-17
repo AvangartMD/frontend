@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FormattedMessage} from 'react-intl';
 import styled from 'styled-components';
 import Gs from './../Theme/globalStyles'; 
 import {NavLink} from 'react-router-dom'
@@ -11,6 +12,7 @@ import NotifiIcon from '../Assets/images/notification.svg'
 import UserIcon from '../Assets/images/userIcon.png'
 import RightArrow from '../Assets/images/rightArrow.svg'
 import DisconnectICO from '../Assets/images/icon-disconnect.svg'
+import Language from './lang.switch'
  
 class Header extends Component { 
     constructor(props) {
@@ -30,35 +32,31 @@ class Header extends Component {
         <HeadMBX> 
           <HeadMBX02> 
               <HeadSbx01> 
-                <Logo> <img src={LogoImg} alt="" /> </Logo> 
+                <Logo> <img src={LogoImg} alt="" /> </Logo>
               </HeadSbx01>
 
               <HeadSbx01>
                 <nav>
-                <NavLink to="/marketplace" exact activeClassName="active" >Marketplace</NavLink>
-                <NavLink to="/2" exact activeClassName="active" >Creators</NavLink>
-                <NavLink to="/3" exact activeClassName="active" >How to use?</NavLink> 
+                <NavLink to="/marketplace" exact activeClassName="active" >
+                  <FormattedMessage id = "Marketplace" defaultMessage="Marketplace" />
+                </NavLink>
+                <NavLink to="/2" exact activeClassName="active" >
+                  <FormattedMessage id = "Creators" defaultMessage="Creators" />
+                </NavLink>
+                <NavLink to="/3" exact activeClassName="active" >
+                  <FormattedMessage id = "How_to_use?" defaultMessage="How to use?" />
+                </NavLink> 
                 </nav>
               </HeadSbx01>
 
               {/* without Login  */}
-                <HeadSbx01>
-                <AvBTN01 onClick={() => this.toggle(4)}>Login</AvBTN01>
-                <LanBTN>
-                    <button onClick={() => this.toggle(1)}>ENG <i className="fas fa-chevron-down"></i></button> 
-                    <Collapse isOpen={this.state.isOpen1} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '') }> 
-                    <DDContainer> 
-                        <DDBtnbar01>
-                          <button className='active'>Eng</button> |  <button>Tr</button>
-                        </DDBtnbar01> 
-                    </DDContainer>
-                    </Collapse>
-                </LanBTN>
+              <HeadSbx01>
+                <AvBTN01  onClick={() => this.toggle(4)}><FormattedMessage id = "Login" defaultMessage="Login" /></AvBTN01>
+                <Language header={true} />
               </HeadSbx01> 
 
-              {/* with Login    */}
-               {/*
-              <HeadSbx01>
+              {/* with Login  */}
+              {/* <HeadSbx01>
                 <AvBTN02 className="colorBTN">Become a Creator</AvBTN02> 
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>
@@ -102,9 +100,7 @@ class Header extends Component {
                   </Collapse>
 
                 </AccountBX>
-              </HeadSbx01> 
-         */}
-         
+              </HeadSbx01>  */}
           </HeadMBX02>
 
 
