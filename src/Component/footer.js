@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FormattedMessage} from 'react-intl';
 import styled from 'styled-components';
 import Gs from './../Theme/globalStyles'; 
 import {NavLink} from 'react-router-dom'
@@ -10,6 +11,8 @@ import NotifiIcon from '../Assets/images/notification.svg'
 import UserIcon from '../Assets/images/userIcon.png'
 import RightArrow from '../Assets/images/rightArrow.svg'
 import DisconnectICO from '../Assets/images/icon-disconnect.svg'
+import Language from './lang.switch'
+
  
 class Footer extends Component { 
     constructor(props) {
@@ -33,19 +36,21 @@ class Footer extends Component {
                         <img src={LogoImg} alt="" />
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis urna ac ante tempor rutrum. Morbi in fringilla nisi.</p>
 
-                        <button>Learn More</button>
+                        <button>
+                          <FormattedMessage id = "Learn_more" defaultMessage="Learn More" />
+                        </button>
 
                     </FooterSSbx01>
                     <FooterSSbx02>
-                        <NavLink to="-">Marketplace</NavLink>
-                        <NavLink to="-">Collections</NavLink>
-                        <NavLink to="-">Creators</NavLink>
-                        <NavLink to="-">Become a Creator</NavLink> 
+                        <NavLink to="-"><FormattedMessage id = "Marketplace" defaultMessage="Marketplace" /></NavLink>
+                        <NavLink to="-"><FormattedMessage id = "Collections" defaultMessage="Collections" /></NavLink>
+                        <NavLink to="-"><FormattedMessage id = "Creators" defaultMessage="Creators" /></NavLink>
+                        <NavLink to="-"><FormattedMessage id = "Become_a_creator" defaultMessage="Become a Creator" /></NavLink> 
                     </FooterSSbx02>
                     <FooterSSbx02>
-                        <NavLink to="-">Terms of Service</NavLink>
-                        <NavLink to="-">Privacy Policy</NavLink>
-                        <NavLink to="-">Cookie Policy</NavLink> 
+                        <NavLink to="-"><FormattedMessage id = "Term_of_service" defaultMessage="Terms of Service" /></NavLink>
+                        <NavLink to="-"><FormattedMessage id = "Privacy_policy" defaultMessage="Privacy Policy" /></NavLink>
+                        <NavLink to="-"><FormattedMessage id = "Become_a_creator" Cookie_policy="Cookie Policy" /></NavLink> 
                     </FooterSSbx02>
                     <FooterSSbx02>
                         <NavLink to="-">Instagram</NavLink>
@@ -60,21 +65,9 @@ class Footer extends Component {
                     </FooterSSbx02>
 
                     <FooterSSbx03>
-                        <AvBTN01>Login</AvBTN01>
-
-                        <LanBTN>
-                    <button onClick={() => this.toggle(1)}>ENG <i className="fas fa-chevron-down"></i></button> 
-                    <Collapse isOpen={this.state.isOpen1} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '') }> 
-                    <DDContainer> 
-                        <DDBtnbar01>
-                          <button className='active'>Eng</button> |  <button>Tr</button>
-                        </DDBtnbar01> 
-                    </DDContainer>
-                    </Collapse>
-                </LanBTN>
-                        
-                        
-                        </FooterSSbx03>
+                        <AvBTN01><FormattedMessage id = "Login" defaultMessage="Login" /></AvBTN01>
+                        <Language header={false}/>
+                    </FooterSSbx03>
 
             </FooterSbx01>
         </FooterMBX>

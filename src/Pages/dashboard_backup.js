@@ -48,7 +48,7 @@ const CustomDot = ({ onClick, ...rest }) => {
     active,
     carouselState: { currentSlide, deviceType }
   } = rest;
-  const carouselItems = [1, 2, 3, 4, 5, 6];
+  const carouselItems = [1, 2, 3, 4, 5];
   return (
     <button
       className={active ? 'active' : 'inactive'}

@@ -20,9 +20,8 @@ import Celebrity from '../Assets/images/icon-set-celebrity.svg';
 class NFTPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-    }
-  } 
+    this.state = {};
+  }
   render() {
     return (
       <> 
@@ -292,7 +291,7 @@ class NFTPage extends Component {
     
   }; 
 }
-// Common Style Div 
+// Common Style Div
 const FlexDiv = styled.div`
 display: flex; align-items: center; justify-content:center; flex-wrap:wrap;
 .JCSB{justify-content:space-between;}
