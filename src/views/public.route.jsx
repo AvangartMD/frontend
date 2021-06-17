@@ -6,12 +6,13 @@ export const PublicRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) =>
       localStorage.getItem("token") ? (
-        <Redirect
-            to={{
-            pathname: "/user",
-            state: { from: props.location },
-            }}
-        />
+        // <Redirect
+        //     to={{
+        //     pathname: "/user",
+        //     state: { from: props.location },
+        //     }}
+        // />
+        <Component {...props} />
       ) : (
         <Component {...props} />
       )
