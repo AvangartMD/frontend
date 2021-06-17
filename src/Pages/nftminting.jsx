@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 // import { Link } from 'react-router-dom';
 import Media from '../Theme/media-breackpoint'
-import Collapse from '@kunukn/react-collapse' 
+import Collapse from '@kunukn/react-collapse'
 import { HashLink as Link } from 'react-router-hash-link';
 import Sticky from 'react-sticky-el';
 
@@ -24,30 +24,30 @@ class NFTPage extends Component {
   }
   render() {
     return (
-      <> 
-      <div style={{minHeight: '100vh', width:'100%'}}>
-        <Gs.Container>
+      <>
+        <div style={{ minHeight: '100vh', width: '100%' }}>
+          <Gs.Container>
             <NFTminting>
               <Gs.W200px>
                 <Sticky>
                   <NFTLeft>
-                      <h4>Item Description</h4>
-                      <Link to='nftminting#creator' smooth={true}>Co-Creator</Link>
-                      <Link to='nftminting#collection' smooth={true}>Category & Collection</Link>
-                      <Link to='nftminting#marketplace' smooth={true}>Marketplace Settings</Link>
-                      <Link to='nftminting#unlockable' smooth={true}>Unlockable Content</Link>
-                      <Link to='nftminting#admins' className="AdminLink" smooth={true}>for Admins</Link>
+                    <h4>Item Description</h4>
+                    <Link to='nftminting#creator' smooth={true}>Co-Creator</Link>
+                    <Link to='nftminting#collection' smooth={true}>Category & Collection</Link>
+                    <Link to='nftminting#marketplace' smooth={true}>Marketplace Settings</Link>
+                    <Link to='nftminting#unlockable' smooth={true}>Unlockable Content</Link>
+                    <Link to='nftminting#admins' className="AdminLink" smooth={true}>for Admins</Link>
                   </NFTLeft>
                 </Sticky>
               </Gs.W200px>
               <Gs.W880px className="displayflex">
-                {/* <Gs.W605px>
+                <Gs.W605px>
                   <NFTMiddle>
                     <AlertNote>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </AlertNote>
                   </NFTMiddle>
-                </Gs.W605px> */}
+                </Gs.W605px>
                 <Gs.W605px>
                   <NFTMiddle>
                     <NFTtitle>
@@ -58,28 +58,28 @@ class NFTPage extends Component {
                       <div className="label-line">
                         <label>Title</label>
                       </div>
-                      <input type="text" placeholder="Type something…" /> 
+                      <input type="text" placeholder="Type something…" />
                     </NFTForm>
                     <NFTForm>
-                    <div className="label-line">
-                      <label>Description</label><span>optional</span>
-                    </div>
-                    <input type="text" placeholder="Type something…" /> 
+                      <div className="label-line">
+                        <label>Description</label><span>optional</span>
+                      </div>
+                      <input type="text" placeholder="Type something…" />
                     </NFTForm>
                     <NFTForm>
                       <div className="label-line">
                         <label>Upload File</label>
                         <FlexDiv className="JCSB">
-                            <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
-                            <p><b>Max 30 mb.</b></p>
+                          <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
+                          <p><b>Max 30 mb.</b></p>
                         </FlexDiv>
                       </div>
                       <FileuploadBox>
-                          <label class="custom-file-upload">
-                              <input type="file"/>
-                              Choose
-                          </label>
-                          <input type="file" placeholder="Choose" />
+                        <label class="custom-file-upload">
+                          <input type="file" />
+                          Choose
+                        </label>
+                        <input type="file" placeholder="Choose" />
                       </FileuploadBox>
                     </NFTForm>
                     <NFTtitle id="creator">
@@ -91,9 +91,9 @@ class NFTPage extends Component {
                         <label>Co-Creator Username</label>
                       </div>
                       <div className="iLeft errorinput">
-                          <i>@</i>
-                          <input type="text" placeholder="Type something…" />
-                          <p className="error">user doesn’t exist</p>
+                        <i>@</i>
+                        <input type="text" placeholder="Type something…" />
+                        <p className="error">user doesn’t exist</p>
                       </div>
                     </NFTForm>
                     <NFTForm>
@@ -102,8 +102,8 @@ class NFTPage extends Component {
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                       </div>
                       <div className="iRight">
-                          <input type="text" placeholder="0" />
-                          <i>%</i>
+                        <input type="text" placeholder="0" />
+                        <i>%</i>
                       </div>
                     </NFTForm>
                     <NFTtitle id="collection">
@@ -116,18 +116,18 @@ class NFTPage extends Component {
                         <p>Choose category for listing your NFT. You can choose up to 2.</p>
                       </div>
                       <CustomCheckbox1>
-                      <label class="checkbox-container"> <img src={Art} alt="" />Art
-                        <input type="checkbox" />
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="checkbox-container"> <img src={Celebrity} alt="" />Celebrity
-                        <input type="checkbox" />
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="checkbox-container"> <img src={Sport} alt="" />Sport
-                        <input type="checkbox" />
-                        <span class="checkmark"></span>
-                      </label>
+                        <label class="checkbox-container"> <img src={Art} alt="" />Art
+                          <input type="checkbox" />
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container"> <img src={Celebrity} alt="" />Celebrity
+                          <input type="checkbox" />
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container"> <img src={Sport} alt="" />Sport
+                          <input type="checkbox" />
+                          <span class="checkmark"></span>
+                        </label>
                       </CustomCheckbox1>
                     </NFTForm>
                     <NFTForm>
@@ -135,15 +135,15 @@ class NFTPage extends Component {
                         <label>Collection</label>
                       </div>
                       <CollectionSelect>
-                          <Gs.W80>
-                            <select>
-                              <option>Select or Create</option>
-                              <option>John Doe’s Besties</option>
-                            </select>
-                          </Gs.W80>
-                          <Gs.W20>
-                            <button>+ Create</button>
-                          </Gs.W20>
+                        <Gs.W80>
+                          <select>
+                            <option>Select or Create</option>
+                            <option>John Doe’s Besties</option>
+                          </select>
+                        </Gs.W80>
+                        <Gs.W20>
+                          <button>+ Create</button>
+                        </Gs.W20>
                       </CollectionSelect>
                     </NFTForm>
                     <NFTtitle id="marketplace">
@@ -189,21 +189,21 @@ class NFTPage extends Component {
                         <label>Edition</label>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                       </div>
-                      <input type="text" placeholder="0" /> 
+                      <input type="text" placeholder="0" />
                     </NFTForm>
                     <NFTForm>
                       <div className="label-line">
                         <label>Price</label>
                       </div>
-                      <input type="text" placeholder="0.00" /> 
+                      <input type="text" placeholder="0.00" />
                       <AccountBX onClick={() => this.toggle(2)}>
-                        <span> BNB <img src={DDdownA} alt="" /></span>  
-                        <Collapse isOpen={this.state.isOpen2} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen2 ? 'collapse-active' : '') }> 
+                        <span> BNB <img src={DDdownA} alt="" /></span>
+                        <Collapse isOpen={this.state.isOpen2} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen2 ? 'collapse-active' : '')}>
                           <DDContainer className="ver2">
                             <DDBtnbar02>
-                                <button>ETH</button>
-                                <button>BTC</button>
-                            </DDBtnbar02> 
+                              <button>ETH</button>
+                              <button>BTC</button>
+                            </DDBtnbar02>
                           </DDContainer>
                         </Collapse>
                       </AccountBX>
@@ -216,7 +216,7 @@ class NFTPage extends Component {
                       <div className="label-line">
                         <label>Digital key, code to redeem or link to file</label>
                       </div>
-                      <input type="text" placeholder="Type something…" /> 
+                      <input type="text" placeholder="Type something…" />
                     </NFTForm>
                     <NFTtitle id="admins">
                       <h4 className="mt-30 text-till-blue">for Admins</h4>
@@ -233,63 +233,63 @@ class NFTPage extends Component {
                         <label>First Hand Fee</label>
                       </div>
                       <div className="iRight">
-                          <input type="text" placeholder="Type something…" />
-                          <i>%</i>
+                        <input type="text" placeholder="Type something…" />
+                        <i>%</i>
                       </div>
                     </NFTForm>
                     <CreateItemButton>
                       <button>Create Item</button>
                     </CreateItemButton>
                   </NFTMiddle>
-              </Gs.W605px>
-              <Gs.W275px>
-                <Sticky topOffset={30}>
-                  <NFTRight>
-                    <NFTtitle>
-                      <h4>Preview</h4>
-                      <p>Your NFT look like that on Marketplace</p>
-                    </NFTtitle>
-                    <NFTfourbox>
-                    <div className="NFT-home-box">
-                      <NFTImgBX> <img src={NFT2} alt="" /> </NFTImgBX>
-                      <div className="NFT-home-box-inner">
-                        <h4>Artwork name / title dolor lorem ipsum sit adipiscing</h4>
-                        <CollectionBar>
-                          <p>25 <span>of 2500</span></p>
-                          <p><Link to='/'>See the collection <i className="fas fa-angle-right"></i></Link></p>
-                        </CollectionBar>
-                        <Edition className="edition2">
-                            <div className="ed-box">
+                </Gs.W605px>
+                <Gs.W275px>
+                  <Sticky topOffset={30}>
+                    <NFTRight>
+                      <NFTtitle>
+                        <h4>Preview</h4>
+                        <p>Your NFT look like that on Marketplace</p>
+                      </NFTtitle>
+                      <NFTfourbox>
+                        <div className="NFT-home-box">
+                          <NFTImgBX> <img src={NFT2} alt="" /> </NFTImgBX>
+                          <div className="NFT-home-box-inner">
+                            <h4>Artwork name / title dolor lorem ipsum sit adipiscing</h4>
+                            <CollectionBar>
+                              <p>25 <span>of 2500</span></p>
+                              <p><Link to='/'>See the collection <i className="fas fa-angle-right"></i></Link></p>
+                            </CollectionBar>
+                            <Edition className="edition2">
+                              <div className="ed-box">
                                 <p>Current bid</p>
                                 <h3>0.00 BNB</h3>
-                            </div>
-                            <div className="ed-box">
+                              </div>
+                              <div className="ed-box">
                                 <p>Ending in</p>
                                 <h3>13h 12m 11s</h3>
-                            </div>
-                        </Edition>
-                        <UserImgName>
-                          <img src={UserImg} alt="" />
-                          @username
-                        </UserImgName>
-                      </div>
-                    </div>
-                   </NFTfourbox>
-                  </NFTRight>
-                </Sticky>
-              </Gs.W275px>
+                              </div>
+                            </Edition>
+                            <UserImgName>
+                              <img src={UserImg} alt="" />
+                              @username
+                            </UserImgName>
+                          </div>
+                        </div>
+                      </NFTfourbox>
+                    </NFTRight>
+                  </Sticky>
+                </Gs.W275px>
               </Gs.W880px>
             </NFTminting>
-        </Gs.Container>
+          </Gs.Container>
         </div>
       </>
     );
-  } 
+  }
   toggle = index => {
-    let collapse = 'isOpen' + index; 
+    let collapse = 'isOpen' + index;
     this.setState(prevState => ({ [collapse]: !prevState[collapse] }));
-    
-  }; 
+
+  };
 }
 // Common Style Div
 const FlexDiv = styled.div`
