@@ -21,6 +21,9 @@ Gs.Container = styled.div`
 Gs.W25 = styled.div` 
   width:25%;
 `; 
+Gs.W25V2 = styled.div` 
+  width:25%; margin-bottom:20px;
+`;
 Gs.W20 = styled.div` 
   width:20%;
 `; 

@@ -8,7 +8,8 @@ import styled from 'styled-components';
 import { theme } from './Theme/theme' 
 import Header from './Component/header' 
 import Footer from './Component/footer'  
-import Media from './Theme/media-breackpoint' 
+import MarketPlace from './Pages/marketplace'
+import Media from './Theme/media-breackpoint'  
 
 function App() {  
   const [isDark,setDarkTheme] = useState(true);
@@ -31,10 +32,13 @@ function App() {
             <Route path="/nftminting" exact > 
               <NFTPage isDarkTheme={isDark} setTheme={setTheme} />  
             </Route> 
+            <Route path="/marketplace" exact > 
+              <MarketPlace isDarkTheme={isDark} setTheme={setTheme} />  
+            </Route> 
           </Switch>  
  			<Footer isDarkTheme={isDark}  setTheme={setTheme} />   
         </DMainContainer> 
-        </section>
+        </section> 
     </ThemeProvider>
     </Router>
 
