@@ -152,13 +152,13 @@ function addNFT(data) {
       if (promise.status === 200) {
         dispatch(setData(promise.data.data, 'ADD_NFT'));
       } else {
-        console.log('erroer');
+        // console.log('erroer');
       }
     });
   };
 }
 function logIn(nonce, signature) {
-  console.log(nonce, signature);
+  // console.log(nonce, signature);
   return (dispatch) => {
     const url = 'user/login';
     let params = JSON.stringify({
@@ -168,10 +168,10 @@ function logIn(nonce, signature) {
     const response = services.post(url, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log('token', promise.data.data);
+        // console.log('token', promise.data.data);
         dispatch(setData(promise.data.data, 'ADD_NFT'));
       } else {
-        console.log('erroer');
+        // console.log('erroer');
       }
     });
   };
@@ -180,7 +180,7 @@ function generateNaunce(address) {
   return async (dispatch) => {
     const url = `user/genrateNonce/${address}`;
     const response = await services.get(url);
-    console.log(response);
+    // console.log(response);
     return response.data.data;
     // response.then((promise) => {
     //   if (promise.status === 200) {

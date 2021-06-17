@@ -86,7 +86,7 @@ class Dashboard extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    console.log(this.props);
+    // console.log(this.props);
     let { web3Data, nftContractInstance } = this.props;
 
     // if (web3Data !== prevProps.web3Data)
@@ -104,14 +104,14 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { web3Data, nftContractInstance } = this.props;
-    console.log(nftContractInstance);
+    // console.log(nftContractInstance);
     if (!web3Data) this.props.getWeb3();
     else this.setState({ web3Data: web3Data });
     this.props.getNFTContractInstance();
 
     // set initial cards
     this.setState({ cards: Array.from({ length: 8 }), hasMore: true }, () => {
-      console.log('after set state : ', this.state.cards);
+      // console.log('after set state : ', this.state.cards);
     });
   }
   render() {
@@ -1183,8 +1183,7 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getWeb3: () => dispatch(actions.getWeb3()),
     logIn: (nonce, signature) => dispatch(actions.logIn(nonce, signature)),
-    getNFTContractInstance: () =>
-      dispatch(actions.getNFTContractInstance()),
+    getNFTContractInstance: () => dispatch(actions.getNFTContractInstance()),
     enableMetamask: () => dispatch(actions.enableMetamask()),
     generateNaunce: (address) => dispatch(actions.generateNaunce(address)),
   };

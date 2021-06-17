@@ -41,7 +41,7 @@ function getWeb3(val) {
         if (promise && promise.isLoggedIn) {
           dispatch(setDispatchData(promise, 'FETCH_WEB3_DATA'));
         } else {
-          console.log('errorrrr in actions');
+          // console.log('errorrrr in actions');
         }
       });
     };
@@ -54,7 +54,7 @@ function enableMetamask() {
       if (promise) {
         dispatch(setDispatchData(promise, 'FETCH_METAMASK'));
       } else {
-        console.log('error in actions');
+        // console.log('error in actions');
       }
     });
   };
@@ -66,7 +66,7 @@ function getUserBalances(userAddress) {
       if (promise) {
         dispatch(fetchUserBalances(promise));
       } else {
-        console.log('error in actions');
+        // console.log('error in actions');
       }
     });
   };
@@ -77,11 +77,11 @@ function getNFTContractInstance() {
   return (dispatch) => {
     const response = services.getContractInstance(nftABI, nftContractAddress);
     response.then((promise) => {
-      console.log(promise);
+      // console.log(promise);
       if (promise) {
         dispatch(setDispatchData(promise, 'NFT_CONTRACT_INSTANCE'));
       } else {
-        console.log('error in actions');
+        // console.log('error in actions');
       }
     });
   };
