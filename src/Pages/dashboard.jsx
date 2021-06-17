@@ -22,7 +22,7 @@ import AdBannerIMG from '../Assets/images/adbanner.jpg';
 import LArrow from '../Assets/images/banner-larrow.svg';
 import RArrow from '../Assets/images/banner-rarrow.svg';
 
-import { defiActions, web3Actions } from '../actions';
+import { actions } from '../actions';
 
 const responsive = {
   desktop: {
@@ -1181,12 +1181,12 @@ const AdBanner2 = styled.div`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getWeb3: () => dispatch(web3Actions.getWeb3()),
-    logIn: (nonce, signature) => dispatch(defiActions.logIn(nonce, signature)),
+    getWeb3: () => dispatch(actions.getWeb3()),
+    logIn: (nonce, signature) => dispatch(actions.logIn(nonce, signature)),
     getNFTContractInstance: () =>
-      dispatch(web3Actions.getNFTContractInstance()),
-    enableMetamask: () => dispatch(web3Actions.enableMetamask()),
-    generateNaunce: (address) => dispatch(defiActions.generateNaunce(address)),
+      dispatch(actions.getNFTContractInstance()),
+    enableMetamask: () => dispatch(actions.enableMetamask()),
+    generateNaunce: (address) => dispatch(actions.generateNaunce(address)),
   };
 };
 const mapStateToProps = (state) => {

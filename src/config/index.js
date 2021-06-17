@@ -12,3 +12,6 @@ export const awsRegion = 'eu-central-1';
 export const awsIdentityPoolId =
   'eu-central-1:949b9487-ed35-4eb3-a2d3-1866e6ad890b';
 export const awsBucket = 'avangrat-development';
+
+// set expiry time for the localstorage data
+export const expiryTime = 43200000; // 12 hours into miliseconds

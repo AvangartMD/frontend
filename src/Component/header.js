@@ -51,17 +51,7 @@ class Header extends Component {
 
               <HeadSbx01>
                 <AvBTN01><FormattedMessage id = "Login" defaultMessage="Login" /></AvBTN01>
-                {/* <LanBTN>
-                    <button onClick={() => this.toggle(1)}>ENG <i className="fas fa-chevron-down"></i></button> 
-                    <Collapse isOpen={this.state.isOpen1} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '') }> 
-                    <DDContainer> 
-                        <DDBtnbar01>
-                          <button className='active'>Eng</button> |  <button>Tr</button>
-                        </DDBtnbar01> 
-                    </DDContainer>
-                    </Collapse>
-                </LanBTN> */}
-                <Language />
+                <Language header={true} />
               </HeadSbx01> 
 
               {/* with Login  */}
