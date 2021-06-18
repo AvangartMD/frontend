@@ -80,14 +80,17 @@ async function getWeb3(val) {
   }
 }
 
-async function uploadFileOnBucket(file, folder) {
+async function uploadFileOnBucket(file, folder, isCompressed) {
   try {
     var re = /(?:\.([^.]+))?$/;
 
     var extension = re.exec(file.name)[1];
-    var fileName = file.name.substr(0, file.name.lastIndexOf('.'));
+    var fileName = isCompressed
+      ? 'compressed-' + file.name.substr(0, file.name.lastIndexOf('.'))
+      : file.name.substr(0, file.name.lastIndexOf('.'));
+
     // const extension = file.name.split(".").pop().toLowerCase();
-    // console.log('here=>', extension, fileName, extension);
+    console.log('here=>', extension, fileName, extension);
     const uploadTo = await uploadToS3(fileName, file, folder, extension);
     return uploadTo.Location;
   } catch (error) {
