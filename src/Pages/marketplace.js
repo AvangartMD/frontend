@@ -33,28 +33,21 @@ class MarketPlace extends Component {
   } 
   render() {
     return (
-      <> 
-        
-        <FilterMBX>
-
+      <>  
+        <FilterMBX> 
           <FilterLbx>
               <button className='active'>All</button> <button>Art</button> <button>Celebrity</button> <button>Sport</button> 
           </FilterLbx>
-          <FilterRbx>
-              
+          <FilterRbx> 
               <FilterInputBX>
                 <input placeholder='Search'></input>
-                <SearchICO><img src={SerICON} /></SearchICO>
+                <SearchICO><img src={SerICON} alt="" /> </SearchICO>
               </FilterInputBX>
 
               <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '') }>
-                <FilterICO><img src={FiltICON} /></FilterICO> Filter: Live auction
-
-
-                <Collapse isOpen={this.state.isOpen1} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '') }> 
-                    
-                <DDContainer> 
-
+                <FilterICO><img src={FiltICON} alt="" /></FilterICO> Filter: Live auction 
+                <Collapse isOpen={this.state.isOpen1} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '') }>  
+                <DDContainer>  
                   <div className='md-checkbox'>
                   <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
                   <label htmlFor="vehicle1">All</label>
@@ -70,8 +63,7 @@ class MarketPlace extends Component {
                   <div className='md-checkbox'>
                   <input type="checkbox" id="vehicle4" name="vehicle4" value="Bike" />
                   <label htmlFor="vehicle4">Sold</label>
-                  </div>
-
+                  </div> 
                 </DDContainer>
                 </Collapse>
               </FilterBAR> 
@@ -420,7 +412,7 @@ class MarketPlace extends Component {
 
             <LoaderBX>
                       <img src={LoaderGif} alt="" />
-                  </LoaderBX>
+                  </LoaderBX>  
           </Gs.Container> 
         </HomeNFTs>
 
@@ -534,7 +526,8 @@ const NFTfourbox = styled(FlexDiv)`
     flex-wrap:wrap; margin:0px -10px 50px; 
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
-        .NFT-home-box{ border-radius:10px; border:1px solid #dddddd;
+        .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
+          :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);} 
           .NFT-home-box-inner{ padding:20px 15px;
             h4{margin:0px 0px 10px; font-size:18px; color:#000000; font-weight:600; line-height:normal; letter-spacing:-0.67px;}
             .edition2
@@ -557,9 +550,10 @@ const NFTfourbox = styled(FlexDiv)`
 `;
 
 const NFTImgBX = styled(FlexDiv)` 
-  width:100%; height:253px; object-fit: cover; border-radius: 10px 10px 0 0; overflow: hidden; 
-  img{ width:100%; height:100%; } 
+  width:100%; height:253px; border-radius: 10px 10px 0 0; overflow: hidden; 
+  img{ width:100%; height:100%;  object-fit: cover; } 
 `
+
 
 const CollectionBar = styled(FlexDiv)`
     justify-content:space-between; margin-bottom:20px;
@@ -679,8 +673,8 @@ const FilterBAR = styled(FlexDiv)`
 
 const DDContainer = styled(FlexDiv)` 
     position:absolute; background-color:#fff; padding:15px; border-radius: 20px; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); top:calc(100% + 7px); width:100%; left:0;  overflow:hidden; z-index:100;  
+ 
+    .md-checkbox:hover{ background-color:#D9F5F5; }
 `
-
-
 
 export default MarketPlace;

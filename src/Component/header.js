@@ -40,7 +40,7 @@ class Header extends Component {
                 <NavLink to="/marketplace" exact activeClassName="active" >
                   <FormattedMessage id = "Marketplace" defaultMessage="Marketplace" />
                 </NavLink>
-                <NavLink to="/2" exact activeClassName="active" >
+                <NavLink to="/creators" exact activeClassName="active" >
                   <FormattedMessage id = "Creators" defaultMessage="Creators" />
                 </NavLink>
                 <NavLink to="/3" exact activeClassName="active" >
@@ -185,15 +185,12 @@ const AccountBX = styled(FlexDiv)`
    & span{font-size: 14px; font-weight: 600; color:#000; display:block; text-align:right; line-height:16px; padding-right:8px;
       span{ font-size:10px; color:#b3b3b3; width:100%;  padding-right:0;}
      }
-`
-
+` 
 const DDContainer = styled(FlexDiv)` 
     position:absolute; background-color:#fff; padding:15px; border-radius: 20px; box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3); top:calc(100% + 30px); width:200px; left:50%; transform: translateX(-50%); overflow:hidden; z-index:100; 
     &.ver2{ width:300px; left:auto; transform: translateX(0); right:0; top:calc(100% + 20px);  padding:0;} 
     &.ver3{ width:300px; left:50%; transform: translateX(-50%); top:calc(100% + 34px);  padding:0;} 
-`
-
-
+` 
 const DDBtnbar01 = styled(FlexDiv)`
   font-size:16px; color:#B3B3B3; font-weight: 600; 
   button{ font-size:16px; padding:0 10px; margin:0 6px; color:#B3B3B3; &.active{color:#000;} :hover{color:#000;} } 
@@ -203,10 +200,8 @@ const DDBtnbar02 = styled(FlexDiv)`
      button{ display:flex; align-items:center; justify-content:flex-start;  width:100%; height:58px; font-size:16px; font-weight:600; 
       border-bottom:1px solid #eef2f7;
       & i{ width:34px; height:34px; margin:0 8px; overflow:hidden; img{ width:100%; height:100%; } } 
-      & span{ margin-left:auto; } 
-
-      &:nth-last-child(01){ border-bottom:0px;}
-
+      & span{ margin-left:auto; }  
+      &:nth-last-child(01){ border-bottom:0px;} 
       &:hover{ background-color:#D9F5F5;}
      } 
 `
@@ -220,4 +215,8 @@ const NotificationSBX01 = styled(FlexDiv)`
   
   } 
 ` 
+
+const ABC = styled(FlexDiv)`
+  align-items:flex-start; justify-content:flex-start;
+  `  
 export default Header;

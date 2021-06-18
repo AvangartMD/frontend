@@ -249,7 +249,10 @@ class NFTPage extends Component {
                       <h4>Preview</h4>
                       <p>Your NFT look like that on Marketplace</p>
                     </NFTtitle>
-                    <NFTfourbox>
+
+               
+
+                    <NFTfourbox> 
                     <div className="NFT-home-box">
                       <NFTImgBX> <img src={NFT2} alt="" /> </NFTImgBX>
                       <div className="NFT-home-box-inner">
@@ -274,7 +277,9 @@ class NFTPage extends Component {
                         </UserImgName>
                       </div>
                     </div>
+                
                    </NFTfourbox>
+                   
                   </NFTRight>
                 </Sticky>
               </Gs.W275px>
@@ -486,8 +491,5 @@ const AlertNote = styled.div`
     background-color:#ffe5e9; border:1px solid #ff2a44; border-radius:10px; margin:0px 0px 40px; padding:17px 15px;
     p{ margin:0px; color:#000000; font-size:16px; font-weight:600; letter-spacing:-0.8px; }
 `;
-
-
-
-
+ 
 export default NFTPage;

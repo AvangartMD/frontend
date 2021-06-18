@@ -1,0 +1,338 @@
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { Link } from 'react-router-dom';
+import Media from './../Theme/media-breackpoint'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import Collapse from '@kunukn/react-collapse'
+import NftImg from '../Assets/images/nftBack.jpg';
+import SerICON from '../Assets/images/searchICO.svg';
+import FiltICON02 from '../Assets/images/sortICO.svg';
+import LoaderGif from '../Assets/images/loading.gif'
+import UserImg01 from '../Assets/images/userImg.png'
+class Creators extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen1: false,
+        }
+    }
+    render() {
+        return (
+            <>
+                <FilterMBX>
+                    <FilterLbx>
+                        <button className='active'>All</button> <button>Art</button> <button>Celebrity</button> <button>Sport</button>
+                    </FilterLbx>
+                    <FilterRbx>
+                        <FilterInputBX>
+                            <input placeholder='Search'></input>
+                            <SearchICO><img src={SerICON} alt="" /> </SearchICO>
+                        </FilterInputBX>
+                        <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '')}>
+                            <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
+                            <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
+                                <DDContainer>
+                                    <DDBTN01>by Name</DDBTN01>
+                                    <DDBTN01>by Follower</DDBTN01> 
+                                </DDContainer>
+                            </Collapse>
+                        </FilterBAR>
+                    </FilterRbx>
+                </FilterMBX>
+                <Gs.Container>
+                    <CreatorMBX>
+                    <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                        <CreatSBX01>
+                            <ImgBannerBX>
+                                <img src={NftImg} alt='' />
+                            </ImgBannerBX>
+                            <CreatSBX02>
+                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                <CretrTitle01>
+                                User Name
+                                <span>@username</span>
+                                </CretrTitle01>
+                                <CretrText01>
+                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                </CretrText01>
+
+                                <CretrInfoMBX>
+                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                </CretrInfoMBX>
+
+                                <CretrBTN01>See artworks</CretrBTN01>
+
+                            </CreatSBX02>
+                        </CreatSBX01>
+                    
+                    </CreatorMBX>
+                    <LoaderBX>
+                      <img src={LoaderGif} alt="" />
+                  </LoaderBX> 
+                </Gs.Container>
+            </>
+        );
+    }
+    toggle = index => {
+        let collapse = 'isOpen' + index;
+        this.setState(prevState => ({ [collapse]: !prevState[collapse] }));
+    };
+}
+// Common Style Div 
+const FlexDiv = styled.div`
+display: flex; align-items: center; justify-content:center; flex-wrap:wrap;
+`;
+const LoaderBX = styled(FlexDiv)`
+  width:100%;  margin:50px auto;  
+`
+const FilterMBX = styled(FlexDiv)`
+  width:100%; justify-content:space-between; max-width:1080px; margin:30px auto 0 auto;
+`
+const FilterLbx = styled(FlexDiv)`
+ width:45%; justify-content:flex-start; 
+ button{  display:inline-block;padding: 10px 25px; font-size:14px; font-weight:600; color:#000000; border-radius: 15px; background-color: #eef2f7; margin-right:8px;  
+  &.active{ background-color:#00babc; color:#fff; } 
+  :hover{ background-color:#00babc; color:#fff; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); }
+ } 
+`
+const FilterRbx = styled(FlexDiv)`
+ width:55%; justify-content:flex-end; 
+`
+const FilterInputBX = styled(FlexDiv)`
+  width:100%; max-width:220px; position:relative; margin-right: 9px; 
+  input{ background-color:#eef2f7; font-size:14px; border-radius:15px; border:1px solid transparent; outline:none; height:38px; width:100%; padding:3px 3px 3px 40px;
+  :focus{background-color:#fff; border:1px solid #00babc; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
+  } 
+`
+const SearchICO = styled(FlexDiv)`
+  width:21px; height:21px; position:absolute; left: 11px;  top: 9px;
+`
+const FilterICO = styled(FlexDiv)`
+  width:21px; height:21px; position:absolute; left: 11px;  top: 9px;
+`
+const FilterBAR = styled(FlexDiv)`
+   width:100%; max-width:220px; justify-content:flex-start; position:relative; background-color:#eef2f7; border-radius:15px; border:0px; outline:none; height:38px;padding:3px 3px 3px 40px; font-size:14px; color:#000000;  cursor: pointer; border:1px solid transparent;  
+  &.active, &:hover{ background-color:#fff; border:1px solid #00babc; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); }  
+`
+const DDContainer = styled(FlexDiv)` 
+    position:absolute; background-color:#fff; padding:15px; border-radius: 20px; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); top:calc(100% + 7px); width:100%; left:0;  overflow:hidden; z-index:100;   
+  & .md-checkbox:hover{ background-color:#D9F5F5;} 
+`
+const CreatorMBX = styled(FlexDiv)`
+ margin:40px -10px 40px -10px; justify-content:flex-start; overflow:hidden;
+`
+const CreatSBX01 = styled(FlexDiv)`
+    width:calc(25% - 20px); margin:10px 10px 20px 10px;  border:1px solid #dddddd; border-radius:10px; justify-content:flex-start; align-items:flex-start; 
+
+    :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
+`
+const ImgBannerBX = styled(FlexDiv)`
+ width:100%; height:100px; border-radius:10px 10px 0 0 ; overflow: hidden; 
+ img{ width:100%; height:100%;  object-fit:cover;} 
+`
+const CreatSBX02 = styled(FlexDiv)`
+    width:100%; padding:14px; flex-direction:column;
+`
+const UserImg = styled(FlexDiv)`
+    width:72px; height:72px; border-radius:36px; overflow:hidden; border:solid 1px #eef2f7; margin-top: -50px; 
+    img{ width:100%; height:100%; object-fit: cover;}
+` 
+const CretrTitle01 = styled.div`
+    display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; 
+    span{ display:block; text-align:center; font-size:12px; } 
+`
+const CretrText01 = styled.div`
+    font-size:10px; text-align:center; line-height:1.6; margin:10px 0 0 0; min-height:52px;
+
+`
+const CretrInfoMBX = styled(FlexDiv)`
+    width:100%; padding:12px; margin:32px 0 18px 0; border:1px solid #dddddd; border-radius: 10px;
+`
+const CretrInfoSBX01  = styled(FlexDiv)`
+    width:33.33%; color:#8e9194; font-size:10px;
+    span{ width:100%; font-weight:600; color:#000; font-size:16px; text-align:center}
+`                              
+const CretrBTN01 = styled.button`
+    color:#000; border:2px solid #000; display: inline-block; padding:11px 26px; border-radius:15px; font-size:14px; font-weight:600; margin-bottom:15px; 
+`
+
+const DDBTN01 = styled.button`
+    font-size:12px; color:#000; padding:4px 12px; width:100%; text-align:left; margin:4px 0;
+
+    :hover{ background-color:#D9F5F5;}
+`
+
+export default Creators;
