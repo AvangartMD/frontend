@@ -325,8 +325,8 @@ const NFTRight = styled.div`
           `;
 
 const NFTImgBX = styled(FlexDiv)`
-          width:100%; height:253px; object-fit: cover; border-radius: 10px 10px 0 0; overflow: hidden;
-          img{width:100%; height:100%; }
+          width:100%; height:253px; border-radius: 10px 10px 0 0; overflow: hidden;
+          img{width:100%; height:100%; object-fit: cover;}
           `;
 
 const NFTtitle = styled.div`

@@ -57,12 +57,13 @@ class Collections extends Component {
             </ViewallButton>
           </Gs.Container>
           <AdBanner2>
-            <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit</h2>
+            <Link to='/'><img src={AdBannerIMG} alt='' /></Link>
+            {/* <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
               at dui imperdiet, eleifend lacus gravida, accumsan arcu. Sed
               consequat arcu finibus augue, eu pellentesque quam fermentum.{' '}
-            </p>
+            </p> */}
             <button>Lorem ipsum</button>
           </AdBanner2>
         </HomeNFTs>
@@ -133,35 +134,16 @@ const CollectionSection = styled(FlexDiv)`
 `;
 
 const AdBanner2 = styled.div`
-  padding: 120px 0px;
-  margin: 120px 0px 0px;
-  text-align: center;
-  background: url(${AdBannerIMG}) no-repeat;
-  background-size: cover;
-  h2 {
-    color: #000000;
-    font-size: 42px;
-    letter-spacing: -2px;
-    font-weight: bold;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 30px;
-  }
-  p {
-    color: #000000;
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 50px;
-    :last-child {
-      margin-bottom: 0px;
-    }
+  height:540px;
+  width:100%;
+  position:relative;
+  a{
+    img{width: 100%; height: 100%; object-fit: cover;}
   }
   button {
+    position:absolute;
+    bottom:50px;
+    left:calc(50% - 95px);
     background-color: #f40058;
     color: #fff;
     font-size: 14px;

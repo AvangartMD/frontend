@@ -78,7 +78,7 @@ class TopNFT extends Component {
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
+                    <NFTImgBX><img className='main' src={NFT2} alt='' /></NFTImgBX>
                     <div className='NFT-home-box-inner'>
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
@@ -115,7 +115,7 @@ class TopNFT extends Component {
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
+                    <NFTImgBX><img className='main' src={NFT2} alt='' /></NFTImgBX>
                     <div className='NFT-home-box-inner'>
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
@@ -152,7 +152,7 @@ class TopNFT extends Component {
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
+                    <NFTImgBX><img className='main' src={NFT2} alt='' /></NFTImgBX>
                     <div className='NFT-home-box-inner'>
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
@@ -189,7 +189,7 @@ class TopNFT extends Component {
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
+                    <NFTImgBX><img className='main' src={NFT2} alt='' /></NFTImgBX>
                     <div className='NFT-home-box-inner'>
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
@@ -495,5 +495,8 @@ const ViewallButton = styled.div`
     }
   }
 `;
-
+const NFTImgBX = styled(FlexDiv)`
+          width:100%; height:253px; border-radius: 10px 10px 0 0; overflow: hidden;
+          img{width:100%; height:100%; object-fit: cover;}
+          `;
 export default TopNFT;
