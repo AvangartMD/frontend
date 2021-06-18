@@ -249,7 +249,7 @@ class NFTPage extends Component {
                         <h4>Preview</h4>
                         <p>Your NFT look like that on Marketplace</p>
                       </NFTtitle>
-                      <NFTfourbox>
+                      <NFTfourbox className="NFTNIFT">
                         <Gs.W25V2>
                           <Gs.TenpxGutter>
                             <div className="NFT-home-box">
@@ -348,13 +348,13 @@ const NFTfourbox = styled(FlexDiv)`
      }
           `;
 
-// Gs.W25V2 = styled.div` 
-//           width:100%;
-//         `;
+Gs.W25V2 = styled(Gs.W25V2)`
+        ${NFTfourbox}.NFTNIFT & { width:100%;}
+    `;
 
-// Gs.TenpxGutter = styled.div` 
-//         margin:0px;
-//       `;
+Gs.TenpxGutter = styled(Gs.TenpxGutter)`
+        ${NFTfourbox}.NFTNIFT & { margin:0px;}
+    `;
 
 const Edition = styled(FlexDiv)`
           justify-content:space-between; background-color:#eef2f7; border-radius:10px; padding:10px 15px; margin:0px 0px 20px;
