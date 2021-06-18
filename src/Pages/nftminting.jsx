@@ -504,7 +504,4 @@ const AlertNote = styled.div`
           p{margin:0px; color:#000000; font-size:16px; font-weight:600; letter-spacing:-0.8px; }
           `;
 
-
-
-
 export default NFTPage;
