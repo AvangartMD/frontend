@@ -348,13 +348,13 @@ const NFTfourbox = styled(FlexDiv)`
      }
           `;
 
-Gs.W25V2 = styled.div` 
-          width:100%;
-        `;
+// Gs.W25V2 = styled.div` 
+//           width:100%;
+//         `;
 
-Gs.TenpxGutter = styled.div` 
-        margin:0px;
-      `;
+// Gs.TenpxGutter = styled.div` 
+//         margin:0px;
+//       `;
 
 const Edition = styled(FlexDiv)`
           justify-content:space-between; background-color:#eef2f7; border-radius:10px; padding:10px 15px; margin:0px 0px 20px;
