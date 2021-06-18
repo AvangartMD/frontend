@@ -50,7 +50,7 @@ class Footer extends Component {
                     <FooterSSbx02>
                         <NavLink to="-"><FormattedMessage id = "Term_of_service" defaultMessage="Terms of Service" /></NavLink>
                         <NavLink to="-"><FormattedMessage id = "Privacy_policy" defaultMessage="Privacy Policy" /></NavLink>
-                        <NavLink to="-"><FormattedMessage id = "Become_a_creator" Cookie_policy="Cookie Policy" /></NavLink> 
+                        <NavLink to="-"><FormattedMessage id = "Cookie_policy" defaultMessage="Cookie Policy" /></NavLink> 
                     </FooterSSbx02>
                     <FooterSSbx02>
                         <NavLink to="-">Instagram</NavLink>

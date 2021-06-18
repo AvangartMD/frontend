@@ -4,13 +4,16 @@ import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import Carousel from 'react-multi-carousel';
 import { connect } from 'react-redux';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
 
 import LArrow from '../../Assets/images/banner-larrow.svg';
 import RArrow from '../../Assets/images/banner-rarrow.svg';
 
 import { actions } from '../../actions';
-import { Context } from '../wrapper'
+import { Context } from '../wrapper';
+import { expiryTime } from '../../config';
 
 
 const responsive = {
@@ -52,19 +55,32 @@ const CustomDot = ({ onClick, ...rest }) => {
 class BannerTab extends Component {
 
   static contextType = Context;
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  }
 
   constructor(props) {
     super(props);
+    const { cookies } = props;
     this.state = {
       loading: false,
-      locale: 'en'
+      banners: cookies.get('banners') || null,
     }
   }
 
   async componentDidMount() {
-    const { banners } = this.props;
-    if (!banners) {
-      this.props.getBanners() // fetch banner list
+    const { banners, cookies } = this.props
+    if (!this.state.banners && !banners) {
+        this.props.getBanners() // fetch banner list
+    } else {
+      this.props.setBanners(cookies.get('banners'))
+    }
+  }
+
+  componentDidUpdate(){
+    const { banners, cookies } = this.props
+    if (banners && !cookies.get('banners')) {
+      this.setCookie(banners) // set banners in cookie
     }
   }
 
@@ -81,6 +97,12 @@ class BannerTab extends Component {
         <a target='_blank' rel="noopener noreferrer"  href={banner.url}><img src={img} alt='' id={banner.id} /></a>
       </div>
     )
+  }
+
+  setCookie = (banners) => {
+    const { cookies } = this.props;
+    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    cookies.set('banners', banners, { path: '/', expires: expire });
   }
 
   render() {
@@ -167,6 +189,7 @@ const HomeBanner = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getBanners: () => dispatch(actions.fetchBanners()),
+    setBanners: (data) => dispatch({type: 'FETCHED_NFT_BANNERS', data: data})
   }
 }
 
@@ -176,4 +199,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(BannerTab);
+export default withCookies(connect(mapStateToProps, mapDipatchToProps)(BannerTab));
