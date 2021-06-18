@@ -56,16 +56,6 @@ class Collections extends Component {
               <button>View all collections</button>
             </ViewallButton>
           </Gs.Container>
-          <AdBanner2>
-            <Link to='/'><img src={AdBannerIMG} alt='' /></Link>
-            {/* <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              at dui imperdiet, eleifend lacus gravida, accumsan arcu. Sed
-              consequat arcu finibus augue, eu pellentesque quam fermentum.{' '}
-            </p> */}
-            <button>Lorem ipsum</button>
-          </AdBanner2>
         </HomeNFTs>
       </>
     );
@@ -130,31 +120,6 @@ const CollectionSection = styled(FlexDiv)`
   img {
     border-radius: 10px;
     border: 1px solid #dddddd;
-  }
-`;
-
-const AdBanner2 = styled.div`
-  height:540px;
-  width:100%;
-  position:relative;
-  a{
-    img{width: 100%; height: 100%; object-fit: cover;}
-  }
-  button {
-    position:absolute;
-    bottom:50px;
-    left:calc(50% - 95px);
-    background-color: #f40058;
-    color: #fff;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    border-radius: 15px;
-    width: 190px;
-    height: 44px;
-    :hover {
-      background-color: #000;
-    }
   }
 `;
 
