@@ -4,6 +4,7 @@
 import Home from './Pages/home';
 import NFTMinting from './Pages/nftminting';
 import MarketPlace from './Pages/marketplace'
+import Creators from './Pages/creators'
 
 
 var routes = [
@@ -23,6 +24,12 @@ var routes = [
         path: 'marketplace',
         name: 'NFT Minting',
         component: MarketPlace,
+        layout: '/',
+    },
+    {
+        path: 'creators',
+        name: 'NFT Minting',
+        component: Creators,
         layout: '/',
     },
     // {
