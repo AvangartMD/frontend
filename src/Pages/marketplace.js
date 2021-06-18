@@ -44,11 +44,11 @@ class MarketPlace extends Component {
               
               <FilterInputBX>
                 <input placeholder='Search'></input>
-                <SearchICO><img src={SerICON} /></SearchICO>
+                <SearchICO><img src={SerICON} alt="" /></SearchICO>
               </FilterInputBX>
 
               <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '') }>
-                <FilterICO><img src={FiltICON} /></FilterICO> Filter: Live auction
+                <FilterICO><img src={FiltICON} alt="" /></FilterICO> Filter: Live auction
 
 
                 <Collapse isOpen={this.state.isOpen1} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '') }> 

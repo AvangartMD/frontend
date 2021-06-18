@@ -16,7 +16,7 @@ import Gs from '../../Theme/globalStyles';
 
 
 class TopNFT extends Component {
-  
+
   render() {
     return (
       <>
@@ -75,7 +75,7 @@ class TopNFT extends Component {
               </div>
             </NFTfirstbox>
             <NFTfourbox>
-              <Gs.W25>
+              <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
                     <img className='main' src={NFT2} alt='' />
@@ -111,8 +111,8 @@ class TopNFT extends Component {
                     </div>
                   </div>
                 </Gs.TenpxGutter>
-              </Gs.W25>
-              <Gs.W25>
+              </Gs.W25V2>
+              <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
                     <img className='main' src={NFT2} alt='' />
@@ -148,8 +148,8 @@ class TopNFT extends Component {
                     </div>
                   </div>
                 </Gs.TenpxGutter>
-              </Gs.W25>
-              <Gs.W25>
+              </Gs.W25V2>
+              <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
                     <img className='main' src={NFT2} alt='' />
@@ -185,8 +185,8 @@ class TopNFT extends Component {
                     </div>
                   </div>
                 </Gs.TenpxGutter>
-              </Gs.W25>
-              <Gs.W25>
+              </Gs.W25V2>
+              <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className='NFT-home-box'>
                     <img className='main' src={NFT2} alt='' />
@@ -221,7 +221,7 @@ class TopNFT extends Component {
                     </div>
                   </div>
                 </Gs.TenpxGutter>
-              </Gs.W25>
+              </Gs.W25V2>
             </NFTfourbox>
             <ViewallButton>
               <button>View all auctions</button>
@@ -263,51 +263,6 @@ const HomeNFTs = styled.div`
         width: 10px;
         height: 10px;
         background: url(${RoundIcon}) no-repeat;
-      }
-    }
-  }
-  .star-title {
-    text-align: left;
-    margin-bottom: 18px;
-    h3 {
-      color: #000000;
-      font-size: 32px;
-      position: relative;
-      line-height: 32px;
-      margin: 0px;
-      padding-left: 20px;
-      letter-spacing: -1px;
-      :before {
-        content: '';
-        position: absolute;
-        left: 0px;
-        top: 12px;
-        width: 12px;
-        height: 12px;
-        background: url(${StarIcon}) no-repeat;
-      }
-    }
-  }
-  .heart-title {
-    border-bottom: 1px solid #dddddd;
-    text-align: left;
-    margin-bottom: 30px;
-    h3 {
-      color: #000000;
-      font-size: 32px;
-      position: relative;
-      line-height: 32px;
-      margin: 0px 0px 15px;
-      padding-left: 20px;
-      letter-spacing: -1px;
-      :before {
-        content: '';
-        position: absolute;
-        left: 0px;
-        top: 12px;
-        width: 12px;
-        height: 11px;
-        background: url(${HeartIcon}) no-repeat;
       }
     }
   }
@@ -443,7 +398,8 @@ const NFTfourbox = styled(FlexDiv)`
     border-radius: 10px;
     border: 1px solid #dddddd;
     .NFT-home-box-inner {
-      padding: 20px 15px;
+      :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
+      padding: 20px 15px; border-radius:10px;
       h4 {
         margin: 0px 0px 10px;
         font-size: 18px;
