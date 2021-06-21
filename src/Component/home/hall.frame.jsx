@@ -13,7 +13,7 @@ import Gs from '../../Theme/globalStyles';
 
 
 class HallOfFrame extends Component {
-  
+
   render() {
     return (
       <>
@@ -344,30 +344,6 @@ const HallofFameBox2 = styled(FlexDiv)`
 
 const HomeNFTs = styled.div`
   width: 100%;
-  margin-top: 120px;
-  .home-title {
-    border-bottom: 1px solid #dddddd;
-    text-align: left;
-    margin-bottom: 30px;
-    h3 {
-      color: #000000;
-      font-size: 32px;
-      position: relative;
-      line-height: 32px;
-      margin: 0px 0px 15px;
-      padding-left: 20px;
-      letter-spacing: -1px;
-      :before {
-        content: '';
-        position: absolute;
-        left: 0px;
-        top: 12px;
-        width: 10px;
-        height: 10px;
-        background: url(${RoundIcon}) no-repeat;
-      }
-    }
-  }
   .star-title {
     text-align: left;
     margin-bottom: 18px;
@@ -387,29 +363,6 @@ const HomeNFTs = styled.div`
         width: 12px;
         height: 12px;
         background: url(${StarIcon}) no-repeat;
-      }
-    }
-  }
-  .heart-title {
-    border-bottom: 1px solid #dddddd;
-    text-align: left;
-    margin-bottom: 30px;
-    h3 {
-      color: #000000;
-      font-size: 32px;
-      position: relative;
-      line-height: 32px;
-      margin: 0px 0px 15px;
-      padding-left: 20px;
-      letter-spacing: -1px;
-      :before {
-        content: '';
-        position: absolute;
-        left: 0px;
-        top: 12px;
-        width: 12px;
-        height: 11px;
-        background: url(${HeartIcon}) no-repeat;
       }
     }
   }

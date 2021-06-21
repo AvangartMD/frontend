@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Gs from '../Theme/globalStyles';
-import { Link } from 'react-router-dom';
-import Media from './../Theme/media-breackpoint';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
-import Collapse from '@kunukn/react-collapse';
+import React, { Component } from "react";
+import styled from "styled-components";
+import Gs from "../Theme/globalStyles";
+import { Link } from "react-router-dom";
+import Media from "./../Theme/media-breackpoint";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import Collapse from "@kunukn/react-collapse";
 
-import NFT2 from '../Assets/images/nft2.jpg';
-import UserImg from '../Assets/images/user-img.jpg';
-import HeartIcon from '../Assets/images/heart-icon.svg';
-import StarIcon from '../Assets/images/star-icon.svg';
-import RoundIcon from '../Assets/images/round-icon.svg';
-import AdBannerIMG from '../Assets/images/adbanner.jpg';
-import LArrow from '../Assets/images/banner-larrow.svg';
-import RArrow from '../Assets/images/banner-rarrow.svg';
-import SerICON from '../Assets/images/searchICO.svg';
-import FiltICON from '../Assets/images/filterICO.svg';
-import LoaderGif from '../Assets/images/loading.gif';
+import NFT2 from "../Assets/images/nft2.jpg";
+import UserImg from "../Assets/images/user-img.jpg";
+import HeartIcon from "../Assets/images/heart-icon.svg";
+import StarIcon from "../Assets/images/star-icon.svg";
+import RoundIcon from "../Assets/images/round-icon.svg";
+import AdBannerIMG from "../Assets/images/adbanner.jpg";
+import LArrow from "../Assets/images/banner-larrow.svg";
+import RArrow from "../Assets/images/banner-rarrow.svg";
+import SerICON from "../Assets/images/searchICO.svg";
+import FiltICON from "../Assets/images/filterICO.svg";
+import LoaderGif from "../Assets/images/loading.gif";
 
 class MarketPlace extends Component {
   constructor(props) {
@@ -33,69 +33,69 @@ class MarketPlace extends Component {
       <>
         <FilterMBX>
           <FilterLbx>
-            <button className='active'>All</button> <button>Art</button>{' '}
+            <button className="active">All</button> <button>Art</button>{" "}
             <button>Celebrity</button> <button>Sport</button>
           </FilterLbx>
           <FilterRbx>
             <FilterInputBX>
-              <input placeholder='Search'></input>
+              <input placeholder="Search"></input>
               <SearchICO>
-                <img src={SerICON} />
+                <img src={SerICON} alt="" />{" "}
               </SearchICO>
             </FilterInputBX>
 
             <FilterBAR
               onClick={() => this.toggle(1)}
-              className={this.state.isOpen1 ? 'active' : ''}
+              className={this.state.isOpen1 ? "active" : ""}
             >
               <FilterICO>
-                <img src={FiltICON} />
-              </FilterICO>{' '}
+                <img src={FiltICON} alt="" />
+              </FilterICO>{" "}
               Filter: Live auction
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
-                  'app__collapse collapse-css-transition  ' +
-                  (this.state.isOpen1 ? 'collapse-active' : '')
+                  "app__collapse collapse-css-transition  " +
+                  (this.state.isOpen1 ? "collapse-active" : "")
                 }
               >
                 <DDContainer>
-                  <div className='md-checkbox'>
+                  <div className="md-checkbox">
                     <input
-                      type='checkbox'
-                      id='vehicle1'
-                      name='vehicle1'
-                      value='Bike'
+                      type="checkbox"
+                      id="vehicle1"
+                      name="vehicle1"
+                      value="Bike"
                     />
-                    <label htmlFor='vehicle1'>All</label>
+                    <label htmlFor="vehicle1">All</label>
                   </div>
-                  <div className='md-checkbox'>
+                  <div className="md-checkbox">
                     <input
-                      type='checkbox'
-                      id='vehicle2'
-                      name='vehicle2'
+                      type="checkbox"
+                      id="vehicle2"
+                      name="vehicle2"
                       defaultChecked
-                      value='Bike'
+                      value="Bike"
                     />
-                    <label htmlFor='vehicle2'>Live auction</label>
+                    <label htmlFor="vehicle2">Live auction</label>
                   </div>
-                  <div className='md-checkbox'>
+                  <div className="md-checkbox">
                     <input
-                      type='checkbox'
-                      id='vehicle3'
-                      name='vehicle3'
-                      value='Bike'
+                      type="checkbox"
+                      id="vehicle3"
+                      name="vehicle3"
+                      value="Bike"
                     />
-                    <label htmlFor='vehicle3'>Buy now</label>
+                    <label htmlFor="vehicle3">Buy now</label>
                   </div>
-                  <div className='md-checkbox'>
+                  <div className="md-checkbox">
                     <input
-                      type='checkbox'
-                      id='vehicle4'
-                      name='vehicle4'
-                      value='Bike'
+                      type="checkbox"
+                      id="vehicle4"
+                      name="vehicle4"
+                      value="Bike"
                     />
-                    <label htmlFor='vehicle4'>Sold</label>
+                    <label htmlFor="vehicle4">Sold</label>
                   </div>
                 </DDContainer>
               </Collapse>
@@ -107,12 +107,12 @@ class MarketPlace extends Component {
             <NFTfourbox>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -121,24 +121,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -147,12 +147,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -161,24 +161,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -187,12 +187,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -201,24 +201,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -227,12 +227,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -241,24 +241,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -267,12 +267,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -281,24 +281,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -307,12 +307,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -321,24 +321,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -347,12 +347,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -361,24 +361,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -387,12 +387,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -401,24 +401,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -427,12 +427,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -441,24 +441,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -467,12 +467,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -481,24 +481,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -507,12 +507,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -521,24 +521,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -547,12 +547,12 @@ class MarketPlace extends Component {
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
+                  <div className="NFT-home-box">
                     <NFTImgBX>
-                      {' '}
-                      <img src={NFT2} alt='' />{' '}
+                      {" "}
+                      <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
-                    <div className='NFT-home-box-inner'>
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -561,24 +561,24 @@ class MarketPlace extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -588,7 +588,7 @@ class MarketPlace extends Component {
             </NFTfourbox>
 
             <LoaderBX>
-              <img src={LoaderGif} alt='' />
+              <img src={LoaderGif} alt="" />
             </LoaderBX>
           </Gs.Container>
         </HomeNFTs>
@@ -596,7 +596,7 @@ class MarketPlace extends Component {
     );
   }
   toggle = (index) => {
-    let collapse = 'isOpen' + index;
+    let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -661,7 +661,7 @@ const HomeBanner = styled.div`
         color: #000;
       }
       :before {
-        content: '0';
+        content: "0";
         position: absolute;
         left: 0px;
       }
@@ -685,7 +685,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -707,7 +707,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -730,7 +730,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -857,58 +857,28 @@ const UserImgName = styled(FlexDiv)`
   }
 `;
 
-const NFTfourbox = styled(FlexDiv)`
-  flex-wrap: wrap;
-  margin: 0px -10px 50px;
-  .row {
-    margin: 0px -10px;
-  }
-  img.main {
-    width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  .NFT-home-box {
-    border-radius: 10px;
-    border: 1px solid #dddddd;
-    .NFT-home-box-inner {
-      padding: 20px 15px;
-      h4 {
-        margin: 0px 0px 10px;
-        font-size: 18px;
-        color: #000000;
-        font-weight: 600;
-        line-height: normal;
-        letter-spacing: -0.67px;
-      }
-      .edition2 {
-        justify-content: flex-start;
-        padding: 10px 15px;
-        margin-bottom: 20px;
-        .ed-box {
-          margin-right: 20px;
-          p {
-            font-size: 10px;
-            letter-spacing: -0.5px;
-            margin: 0px;
-          }
-          h3 {
-            font-size: 16px;
-            letter-spacing: -0.71px;
-          }
-          button {
-            font-size: 10px;
-            color: #000;
-            letter-spacing: -0.36px;
-            font-weight: 600;
-            line-height: normal;
-            padding: 10px 17px;
-            border-radius: 13px;
-            border: 1px solid #000000;
-            :hover {
-              background-color: #d121d6;
-              color: #fff;
-              border-color: #d121d6;
+const NFTfourbox = styled(FlexDiv)`  
+    flex-wrap:wrap; margin:0px -10px 50px; 
+    .row{margin:0px -10px;}
+    img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
+        .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
+          :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);} 
+          .NFT-home-box-inner{ padding:20px 15px;
+            h4{margin:0px 0px 10px; font-size:18px; color:#000000; font-weight:600; line-height:normal; letter-spacing:-0.67px;}
+            .edition2
+            {
+              justify-content:flex-start; padding:10px 15px; margin-bottom:20px;
+              .ed-box{
+                margin-right:20px;
+                p{font-size:10px; letter-spacing:-0.5px; margin:0px;}
+                h3{font-size:16px; letter-spacing:-0.71px;}
+                button{font-size:10px; color:#000; letter-spacing:-0.36px; font-weight:600; line-height:normal; padding:10px 17px; border-radius:13px; border:1px solid #000000;
+                  :hover{background-color:#d121d6; color:#fff; border-color:#d121d6;}
+                }
+              }
+            }
+            .JCSB{justify-content:space-between;
+              .ed-box{margin-right:0px;}
             }
           }
         }
@@ -926,12 +896,12 @@ const NFTfourbox = styled(FlexDiv)`
 const NFTImgBX = styled(FlexDiv)`
   width: 100%;
   height: 253px;
-  object-fit: cover;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -1273,6 +1243,10 @@ const DDContainer = styled(FlexDiv)`
   left: 0;
   overflow: hidden;
   z-index: 100;
+
+  .md-checkbox:hover {
+    background-color: #d9f5f5;
+  }
 `;
 
 export default MarketPlace;
