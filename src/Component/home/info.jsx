@@ -66,7 +66,6 @@ class Info extends Component {
 // Common Style Div
 const HomeNFTs = styled.div`
   width: 100%;
-  margin-top: 120px;
   .home-title {
     border-bottom: 1px solid #dddddd;
     text-align: left;
