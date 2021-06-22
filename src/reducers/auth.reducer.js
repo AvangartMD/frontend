@@ -8,6 +8,15 @@ export function fetchDashboardBanners(state = null, action) {
     }
 }
 
+export function fetchDashboardInfo(state = null, action) {
+  switch (action.type) {
+    case 'FETCHED_INFO':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 export function fetchDashboard(state = null, action) {
   switch (action.type) {
     case 'FETCHED_DASHBOARD':
