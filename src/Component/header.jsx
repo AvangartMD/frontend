@@ -16,6 +16,7 @@ import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
 import Login from "./Modals/login";
 import { web3 } from "../web3";
+import BecomeCreator from "./become-a-creator";
 
 class Header extends Component {
   constructor(props) {
