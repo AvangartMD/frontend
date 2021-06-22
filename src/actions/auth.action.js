@@ -2,6 +2,7 @@ import { services } from '../services';
 
 export const authActions = {
   fetchBanners,
+  fetcInfo,
   fetchDashboardConfig,
 };
 
@@ -23,6 +24,19 @@ function fetchBanners() {
         }
       });
     };
+}
+
+function fetcInfo() {
+  return (dispatch) => {
+    const response = services.get(`/admin/info/list`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData('FETCHED_INFO', promise.data.data));
+      } else {
+        // console.log('error in fetcInfo actions');
+      }
+    });
+  };
 }
 
 function fetchDashboardConfig() {
