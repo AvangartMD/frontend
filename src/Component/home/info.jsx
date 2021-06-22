@@ -3,34 +3,56 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
 
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
 import RoundIcon from '../../Assets/images/round-icon.svg';
-import AdBannerIMG from '../../Assets/images/adbanner.jpg';
 
 import { actions } from '../../actions';
-import { Context } from '../wrapper'
+import { Context } from '../wrapper';
+import { expiryTime } from '../../config';
+
 
 
 class Info extends Component {
 
   static contextType = Context;
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  }
 
   constructor(props) {
     super(props);
+    const { cookies } = props;
     this.state = {
-      loading: false
+      loading: false,
+      infos: cookies.get('infos') || null,
     }
   }
 
   async componentDidMount() {
-    const { infos } = this.props;
-    if (!infos) {
-      // this.props.getInfo() // fetch info list
+    const { infos, cookies } = this.props;
+    if (!this.state.infos && !infos) {
+      this.props.getInfo() // fetch info list
+    } else {
+      this.props.setInfos(cookies.get('infos'))
     }
+  }
+
+  componentDidUpdate(){
+    const { infos, cookies } = this.props;
+    if (infos && !cookies.get('infos')) {
+      this.setCookie(infos) // set infos in cookie
+    }
+  }
+
+  setCookie = (infos) => {
+    const { cookies } = this.props;
+    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    cookies.set('infos', infos, { path: '/', expires: expire });
   }
   
   renderedInfo(info, index) {
@@ -42,23 +64,20 @@ class Info extends Component {
       img = info.banner.en
     }
     return (
-      <div className='item'>
-        <a target='_blank' rel="noopener noreferrer"  href={info.url}><img src={img} alt='' id={info.id} /></a>
+      <AdBanner2 key={index}>
+        <a target='_blank' rel="noopener noreferrer"  href={info.url}><img src={img} alt='' /></a>
         <button onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
-      </div>
+      </AdBanner2>
     )
   }
 
   render() {
     return (
-      <>
-        <HomeNFTs>
-          <AdBanner2>
-            <Link to='/'><img src={AdBannerIMG} alt='' /></Link>
-            <button>Lorem ipsum</button>
-          </AdBanner2>
-        </HomeNFTs>
-      </>
+      <HomeNFTs>
+        {this.props.infos?
+            this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
+          :'loading..'}
+      </HomeNFTs>
     );
   }
 }
@@ -162,6 +181,7 @@ const AdBanner2 = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getInfo: () => dispatch(actions.fetcInfo()),
+    setInfos: (data) => dispatch({type: 'FETCHED_INFO', data: data})
   }
 }
 
@@ -171,4 +191,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(Info);
+export default withCookies(connect(mapStateToProps, mapDipatchToProps)(Info));
