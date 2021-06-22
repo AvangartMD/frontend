@@ -10,6 +10,7 @@ import Connect from '../Component/connect'
 import LogoImg from '../Assets/images/logo.png'
 import NotifiIcon from '../Assets/images/notification.svg'
 import UserIcon from '../Assets/images/userIcon.png'
+import UserIcon2 from '../Assets/images/userImg.png'
 import RightArrow from '../Assets/images/rightArrow.svg'
 import DisconnectICO from '../Assets/images/icon-disconnect.svg'
 import Language from './lang.switch'
@@ -50,13 +51,13 @@ class Header extends Component {
               </HeadSbx01>
 
               {/* without Login  */}
-              <HeadSbx01>
+              {/* <HeadSbx01>
                 <AvBTN01  onClick={() => this.toggle(4)}><FormattedMessage id = "Login" defaultMessage="Login" /></AvBTN01>
                 <Language header={true} />
-              </HeadSbx01> 
+              </HeadSbx01>  */}
 
               {/* with Login  */}
-              {/* <HeadSbx01>
+               <HeadSbx01>
                 <AvBTN02 className="colorBTN">Become a Creator</AvBTN02> 
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>
@@ -83,13 +84,13 @@ class Header extends Component {
                 <AccountBX onClick={() => this.toggle(2)}>
                   <span>0.00 BNB
                   <span>0000000000000</span>
-                  </span>  <i> <img src={UserIcon} alt="" /></i>
+                  </span>  <i> <img src={UserIcon2} alt="" /></i>
 
                     <Collapse isOpen={this.state.isOpen2} className={ 'app__collapse collapse-css-transition  ' + (this.state.isOpen2 ? 'collapse-active' : '') }> 
                   <DDContainer className="ver2">
                     <DDBtnbar02>
                         <button>
-                        <i> <img src={UserIcon} alt="" /></i> View your profile <span> <img src={RightArrow} alt="" /></span>
+                        <i> <img src={UserIcon2} alt="" /></i> View your profile <span> <img src={RightArrow} alt="" /></span>
                         </button>
                         <button>
                         <i> <img src={DisconnectICO} alt="" /></i>Disconnect <span> <img src={RightArrow} alt="" /></span>
@@ -100,7 +101,7 @@ class Header extends Component {
                   </Collapse>
 
                 </AccountBX>
-              </HeadSbx01>  */}
+              </HeadSbx01>   
           </HeadMBX02>
 
 
@@ -128,7 +129,7 @@ display: flex; align-items: center; justify-content:center; flex-wrap:wrap;
 `;
 
 const HeadMBX = styled(FlexDiv)`
-    width:100%; min-height:100px;  
+    width:100%; min-height:100px;  position: absolute; z-index:100;
 ` 
 const HeadMBX02 = styled(FlexDiv)`
     width:100%; max-width:1240px; margin:0 auto;
@@ -181,7 +182,7 @@ const AccountBX = styled(FlexDiv)`
 
     &:hover{ box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);   border: solid 1px #eef2f7;}
 
-   & i{ width:50px; height:50px; overflow:hidden; img{ width:100%; height:100%;   } }  
+   & i{ width:50px; height:50px; border-radius:30px; overflow:hidden; img{ width:100%; height:100%; object-fit: cover;  } }  
    & span{font-size: 14px; font-weight: 600; color:#000; display:block; text-align:right; line-height:16px; padding-right:8px;
       span{ font-size:10px; color:#b3b3b3; width:100%;  padding-right:0;}
      }

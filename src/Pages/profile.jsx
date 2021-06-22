@@ -20,8 +20,10 @@ import RArrow from "../Assets/images/banner-rarrow.svg";
 import SerICON from "../Assets/images/searchICO.svg";
 import FiltICON from "../Assets/images/filterICO.svg";
 import LoaderGif from "../Assets/images/loading.gif";
+import ProfielBack from '../Assets/images/profile-back.jpg' 
+import UserImg01 from '../Assets/images/userImg.png'
 
-class MarketPlace extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +32,43 @@ class MarketPlace extends Component {
   }
   render() {
     return (
-      <Gs.MainSection>
+      <>
+        <ProMBannerBX style={{backgroundImage:`url(${ProfielBack})`}}>
+
+            <ProMBX01>
+                <ProSBX01>
+                    <UserImgBX>
+                        <UserImgSB>
+                            <img src={UserImg01} alt="" />
+                        </UserImgSB>
+                    </UserImgBX>
+                    <UserDetailBX>
+                        <UserDTitle01>
+                        User Name
+                        <span>@username</span>
+                        </UserDTitle01>
+                        <UserDText01>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                        </UserDText01>
+
+                    </UserDetailBX>
+                </ProSBX01>
+
+                <ProSBX02>
+                    2
+                </ProSBX02> 
+            </ProMBX01>
+
+        </ProMBannerBX>
+
+
+
+
+
+
+
+
+
         <FilterMBX>
           <FilterLbx>
             <button className="active">All</button> <button>Art</button>{" "}
@@ -592,7 +630,7 @@ class MarketPlace extends Component {
             </LoaderBX>
           </Gs.Container>
         </HomeNFTs>
-      </Gs.MainSection>
+      </>
     );
   }
   toggle = (index) => {
@@ -607,68 +645,59 @@ const FlexDiv = styled.div`
   justify-content: center;
   flex-wrap: wrap;
 `;
+
+const ProMBannerBX = styled(FlexDiv)`
+    width: 100%; height:300px; margin-bottom:230px; background-size: cover; background-position:50% 50%; position:relative;
+`
+const ProMBX01 = styled(FlexDiv)`
+    width: 100%; max-width:1160px; background-color:#fff; padding:40px; border-radius:40px; min-height:315px; margin-bottom: -291px;
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1); align-items: flex-start;
+` 
+const ProSBX01 = styled(FlexDiv)`
+    width:50%; justify-content:flex-start; align-items: flex-start;
+`;
+
+const UserImgBX = styled(FlexDiv)`
+    width:142px;  justify-content:flex-start;
+`
+const UserImgSB = styled.div`
+    width:122px; height:122px; border-radius:62px; overflow:hidden; border:1px solid #efecf0;
+    img { width:100%; height:100%; object-fit: cover;}
+`
+const UserDetailBX = styled(FlexDiv)`
+    justify-content:flex-start; flex-direction:column; width:calc(100% - 142px);
+`
+const UserDTitle01 = styled.div`
+    font-size:22px; font-weight:600; color:#000000; width:100%; margin-top:19px; margin-bottom:18px;
+    span{ font-size:16px; display:block; width:100%; margin-top:6px;}
+
+`
+const UserDText01 = styled.div`
+    font-size:12px; font-weight:500; color:#000000; 
+
+`
+
+
+const ProSBX02 = styled(FlexDiv)`
+    width:50%; justify-content:flex-end;   
+`;
+
+
+
+
+
+
+
+
+
+
+
+
+
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
-`;
-const HomeBanner = styled.div`
-  height: 660px;
-  width: 100%;
-  .item {
-    img {
-      width: 100%;
-    }
-  }
-  .react-multiple-carousel__arrow {
-    background: transparent;
-    min-width: 20px;
-    min-height: 20px;
-    padding: 0px;
-    border-radius: 0px;
-    :hover {
-      background: transparent;
-    }
-  }
-  .react-multiple-carousel__arrow--left::before {
-    background: url(${LArrow}) no-repeat;
-    color: transparent;
-  }
-  .react-multiple-carousel__arrow--right::before {
-    background: url(${RArrow}) no-repeat;
-    color: transparent;
-  }
-  .react-multiple-carousel__arrow--left {
-    left: calc(42.8% + 1px);
-    bottom: 33px;
-  }
-  .react-multiple-carousel__arrow--right {
-    right: calc(42.8% + 1px);
-    bottom: 33px;
-  }
-  .react-multi-carousel-dot-list {
-    background-color: rgba(255, 255, 255, 0.85);
-    width: 320px;
-    height: 52px;
-    border-radius: 20px;
-    margin: 0 auto 20px;
-    button {
-      position: relative;
-      margin: 0px 10px;
-      padding: 0px 0px 0px 10px;
-      font-size: 14px;
-      color: rgb(0 0 0 / 20%);
-      &.active {
-        color: #000;
-      }
-      :before {
-        content: "0";
-        position: absolute;
-        left: 0px;
-      }
-    }
-  }
-`;
-
+`; 
 const HomeNFTs = styled.div`
   width: 100%;
   margin-top: 40px;
@@ -1249,4 +1278,4 @@ const DDContainer = styled(FlexDiv)`
   }
 `;
 
-export default MarketPlace;
+export default Profile;

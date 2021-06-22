@@ -151,7 +151,7 @@ class NFTPage extends Component {
     const nftObj = this.state.nftObj;
     console.log(this.state.nftObj);
     return (
-      <>
+      <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
             <NFTminting>
@@ -595,7 +595,7 @@ class NFTPage extends Component {
         >
           <Connect toggle={this.toggle} />
         </Collapse>
-      </>
+      </Gs.MainSection>
     );
   }
   toggle = (index) => {

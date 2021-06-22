@@ -18,7 +18,6 @@ import HeartIcon from '../Assets/images/heart-icon.svg';
 import StarIcon from '../Assets/images/star-icon.svg';
 import RoundIcon from '../Assets/images/round-icon.svg';
 import AdBannerIMG from '../Assets/images/adbanner.jpg';
-
 import LArrow from '../Assets/images/banner-larrow.svg';
 import RArrow from '../Assets/images/banner-rarrow.svg';
 

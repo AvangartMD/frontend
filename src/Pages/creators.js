@@ -22,7 +22,7 @@ class Creators extends Component {
     }
     render() {
         return (
-            <>
+            <Gs.MainSection>
                 <FilterMBX>
                     <FilterLbx>
                         <button className='active'>All</button> <button>Art</button> <button>Celebrity</button> <button>Sport</button>
@@ -243,7 +243,7 @@ class Creators extends Component {
                       <img src={LoaderGif} alt="" />
                   </LoaderBX> 
                 </Gs.Container>
-            </>
+            </Gs.MainSection>
         );
     }
     toggle = index => {
