@@ -4,6 +4,7 @@ import Gs from "./../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import Media from "./../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
+import { Link } from "react-router-dom";
 
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import WalletICO01 from "../Assets/images/walletICO-01.png";
@@ -25,41 +26,30 @@ class Connect extends Component {
         <BlackWrap>
           <WhiteBX01>
             <CloseBTN className="ani-1" onClick={() => this.props.toggle(4)}>
-              {" "}
-              <img src={CloseBTN01} alt="" />{" "}
+              <img src={CloseBTN01} alt="" />
             </CloseBTN>
-            <OnbTitle01>Connect your wallet</OnbTitle01>
-            <OnbText01>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut
-              sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies
-              urna sed lectus pulvinar, at iaculis ipsum cursus.
-            </OnbText01>
-            <OnBTNBar>
-              <button>
-                {" "}
-                <i>
-                  <img src={WalletICO01} alt />
-                </i>{" "}
-                MetaMask{" "}
-              </button>
-              <button>
-                {" "}
-                <i>
-                  <img src={WalletICO02} alt />
-                </i>{" "}
-                TrustWallet{" "}
-              </button>
-            </OnBTNBar>
+
+            {/* First Popup---------------                 
+                  <OnbTitle01>Connect your wallet</OnbTitle01>
+                  <OnbText01>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</OnbText01>
+
+                  <OnBTNBar>
+                    <button> <i><img src={WalletICO01} alt="" /></i> MetaMask </button>
+                    <button> <i><img src={WalletICO02} alt="" /></i> TrustWallet </button> 
+                  </OnBTNBar>
+              */}
             {/*   Second Popup---------------
                   <OnbTitle01>Attention!</OnbTitle01>
                   <OnbText01>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</OnbText01> 
               */}
-            {/* <OnbTitle01 className="v2">
+
+            <OnbTitle01 className="v2">
               Please follow the instructions on your wallet
-            </OnbTitle01> */}
-            {/* <LoaderBX>
+            </OnbTitle01>
+
+            <LoaderBX>
               <img src={LoaderGif} alt="" />
-            </LoaderBX> */}
+            </LoaderBX>
           </WhiteBX01>
         </BlackWrap>
       </>
@@ -136,7 +126,7 @@ const BlackWrap = styled(FlexDiv)`
   top: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 101;
+  z-index: 1011;
   backdrop-filter: blur(2px);
 `;
 const WhiteBX01 = styled(FlexDiv)`
@@ -159,6 +149,7 @@ const CloseBTN = styled.button`
   top: 27px;
   padding: 0;
   margin: 0px;
+  z-index: 9;
   :hover {
     transform: rotate(90deg);
   }

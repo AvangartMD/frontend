@@ -252,6 +252,7 @@ class Header extends Component {
             error={error}
             refreshStates={this.refreshStates}
           />
+          {/* <BecomeCreator toggle={this.toggle} /> */}
         </Collapse>
       </>
     );
