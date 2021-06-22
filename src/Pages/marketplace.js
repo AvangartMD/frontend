@@ -553,9 +553,7 @@ class MarketPlace extends Component {
                       <img src={NFT2} alt="" />{" "}
                     </NFTImgBX>
                     <div className="NFT-home-box-inner">
-                      <h4>
-                        Artwork name / title dolor lorem ipsum sit adipiscing
-                      </h4>
+                      <h4>Artwork name / title dolor lorem ipsum sit adipiscing</h4> 
                       <CollectionBar>
                         <p>
                           25 <span>of 2500</span>
