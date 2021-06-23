@@ -28,7 +28,6 @@ class Connect extends Component {
             <CloseBTN className="ani-1" onClick={() => this.props.toggle(4)}>
               <img src={CloseBTN01} alt="" />
             </CloseBTN>
-
             {/* First Popup---------------                 
                   <OnbTitle01>Connect your wallet</OnbTitle01>
                   <OnbText01>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</OnbText01>
@@ -38,6 +37,7 @@ class Connect extends Component {
                     <button> <i><img src={WalletICO02} alt="" /></i> TrustWallet </button> 
                   </OnBTNBar>
               */}
+
             {/*   Second Popup---------------
                   <OnbTitle01>Attention!</OnbTitle01>
                   <OnbText01>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</OnbText01> 
@@ -46,7 +46,6 @@ class Connect extends Component {
             <OnbTitle01 className="v2">
               Please follow the instructions on your wallet
             </OnbTitle01>
-
             <LoaderBX>
               <img src={LoaderGif} alt="" />
             </LoaderBX>

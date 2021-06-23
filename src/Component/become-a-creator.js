@@ -13,7 +13,7 @@ import Celebrity from "../Assets/images/icon-set-celebrity.svg";
 
 import LoaderGif from "../Assets/images/loading.gif";
 
-class Connect extends Component {
+class BecomeCreator extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -393,4 +393,4 @@ const CustomCheckbox1 = styled(FlexDiv)`
     border: 1px solid #00babc;
   }
 `;
-export default Connect;
+export default BecomeCreator;

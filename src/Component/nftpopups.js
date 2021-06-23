@@ -11,7 +11,7 @@ import WalletICO02 from "../Assets/images/walletICO-02.png";
 
 import LoaderGif from "../Assets/images/loading.gif";
 
-class Connect extends Component {
+class NFTModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -346,4 +346,4 @@ const CreateItemButton = styled.div`
     }
   }
 `;
-export default Connect;
+export default NFTModal;

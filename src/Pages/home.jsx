@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-
+import Gs from '../Theme/globalStyles';
 import Banner from '../Component/home/banner';
 import TopNFT from '../Component/home/topNFT';
 import HallOfFrame from '../Component/home/hall.frame';
@@ -53,7 +53,7 @@ class Home extends React.Component {
 
     render() {
         return(
-            <>
+            <Gs.MainSection>
                 {this.props.dashboard?
                     this.props.dashboard.map((data, index)=>{
                         if (data.name==='Banner' && data.isActive) {
@@ -71,7 +71,7 @@ class Home extends React.Component {
                         }
                     })
                 :'loading'}
-            </>
+            </Gs.MainSection>
         )
     }
 }

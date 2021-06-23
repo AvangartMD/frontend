@@ -6,7 +6,7 @@ import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
-import Connect from "../Component/nftpopups";
+import NFTModal from "../Component/nftpopups";
 
 import NFT2 from "../Assets/images/nft2.jpg";
 import UserImg from "../Assets/images/user-img.jpg";
@@ -160,7 +160,7 @@ class NFTPage extends Component {
     const nftObj = this.state.nftObj;
     console.log(this.state.nftObj);
     return (
-      <>
+      <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
             <NFTminting>
@@ -583,9 +583,9 @@ class NFTPage extends Component {
             "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
           }
         >
-          <Connect toggle={this.toggle} />
+          <NFTModal toggle={this.toggle} />
         </Collapse>
-      </>
+      </Gs.MainSection>
     );
   }
   toggle = (index) => {

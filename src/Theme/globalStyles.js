@@ -15,6 +15,9 @@ button{  background:transparent; outline:none; border:0;   }
 .mb-0{ margin-bottom:0 !important;}
  
 `; 
+Gs.MainSection = styled.div` 
+  margin:100px auto 0 auto; width: 100%;  
+`; 
 Gs.Container = styled.div` 
   margin:0 auto; width: 100%; max-width:1080px; 
 `; 
