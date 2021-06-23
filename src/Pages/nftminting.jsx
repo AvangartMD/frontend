@@ -6,7 +6,7 @@ import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
-import Connect from "../Component/nftpopups";
+import NFTModal from "../Component/nftpopups";
 
 import NFT2 from "../Assets/images/nft2.jpg";
 import UserImg from "../Assets/images/user-img.jpg";
@@ -46,8 +46,18 @@ class NFTPage extends Component {
   }
   async mintNFT() {
     const { web3Data, nftContractInstance, newNFTURI } = this.state;
+    // uint256 _editions, (no of Editions)
+    //     string memory _tokenURI, (NFT image code)
+    //     address _creator,
+    //     address _coCreator,
+    //     uint256 _creatorPercent,
+    //     uint256 _coCreatorPercent,
+    //     Type _saleType, (0 for Buy now and 1 for Auction)
+    //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
+    //     uint256 _pricePerNFT, (price for each edition of the NFT)
+    //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
     await nftContractInstance.methods
-      .mintEditionToken(newNFTURI)
+      .mintToken(newNFTURI)
       .send({ from: web3Data.accounts[0] })
       .on("transactionHash", (hash) => {
         // this.onTransactionHash(hash);
@@ -140,14 +150,13 @@ class NFTPage extends Component {
       console.log("dataObj", dataObj);
       // const result = defiActions.addNFT(dataObj);
     });
-    // let original = await services.uploadFileOnBucket(nftFile, 'nft');
-    // let compressed = await services.uploadFileOnBucket(
-    //   compressedNFTFile,
-    //   'compressedNft',
-    //   true
-    // );
   }
   render() {
+    function pointSelect(curr) {
+      let hash = window.location.hash.substr(1);
+      if (hash == curr) return "active";
+      else return "inactive";
+    }
     const nftObj = this.state.nftObj;
     console.log(this.state.nftObj);
     return (
@@ -158,26 +167,48 @@ class NFTPage extends Component {
               <Gs.W200px>
                 <Sticky>
                   <NFTLeft>
-                    <h4>Item Description</h4>
-                    <Link to="nftminting#creator" smooth={true}>
-                      Co-Creator
-                    </Link>
-                    <Link to="nftminting#collection" smooth={true}>
-                      Category & Collection
-                    </Link>
-                    <Link to="nftminting#marketplace" smooth={true}>
-                      Marketplace Settings
-                    </Link>
-                    <Link to="nftminting#unlockable" smooth={true}>
-                      Unlockable Content
+                    <Link
+                      className={pointSelect("itemDecription")}
+                      to="nftminting#itemDecription"
+                      smooth={true}
+                    >
+                      Item Description
                     </Link>
                     <Link
+                      className={pointSelect("creator")}
+                      to="nftminting#creator"
+                      smooth={true}
+                    >
+                      Co-Creator
+                    </Link>
+                    <Link
+                      className={pointSelect("collection")}
+                      to="nftminting#collection"
+                      smooth={true}
+                    >
+                      Category & Collection
+                    </Link>
+                    <Link
+                      className={pointSelect("marketplace")}
+                      to="nftminting#marketplace"
+                      smooth={true}
+                    >
+                      Marketplace Settings
+                    </Link>
+                    <Link
+                      className={pointSelect("unlockable")}
+                      to="nftminting#unlockable"
+                      smooth={true}
+                    >
+                      Unlockable Content
+                    </Link>
+                    {/* <Link
                       to="nftminting#admins"
                       className="AdminLink"
                       smooth={true}
                     >
                       for Admins
-                    </Link>
+                    </Link> */}
                   </NFTLeft>
                 </Sticky>
               </Gs.W200px>
@@ -193,7 +224,7 @@ class NFTPage extends Component {
                 </Gs.W605px>
                 <Gs.W605px>
                   <NFTMiddle>
-                    <NFTtitle>
+                    <NFTtitle id="itemDecription">
                       <h4>Item Description</h4>
                       <p className="mb-30">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -462,20 +493,20 @@ class NFTPage extends Component {
                         />
                       </NFTForm>
 
-                      <NFTtitle id="admins">
+                      {/* <NFTtitle id="admins">
                         <h4 className="mt-30 text-till-blue">for Admins</h4>
                         <p className="mb-30">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit.
                         </p>
-                      </NFTtitle>
-                      <NFTForm>
+                      </NFTtitle> */}
+                      {/* <NFTForm>
                         <div className="label-line">
                           <label>Wallet Address</label>
                         </div>
                         <input type="text" placeholder="Type something…" />
-                      </NFTForm>
-                      <NFTForm>
+                      </NFTForm> */}
+                      {/* <NFTForm>
                         <div className="label-line">
                           <label>First Hand Fee</label>
                         </div>
@@ -483,7 +514,7 @@ class NFTPage extends Component {
                           <input type="text" placeholder="Type something…" />
                           <i>%</i>
                         </div>
-                      </NFTForm>
+                      </NFTForm> */}
                       <CreateItemButton>
                         <button type="submit">Create Item</button>
                       </CreateItemButton>
@@ -552,7 +583,7 @@ class NFTPage extends Component {
             "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
           }
         >
-          <Connect toggle={this.toggle} />
+          <NFTModal toggle={this.toggle} />
         </Collapse>
       </Gs.MainSection>
     );
@@ -588,7 +619,7 @@ const NFTminting = styled(FlexDiv)`
 
 const NFTLeft = styled.div`
   margin: 0px 10px;
-  h4 {
+  .active {
     color: #000000;
     font-size: 18px;
     font-weight: 700;
@@ -634,7 +665,7 @@ const NFTRight = styled.div`
 // `;
 
 const NFTtitle = styled.div`
-  h4 {
+  .h4 {
     color: #000000;
     font-size: 24px;
     font-weight: 700;

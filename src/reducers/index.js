@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
-import { fetchNonce, fetchAuth } from "./defi.reducer";
-import { fetchDashboardBanners, fetchDashboard, fetchDashboardInfo } from "./auth.reducer";
+import { fetchNonce, fetchAuthData } from "./defi.reducer";
+import {
+  fetchDashboardBanners,
+  fetchDashboard,
+  fetchDashboardInfo,
+} from "./auth.reducer";
 import {
   fetchNFTContractInstance,
   fetchNetworkId,
@@ -8,7 +12,7 @@ import {
 } from "./web3.reducer";
 
 const rootReducer = combineReducers({
-  fetchAuth,
+  fetchAuthData,
   fetchNonce,
   fetchNFTContractInstance,
   fetchNetworkId,

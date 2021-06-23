@@ -7,7 +7,7 @@ export function fetchNonce(state = null, action) {
   }
 }
 
-export function fetchAuth(state = null, action) {
+export function fetchAuthData(state = null, action) {
   switch (action.type) {
     case "AUTH_LOGIN":
       return action.data;

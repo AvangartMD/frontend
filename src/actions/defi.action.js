@@ -31,7 +31,6 @@ function authLogin(nonce, signature) {
     response.then((promise) => {
       if (promise.status === 200) {
         localStorage.setItem("authKey", promise.data.data.token);
-        console.log("token", promise.data.data);
         dispatch(setData(promise.data.data, "AUTH_LOGIN"));
       } else {
         // console.log('erroer');
