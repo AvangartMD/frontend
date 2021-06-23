@@ -32,6 +32,7 @@ class Header extends Component {
       },
       loader: false,
       error: { isError: false, msg: "" },
+      userDetails: null,
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -39,7 +40,7 @@ class Header extends Component {
     if (web3Data !== prevState.web3Data) return { web3Data: web3Data };
   }
   async componentDidUpdate(prevProps, prevState) {
-    let { web3Data, nonce, authKey } = this.props;
+    let { web3Data, nonce, authData } = this.props;
     console.log("this", web3Data);
 
     if (web3Data !== prevProps.web3Data) {
@@ -53,12 +54,15 @@ class Header extends Component {
     if (nonce !== prevProps.nonce) {
       this.signatureRequest(nonce);
     }
-    if (authKey !== prevProps.authKey) {
-      console.log(authKey);
-      if (authKey) {
+    if (authData?.token !== prevProps.authData?.token) {
+      console.log(authData);
+      if (authData.token) {
         let { web3Data } = this.state;
         web3Data.isLoggedIn = true;
-        this.setState({ web3Data });
+        this.setState({ web3Data, userDetails: authData.details }, () => {
+          this.toggle(4);
+          this.refreshStates();
+        });
       }
     }
   }
@@ -105,8 +109,9 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this.props);
-    const { web3Data, loader, error } = this.state;
+    const { web3Data, loader, error, userDetails } = this.state;
+    console.log(userDetails);
+
     return (
       <>
         <HeadMBX>
@@ -198,7 +203,16 @@ class Header extends Component {
                   </span>{" "}
                   <i>
                     {" "}
-                    <img src={UserIcon} alt="" />
+                    <img
+                      src={
+                        userDetails
+                          ? userDetails.profile
+                            ? userDetails.profile
+                            : UserIcon
+                          : UserIcon
+                      }
+                      alt=""
+                    />
                   </i>
                   <Collapse
                     isOpen={this.state.isOpen2}
@@ -565,7 +579,7 @@ const mapStateToProps = (state) => {
     networkId: state.fetchNetworkId,
     isMetamaskEnabled: state.fetchMetamask,
     nonce: state.fetchNonce,
-    authKey: state.fetchAuth,
+    authData: state.fetchAuthData,
   };
 };
 export default connect(mapStateToProps, mapDipatchToProps)(Header);
