@@ -43,12 +43,15 @@ class Connect extends Component {
                   <OnbText01>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</OnbText01> 
               */}
 
-            <OnbTitle01 className="v2">
+            {/* third popup-------
+             <OnbTitle01 className="v2">
               Please follow the instructions on your wallet
             </OnbTitle01>
             <LoaderBX>
               <img src={LoaderGif} alt="" />
-            </LoaderBX>
+            </LoaderBX> */}
+
+            <POStitle>Put on Sale</POStitle>
           </WhiteBX01>
         </BlackWrap>
       </>
@@ -153,5 +156,7 @@ const CloseBTN = styled.button`
     transform: rotate(90deg);
   }
 `;
+
+const POStitle = styled.div``;
 
 export default Connect;
