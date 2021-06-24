@@ -14,8 +14,14 @@ export function fetchNFTContractInstance(state = null, action) {
       return state;
   }
 }
-export function fetchWeb3Data(state = null, action) {
-  console.log("called", action.type, action.data);
+
+export function fetchWeb3Data(
+  state = {
+    isLoggedIn: false,
+    accounts: [],
+  },
+  action
+) {
   switch (action.type) {
     case "FETCH_WEB3_DATA":
       return action.data;

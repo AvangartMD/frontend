@@ -41,10 +41,8 @@ class Header extends Component {
   }
   async componentDidUpdate(prevProps, prevState) {
     let { web3Data, nonce, authData } = this.props;
-    console.log("this", web3Data);
 
-    if (web3Data !== prevProps.web3Data) {
-      console.log("this");
+    if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.signatureRequest(undefined, true);
@@ -55,7 +53,6 @@ class Header extends Component {
       this.signatureRequest(nonce);
     }
     if (authData?.token !== prevProps.authData?.token) {
-      console.log(authData);
       if (authData.token) {
         let { web3Data } = this.state;
         web3Data.isLoggedIn = true;
@@ -71,7 +68,6 @@ class Header extends Component {
     let { web3Data } = this.props;
     if (!web3Data) {
       // this.props.getWeb3();
-      console.log("hete");
     } else {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
@@ -83,7 +79,6 @@ class Header extends Component {
   async signatureRequest(nonce, stepOne) {
     const { web3Data } = this.state;
     if (stepOne) {
-      console.log("step one");
       this.props.generateNonce(web3Data.accounts[0]);
     } else {
       try {
@@ -94,9 +89,7 @@ class Header extends Component {
         this.props.authLogin(nonce, signature);
       } catch (error) {
         this.setState({ error: { isError: true, msg: error.message } });
-        console.log("this error", error);
       }
-      console.log("step two");
     }
   }
   connectToWallet = (isWalletConnect) => {
@@ -110,8 +103,6 @@ class Header extends Component {
 
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
-    console.log(userDetails);
-
     return (
       <>
         <HeadMBX>

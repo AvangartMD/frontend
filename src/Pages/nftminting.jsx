@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
+import { connect } from "react-redux";
 // import { Link } from 'react-router-dom';
 import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
@@ -20,32 +21,124 @@ import NFTCard from "../Component/Cards/nftCard";
 import { services } from "../services";
 import { defiActions } from "../actions/defi.action";
 import Compressor from "compressorjs";
-import { compressImage } from "../helper/functions";
+import {
+  compressImage,
+  capitalizeFirstLetter,
+  getContractInstance,
+} from "../helper/functions";
 import { LookoutMetrics } from "aws-sdk";
+import { web3 } from "../web3";
+import { actions } from "../actions";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import Autosuggest from "react-autosuggest";
+function getSuggestionValue(suggestion) {
+  return suggestion.username;
+}
+
+function renderSuggestion(suggestion) {
+  return <span>{suggestion.username}</span>;
+}
 
 class NFTPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      web3Data: {
+        isLoggedIn: false,
+        accounts: [],
+      },
       nftObj: {
         title: "Artwork name / title dolor lorem ipsum sit adipiscing",
         description: "",
         coCreatorUserName: "",
         percentShare: 0,
-        category: "",
+        category: [],
         collection: "",
         saleState: "",
-        auctionTime: "13h 12m 11s",
+        auctionTime: "",
         edition: "",
         price: "0.00",
         digitalKey: "",
         nftFile: {},
         imgSrc: "",
+        categoryList: null,
+        collectionList: [],
       },
+      suggestionVAl: "",
+      suggestions: [],
     };
   }
-  async mintNFT() {
-    const { web3Data, nftContractInstance, newNFTURI } = this.state;
+  static async getDerivedStateFromProps(nextProps, prevState) {
+    let { web3Data } = nextProps;
+    if (web3Data !== prevState.web3Data) return { web3Data: web3Data };
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    let { web3Data, createdNFTID, collectionList, categoryList } = this.props;
+
+    if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
+      this.setState({ web3Data: web3Data }, () => {
+        if (web3Data.isLoggedIn) {
+          this.props.getCollectionList();
+        }
+      });
+    }
+    if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
+      this.setState({ web3Data: web3Data }, () => {
+        if (web3Data.accounts[0]) {
+          console.log("wll do something in future");
+        }
+      });
+    }
+    if (collectionList !== prevProps.collectionList)
+      this.setState({ collectionList });
+    if (categoryList !== prevProps.categoryList)
+      this.setState({ categoryList });
+    if (createdNFTID !== prevProps.createdNFTID) {
+      console.log("new id", createdNFTID);
+      this.mintNFT(createdNFTID);
+    }
+  }
+
+  componentDidMount() {
+    let {
+      web3Data,
+      categoryList,
+      collectionList,
+      nftContractInstance,
+    } = this.props;
+    if (!nftContractInstance) this.props.getNFTContractInstance();
+    if (!categoryList) this.props.getCategoryList();
+    else this.setState({ categoryList });
+    if (collectionList) this.setState({ collectionList });
+    if (!web3Data) {
+      // this.props.getWeb3();
+    } else {
+      this.setState({ web3Data: web3Data }, () => {
+        if (web3Data.accounts[0]) {
+          // this.signatureRequest(undefined, true);
+        }
+      });
+    }
+  }
+
+  async mintNFT(_tokenURI) {
+    const { web3Data, nftObj } = this.state;
+    const obj = [
+      nftObj.edition,
+      _tokenURI,
+      web3Data.accounts[0],
+      nftObj.coCreatorUserName
+        ? nftObj.coCreatorUserName
+        : "0x0000000000000000000000000000000000000000",
+      Number(100 - nftObj.percentShare),
+      Number(nftObj.percentShare),
+      nftObj.saleState === "BUY" ? "0" : "1",
+      nftObj.auctionTime ? Number(nftObj.auctionTime) : "0",
+      web3.utils.toWei(nftObj.price, "ether"),
+      "0",
+    ];
+    console.log("mint obj", obj);
     // uint256 _editions, (no of Editions)
     //     string memory _tokenURI, (NFT image code)
     //     address _creator,
@@ -56,18 +149,19 @@ class NFTPage extends Component {
     //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
     //     uint256 _pricePerNFT, (price for each edition of the NFT)
     //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
-    await nftContractInstance.methods
-      .mintToken(newNFTURI)
+    await this.props.nftContractInstance.methods
+      .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
       .on("transactionHash", (hash) => {
         // this.onTransactionHash(hash);
         console.log(hash);
       })
       .on("receipt", (receipt) => {
-        this.onReciept();
+        // this.onReciept();
+        console.log("recoihlk", receipt);
       })
       .on("error", (error) => {
-        this.onTransactionError(error);
+        // this.onTransactionError(error);
       });
   }
   onFileUpload = async () => {
@@ -93,30 +187,48 @@ class NFTPage extends Component {
     const result = defiActions.addNFT(dataObj);
     console.log("final result", result);
 
-    console.log("result", en_src);
     formData.append("file", selectedFile, selectedFile.name);
     // submit formData
   };
+
   formchange(e) {
     const nftObj = { ...this.state.nftObj };
-    nftObj[e.target.name] = e.target.value;
-    if (e.target.name === "nftFile") {
+    if (e.target.name === "coCreatorUserName") {
+      this.setState({ suggestionVAl: e.target.value });
+      if (e.target.value.length >= 3) {
+        console.log("t");
+      }
+    } else if (e.target.name === "category") {
+      const exists = nftObj["category"].includes(e.target.value);
+      if (exists) {
+        // nftObj["category"].filter((c) => {
+        //   return c !== e.target.value;
+        // });
+        const index = nftObj["category"].indexOf(e.target.value);
+        if (index > -1) {
+          nftObj["category"].splice(index, 1);
+        }
+      } else {
+        nftObj["category"].push(e.target.value);
+      }
+
+      // nftObj[e.target.name].push(e.target.value);
+    } else if (e.target.name === "nftFile") {
       nftObj[e.target.name] = e.target.files[0];
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
-
       if (e.target.files[0].size > 3145728) {
         nftObj.compressionRequired = true;
       }
+    } else {
+      nftObj[e.target.name] = e.target.value;
     }
     this.setState({ nftObj });
-    console.log("true", nftObj);
   }
   async createNFT(e) {
     e.preventDefault();
     const { nftObj } = this.state;
     const { nftFile, compressionRequired } = this.state.nftObj;
     let compressedNFTFile = nftFile;
-    console.log(compressedNFTFile);
     if (compressionRequired) {
       compressedNFTFile = await compressImage(nftFile);
     }
@@ -131,12 +243,16 @@ class NFTPage extends Component {
           original: urls[0],
           compressed: urls[1],
         },
-        category: [nftObj.category],
+        category: nftObj.category,
         price: nftObj.price,
         saleState: nftObj.saleState,
         auctionTime: nftObj.auctionTime,
         edition: nftObj.edition,
+        unlockContent: false,
       };
+      if (nftObj.collection) {
+        dataObj.collectionId = nftObj.collection;
+      }
       if (nftObj.coCreatorUserName) {
         dataObj.coCreator = {
           userId: "60acafd546e2ab3d8b547557",
@@ -148,17 +264,52 @@ class NFTPage extends Component {
         dataObj.digitalKey = nftObj.digitalKey;
       }
       console.log("dataObj", dataObj);
-      // const result = defiActions.addNFT(dataObj);
+      const result = this.props.addNFT(dataObj);
     });
   }
+  onSuggestionsFetchRequested = ({ value }) => {
+    // const getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+    if (inputLength >= 3) {
+      const coCreator = services.get(`user/searchCreator/${value}`, true);
+      coCreator.then((resp) => {
+        if (resp.data.status) {
+          console.log(resp.data.data);
+          this.setState({ suggestions: resp.data.data });
+          return resp.data.data;
+        }
+      });
+    }
+    // return inputLength === 0
+    //   ? []
+    //   : languages.filter(
+    //       (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
+    //     );
+    // };
+    console.log(value);
+    // this.setState({
+    //   suggestions: getSuggestions(value),
+    // });
+  };
+
+  // Autosuggest will call this function every time you need to clear suggestions.
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: [],
+    });
+  };
+
   render() {
+    // const renderSuggestion = (suggestion) => <div>{suggestion.username}</div>;
+    // const getSuggestionValue = (suggestion) => suggestion.username;
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
       if (hash == curr) return "active";
       else return "inactive";
     }
+    const { categoryList, collectionList } = this.state;
     const nftObj = this.state.nftObj;
-    console.log(this.state.nftObj);
     return (
       <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
@@ -286,11 +437,42 @@ class NFTPage extends Component {
                         </div>
                         <div className="iLeft errorinput">
                           <i>@</i>
-                          <input
+                          <Autosuggest
+                            suggestions={this.state.suggestions}
+                            onSuggestionsFetchRequested={
+                              this.onSuggestionsFetchRequested
+                            }
+                            onSuggestionsClearRequested={
+                              this.onSuggestionsClearRequested
+                            }
+                            getSuggestionValue={getSuggestionValue}
+                            renderSuggestion={renderSuggestion}
+                            inputProps={{
+                              type: "text",
+                              name: "coCreatorUserName",
+                              placeholder: "Type something…",
+                              value: this.state.suggestionVAl,
+                              onChange: () => {
+                                console.log("some");
+                              },
+                            }}
+                          />
+                          {/* <ReactSearchAutocomplete
+                            resultStringKeyName="coCreatorUserName"
+                            showIcon={false}
+                            inputSearchString="coCreatorUserName"
+                            // items={items}
+                            // onSearch={handleOnSearch}
+                            // onHover={handleOnHover}
+                            // onSelect={handleOnSelect}
+                            // onFocus={handleOnFocus}
+                            autoFocus
+                          /> */}
+                          {/* <input
                             type="text"
                             name="coCreatorUserName"
                             placeholder="Type something…"
-                          />
+                          /> */}
                           <p className="error">user doesn’t exist</p>
                         </div>
                       </NFTForm>
@@ -327,19 +509,19 @@ class NFTPage extends Component {
                           </p>
                         </div>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
-                            {" "}
-                            <img src={Art} alt="" />
-                            Art
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span class="checkmark"></span>
-                          </label>
-                          <label class="checkbox-container">
-                            {" "}
+                          {categoryList?.map((category) => (
+                            <label class="checkbox-container">
+                              <img src={Art} alt="" />
+                              {capitalizeFirstLetter(category.categoryName)}
+                              <input
+                                type="checkbox"
+                                name="category"
+                                value={category._id}
+                              />
+                              <span class="checkmark"></span>
+                            </label>
+                          ))}
+                          {/* <label class="checkbox-container">
                             <img src={Celebrity} alt="" />
                             Celebrity
                             <input
@@ -348,9 +530,8 @@ class NFTPage extends Component {
                               value="celebrity"
                             />
                             <span class="checkmark"></span>
-                          </label>
-                          <label class="checkbox-container">
-                            {" "}
+                          </label> */}
+                          {/* <label class="checkbox-container">
                             <img src={Sport} alt="" />
                             Sport
                             <input
@@ -359,7 +540,7 @@ class NFTPage extends Component {
                               value="sport"
                             />
                             <span class="checkmark"></span>
-                          </label>
+                          </label> */}
                         </CustomCheckbox1>
                       </NFTForm>
                       <NFTForm>
@@ -370,7 +551,11 @@ class NFTPage extends Component {
                           <Gs.W80>
                             <select name="collection">
                               <option>Select or Create</option>
-                              <option>John Doe’s Besties</option>
+                              {collectionList?.map((collection) => (
+                                <option value={collection._id}>
+                                  {capitalizeFirstLetter(collection.name)}
+                                </option>
+                              ))}
                             </select>
                           </Gs.W80>
                           <Gs.W20>
@@ -393,7 +578,6 @@ class NFTPage extends Component {
                         </div>
                         <CustomRadio1>
                           <label class="radio-container">
-                            {" "}
                             <img src={Auction} alt="" /> Auction
                             <input
                               type="radio"
@@ -403,13 +587,8 @@ class NFTPage extends Component {
                             <span class="checkmark"></span>
                           </label>
                           <label class="radio-container">
-                            {" "}
                             <img src={Money} alt="" /> Buy now
-                            <input
-                              type="radio"
-                              name="saleState"
-                              value="BUYNOW"
-                            />
+                            <input type="radio" name="saleState" value="BUY" />
                             <span class="checkmark"></span>
                           </label>
                         </CustomRadio1>
@@ -420,7 +599,6 @@ class NFTPage extends Component {
                         </div>
                         <CustomRadio1>
                           <label class="radio-container">
-                            {" "}
                             12 hours
                             <input type="radio" name="auctionTime" value="12" />
                             <span class="checkmark"></span>
@@ -454,7 +632,6 @@ class NFTPage extends Component {
                         <input type="text" placeholder="0.00" name="price" />
                         <AccountBX onClick={() => this.toggle(2)}>
                           <span>
-                            {" "}
                             BNB <img src={DDdownA} alt="" />
                           </span>
                           <Collapse
@@ -665,7 +842,7 @@ const NFTRight = styled.div`
 // `;
 
 const NFTtitle = styled.div`
-  .h4 {
+  h4 {
     color: #000000;
     font-size: 24px;
     font-weight: 700;
@@ -1146,4 +1323,26 @@ const AlertNote = styled.div`
   }
 `;
 
-export default NFTPage;
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getWeb3: () => dispatch(actions.getWeb3()),
+    enableMetamask: () => dispatch(actions.enableMetamask()),
+    addNFT: (obj) => dispatch(actions.addNFT(obj)),
+    getCollectionList: () => dispatch(actions.getCollectionList()),
+    getCategoryList: () => dispatch(actions.getCategoryList()),
+    getNFTContractInstance: () => dispatch(actions.getNFTContractInstance()),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    web3Data: state.fetchWeb3Data,
+    networkId: state.fetchNetworkId,
+    isMetamaskEnabled: state.fetchMetamask,
+    createdNFTID: state.fetchNewNFTId,
+    categoryList: state.fetchCategoryList,
+    collectionList: state.fetchCollectionList,
+    authData: state.fetchAuthData,
+    nftContractInstance: state.fetchNFTContractInstance,
+  };
+};
+export default connect(mapStateToProps, mapDipatchToProps)(NFTPage);
