@@ -6,6 +6,7 @@ import NFTMinting from './Pages/nftminting';
 import MarketPlace from './Pages/marketplace'
 import Creators from './Pages/creators'
 import Profile from './Pages/profile'
+import ProfileEdit from './Pages/profile-edit'
 
 
 var routes = [
@@ -38,6 +39,13 @@ var routes = [
         path: 'profile',
         name: 'NFT Minting',
         component: Profile,
+        layout: '/',
+    },
+    
+    {
+        path: 'profile-edit',
+        name: 'NFT Minting',
+        component: ProfileEdit,
         layout: '/',
     },
     // {
