@@ -33,6 +33,7 @@ function authLogin(nonce, signature) {
         localStorage.setItem("token", promise.data.data.token);
         if (promise.data.data.token) {
           const newresp = await services.getWeb3();
+          localStorage.setItem("userAddress", newresp.accounts[0]);
           newresp.isLoggedIn = true;
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
@@ -86,6 +87,18 @@ function getCollectionList() {
     });
   };
 }
+// function authenticateUser() {
+//   return (dispatch) => {
+//     const response = services.getWeb3(true);
+//     response.then((promise) => {
+//       if (promise.accounts[0]) {
+//         dispatch(setDispatchData(promise, "FETCH_WEB3_DATA"));
+//       } else {
+//         // console.log('errorrrr in actions');
+//       }
+//     });
+//   };
+// }
 
 export const defiActions = {
   addNFT,

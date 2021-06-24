@@ -71,7 +71,12 @@ class Header extends Component {
     } else {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          this.signatureRequest(undefined, true);
+          if (
+            !localStorage.getItem("token") ||
+            web3Data.accounts[0] !== localStorage.getItem("userAddress")
+          )
+            this.signatureRequest(undefined, true);
+          // else this.props.authenticateUser();
         }
       });
     }
@@ -562,6 +567,7 @@ const mapDipatchToProps = (dispatch) => {
     generateNonce: (address) => dispatch(actions.generateNonce(address)),
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),
+    authenticateUser: () => dispatch(actions.authenticateUser()),
   };
 };
 const mapStateToProps = (state) => {
