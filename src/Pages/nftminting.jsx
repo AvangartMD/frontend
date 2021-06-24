@@ -665,7 +665,7 @@ const NFTRight = styled.div`
 // `;
 
 const NFTtitle = styled.div`
-  .h4 {
+  h4 {
     color: #000000;
     font-size: 24px;
     font-weight: 700;
