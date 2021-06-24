@@ -2,71 +2,12 @@ import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { services } from "../services";
 
-const languages = [
-  {
-    name: "C",
-    year: 1972,
-  },
-  {
-    name: "C#",
-    year: 2000,
-  },
-  {
-    name: "C++",
-    year: 1983,
-  },
-  {
-    name: "Clojure",
-    year: 2007,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Go",
-    year: 2009,
-  },
-  {
-    name: "Haskell",
-    year: 1990,
-  },
-  {
-    name: "Java",
-    year: 1995,
-  },
-  {
-    name: "Javascript",
-    year: 1995,
-  },
-  {
-    name: "Perl",
-    year: 1987,
-  },
-  {
-    name: "PHP",
-    year: 1995,
-  },
-  {
-    name: "Python",
-    year: 1991,
-  },
-  {
-    name: "Ruby",
-    year: 1995,
-  },
-  {
-    name: "Scala",
-    year: 2003,
-  },
-];
-
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function getSuggestions(value) {
+async function getSuggestions(value) {
   console.log(value);
   const escapedValue = escapeRegexCharacters(value.trim());
 
@@ -74,22 +15,19 @@ function getSuggestions(value) {
     return [];
   }
   if (value.length >= 3) {
-    const coCreator = services.get(`user/searchCreator/${value}`, true);
-    coCreator.then((resp) => {
-      if (resp.data.status) {
-        console.log(resp.data.data);
-        const coCreators = resp.data.data;
-        const regex = new RegExp("^" + escapedValue, "i");
+    const coCreator = await services.get(`user/searchCreator/${value}`, true);
+    console.log("this is called", coCreator);
+    // coCreator.then((resp) => {
+    if (coCreator.data.status) {
+      //   console.log(resp.data.data);
+      const coCreators = coCreator.data.data;
+      const regex = new RegExp("^" + escapedValue, "i");
 
-        return coCreators.filter((creator) => regex.test(creator.username));
-        // return resp.data.data;
-      }
-    });
+      return coCreators.filter((creator) => regex.test(creator.username));
+      // return resp.data.data;
+    } else return [];
+    // });
   } else return [];
-}
-
-function getSuggestionValue(suggestion) {
-  return suggestion.username;
 }
 
 function renderSuggestion(suggestion) {
@@ -97,8 +35,8 @@ function renderSuggestion(suggestion) {
 }
 
 class Autosuggestion extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       value: "",
@@ -124,12 +62,17 @@ class Autosuggestion extends React.Component {
       suggestions: [],
     });
   };
+  getSuggestionValue(suggestion) {
+    this.props.setSuggestionValue(suggestion);
+    return suggestion.username;
+  }
 
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: "Type 'c'",
       value,
+      name: "coCreatorUserName",
+      placeholder: "Type something…",
       onChange: this.onChange,
     };
 
@@ -138,7 +81,7 @@ class Autosuggestion extends React.Component {
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
+        getSuggestionValue={(e) => this.getSuggestionValue(e)}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
       />
