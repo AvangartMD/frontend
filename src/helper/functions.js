@@ -1,6 +1,7 @@
 import Compressor from "compressorjs";
 import nftABI from "../contractData/abis/nft.json";
 import getContractAddresses from "../contractData/contractAddress/addresses";
+import { web3 } from "../web3";
 
 export async function compressImage(image) {
   return new Promise((resolve, reject) => {

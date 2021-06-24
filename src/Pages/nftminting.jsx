@@ -31,11 +31,15 @@ import { web3 } from "../web3";
 import { actions } from "../actions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
+import Autosuggestion from "../Component/autoSuggestion";
 function getSuggestionValue(suggestion) {
+  console.log("this is called 1", suggestion.username);
+
   return suggestion.username;
 }
 
 function renderSuggestion(suggestion) {
+  console.log("this is called", suggestion);
   return <span>{suggestion.username}</span>;
 }
 
@@ -194,7 +198,7 @@ class NFTPage extends Component {
   formchange(e) {
     const nftObj = { ...this.state.nftObj };
     if (e.target.name === "coCreatorUserName") {
-      this.setState({ suggestionVAl: e.target.value });
+      // this.setState({ suggestionVAl: e.target.value });
       if (e.target.value.length >= 3) {
         console.log("t");
       }
@@ -281,16 +285,6 @@ class NFTPage extends Component {
         }
       });
     }
-    // return inputLength === 0
-    //   ? []
-    //   : languages.filter(
-    //       (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
-    //     );
-    // };
-    console.log(value);
-    // this.setState({
-    //   suggestions: getSuggestions(value),
-    // });
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -437,7 +431,8 @@ class NFTPage extends Component {
                         </div>
                         <div className="iLeft errorinput">
                           <i>@</i>
-                          <Autosuggest
+                          <Autosuggestion />
+                          {/* <Autosuggest
                             suggestions={this.state.suggestions}
                             onSuggestionsFetchRequested={
                               this.onSuggestionsFetchRequested
@@ -445,18 +440,20 @@ class NFTPage extends Component {
                             onSuggestionsClearRequested={
                               this.onSuggestionsClearRequested
                             }
-                            getSuggestionValue={getSuggestionValue}
-                            renderSuggestion={renderSuggestion}
+                            getSuggestionValue={() => getSuggestionValue}
+                            renderSuggestion={() => renderSuggestion}
                             inputProps={{
                               type: "text",
                               name: "coCreatorUserName",
                               placeholder: "Type something…",
                               value: this.state.suggestionVAl,
-                              onChange: () => {
-                                console.log("some");
+                              onChange: (e) => {
+                                this.setState({
+                                  suggestionVAl: e.target.value,
+                                });
                               },
                             }}
-                          />
+                          /> */}
                           {/* <ReactSearchAutocomplete
                             resultStringKeyName="coCreatorUserName"
                             showIcon={false}
