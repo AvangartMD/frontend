@@ -328,7 +328,7 @@ class NFTPage extends Component {
                         </div>
                         <CustomCheckbox1>
                           <label class="checkbox-container">
-                            {" "}
+                            
                             <img src={Art} alt="" />
                             Art
                             <input
@@ -339,7 +339,7 @@ class NFTPage extends Component {
                             <span class="checkmark"></span>
                           </label>
                           <label class="checkbox-container">
-                            {" "}
+                            
                             <img src={Celebrity} alt="" />
                             Celebrity
                             <input
@@ -350,7 +350,7 @@ class NFTPage extends Component {
                             <span class="checkmark"></span>
                           </label>
                           <label class="checkbox-container">
-                            {" "}
+                            
                             <img src={Sport} alt="" />
                             Sport
                             <input
@@ -393,7 +393,7 @@ class NFTPage extends Component {
                         </div>
                         <CustomRadio1>
                           <label class="radio-container">
-                            {" "}
+                            
                             <img src={Auction} alt="" /> Auction
                             <input
                               type="radio"
@@ -403,7 +403,7 @@ class NFTPage extends Component {
                             <span class="checkmark"></span>
                           </label>
                           <label class="radio-container">
-                            {" "}
+                            
                             <img src={Money} alt="" /> Buy now
                             <input
                               type="radio"
@@ -420,7 +420,7 @@ class NFTPage extends Component {
                         </div>
                         <CustomRadio1>
                           <label class="radio-container">
-                            {" "}
+                            
                             12 hours
                             <input type="radio" name="auctionTime" value="12" />
                             <span class="checkmark"></span>
@@ -454,7 +454,7 @@ class NFTPage extends Component {
                         <input type="text" placeholder="0.00" name="price" />
                         <AccountBX onClick={() => this.toggle(2)}>
                           <span>
-                            {" "}
+                            
                             BNB <img src={DDdownA} alt="" />
                           </span>
                           <Collapse
@@ -665,7 +665,7 @@ const NFTRight = styled.div`
 // `;
 
 const NFTtitle = styled.div`
-  .h4 {
+  h4 {
     color: #000000;
     font-size: 24px;
     font-weight: 700;

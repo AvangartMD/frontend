@@ -11,6 +11,7 @@ import { actions } from "../actions";
 import LogoImg from "../Assets/images/logo.png";
 import NotifiIcon from "../Assets/images/notification.svg";
 import UserIcon from "../Assets/images/userIcon.png";
+import UserIcon2 from '../Assets/images/userImg.png'
 import RightArrow from "../Assets/images/rightArrow.svg";
 import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
@@ -208,8 +209,8 @@ class Header extends Component {
                         userDetails
                           ? userDetails.profile
                             ? userDetails.profile
-                            : UserIcon
-                          : UserIcon
+                            : UserIcon2
+                          : UserIcon2
                       }
                       alt=""
                     />
@@ -226,7 +227,7 @@ class Header extends Component {
                         <button>
                           <i>
                             {" "}
-                            <img src={UserIcon} alt="" />
+                            <img src={UserIcon2} alt="" />
                           </i>{" "}
                           View your profile{" "}
                           <span>
@@ -286,14 +287,14 @@ const FlexDiv = styled.div`
 `;
 
 const HeadMBX = styled(FlexDiv)`
-  width: 100%;
-  min-height: 100px;
-`;
+    width:100%; min-height:100px;  position: absolute; z-index:100;
+` 
 const HeadMBX02 = styled(FlexDiv)`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
 `;
+
 const HeadSbx01 = styled(FlexDiv)`
   width: 33.33%;
   justify-content: flex-start;
@@ -413,48 +414,16 @@ const NotificationBX = styled(FlexDiv)`
     background-color: #ff2a44;
   }
 `;
-const AccountBX = styled(FlexDiv)`
-  margin-left: 8px;
-  position: relative;
-  border: solid 1px transparent;
-  width: 170px;
-  justify-content: flex-end;
-  background-color: #fff;
-  padding: 8px 10px;
-  border-radius: 20px;
-  z-index: 101;
-  cursor: pointer;
+const AccountBX = styled(FlexDiv)` 
+  margin-left:8px; position:relative; border: solid 1px transparent; width:170px; justify-content:flex-end; background-color:#fff; padding:8px 10px; border-radius: 20px;  z-index:101; cursor:pointer;
 
-  &:hover {
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px #eef2f7;
-  }
+    &:hover{ box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);   border: solid 1px #eef2f7;}
 
-  & i {
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  & span {
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
-    display: block;
-    text-align: right;
-    line-height: 16px;
-    padding-right: 8px;
-    span {
-      font-size: 10px;
-      color: #b3b3b3;
-      width: 100%;
-      padding-right: 0;
-    }
-  }
-`;
+   & i{ width:50px; height:50px; border-radius:30px; overflow:hidden; img{ width:100%; height:100%; object-fit: cover;  } }  
+   & span{font-size: 14px; font-weight: 600; color:#000; display:block; text-align:right; line-height:16px; padding-right:8px;
+      span{ font-size:10px; color:#b3b3b3; width:100%;  padding-right:0;}
+     }
+` 
 const DDContainer = styled(FlexDiv)`
   position: absolute;
   background-color: #fff;
