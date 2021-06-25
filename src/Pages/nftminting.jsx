@@ -32,16 +32,6 @@ import { actions } from "../actions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
-function getSuggestionValue(suggestion) {
-  console.log("this is called 1", suggestion.username);
-
-  return suggestion.username;
-}
-
-function renderSuggestion(suggestion) {
-  console.log("this is called", suggestion);
-  return <span>{suggestion.username}</span>;
-}
 
 class NFTPage extends Component {
   constructor(props) {
@@ -68,8 +58,7 @@ class NFTPage extends Component {
         categoryList: null,
         collectionList: [],
       },
-      suggestionVAl: "",
-      suggestions: [],
+      suggestionVAl: [],
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -200,7 +189,7 @@ class NFTPage extends Component {
     if (e.target.name === "coCreatorUserName") {
       // this.setState({ suggestionVAl: e.target.value });
       if (e.target.value.length >= 3) {
-        console.log("t");
+        console.log("t", e.target.value);
       }
     } else if (e.target.name === "category") {
       const exists = nftObj["category"].includes(e.target.value);
@@ -257,9 +246,9 @@ class NFTPage extends Component {
       if (nftObj.collection) {
         dataObj.collectionId = nftObj.collection;
       }
-      if (nftObj.coCreatorUserName) {
+      if (this.state.suggestionVAl) {
         dataObj.coCreator = {
-          userId: "60acafd546e2ab3d8b547557",
+          userId: this.state.suggestionVAl.id,
           percentage: nftObj.percentShare,
         };
       }
@@ -271,28 +260,8 @@ class NFTPage extends Component {
       const result = this.props.addNFT(dataObj);
     });
   }
-  onSuggestionsFetchRequested = ({ value }) => {
-    // const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    if (inputLength >= 3) {
-      const coCreator = services.get(`user/searchCreator/${value}`, true);
-      coCreator.then((resp) => {
-        if (resp.data.status) {
-          console.log(resp.data.data);
-          this.setState({ suggestions: resp.data.data });
-          return resp.data.data;
-        }
-      });
-    }
-  };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: [],
-    });
-  };
+  setSuggestionValue = (val) => this.setState({ suggestionVAl: val });
 
   render() {
     // const renderSuggestion = (suggestion) => <div>{suggestion.username}</div>;
@@ -431,7 +400,9 @@ class NFTPage extends Component {
                         </div>
                         <div className="iLeft errorinput">
                           <i>@</i>
-                          <Autosuggestion />
+                          <Autosuggestion
+                            setSuggestionValue={this.setSuggestionValue}
+                          />
                           {/* <Autosuggest
                             suggestions={this.state.suggestions}
                             onSuggestionsFetchRequested={
