@@ -10,6 +10,7 @@ import {
   fetchDashboardBanners,
   fetchDashboard,
   fetchDashboardInfo,
+  fetchDashboardHallFrameInfo,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -18,6 +19,7 @@ import {
 } from "./web3.reducer";
 import {
   fetchCategory,
+  fetchProfile,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -33,6 +35,8 @@ const rootReducer = combineReducers({
   fetchDashboard,
   fetchWeb3Data,
   fetchCategory,
+  fetchDashboardHallFrameInfo,
+  fetchProfile,
 });
 
 export default rootReducer;

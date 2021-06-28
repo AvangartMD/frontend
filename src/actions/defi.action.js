@@ -1,3 +1,4 @@
+import { CostExplorer } from "aws-sdk";
 import { services } from "../services";
 
 function setData(data, type) {
@@ -37,6 +38,7 @@ function authLogin(nonce, signature) {
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
         dispatch(setData(promise.data.data, "AUTH_LOGIN"));
+        localStorage.setItem('avarnGart', promise.data.data.details.id)
       } else {
         // console.log('erroer');
       }
@@ -57,7 +59,6 @@ function generateNonce(address) {
     });
   };
 }
-
 function getCategoryList() {
   return async (dispatch) => {
     const url = `category/list`;

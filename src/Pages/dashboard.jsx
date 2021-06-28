@@ -574,10 +574,10 @@ class Dashboard extends Component {
               </p>
               <button>Lorem ipsum</button>
             </AdBanner> */}
-            <AdBanner>
-              <a target='_blank' rel="noopener noreferrer"  href=""><img src={AdBannerIMG} alt='' /></a>
-              <button className="ani-1">Lorem ipsum</button>
-            </AdBanner>
+        <AdBanner>
+          <a target='_blank' rel="noopener noreferrer"  href=""><img src={AdBannerIMG} alt='' /></a>
+          <button className="ani-1">Lorem ipsum</button>
+        </AdBanner>
             <div className='heart-title'>
               <h3>Collections</h3>
             </div>

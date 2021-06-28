@@ -7,6 +7,7 @@ import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import Connect from "./connect";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { actions } from "../actions";
 import LogoImg from "../Assets/images/logo.png";
 import NotifiIcon from "../Assets/images/notification.svg";
@@ -102,8 +103,19 @@ class Header extends Component {
     this.setState({ error: { isError: false, msg: "" }, loader: false });
   };
 
+  checkRole = (user) => {
+    if (user.role.roleName === 'COLLECTOR') {
+      return <BecomeCreator />
+    } else if (user.role.roleName === 'CREATOR' && user.status === 'APPROVED') {
+      return <AvBTN02 className="colorBTN"><button>Create</button></AvBTN02>
+    } else if (user.role.roleName === 'CREATOR' && user.status !== 'APPROVED') {
+      return <AvBTN02 className="colorBTN">Waitlist</AvBTN02>
+    }
+  }
+
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
+    const { authData } = this.props;
     return (
       <>
         <HeadMBX>
@@ -144,8 +156,8 @@ class Header extends Component {
               </HeadSbx01>
             ) : (
               <HeadSbx01>
-                {/* <AvBTN02 className="colorBTN">Become a Creator</AvBTN02> */}
-                <BecomeCreator />
+                {authData?this.checkRole(authData.details):''}
+
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>
                   <button>
@@ -216,7 +228,7 @@ class Header extends Component {
                   >
                     <DDContainer className="ver2">
                       <DDBtnbar02>
-                        <button>
+                        <button onClick={() => this.props.history.push('/profile')}>
                           <i>
                             {" "}
                             <img src={UserIcon2} alt="" />
@@ -286,7 +298,6 @@ const HeadMBX02 = styled(FlexDiv)`
   max-width: 1240px;
   margin: 0 auto;
 `;
-
 const HeadSbx01 = styled(FlexDiv)`
   width: 33.33%;
   justify-content: flex-start;
@@ -543,4 +554,4 @@ const mapStateToProps = (state) => {
     authData: state.fetchAuthData,
   };
 };
-export default connect(mapStateToProps, mapDipatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Header));

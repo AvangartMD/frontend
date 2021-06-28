@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 // import { Link } from 'react-router-dom';
 import Media from "../Theme/media-breackpoint";
+import { connect } from "react-redux";
 import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
@@ -24,15 +25,12 @@ import CICON05 from "../Assets/images/peSocICO-05.svg"
 import CICON06 from "../Assets/images/peSocICO-06.svg"
 
 
-
 import Celebrity from "../Assets/images/icon-set-celebrity.svg";
 import NFTCard from "../Component/Cards/nftCard";
 
-
-
+import { actions } from "../actions";
 import { services } from "../services";
 import { defiActions } from "../actions/defi.action";
-import Compressor from "compressorjs";
 import { compressImage } from "../helper/functions";
 import { LookoutMetrics } from "aws-sdk";
 
@@ -83,87 +81,7 @@ class ProfileEdit extends Component {
                 this.onTransactionError(error);
             });
     }
-    onFileUpload = async () => {
-        const formData = new FormData();
-        const { selectedFile } = this.state;
-        if (!selectedFile) {
-            alert("upload a file");
-            return false;
-        }
-        const en_src = await services.uploadFileOnBucket(selectedFile, "nft");
-        let dataObj = {
-            title: "SPORT !!",
-            description: "SPORTS !!!!",
-            image: {
-                original: en_src,
-                compressed:
-                    "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293__340.jpg",
-            },
-            // "collectionId": "60ace3f509005e63311cd510",
-            unlockContent: true,
-            digitalKey: "HELLO!!!!!",
-        };
-        const result = defiActions.addNFT(dataObj);
-        console.log("final result", result);
 
-        console.log("result", en_src);
-        formData.append("file", selectedFile, selectedFile.name);
-        // submit formData
-    };
-    formchange(e) {
-        const nftObj = { ...this.state.nftObj };
-        nftObj[e.target.name] = e.target.value;
-        if (e.target.name === "nftFile") {
-            nftObj[e.target.name] = e.target.files[0];
-            nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
-
-            if (e.target.files[0].size > 3145728) {
-                nftObj.compressionRequired = true;
-            }
-        }
-        this.setState({ nftObj });
-        console.log("true", nftObj);
-    }
-    async createNFT(e) {
-        e.preventDefault();
-        const { nftObj } = this.state;
-        const { nftFile, compressionRequired } = this.state.nftObj;
-        let compressedNFTFile = nftFile;
-        console.log(compressedNFTFile);
-        if (compressionRequired) {
-            compressedNFTFile = await compressImage(nftFile);
-        }
-        Promise.all([
-            services.uploadFileOnBucket(nftFile, "nft"),
-            services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true),
-        ]).then((urls) => {
-            let dataObj = {
-                title: nftObj.title,
-                description: nftObj.description,
-                image: {
-                    original: urls[0],
-                    compressed: urls[1],
-                },
-                category: [nftObj.category],
-                price: nftObj.price,
-                saleState: nftObj.saleState,
-                auctionTime: nftObj.auctionTime,
-                edition: nftObj.edition,
-            };
-            if (nftObj.coCreatorUserName) {
-                dataObj.coCreator = {
-                    userId: "60acafd546e2ab3d8b547557",
-                    percentage: nftObj.percentShare,
-                };
-            }
-            if (nftObj.digitalKey) {
-                dataObj.unlockContent = true;
-                dataObj.digitalKey = nftObj.digitalKey;
-            }
-            console.log("dataObj", dataObj);
-            // const result = defiActions.addNFT(dataObj);
-        });
-    }
     render() {
         function pointSelect(curr) {
             let hash = window.location.hash.substr(1);
