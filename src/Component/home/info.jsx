@@ -66,7 +66,7 @@ class Info extends Component {
     return (
       <AdBanner2 key={index}>
         <a target='_blank' rel="noopener noreferrer"  href={info.url}><img src={img} alt='' /></a>
-        <button onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
+        <button className="ani-1" onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
       </AdBanner2>
     )
   }
@@ -175,6 +175,7 @@ const AdBanner2 = styled.div`
     height: 44px;
     :hover {
       background-color: #000;
+      box-shadow: 2px 5px 10px 0px rgb(0 0 0 / 30%);
     }
   }
 `;

@@ -565,7 +565,7 @@ class Dashboard extends Component {
                 </TabPanel>
               </Tabs>
             </HomeTabs>
-            <AdBanner>
+            {/* <AdBanner>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Phasellus at dui imperdiet, eleifend lacus gravida, accumsan
@@ -573,6 +573,10 @@ class Dashboard extends Component {
                 fermentum.{' '}
               </p>
               <button>Lorem ipsum</button>
+            </AdBanner> */}
+            <AdBanner>
+              <a target='_blank' rel="noopener noreferrer"  href=""><img src={AdBannerIMG} alt='' /></a>
+              <button className="ani-1">Lorem ipsum</button>
             </AdBanner>
             <div className='heart-title'>
               <h3>Collections</h3>
@@ -1101,25 +1105,16 @@ const HallofFameBox2 = styled(FlexDiv)`
 
 const AdBanner = styled.div`
   border-radius: 20px;
-  padding: 120px 0px;
   margin: 120px 0px;
-  text-align: center;
-  background: url(${AdBannerIMG}) no-repeat;
-  background-size: cover;
-  p {
-    color: #000000;
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 50px;
-    :last-child {
-      margin-bottom: 0px;
-    }
+  height:406px;
+  position:relative;
+  a{
+    img{width: 100%; height: 100%; object-fit: cover; border-radius:20px;}
   }
   button {
+    position:absolute;
+    bottom:50px;
+    left:calc(50% - 95px);
     background-color: #000000;
     color: #fff;
     font-size: 14px;
@@ -1130,6 +1125,7 @@ const AdBanner = styled.div`
     height: 44px;
     :hover {
       background-color: #d121d6;
+      box-shadow: 2px 5px 10px 0px rgb(0 0 0 / 30%);
     }
   }
 `;

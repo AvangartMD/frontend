@@ -1,5 +1,7 @@
-import Compressor from 'compressorjs';
-import { resolveConfig } from 'prettier';
+import Compressor from "compressorjs";
+import nftABI from "../contractData/abis/nft.json";
+import getContractAddresses from "../contractData/contractAddress/addresses";
+import { web3 } from "../web3";
 
 export async function compressImage(image) {
   return new Promise((resolve, reject) => {
@@ -16,4 +18,23 @@ export async function compressImage(image) {
       reject(undefined);
     }
   });
+}
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function getContractInstance(contract) {
+  const { nftContractAddress } = getContractAddresses();
+  try {
+    if (web3) {
+      const contractInstance = new web3.eth.Contract(
+        nftABI,
+        nftContractAddress
+      );
+      return contractInstance;
+    }
+  } catch (error) {
+    // console.log(error);
+  }
 }

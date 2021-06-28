@@ -8,7 +8,7 @@ body {  margin: 0; padding: 0;  font:400 16px/20px 'Sofia Pro', sans-serif;  bac
 .myTip{ max-width:300px; font:400 14px/22px 'IBM Plex Mono', arial !important; color:#fff !important;} 
 input{ outline:none;}
 img{ max-width:100%; height:auto; }
-button{  background:transparent; outline:none; border:0;   }
+button{  background:transparent; outline:none; border:0;}
 .collapse-css-transition { transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1); }
 .app__collapse{ visibility:hidden; opacity:0; height:0px; }
 .app__collapse.collapse-active{ visibility:visible; opacity:1; height:auto; }

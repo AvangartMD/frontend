@@ -26,7 +26,7 @@ function NFTCard(props) {
       <Gs.TenpxGutter>
         <div className="NFT-home-box">
           <NFTImgBX>
-            <img src={NFT2} alt="" />
+            <img src={imgSrc ? imgSrc : NFT2} alt="" />
           </NFTImgBX>
           <div className="NFT-home-box-inner">
             <h4>{title}</h4>

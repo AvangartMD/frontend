@@ -75,7 +75,7 @@ class NftDetail extends Component {
                     </div>
                     <div className='ed-box'>
                       <p>Ending in</p>
-                      <FlexDiv>
+                      <FlexDiv className="JCFS">
                         <div className="time-block">
                           <h3>13</h3>
                           <p className="gray-t">hours</p>
@@ -90,9 +90,19 @@ class NftDetail extends Component {
                         </div>
                       </FlexDiv>
                     </div>
+                    {/* <div className='ed-box'>
+                      <p>Unlockable content message</p>
+                      <SkyNoteBox>
+                        <p className="note-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat congue accumsan. Pellentesque et auctor quam, consequat bibendum sapien.</p>
+                      </SkyNoteBox>
+                    </div> */}
                   </Edition>
                   <NFTcartButtons>
-                  <button>Place a bid</button>
+                    <button>Place a bid</button>
+                    {/* <button disabled>Sold out</button> */}
+                    {/* <button className="bordered">Burn</button> */}
+                    {/* <button className="bordered">Transfer</button> */}
+                    {/* <button>Put on Sale</button> */}
                   </NFTcartButtons>
               </NFTDrightcontainer>
             </NFTDright>
@@ -121,6 +131,7 @@ const FlexDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  &.JCFS{justify-content: flex-start;}
 `;
 
 const NFTdetailSection = styled(FlexDiv)`
@@ -219,11 +230,11 @@ const Edition = styled(FlexDiv)`
   margin: 0px 0px 50px;
   .ed-box {
     margin-right:50px;
+    :last-child{margin-right:0px; max-width: 232px; width: 100%;}
     p {
       color: #000;
       font-size: 16px;
-      letter-spacing: -0.8px;
-      font-weight: 600;
+      letter-spacing: -0.5px;
       margin: 0px 0px 10px;
     }
     a{
@@ -262,9 +273,20 @@ const Edition = styled(FlexDiv)`
   }
 `;
 
+const SkyNoteBox = styled.div`
+  background-color:#eef2f7; border-radius:10px; padding:15px;
+  p.note-text{color:#000; font-size:12px; line-height:15px; letter-spacing:-0.5px; margin:0px;}
+`;
+
 const NFTcartButtons = styled.div`
-  button{background-color:#000; color:#fff; padding:13px 60px; border-radius:15px; font-size:14px; letter-spacing:-0.5px;
+  button{background-color:#000; color:#fff; padding:13px 60px; border-radius:15px; font-size:14px; letter-spacing:-0.5px; margin:0px 10px 10px 0px;
     :hover{background-image:linear-gradient(90deg, #d121d6, #febf11); box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);}
+    &:disabled{background-color:rgb(0 0 0 / 30%);
+      :hover{background:rgb(0 0 0 / 30%); box-shadow:none;}
+    }
+    &.bordered{background-color:transparent; border:1px solid #000; color:#000; padding:12px 60px;
+      :hover{background:none;}
+    }
   }
 `;
 

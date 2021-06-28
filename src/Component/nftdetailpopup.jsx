@@ -40,21 +40,23 @@ class NftDpopup extends Component {
   render() {
     return (
       <>
-        {/* first popup */}
+        {/* white wrap popup */}
         {/* <WhiteWrap>
             <CloseBTND2 className="ani-1" onClick={() => this.props.toggle(4)}>
               <img src={CloseBTN02} alt="" />
             </CloseBTND2>
             <img src={LargeImg} alt="" />
         </WhiteWrap> */}
-        <BlackWrap>
+
+        {/* black wrap popup with large white box */}
+        {/* <BlackWrap>
           <WhiteBX0D2>
             <CloseBTN className="ani-1" onClick={() => this.props.toggle(4)}>
               <img src={CloseBTN01} alt="" />
             </CloseBTN>
 
-            {/* history popup starts from here.............. */}
-            {/* <Htitle>History</Htitle>
+            history popup starts from here..............
+            <Htitle>History</Htitle>
             <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width:'100%', height: '400px', position:'relative' }} >
                 <HDsection>
                     <HDleft>
@@ -168,7 +170,7 @@ class NftDpopup extends Component {
                       <Link to="/"><img src={RedirectLink} alt="" /></Link>
                     </HDright>
                 </HDsection>
-            </CustomScrollbars> */}
+            </CustomScrollbars>
 
             <Htitle>Select Edition</Htitle>
             
@@ -437,6 +439,54 @@ class NftDpopup extends Component {
             </EditionTable>
             </CustomScrollbars>
           </WhiteBX0D2>
+        </BlackWrap> */}
+
+        {/* black wrap popup with regular white box */}
+        <BlackWrap>
+          <WhiteBX01>
+
+            <CloseBTN className="ani-1" onClick={() => this.props.toggle(4)}>
+              <img src={CloseBTN01} alt="" />
+            </CloseBTN>
+
+            {/* place a bid and make an offer popup */}
+            {/* <PBtitle>Place a Bid</PBtitle>
+            <PBDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit donec ut sapien faucibus.</PBDesc>
+            <BalanceLine>
+              <p className="balance">Your Balance :</p>
+              <p className="price-state">0.00 BNB  |  0.00 USD</p>
+            </BalanceLine>
+            <HalfInputs className="errorinput">
+              <HIBox>
+                <input className="BR-straight" type="text" placeholder="0.00" />
+                <p>BNB</p>
+              </HIBox>
+              <HIBox>
+                <input className="BL-straight" type="text" placeholder="0.00" />
+                <p>USD</p>
+              </HIBox>
+              <p className="error">Lorem ipsum dolor sit</p>
+            </HalfInputs>
+            
+            <PBbutton>
+              <button className="ani-1">Place</button>
+            </PBbutton> */}
+            
+            {/* Are you sure? popup */}
+            {/* <PBtitle className="AStitle">Are you sure?</PBtitle>
+            <PBDesc className="ASDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</PBDesc>
+            <NFTcartButtons>
+              <button className="ani-1 bordered">Cancel</button>
+              <button className="ani-1">Burn</button>
+            </NFTcartButtons> */}
+
+            <PBtitle className="AStitle">Burned</PBtitle>
+            <PBDesc className="ASDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</PBDesc>
+            <NFTcartButtons>
+              <button className="ani-1 bordered bor-large">OK</button>
+            </NFTcartButtons>
+
+          </WhiteBX01>
         </BlackWrap>
       </>
     );
@@ -683,4 +733,78 @@ const CustomCheckbox1 = styled(FlexDiv)`
     border-color: rgb(0 0 0 / 30%);
   }
 `;
+
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
+
+const PBtitle = styled.div`
+  font-size:24px; letter-spacing:-1px; color:#000; font-weight:600; margin:0px 0px 10px; width:100%;
+  &.AStitle{text-align:center; margin:0px 0px 20px;}
+`;
+
+const PBDesc = styled.div`
+  font-size:14px; letter-spacing:-0.55px; color:#000; margin:0px 0px 30px; width:100%; line-height:18px;
+  &.ASDesc{text-align:center; margin:0px 0px 40px;}
+`;
+
+const BalanceLine = styled(FlexDiv)`
+  justify-content:space-between; margin:0px 0px 6px; width:100%;
+  .balance{font-size:12px; color:#8e9194; margin:0px; font-weight:600;}
+  .price-state{font-size:16px; letter-spacing:-0.8px; color:#000; margin:0px; font-weight:300;}
+`;
+
+const HalfInputs = styled(FlexDiv)`
+    justify-content:flex-start;
+    
+    &.errorinput{
+      input{ border-color: #ff2a44; 
+      &.BR-straight{border-right-color:#ddd;}
+      }
+      .error{font-size:12px; color:#ff2a44; margin:8px 0px 35px; letter-spacing:-0.6px;}
+    }
+`;
+
+const HIBox = styled(FlexDiv)`
+    width:50%; position:relative;
+    input{border:1px solid #dddddd; width:100%; height:54px; border-radius:10px; padding:0px 40px 0px 15px; font-size:24px; letter-spacing:-1.2px; color:#000; font-weight:600;
+      ::placeholder{color:#000;}
+      &.BR-straight{ border-top-right-radius:0px; border-bottom-right-radius:0px;}
+      &.BL-straight{ border-top-left-radius:0px; border-bottom-left-radius:0px; border-left:0px;}
+    } 
+    p{position:absolute; right:15px; bottom:15px; font-size:12px; letter-spacing:-0.6px; font-weight:600; color:#000; margin:0px; line-height:13px;}
+`;
+
+const PBbutton = styled.div`
+    margin:0 auto;
+    button{background-color:rgb(0 0 0 / 30%); padding:14px 78px; color:#fff; font-size:14px; border-radius:15px;
+      &.colorful{background: linear-gradient(90deg, #d121d6, #febf11);}
+      :hover{background: linear-gradient(90deg, #d121d6, #febf11);}
+    }
+`;
+
+const NFTcartButtons = styled.div`
+  margin:0 auto;
+  button{background-color:#000; color:#fff; width:140px; height:44px; border-radius:15px; font-size:14px; letter-spacing:-0.5px; margin:0px 5px 5px;
+    :hover{background-image:linear-gradient(90deg, #d121d6, #febf11); box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);}
+    &:disabled{background-color:rgb(0 0 0 / 30%);
+      :hover{background:rgb(0 0 0 / 30%); box-shadow:none;}
+    }
+    &.bordered{background-color:transparent; border:1px solid #000; color:#000;
+      :hover{background:none;}
+      &.bor-large{padding: 12px 85px; width:auto;}
+    }
+  }
+`;
 export default NftDpopup;
+
+
