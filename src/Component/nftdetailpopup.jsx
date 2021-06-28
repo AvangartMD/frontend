@@ -13,14 +13,15 @@ import RedirectLink from "../Assets/images/icon-set-link.svg";
 import LargeImg from '../Assets/images/nftcard1-big.jpg';
 import FiltICON from "../Assets/images/filterICO.svg";
 import UserIcon from "../Assets/images/userIcon.png";
+import DDdownA from "../Assets/images/dd-down-arrow.svg";
 
 class CustomScrollbars extends Component {
   render() {
     return (
-      <Scrollbars 
-        renderTrackVertical={props => <div {...props} className="track-vertical"/>} 
-        renderThumbVertical={props => <div {...props} className="thumb-vertical"/>}
-        renderView={props => <div {...props} className="view"/>}
+      <Scrollbars
+        renderTrackVertical={props => <div {...props} className="track-vertical" />}
+        renderThumbVertical={props => <div {...props} className="thumb-vertical" />}
+        renderView={props => <div {...props} className="view" />}
         autoHide
         style={this.props.style}>
         {this.props.children}
@@ -57,123 +58,124 @@ class NftDpopup extends Component {
 
             history popup starts from here..............
             <Htitle>History</Htitle>
-            <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width:'100%', height: '400px', position:'relative' }} >
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
-                <HDsection>
-                    <HDleft>
-                      <h3>Lorem ipsum dolor sit amet</h3>
-                      <p>Transaction Date Here</p>
-                    </HDleft>
-                    <HDmiddle>
-                      <p>by @<b>username</b></p>
-                    </HDmiddle>
-                    <HDright>
-                      <HDrightbox>
-                        <h3>0.00 BNB</h3>
-                        <p>0.00 USD</p>
-                      </HDrightbox>
-                      <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                    </HDright>
-                </HDsection>
+            <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width: '100%', height: '400px', position: 'relative' }} >
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
+              <HDsection>
+                <HDleft>
+                  <h3>Lorem ipsum dolor sit amet</h3>
+                  <p>Transaction Date Here</p>
+                </HDleft>
+                <HDmiddle>
+                  <p>by @<b>username</b></p>
+                </HDmiddle>
+                <HDright>
+                  <HDrightbox>
+                    <h3>0.00 BNB</h3>
+                    <p>0.00 USD</p>
+                  </HDrightbox>
+                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
+                </HDright>
+              </HDsection>
             </CustomScrollbars>
 
+            select edition popup starts here
             <Htitle>Select Edition</Htitle>
-            
+
             <FilterMBX>
               <FilterLbx>
                 <button className="active">All</button> <button>For Sale</button>
@@ -235,208 +237,208 @@ class NftDpopup extends Component {
                 </Collapse>
               </FilterBAR>
             </FilterMBX>
-            <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width:'100%', height: '400px', position:'relative' }} >
-            <EditionTable>
-              <table>
-                <thead>
-                  <th>EDITION</th>
-                  <th>OWNER</th>
-                  <th className="text-center">PRICE</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>01</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+            <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width: '100%', height: '400px', position: 'relative' }} >
+              <EditionTable>
+                <table>
+                  <thead>
+                    <th>EDITION</th>
+                    <th>OWNER</th>
+                    <th className="text-center">PRICE</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>01</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>02</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>02</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>03</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>03</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>04</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>04</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>05</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>05</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>06</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>06</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>07</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">
-                      0.00 BNB
-                    </td>
-                    <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>07</td>
+                      <td>
+                        <FlexDiv className="JCFS">
+                          <div className="table-Img">
+                            <img src={UserIcon} alt="" />
+                          </div>
+                          @username
+                        </FlexDiv>
+                      </td>
+                      <td className="text-center">
+                        0.00 BNB
+                      </td>
+                      <td>
                         <CustomCheckbox1>
-                            <label class="checkbox-container">
-                              Select
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value="art"
-                              />
-                              <span class="checkmark"></span>
-                            </label>
+                          <label class="checkbox-container">
+                            Select
+                            <input
+                              type="checkbox"
+                              name="category"
+                              value="art"
+                            />
+                            <span class="checkmark"></span>
+                          </label>
                         </CustomCheckbox1>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </EditionTable>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </EditionTable>
             </CustomScrollbars>
           </WhiteBX0D2>
         </BlackWrap> */}
@@ -450,7 +452,7 @@ class NftDpopup extends Component {
             </CloseBTN>
 
             {/* place a bid and make an offer popup */}
-            {/* <PBtitle>Place a Bid</PBtitle>
+            <PBtitle>Place a Bid</PBtitle>
             <PBDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit donec ut sapien faucibus.</PBDesc>
             <BalanceLine>
               <p className="balance">Your Balance :</p>
@@ -467,11 +469,11 @@ class NftDpopup extends Component {
               </HIBox>
               <p className="error">Lorem ipsum dolor sit</p>
             </HalfInputs>
-            
+
             <PBbutton>
               <button className="ani-1">Place</button>
-            </PBbutton> */}
-            
+            </PBbutton>
+
             {/* Are you sure? popup */}
             {/* <PBtitle className="AStitle">Are you sure?</PBtitle>
             <PBDesc className="ASDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</PBDesc>
@@ -480,14 +482,88 @@ class NftDpopup extends Component {
               <button className="ani-1">Burn</button>
             </NFTcartButtons> */}
 
-            <PBtitle className="AStitle">Burned</PBtitle>
+            {/* Burned popup */}
+            {/* <PBtitle className="AStitle">Burned</PBtitle>
             <PBDesc className="ASDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</PBDesc>
             <NFTcartButtons>
               <button className="ani-1 bordered bor-large">OK</button>
-            </NFTcartButtons>
+            </NFTcartButtons> */}
+
+            {/* Transfer NFT popup */}
+            {/* <PBtitle className="TN-title">Transfer NFT</PBtitle>
+            <PBDesc className="mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</PBDesc>
+            <NFTForm>
+              <div className="label-line">
+                <label>Wallet Address</label>
+              </div>
+              <input type="text" placeholder="Add Wallet Address"/>
+            </NFTForm>
+            <NFTcartButtons>
+              <button className="ani-1 bor-large">Transfer</button>
+            </NFTcartButtons> */}
+
+            {/* Confirm popup */}
+            {/* <PBtitle className="AStitle">Confirm</PBtitle>
+            <PBDesc className="ASDesc mb-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.</PBDesc>
+            <SkyWalletAddress>HDJ938HFNKAU294INSDNGJI2</SkyWalletAddress>
+            <NFTcartButtons>
+              <button className="ani-1 bordered">Cancel</button>
+              <button className="ani-1">Transfer</button>
+            </NFTcartButtons> */}
 
           </WhiteBX01>
         </BlackWrap>
+
+        {/* put on sale popups     */}
+        {/* <BlackWrap>
+          <WhiteBX0D3>
+
+            <CloseBTN className="ani-1" onClick={() => this.props.toggle(4)}>
+              <img src={CloseBTN01} alt="" />
+            </CloseBTN>
+
+            <PBtitle className="TN-title">Put on Sale</PBtitle>
+            <CustomRadio1>
+              <label class="radio-container"> Buy now
+                <input type="radio" name="category" value="buy now" />
+                <span class="checkmark"></span>
+              </label>
+              <label class="radio-container">Accept offers
+                <input type="radio" name="category" value="accept offers" />
+                <span class="checkmark"></span>
+              </label>
+            </CustomRadio1>
+            <NFTForm className="Custom-piece">
+              <div className="label-line">
+                <label>Enter price for one piece</label>
+              </div>
+              <input type="text" placeholder="0.00" name="price" />
+              <AccountBX onClick={() => this.toggle(2)}>
+                <span>
+                  BNB <img src={DDdownA} alt="" />
+                </span>
+                <Collapse isOpen={this.state.isOpen2}
+                  className={
+                    "app__collapse collapse-css-transition  " +
+                    (this.state.isOpen2 ? "collapse-active" : "")
+                  }
+                >
+                  <DDContainer className="ver2">
+                    <DDBtnbar02>
+                      <button>ETH</button>
+                      <button>BTC</button>
+                    </DDBtnbar02>
+                  </DDContainer>
+                </Collapse>
+              </AccountBX>
+            </NFTForm>
+            <NFTcartButtons>
+              <button className="ani-1 bor-large">Place</button>
+            </NFTcartButtons>
+          </WhiteBX0D3>
+        </BlackWrap> */}
+
+
       </>
     );
   }
@@ -526,6 +602,19 @@ const WhiteBX0D2 = styled(FlexDiv)`
   justify-content: flex-start;
   align-content: center;
 `;
+const WhiteBX0D3 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: flex-start;
+`;
+
 const CloseBTN = styled.button`
   width: 20px;
   height: 20px;
@@ -734,6 +823,8 @@ const CustomCheckbox1 = styled(FlexDiv)`
   }
 `;
 
+
+
 const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
@@ -750,11 +841,14 @@ const WhiteBX01 = styled(FlexDiv)`
 const PBtitle = styled.div`
   font-size:24px; letter-spacing:-1px; color:#000; font-weight:600; margin:0px 0px 10px; width:100%;
   &.AStitle{text-align:center; margin:0px 0px 20px;}
+  &.TN-title{margin:0px 0px 20px;}
 `;
 
 const PBDesc = styled.div`
   font-size:14px; letter-spacing:-0.55px; color:#000; margin:0px 0px 30px; width:100%; line-height:18px;
   &.ASDesc{text-align:center; margin:0px 0px 40px;}
+  &.mb-20{margin:0px 0px 20px;}
+  &.mb-10{margin:0px 0px 10px;}
 `;
 
 const BalanceLine = styled(FlexDiv)`
@@ -803,8 +897,187 @@ const NFTcartButtons = styled.div`
       :hover{background:none;}
       &.bor-large{padding: 12px 85px; width:auto;}
     }
+    &.bor-large{padding: 12px 70px; width:auto;}
+  }
+  ${WhiteBX0D3} &{
+    position:absolute; bottom:50px; left:0px; width:100%; text-align:center;
   }
 `;
+
+const NFTForm = styled.div`
+  position: relative; width:100%;
+  &.Custom-piece{
+    .label-line{
+      label{font-size:16px; color:#000; font-weight:500;}  
+    }
+  }
+  .label-line {
+    margin: 0px 0px 6px;
+    label {
+      font-size: 12px;
+      color: #8e9194;
+      letter-spacing: -0.2px;
+    }
+  }
+  input {
+    width: 100%;
+    height: 54px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    color: #000000;
+    letter-spacing: -0.9px;
+    margin: 0px 0px 40px;
+    ::placeholder {
+      color: #000;
+      opacity: 20%;
+    }
+  }
+  .errorinput {
+    position: relative;
+    input {
+      border-color: #ff2a44;
+    }
+    p.error {
+      color: #ff2a44;
+      font-size: 12px;
+      letter-spacing: -0.6px;
+      font-weight: 600;
+      margin: 0px;
+      position: absolute;
+      top: 18px;
+      right: 15px;
+    }
+  }
+`;
+
+const SkyWalletAddress = styled.div`
+  background-color:#eef2f7;
+  padding:10px 47px;
+  border-radius:15px;
+  font-size:14px;
+  letter-spacing:-0.8px;
+  font-weight:600;
+  color:#000;
+  margin:0 auto 40px;
+  width:auto;
+`;
+
+const CustomRadio1 = styled(FlexDiv)`
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  .radio-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 54px;
+    width: calc(145px - 5px);
+    margin-right: 10px;
+    cursor: pointer;
+    padding-left: 15px;
+    line-height: 54px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.9px;
+    color: #000;
+    img {
+      margin-right: 5px;
+    }
+  }
+  .radio-container input {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    margin: 0px;
+  }
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 54px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+  }
+  .radio-container input:checked ~ .checkmark {
+    border: 1px solid #00babc;
+  }
+`;
+
+
+const AccountBX = styled(FlexDiv)`
+  position: absolute;
+  top: 37px;
+  right: 0px;
+  width: auto;
+  justify-content: flex-end;
+  padding: 8px 10px;
+  z-index: 101;
+  cursor: pointer;
+  & i {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  & span {
+    font-size: 16px;
+    letter-spacing: -0.9px;
+    font-weight: 700;
+    color: #000;
+    display: flex;
+    text-align: right;
+    line-height: 16px;
+    padding-right: 8px;
+    img{margin-left:5px;}
+    span {
+      font-size: 10px;
+      color: #b3b3b3;
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+`;
+
+const DDBtnbar02 = styled(FlexDiv)`
+  width: 100%;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid #eef2f7;
+    & i {
+      width: 34px;
+      height: 34px;
+      margin: 0 8px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    & span {
+      margin-left: auto;
+    }
+    &:nth-last-child(01) {
+      border-bottom: 0px;
+    }
+    &:hover {
+      background-color: #d9f5f5;
+    }
+  }
+`;
+
 export default NftDpopup;
 
 
