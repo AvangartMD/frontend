@@ -20,6 +20,8 @@ import {
 import {
   fetchCategory,
   fetchProfile,
+  updateProfile,
+  getUserNFT,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
   fetchCategory,
   fetchDashboardHallFrameInfo,
   fetchProfile,
+  updateProfile,
+  getUserNFT,
 });
 
 export default rootReducer;

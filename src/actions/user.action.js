@@ -3,6 +3,8 @@ import { services } from '../services';
 export const userActions = {
     fetchCategories,
     getProfile,
+    getUserNFT,
+    updateUserDetails,
 }
 
 function fetchedData(type, data) {
@@ -32,6 +34,34 @@ function getProfile(userId) {
       if (promise.status === 200) {
         console.log("user profile ", promise.data.data);
         dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function updateUserDetails(params) {
+  return async (dispatch) => {
+    const response = services.put(`user/update`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        console.log("user update ", promise.data.data);
+        dispatch(fetchedData("PROFILE_UPDATED", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function getUserNFT() {
+  return async (dispatch) => {
+    const response = services.get(`nft/listNftByUser`);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        console.log("user NFT ", promise.data.data);
+        dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
       } else {
         console.log("error");
       }
