@@ -32,12 +32,12 @@ async function post(url, params) {
 
 async function get(url, isAuthenticated) {
   const token = localStorage.getItem("token");
-  const header = isAuthenticated
-    ? { "x-auth-token": token }
-    : {
-        "content-type": "application/json",
-      };
-
+  // const header = isAuthenticated
+  //   ? { "x-auth-token": token }
+  //   : {
+  //       "content-type": "application/json",
+  //     };
+  const header = { "x-auth-token": token }
   try {
     const response = await axios.get(url, { headers: header });
     return response;

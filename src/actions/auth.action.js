@@ -3,6 +3,7 @@ import { services } from '../services';
 export const authActions = {
   fetchBanners,
   fetcInfo,
+  fetcHallFrameInfo,
   fetchDashboardConfig,
 };
 
@@ -34,6 +35,19 @@ function fetcInfo() {
         dispatch(fetchedData('FETCHED_INFO', promise.data.data));
       } else {
         // console.log('error in fetcInfo actions');
+      }
+    });
+  };
+}
+
+function fetcHallFrameInfo() {
+  return (dispatch) => {
+    const response = services.get(`/admin/hall-frame-info/list`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData('FETCHED_HALL_FRAME_INFO', promise.data.data));
+      } else {
+        // console.log('error in fetcHallFrameInfo actions');
       }
     });
   };
