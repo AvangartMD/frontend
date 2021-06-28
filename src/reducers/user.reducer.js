@@ -16,3 +16,21 @@ export function fetchProfile(state = null, action) {
       return state;
   }
 }
+
+export function updateProfile(state = null, action) {
+  switch (action.type) {
+    case "PROFILE_UPDATED":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function getUserNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_USER_NFT":
+      return action.data;
+    default:
+      return state;
+  }
+}

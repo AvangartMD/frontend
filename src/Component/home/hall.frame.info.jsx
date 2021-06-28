@@ -73,7 +73,6 @@ class HallOfFrameInfo extends Component {
   }
 
   render() {
-    console.log('in hall of frame info')
     return (
         <HomeNFTs>
           <Gs.Container>

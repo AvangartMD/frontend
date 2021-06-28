@@ -13,15 +13,12 @@ export const backendServices = {
 };
 
 async function post(url, params) {
-  let header = {
-    "content-type": "application/json",
-  };
-  console.log("params", params);
   const token = localStorage.getItem("token");
-  if (token) {
-    header = { "x-auth-token": token, "Content-Type": "application/json" };
-  }
-  console.log("this is header", header);
+  const header = token
+    ? { "x-auth-token": token }
+    : {
+        "content-type": "application/json",
+      };
   try {
     const response = await axios.post(url, params, { headers: header });
     return response;
@@ -32,12 +29,11 @@ async function post(url, params) {
 
 async function get(url, isAuthenticated) {
   const token = localStorage.getItem("token");
-  // const header = isAuthenticated
-  //   ? { "x-auth-token": token }
-  //   : {
-  //       "content-type": "application/json",
-  //     };
-  const header = { "x-auth-token": token }
+  const header = isAuthenticated
+    ? { "x-auth-token": token }
+    : {
+        "content-type": "application/json",
+      };
   try {
     const response = await axios.get(url, { headers: header });
     return response;
@@ -47,13 +43,12 @@ async function get(url, isAuthenticated) {
 }
 
 async function put(url, parameters) {
-  let header = {
-    "content-type": "application/json",
-  };
   const token = localStorage.getItem("token");
-  if (token) {
-    header = { "x-auth-token": token, "Content-Type": "application/json" };
-  }
+  const header = token
+    ? { "x-auth-token": token }
+    : {
+        "content-type": "application/json",
+      };
   try {
     const response = await axios.put(url, parameters, { headers: header });
     return response;
