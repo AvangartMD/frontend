@@ -17,7 +17,7 @@ import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
 import Login from "./Modals/login";
 import { web3 } from "../web3";
-import BecomeCreator from "./become-a-creator";
+import BecomeCreator from "./Modals/become-creator";
 
 class Header extends Component {
   constructor(props) {
@@ -144,7 +144,8 @@ class Header extends Component {
               </HeadSbx01>
             ) : (
               <HeadSbx01>
-                <AvBTN02 className="colorBTN">Become a Creator</AvBTN02>
+                {/* <AvBTN02 className="colorBTN">Become a Creator</AvBTN02> */}
+                <BecomeCreator />
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>
                   <button>

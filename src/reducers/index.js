@@ -16,6 +16,9 @@ import {
   fetchNetworkId,
   fetchWeb3Data,
 } from "./web3.reducer";
+import {
+  fetchCategory,
+} from "./user.reducer";
 
 const rootReducer = combineReducers({
   fetchCategoryList,
@@ -29,6 +32,7 @@ const rootReducer = combineReducers({
   fetchDashboardInfo,
   fetchDashboard,
   fetchWeb3Data,
+  fetchCategory,
 });
 
 export default rootReducer;

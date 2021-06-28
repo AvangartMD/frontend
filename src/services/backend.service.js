@@ -47,9 +47,13 @@ async function get(url, isAuthenticated) {
 }
 
 async function put(url, parameters) {
-  const header = {
+  let header = {
     "content-type": "application/json",
   };
+  const token = localStorage.getItem("token");
+  if (token) {
+    header = { "x-auth-token": token, "Content-Type": "application/json" };
+  }
   try {
     const response = await axios.put(url, parameters, { headers: header });
     return response;
