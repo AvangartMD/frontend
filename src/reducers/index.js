@@ -25,6 +25,7 @@ import {
   getCreators,
   searchCreators,
   rankCreators,
+  getPagination,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   getCreators,
   searchCreators,
   rankCreators,
+  getPagination,
 });
 
 export default rootReducer;

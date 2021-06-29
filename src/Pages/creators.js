@@ -114,6 +114,15 @@ class Creators extends Component {
         this.props.rankCreators({ 'rank' : rank }) // rank creators
     }
 
+    onCategoryChange = (category) => {
+        if (category === 'all') {
+            this.props.getCreators() // fetch creators
+        } else {
+            this.props.getCategoryCreators({ 'categories': [category] }) // fetch creators by category
+        }
+        this.setState({ tabPanel: category, searched: false, ranked: false })
+    }
+
     render() {
         const { creators, moreCreators, categories, searchedCreators, rankedCreators } = this.props;
         const { tabPanel, searched, ranked } = this.state;
@@ -125,9 +134,9 @@ class Creators extends Component {
 
                 <FilterMBX>
                     <FilterLbx>
-                        <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.setState({ tabPanel: 'all', searched: false, ranked: false })}}>All</button> 
+                        <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.onCategoryChange('all')}}>All</button> 
                         {categories?categories.map((category, key)=>{
-                            return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.setState({ tabPanel: category.id, searched: false, ranked: false })}} >{category.categoryName}</button>
+                            return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.onCategoryChange(category.id)}} >{category.categoryName}</button>
                         }):''}
                     </FilterLbx>
 
@@ -149,12 +158,10 @@ class Creators extends Component {
                 </FilterMBX>
 
                 <Gs.Container>
-
-                        {/* <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> */}
                         
                         {creators && !searched && !ranked?
                             <CreatorMBX>
-                                {this.renderTabRecords(creators)}
+                                {this.renderRecords(creators)}
                             </CreatorMBX>
                         :searchedCreators && searched?
                             <CreatorMBX>
@@ -166,68 +173,32 @@ class Creators extends Component {
                             </CreatorMBX>
                         :<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
 
-                        {/* {searchedCreators && searched?
-                            <CreatorMBX>
-                                {this.renderRecords(searchedCreators)}
-                            </CreatorMBX>
-                        :''}
+                        {/* <CreatorMBX>
+                            <CreatSBX01>
+                                <ImgBannerBX>
+                                    <img src={NftImg} alt='' />
+                                </ImgBannerBX>
+                                <CreatSBX02>
+                                    <UserImg> <img src={UserImg01} alt='' /></UserImg>
+                                    <CretrTitle01>
+                                    User Name
+                                    <span>@username</span>
+                                    </CretrTitle01>
+                                    <CretrText01>
+                                    Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                    </CretrText01>
 
-                        {rankedCreators && ranked?
-                            <CreatorMBX>
-                                {this.renderRecords(rankedCreators)}
-                            </CreatorMBX>
-                        :''} */}
+                                    <CretrInfoMBX>
+                                        <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
+                                        <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
+                                        <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
+                                    </CretrInfoMBX>
 
+                                    <CretrBTN01>See artworks</CretrBTN01>
 
-
-                        {/* <CreatorMBX><CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01></CreatorMBX> */}
+                                </CreatSBX02>
+                            </CreatSBX01>
+                        </CreatorMBX> */}
 
                 </Gs.Container>
             </Gs.MainSection>
@@ -326,15 +297,14 @@ const mapDipatchToProps = (dispatch) => {
     return {
       getCreators: () => dispatch(actions.getCreators()),
       getCategories: () => dispatch(actions.fetchCategories()),
-      getMoreCreators: (params) => dispatch(actions.getMoreCreators(params)),
-      searchCreators: (params) => dispatch(actions.searchCreators(params)),
-      rankCreators: (params) => dispatch(actions.rankCreators(params)),
+      getSearchCreators: (params) => dispatch(actions.getSearchCreators(params)),
+      getRankCreators: (params) => dispatch(actions.getRankCreators(params)),
+      getCategoryCreators: (params) => dispatch(actions.getCategoryCreators(params)),
     }
 }
 const mapStateToProps = (state) => {
     return {
       creators: state.getCreators,
-      moreCreators: state.getMoreCreators,
       searchedCreators: state.searchCreators,
       rankedCreators: state.rankCreators,
       pagination: state.getPagination,

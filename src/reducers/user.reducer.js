@@ -61,3 +61,12 @@ export function rankCreators(state = null, action) {
       return state;
   }
 }
+
+export function getPagination(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_PAGINATION":
+      return action.data;
+    default:
+      return state;
+  }
+}
