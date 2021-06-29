@@ -232,9 +232,9 @@ class Profile extends Component {
                                 <FilterMBX>
                                     <FilterLbx>
                                         
-                                        <button className="active" id='all' onClick={() => {this.setState({ tabPanel: 'all' })}}>All</button> 
+                                        <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.setState({ tabPanel: 'all' })}}>All</button> 
                                         {categories?categories.map((category, key)=>{
-                                          return <button id={category.id} key={key} onClick={() => {this.setState({ tabPanel: category.id })}} >{category.categoryName}</button>
+                                          return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.setState({ tabPanel: category.id })}} >{category.categoryName}</button>
                                         }):'loading..'}
 
                                     </FilterLbx>
