@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
-import NftDpopup from "../Component/nftdetailpopup";
+import Magnifypopup from "../Component/magnifypopup";
+import POSpopup from "../Component/putonsalepopup";
+import PABpopup from "../Component/placebidpopup";
+import Historypopup from "../Component/historypopup";
+import SEpopup from "../Component/selectedition";
 import Collapse from "@kunukn/react-collapse";
 
 import NftdLimg from '../Assets/images/nftcard1.jpg';
@@ -26,95 +30,128 @@ class NftDetail extends Component {
             <NFTDleft>
               <NFTDleftcontainer>
                 <NFTDleftImg >
-                  <Link onClick={() => this.toggle(4)}>
+                  <Link onClick={() => this.toggle(6)}>
                     <img src={NftdLimg} alt="" />
                   </Link>
-                </NFTDleftImg> 
+                </NFTDleftImg>
               </NFTDleftcontainer>
             </NFTDleft>
             <NFTDright>
               <NFTDrightcontainer>
-              <NFTDRtopbar>
-                <NFTDrtitle>Artwork name / title dolor lorem ipsum sit adipiscing</NFTDrtitle>
-                <NFTtopbarright>
-                  <NFTLock>
-                    <img src={Lock} alt='' />
-                  </NFTLock>
-                  <NFTLike>
+                <NFTDRtopbar>
+                  <NFTDrtitle>Artwork name / title dolor lorem ipsum sit adipiscing</NFTDrtitle>
+                  <NFTtopbarright>
+                    <NFTLock>
+                      <img src={Lock} alt='' />
+                    </NFTLock>
+                    <NFTLike>
                       <Link to='/'>
                         <img src={Redheart} alt='' />
                       </Link>
                       <p>306</p>
-                  </NFTLike>
-                </NFTtopbarright>
-              </NFTDRtopbar>
-              <Decs2>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae ultrices nulla, ut cursus lorem. Quisque egestas feugiat ligula, sed aliquam lectus. Ut ac nibh diam. Duis lobortis blandit dui, sit amet rhoncus est gravida non. In vehicula justo arcu.
-              </Decs2>
-              <Historysection>
-                <UserImgName>
+                    </NFTLike>
+                  </NFTtopbarright>
+                </NFTDRtopbar>
+                <Decs2>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae ultrices nulla, ut cursus lorem. Quisque egestas feugiat ligula, sed aliquam lectus. Ut ac nibh diam. Duis lobortis blandit dui, sit amet rhoncus est gravida non. In vehicula justo arcu.
+                </Decs2>
+                <Historysection>
+                  <UserImgName>
                     <img src={UserImg} alt='' />
                     @username
-                </UserImgName>
-                <button>History</button>
-              </Historysection>
-              <Edition>
-                    <div className='ed-box'>
-                      <p>Edition</p>
-                      <h3>
-                        2500
-                      </h3>
-                      <p className="gray-t">of 2500</p>
-                      <Link to="/">Select edition</Link>
-                    </div>
-                    <div className='ed-box'>
-                      <p>Current bid</p>
-                      <h3>0.00 BNB</h3>
-                      <p className="gray-t">0.00 USD</p>
-                      <p className="royalty">A 10% royalty goes to the <br></br>creator for future resale</p>
-                    </div>
-                    <div className='ed-box'>
-                      <p>Ending in</p>
-                      <FlexDiv className="JCFS">
-                        <div className="time-block">
-                          <h3>13</h3>
-                          <p className="gray-t">hours</p>
-                        </div>
-                        <div className="time-block">
-                          <h3>12</h3>
-                          <p className="gray-t">minutes</p>
-                        </div>
-                        <div className="time-block">
-                          <h3>11</h3>
-                          <p className="gray-t">seconds</p>
-                        </div>
-                      </FlexDiv>
-                    </div>
-                    {/* <div className='ed-box'>
+                  </UserImgName>
+                  <button onClick={() => this.toggle(9)}>History</button>
+                </Historysection>
+                <Edition>
+                  <div className='ed-box'>
+                    <p>Edition</p>
+                    <h3>
+                      2500
+                    </h3>
+                    <p className="gray-t">of 2500</p>
+                    <Link onClick={() => this.toggle(10)}>Select edition</Link>
+                  </div>
+                  <div className='ed-box'>
+                    <p>Current bid</p>
+                    <h3>0.00 BNB</h3>
+                    <p className="gray-t">0.00 USD</p>
+                    <p className="royalty">A 10% royalty goes to the <br></br>creator for future resale</p>
+                  </div>
+                  <div className='ed-box'>
+                    <p>Ending in</p>
+                    <FlexDiv className="JCFS">
+                      <div className="time-block">
+                        <h3>13</h3>
+                        <p className="gray-t">hours</p>
+                      </div>
+                      <div className="time-block">
+                        <h3>12</h3>
+                        <p className="gray-t">minutes</p>
+                      </div>
+                      <div className="time-block">
+                        <h3>11</h3>
+                        <p className="gray-t">seconds</p>
+                      </div>
+                    </FlexDiv>
+                  </div>
+                  {/* <div className='ed-box'>
                       <p>Unlockable content message</p>
                       <SkyNoteBox>
                         <p className="note-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat congue accumsan. Pellentesque et auctor quam, consequat bibendum sapien.</p>
                       </SkyNoteBox>
                     </div> */}
-                  </Edition>
-                  <NFTcartButtons>
-                    <button>Place a bid</button>
-                    {/* <button disabled>Sold out</button> */}
-                    {/* <button className="bordered">Burn</button> */}
-                    {/* <button className="bordered">Transfer</button> */}
-                    {/* <button>Put on Sale</button> */}
-                  </NFTcartButtons>
+                </Edition>
+                <NFTcartButtons>
+                  <button onClick={() => this.toggle(8)}>Place a bid</button>
+                  {/* <button disabled>Sold out</button> */}
+                  {/* <button className="bordered">Burn</button> */}
+                  {/* <button className="bordered">Transfer</button> */}
+                  {/* <button onClick={() => this.toggle(7)}>Put on Sale</button> */}
+                </NFTcartButtons>
               </NFTDrightcontainer>
             </NFTDright>
           </NFTdetailSection>
           <Collapse
-            isOpen={this.state.isOpen4}
+            isOpen={this.state.isOpen6}
             className={
-              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+              "app__collapse " + (this.state.isOpen6 ? "collapse-active" : "")
             }
           >
-            <NftDpopup toggle={this.toggle} />
+            <Magnifypopup toggle={this.toggle} />
           </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen7}
+            className={
+              "app__collapse " + (this.state.isOpen7 ? "collapse-active" : "")
+            }
+          >
+            <POSpopup toggle={this.toggle} />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen8}
+            className={
+              "app__collapse " + (this.state.isOpen8 ? "collapse-active" : "")
+            }
+          >
+            <PABpopup toggle={this.toggle} />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen9}
+            className={
+              "app__collapse " + (this.state.isOpen9 ? "collapse-active" : "")
+            }
+          >
+            <Historypopup toggle={this.toggle} />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen10}
+            className={
+              "app__collapse " + (this.state.isOpen10 ? "collapse-active" : "")
+            }
+          >
+            <SEpopup toggle={this.toggle} />
+          </Collapse>
+
         </Gs.MainSection>
       </>
     );
