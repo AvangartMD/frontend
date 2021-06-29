@@ -37,13 +37,13 @@ function Login({ toggle, connectToWallet, loader, error, refreshStates }) {
                 <OnBTNBar>
                   <button onClick={() => connectToWallet()}>
                     <i>
-                      <img src={WalletICO01} alt />
+                      <img src={WalletICO01} alt="" />
                     </i>
                     MetaMask
                   </button>
                   <button>
                     <i>
-                      <img src={WalletICO02} alt />
+                      <img src={WalletICO02} alt="" />
                     </i>
                     TrustWallet
                   </button>

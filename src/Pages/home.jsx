@@ -8,6 +8,7 @@ import TopNFT from '../Component/home/topNFT';
 import HallOfFrame from '../Component/home/hall.frame';
 import Collections from '../Component/home/collections';
 import Info from '../Component/home/info';
+import HallOfFrameInfo from '../Component/home/hall.frame.info';
 
 import { actions } from '../actions';
 import { expiryTime } from '../config';
@@ -62,6 +63,8 @@ class Home extends React.Component {
                             return <TopNFT key={index}/>
                         } else if (data.name==='Hall Of Frame' && data.isActive) {
                             return <HallOfFrame key={index}/>
+                        } else if (data.name==='Hall Of Frame' && !data.isActive) {
+                            return <HallOfFrameInfo key={index}/>
                         } else if (data.name==='Collections' && data.isActive) {
                             return <Collections key={index}/>
                         } else if (data.name==='Info' && data.isActive) {

@@ -17,6 +17,15 @@ export function fetchDashboardInfo(state = null, action) {
   }
 }
 
+export function fetchDashboardHallFrameInfo(state = null, action) {
+  switch (action.type) {
+    case 'FETCHED_HALL_FRAME_INFO':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 export function fetchDashboard(state = null, action) {
   switch (action.type) {
     case 'FETCHED_DASHBOARD':

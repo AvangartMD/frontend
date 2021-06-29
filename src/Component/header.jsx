@@ -7,16 +7,18 @@ import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import Connect from "./connect";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { actions } from "../actions";
 import LogoImg from "../Assets/images/logo.png";
 import NotifiIcon from "../Assets/images/notification.svg";
 import UserIcon from "../Assets/images/userIcon.png";
+import UserIcon2 from "../Assets/images/userImg.png";
 import RightArrow from "../Assets/images/rightArrow.svg";
 import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
 import Login from "./Modals/login";
 import { web3 } from "../web3";
-import BecomeCreator from "./become-a-creator";
+import BecomeCreator from "./Modals/become-creator";
 
 class Header extends Component {
   constructor(props) {
@@ -112,9 +114,24 @@ class Header extends Component {
     this.setState({ error: { isError: false, msg: "" }, loader: false });
   };
 
+  checkRole = (user) => {
+    if (user.role.roleName === "COLLECTOR") {
+      return <BecomeCreator />;
+    } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
+      return (
+        <AvBTN02 className="colorBTN">
+          <button>Create</button>
+        </AvBTN02>
+      );
+    } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
+      return <AvBTN02 className="colorBTN">Waitlist</AvBTN02>;
+    }
+  };
+
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
     console.log(userDetails);
+    const { authData } = this.props;
     return (
       <>
         <HeadMBX>
@@ -155,7 +172,8 @@ class Header extends Component {
               </HeadSbx01>
             ) : (
               <HeadSbx01>
-                <AvBTN02 className="colorBTN">Become a Creator</AvBTN02>
+                {authData ? this.checkRole(authData) : ""}
+
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>
                   <button>
@@ -211,8 +229,8 @@ class Header extends Component {
                         userDetails
                           ? userDetails.profile
                             ? userDetails.profile
-                            : UserIcon
-                          : UserIcon
+                            : UserIcon2
+                          : UserIcon2
                       }
                       alt=""
                     />
@@ -226,10 +244,21 @@ class Header extends Component {
                   >
                     <DDContainer className="ver2">
                       <DDBtnbar02>
-                        <button>
+                        <button
+                          onClick={() => this.props.history.push("/profile")}
+                        >
                           <i>
                             {" "}
-                            <img src={UserIcon} alt="" />
+                            <img
+                              src={
+                                userDetails
+                                  ? userDetails.profile
+                                    ? userDetails.profile
+                                    : UserIcon2
+                                  : UserIcon2
+                              }
+                              alt=""
+                            />
                           </i>{" "}
                           View your profile{" "}
                           <span>
@@ -291,6 +320,8 @@ const FlexDiv = styled.div`
 const HeadMBX = styled(FlexDiv)`
   width: 100%;
   min-height: 100px;
+  position: absolute;
+  z-index: 100;
 `;
 const HeadMBX02 = styled(FlexDiv)`
   width: 100%;
@@ -436,10 +467,12 @@ const AccountBX = styled(FlexDiv)`
   & i {
     width: 50px;
     height: 50px;
+    border-radius: 30px;
     overflow: hidden;
     img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
   & span {
@@ -587,4 +620,4 @@ const mapStateToProps = (state) => {
     authData: state.fetchAuthData,
   };
 };
-export default connect(mapStateToProps, mapDipatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Header));

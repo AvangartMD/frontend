@@ -1,13 +1,14 @@
+import "react-multi-carousel/lib/styles.css";
+import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
-import Media from "./../Theme/media-breackpoint";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
-import Collapse from "@kunukn/react-collapse";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import dateFormat from 'dateformat';
+
 
 import NFT2 from "../Assets/images/nft2.jpg";
 import UserImg from "../Assets/images/user-img.jpg";
@@ -15,76 +16,175 @@ import HeartIcon from "../Assets/images/heart-icon.svg";
 import StarIcon from "../Assets/images/star-icon.svg";
 import RoundIcon from "../Assets/images/round-icon.svg";
 import AdBannerIMG from "../Assets/images/adbanner.jpg";
-import LArrow from "../Assets/images/banner-larrow.svg";
-import RArrow from "../Assets/images/banner-rarrow.svg";
-import SerICON from "../Assets/images/searchICO.svg";
-import FiltICON from "../Assets/images/filterICO.svg";
 import LoaderGif from "../Assets/images/loading.gif";
 import ProfielBack from '../Assets/images/profile-back.jpg'
-import UserImg01 from '../Assets/images/userImg.png'
 import CopyICO from "../Assets/images/icon-copy.svg"
 import PlusICO from "../Assets/images/icon-plus.svg"
 import ADBanner from '../Assets/images/adbanner01.jpg'
 
 import SocialICO01 from "../Assets/images/social-icon01.svg"
-import SocialICO02 from "../Assets/images/social-icon02.svg"
 import SocialICO03 from "../Assets/images/social-icon03.svg"
 import SocialICO04 from "../Assets/images/social-icon04.svg"
 import SocialICO05 from "../Assets/images/social-icon05.svg"
 import SocialICO06 from "../Assets/images/social-icon06.svg"
 
+import { actions } from "../actions";
+import { services } from "../services";
+import { compressImage } from "../helper/functions";
+
 
 class Profile extends Component {
+
     constructor(props) {
         super(props);
+        this.profileInput = React.createRef();
+        this.profileCoverInput = React.createRef();
+        this.walletAddress = React.createRef();
         this.state = {
-            isOpen1: false,
-        };
+            profile: { file: null, url: null },
+            cover: { file: null, url: null },
+            tabPanel: 'all',
+        }
     }
+
+    async componentDidMount() {
+        const { profile, categories, NFTs } = this.props;
+        if (!categories) {
+            this.props.getCategories() // fetch categories
+        }
+        if (!NFTs) {
+          this.props.getNFTs() // fetch user nft's
+        }
+        if (!profile) {
+            const userId = localStorage.getItem('avarnGart')
+            this.props.getProfile(userId) // fetch profile
+        }
+    }
+
+    profileFileChange = async () => {
+        let file = this.profileInput.current.files[0];
+        let url = URL.createObjectURL(file)
+        this.setState({ profile: {url: url, file: file} })
+        if (file.size > 3145728) { // check file size
+            file = await compressImage(file); // compress image
+        }
+        const profile_src = await services.uploadFileOnBucket(file, "profile");
+        let userObj = { 'profile': profile_src }
+        this.props.updateProfile(userObj) // update profile
+    }
+
+    coverFileChange = async () => {
+        let file = this.profileCoverInput.current.files[0];
+        let url = URL.createObjectURL(file)
+        this.setState({ cover: {url: url, file: file} })
+        if (file.size > 3145728) { // check file size
+            file = await compressImage(file); // compress image
+        }
+        const cover_src = await services.uploadFileOnBucket(file, "cover");
+        let userObj = { 'cover': cover_src }
+        this.props.updateProfile(userObj) // update profile
+    }
+
+    renderTabPanel = (NFTs) => {
+      const { tabPanel } = this.state;
+      if (tabPanel !== 'all') {
+        NFTs = NFTs.filter((nft) => nft.category.some( category => category._id===tabPanel ))
+      }
+      return NFTs.map( (nft, key) => {
+        return <Gs.W25V2 key={key}>
+                <Gs.TenpxGutter>
+                    <div className="NFT-home-box">
+                      <NFTImgBX>
+                        {" "}
+                        <img src={nft.image.compressed} alt="" />{" "}
+                      </NFTImgBX>
+                      <div className="NFT-home-box-inner">
+                        <h4>
+                          {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
+                          {nft.title}
+                        </h4>
+                        <CollectionBar>
+                          <p>
+                            {nft.edition} <span>of 2500</span>
+                          </p>
+                          <p>
+                            <Link to="/">
+                              See the collection{" "}
+                              <i className="fas fa-angle-right"></i>
+                            </Link>
+                          </p>
+                        </CollectionBar>
+                        <Edition className="edition2">
+                          <div className="ed-box">
+                            <p>Current bid</p>
+                            <h3>{nft.price} BNB</h3>
+                          </div>
+                          <div className="ed-box">
+                            <p>Ending in</p>
+                            <h3>{nft.saleState==='AUCTION'?`${nft.auctionTime}h`:'13h 12m 11s'}</h3>
+                          </div>
+                        </Edition>
+                        <UserImgName>
+                          <img src={UserImg} alt="" />
+                          @{nft.ownerId.username}
+                        </UserImgName>
+                      </div>
+                    </div>
+                  </Gs.TenpxGutter>
+                </Gs.W25V2>
+      })
+    }
+
     render() {
+        const { profile, categories, NFTs } = this.props;
+        const { tabPanel } = this.state;
         return (
             <>
-                <ProMBannerBX style={{ backgroundImage: `url(${ProfielBack})` }}>
+                <ProMBannerBX style={{ backgroundImage: `url(${this.state.cover.url?this.state.cover.url:profile?profile.cover?profile.cover:ProfielBack:ProfielBack})` }}  >
 
-                    <ProMBX01>
+                    <ProMBX01> 
                         <ProSBX01>
                             <UserImgBX>
                                 <UserImgSB>
-                                    <img src={UserImg01} alt="" />
+                                    {this.state.profile.url?
+                                        <img src={this.state.profile.url} alt="" />
+                                    :
+                                        <img src={profile?profile.profile:''} alt="" />}
                                 </UserImgSB>
 
                                 <ImgUplBTN>
                                     <button><img src={PlusICO} alt="" /> </button>
-
                                     <div className='ddMBX'>
-                                        <button>Edit Profile Pic</button>
-                                        <button>Edit Cover Pic</button>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" 
+                                            ref={this.profileInput} name="profile_pic" id='profile_file' 
+                                            hidden onChange={() => { this.profileFileChange() }} />
+                                        <button onClick={() => { this.profileInput.current.click(); }} >Edit Profile Pic</button>
+
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" 
+                                            ref={this.profileCoverInput} name="profileCoverInput" id='profileCoverInput' 
+                                            hidden onChange={() => { this.coverFileChange() }} />
+                                        <button onClick={() => { this.profileCoverInput.current.click(); }} >Edit Cover Pic</button>
                                     </div>
-
                                 </ImgUplBTN>
-
-
-
-
                             </UserImgBX>
+
                             <UserDetailBX>
                                 <UserDTitle01>
-                                    User Name
-                                    <span>@username</span>
-                                </UserDTitle01>
+                                    {profile?profile.name:'User Name'}
+                                    <span>@{profile?profile.username:'username'}</span>
+                                </UserDTitle01> 
                                 <UserDText01>
-                                    Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
+                                    {profile?profile.bio:'user bio'}
                                 </UserDText01>
                                 <UserSocilMBX>
-                                    <button><img src={SocialICO01} alt="" /></button>
-                                    <button><img src={SocialICO02} alt="" /></button>
-                                    <button><img src={SocialICO03} alt="" /></button>
-                                    <button><img src={SocialICO04} alt="" /></button>
-                                    <button><img src={SocialICO05} alt="" /></button>
-                                    <button><img src={SocialICO06} alt="" /></button> 
+                                    {profile?profile.portfolio.website?<button onClick={() => {window.open(profile.portfolio.website.url, "_blank")}}><img src={SocialICO01} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio.facebook?<button onClick={() => {window.open(profile.portfolio.facebook.url, "_blank")}}><img src={SocialICO03} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio.twitter?<button onClick={() => {window.open(profile.portfolio.twitter.url, "_blank")}}><img src={SocialICO04} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio.youtube?<button onClick={() => {window.open(profile.portfolio.youtube.url, "_blank")}}><img src={SocialICO05} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio.instagarm?<button onClick={() => {window.open(profile.portfolio.instagarm.url, "_blank")}}><img src={SocialICO06} alt="" /></button>:'':''}
                                 </UserSocilMBX> 
                                 <UserDText02>
-                                    Join <span>13.07.2021</span>
+                                    Join <span>{profile?(dateFormat(new Date(profile.createdAt).toString(), 'dd mmmm yyyy')):'join date'}</span>
                                 </UserDText02> 
                             </UserDetailBX>
                         </ProSBX01>
@@ -92,20 +192,21 @@ class Profile extends Component {
                         <ProSBX02>
                             <ProSBX03>
                                 <FollowerMBX>
-                                    Created <span>519</span>
+                                    Created <span>{profile?profile.nftCreated:'000'}</span>
                                 </FollowerMBX>
                                 <FollowerMBX>
-                                    Followers <span>519</span>
+                                    Followers <span>{profile?profile.followersCount:'000'}</span>
                                 </FollowerMBX>
                                 <FollowerMBX>
-                                    Following <span>519</span>
+                                    Following <span>{profile?profile.followingCount:'000'}</span>
                                 </FollowerMBX>
-                                <EditPrBTN> Follow </EditPrBTN>
+                                <EditPrBTN> 
+                                    <button onClick={() => this.props.history.push('/edit-profile')}>Edit Profile</button>
+                                </EditPrBTN>
                             </ProSBX03>
 
                             <ProSBX04>
-                                <span>#000000</span> xyz…….asd3t21f4986543 <button><img src={CopyICO} alt="" /></button>
-
+                                <span>#000000</span> {profile?profile.walletAddress:'xyz....'} <button title='Copied' onClick={() => {navigator.clipboard.writeText(profile?profile.walletAddress:'xyz....')}} ><img src={CopyICO} alt="" /></button>
                             </ProSBX04>
                         </ProSBX02>
                     </ProMBX01>
@@ -113,538 +214,51 @@ class Profile extends Component {
                 </ProMBannerBX>
 
 
-
                 <Gs.Container>
-                    <ADBannerMBX>
 
+                    {/* <ADBannerMBX>
                         <img src={ADBanner} alt='' />
+                    </ADBannerMBX> */}
+                    
+                    <HomeTabs>
+                        <Tabs>
+                            <TabList>
+                                <Tab>Artist</Tab>
+                                <Tab>Artworks</Tab>
+                                <Tab>Collector</Tab>
+                                <Tab>Our Picks</Tab>
+                            </TabList>
 
-                    </ADBannerMBX>
+                            <TabPanel>
+                                <FilterMBX>
+                                    <FilterLbx>
+                                        
+                                        <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.setState({ tabPanel: 'all' })}}>All</button> 
+                                        {categories?categories.map((category, key)=>{
+                                          return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.setState({ tabPanel: category.id })}} >{category.categoryName}</button>
+                                        }):'loading..'}
 
+                                    </FilterLbx>
+                                </FilterMBX>
+                                <HomeNFTs>
+                                    <Gs.Container>
+                                        <NFTfourbox>
 
-                <HomeTabs>
-                    <Tabs>
-                        <TabList>
-                            <Tab>Artist</Tab>
-                            <Tab>Artworks</Tab>
-                            <Tab>Collector</Tab>
-                            <Tab>Our Picks</Tab>
-                        </TabList>
-                        <TabPanel>
-                            
-                <FilterMBX>
-                    <FilterLbx>
-                        <button className="active">All</button> <button>Art</button>{" "}
-                        <button>Celebrity</button> <button>Sport</button>
-                    </FilterLbx>
-                </FilterMBX>
+                                            {NFTs?this.renderTabPanel(NFTs):
+                                               <LoaderBX>
+                                                  <img src={LoaderGif} alt="" />
+                                               </LoaderBX>}
 
-
-
-
-                <HomeNFTs>
-                    <Gs.Container>
-                        <NFTfourbox>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                            <Gs.W25V2>
-                                <Gs.TenpxGutter>
-                                    <div className="NFT-home-box">
-                                        <NFTImgBX>
-                                            {" "}
-                                            <img src={NFT2} alt="" />{" "}
-                                        </NFTImgBX>
-                                        <div className="NFT-home-box-inner">
-                                            <h4>
-                                                Artwork name / title dolor lorem ipsum sit adipiscing
-                                            </h4>
-                                            <CollectionBar>
-                                                <p>
-                                                    25 <span>of 2500</span>
-                                                </p>
-                                                <p>
-                                                    <Link to="/">
-                                                        See the collection{" "}
-                                                        <i className="fas fa-angle-right"></i>
-                                                    </Link>
-                                                </p>
-                                            </CollectionBar>
-                                            <Edition className="edition2">
-                                                <div className="ed-box">
-                                                    <p>Current bid</p>
-                                                    <h3>0.00 BNB</h3>
-                                                </div>
-                                                <div className="ed-box">
-                                                    <p>Ending in</p>
-                                                    <h3>13h 12m 11s</h3>
-                                                </div>
-                                            </Edition>
-                                            <UserImgName>
-                                                <img src={UserImg} alt="" />
-                                                @username
-                                            </UserImgName>
-                                        </div>
-                                    </div>
-                                </Gs.TenpxGutter>
-                            </Gs.W25V2>
-                        </NFTfourbox>
-
-                        <LoaderBX>
-                            <img src={LoaderGif} alt="" />
-                        </LoaderBX>
-                    </Gs.Container>
-                </HomeNFTs>
-            
-
-
-                        </TabPanel>
-                        <TabPanel>2</TabPanel>
-                        <TabPanel>3</TabPanel>
-                        <TabPanel>4</TabPanel>
-                    </Tabs>
-                </HomeTabs>
+                                        </NFTfourbox>
+                                    </Gs.Container>
+                                </HomeNFTs>
+                            </TabPanel>
+                            <TabPanel>2</TabPanel>
+                            <TabPanel>3</TabPanel>
+                            <TabPanel>4</TabPanel>
+                        </Tabs>
+                    </HomeTabs>
                 </Gs.Container>
-
-
-
             </>
         );
     }
@@ -1312,21 +926,21 @@ const FilterBAR = styled(FlexDiv)`
   }
 `;
 
-const DDContainer = styled(FlexDiv)`
-  position: absolute;
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 20px;
-  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
-  top: calc(100% + 7px);
-  width: 100%;
-  left: 0;
-  overflow: hidden;
-  z-index: 100;
+const mapDipatchToProps = (dispatch) => {
+    return {
+      getProfile: (userId) => dispatch(actions.getProfile(userId)),
+      updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
+      getCategories: () => dispatch(actions.fetchCategories()),
+      getNFTs: () => dispatch(actions.getUserNFT()),
+    }
+}
+const mapStateToProps = (state) => {
+    return {
+      profile: state.fetchProfile,
+      profileUpdate: state.updateProfile,
+      categories: state.fetchCategory,
+      NFTs: state.fetchUserNFT,
+    }
+}
 
-  .md-checkbox:hover {
-    background-color: #d9f5f5;
-  }
-`;
-
-export default Profile;
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Profile));

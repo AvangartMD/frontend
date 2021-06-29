@@ -40,7 +40,3 @@ export function fetchCollectionList(state = null, action) {
       return state;
   }
 }
-
-
-
-
