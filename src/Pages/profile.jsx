@@ -43,6 +43,7 @@ class Profile extends Component {
         this.state = {
             profile: { file: null, url: null },
             cover: { file: null, url: null },
+            tabPanel: 'all',
         }
     }
 
@@ -82,6 +83,56 @@ class Profile extends Component {
         const cover_src = await services.uploadFileOnBucket(file, "cover");
         let userObj = { 'cover': cover_src }
         this.props.updateProfile(userObj) // update profile
+    }
+
+    renderTabPanel = (NFTs) => {
+      const { tabPanel } = this.state;
+      if (tabPanel !== 'all') {
+        NFTs = NFTs.filter((nft) => nft.category.some( category => category._id===tabPanel ))
+      }
+      return NFTs.map( (nft, key) => {
+        return <Gs.W25V2 key={key}>
+                <Gs.TenpxGutter>
+                    <div className="NFT-home-box">
+                      <NFTImgBX>
+                        {" "}
+                        <img src={nft.image.compressed} alt="" />{" "}
+                      </NFTImgBX>
+                      <div className="NFT-home-box-inner">
+                        <h4>
+                          {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
+                          {nft.title}
+                        </h4>
+                        <CollectionBar>
+                          <p>
+                            {nft.edition} <span>of 2500</span>
+                          </p>
+                          <p>
+                            <Link to="/">
+                              See the collection{" "}
+                              <i className="fas fa-angle-right"></i>
+                            </Link>
+                          </p>
+                        </CollectionBar>
+                        <Edition className="edition2">
+                          <div className="ed-box">
+                            <p>Current bid</p>
+                            <h3>{nft.price} BNB</h3>
+                          </div>
+                          <div className="ed-box">
+                            <p>Ending in</p>
+                            <h3>{nft.saleState==='AUCTION'?`${nft.auctionTime}h`:'13h 12m 11s'}</h3>
+                          </div>
+                        </Edition>
+                        <UserImgName>
+                          <img src={UserImg} alt="" />
+                          @{nft.ownerId.username}
+                        </UserImgName>
+                      </div>
+                    </div>
+                  </Gs.TenpxGutter>
+                </Gs.W25V2>
+      })
     }
 
     render() {
@@ -180,63 +231,22 @@ class Profile extends Component {
                             <TabPanel>
                                 <FilterMBX>
                                     <FilterLbx>
-                                        <button className="active">All</button> 
+                                        
+                                        <button className="active" id='all' onClick={() => {this.setState({ tabPanel: 'all' })}}>All</button> 
                                         {categories?categories.map((category, key)=>{
-                                          return <button id={category.id} key={key}>{category.categoryName}</button>
+                                          return <button id={category.id} key={key} onClick={() => {this.setState({ tabPanel: category.id })}} >{category.categoryName}</button>
                                         }):'loading..'}
+
                                     </FilterLbx>
                                 </FilterMBX>
                                 <HomeNFTs>
                                     <Gs.Container>
                                         <NFTfourbox>
 
-                                            {NFTs?NFTs.map((nft, key)=>{
-                                              return <Gs.W25V2 key={key}> 
-                                                      <Gs.TenpxGutter>
-                                                        <div className="NFT-home-box">
-                                                          <NFTImgBX>
-                                                            {" "}
-                                                            <img src={nft.image.compressed} alt="" />{" "}
-                                                          </NFTImgBX>
-                                                          <div className="NFT-home-box-inner">
-                                                            <h4>
-                                                              {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
-                                                              {nft.title}
-                                                            </h4>
-                                                            <CollectionBar>
-                                                              <p>
-                                                                {nft.edition} <span>of 2500</span>
-                                                              </p>
-                                                              <p>
-                                                                <Link to="/">
-                                                                  See the collection{" "}
-                                                                  <i className="fas fa-angle-right"></i>
-                                                                </Link>
-                                                              </p>
-                                                            </CollectionBar>
-                                                            <Edition className="edition2">
-                                                              <div className="ed-box">
-                                                                <p>Current bid</p>
-                                                                <h3>{nft.price} BNB</h3>
-                                                              </div>
-                                                              <div className="ed-box">
-                                                                <p>Ending in</p>
-                                                                <h3>13h 12m 11s</h3>
-                                                              </div>
-                                                            </Edition>
-                                                            <UserImgName>
-                                                              <img src={UserImg} alt="" />
-                                                              @{nft.ownerId.username}
-                                                            </UserImgName>
-                                                          </div>
-                                                        </div>
-                                                      </Gs.TenpxGutter>
-                                                    </Gs.W25V2>
-                                            }):
-                                              <LoaderBX>
+                                            {NFTs?this.renderTabPanel(NFTs):
+                                               <LoaderBX>
                                                   <img src={LoaderGif} alt="" />
-                                              </LoaderBX>
-                                            }
+                                               </LoaderBX>}
 
                                         </NFTfourbox>
                                     </Gs.Container>
