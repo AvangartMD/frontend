@@ -137,6 +137,7 @@ class Profile extends Component {
 
     render() {
         const { profile, categories, NFTs } = this.props;
+        const { tabPanel } = this.state;
         return (
             <>
                 <ProMBannerBX style={{ backgroundImage: `url(${this.state.cover.url?this.state.cover.url:profile?profile.cover?profile.cover:ProfielBack:ProfielBack})` }}  >
