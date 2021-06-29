@@ -1,51 +1,186 @@
+import 'react-multi-carousel/lib/styles.css';
+import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
-import { Link } from 'react-router-dom';
-import Media from './../Theme/media-breackpoint'
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import { connect } from "react-redux";
 import Collapse from '@kunukn/react-collapse'
+import InfiniteScroll from 'react-infinite-scroll-component'
+
+import { actions } from "../actions";
+
 import NftImg from '../Assets/images/nftBack.jpg';
 import SerICON from '../Assets/images/searchICO.svg';
 import FiltICON02 from '../Assets/images/sortICO.svg';
 import LoaderGif from '../Assets/images/loading.gif'
 import UserImg01 from '../Assets/images/userImg.png'
+
+
 class Creators extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             isOpen1: false,
+            tabPanel: 'all',
+            searched: false,
+            ranked: false,
         }
     }
+
+    async componentDidMount() {
+        const { creators, categories } = this.props;
+        if (!creators) {
+            this.props.getCreators() // fetch creators
+        }
+        if (!categories) {
+            this.props.getCategories() // fetch categories
+        }
+    }
+
+    renderTabRecords = (creators) => {
+        const { tabPanel } = this.state;
+        if (tabPanel !== 'all') {
+            creators = creators.filter((creator => creator.category.some( category => category===tabPanel )))
+        }
+        return creators.map( (creator, key) => {
+            return <CreatSBX01 key={key}>
+                <ImgBannerBX>
+                    <img src={creator.cover} alt='' />
+                </ImgBannerBX>
+                <CreatSBX02>
+                    <UserImg> <img src={creator.profile} alt='' /></UserImg>
+                    <CretrTitle01>
+                        {creator.name}
+                    <span>@{creator.username}</span>
+                    </CretrTitle01>
+                    <CretrText01>
+                    {/* Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. */}
+                        {creator.bio}
+                    </CretrText01>
+
+                    <CretrInfoMBX>
+                        <CretrInfoSBX01>Created<span>{creator.nftCreated}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01>Followers<span>{creator.followersCount}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01>Following<span>{creator.followingCount}</span></CretrInfoSBX01> 
+                    </CretrInfoMBX>
+
+                    <CretrBTN01>See artworks</CretrBTN01>
+
+                </CreatSBX02>
+            </CreatSBX01>
+        })
+    }
+    
+    renderRecords = (creators) => {
+        return creators.map( (creator, key) => {
+            return <CreatSBX01 key={key}>
+                <ImgBannerBX>
+                    <img src={creator.cover} alt='' />
+                </ImgBannerBX>
+                <CreatSBX02>
+                    <UserImg> <img src={creator.profile} alt='' /></UserImg>
+                    <CretrTitle01>
+                        {creator.name}
+                    <span>@{creator.username}</span>
+                    </CretrTitle01>
+                    <CretrText01>
+                    {/* Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. */}
+                        {creator.bio}
+                    </CretrText01>
+
+                    <CretrInfoMBX>
+                        <CretrInfoSBX01>Created<span>{creator.nftCreated}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01>Followers<span>{creator.followersCount}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01>Following<span>{creator.followingCount}</span></CretrInfoSBX01> 
+                    </CretrInfoMBX>
+
+                    <CretrBTN01>See artworks</CretrBTN01>
+
+                </CreatSBX02>
+            </CreatSBX01>
+        })
+    }
+
+    onSearchKeyUp = (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            this.setState({ searched: true, ranked: false })
+            this.props.searchCreators({ 'search' : e.target.value }) // search creators
+        }
+    }
+
+    setRank = (rank) => {
+        this.setState({ ranked: true, searched: false })
+        this.props.rankCreators({ 'rank' : rank }) // rank creators
+    }
+
     render() {
+        const { creators, moreCreators, categories, searchedCreators, rankedCreators } = this.props;
+        const { tabPanel, searched, ranked } = this.state;
+        if (creators && moreCreators) {
+            this.props.creators.concat(moreCreators) // concating records
+        }
         return (
             <Gs.MainSection>
+
                 <FilterMBX>
                     <FilterLbx>
-                        <button className='active'>All</button> <button>Art</button> <button>Celebrity</button> <button>Sport</button>
+                        <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.setState({ tabPanel: 'all', searched: false, ranked: false })}}>All</button> 
+                        {categories?categories.map((category, key)=>{
+                            return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.setState({ tabPanel: category.id, searched: false, ranked: false })}} >{category.categoryName}</button>
+                        }):''}
                     </FilterLbx>
+
                     <FilterRbx>
                         <FilterInputBX>
-                            <input placeholder='Search'></input>
+                            <input placeholder='Search' onKeyUp={(e)=> this.onSearchKeyUp(e)}></input>
                             <SearchICO><img src={SerICON} alt="" /> </SearchICO>
                         </FilterInputBX>
                         <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '')}>
                             <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
                             <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
                                 <DDContainer>
-                                    <DDBTN01>by Name</DDBTN01>
-                                    <DDBTN01>by Follower</DDBTN01> 
+                                    <DDBTN01 onClick={() => {this.setRank('name')}}>by Name</DDBTN01>
+                                    <DDBTN01 onClick={() => {this.setRank('follower')}}>by Follower</DDBTN01> 
                                 </DDContainer>
                             </Collapse>
                         </FilterBAR>
                     </FilterRbx>
                 </FilterMBX>
+
                 <Gs.Container>
-                    <CreatorMBX>
-                    <CreatSBX01>
+
+                        {/* <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> */}
+                        
+                        {creators && !searched && !ranked?
+                            <CreatorMBX>
+                                {this.renderTabRecords(creators)}
+                            </CreatorMBX>
+                        :searchedCreators && searched?
+                            <CreatorMBX>
+                                {this.renderRecords(searchedCreators)}
+                            </CreatorMBX> 
+                        :rankedCreators && ranked?
+                            <CreatorMBX>
+                                {this.renderRecords(rankedCreators)}
+                            </CreatorMBX>
+                        :<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
+
+                        {/* {searchedCreators && searched?
+                            <CreatorMBX>
+                                {this.renderRecords(searchedCreators)}
+                            </CreatorMBX>
+                        :''}
+
+                        {rankedCreators && ranked?
+                            <CreatorMBX>
+                                {this.renderRecords(rankedCreators)}
+                            </CreatorMBX>
+                        :''} */}
+
+
+
+                        {/* <CreatorMBX><CreatSBX01>
                             <ImgBannerBX>
                                 <img src={NftImg} alt='' />
                             </ImgBannerBX>
@@ -92,156 +227,8 @@ class Creators extends Component {
                                 <CretrBTN01>See artworks</CretrBTN01>
 
                             </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
+                        </CreatSBX01></CreatorMBX> */}
 
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                    
-                    </CreatorMBX>
-                    <LoaderBX>
-                      <img src={LoaderGif} alt="" />
-                  </LoaderBX> 
                 </Gs.Container>
             </Gs.MainSection>
         );
@@ -335,4 +322,24 @@ const DDBTN01 = styled.button`
     :hover{ background-color:#D9F5F5;}
 `
 
-export default Creators;
+const mapDipatchToProps = (dispatch) => {
+    return {
+      getCreators: () => dispatch(actions.getCreators()),
+      getCategories: () => dispatch(actions.fetchCategories()),
+      getMoreCreators: (params) => dispatch(actions.getMoreCreators(params)),
+      searchCreators: (params) => dispatch(actions.searchCreators(params)),
+      rankCreators: (params) => dispatch(actions.rankCreators(params)),
+    }
+}
+const mapStateToProps = (state) => {
+    return {
+      creators: state.getCreators,
+      moreCreators: state.getMoreCreators,
+      searchedCreators: state.searchCreators,
+      rankedCreators: state.rankCreators,
+      pagination: state.getPagination,
+      categories: state.fetchCategory,
+    }
+}
+
+export default connect(mapStateToProps, mapDipatchToProps)(Creators);

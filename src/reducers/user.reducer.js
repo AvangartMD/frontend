@@ -34,3 +34,30 @@ export function getUserNFT(state = null, action) {
       return state;
   }
 }
+
+export function getCreators(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_CREATORS":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function searchCreators(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_SEARCH_CREATORS":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function rankCreators(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_RANKE_CREATORS":
+      return action.data;
+    default:
+      return state;
+  }
+}

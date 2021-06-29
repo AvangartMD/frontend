@@ -4,7 +4,10 @@ export const userActions = {
     fetchCategories,
     getProfile,
     getUserNFT,
+    getCreators,
+    searchCreators,
     updateUserDetails,
+    rankCreators,
 }
 
 function fetchedData(type, data) {
@@ -32,7 +35,6 @@ function getProfile(userId) {
     const response = services.get(`user/userDetails?userId?=${userId}`);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("user profile ", promise.data.data);
         dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
       } else {
         console.log("error");
@@ -46,7 +48,6 @@ function updateUserDetails(params) {
     const response = services.put(`user/update`, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("user update ", promise.data.data);
         dispatch(fetchedData("PROFILE_UPDATED", promise.data.data));
       } else {
         console.log("error");
@@ -60,8 +61,47 @@ function getUserNFT() {
     const response = services.get(`nft/listNftByUser`);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("user NFT ", promise.data.data);
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function getCreators() {
+  return async (dispatch) => {
+    const response = services.post(`user/listVerifiefCreator`);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function searchCreators(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`user/listVerifiefCreator`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_SEARCH_CREATORS", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function rankCreators(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`user/listVerifiefCreator`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_RANKE_CREATORS", promise.data.data));
       } else {
         console.log("error");
       }
