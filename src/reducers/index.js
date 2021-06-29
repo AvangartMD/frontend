@@ -21,11 +21,11 @@ import {
   fetchCategory,
   fetchProfile,
   updateProfile,
-  getUserNFT,
-  getCreators,
-  searchCreators,
-  rankCreators,
-  getPagination,
+  fetchUserNFT,
+  fetchCreators,
+  fetchSearchCreators,
+  fetchRankCreators,
+  fetchPagination,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -44,11 +44,11 @@ const rootReducer = combineReducers({
   fetchDashboardHallFrameInfo,
   fetchProfile,
   updateProfile,
-  getUserNFT,
-  getCreators,
-  searchCreators,
-  rankCreators,
-  getPagination,
+  fetchUserNFT,
+  fetchCreators,
+  fetchSearchCreators,
+  fetchRankCreators,
+  fetchPagination,
 });
 
 export default rootReducer;

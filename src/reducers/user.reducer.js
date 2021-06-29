@@ -26,7 +26,7 @@ export function updateProfile(state = null, action) {
   }
 }
 
-export function getUserNFT(state = null, action) {
+export function fetchUserNFT(state = null, action) {
   switch (action.type) {
     case "FETCHED_USER_NFT":
       return action.data;
@@ -35,7 +35,7 @@ export function getUserNFT(state = null, action) {
   }
 }
 
-export function getCreators(state = null, action) {
+export function fetchCreators(state = null, action) {
   switch (action.type) {
     case "FETCHED_CREATORS":
       return action.data;
@@ -44,7 +44,7 @@ export function getCreators(state = null, action) {
   }
 }
 
-export function searchCreators(state = null, action) {
+export function fetchSearchCreators(state = null, action) {
   switch (action.type) {
     case "FETCHED_SEARCH_CREATORS":
       return action.data;
@@ -53,7 +53,7 @@ export function searchCreators(state = null, action) {
   }
 }
 
-export function rankCreators(state = null, action) {
+export function fetchRankCreators(state = null, action) {
   switch (action.type) {
     case "FETCHED_RANKE_CREATORS":
       return action.data;
@@ -62,7 +62,7 @@ export function rankCreators(state = null, action) {
   }
 }
 
-export function getPagination(state = null, action) {
+export function fetchPagination(state = null, action) {
   switch (action.type) {
     case "FETCHED_PAGINATION":
       return action.data;

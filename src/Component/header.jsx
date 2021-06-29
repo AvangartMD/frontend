@@ -231,7 +231,11 @@ class Header extends Component {
                         <button onClick={() => this.props.history.push('/profile')}>
                           <i>
                             {" "}
-                            <img src={UserIcon2} alt="" />
+                            <img src={userDetails
+                          ? userDetails.profile
+                            ? userDetails.profile
+                            : UserIcon2
+                          : UserIcon2} alt="" />
                           </i>{" "}
                           View your profile{" "}
                           <span>

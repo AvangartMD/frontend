@@ -105,13 +105,13 @@ class Creators extends Component {
     onSearchKeyUp = (e) => {
         if (e.key === 'Enter' || e.keyCode === 13) {
             this.setState({ searched: true, ranked: false })
-            this.props.searchCreators({ 'search' : e.target.value }) // search creators
+            this.props.getSearchCreators({ 'search' : e.target.value }) // search creators
         }
     }
 
     setRank = (rank) => {
         this.setState({ ranked: true, searched: false })
-        this.props.rankCreators({ 'rank' : rank }) // rank creators
+        this.props.getRankCreators({ 'rank' : rank }) // rank creators
     }
 
     onCategoryChange = (category) => {
@@ -304,10 +304,10 @@ const mapDipatchToProps = (dispatch) => {
 }
 const mapStateToProps = (state) => {
     return {
-      creators: state.getCreators,
-      searchedCreators: state.searchCreators,
-      rankedCreators: state.rankCreators,
-      pagination: state.getPagination,
+      creators: state.fetchCreators,
+      searchedCreators: state.fetchSearchCreators,
+      rankedCreators: state.fetchRankCreators,
+      pagination: state.fetchPagination,
       categories: state.fetchCategory,
     }
 }

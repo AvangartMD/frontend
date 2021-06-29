@@ -939,7 +939,7 @@ const mapStateToProps = (state) => {
       profile: state.fetchProfile,
       profileUpdate: state.updateProfile,
       categories: state.fetchCategory,
-      NFTs: state.getUserNFT,
+      NFTs: state.fetchUserNFT,
     }
 }
 
