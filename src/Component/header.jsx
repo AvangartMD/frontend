@@ -45,41 +45,47 @@ class Header extends Component {
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          this.signatureRequest(undefined, true);
+          this.checkAuthentication(web3Data);
         }
       });
+    }
+    if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
+      this.setState({ web3Data: web3Data });
     }
     if (nonce !== prevProps.nonce) {
       this.signatureRequest(nonce);
     }
-    if (authData?.token !== prevProps.authData?.token) {
-      if (authData.token) {
-        let { web3Data } = this.state;
-        web3Data.isLoggedIn = true;
-        this.setState({ web3Data, userDetails: authData.details }, () => {
-          this.toggle(4);
-          this.refreshStates();
-        });
-      }
+    if (authData !== prevProps.authData) {
+      this.setState({ userDetails: authData, isOpen4: false }, () => {
+        // this.toggle(4);
+        this.refreshStates();
+      });
     }
   }
 
   componentDidMount() {
     let { web3Data } = this.props;
-    if (!web3Data) {
-      // this.props.getWeb3();
+    console.log(web3Data);
+    if (!web3Data.accounts[0]) {
+      console.log("here");
+      this.props.getWeb3();
     } else {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          if (
-            !localStorage.getItem("token") ||
-            web3Data.accounts[0] !== localStorage.getItem("userAddress")
-          )
-            this.signatureRequest(undefined, true);
+          this.checkAuthentication(web3Data);
+
           // else this.props.authenticateUser();
         }
       });
     }
+  }
+  checkAuthentication(web3Data) {
+    if (
+      !localStorage.getItem("token") ||
+      web3Data.accounts[0] !== localStorage.getItem("userAddress")
+    )
+      this.signatureRequest(undefined, true);
+    else this.props.getUserDetails();
   }
   async signatureRequest(nonce, stepOne) {
     const { web3Data } = this.state;
@@ -108,6 +114,7 @@ class Header extends Component {
 
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
+    console.log(userDetails);
     return (
       <>
         <HeadMBX>
@@ -568,6 +575,7 @@ const mapDipatchToProps = (dispatch) => {
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
+    getUserDetails: () => dispatch(actions.getUserDetails()),
   };
 };
 const mapStateToProps = (state) => {

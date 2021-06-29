@@ -37,7 +37,7 @@ function authLogin(nonce, signature) {
           newresp.isLoggedIn = true;
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
-        dispatch(setData(promise.data.data, "AUTH_LOGIN"));
+        dispatch(setData(promise.data.data.details, "AUTH_LOGIN"));
       } else {
         // console.log('erroer');
       }
@@ -99,11 +99,30 @@ function getCollectionList() {
 //     });
 //   };
 // }
-
+function getUserDetails() {
+  return (dispatch) => {
+    const response = services.get("user/userDetails", true);
+    response.then(async (promise) => {
+      if (promise.status === 200) {
+        if (promise.data.data) {
+          const newresp = await services.getWeb3();
+          localStorage.setItem("userAddress", newresp.accounts[0]);
+          newresp.isLoggedIn = true;
+          console.log("new rsp", newresp);
+          dispatch(setData(newresp, "FETCH_WEB3_DATA"));
+        }
+        dispatch(setData(promise.data.data, "AUTH_LOGIN"));
+      } else {
+        // console.log('erroer');
+      }
+    });
+  };
+}
 export const defiActions = {
   addNFT,
   authLogin,
   generateNonce,
   getCategoryList,
   getCollectionList,
+  getUserDetails,
 };

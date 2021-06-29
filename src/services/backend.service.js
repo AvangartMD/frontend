@@ -33,7 +33,7 @@ async function post(url, params) {
 async function get(url, isAuthenticated) {
   const token = localStorage.getItem("token");
   const header = isAuthenticated
-    ? { "x-auth-token": token }
+    ? { "x-auth-token": token, "content-type": "application/json" }
     : {
         "content-type": "application/json",
       };
