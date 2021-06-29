@@ -5,10 +5,8 @@ export const userActions = {
     getProfile,
     getUserNFT,
     getCreators,
-    getSearchCreators,
     updateUserDetails,
-    getRankCreators,
-    getCategoryCreators,
+    getMoreCreators,
 }
 
 function fetchedData(type, data) {
@@ -70,11 +68,12 @@ function getUserNFT() {
   };
 }
 
-function getCreators() {
+function getCreators(params={}) {
   return async (dispatch) => {
-    const response = services.post(`user/listVerifiefCreator`);
+    const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
+        console.log(promise.data.data)
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
       } else {
@@ -84,41 +83,13 @@ function getCreators() {
   };
 }
 
-function getSearchCreators(params={}) {
+function getMoreCreators(params={}) {
   return async (dispatch) => {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_SEARCH_CREATORS", promise.data.data));
-      } else {
-        console.log("error");
-      }
-    });
-  };
-}
-
-function getRankCreators(params={}) {
-  return async (dispatch) => {
-    const response = services.post(`user/listVerifiefCreator`, params);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_RANKE_CREATORS", promise.data.data));
-      } else {
-        console.log("error");
-      }
-    });
-  };
-}
-
-function getCategoryCreators(params={}) {
-  return async (dispatch) => {
-    const response = services.post(`user/listVerifiefCreator`, params);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
+        dispatch(fetchedData("FETCHED_MORE_CREATORS", promise.data.data));
       } else {
         console.log("error");
       }

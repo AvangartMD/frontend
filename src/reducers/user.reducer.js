@@ -39,23 +39,7 @@ export function fetchCreators(state = null, action) {
   switch (action.type) {
     case "FETCHED_CREATORS":
       return action.data;
-    default:
-      return state;
-  }
-}
-
-export function fetchSearchCreators(state = null, action) {
-  switch (action.type) {
-    case "FETCHED_SEARCH_CREATORS":
-      return action.data;
-    default:
-      return state;
-  }
-}
-
-export function fetchRankCreators(state = null, action) {
-  switch (action.type) {
-    case "FETCHED_RANKE_CREATORS":
+    case "CLEAR_CREATORS":
       return action.data;
     default:
       return state;
@@ -65,6 +49,19 @@ export function fetchRankCreators(state = null, action) {
 export function fetchPagination(state = null, action) {
   switch (action.type) {
     case "FETCHED_PAGINATION":
+      return action.data;
+    case "CLEAR_PAGINATION":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchMoreCreators(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_MORE_CREATORS":
+      return action.data;
+    case "CLEAR_MORE_CREATORS":
       return action.data;
     default:
       return state;

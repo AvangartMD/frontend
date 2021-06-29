@@ -23,9 +23,8 @@ import {
   updateProfile,
   fetchUserNFT,
   fetchCreators,
-  fetchSearchCreators,
-  fetchRankCreators,
   fetchPagination,
+  fetchMoreCreators,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -46,9 +45,8 @@ const rootReducer = combineReducers({
   updateProfile,
   fetchUserNFT,
   fetchCreators,
-  fetchSearchCreators,
-  fetchRankCreators,
   fetchPagination,
+  fetchMoreCreators,
 });
 
 export default rootReducer;
