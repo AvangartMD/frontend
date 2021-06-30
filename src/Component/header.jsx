@@ -115,6 +115,7 @@ class Header extends Component {
   };
 
   checkRole = (user) => {
+    console.log("user", user);
     if (user.role.roleName === "COLLECTOR") {
       return <BecomeCreator />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
@@ -172,7 +173,7 @@ class Header extends Component {
               </HeadSbx01>
             ) : (
               <HeadSbx01>
-                {authData ? this.checkRole(authData) : ""}
+                {userDetails ? this.checkRole(userDetails) : ""}
 
                 <NotificationBX onClick={() => this.toggle(3)}>
                   <span className="RedDot"></span>

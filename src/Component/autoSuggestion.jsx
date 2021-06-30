@@ -31,7 +31,7 @@ async function getSuggestions(value) {
 }
 
 function renderSuggestion(suggestion) {
-  return <span>{suggestion.username}</span>;
+  return <span style={{ backgroundColor: "red" }}>{suggestion.username}</span>;
 }
 
 class Autosuggestion extends React.Component {
