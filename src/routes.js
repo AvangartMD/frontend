@@ -8,6 +8,7 @@ import MarketPlace from "./Pages/marketplace";
 import Creators from "./Pages/creators";
 import Profile from "./Pages/profile";
 import EditProfile from "./Pages/profile-edit";
+import Collection from "./Pages/collection";
 
 var routes = [
   {
@@ -50,6 +51,12 @@ var routes = [
     path: "nftDetails",
     name: "NFT Detail",
     component: NftDetail,
+    layout: "/",
+  },
+  {
+    path: "collection",
+    name: "Collection",
+    component: Collection,
     layout: "/",
   },
   // {

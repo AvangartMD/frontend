@@ -35,281 +35,281 @@ import { compressImage } from "../helper/functions";
 import { LookoutMetrics } from "aws-sdk";
 
 class ProfileEdit extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            nftObj: {
-                title: "Artwork name / title dolor lorem ipsum sit adipiscing",
-                description: "",
-                coCreatorUserName: "",
-                percentShare: 0,
-                category: "",
-                collection: "",
-                saleState: "",
-                auctionTime: "13h 12m 11s",
-                edition: "",
-                price: "0.00",
-                digitalKey: "",
-                nftFile: {},
-                imgSrc: "",
-            },
-        };
-    }
-    async mintNFT() {
-        const { web3Data, nftContractInstance, newNFTURI } = this.state;
-        // uint256 _editions, (no of Editions)
-        //     string memory _tokenURI, (NFT image code)
-        //     address _creator,
-        //     address _coCreator,
-        //     uint256 _creatorPercent,
-        //     uint256 _coCreatorPercent,
-        //     Type _saleType, (0 for Buy now and 1 for Auction)
-        //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
-        //     uint256 _pricePerNFT, (price for each edition of the NFT)
-        //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
-        await nftContractInstance.methods
-            .mintToken(newNFTURI)
-            .send({ from: web3Data.accounts[0] })
-            .on("transactionHash", (hash) => {
-                // this.onTransactionHash(hash);
-                console.log(hash);
-            })
-            .on("receipt", (receipt) => {
-                this.onReciept();
-            })
-            .on("error", (error) => {
-                this.onTransactionError(error);
-            });
-    }
-
-    render() {
-        function pointSelect(curr) {
-            let hash = window.location.hash.substr(1);
-            if (hash == curr) return "active";
-            else return "inactive";
-        }
-        const nftObj = this.state.nftObj;
-        console.log(this.state.nftObj);
-        return (
-            <Gs.MainSection>
-                <div style={{ minHeight: "100vh", width: "100%" }}>
-                    <Gs.Container>
-                        <NFTminting>
-                            <Gs.W200px>
-                                <Sticky>
-                                    <NFTLeft>
-                                        <Link className={pointSelect("accountSettings")} to="profile-edit#accountSettings" smooth={true} >
-                                            Account Settings
-                                        </Link>
-                                        <Link className={pointSelect("biography")} to="profile-edit#biography" smooth={true} >
-                                            Biography
-                                        </Link>
-                                        <Link className={pointSelect("verifyProfile")} to="profile-edit#verifyProfile" smooth={true} >
-                                            Verify Profile
-                                        </Link>
-                                        <Link className={pointSelect("socialLink")} to="profile-edit#socialLink" smooth={true} >
-                                            Social Links
-                                        </Link>
-                                    </NFTLeft>
-
-                                    <BackBTN01>Back to Profile</BackBTN01>
-
-                                </Sticky>
-                            </Gs.W200px>
-                            <Gs.W880px className="displayflex">
-                                <Gs.W605px>
-                                    <NFTMiddle>
-                                        <NFTtitle id="accountSettings">
-                                            <h4>Account Settings</h4>
-                                            <p className="mb-30">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            </p>
-                                        </NFTtitle>
-                                        <form
-                                            onChange={(e) => this.formchange(e)}
-                                            onSubmit={(e) => this.createNFT(e)}
-                                        >
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Name</label>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    name="title" defaultValue="John Doe"
-                                                    placeholder="Type something…"
-                                                />
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Username</label> 
-                                                </div>
-                                                <div className="iLeft errorinput">
-                                                    <i>@</i>
-                                                    <input
-                                                        type="text"
-                                                        name="description"
-                                                        placeholder="Type something…"
-                                                        defaultValue="johndoe"
-                                                    />
-                                                    <p className="error">it’s taken</p>
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                 
-                                            <div className="label-line">
-                                                    <label>Email</label>
-                                                    <FlexDiv className="JCSB">
-                                                        <p>Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. </p> 
-                                                    </FlexDiv>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    name="description"
-                                                    placeholder="Type something…"
-                                                    defaultValue="johndoe@mail.com"
-                                                />
-                                            </NFTForm>
-                                            <NFTtitle id="biography">
-                                                <h4 className="mt-30">Biography</h4>
-                                                <p className="mb-30">Write a little bit about yourself</p>
-                                            </NFTtitle> 
-                                            <NFTForm>  
-                                                    <textarea
-                                                        type="textarea"
-                                                        name="percentShare"
-                                                        placeholder="0" 
-                                                    > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ornare augue non finibus commodo. Nam semper purus vel nulla mattis iaculis. Duis rhoncus dictum eros, ut dictum quam. </textarea>
-                                            </NFTForm>
-                                            <NFTtitle id="verifyProfile">
-                                                <h4 className="mt-30">Verify Profile</h4>
-                                                <p className="mb-30">
-                                                Show us how authentic your profile
-                                                </p>
-                                            </NFTtitle>
-                                            <NFTForm> 
-                                                <CustomCheckbox1>
-                                                    <label class="checkbox-container">
-                                                        {" "}
-                                                        <img src={CICON01} alt="" />
-                                                        Verify via Twitter
-                                                        <button
-                                                            type="checkbox"
-                                                            name="category"
-                                                            value="aa"
-                                                        />
-                                                        <span class="checkmark v2"></span>
-                                                    </label>
-                                                    <label class="checkbox-container">
-                                                        {" "}
-                                                        <img src={CICON02} alt="" />
-                                                        Verify via Instagram
-                                                        <button
-                                                            type="checkbox"
-                                                            name="category"
-                                                            value="celebrity"
-                                                        />
-                                                        <span class="checkmark v2"></span>
-                                                    </label> 
-                                                </CustomCheckbox1>
-                                            </NFTForm> 
-                                            <NFTtitle id="socialLink">
-                                                <h4 className="mt-30">Social Links</h4>
-                                                <p className="mb-30">
-                                                Add your social media links for people who want you know more
-                                                </p>
-                                            </NFTtitle>
-                                             
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Website</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON03} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="description"
-                                                        placeholder="Type something…"
-                                                        defaultValue="johndoe.com"
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Discord</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON04} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="description"
-                                                        placeholder="Type something…"
-                                                        defaultValue="@johndoe"
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Youtube</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON05} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="description"
-                                                        placeholder="Type something…"
-                                                        defaultValue="@johndoe"
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Facebook</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON06} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="description"
-                                                        placeholder="Type something…"
-                                                        defaultValue="@johndoe"
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-
-
-
-
-
-
-
-
-
-
-                                            <CreateItemButton>
-                                                <button type="submit">Create Item</button>
-                                            </CreateItemButton>
-                                        </form>
-                                    </NFTMiddle>
-                                </Gs.W605px>
-                            </Gs.W880px>
-                        </NFTminting>
-                    </Gs.Container>
-                </div>
-                <Collapse
-                    isOpen={this.state.isOpen4}
-                    className={
-                        "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-                    }
-                >
-                    <NFTModal toggle={this.toggle} />
-                </Collapse>
-            </Gs.MainSection>
-        );
-    }
-    toggle = (index) => {
-        let collapse = "isOpen" + index;
-        this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+  constructor(props) {
+    super(props);
+    this.state = {
+      nftObj: {
+        title: "Artwork name / title dolor lorem ipsum sit adipiscing",
+        description: "",
+        coCreatorUserName: "",
+        percentShare: 0,
+        category: "",
+        collection: "",
+        saleState: "",
+        auctionTime: "13h 12m 11s",
+        edition: "",
+        price: "0.00",
+        digitalKey: "",
+        nftFile: {},
+        imgSrc: "",
+      },
     };
+  }
+  async mintNFT() {
+    const { web3Data, nftContractInstance, newNFTURI } = this.state;
+    // uint256 _editions, (no of Editions)
+    //     string memory _tokenURI, (NFT image code)
+    //     address _creator,
+    //     address _coCreator,
+    //     uint256 _creatorPercent,
+    //     uint256 _coCreatorPercent,
+    //     Type _saleType, (0 for Buy now and 1 for Auction)
+    //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
+    //     uint256 _pricePerNFT, (price for each edition of the NFT)
+    //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
+    await nftContractInstance.methods
+      .mintToken(newNFTURI)
+      .send({ from: web3Data.accounts[0] })
+      .on("transactionHash", (hash) => {
+        // this.onTransactionHash(hash);
+        console.log(hash);
+      })
+      .on("receipt", (receipt) => {
+        this.onReciept();
+      })
+      .on("error", (error) => {
+        this.onTransactionError(error);
+      });
+  }
+
+  render() {
+    function pointSelect(curr) {
+      let hash = window.location.hash.substr(1);
+      if (hash == curr) return "active";
+      else return "inactive";
+    }
+    const nftObj = this.state.nftObj;
+    console.log(this.state.nftObj);
+    return (
+      <Gs.MainSection>
+        <div style={{ minHeight: "100vh", width: "100%" }}>
+          <Gs.Container>
+            <NFTminting>
+              <Gs.W200px>
+                <Sticky>
+                  <NFTLeft>
+                    <Link className={pointSelect("accountSettings")} to="profile-edit#accountSettings" smooth={true} >
+                      Account Settings
+                    </Link>
+                    <Link className={pointSelect("biography")} to="profile-edit#biography" smooth={true} >
+                      Biography
+                    </Link>
+                    <Link className={pointSelect("verifyProfile")} to="profile-edit#verifyProfile" smooth={true} >
+                      Verify Profile
+                    </Link>
+                    <Link className={pointSelect("socialLink")} to="profile-edit#socialLink" smooth={true} >
+                      Social Links
+                    </Link>
+                  </NFTLeft>
+
+                  <BackBTN01>Back to Profile</BackBTN01>
+
+                </Sticky>
+              </Gs.W200px>
+              <Gs.W880px className="displayflex">
+                <Gs.W605px>
+                  <NFTMiddle>
+                    <NFTtitle id="accountSettings">
+                      <h4>Account Settings</h4>
+                      <p className="mb-30">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      </p>
+                    </NFTtitle>
+                    <form
+                      onChange={(e) => this.formchange(e)}
+                      onSubmit={(e) => this.createNFT(e)}
+                    >
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Name</label>
+                        </div>
+                        <input
+                          type="text"
+                          name="title" defaultValue="John Doe"
+                          placeholder="Type something…"
+                        />
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Username</label>
+                        </div>
+                        <div className="iLeft errorinput">
+                          <i>@</i>
+                          <input
+                            type="text"
+                            name="description"
+                            placeholder="Type something…"
+                            defaultValue="johndoe"
+                          />
+                          <p className="error">it’s taken</p>
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+
+                        <div className="label-line">
+                          <label>Email</label>
+                          <FlexDiv className="JCSB">
+                            <p>Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. </p>
+                          </FlexDiv>
+                        </div>
+                        <input
+                          type="text"
+                          name="description"
+                          placeholder="Type something…"
+                          defaultValue="johndoe@mail.com"
+                        />
+                      </NFTForm>
+                      <NFTtitle id="biography">
+                        <h4 className="mt-30">Biography</h4>
+                        <p className="mb-30">Write a little bit about yourself</p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <textarea
+                          type="textarea"
+                          name="percentShare"
+                          placeholder="0"
+                        > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ornare augue non finibus commodo. Nam semper purus vel nulla mattis iaculis. Duis rhoncus dictum eros, ut dictum quam. </textarea>
+                      </NFTForm>
+                      <NFTtitle id="verifyProfile">
+                        <h4 className="mt-30">Verify Profile</h4>
+                        <p className="mb-30">
+                          Show us how authentic your profile
+                        </p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <CustomCheckbox1>
+                          <label class="checkbox-container">
+                            {" "}
+                            <img src={CICON01} alt="" />
+                            Verify via Twitter
+                            <button
+                              type="checkbox"
+                              name="category"
+                              value="aa"
+                            />
+                            <span class="checkmark v2"></span>
+                          </label>
+                          <label class="checkbox-container">
+                            {" "}
+                            <img src={CICON02} alt="" />
+                            Verify via Instagram
+                            <button
+                              type="checkbox"
+                              name="category"
+                              value="celebrity"
+                            />
+                            <span class="checkmark v2"></span>
+                          </label>
+                        </CustomCheckbox1>
+                      </NFTForm>
+                      <NFTtitle id="socialLink">
+                        <h4 className="mt-30">Social Links</h4>
+                        <p className="mb-30">
+                          Add your social media links for people who want you know more
+                        </p>
+                      </NFTtitle>
+
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Website</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON03} alt="" /></i>
+                          <input
+                            type="text"
+                            name="description"
+                            placeholder="Type something…"
+                            defaultValue="johndoe.com"
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Discord</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON04} alt="" /></i>
+                          <input
+                            type="text"
+                            name="description"
+                            placeholder="Type something…"
+                            defaultValue="@johndoe"
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Youtube</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON05} alt="" /></i>
+                          <input
+                            type="text"
+                            name="description"
+                            placeholder="Type something…"
+                            defaultValue="@johndoe"
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Facebook</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON06} alt="" /></i>
+                          <input
+                            type="text"
+                            name="description"
+                            placeholder="Type something…"
+                            defaultValue="@johndoe"
+                          />
+                        </div>
+                      </NFTForm>
+
+
+
+
+
+
+
+
+
+
+                      <CreateItemButton>
+                        <button type="submit">Create Item</button>
+                      </CreateItemButton>
+                    </form>
+                  </NFTMiddle>
+                </Gs.W605px>
+              </Gs.W880px>
+            </NFTminting>
+          </Gs.Container>
+        </div>
+        <Collapse
+          isOpen={this.state.isOpen4}
+          className={
+            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+          }
+        >
+          <NFTModal toggle={this.toggle} />
+        </Collapse>
+      </Gs.MainSection>
+    );
+  }
+  toggle = (index) => {
+    let collapse = "isOpen" + index;
+    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+  };
 }
 // Common Style Div
 const FlexDiv = styled.div`
