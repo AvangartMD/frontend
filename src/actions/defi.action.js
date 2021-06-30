@@ -39,7 +39,6 @@ function authLogin(nonce, signature) {
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
         dispatch(setData(promise.data.data, "AUTH_LOGIN"));
-        localStorage.setItem("avarnGart", promise.data.data.details.id);
       } else {
         // console.log('erroer');
       }

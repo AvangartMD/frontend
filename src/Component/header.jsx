@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
@@ -131,7 +132,7 @@ class Header extends Component {
 
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
-    console.log(userDetails);
+    console.log('render userDetails ? ', userDetails);
     const { authData } = this.props;
     return (
       <>
@@ -139,7 +140,7 @@ class Header extends Component {
           <HeadMBX02>
             <HeadSbx01>
               <Logo>
-                <img src={LogoImg} alt="" />
+                <Link to="/"><img src={LogoImg} alt="" /></Link>
               </Logo>
             </HeadSbx01>
 

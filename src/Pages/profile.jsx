@@ -56,8 +56,7 @@ class Profile extends Component {
           this.props.getNFTs() // fetch user nft's
         }
         if (!profile) {
-            const userId = localStorage.getItem('avarnGart')
-            this.props.getProfile(userId) // fetch profile
+            this.props.getProfile() // fetch profile
         }
     }
 
@@ -928,7 +927,7 @@ const FilterBAR = styled(FlexDiv)`
 
 const mapDipatchToProps = (dispatch) => {
     return {
-      getProfile: (userId) => dispatch(actions.getProfile(userId)),
+      getProfile: () => dispatch(actions.getUserDetails()),
       updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
       getCategories: () => dispatch(actions.fetchCategories()),
       getNFTs: () => dispatch(actions.getUserNFT()),
@@ -936,7 +935,7 @@ const mapDipatchToProps = (dispatch) => {
 }
 const mapStateToProps = (state) => {
     return {
-      profile: state.fetchProfile,
+      profile: state.fetchAuthData,
       profileUpdate: state.updateProfile,
       categories: state.fetchCategory,
       NFTs: state.fetchUserNFT,

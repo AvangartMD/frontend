@@ -11,6 +11,11 @@ import {
   fetchDashboard,
   fetchDashboardInfo,
   fetchDashboardHallFrameInfo,
+  fetchCreators,
+  fetchPagination,
+  fetchMoreCreators,
+  fetchMarketPlaceNFT,
+  fetchMoreMarketPlaceNFT,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -22,9 +27,6 @@ import {
   fetchProfile,
   updateProfile,
   fetchUserNFT,
-  fetchCreators,
-  fetchPagination,
-  fetchMoreCreators,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -47,6 +49,8 @@ const rootReducer = combineReducers({
   fetchCreators,
   fetchPagination,
   fetchMoreCreators,
+  fetchMarketPlaceNFT,
+  fetchMoreMarketPlaceNFT,
 });
 
 export default rootReducer;
