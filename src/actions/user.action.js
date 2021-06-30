@@ -1,13 +1,14 @@
-import { services } from '../services';
+import { services } from "../services";
 
 export const userActions = {
-    fetchCategories,
-    getProfile,
-    getUserNFT,
-    getCreators,
-    updateUserDetails,
-    getMoreCreators,
-}
+  fetchCategories,
+  getProfile,
+  getUserNFT,
+  getCreators,
+  updateUserDetails,
+  getMoreCreators,
+  createCollection,
+};
 
 function fetchedData(type, data) {
   return {
@@ -17,20 +18,19 @@ function fetchedData(type, data) {
 }
 
 function fetchCategories() {
-    return (dispatch) => {
-      const response = services.get(`/category/list`);
-      return response.then((promise) => {
-        if (promise.data) {
-          dispatch(fetchedData('FETCHED_CATEGORIES', promise.data.data));
-        } else {
-          // console.log('error in fetchCategories actions');
-        }
-      });
-    };
+  return async (dispatch) => {
+    const response = services.get(`/category/list`);
+    const promise = await response;
+    if (promise.data) {
+      dispatch(fetchedData("FETCHED_CATEGORIES", promise.data.data));
+    } else {
+      // console.log('error in fetchCategories actions');
+    }
+  };
 }
 
 function getProfile(userId) {
-  return async (dispatch) => {
+  return (dispatch) => {
     const response = services.get(`user/userDetails?userId?=${userId}`);
     response.then((promise) => {
       if (promise.status === 200) {
@@ -67,13 +67,29 @@ function getUserNFT() {
     });
   };
 }
+function createCollection(data) {
+  let params = JSON.stringify(data);
+  console.log("new", params);
+  return async (dispatch) => {
+    const response = services.post("nft/addCollection", params);
+    response.then((promise) => {
+      console.log("promise", response);
+      if (promise.status === 200) {
+        console.log("thus", promise.data);
+        dispatch(fetchedData("CREATE_COLLECTION", promise.data));
+      } else {
+        dispatch(fetchedData("CREATE_COLLECTION", promise.response.data));
+      }
+    });
+  };
+}
 
-function getCreators(params={}) {
+function getCreators(params = {}) {
   return async (dispatch) => {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log(promise.data.data)
+        console.log(promise.data.data);
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
       } else {
@@ -83,7 +99,7 @@ function getCreators(params={}) {
   };
 }
 
-function getMoreCreators(params={}) {
+function getMoreCreators(params = {}) {
   return async (dispatch) => {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {

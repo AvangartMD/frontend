@@ -25,9 +25,11 @@ import {
   fetchCreators,
   fetchPagination,
   fetchMoreCreators,
+  fetchNewCollection,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
+  fetchNewCollection,
   fetchCategoryList,
   fetchCollectionList,
   fetchNewNFTId,

@@ -1,11 +1,10 @@
-
 export function fetchCategory(state = null, action) {
-    switch (action.type) {
-      case 'FETCHED_CATEGORIES':
-        return action.data;
-      default:
-        return state;
-    }
+  switch (action.type) {
+    case "FETCHED_CATEGORIES":
+      return action.data;
+    default:
+      return state;
+  }
 }
 
 export function fetchProfile(state = null, action) {
@@ -20,6 +19,14 @@ export function fetchProfile(state = null, action) {
 export function updateProfile(state = null, action) {
   switch (action.type) {
     case "PROFILE_UPDATED":
+      return action.data;
+    default:
+      return state;
+  }
+}
+export function fetchNewCollection(state = null, action) {
+  switch (action.type) {
+    case "CREATE_COLLECTION":
       return action.data;
     default:
       return state;

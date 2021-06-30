@@ -8,6 +8,7 @@ import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
 import NFTModal from "../Component/nftpopups";
+// import CreateCollection from "../Component/Modals/createCollection";
 
 import NFT2 from "../Assets/images/nft2.jpg";
 import UserImg from "../Assets/images/user-img.jpg";
@@ -20,7 +21,7 @@ import Celebrity from "../Assets/images/icon-set-celebrity.svg";
 import NFTCard from "../Component/Cards/nftCard";
 import { services } from "../services";
 import { defiActions } from "../actions/defi.action";
-import Compressor from "compressorjs";
+import CreateCollection from "../Component/Modals/createCollection";
 import {
   compressImage,
   capitalizeFirstLetter,
@@ -59,6 +60,7 @@ class NFTPage extends Component {
         collectionList: [],
       },
       suggestionVAl: [],
+      error: { isError: false, msg: "", isCocreatorError: false },
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -72,6 +74,7 @@ class NFTPage extends Component {
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.isLoggedIn) {
+          console.log("this is called");
           this.props.getCollectionList();
         }
       });
@@ -262,16 +265,20 @@ class NFTPage extends Component {
   }
 
   setSuggestionValue = (val) => this.setState({ suggestionVAl: val });
+  setError = (msg, toggleVal, isCocreator) => {
+    this.setState({
+      error: { isError: toggleVal, msg: msg, isCocreatorError: isCocreator },
+    });
+  };
 
   render() {
-    // const renderSuggestion = (suggestion) => <div>{suggestion.username}</div>;
-    // const getSuggestionValue = (suggestion) => suggestion.username;
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
       if (hash == curr) return "active";
       else return "inactive";
     }
-    const { categoryList, collectionList } = this.state;
+    const { categoryList, collectionList, error } = this.state;
+    console.log("this is colledcteuodsn", collectionList);
     const nftObj = this.state.nftObj;
     return (
       <Gs.MainSection>
@@ -327,15 +334,15 @@ class NFTPage extends Component {
                 </Sticky>
               </Gs.W200px>
               <Gs.W880px className="displayflex">
-                <Gs.W605px>
-                  <NFTMiddle>
-                    <AlertNote>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </p>
-                    </AlertNote>
-                  </NFTMiddle>
-                </Gs.W605px>
+                {error.isError && !error.isCocreatorError && (
+                  <Gs.W605px>
+                    <NFTMiddle>
+                      <AlertNote>
+                        <p>{error.msg}</p>
+                      </AlertNote>
+                    </NFTMiddle>
+                  </Gs.W605px>
+                )}
                 <Gs.W605px>
                   <NFTMiddle>
                     <NFTtitle id="itemDecription">
@@ -398,50 +405,21 @@ class NFTPage extends Component {
                         <div className="label-line">
                           <label>Co-Creator Username</label>
                         </div>
-                        <div className="iLeft errorinput">
+                        <div
+                          className={`iLeft ${
+                            error.isError &&
+                            error.isCocreatorError &&
+                            "errorinput"
+                          }`}
+                        >
                           <i>@</i>
                           <Autosuggestion
                             setSuggestionValue={this.setSuggestionValue}
+                            setError={this.setError}
                           />
-                          {/* <Autosuggest
-                            suggestions={this.state.suggestions}
-                            onSuggestionsFetchRequested={
-                              this.onSuggestionsFetchRequested
-                            }
-                            onSuggestionsClearRequested={
-                              this.onSuggestionsClearRequested
-                            }
-                            getSuggestionValue={() => getSuggestionValue}
-                            renderSuggestion={() => renderSuggestion}
-                            inputProps={{
-                              type: "text",
-                              name: "coCreatorUserName",
-                              placeholder: "Type something…",
-                              value: this.state.suggestionVAl,
-                              onChange: (e) => {
-                                this.setState({
-                                  suggestionVAl: e.target.value,
-                                });
-                              },
-                            }}
-                          /> */}
-                          {/* <ReactSearchAutocomplete
-                            resultStringKeyName="coCreatorUserName"
-                            showIcon={false}
-                            inputSearchString="coCreatorUserName"
-                            // items={items}
-                            // onSearch={handleOnSearch}
-                            // onHover={handleOnHover}
-                            // onSelect={handleOnSelect}
-                            // onFocus={handleOnFocus}
-                            autoFocus
-                          /> */}
-                          {/* <input
-                            type="text"
-                            name="coCreatorUserName"
-                            placeholder="Type something…"
-                          /> */}
-                          <p className="error">user doesn’t exist</p>
+                          {error.isError && error.isCocreatorError && (
+                            <p className="error">user doesn’t exist</p>
+                          )}
                         </div>
                       </NFTForm>
                       <NFTForm>
@@ -728,7 +706,8 @@ class NFTPage extends Component {
             "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
           }
         >
-          <NFTModal toggle={this.toggle} />
+          <CreateCollection toggle={this.toggle} />
+          {/* <NFTModal toggle={this.toggle} /> */}
         </Collapse>
       </Gs.MainSection>
     );

@@ -15,14 +15,17 @@ export const backendServices = {
 async function post(url, params) {
   const token = localStorage.getItem("token");
   const header = token
-    ? { "x-auth-token": token }
+    ? { "content-type": "application/json", "x-auth-token": token }
     : {
         "content-type": "application/json",
       };
+  console.log("header", params);
   try {
     const response = await axios.post(url, params, { headers: header });
+    console.log("resp", response);
     return response;
   } catch (error) {
+    console.log("new", error.response);
     return error;
   }
 }

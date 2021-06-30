@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { services } from "../services";
-
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -16,17 +14,11 @@ async function getSuggestions(value) {
   }
   if (value.length >= 3) {
     const coCreator = await services.get(`user/searchCreator/${value}`, true);
-    console.log("this is called", coCreator);
-    // coCreator.then((resp) => {
     if (coCreator.data.status) {
-      //   console.log(resp.data.data);
       const coCreators = coCreator.data.data;
       const regex = new RegExp("^" + escapedValue, "i");
-
       return coCreators.filter((creator) => regex.test(creator.username));
-      // return resp.data.data;
     } else return [];
-    // });
   } else return [];
 }
 
@@ -52,6 +44,8 @@ class Autosuggestion extends React.Component {
 
   onSuggestionsFetchRequested = async ({ value }) => {
     let newSuggestion = await getSuggestions(value);
+    console.log("new suggestions here", newSuggestion);
+    this.props.setError(undefined, newSuggestion.length === 0, true);
     this.setState({
       suggestions: newSuggestion,
     });
