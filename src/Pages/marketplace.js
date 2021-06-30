@@ -131,7 +131,6 @@ class MarketPlace extends Component {
         array.splice(index, 1)
         this.setState({ filter: array, page: 1 })
       }
-      console.log('filter ? ', array)
       this.props.getMarketPlaceNFT({ 'filter' : array }) // fetch filter market place nft's
   }
 
@@ -237,48 +236,6 @@ class MarketPlace extends Component {
         
         <HomeNFTs>
           <Gs.Container>
-            <NFTfourbox>
-
-              {/* <Gs.W25V2>
-                <Gs.TenpxGutter>
-                  <div className="NFT-home-box">
-                    <NFTImgBX>
-                      {" "}
-                      <img src={NFT2} alt="" />{" "}
-                    </NFTImgBX>
-                    <div className="NFT-home-box-inner">
-                      <h4>
-                        Artwork name / title dolor lorem ipsum sit adipiscing
-                      </h4>
-                      <CollectionBar>
-                        <p>
-                          25 <span>of 2500</span>
-                        </p>
-                        <p>
-                          <Link to="/">
-                            See the collection{" "}
-                            <i className="fas fa-angle-right"></i>
-                          </Link>
-                        </p>
-                      </CollectionBar>
-                      <Edition className="edition2">
-                        <div className="ed-box">
-                          <p>Current bid</p>
-                          <h3>0.00 BNB</h3>
-                        </div>
-                        <div className="ed-box">
-                          <p>Ending in</p>
-                          <h3>13h 12m 11s</h3>
-                        </div>
-                      </Edition>
-                      <UserImgName>
-                        <img src={UserImg} alt="" />
-                        @username
-                      </UserImgName>
-                    </div>
-                  </div>
-                </Gs.TenpxGutter>
-              </Gs.W25V2> */}
 
               {NFTs? 
                 <InfiniteScroll 
@@ -288,11 +245,12 @@ class MarketPlace extends Component {
                     loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
                     // endMessage={<p>You have seen it all.!</p>}
                 >
-                  {this.renderNFT(NFTs)}
+                  <NFTfourbox>
+                    {this.renderNFT(NFTs)}
+                  </NFTfourbox>
                 </InfiniteScroll>
               :<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
-              
-            </NFTfourbox>
+
           </Gs.Container>
         </HomeNFTs>
       </Gs.MainSection>
