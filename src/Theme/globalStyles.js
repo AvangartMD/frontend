@@ -15,6 +15,11 @@ button{  background:transparent; outline:none; border:0;}
 .mb-0{ margin-bottom:0 !important;}
 .track-vertical{ width:19px !important; height:100%; display:block; position:absolute; right:-5px;}
 .thumb-vertical{ width:6px !important; border-radius:30px; margin:5px; background-color:#ccc; }
+.react-autosuggest__suggestions-container{ background-color:#fff; border-radius:10px; position:absolute; z-index:99; width:100%; top:55px; left:0px; list-style-type:none;}
+.react-autosuggest__suggestions-container--open{box-shadow:0px 2px 5px 1px #ccc;}
+.react-autosuggest__suggestions-list{ list-style-type:none; padding:0px 15px;}
+.react-autosuggest__suggestion{margin-bottom:5px; padding:5px 10px; cursor:pointer; border-radius:5px;}
+.react-autosuggest__suggestion--highlighted{background-color:#eef2f7;}
 `;
 Gs.MainSection = styled.div`
   margin: 100px auto 0 auto;
