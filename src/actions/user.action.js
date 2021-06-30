@@ -1,6 +1,7 @@
 import { services } from "../services";
 
 export const userActions = {
+<<<<<<< HEAD
   fetchCategories,
   getProfile,
   getUserNFT,
@@ -9,6 +10,12 @@ export const userActions = {
   getMoreCreators,
   createCollection,
 };
+=======
+    fetchCategories,
+    getUserNFT,
+    updateUserDetails,
+}
+>>>>>>> da8ec694d0f4c1d81ff88c4c72b30133f5d7e4de
 
 function fetchedData(type, data) {
   return {
@@ -29,6 +36,7 @@ function fetchCategories() {
   };
 }
 
+<<<<<<< HEAD
 function getProfile(userId) {
   return (dispatch) => {
     const response = services.get(`user/userDetails?userId?=${userId}`);
@@ -42,6 +50,8 @@ function getProfile(userId) {
   };
 }
 
+=======
+>>>>>>> da8ec694d0f4c1d81ff88c4c72b30133f5d7e4de
 function updateUserDetails(params) {
   return async (dispatch) => {
     const response = services.put(`user/update`, params);
@@ -57,7 +67,7 @@ function updateUserDetails(params) {
 
 function getUserNFT() {
   return async (dispatch) => {
-    const response = services.get(`nft/listNftByUser`);
+    const response = services.get(`nft/listNftByUser`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
@@ -67,6 +77,7 @@ function getUserNFT() {
     });
   };
 }
+<<<<<<< HEAD
 function createCollection(data) {
   let params = JSON.stringify(data);
   console.log("new", params);
@@ -112,3 +123,5 @@ function getMoreCreators(params = {}) {
     });
   };
 }
+=======
+>>>>>>> da8ec694d0f4c1d81ff88c4c72b30133f5d7e4de

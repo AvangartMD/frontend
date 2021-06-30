@@ -34,3 +34,58 @@ export function fetchDashboard(state = null, action) {
       return state;
   }
 }
+
+export function fetchCreators(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_CREATORS":
+      return action.data;
+    case "CLEAR_CREATORS":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchPagination(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_PAGINATION":
+      return action.data;
+    case "CLEAR_PAGINATION":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchMoreCreators(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_MORE_CREATORS":
+      return action.data;
+    case "CLEAR_MORE_CREATORS":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchMarketPlaceNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_MARKETPLACE":
+      return action.data;
+    case "CLEAR_MARKETPLACE":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchMoreMarketPlaceNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_MORE_MARKETPLACE":
+      return action.data;
+    case "CLEAR_MORE_MARKETPLACE":
+      return action.data;
+    default:
+      return state;
+  }
+}

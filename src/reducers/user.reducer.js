@@ -7,15 +7,6 @@ export function fetchCategory(state = null, action) {
   }
 }
 
-export function fetchProfile(state = null, action) {
-  switch (action.type) {
-    case "FETCHED_PROFILE":
-      return action.data;
-    default:
-      return state;
-  }
-}
-
 export function updateProfile(state = null, action) {
   switch (action.type) {
     case "PROFILE_UPDATED":
@@ -41,6 +32,7 @@ export function fetchUserNFT(state = null, action) {
       return state;
   }
 }
+<<<<<<< HEAD
 
 export function fetchCreators(state = null, action) {
   switch (action.type) {
@@ -74,3 +66,5 @@ export function fetchMoreCreators(state = null, action) {
       return state;
   }
 }
+=======
+>>>>>>> da8ec694d0f4c1d81ff88c4c72b30133f5d7e4de

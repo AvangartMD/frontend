@@ -5,6 +5,10 @@ export const authActions = {
   fetcInfo,
   fetcHallFrameInfo,
   fetchDashboardConfig,
+  getCreators,
+  getMoreCreators,
+  getMarketPlaceNFT,
+  getMoreMarketPlaceNFT,
 };
 
 function fetchedData(type, data) {
@@ -61,6 +65,63 @@ function fetchDashboardConfig() {
         dispatch(fetchedData("FETCHED_DASHBOARD", promise.data.data));
       } else {
         // console.log('error in fetchDashboardConfig actions');
+      }
+    });
+  };
+}
+
+function getCreators(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`user/listVerifiefCreator`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        console.log(promise.data.data)
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
+        dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function getMoreCreators(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`user/listVerifiefCreator`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
+        dispatch(fetchedData("FETCHED_MORE_CREATORS", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function getMarketPlaceNFT(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`nft/listMarketPlace`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
+        dispatch(fetchedData("FETCHED_MARKETPLACE", promise.data.data));
+      } else {
+        console.log("error");
+      }
+    });
+  };
+}
+
+function getMoreMarketPlaceNFT(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`nft/listMarketPlace`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
+        dispatch(fetchedData("FETCHED_MORE_MARKETPLACE", promise.data.data));
+      } else {
+        console.log("error");
       }
     });
   };
