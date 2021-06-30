@@ -24,13 +24,13 @@ var routes = [
   },
   {
     path: "marketplace",
-    name: "NFT Minting",
+    name: "MarketPlace",
     component: MarketPlace,
     layout: "/",
   },
   {
     path: "creators",
-    name: "NFT Minting",
+    name: "Creators",
     component: Creators,
     layout: "/",
   },

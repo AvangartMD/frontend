@@ -4,9 +4,7 @@ export const userActions = {
     fetchCategories,
     getProfile,
     getUserNFT,
-    getCreators,
     updateUserDetails,
-    getMoreCreators,
 }
 
 function fetchedData(type, data) {
@@ -61,35 +59,6 @@ function getUserNFT() {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
-      } else {
-        console.log("error");
-      }
-    });
-  };
-}
-
-function getCreators(params={}) {
-  return async (dispatch) => {
-    const response = services.post(`user/listVerifiefCreator`, params);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        console.log(promise.data.data)
-        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
-      } else {
-        console.log("error");
-      }
-    });
-  };
-}
-
-function getMoreCreators(params={}) {
-  return async (dispatch) => {
-    const response = services.post(`user/listVerifiefCreator`, params);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_MORE_CREATORS", promise.data.data));
       } else {
         console.log("error");
       }
