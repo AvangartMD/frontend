@@ -2,7 +2,6 @@ import { services } from '../services';
 
 export const userActions = {
     fetchCategories,
-    getProfile,
     getUserNFT,
     updateUserDetails,
 }
@@ -27,19 +26,6 @@ function fetchCategories() {
     };
 }
 
-function getProfile(userId) {
-  return async (dispatch) => {
-    const response = services.get(`user/userDetails?userId?=${userId}`);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
-      } else {
-        console.log("error");
-      }
-    });
-  };
-}
-
 function updateUserDetails(params) {
   return async (dispatch) => {
     const response = services.put(`user/update`, params);
@@ -55,7 +41,7 @@ function updateUserDetails(params) {
 
 function getUserNFT() {
   return async (dispatch) => {
-    const response = services.get(`nft/listNftByUser`);
+    const response = services.get(`nft/listNftByUser`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
