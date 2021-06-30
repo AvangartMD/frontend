@@ -1,22 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
-// import { Link } from 'react-router-dom';
-import Media from "../Theme/media-breackpoint";
 import { connect } from "react-redux";
 import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
+import { withRouter } from "react-router";
 import Sticky from "react-sticky-el";
 import NFTModal from "../Component/nftpopups";
 
-import NFT2 from "../Assets/images/nft2.jpg";
-import UserImg from "../Assets/images/user-img.jpg";
 import DDdownA from "../Assets/images/dd-down-arrow.svg";
-import Auction from "../Assets/images/icon-set-auction.svg";
-import Money from "../Assets/images/icon-set-money.svg";
-import Art from "../Assets/images/icon-set-art.svg";
-import Sport from "../Assets/images/icon-set-sport.svg";
-
 import CICON01 from "../Assets/images/peSocICO-01.svg"
 import CICON02 from "../Assets/images/peSocICO-02.svg"
 import CICON03 from "../Assets/images/peSocICO-03.svg"
@@ -24,72 +16,36 @@ import CICON04 from "../Assets/images/peSocICO-04.svg"
 import CICON05 from "../Assets/images/peSocICO-05.svg"
 import CICON06 from "../Assets/images/peSocICO-06.svg"
 
-
-import Celebrity from "../Assets/images/icon-set-celebrity.svg";
-import NFTCard from "../Component/Cards/nftCard";
-
 import { actions } from "../actions";
-import { services } from "../services";
-import { defiActions } from "../actions/defi.action";
-import { compressImage } from "../helper/functions";
-import { LookoutMetrics } from "aws-sdk";
+
 
 class ProfileEdit extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            nftObj: {
-                title: "Artwork name / title dolor lorem ipsum sit adipiscing",
-                description: "",
-                coCreatorUserName: "",
-                percentShare: 0,
-                category: "",
-                collection: "",
-                saleState: "",
-                auctionTime: "13h 12m 11s",
-                edition: "",
-                price: "0.00",
-                digitalKey: "",
-                nftFile: {},
-                imgSrc: "",
-            },
+          errors: []
         };
     }
-    async mintNFT() {
-        const { web3Data, nftContractInstance, newNFTURI } = this.state;
-        // uint256 _editions, (no of Editions)
-        //     string memory _tokenURI, (NFT image code)
-        //     address _creator,
-        //     address _coCreator,
-        //     uint256 _creatorPercent,
-        //     uint256 _coCreatorPercent,
-        //     Type _saleType, (0 for Buy now and 1 for Auction)
-        //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
-        //     uint256 _pricePerNFT, (price for each edition of the NFT)
-        //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
-        await nftContractInstance.methods
-            .mintToken(newNFTURI)
-            .send({ from: web3Data.accounts[0] })
-            .on("transactionHash", (hash) => {
-                // this.onTransactionHash(hash);
-                console.log(hash);
-            })
-            .on("receipt", (receipt) => {
-                this.onReciept();
-            })
-            .on("error", (error) => {
-                this.onTransactionError(error);
-            });
+
+    async componentDidMount() {
+      const { profile } = this.props;
+      if (!profile) {
+          this.props.getProfile() // fetch profile
+      }
+    }
+
+    formchange = (e) => {
+      this.setState({ [e.target.name]: e.target.value })
     }
 
     render() {
+        const { profile } = this.props;
         function pointSelect(curr) {
             let hash = window.location.hash.substr(1);
             if (hash == curr) return "active";
             else return "inactive";
         }
-        const nftObj = this.state.nftObj;
-        console.log(this.state.nftObj);
         return (
             <Gs.MainSection>
                 <div style={{ minHeight: "100vh", width: "100%" }}>
@@ -98,21 +54,23 @@ class ProfileEdit extends Component {
                             <Gs.W200px>
                                 <Sticky>
                                     <NFTLeft>
-                                        <Link className={pointSelect("accountSettings")} to="profile-edit#accountSettings" smooth={true} >
+                                        <Link className={pointSelect("accountSettings")} to="#accountSettings" smooth={true} >
                                             Account Settings
                                         </Link>
-                                        <Link className={pointSelect("biography")} to="profile-edit#biography" smooth={true} >
+                                        <Link className={pointSelect("biography")} to="#biography" smooth={true} >
                                             Biography
                                         </Link>
-                                        <Link className={pointSelect("verifyProfile")} to="profile-edit#verifyProfile" smooth={true} >
+                                        <Link className={pointSelect("verifyProfile")} to="#verifyProfile" smooth={true} >
                                             Verify Profile
                                         </Link>
-                                        <Link className={pointSelect("socialLink")} to="profile-edit#socialLink" smooth={true} >
+                                        <Link className={pointSelect("socialLink")} to="#socialLink" smooth={true} >
                                             Social Links
                                         </Link>
                                     </NFTLeft>
 
-                                    <BackBTN01>Back to Profile</BackBTN01>
+                                    <BackBTN01 onClick={() => this.props.history.push('/profile')}>
+                                      Back to Profile
+                                    </BackBTN01>
 
                                 </Sticky>
                             </Gs.W200px>
@@ -127,7 +85,7 @@ class ProfileEdit extends Component {
                                         </NFTtitle>
                                         <form
                                             onChange={(e) => this.formchange(e)}
-                                            onSubmit={(e) => this.createNFT(e)}
+                                            // onSubmit={(e) => this.createNFT(e)}
                                         >
                                             <NFTForm>
                                                 <div className="label-line">
@@ -135,7 +93,8 @@ class ProfileEdit extends Component {
                                                 </div>
                                                 <input
                                                     type="text"
-                                                    name="title" defaultValue="John Doe"
+                                                    required
+                                                    name="name" defaultValue={profile?profile.name:''}
                                                     placeholder="Type something…"
                                                 />
                                             </NFTForm>
@@ -143,16 +102,26 @@ class ProfileEdit extends Component {
                                                 <div className="label-line">
                                                     <label>Username</label> 
                                                 </div>
-                                                <div className="iLeft errorinput">
+                                                <div className="iLeft">
+                                                    <i>@</i>
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        name="username"
+                                                        placeholder="Type something…"
+                                                        defaultValue={profile?profile.username:''}
+                                                    />
+                                                </div> 
+                                                {/* <div className="iLeft errorinput">
                                                     <i>@</i>
                                                     <input
                                                         type="text"
                                                         name="description"
                                                         placeholder="Type something…"
-                                                        defaultValue="johndoe"
+                                                        defaultValue={profile?profile.username:''}
                                                     />
                                                     <p className="error">it’s taken</p>
-                                                </div> 
+                                                </div>  */}
                                             </NFTForm>
                                             <NFTForm>
                                                  
@@ -164,9 +133,10 @@ class ProfileEdit extends Component {
                                                 </div>
                                                 <input
                                                     type="text"
-                                                    name="description"
+                                                    name="email"
+                                                    required
                                                     placeholder="Type something…"
-                                                    defaultValue="johndoe@mail.com"
+                                                    defaultValue={profile?profile.email:''}
                                                 />
                                             </NFTForm>
                                             <NFTtitle id="biography">
@@ -176,9 +146,10 @@ class ProfileEdit extends Component {
                                             <NFTForm>  
                                                     <textarea
                                                         type="textarea"
-                                                        name="percentShare"
+                                                        name="bio"
                                                         placeholder="0" 
-                                                    > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ornare augue non finibus commodo. Nam semper purus vel nulla mattis iaculis. Duis rhoncus dictum eros, ut dictum quam. </textarea>
+                                                        value={profile?profile.bio:''}
+                                                    > </textarea>
                                             </NFTForm>
                                             <NFTtitle id="verifyProfile">
                                                 <h4 className="mt-30">Verify Profile</h4>
@@ -227,9 +198,23 @@ class ProfileEdit extends Component {
                                                     <i><img src={CICON03} alt="" /></i>
                                                     <input
                                                         type="text"
-                                                        name="description"
+                                                        name="website"
                                                         placeholder="Type something…"
-                                                        defaultValue="johndoe.com"
+                                                        defaultValue={profile?profile.portfolio.website.username:''}
+                                                    /> 
+                                                </div>
+                                            </NFTForm>
+                                            <NFTForm>
+                                                <div className="label-line">
+                                                    <label>Instagram</label> 
+                                                </div>
+                                                <div className="iLeft">
+                                                    <i><img src={CICON02} alt="" /></i>
+                                                    <input
+                                                        type="text"
+                                                        name="instagarm"
+                                                        placeholder="Type something…"
+                                                        defaultValue={profile?profile.portfolio.instagarm.username:''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
@@ -241,9 +226,9 @@ class ProfileEdit extends Component {
                                                     <i><img src={CICON04} alt="" /></i>
                                                     <input
                                                         type="text"
-                                                        name="description"
+                                                        name="discord"
                                                         placeholder="Type something…"
-                                                        defaultValue="@johndoe"
+                                                        defaultValue={profile?profile.portfolio.discord.username:''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
@@ -255,9 +240,9 @@ class ProfileEdit extends Component {
                                                     <i><img src={CICON05} alt="" /></i>
                                                     <input
                                                         type="text"
-                                                        name="description"
+                                                        name="youtube"
                                                         placeholder="Type something…"
-                                                        defaultValue="@johndoe"
+                                                        defaultValue={profile?profile.portfolio.youtube.username:''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
@@ -269,22 +254,12 @@ class ProfileEdit extends Component {
                                                     <i><img src={CICON06} alt="" /></i>
                                                     <input
                                                         type="text"
-                                                        name="description"
+                                                        name="facebook"
                                                         placeholder="Type something…"
-                                                        defaultValue="@johndoe"
+                                                        defaultValue={profile?profile.portfolio.facebook.username:''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
-
-
-
-
-
-
-
-
-
-
                                             <CreateItemButton>
                                                 <button type="submit">Create Item</button>
                                             </CreateItemButton>
@@ -441,77 +416,6 @@ Gs.TenpxGutter = styled(Gs.TenpxGutter)`
     margin: 0px;
   }
 `;
-
-// const Edition = styled(FlexDiv)`
-//   justify-content: space-between;
-//   background-color: #eef2f7;
-//   border-radius: 10px;
-//   padding: 10px 15px;
-//   margin: 0px 0px 20px;
-//   .ed-box {
-//     p {
-//       color: #8e9194;
-//       font-size: 10px;
-//       letter-spacing: -0.6px;
-//       font-weight: 600;
-//       margin: 0px 0px 5px;
-//     }
-//     h3 {
-//       color: #000;
-//       font-size: 16px;
-//       letter-spacing: -0.89px;
-//       font-weight: 700;
-//       margin: 0px;
-//       span {
-//         font-size: 10px;
-//         font-weight: 300;
-//         letter-spacing: -0.44px;
-//       }
-//     }
-//   }
-// `;
-
-// const UserImgName = styled(FlexDiv)`
-//   justify-content: flex-start;
-//   color: #000;
-//   font-size: 14px;
-//   letter-spacing: -0.7px;
-//   font-weight: 600;
-//   margin: 0px;
-//   img {
-//     border-radius: 50%;
-//     margin-right: 10px;
-//     width: 32px;
-//     height: 32px;
-//   }
-// `;
-
-// const CollectionBar = styled(FlexDiv)`
-//   justify-content: space-between;
-//   margin-bottom: 20px;
-//   p {
-//     font-size: 14px;
-//     letter-spacing: -0.62px;
-//     font-weight: 600;
-//     margin: 0px;
-//     color: #000;
-//     span {
-//       font-size: 12px;
-//       letter-spacing: -0.53px;
-//       font-weight: 300;
-//     }
-//     a {
-//       font-size: 10px;
-//       letter-spacing: -0.5px;
-//       font-weight: 600;
-//       color: #000;
-//       :hover {
-//         color: #555;
-//         text-decoration: underline;
-//       }
-//     }
-//   }
-// `;
 
 const NFTMiddle = styled.div`
   margin: 0px 40px;
@@ -897,4 +801,18 @@ const AlertNote = styled.div`
   }
 `;
 
-export default ProfileEdit;
+
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getProfile: () => dispatch(actions.getUserDetails()),
+    updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    profile: state.fetchAuthData,
+    profileUpdate: state.updateProfile,
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(ProfileEdit));
