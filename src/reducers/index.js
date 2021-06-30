@@ -24,7 +24,6 @@ import {
 } from "./web3.reducer";
 import {
   fetchCategory,
-  fetchProfile,
   updateProfile,
   fetchUserNFT,
 } from "./user.reducer";
@@ -43,7 +42,6 @@ const rootReducer = combineReducers({
   fetchWeb3Data,
   fetchCategory,
   fetchDashboardHallFrameInfo,
-  fetchProfile,
   updateProfile,
   fetchUserNFT,
   fetchCreators,

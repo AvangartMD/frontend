@@ -8,15 +8,6 @@ export function fetchCategory(state = null, action) {
     }
 }
 
-export function fetchProfile(state = null, action) {
-  switch (action.type) {
-    case "FETCHED_PROFILE":
-      return action.data;
-    default:
-      return state;
-  }
-}
-
 export function updateProfile(state = null, action) {
   switch (action.type) {
     case "PROFILE_UPDATED":
