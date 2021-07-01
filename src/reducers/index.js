@@ -26,13 +26,10 @@ import {
   fetchCategory,
   updateProfile,
   fetchUserNFT,
-<<<<<<< HEAD
-  fetchCreators,
-  fetchPagination,
-  fetchMoreCreators,
+  // fetchCreators,
+  // fetchPagination,
+  // fetchMoreCreators,
   fetchNewCollection,
-=======
->>>>>>> da8ec694d0f4c1d81ff88c4c72b30133f5d7e4de
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
