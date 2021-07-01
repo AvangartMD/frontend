@@ -9,12 +9,12 @@ import Sticky from "react-sticky-el";
 import NFTModal from "../Component/nftpopups";
 
 import DDdownA from "../Assets/images/dd-down-arrow.svg";
-import CICON01 from "../Assets/images/peSocICO-01.svg"
-import CICON02 from "../Assets/images/peSocICO-02.svg"
-import CICON03 from "../Assets/images/peSocICO-03.svg"
-import CICON04 from "../Assets/images/peSocICO-04.svg"
-import CICON05 from "../Assets/images/peSocICO-05.svg"
-import CICON06 from "../Assets/images/peSocICO-06.svg"
+import CICON01 from "../Assets/images/peSocICO-01.svg";
+import CICON02 from "../Assets/images/peSocICO-02.svg";
+import CICON03 from "../Assets/images/peSocICO-03.svg";
+import CICON04 from "../Assets/images/peSocICO-04.svg";
+import CICON05 from "../Assets/images/peSocICO-05.svg";
+import CICON06 from "../Assets/images/peSocICO-06.svg";
 
 import { actions } from "../actions";
 
@@ -24,7 +24,9 @@ class ProfileEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          errors: []
+          errors: [],
+          loading: false,
+          userObj: null,
         };
     }
 
@@ -35,12 +37,37 @@ class ProfileEdit extends Component {
       }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      let { profile } = this.props;
+      if (profile !== prevProps.profile) {
+        this.setState({ userObj: profile })
+      }
+    }
+
     formchange = (e) => {
-      this.setState({ [e.target.name]: e.target.value })
+      const { userObj } = this.state;
+      if (e.target.name === 'website' || e.target.name === 'instagarm' || e.target.name === 'facebook' || e.target.name === 'github' || e.target.name === 'twitter' || e.target.name === 'discord' || e.target.name === 'youtube' || e.target.name === 'twitch' || e.target.name === 'tiktok' || e.target.name === 'snapchat' ) {
+        this.setState({ userObj: {...userObj, 'portfolio': { ...userObj.portfolio, [e.target.name]:  {...userObj.portfolio[e.target.name], 'username' :e.target.value} }} })
+      } else {
+        this.setState({ userObj: {...userObj, [e.target.name]: e.target.value} })
+      }
+    }
+
+    formSubmit = (e) => {
+      e.preventDefault();
+      const { userObj } = this.state;
+      let params = {
+        name: userObj.name,
+        username: userObj.username,
+        email: userObj.email,
+        bio: userObj.bio,
+        portfolio: userObj.portfolio
+      }
+      this.props.setProfile(params) // update the user profile
     }
 
     render() {
-        const { profile } = this.props;
+        const { profile, updated } = this.props;
         function pointSelect(curr) {
             let hash = window.location.hash.substr(1);
             if (hash == curr) return "active";
@@ -85,7 +112,7 @@ class ProfileEdit extends Component {
                                         </NFTtitle>
                                         <form
                                             onChange={(e) => this.formchange(e)}
-                                            // onSubmit={(e) => this.createNFT(e)}
+                                            onSubmit={(e) => this.formSubmit(e)}
                                         >
                                             <NFTForm>
                                                 <div className="label-line">
@@ -94,7 +121,8 @@ class ProfileEdit extends Component {
                                                 <input
                                                     type="text"
                                                     required
-                                                    name="name" defaultValue={profile?profile.name:''}
+                                                    onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                                                    name="name" defaultValue={profile?profile.name?profile.name:'':''}
                                                     placeholder="Type something…"
                                                 />
                                             </NFTForm>
@@ -108,8 +136,9 @@ class ProfileEdit extends Component {
                                                         type="text"
                                                         required
                                                         name="username"
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                         placeholder="Type something…"
-                                                        defaultValue={profile?profile.username:''}
+                                                        defaultValue={profile?profile.username?profile.username:'':''}
                                                     />
                                                 </div> 
                                                 {/* <div className="iLeft errorinput">
@@ -135,8 +164,9 @@ class ProfileEdit extends Component {
                                                     type="text"
                                                     name="email"
                                                     required
+                                                    onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                     placeholder="Type something…"
-                                                    defaultValue={profile?profile.email:''}
+                                                    defaultValue={profile?profile.email?profile.email:'':''}
                                                 />
                                             </NFTForm>
                                             <NFTtitle id="biography">
@@ -148,8 +178,9 @@ class ProfileEdit extends Component {
                                                         type="textarea"
                                                         name="bio"
                                                         placeholder="0" 
-                                                        value={profile?profile.bio:''}
-                                                    > </textarea>
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                                                        defaultValue={profile?profile.bio?profile.bio:'':''}
+                                                     />
                                             </NFTForm>
                                             <NFTtitle id="verifyProfile">
                                                 <h4 className="mt-30">Verify Profile</h4>
@@ -199,8 +230,9 @@ class ProfileEdit extends Component {
                                                     <input
                                                         type="text"
                                                         name="website"
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                         placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio.website.username:''}
+                                                        defaultValue={profile?profile.portfolio?.website?profile.portfolio.website.username:'':''}
                                                     /> 
                                                 </div>
                                             </NFTForm>
@@ -213,8 +245,9 @@ class ProfileEdit extends Component {
                                                     <input
                                                         type="text"
                                                         name="instagarm"
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                         placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio.instagarm.username:''}
+                                                        defaultValue={profile?profile.portfolio?.instagarm?profile.portfolio.instagarm.username:'':''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
@@ -227,8 +260,9 @@ class ProfileEdit extends Component {
                                                     <input
                                                         type="text"
                                                         name="discord"
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                         placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio.discord.username:''}
+                                                        defaultValue={profile?profile.portfolio?.discord?profile.portfolio.discord.username:'':''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
@@ -241,27 +275,29 @@ class ProfileEdit extends Component {
                                                     <input
                                                         type="text"
                                                         name="youtube"
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                         placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio.youtube.username:''}
+                                                        defaultValue={profile?profile.portfolio?.youtube?profile.portfolio.youtube.username:'':''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
                                             <NFTForm>
                                                 <div className="label-line">
-                                                    <label>Facebook</label> 
+                                                    <label>Facebook</label>
                                                 </div>
                                                 <div className="iLeft">
                                                     <i><img src={CICON06} alt="" /></i>
                                                     <input
                                                         type="text"
                                                         name="facebook"
+                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
                                                         placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio.facebook.username:''}
+                                                        defaultValue={profile?profile.portfolio?.facebook?profile.portfolio.facebook.username:'':''}
                                                     /> 
                                                 </div> 
                                             </NFTForm>
                                             <CreateItemButton>
-                                                <button type="submit">Create Item</button>
+                                                <button type="submit" >Update</button>
                                             </CreateItemButton>
                                         </form>
                                     </NFTMiddle>
@@ -801,13 +837,13 @@ const AlertNote = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getUserDetails()),
-    updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
+    setProfile: (params) => dispatch(actions.updateUserDetails(params)),
   }
 }
 const mapStateToProps = (state) => {
   return {
     profile: state.fetchAuthData,
-    profileUpdate: state.updateProfile,
+    updated: state.updateProfile,
   }
 }
 

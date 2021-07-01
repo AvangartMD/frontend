@@ -176,11 +176,11 @@ class Profile extends Component {
                                     {profile?profile.bio:'user bio'}
                                 </UserDText01>
                                 <UserSocilMBX>
-                                    {profile?profile.portfolio.website?<button onClick={() => {window.open(profile.portfolio.website.url, "_blank")}}><img src={SocialICO01} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio.facebook?<button onClick={() => {window.open(profile.portfolio.facebook.url, "_blank")}}><img src={SocialICO03} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio.twitter?<button onClick={() => {window.open(profile.portfolio.twitter.url, "_blank")}}><img src={SocialICO04} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio.youtube?<button onClick={() => {window.open(profile.portfolio.youtube.url, "_blank")}}><img src={SocialICO05} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio.instagarm?<button onClick={() => {window.open(profile.portfolio.instagarm.url, "_blank")}}><img src={SocialICO06} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.website?<button onClick={() => {window.open(profile.portfolio.website.url, "_blank")}}><img src={SocialICO01} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.facebook?<button onClick={() => {window.open(profile.portfolio.facebook.url, "_blank")}}><img src={SocialICO03} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.twitter?<button onClick={() => {window.open(profile.portfolio.twitter.url, "_blank")}}><img src={SocialICO04} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.youtube?<button onClick={() => {window.open(profile.portfolio.youtube.url, "_blank")}}><img src={SocialICO05} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.instagarm?<button onClick={() => {window.open(profile.portfolio.instagarm.url, "_blank")}}><img src={SocialICO06} alt="" /></button>:'':''}
                                 </UserSocilMBX> 
                                 <UserDText02>
                                     Join <span>{profile?(dateFormat(new Date(profile.createdAt).toString(), 'dd mmmm yyyy')):'join date'}</span>
