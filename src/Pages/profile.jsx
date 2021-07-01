@@ -30,6 +30,7 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 import { actions } from "../actions";
 import { services } from "../services";
 import { compressImage } from "../helper/functions";
+import Drafts from "../Component/profile/drafts";
 
 class Profile extends Component {
   constructor(props) {
@@ -81,6 +82,62 @@ class Profile extends Component {
     const cover_src = await services.uploadFileOnBucket(file, "cover");
     let userObj = { cover: cover_src };
     this.props.updateProfile(userObj); // update profile
+  };
+
+  renderTabPanel = (NFTs) => {
+    const { tabPanel } = this.state;
+    if (tabPanel !== "all") {
+      NFTs = NFTs.filter((nft) =>
+        nft.category.some((category) => category._id === tabPanel)
+      );
+    }
+    return NFTs.map((nft, key) => {
+      return (
+        <Gs.W25V2 key={key}>
+          <Gs.TenpxGutter>
+            <div className="NFT-home-box">
+              <NFTImgBX>
+                {" "}
+                <img src={nft.image.compressed} alt="" />{" "}
+              </NFTImgBX>
+              <div className="NFT-home-box-inner">
+                <h4>
+                  {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
+                  {nft.title}
+                </h4>
+                <CollectionBar>
+                  <p>
+                    {nft.edition} <span>of 2500</span>
+                  </p>
+                  <p>
+                    <Link to="/">
+                      See the collection <i className="fas fa-angle-right"></i>
+                    </Link>
+                  </p>
+                </CollectionBar>
+                <Edition className="edition2">
+                  <div className="ed-box">
+                    <p>Current bid</p>
+                    <h3>{nft.price} BNB</h3>
+                  </div>
+                  <div className="ed-box">
+                    <p>Ending in</p>
+                    <h3>
+                      {nft.saleState === "AUCTION"
+                        ? `${nft.auctionTime}h`
+                        : "13h 12m 11s"}
+                    </h3>
+                  </div>
+                </Edition>
+                <UserImgName>
+                  <img src={UserImg} alt="" />@{nft.ownerId.username}
+                </UserImgName>
+              </div>
+            </div>
+          </Gs.TenpxGutter>
+        </Gs.W25V2>
+      );
+    });
   };
 
   renderTabPanel = (NFTs) => {
@@ -366,6 +423,7 @@ class Profile extends Component {
                 <Tab>Artworks</Tab>
                 <Tab>Collector</Tab>
                 <Tab>Our Picks</Tab>
+                <Tab>Drafts</Tab>
               </TabList>
 
               <TabPanel>
@@ -417,6 +475,9 @@ class Profile extends Component {
               <TabPanel>2</TabPanel>
               <TabPanel>3</TabPanel>
               <TabPanel>4</TabPanel>
+              <TabPanel>
+                <Drafts />
+              </TabPanel>
             </Tabs>
           </HomeTabs>
         </Gs.Container>

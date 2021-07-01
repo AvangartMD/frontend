@@ -645,7 +645,12 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard
-                          nftObj={nftObj}
+                          nftImg={nftObj.imgSrc}
+                          title={nftObj.title}
+                          edition={nftObj.edition}
+                          price={nftObj.price}
+                          auctionTime={nftObj.auctionTime}
+                          userImg={this.props.authData?.profile}
                           username={this.props.authData?.username}
                         />
                       </NFTfourbox>

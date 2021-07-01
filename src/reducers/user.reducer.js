@@ -32,3 +32,11 @@ export function fetchUserNFT(state = null, action) {
       return state;
   }
 }
+export function fetchUserDraftNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_USER_DRAFT_NFT":
+      return action.data;
+    default:
+      return state;
+  }
+}

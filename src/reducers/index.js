@@ -30,9 +30,11 @@ import {
   // fetchPagination,
   // fetchMoreCreators,
   fetchNewCollection,
+  fetchUserDraftNFT,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
+  fetchUserDraftNFT,
   fetchNewCollection,
   fetchCategoryList,
   fetchCollectionList,
