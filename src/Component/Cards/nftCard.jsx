@@ -32,7 +32,7 @@ function NFTCard(props) {
             <h4>{title}</h4>
             <CollectionBar>
               <p>
-                25 <span>of 2500</span>
+                0 <span>of {nftObj.edition}</span>
               </p>
               <p>
                 <Link to="/">
@@ -48,12 +48,11 @@ function NFTCard(props) {
               </div>
               <div className="ed-box">
                 <p>Ending in</p>
-                <h3>{auctionTime}</h3>
+                <h3>{auctionTime}hrs 00min 00sec</h3>
               </div>
             </Edition>
             <UserImgName>
-              <img src={UserImg} alt="" />
-              @username
+              <img src={UserImg} alt="" />@{props.username}
             </UserImgName>
           </div>
         </div>

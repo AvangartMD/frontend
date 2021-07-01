@@ -33,6 +33,7 @@ import { actions } from "../actions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
+import MintNFTPopup from "../Component/Modals/mintNFTPopup";
 
 class NFTPage extends Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class NFTPage extends Component {
       },
       suggestionVAl: [],
       error: { isError: false, msg: "", isCocreatorError: false },
+      mintNFTStatus: "",
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -91,8 +93,7 @@ class NFTPage extends Component {
     if (categoryList !== prevProps.categoryList)
       this.setState({ categoryList });
     if (createdNFTID !== prevProps.createdNFTID) {
-      console.log("new id", createdNFTID);
-      this.mintNFT(createdNFTID);
+      this.setState({ mintNFTStatus: "" }, () => this.toggle(3));
     }
   }
 
@@ -118,48 +119,39 @@ class NFTPage extends Component {
     }
   }
 
-  async mintNFT(_tokenURI) {
-    const { web3Data, nftObj } = this.state;
+  mintNFT = async (_tokenURI) => {
+    this.setState({ mintNFTStatus: "initiate" });
+    const { web3Data, nftObj, suggestionVAl } = this.state;
+    console.log(suggestionVAl);
     const obj = [
       nftObj.edition,
-      _tokenURI,
+      this.props.createdNFTID,
       web3Data.accounts[0],
-      nftObj.coCreatorUserName
-        ? nftObj.coCreatorUserName
+      suggestionVAl.walletAddress
+        ? suggestionVAl.walletAddress
         : "0x0000000000000000000000000000000000000000",
-      Number(100 - nftObj.percentShare),
-      Number(nftObj.percentShare),
+      suggestionVAl.walletAddress ? Number(100 - nftObj.percentShare) : 100,
+      suggestionVAl.walletAddress ? Number(nftObj.percentShare) : 0,
       nftObj.saleState === "BUY" ? "0" : "1",
       nftObj.auctionTime ? Number(nftObj.auctionTime) : "0",
       web3.utils.toWei(nftObj.price, "ether"),
       "0",
     ];
     console.log("mint obj", obj);
-    // uint256 _editions, (no of Editions)
-    //     string memory _tokenURI, (NFT image code)
-    //     address _creator,
-    //     address _coCreator,
-    //     uint256 _creatorPercent,
-    //     uint256 _coCreatorPercent,
-    //     Type _saleType, (0 for Buy now and 1 for Auction)
-    //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
-    //     uint256 _pricePerNFT, (price for each edition of the NFT)
-    //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
       .on("transactionHash", (hash) => {
-        // this.onTransactionHash(hash);
-        console.log(hash);
+        this.setState({ mintNFTStatus: "progress" });
       })
       .on("receipt", (receipt) => {
-        // this.onReciept();
+        this.setState({ mintNFTStatus: "complete" });
         console.log("recoihlk", receipt);
       })
       .on("error", (error) => {
-        // this.onTransactionError(error);
+        this.setState({ mintNFTStatus: "complete" });
       });
-  }
+  };
   onFileUpload = async () => {
     const formData = new FormData();
     const { selectedFile } = this.state;
@@ -278,7 +270,7 @@ class NFTPage extends Component {
       else return "inactive";
     }
     const { categoryList, collectionList, error } = this.state;
-    console.log("this is colledcteuodsn", collectionList);
+    console.log("this is colledcteuodsn", this.props.authData);
     const nftObj = this.state.nftObj;
     return (
       <Gs.MainSection>
@@ -505,7 +497,7 @@ class NFTPage extends Component {
                             </select>
                           </Gs.W80>
                           <Gs.W20>
-                            <button onClick={() => this.toggle(4)}>
+                            <button onClick={() => this.toggle(2)}>
                               + Create
                             </button>
                           </Gs.W20>
@@ -576,15 +568,15 @@ class NFTPage extends Component {
                           <label>Price</label>
                         </div>
                         <input type="text" placeholder="0.00" name="price" />
-                        <AccountBX onClick={() => this.toggle(2)}>
+                        <AccountBX onClick={() => this.toggle(1)}>
                           <span>
                             BNB <img src={DDdownA} alt="" />
                           </span>
                           <Collapse
-                            isOpen={this.state.isOpen2}
+                            isOpen={this.state.isOpen1}
                             className={
                               "app__collapse collapse-css-transition  " +
-                              (this.state.isOpen2 ? "collapse-active" : "")
+                              (this.state.isOpen1 ? "collapse-active" : "")
                             }
                           >
                             <DDContainer className="ver2">
@@ -652,47 +644,11 @@ class NFTPage extends Component {
                         <p>Your NFT look like that on Marketplace</p>
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
-                        <NFTCard nftObj={nftObj} />
+                        <NFTCard
+                          nftObj={nftObj}
+                          username={this.props.authData?.username}
+                        />
                       </NFTfourbox>
-                      {/* <NFTfourbox>
-                        <div className='NFT-home-box'>
-                          <NFTImgBX>
-                            {' '}
-                            <img src={NFT2} alt='' />{' '}
-                          </NFTImgBX>
-                          <div className='NFT-home-box-inner'>
-                            <h4>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </h4>
-                            <CollectionBar>
-                              <p>
-                                25 <span>of 2500</span>
-                              </p>
-                              <p>
-                                <Link to='/'>
-                                  See the collection{' '}
-                                  <i className='fas fa-angle-right'></i>
-                                </Link>
-                              </p>
-                            </CollectionBar>
-                            <Edition className='edition2'>
-                              <div className='ed-box'>
-                                <p>Current bid</p>
-                                <h3>0.00 BNB</h3>
-                              </div>
-                              <div className='ed-box'>
-                                <p>Ending in</p>
-                                <h3>13h 12m 11s</h3>
-                              </div>
-                            </Edition>
-                            <UserImgName>
-                              <img src={UserImg} alt='' />
-                              @username
-                            </UserImgName>
-                          </div>
-                        </div>
-                      </NFTfourbox> */}
                     </NFTRight>
                   </Sticky>
                 </Gs.W275px>
@@ -701,13 +657,25 @@ class NFTPage extends Component {
           </Gs.Container>
         </div>
         <Collapse
-          isOpen={this.state.isOpen4}
+          isOpen={this.state.isOpen2}
           className={
-            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+            "app__collapse " + (this.state.isOpen2 ? "collapse-active" : "")
           }
         >
           <CreateCollection toggle={this.toggle} />
-          {/* <NFTModal toggle={this.toggle} /> */}
+          <MintNFTPopup mintNFT={this.mintNFT} toggle={this.toggle} />
+        </Collapse>
+        <Collapse
+          isOpen={this.state.isOpen3}
+          className={
+            "app__collapse " + (this.state.isOpen3 ? "collapse-active" : "")
+          }
+        >
+          <MintNFTPopup
+            mintNFT={this.mintNFT}
+            toggle={this.toggle}
+            mintNFTStatus={this.state.mintNFTStatus}
+          />
         </Collapse>
       </Gs.MainSection>
     );
