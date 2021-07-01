@@ -22,11 +22,11 @@ import CopyICO from "../Assets/images/icon-copy.svg"
 import PlusICO from "../Assets/images/icon-plus.svg"
 import ADBanner from '../Assets/images/adbanner01.jpg'
 
-import SocialICO01 from "../Assets/images/social-icon01.svg"
-import SocialICO03 from "../Assets/images/social-icon03.svg"
-import SocialICO04 from "../Assets/images/social-icon04.svg"
-import SocialICO05 from "../Assets/images/social-icon05.svg"
-import SocialICO06 from "../Assets/images/social-icon06.svg"
+import SocialICO01 from "../Assets/images/social-icon01.svg";
+import SocialICO03 from "../Assets/images/social-icon03.svg";
+import SocialICO04 from "../Assets/images/social-icon04.svg";
+import SocialICO05 from "../Assets/images/social-icon05.svg";
+import SocialICO06 from "../Assets/images/social-icon06.svg";
 
 import { actions } from "../actions";
 import { services } from "../services";
@@ -44,6 +44,7 @@ class Profile extends Component {
             profile: { file: null, url: null },
             cover: { file: null, url: null },
             tabPanel: 'all',
+            loading: false,
         }
     }
 
@@ -59,8 +60,16 @@ class Profile extends Component {
             this.props.getProfile() // fetch profile
         }
     }
+  
+  componentDidUpdate(prevProps, prevState) {
+    let { updated } = this.props;
+    if (updated !== prevProps.updated) {
+      this.profileUpdated(updated) // profile updated
+    }
+  }
 
-    profileFileChange = async () => {
+  profileFileChange = async () => {
+      this.setState({ loading: true }) // start the loader
         let file = this.profileInput.current.files[0];
         let url = URL.createObjectURL(file)
         this.setState({ profile: {url: url, file: file} })
@@ -72,7 +81,8 @@ class Profile extends Component {
         this.props.updateProfile(userObj) // update profile
     }
 
-    coverFileChange = async () => {
+  coverFileChange = async () => {
+      this.setState({ loading: true }) // start the loader
         let file = this.profileCoverInput.current.files[0];
         let url = URL.createObjectURL(file)
         this.setState({ cover: {url: url, file: file} })
@@ -82,7 +92,11 @@ class Profile extends Component {
         const cover_src = await services.uploadFileOnBucket(file, "cover");
         let userObj = { 'cover': cover_src }
         this.props.updateProfile(userObj) // update profile
-    }
+  }
+  
+  profileUpdated = (data) => {
+    this.setState({ loading: false }) // stop loader
+  }
 
     renderTabPanel = (NFTs) => {
       const { tabPanel } = this.state;
@@ -136,7 +150,7 @@ class Profile extends Component {
 
     render() {
         const { profile, categories, NFTs } = this.props;
-        const { tabPanel } = this.state;
+        const { tabPanel, loading } = this.state;
         return (
             <>
                 <ProMBannerBX style={{ backgroundImage: `url(${this.state.cover.url?this.state.cover.url:profile?profile.cover?profile.cover:ProfielBack:ProfielBack})` }}  >
@@ -176,11 +190,11 @@ class Profile extends Component {
                                     {profile?profile.bio:'user bio'}
                                 </UserDText01>
                                 <UserSocilMBX>
-                                    {profile?profile.portfolio?.website?<button onClick={() => {window.open(profile.portfolio.website.url, "_blank")}}><img src={SocialICO01} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio?.facebook?<button onClick={() => {window.open(profile.portfolio.facebook.url, "_blank")}}><img src={SocialICO03} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio?.twitter?<button onClick={() => {window.open(profile.portfolio.twitter.url, "_blank")}}><img src={SocialICO04} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio?.youtube?<button onClick={() => {window.open(profile.portfolio.youtube.url, "_blank")}}><img src={SocialICO05} alt="" /></button>:'':''}
-                                    {profile?profile.portfolio?.instagarm?<button onClick={() => {window.open(profile.portfolio.instagarm.url, "_blank")}}><img src={SocialICO06} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.website?.url?<button onClick={() => {window.open(profile.portfolio.website.url, "_blank")}}><img src={SocialICO01} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.facebook?.url?<button onClick={() => {window.open(profile.portfolio.facebook.url, "_blank")}}><img src={SocialICO03} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.twitter?.url?<button onClick={() => {window.open(profile.portfolio.twitter.url, "_blank")}}><img src={SocialICO04} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.youtube?.url?<button onClick={() => {window.open(profile.portfolio.youtube.url, "_blank")}}><img src={SocialICO05} alt="" /></button>:'':''}
+                                    {profile?profile.portfolio?.instagarm?.url?<button onClick={() => {window.open(profile.portfolio.instagarm.url, "_blank")}}><img src={SocialICO06} alt="" /></button>:'':''}
                                 </UserSocilMBX> 
                                 <UserDText02>
                                     Join <span>{profile?(dateFormat(new Date(profile.createdAt).toString(), 'dd mmmm yyyy')):'join date'}</span>
@@ -213,7 +227,22 @@ class Profile extends Component {
                 </ProMBannerBX>
 
 
-                <Gs.Container>
+            <Gs.Container>
+              
+              {loading ? (
+                <>
+                  <BlackWrap>
+                    <WhiteBX01>
+                      <OnbTitle01 className="v2">
+                        Please wait profile is updating
+                      </OnbTitle01>
+                      <LoaderBX>
+                        <img src={LoaderGif} alt="" />
+                      </LoaderBX>
+                    </WhiteBX01>
+                  </BlackWrap>
+                </>
+              ) : ("")}
 
                     {/* <ADBannerMBX>
                         <img src={ADBanner} alt='' />
@@ -925,6 +954,57 @@ const FilterBAR = styled(FlexDiv)`
   }
 `;
 
+const OnbTitle01 = styled.div`
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+
+  &.v2 {
+    max-width: 220px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 28px;
+  }
+`;
+
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
+
+const CloseBTN = styled.button`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+  top: 27px;
+  padding: 0;
+  margin: 0px;
+  :hover {
+    transform: rotate(90deg);
+  }
+`;
+
 const mapDipatchToProps = (dispatch) => {
     return {
       getProfile: () => dispatch(actions.getUserDetails()),
@@ -936,7 +1016,7 @@ const mapDipatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
       profile: state.fetchAuthData,
-      profileUpdate: state.updateProfile,
+      updated: state.updateProfile,
       categories: state.fetchCategory,
       NFTs: state.fetchUserNFT,
     }

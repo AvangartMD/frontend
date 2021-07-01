@@ -15,133 +15,168 @@ import CICON03 from "../Assets/images/peSocICO-03.svg";
 import CICON04 from "../Assets/images/peSocICO-04.svg";
 import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
+import LoaderGif from '../Assets/images/loading.gif';
 
 import { actions } from "../actions";
 
 
 class ProfileEdit extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          errors: [],
-          loading: false,
-          userObj: null,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: [],
+      loading: false,
+      userObj: null,
+    };
+  }
 
-    async componentDidMount() {
-      const { profile } = this.props;
-      if (!profile) {
-          this.props.getProfile() // fetch profile
-      }
+  async componentDidMount() {
+    const { profile } = this.props;
+    if (!profile) {
+      this.props.getProfile() // fetch profile
+    } else {
+      this.setState({ userObj: profile })
     }
+  }
 
-    componentDidUpdate(prevProps, prevState) {
-      let { profile } = this.props;
-      if (profile !== prevProps.profile) {
-        this.setState({ userObj: profile })
-      }
+  componentDidUpdate(prevProps, prevState) {
+    let { profile, updated } = this.props;
+    if (profile !== prevProps.profile) {
+      this.setState({ userObj: profile }) // store props into state
     }
+    if (updated !== prevProps.updated) {
+      this.profileUpdated(updated) // profile updated
+    }
+  }
 
-    formchange = (e) => {
-      const { userObj } = this.state;
-      if (e.target.name === 'website' || e.target.name === 'instagarm' || e.target.name === 'facebook' || e.target.name === 'github' || e.target.name === 'twitter' || e.target.name === 'discord' || e.target.name === 'youtube' || e.target.name === 'twitch' || e.target.name === 'tiktok' || e.target.name === 'snapchat' ) {
-        this.setState({ userObj: {...userObj, 'portfolio': { ...userObj.portfolio, [e.target.name]:  {...userObj.portfolio[e.target.name], 'username' :e.target.value} }} })
+  formChange = (e) => {
+    const { userObj } = this.state;
+    if (e.target.name === 'website' || e.target.name === 'instagarm' || e.target.name === 'facebook' || e.target.name === 'github' || e.target.name === 'twitter' || e.target.name === 'discord' || e.target.name === 'youtube' || e.target.name === 'twitch' || e.target.name === 'tiktok' || e.target.name === 'snapchat') {
+      if (userObj.portfolio) {
+        this.setState({ userObj: { ...userObj, 'portfolio': { ...userObj.portfolio, [e.target.name]: { ...userObj.portfolio[e.target.name], 'url': e.target.value } } } })
       } else {
-        this.setState({ userObj: {...userObj, [e.target.name]: e.target.value} })
+        this.setState({ userObj: { ...userObj, 'portfolio': { [e.target.name]: e.target.value } } })
       }
+    } else {
+      this.setState({ userObj: { ...userObj, [e.target.name]: e.target.value } })
+    }
+  }
+
+  formSubmit = (e) => {
+    e.preventDefault(); 
+    this.setState({ loading: true }) // start the loader
+    const { userObj } = this.state;
+    let params = {
+      name: userObj.name,
+      username: userObj.username,
+      email: userObj.email,
+      bio: userObj.bio,
+      portfolio: userObj.portfolio
+    }
+    this.props.setProfile(params) // update the user profile
+  }
+
+  profileUpdated = (data) => {
+    this.setState({ loading: false }) // stop loader
+  }
+
+  render() {
+    const { profile } = this.props;
+    const { loading } = this.state;
+
+    function pointSelect(curr) {
+      let hash = window.location.hash.substr(1);
+      if (hash == curr) return "active";
+      else return "inactive";
     }
 
-    formSubmit = (e) => {
-      e.preventDefault();
-      const { userObj } = this.state;
-      let params = {
-        name: userObj.name,
-        username: userObj.username,
-        email: userObj.email,
-        bio: userObj.bio,
-        portfolio: userObj.portfolio
-      }
-      this.props.setProfile(params) // update the user profile
-    }
+    return (
+      <Gs.MainSection>
+        
+        {loading ? (
+          <>
+            <BlackWrap>
+              <WhiteBX01>
+                <OnbTitle01 className="v2">
+                  Please wait profile is updating
+                </OnbTitle01>
+                <LoaderBX>
+                  <img src={LoaderGif} alt="" />
+                </LoaderBX>
+              </WhiteBX01>
+            </BlackWrap>
+          </>
+        ) : ("")}
 
-    render() {
-        const { profile, updated } = this.props;
-        function pointSelect(curr) {
-            let hash = window.location.hash.substr(1);
-            if (hash == curr) return "active";
-            else return "inactive";
-        }
-        return (
-            <Gs.MainSection>
-                <div style={{ minHeight: "100vh", width: "100%" }}>
-                    <Gs.Container>
-                        <NFTminting>
-                            <Gs.W200px>
-                                <Sticky>
-                                    <NFTLeft>
-                                        <Link className={pointSelect("accountSettings")} to="#accountSettings" smooth={true} >
-                                            Account Settings
-                                        </Link>
-                                        <Link className={pointSelect("biography")} to="#biography" smooth={true} >
-                                            Biography
-                                        </Link>
-                                        <Link className={pointSelect("verifyProfile")} to="#verifyProfile" smooth={true} >
-                                            Verify Profile
-                                        </Link>
-                                        <Link className={pointSelect("socialLink")} to="#socialLink" smooth={true} >
-                                            Social Links
-                                        </Link>
-                                    </NFTLeft>
+        <div style={{ minHeight: "100vh", width: "100%" }}>
+          <Gs.Container>
+            <NFTminting>
+              <Gs.W200px>
+                <Sticky>
+                  <NFTLeft>
+                    <Link className={pointSelect("accountSettings")} to="#accountSettings" smooth={true} >
+                      Account Settings
+                    </Link>
+                    <Link className={pointSelect("biography")} to="#biography" smooth={true} >
+                      Biography
+                    </Link>
+                    <Link className={pointSelect("verifyProfile")} to="#verifyProfile" smooth={true} >
+                      Verify Profile
+                    </Link>
+                    <Link className={pointSelect("socialLink")} to="#socialLink" smooth={true} >
+                      Social Links
+                    </Link>
+                  </NFTLeft>
 
-                                    <BackBTN01 onClick={() => this.props.history.push('/profile')}>
-                                      Back to Profile
-                                    </BackBTN01>
+                  <BackBTN01 onClick={() => this.props.history.push('/profile')}>
+                    Back to Profile
+                  </BackBTN01>
 
-                                </Sticky>
-                            </Gs.W200px>
-                            <Gs.W880px className="displayflex">
-                                <Gs.W605px>
-                                    <NFTMiddle>
-                                        <NFTtitle id="accountSettings">
-                                            <h4>Account Settings</h4>
-                                            <p className="mb-30">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            </p>
-                                        </NFTtitle>
-                                        <form
-                                            onChange={(e) => this.formchange(e)}
-                                            onSubmit={(e) => this.formSubmit(e)}
-                                        >
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Name</label>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                    name="name" defaultValue={profile?profile.name?profile.name:'':''}
-                                                    placeholder="Type something…"
-                                                />
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Username</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i>@</i>
-                                                    <input
-                                                        type="text"
-                                                        required
-                                                        name="username"
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        placeholder="Type something…"
-                                                        defaultValue={profile?profile.username?profile.username:'':''}
-                                                    />
-                                                </div> 
-                                                {/* <div className="iLeft errorinput">
+                </Sticky>
+              </Gs.W200px>
+              <Gs.W880px className="displayflex">
+                <Gs.W605px>
+                  <NFTMiddle>
+                    <NFTtitle id="accountSettings">
+                      <h4>Account Settings</h4>
+                      <p className="mb-30">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      </p>
+                    </NFTtitle>
+                    <form
+                      onChange={(e) => this.formChange(e)}
+                      onSubmit={(e) => this.formSubmit(e)}
+                    >
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Name</label>
+                        </div>
+                        <input
+                          type="text"
+                          required
+                          name="name"
+                          placeholder="Type something…"
+                          onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault() } }}
+                          defaultValue={profile ? profile.name ? profile.name : '' : ''}
+                        />
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Username</label>
+                        </div>
+                        <div className="iLeft">
+                          <i>@</i>
+                          <input
+                            type="text"
+                            required
+                            name="username"
+                            placeholder="Type something…"
+                            onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                            defaultValue={profile ? profile.username ? profile.username : '' : ''}
+                          />
+                        </div>
+                        {/* <div className="iLeft errorinput">
                                                     <i>@</i>
                                                     <input
                                                         type="text"
@@ -151,176 +186,177 @@ class ProfileEdit extends Component {
                                                     />
                                                     <p className="error">it’s taken</p>
                                                 </div>  */}
-                                            </NFTForm>
-                                            <NFTForm>
-                                                 
-                                            <div className="label-line">
-                                                    <label>Email</label>
-                                                    <FlexDiv className="JCSB">
-                                                        <p>Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. </p> 
-                                                    </FlexDiv>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    name="email"
-                                                    required
-                                                    onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                    placeholder="Type something…"
-                                                    defaultValue={profile?profile.email?profile.email:'':''}
-                                                />
-                                            </NFTForm>
-                                            <NFTtitle id="biography">
-                                                <h4 className="mt-30">Biography</h4>
-                                                <p className="mb-30">Write a little bit about yourself</p>
-                                            </NFTtitle> 
-                                            <NFTForm>  
-                                                    <textarea
-                                                        type="textarea"
-                                                        name="bio"
-                                                        placeholder="0" 
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        defaultValue={profile?profile.bio?profile.bio:'':''}
-                                                     />
-                                            </NFTForm>
-                                            <NFTtitle id="verifyProfile">
-                                                <h4 className="mt-30">Verify Profile</h4>
-                                                <p className="mb-30">
-                                                Show us how authentic your profile
-                                                </p>
-                                            </NFTtitle>
-                                            <NFTForm> 
-                                                <CustomCheckbox1>
-                                                    <label class="checkbox-container">
-                                                        {" "}
-                                                        <img src={CICON01} alt="" />
-                                                        Verify via Twitter
-                                                        <button
-                                                            type="checkbox"
-                                                            name="category"
-                                                            value="aa"
-                                                        />
-                                                        <span class="checkmark v2"></span>
-                                                    </label>
-                                                    <label class="checkbox-container">
-                                                        {" "}
-                                                        <img src={CICON02} alt="" />
-                                                        Verify via Instagram
-                                                        <button
-                                                            type="checkbox"
-                                                            name="category"
-                                                            value="celebrity"
-                                                        />
-                                                        <span class="checkmark v2"></span>
-                                                    </label> 
-                                                </CustomCheckbox1>
-                                            </NFTForm> 
-                                            <NFTtitle id="socialLink">
-                                                <h4 className="mt-30">Social Links</h4>
-                                                <p className="mb-30">
-                                                Add your social media links for people who want you know more
-                                                </p>
-                                            </NFTtitle>
-                                             
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Website</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON03} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="website"
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio?.website?profile.portfolio.website.username:'':''}
-                                                    /> 
-                                                </div>
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Instagram</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON02} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="instagarm"
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio?.instagarm?profile.portfolio.instagarm.username:'':''}
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Discord</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON04} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="discord"
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio?.discord?profile.portfolio.discord.username:'':''}
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Youtube</label> 
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON05} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="youtube"
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio?.youtube?profile.portfolio.youtube.username:'':''}
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <NFTForm>
-                                                <div className="label-line">
-                                                    <label>Facebook</label>
-                                                </div>
-                                                <div className="iLeft">
-                                                    <i><img src={CICON06} alt="" /></i>
-                                                    <input
-                                                        type="text"
-                                                        name="facebook"
-                                                        onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
-                                                        placeholder="Type something…"
-                                                        defaultValue={profile?profile.portfolio?.facebook?profile.portfolio.facebook.username:'':''}
-                                                    /> 
-                                                </div> 
-                                            </NFTForm>
-                                            <CreateItemButton>
-                                                <button type="submit" >Update</button>
-                                            </CreateItemButton>
-                                        </form>
-                                    </NFTMiddle>
-                                </Gs.W605px>
-                            </Gs.W880px>
-                        </NFTminting>
-                    </Gs.Container>
-                </div>
-                <Collapse
-                    isOpen={this.state.isOpen4}
-                    className={
-                        "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-                    }
-                >
-                    <NFTModal toggle={this.toggle} />
-                </Collapse>
-            </Gs.MainSection>
-        );
-    }
-    toggle = (index) => {
-        let collapse = "isOpen" + index;
-        this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-    };
+                      </NFTForm>
+                      <NFTForm>
+
+                        <div className="label-line">
+                          <label>Email</label>
+                          <FlexDiv className="JCSB">
+                            <p>Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. </p>
+                          </FlexDiv>
+                        </div>
+                        <input
+                          type="text"
+                          name="email"
+                          required
+                          placeholder="Type something…"
+                          onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                          defaultValue={profile ? profile.email ? profile.email : '' : ''}
+                        />
+                      </NFTForm>
+                      <NFTtitle id="biography">
+                        <h4 className="mt-30">Biography</h4>
+                        <p className="mb-30">Write a little bit about yourself</p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <textarea
+                          type="textarea"
+                          name="bio"
+                          placeholder="0"
+                          onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                          defaultValue={profile ? profile.bio ? profile.bio : '' : ''}
+                        />
+                      </NFTForm>
+                      <NFTtitle id="verifyProfile">
+                        <h4 className="mt-30">Verify Profile</h4>
+                        <p className="mb-30">
+                          Show us how authentic your profile
+                        </p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <CustomCheckbox1>
+                          <label class="checkbox-container">
+                            {" "}
+                            <img src={CICON01} alt="" />
+                            Verify via Twitter
+                            <button
+                              type="checkbox"
+                              name="category"
+                              value="aa"
+                            />
+                            <span class="checkmark v2"></span>
+                          </label>
+                          <label class="checkbox-container">
+                            {" "}
+                            <img src={CICON02} alt="" />
+                            Verify via Instagram
+                            <button
+                              type="checkbox"
+                              name="category"
+                              value="celebrity"
+                            />
+                            <span class="checkmark v2"></span>
+                          </label>
+                        </CustomCheckbox1>
+                      </NFTForm>
+                      <NFTtitle id="socialLink">
+                        <h4 className="mt-30">Social Links</h4>
+                        <p className="mb-30">
+                          Add your social media links for people who want you know more
+                        </p>
+                      </NFTtitle>
+
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Website</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON03} alt="" /></i>
+                          <input
+                            type="url"
+                            name="website"
+                            placeholder="Type something…"
+                            onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                            defaultValue={profile ? profile.portfolio?.website ? profile.portfolio.website.url : '' : ''}
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Instagram</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON02} alt="" /></i>
+                          <input
+                            type="url"
+                            name="instagarm"
+                            placeholder="Type something…"
+                            onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                            defaultValue={profile ? profile.portfolio?.instagarm ? profile.portfolio.instagarm.url : '' : ''}
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Discord</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON04} alt="" /></i>
+                          <input
+                            type="url"
+                            name="discord"
+                            placeholder="Type something…"
+                            onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                            defaultValue={profile ? profile.portfolio?.discord ? profile.portfolio.discord.url : '' : ''}
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Youtube</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON05} alt="" /></i>
+                          <input
+                            type="url"
+                            name="youtube"
+                            placeholder="Type something…"
+                            onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                            defaultValue={profile ? profile.portfolio?.youtube ? profile.portfolio.youtube.url : '' : ''}
+                          />
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Facebook</label>
+                        </div>
+                        <div className="iLeft">
+                          <i><img src={CICON06} alt="" /></i>
+                          <input
+                            type="url"
+                            name="facebook"
+                            placeholder="Type something…"
+                            onKeyPress={(e) => { if (e.key === 'Enter') {e.preventDefault()} }}
+                            defaultValue={profile ? profile.portfolio?.facebook ? profile.portfolio.facebook.url : '' : ''}
+                          />
+                        </div>
+                      </NFTForm>
+                      <CreateItemButton>
+                        <button type="submit">Update</button>
+                      </CreateItemButton>
+                    </form>
+                  </NFTMiddle>
+                </Gs.W605px>
+              </Gs.W880px>
+            </NFTminting>
+          </Gs.Container>
+        </div>
+
+        <Collapse
+          isOpen={this.state.isOpen4}
+          className={
+            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+          }
+        >
+          <NFTModal toggle={this.toggle} />
+        </Collapse>
+      </Gs.MainSection>
+    );
+  }
+  toggle = (index) => {
+    let collapse = "isOpen" + index;
+    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+  };
 }
 // Common Style Div
 const FlexDiv = styled.div`
@@ -833,6 +869,61 @@ const AlertNote = styled.div`
   }
 `;
 
+const OnbTitle01 = styled.div`
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+
+  &.v2 {
+    max-width: 220px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 28px;
+  }
+`;
+
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 60px auto 0 auto;
+`;
+
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
+
+const CloseBTN = styled.button`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+  top: 27px;
+  padding: 0;
+  margin: 0px;
+  :hover {
+    transform: rotate(90deg);
+  }
+`;
 
 const mapDipatchToProps = (dispatch) => {
   return {
