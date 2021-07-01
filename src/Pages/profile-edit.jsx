@@ -15,6 +15,7 @@ import CICON03 from "../Assets/images/peSocICO-03.svg";
 import CICON04 from "../Assets/images/peSocICO-04.svg";
 import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
+import LoaderGif from "../Assets/images/loading.gif";
 
 import { actions } from "../actions";
 
@@ -32,49 +33,22 @@ class ProfileEdit extends Component {
     const { profile } = this.props;
     if (!profile) {
       this.props.getProfile(); // fetch profile
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    let { profile } = this.props;
-    if (profile !== prevProps.profile) {
+    } else {
       this.setState({ userObj: profile });
     }
   }
 
-  // formchange = (e) => {
-  //   const { userObj } = this.state;
-  //   if (
-  //     e.target.name === "website" ||
-  //     e.target.name === "instagarm" ||
-  //     e.target.name === "facebook" ||
-  //     e.target.name === "github" ||
-  //     e.target.name === "twitter" ||
-  //     e.target.name === "discord" ||
-  //     e.target.name === "youtube" ||
-  //     e.target.name === "twitch" ||
-  //     e.target.name === "tiktok" ||
-  //     e.target.name === "snapchat"
-  //   ) {
-  //     this.setState({
-  //       userObj: {
-  //         ...userObj,
-  //         portfolio: {
-  //           ...userObj.portfolio,
-  //           [e.target.name]: {
-  //             ...userObj.portfolio[e.target.name],
-  //             username: e.target.value,
-  //           },
-  //         },
-  //       },
-  //     });
-  //   } else {
-  //     this.setState({
-  //       userObj: { ...userObj, [e.target.name]: e.target.value },
-  //     });
-  //   }
-  // };
-  formchange = (e) => {
+  componentDidUpdate(prevProps, prevState) {
+    let { profile, updated } = this.props;
+    if (profile !== prevProps.profile) {
+      this.setState({ userObj: profile }); // store props into state
+    }
+    if (updated !== prevProps.updated) {
+      this.profileUpdated(updated); // profile updated
+    }
+  }
+
+  formChange = (e) => {
     const { userObj } = this.state;
     if (
       e.target.name === "website" ||
@@ -96,7 +70,7 @@ class ProfileEdit extends Component {
               ...userObj.portfolio,
               [e.target.name]: {
                 ...userObj.portfolio[e.target.name],
-                username: e.target.value,
+                url: e.target.value,
               },
             },
           },
@@ -118,6 +92,7 @@ class ProfileEdit extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
+    this.setState({ loading: true }); // start the loader
     const { userObj } = this.state;
     let params = {
       name: userObj.name,
@@ -129,15 +104,39 @@ class ProfileEdit extends Component {
     this.props.setProfile(params); // update the user profile
   };
 
+  profileUpdated = (data) => {
+    this.setState({ loading: false }); // stop loader
+  };
+
   render() {
-    const { profile, updated } = this.props;
+    const { profile } = this.props;
+    const { loading } = this.state;
+
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
       if (hash == curr) return "active";
       else return "inactive";
     }
+
     return (
       <Gs.MainSection>
+        {loading ? (
+          <>
+            <BlackWrap>
+              <WhiteBX01>
+                <OnbTitle01 className="v2">
+                  Please wait profile is updating
+                </OnbTitle01>
+                <LoaderBX>
+                  <img src={LoaderGif} alt="" />
+                </LoaderBX>
+              </WhiteBX01>
+            </BlackWrap>
+          </>
+        ) : (
+          ""
+        )}
+
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
             <NFTminting>
@@ -191,7 +190,7 @@ class ProfileEdit extends Component {
                       </p>
                     </NFTtitle>
                     <form
-                      onChange={(e) => this.formchange(e)}
+                      onChange={(e) => this.formChange(e)}
                       onSubmit={(e) => this.formSubmit(e)}
                     >
                       <NFTForm>
@@ -201,16 +200,16 @@ class ProfileEdit extends Component {
                         <input
                           type="text"
                           required
+                          name="name"
+                          placeholder="Type something…"
                           onKeyPress={(e) => {
                             if (e.key === "Enter") {
                               e.preventDefault();
                             }
                           }}
-                          name="name"
                           defaultValue={
                             profile ? (profile.name ? profile.name : "") : ""
                           }
-                          placeholder="Type something…"
                         />
                       </NFTForm>
                       <NFTForm>
@@ -223,12 +222,12 @@ class ProfileEdit extends Component {
                             type="text"
                             required
                             name="username"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
-                            placeholder="Type something…"
                             defaultValue={
                               profile
                                 ? profile.username
@@ -263,12 +262,12 @@ class ProfileEdit extends Component {
                           type="text"
                           name="email"
                           required
+                          placeholder="Type something…"
                           onKeyPress={(e) => {
                             if (e.key === "Enter") {
                               e.preventDefault();
                             }
                           }}
-                          placeholder="Type something…"
                           defaultValue={
                             profile ? (profile.email ? profile.email : "") : ""
                           }
@@ -344,18 +343,18 @@ class ProfileEdit extends Component {
                             <img src={CICON03} alt="" />
                           </i>
                           <input
-                            type="text"
+                            type="url"
                             name="website"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
-                            placeholder="Type something…"
                             defaultValue={
                               profile
                                 ? profile.portfolio?.website
-                                  ? profile.portfolio.website.username
+                                  ? profile.portfolio.website.url
                                   : ""
                                 : ""
                             }
@@ -371,18 +370,18 @@ class ProfileEdit extends Component {
                             <img src={CICON02} alt="" />
                           </i>
                           <input
-                            type="text"
+                            type="url"
                             name="instagarm"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
-                            placeholder="Type something…"
                             defaultValue={
                               profile
                                 ? profile.portfolio?.instagarm
-                                  ? profile.portfolio.instagarm.username
+                                  ? profile.portfolio.instagarm.url
                                   : ""
                                 : ""
                             }
@@ -398,18 +397,18 @@ class ProfileEdit extends Component {
                             <img src={CICON04} alt="" />
                           </i>
                           <input
-                            type="text"
+                            type="url"
                             name="discord"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
-                            placeholder="Type something…"
                             defaultValue={
                               profile
                                 ? profile.portfolio?.discord
-                                  ? profile.portfolio.discord.username
+                                  ? profile.portfolio.discord.url
                                   : ""
                                 : ""
                             }
@@ -425,18 +424,18 @@ class ProfileEdit extends Component {
                             <img src={CICON05} alt="" />
                           </i>
                           <input
-                            type="text"
+                            type="url"
                             name="youtube"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
-                            placeholder="Type something…"
                             defaultValue={
                               profile
                                 ? profile.portfolio?.youtube
-                                  ? profile.portfolio.youtube.username
+                                  ? profile.portfolio.youtube.url
                                   : ""
                                 : ""
                             }
@@ -452,18 +451,18 @@ class ProfileEdit extends Component {
                             <img src={CICON06} alt="" />
                           </i>
                           <input
-                            type="text"
+                            type="url"
                             name="facebook"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
-                            placeholder="Type something…"
                             defaultValue={
                               profile
                                 ? profile.portfolio?.facebook
-                                  ? profile.portfolio.facebook.username
+                                  ? profile.portfolio.facebook.url
                                   : ""
                                 : ""
                             }
@@ -1014,6 +1013,62 @@ const AlertNote = styled.div`
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.8px;
+  }
+`;
+
+const OnbTitle01 = styled.div`
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+
+  &.v2 {
+    max-width: 220px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 28px;
+  }
+`;
+
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 60px auto 0 auto;
+`;
+
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
+
+const CloseBTN = styled.button`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+  top: 27px;
+  padding: 0;
+  margin: 0px;
+  :hover {
+    transform: rotate(90deg);
   }
 `;
 

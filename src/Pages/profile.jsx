@@ -42,6 +42,7 @@ class Profile extends Component {
       profile: { file: null, url: null },
       cover: { file: null, url: null },
       tabPanel: "all",
+      loading: false,
     };
   }
 
@@ -58,7 +59,15 @@ class Profile extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    let { updated } = this.props;
+    if (updated !== prevProps.updated) {
+      this.profileUpdated(updated); // profile updated
+    }
+  }
+
   profileFileChange = async () => {
+    this.setState({ loading: true }); // start the loader
     let file = this.profileInput.current.files[0];
     let url = URL.createObjectURL(file);
     this.setState({ profile: { url: url, file: file } });
@@ -72,6 +81,7 @@ class Profile extends Component {
   };
 
   coverFileChange = async () => {
+    this.setState({ loading: true }); // start the loader
     let file = this.profileCoverInput.current.files[0];
     let url = URL.createObjectURL(file);
     this.setState({ cover: { url: url, file: file } });
@@ -84,60 +94,8 @@ class Profile extends Component {
     this.props.updateProfile(userObj); // update profile
   };
 
-  renderTabPanel = (NFTs) => {
-    const { tabPanel } = this.state;
-    if (tabPanel !== "all") {
-      NFTs = NFTs.filter((nft) =>
-        nft.category.some((category) => category._id === tabPanel)
-      );
-    }
-    return NFTs.map((nft, key) => {
-      return (
-        <Gs.W25V2 key={key}>
-          <Gs.TenpxGutter>
-            <div className="NFT-home-box">
-              <NFTImgBX>
-                {" "}
-                <img src={nft.image.compressed} alt="" />{" "}
-              </NFTImgBX>
-              <div className="NFT-home-box-inner">
-                <h4>
-                  {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
-                  {nft.title}
-                </h4>
-                <CollectionBar>
-                  <p>
-                    {nft.edition} <span>of 2500</span>
-                  </p>
-                  <p>
-                    <Link to="/">
-                      See the collection <i className="fas fa-angle-right"></i>
-                    </Link>
-                  </p>
-                </CollectionBar>
-                <Edition className="edition2">
-                  <div className="ed-box">
-                    <p>Current bid</p>
-                    <h3>{nft.price} BNB</h3>
-                  </div>
-                  <div className="ed-box">
-                    <p>Ending in</p>
-                    <h3>
-                      {nft.saleState === "AUCTION"
-                        ? `${nft.auctionTime}h`
-                        : "13h 12m 11s"}
-                    </h3>
-                  </div>
-                </Edition>
-                <UserImgName>
-                  <img src={UserImg} alt="" />@{nft.ownerId.username}
-                </UserImgName>
-              </div>
-            </div>
-          </Gs.TenpxGutter>
-        </Gs.W25V2>
-      );
-    });
+  profileUpdated = (data) => {
+    this.setState({ loading: false }); // stop loader
   };
 
   renderTabPanel = (NFTs) => {
@@ -157,10 +115,7 @@ class Profile extends Component {
                 <img src={nft.image.compressed} alt="" />{" "}
               </NFTImgBX>
               <div className="NFT-home-box-inner">
-                <h4>
-                  {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
-                  {nft.title}
-                </h4>
+                <h4>{nft.title}</h4>
                 <CollectionBar>
                   <p>
                     {nft.edition} <span>of 2500</span>
@@ -198,7 +153,7 @@ class Profile extends Component {
 
   render() {
     const { profile, categories, NFTs } = this.props;
-    const { tabPanel } = this.state;
+    const { tabPanel, loading } = this.state;
     return (
       <>
         <ProMBannerBX
@@ -279,7 +234,7 @@ class Profile extends Component {
                 <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
                 <UserSocilMBX>
                   {profile ? (
-                    profile.portfolio?.website ? (
+                    profile.portfolio?.website?.url ? (
                       <button
                         onClick={() => {
                           window.open(profile.portfolio.website.url, "_blank");
@@ -294,7 +249,7 @@ class Profile extends Component {
                     ""
                   )}
                   {profile ? (
-                    profile.portfolio?.facebook ? (
+                    profile.portfolio?.facebook?.url ? (
                       <button
                         onClick={() => {
                           window.open(profile.portfolio.facebook.url, "_blank");
@@ -309,7 +264,7 @@ class Profile extends Component {
                     ""
                   )}
                   {profile ? (
-                    profile.portfolio?.twitter ? (
+                    profile.portfolio?.twitter?.url ? (
                       <button
                         onClick={() => {
                           window.open(profile.portfolio.twitter.url, "_blank");
@@ -324,7 +279,7 @@ class Profile extends Component {
                     ""
                   )}
                   {profile ? (
-                    profile.portfolio?.youtube ? (
+                    profile.portfolio?.youtube?.url ? (
                       <button
                         onClick={() => {
                           window.open(profile.portfolio.youtube.url, "_blank");
@@ -339,7 +294,7 @@ class Profile extends Component {
                     ""
                   )}
                   {profile ? (
-                    profile.portfolio?.instagarm ? (
+                    profile.portfolio?.instagarm?.url ? (
                       <button
                         onClick={() => {
                           window.open(
@@ -412,6 +367,23 @@ class Profile extends Component {
         </ProMBannerBX>
 
         <Gs.Container>
+          {loading ? (
+            <>
+              <BlackWrap>
+                <WhiteBX01>
+                  <OnbTitle01 className="v2">
+                    Please wait profile is updating
+                  </OnbTitle01>
+                  <LoaderBX>
+                    <img src={LoaderGif} alt="" />
+                  </LoaderBX>
+                </WhiteBX01>
+              </BlackWrap>
+            </>
+          ) : (
+            ""
+          )}
+
           {/* <ADBannerMBX>
                         <img src={ADBanner} alt='' />
                     </ADBannerMBX> */}
@@ -1294,6 +1266,57 @@ const FilterBAR = styled(FlexDiv)`
   }
 `;
 
+const OnbTitle01 = styled.div`
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+
+  &.v2 {
+    max-width: 220px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 28px;
+  }
+`;
+
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
+
+const CloseBTN = styled.button`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+  top: 27px;
+  padding: 0;
+  margin: 0px;
+  :hover {
+    transform: rotate(90deg);
+  }
+`;
+
 const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getUserDetails()),
@@ -1305,7 +1328,7 @@ const mapDipatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     profile: state.fetchAuthData,
-    profileUpdate: state.updateProfile,
+    updated: state.updateProfile,
     categories: state.fetchCategory,
     NFTs: state.fetchUserNFT,
   };
