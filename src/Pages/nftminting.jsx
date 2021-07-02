@@ -76,7 +76,6 @@ class NFTPage extends Component {
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.isLoggedIn) {
-          console.log("this is called");
           this.props.getCollectionList();
         }
       });
@@ -113,19 +112,20 @@ class NFTPage extends Component {
     } else {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          // this.signatureRequest(undefined, true);
+          //somethng
         }
       });
     }
   }
 
   mintNFT = async (_tokenURI) => {
+    console.log(this.props.createdNFTID);
     this.setState({ mintNFTStatus: "initiate" });
     const { web3Data, nftObj, suggestionVAl } = this.state;
     console.log(suggestionVAl);
     const obj = [
       nftObj.edition,
-      this.props.createdNFTID,
+      this.props.createdNFTID._id,
       web3Data.accounts[0],
       suggestionVAl.walletAddress
         ? suggestionVAl.walletAddress
@@ -151,32 +151,6 @@ class NFTPage extends Component {
       .on("error", (error) => {
         this.setState({ mintNFTStatus: "complete" });
       });
-  };
-  onFileUpload = async () => {
-    const formData = new FormData();
-    const { selectedFile } = this.state;
-    if (!selectedFile) {
-      alert("upload a file");
-      return false;
-    }
-    const en_src = await services.uploadFileOnBucket(selectedFile, "nft");
-    let dataObj = {
-      title: "SPORT !!",
-      description: "SPORTS !!!!",
-      image: {
-        original: en_src,
-        compressed:
-          "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293__340.jpg",
-      },
-      // "collectionId": "60ace3f509005e63311cd510",
-      unlockContent: true,
-      digitalKey: "HELLO!!!!!",
-    };
-    const result = defiActions.addNFT(dataObj);
-    console.log("final result", result);
-
-    formData.append("file", selectedFile, selectedFile.name);
-    // submit formData
   };
 
   formchange(e) {
