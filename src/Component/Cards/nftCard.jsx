@@ -5,34 +5,31 @@ import UserImg from "../../Assets/images/user-img.jpg";
 import NFT2 from "../../Assets/images/nft2.jpg";
 import Gs from "../../Theme/globalStyles";
 
-function NFTCard(props) {
-  const { nftObj } = props;
-  const {
-    title,
-    description,
-    coCreatorUserName,
-    percentShare,
-    category,
-    collection,
-    saleState,
-    auctionTime,
-    edition,
-    price,
-    digitalKey,
-    imgSrc,
-  } = nftObj;
+function NFTCard({
+  nftImg,
+  title,
+  edition,
+  price,
+  auctionTime,
+  userImg,
+  username,
+}) {
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
         <div className="NFT-home-box">
           <NFTImgBX>
-            <img src={imgSrc ? imgSrc : NFT2} alt="" />
+            <img src={nftImg} alt="" />
           </NFTImgBX>
           <div className="NFT-home-box-inner">
-            <h4>{title}</h4>
+            <h4>
+              {title
+                ? title
+                : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+            </h4>
             <CollectionBar>
               <p>
-                25 <span>of 2500</span>
+                0 <span>of {edition ? edition : 0}</span>
               </p>
               <p>
                 <Link to="/">
@@ -48,12 +45,11 @@ function NFTCard(props) {
               </div>
               <div className="ed-box">
                 <p>Ending in</p>
-                <h3>{auctionTime}</h3>
+                <h3>{auctionTime}h 00m 00s</h3>
               </div>
             </Edition>
             <UserImgName>
-              <img src={UserImg} alt="" />
-              @username
+              <img src={userImg ? userImg : UserImg} alt="" />@{username}
             </UserImgName>
           </div>
         </div>

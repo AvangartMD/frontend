@@ -8,6 +8,7 @@ import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
 import NFTModal from "../Component/nftpopups";
+// import CreateCollection from "../Component/Modals/createCollection";
 
 import NFT2 from "../Assets/images/nft2.jpg";
 import UserImg from "../Assets/images/user-img.jpg";
@@ -20,7 +21,7 @@ import Celebrity from "../Assets/images/icon-set-celebrity.svg";
 import NFTCard from "../Component/Cards/nftCard";
 import { services } from "../services";
 import { defiActions } from "../actions/defi.action";
-import Compressor from "compressorjs";
+import CreateCollection from "../Component/Modals/createCollection";
 import {
   compressImage,
   capitalizeFirstLetter,
@@ -32,6 +33,7 @@ import { actions } from "../actions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
+import MintNFTPopup from "../Component/Modals/mintNFTPopup";
 
 class NFTPage extends Component {
   constructor(props) {
@@ -42,23 +44,25 @@ class NFTPage extends Component {
         accounts: [],
       },
       nftObj: {
-        title: "Artwork name / title dolor lorem ipsum sit adipiscing",
+        title: "",
         description: "",
         coCreatorUserName: "",
         percentShare: 0,
         category: [],
         collection: "",
         saleState: "",
-        auctionTime: "",
-        edition: "",
+        auctionTime: "0",
+        edition: 0,
         price: "0.00",
         digitalKey: "",
-        nftFile: {},
+        nftFile: undefined,
         imgSrc: "",
         categoryList: null,
         collectionList: [],
       },
       suggestionVAl: [],
+      error: { isError: false, msg: "", isCocreatorError: false },
+      mintNFTStatus: "",
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -79,7 +83,7 @@ class NFTPage extends Component {
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          console.log("will do something in future");
+          // console.log("will do something in future");
         }
       });
     }
@@ -88,8 +92,7 @@ class NFTPage extends Component {
     if (categoryList !== prevProps.categoryList)
       this.setState({ categoryList });
     if (createdNFTID !== prevProps.createdNFTID) {
-      console.log("new id", createdNFTID);
-      this.mintNFT(createdNFTID);
+      this.setState({ mintNFTStatus: "" });
     }
   }
 
@@ -109,79 +112,41 @@ class NFTPage extends Component {
     } else {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          // this.signatureRequest(undefined, true);
+          //somethng
         }
       });
     }
   }
 
-  async mintNFT(_tokenURI) {
-    const { web3Data, nftObj } = this.state;
+  mintNFT = async (_tokenURI) => {
+    this.setState({ mintNFTStatus: "initiate" });
+    const { web3Data, nftObj, suggestionVAl } = this.state;
     const obj = [
       nftObj.edition,
-      _tokenURI,
+      this.props.createdNFTID._id,
       web3Data.accounts[0],
-      nftObj.coCreatorUserName
-        ? nftObj.coCreatorUserName
+      suggestionVAl.walletAddress
+        ? suggestionVAl.walletAddress
         : "0x0000000000000000000000000000000000000000",
-      Number(100 - nftObj.percentShare),
-      Number(nftObj.percentShare),
+      suggestionVAl.walletAddress ? Number(100 - nftObj.percentShare) : 100,
+      suggestionVAl.walletAddress ? Number(nftObj.percentShare) : 0,
       nftObj.saleState === "BUY" ? "0" : "1",
-      nftObj.auctionTime ? Number(nftObj.auctionTime) : "0",
+      nftObj.saleState === "BUY" ? 0 : Number(nftObj.auctionTime),
       web3.utils.toWei(nftObj.price, "ether"),
       "0",
     ];
-    console.log("mint obj", obj);
-    // uint256 _editions, (no of Editions)
-    //     string memory _tokenURI, (NFT image code)
-    //     address _creator,
-    //     address _coCreator,
-    //     uint256 _creatorPercent,
-    //     uint256 _coCreatorPercent,
-    //     Type _saleType, (0 for Buy now and 1 for Auction)
-    //     uint256 _timeline, (0 for Buy now and end time in unix timestamp for Auction)
-    //     uint256 _pricePerNFT, (price for each edition of the NFT)
-    //     uint256 _adminPlatformFee (if admin is the minter then he can pass the fee, else 0)
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
       .on("transactionHash", (hash) => {
-        // this.onTransactionHash(hash);
-        console.log(hash);
+        this.setState({ mintNFTStatus: "progress" });
       })
       .on("receipt", (receipt) => {
-        // this.onReciept();
-        console.log("recoihlk", receipt);
+        this.setState({ mintNFTStatus: "complete" });
       })
       .on("error", (error) => {
-        // this.onTransactionError(error);
+        this.setState({ mintNFTStatus: "complete" });
       });
-  }
-  onFileUpload = async () => {
-    const formData = new FormData();
-    const { selectedFile } = this.state;
-    if (!selectedFile) {
-      alert("upload a file");
-      return false;
-    }
-    const en_src = await services.uploadFileOnBucket(selectedFile, "nft");
-    let dataObj = {
-      title: "SPORT !!",
-      description: "SPORTS !!!!",
-      image: {
-        original: en_src,
-        compressed:
-          "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293__340.jpg",
-      },
-      // "collectionId": "60ace3f509005e63311cd510",
-      unlockContent: true,
-      digitalKey: "HELLO!!!!!",
-    };
-    const result = defiActions.addNFT(dataObj);
-    console.log("final result", result);
-
-    formData.append("file", selectedFile, selectedFile.name);
-    // submit formData
   };
 
   formchange(e) {
@@ -189,7 +154,7 @@ class NFTPage extends Component {
     if (e.target.name === "coCreatorUserName") {
       // this.setState({ suggestionVAl: e.target.value });
       if (e.target.value.length >= 3) {
-        console.log("t", e.target.value);
+        // console.log("t", e.target.value);
       }
     } else if (e.target.name === "category") {
       const exists = nftObj["category"].includes(e.target.value);
@@ -217,61 +182,100 @@ class NFTPage extends Component {
     }
     this.setState({ nftObj });
   }
+  checkFormErrors() {
+    const {
+      title,
+      percentShare,
+      category,
+      saleState,
+      auctionTime,
+      edition,
+      price,
+      nftFile,
+    } = this.state.nftObj;
+    if (!title) this.setError("Please enter the Title", true);
+    else if (!nftFile) this.setError("Please select your file", true);
+    else if (this.state.suggestionVAl.length && !percentShare)
+      this.setError("Please set the percent share of your Co-creator", true);
+    else if (!category.length)
+      this.setError(
+        "Please select atleast 1 category.You can choose up to 2.",
+        true
+      );
+    else if (category.length >= 3)
+      this.setError("You can choose up to 2 category.", true);
+    else if (!saleState) this.setError("Please select sale state.", true);
+    else if (saleState === "AUCTION" && !+auctionTime)
+      this.setError("Please select the auction time.", true);
+    else if (!edition || (+edition < 0 || +edition) > 20)
+      this.setError("Edition ranges between 1 to 20", true);
+    else if (!+price) this.setError("Please enter the price", true);
+    else {
+      this.setError("", false);
+      return true;
+    }
+  }
   async createNFT(e) {
     e.preventDefault();
-    const { nftObj } = this.state;
-    const { nftFile, compressionRequired } = this.state.nftObj;
-    let compressedNFTFile = nftFile;
-    if (compressionRequired) {
-      compressedNFTFile = await compressImage(nftFile);
-    }
-    Promise.all([
-      services.uploadFileOnBucket(nftFile, "nft"),
-      services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true),
-    ]).then((urls) => {
-      let dataObj = {
-        title: nftObj.title,
-        description: nftObj.description,
-        image: {
-          original: urls[0],
-          compressed: urls[1],
-        },
-        category: nftObj.category,
-        price: nftObj.price,
-        saleState: nftObj.saleState,
-        auctionTime: nftObj.auctionTime,
-        edition: nftObj.edition,
-        unlockContent: false,
-      };
-      if (nftObj.collection) {
-        dataObj.collectionId = nftObj.collection;
+    const checked = this.checkFormErrors();
+    if (checked) {
+      this.setState({ mintNFTStatus: "progress1" }, () => this.toggle(3));
+      const { nftObj } = this.state;
+      const { nftFile, compressionRequired } = this.state.nftObj;
+      let compressedNFTFile = nftFile;
+      if (compressionRequired) {
+        compressedNFTFile = await compressImage(nftFile);
       }
-      if (this.state.suggestionVAl) {
-        dataObj.coCreator = {
-          userId: this.state.suggestionVAl.id,
-          percentage: nftObj.percentShare,
+      Promise.all([
+        services.uploadFileOnBucket(nftFile, "nft"),
+        services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true),
+      ]).then((urls) => {
+        let dataObj = {
+          title: nftObj.title,
+          description: nftObj.description,
+          image: {
+            original: urls[0],
+            compressed: urls[1],
+          },
+          category: nftObj.category,
+          price: nftObj.price,
+          saleState: nftObj.saleState,
+          auctionTime: nftObj.auctionTime,
+          edition: nftObj.edition,
+          unlockContent: false,
         };
-      }
-      if (nftObj.digitalKey) {
-        dataObj.unlockContent = true;
-        dataObj.digitalKey = nftObj.digitalKey;
-      }
-      console.log("dataObj", dataObj);
-      const result = this.props.addNFT(dataObj);
-    });
+        if (nftObj.collection) {
+          dataObj.collectionId = nftObj.collection;
+        }
+        if (this.state.suggestionVAl) {
+          dataObj.coCreator = {
+            userId: this.state.suggestionVAl.id,
+            percentage: nftObj.percentShare,
+          };
+        }
+        if (nftObj.digitalKey) {
+          dataObj.unlockContent = true;
+          dataObj.digitalKey = nftObj.digitalKey;
+        }
+        this.props.addNFT(dataObj);
+      });
+    }
   }
 
   setSuggestionValue = (val) => this.setState({ suggestionVAl: val });
+  setError = (msg, toggleVal, isCocreator) => {
+    this.setState({
+      error: { isError: toggleVal, msg: msg, isCocreatorError: isCocreator },
+    });
+  };
 
   render() {
-    // const renderSuggestion = (suggestion) => <div>{suggestion.username}</div>;
-    // const getSuggestionValue = (suggestion) => suggestion.username;
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
-      if (hash == curr) return "active";
+      if (hash === curr) return "active";
       else return "inactive";
     }
-    const { categoryList, collectionList } = this.state;
+    const { categoryList, collectionList, error } = this.state;
     const nftObj = this.state.nftObj;
     return (
       <Gs.MainSection>
@@ -327,15 +331,15 @@ class NFTPage extends Component {
                 </Sticky>
               </Gs.W200px>
               <Gs.W880px className="displayflex">
-                <Gs.W605px>
-                  <NFTMiddle>
-                    <AlertNote>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </p>
-                    </AlertNote>
-                  </NFTMiddle>
-                </Gs.W605px>
+                {error.isError && !error.isCocreatorError && (
+                  <Gs.W605px>
+                    <NFTMiddle>
+                      <AlertNote>
+                        <p>{error.msg}</p>
+                      </AlertNote>
+                    </NFTMiddle>
+                  </Gs.W605px>
+                )}
                 <Gs.W605px>
                   <NFTMiddle>
                     <NFTtitle id="itemDecription">
@@ -398,50 +402,21 @@ class NFTPage extends Component {
                         <div className="label-line">
                           <label>Co-Creator Username</label>
                         </div>
-                        <div className="iLeft errorinput">
+                        <div
+                          className={`iLeft ${
+                            error.isError &&
+                            error.isCocreatorError &&
+                            "errorinput"
+                          }`}
+                        >
                           <i>@</i>
                           <Autosuggestion
                             setSuggestionValue={this.setSuggestionValue}
+                            setError={this.setError}
                           />
-                          {/* <Autosuggest
-                            suggestions={this.state.suggestions}
-                            onSuggestionsFetchRequested={
-                              this.onSuggestionsFetchRequested
-                            }
-                            onSuggestionsClearRequested={
-                              this.onSuggestionsClearRequested
-                            }
-                            getSuggestionValue={() => getSuggestionValue}
-                            renderSuggestion={() => renderSuggestion}
-                            inputProps={{
-                              type: "text",
-                              name: "coCreatorUserName",
-                              placeholder: "Type something…",
-                              value: this.state.suggestionVAl,
-                              onChange: (e) => {
-                                this.setState({
-                                  suggestionVAl: e.target.value,
-                                });
-                              },
-                            }}
-                          /> */}
-                          {/* <ReactSearchAutocomplete
-                            resultStringKeyName="coCreatorUserName"
-                            showIcon={false}
-                            inputSearchString="coCreatorUserName"
-                            // items={items}
-                            // onSearch={handleOnSearch}
-                            // onHover={handleOnHover}
-                            // onSelect={handleOnSelect}
-                            // onFocus={handleOnFocus}
-                            autoFocus
-                          /> */}
-                          {/* <input
-                            type="text"
-                            name="coCreatorUserName"
-                            placeholder="Type something…"
-                          /> */}
-                          <p className="error">user doesn’t exist</p>
+                          {error.isError && error.isCocreatorError && (
+                            <p className="error">user doesn’t exist</p>
+                          )}
                         </div>
                       </NFTForm>
                       <NFTForm>
@@ -527,7 +502,7 @@ class NFTPage extends Component {
                             </select>
                           </Gs.W80>
                           <Gs.W20>
-                            <button onClick={() => this.toggle(4)}>
+                            <button onClick={() => this.toggle(2)}>
                               + Create
                             </button>
                           </Gs.W20>
@@ -598,15 +573,15 @@ class NFTPage extends Component {
                           <label>Price</label>
                         </div>
                         <input type="text" placeholder="0.00" name="price" />
-                        <AccountBX onClick={() => this.toggle(2)}>
+                        <AccountBX onClick={() => this.toggle(1)}>
                           <span>
                             BNB <img src={DDdownA} alt="" />
                           </span>
                           <Collapse
-                            isOpen={this.state.isOpen2}
+                            isOpen={this.state.isOpen1}
                             className={
                               "app__collapse collapse-css-transition  " +
-                              (this.state.isOpen2 ? "collapse-active" : "")
+                              (this.state.isOpen1 ? "collapse-active" : "")
                             }
                           >
                             <DDContainer className="ver2">
@@ -674,47 +649,16 @@ class NFTPage extends Component {
                         <p>Your NFT look like that on Marketplace</p>
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
-                        <NFTCard nftObj={nftObj} />
+                        <NFTCard
+                          nftImg={nftObj.imgSrc}
+                          title={nftObj.title}
+                          edition={nftObj.edition}
+                          price={nftObj.price}
+                          auctionTime={nftObj.auctionTime}
+                          userImg={this.props.authData?.profile}
+                          username={this.props.authData?.username}
+                        />
                       </NFTfourbox>
-                      {/* <NFTfourbox>
-                        <div className='NFT-home-box'>
-                          <NFTImgBX>
-                            {' '}
-                            <img src={NFT2} alt='' />{' '}
-                          </NFTImgBX>
-                          <div className='NFT-home-box-inner'>
-                            <h4>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </h4>
-                            <CollectionBar>
-                              <p>
-                                25 <span>of 2500</span>
-                              </p>
-                              <p>
-                                <Link to='/'>
-                                  See the collection{' '}
-                                  <i className='fas fa-angle-right'></i>
-                                </Link>
-                              </p>
-                            </CollectionBar>
-                            <Edition className='edition2'>
-                              <div className='ed-box'>
-                                <p>Current bid</p>
-                                <h3>0.00 BNB</h3>
-                              </div>
-                              <div className='ed-box'>
-                                <p>Ending in</p>
-                                <h3>13h 12m 11s</h3>
-                              </div>
-                            </Edition>
-                            <UserImgName>
-                              <img src={UserImg} alt='' />
-                              @username
-                            </UserImgName>
-                          </div>
-                        </div>
-                      </NFTfourbox> */}
                     </NFTRight>
                   </Sticky>
                 </Gs.W275px>
@@ -723,12 +667,25 @@ class NFTPage extends Component {
           </Gs.Container>
         </div>
         <Collapse
-          isOpen={this.state.isOpen4}
+          isOpen={this.state.isOpen2}
           className={
-            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+            "app__collapse " + (this.state.isOpen2 ? "collapse-active" : "")
           }
         >
-          <NFTModal toggle={this.toggle} />
+          <CreateCollection toggle={this.toggle} />
+          <MintNFTPopup mintNFT={this.mintNFT} toggle={this.toggle} />
+        </Collapse>
+        <Collapse
+          isOpen={this.state.isOpen3}
+          className={
+            "app__collapse " + (this.state.isOpen3 ? "collapse-active" : "")
+          }
+        >
+          <MintNFTPopup
+            mintNFT={this.mintNFT}
+            toggle={this.toggle}
+            mintNFTStatus={this.state.mintNFTStatus}
+          />
         </Collapse>
       </Gs.MainSection>
     );

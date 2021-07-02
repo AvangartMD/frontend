@@ -15,7 +15,7 @@ export const backendServices = {
 async function post(url, params) {
   const token = localStorage.getItem("token");
   const header = token
-    ? { "x-auth-token": token }
+    ? { "content-type": "application/json", "x-auth-token": token }
     : {
         "content-type": "application/json",
       };
@@ -23,6 +23,7 @@ async function post(url, params) {
     const response = await axios.post(url, params, { headers: header });
     return response;
   } catch (error) {
+    // console.log("new", error.response);
     return error;
   }
 }
@@ -94,7 +95,6 @@ async function uploadFileOnBucket(file, folder, isCompressed) {
       : file.name.substr(0, file.name.lastIndexOf("."));
 
     // const extension = file.name.split(".").pop().toLowerCase();
-    console.log("here=>", extension, fileName, extension);
     const uploadTo = await uploadToS3(fileName, file, folder, extension);
     return uploadTo.Location;
   } catch (error) {

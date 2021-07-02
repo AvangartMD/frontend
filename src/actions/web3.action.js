@@ -10,7 +10,6 @@ function fetchUserBalances(data) {
 }
 
 function setDispatchData(data, type) {
-  console.log("type", type);
   return { data: data, type: type };
 }
 

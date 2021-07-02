@@ -15,14 +15,12 @@ async function getWeb3(isAuthenticate) {
     };
     try {
       const responseData = await web3.eth.getAccounts();
-      console.log(responseData);
 
       if (responseData.length) {
         web3Data.accounts = responseData;
         if (isAuthenticate) {
           web3Data.isLoggedIn = true;
         }
-        console.log(web3Data);
         return web3Data;
       } else {
         return web3Data;

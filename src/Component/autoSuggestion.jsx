@@ -3,14 +3,12 @@ import Autosuggest from "react-autosuggest";
 import styled from "styled-components";
 import { services } from "../services";
 
-
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 async function getSuggestions(value) {
-  console.log(value);
   const escapedValue = escapeRegexCharacters(value.trim());
 
   if (escapedValue === "") {
@@ -22,17 +20,14 @@ async function getSuggestions(value) {
       const coCreators = coCreator.data.data;
 
       const regex = new RegExp("^" + escapedValue, "i");
-
       return coCreators.filter((creator) => regex.test(creator.username));
-
     } else return [];
-
   } else return [];
 }
 
 function renderSuggestion(suggestion) {
   // return <div style={{ padding: "10px", backgroundColor: "#fff", boxShadow: "0px 3px 5px 2px #ccc", display: "inline-block" }}>{suggestion.username}</div>
-  return <div >{suggestion.username}</div>;
+  return <div>{suggestion.username}</div>;
 }
 
 class Autosuggestion extends React.Component {
@@ -53,6 +48,7 @@ class Autosuggestion extends React.Component {
 
   onSuggestionsFetchRequested = async ({ value }) => {
     let newSuggestion = await getSuggestions(value);
+    this.props.setError(undefined, newSuggestion.length === 0, true);
     this.setState({
       suggestions: newSuggestion,
     });

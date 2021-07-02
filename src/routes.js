@@ -1,6 +1,3 @@
-// import Login from "./components/Login";
-// import Home from "./components/Home";
-// import Dashboard from "./components/Dashboard";
 import Home from "./Pages/home";
 import NFTMinting from "./Pages/nftminting";
 import NftDetail from "./Pages/nftDetails";
@@ -12,6 +9,7 @@ import Collection from "./Pages/collection";
 import CollectionDetail from "./Pages/collection-detail";
 import CollectionDetailEdit from "./Pages/collection-detail-edit";
 
+
 var routes = [
   {
     path: "/",
@@ -20,10 +18,10 @@ var routes = [
     layout: "/",
   },
   {
-    path: "nftminting",
+    path: "/nftminting",
     name: "NFT Minting",
     component: NFTMinting,
-    layout: "/",
+    layout: "/user",
   },
   {
     path: "marketplace",
@@ -38,19 +36,19 @@ var routes = [
     layout: "/",
   },
   {
-    path: "edit-profile",
+    path: "/edit-profile",
     name: "Edit Profile",
     component: EditProfile,
-    layout: "/",
+    layout: "/user",
   },
   {
-    path: "profile",
+    path: "/profile",
     name: "Profile",
     component: Profile,
-    layout: "/",
+    layout: "/user",
   },
   {
-    path: "nftDetails",
+    path: "nftDetails/:id",
     name: "NFT Detail",
     component: NftDetail,
     layout: "/",
@@ -73,18 +71,6 @@ var routes = [
     component: CollectionDetailEdit,
     layout: "/",
   },
-  // {
-  //     path: "login",
-  //     name: "User Login",
-  //     component: Login,
-  //     layout: "/",
-  // },
-  // {
-  //     path: "",
-  //     name: "User Dashboard",
-  //     component: Dashboard,
-  //     layout: "/user",
-  // }
 ];
 
 export default routes;

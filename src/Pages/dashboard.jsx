@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Gs from '../Theme/globalStyles';
-import { Link } from 'react-router-dom';
-import Media from '../Theme/media-breackpoint';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
-import { connect } from 'react-redux';
-import Banner1 from '../Assets/images/banner-1.jpg';
-import Banner2 from '../Assets/images/banner-2.jpg';
-import NFT1 from '../Assets/images/nft1.jpg';
-import NFT2 from '../Assets/images/nft2.jpg';
-import Redheart from '../Assets/images/Redheart.svg';
-import UserImg from '../Assets/images/user-img.jpg';
-import HeartIcon from '../Assets/images/heart-icon.svg';
-import StarIcon from '../Assets/images/star-icon.svg';
-import RoundIcon from '../Assets/images/round-icon.svg';
-import AdBannerIMG from '../Assets/images/adbanner.jpg';
-import LArrow from '../Assets/images/banner-larrow.svg';
-import RArrow from '../Assets/images/banner-rarrow.svg';
+import React, { Component } from "react";
+import styled from "styled-components";
+import Gs from "../Theme/globalStyles";
+import { Link } from "react-router-dom";
+import Media from "../Theme/media-breackpoint";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import { connect } from "react-redux";
+import Banner1 from "../Assets/images/banner-1.jpg";
+import Banner2 from "../Assets/images/banner-2.jpg";
+import NFT1 from "../Assets/images/nft1.jpg";
+import NFT2 from "../Assets/images/nft2.jpg";
+import Redheart from "../Assets/images/Redheart.svg";
+import UserImg from "../Assets/images/user-img.jpg";
+import HeartIcon from "../Assets/images/heart-icon.svg";
+import StarIcon from "../Assets/images/star-icon.svg";
+import RoundIcon from "../Assets/images/round-icon.svg";
+import AdBannerIMG from "../Assets/images/adbanner.jpg";
+import LArrow from "../Assets/images/banner-larrow.svg";
+import RArrow from "../Assets/images/banner-rarrow.svg";
 
-import { actions } from '../actions';
+import { actions } from "../actions";
 
 const responsive = {
   desktop: {
@@ -51,7 +51,7 @@ const CustomDot = ({ onClick, ...rest }) => {
   const carouselItems = [1, 2, 3, 4, 5, 6];
   return (
     <button
-      className={active ? 'active' : 'inactive'}
+      className={active ? "active" : "inactive"}
       onClick={() => onClick()}
     >
       {React.Children.toArray(carouselItems)[index]}
@@ -103,15 +103,15 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { web3Data, nftContractInstance } = this.props;
-    // console.log(nftContractInstance);
     if (!web3Data) this.props.getWeb3();
     else this.setState({ web3Data: web3Data });
     this.props.getNFTContractInstance();
 
     // set initial cards
-    this.setState({ cards: Array.from({ length: 8 }), hasMore: true }, () => {
-      // console.log('after set state : ', this.state.cards);
-    });
+    this.setState(
+      { cards: Array.from({ length: 8 }), hasMore: true },
+      () => {}
+    );
   }
   render() {
     return (
@@ -123,49 +123,49 @@ class Dashboard extends Component {
             infinite={true}
             customDot={<CustomDot />}
           >
-            <div className='item'>
-              <Link to='/'>
-                <img src={Banner1} alt='' />
+            <div className="item">
+              <Link to="/">
+                <img src={Banner1} alt="" />
               </Link>
             </div>
-            <div className='item'>
-              <Link to='/'>
-                <img src={Banner2} alt='' />
+            <div className="item">
+              <Link to="/">
+                <img src={Banner2} alt="" />
               </Link>
             </div>
-            <div className='item'>
-              <Link to='/'>
-                <img src={Banner1} alt='' />
+            <div className="item">
+              <Link to="/">
+                <img src={Banner1} alt="" />
               </Link>
             </div>
-            <div className='item'>
-              <Link to='/'>
-                <img src={Banner2} alt='' />
+            <div className="item">
+              <Link to="/">
+                <img src={Banner2} alt="" />
               </Link>
             </div>
-            <div className='item'>
-              <Link to='/'>
-                <img src={Banner1} alt='' />
+            <div className="item">
+              <Link to="/">
+                <img src={Banner1} alt="" />
               </Link>
             </div>
           </Carousel>
         </HomeBanner>
         <HomeNFTs>
           <Gs.Container>
-            <div className='home-title'>
+            <div className="home-title">
               <h3>Top NFTs</h3>
             </div>
             <NFTfirstbox>
-              <div className='w60'>
+              <div className="w60">
                 <NFTfbleft>
-                  <img src={NFT1} alt='' />
+                  <img src={NFT1} alt="" />
                 </NFTfbleft>
               </div>
-              <div className='w40'>
+              <div className="w40">
                 <NFTfbright>
                   <NFTLike>
-                    <Link to='/'>
-                      <img src={Redheart} alt='' />
+                    <Link to="/">
+                      <img src={Redheart} alt="" />
                     </Link>
                     <p>306</p>
                   </NFTLike>
@@ -176,29 +176,29 @@ class Dashboard extends Component {
                   <p>
                     Phasellus at dui imperdiet, eleifend lacus gravida, accumsan
                     arcu. Sed consequat arcu finibus augue, eu pellentesque quam
-                    fermentum.{' '}
+                    fermentum.{" "}
                   </p>
-                  <Link to='/'>
-                    See the collection <i className='fas fa-angle-right'></i>
+                  <Link to="/">
+                    See the collection <i className="fas fa-angle-right"></i>
                   </Link>
                   <Edition>
-                    <div className='ed-box'>
+                    <div className="ed-box">
                       <p>Edition</p>
                       <h3>
                         25 <span>of 2500</span>
                       </h3>
                     </div>
-                    <div className='ed-box'>
+                    <div className="ed-box">
                       <p>Current bid</p>
                       <h3>0.00 BNB</h3>
                     </div>
-                    <div className='ed-box'>
+                    <div className="ed-box">
                       <p>Ending in</p>
                       <h3>13h 12m 11s</h3>
                     </div>
                   </Edition>
                   <UserImgName>
-                    <img src={UserImg} alt='' />
+                    <img src={UserImg} alt="" />
                     @username
                   </UserImgName>
                 </NFTfbright>
@@ -207,9 +207,9 @@ class Dashboard extends Component {
             <NFTfourbox>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
-                    <div className='NFT-home-box-inner'>
+                  <div className="NFT-home-box">
+                    <img className="main" src={NFT2} alt="" />
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -218,24 +218,24 @@ class Dashboard extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -244,9 +244,9 @@ class Dashboard extends Component {
               </Gs.W25>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
-                    <div className='NFT-home-box-inner'>
+                  <div className="NFT-home-box">
+                    <img className="main" src={NFT2} alt="" />
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -255,24 +255,24 @@ class Dashboard extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -281,9 +281,9 @@ class Dashboard extends Component {
               </Gs.W25>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
-                    <div className='NFT-home-box-inner'>
+                  <div className="NFT-home-box">
+                    <img className="main" src={NFT2} alt="" />
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -292,24 +292,24 @@ class Dashboard extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2'>
-                        <div className='ed-box'>
+                      <Edition className="edition2">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <p>Ending in</p>
                           <h3>13h 12m 11s</h3>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -318,9 +318,9 @@ class Dashboard extends Component {
               </Gs.W25>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <div className='NFT-home-box'>
-                    <img className='main' src={NFT2} alt='' />
-                    <div className='NFT-home-box-inner'>
+                  <div className="NFT-home-box">
+                    <img className="main" src={NFT2} alt="" />
+                    <div className="NFT-home-box-inner">
                       <h4>
                         Artwork name / title dolor lorem ipsum sit adipiscing
                       </h4>
@@ -329,23 +329,23 @@ class Dashboard extends Component {
                           25 <span>of 2500</span>
                         </p>
                         <p>
-                          <Link to='/'>
-                            See the collection{' '}
-                            <i className='fas fa-angle-right'></i>
+                          <Link to="/">
+                            See the collection{" "}
+                            <i className="fas fa-angle-right"></i>
                           </Link>
                         </p>
                       </CollectionBar>
-                      <Edition className='edition2 JCSB'>
-                        <div className='ed-box'>
+                      <Edition className="edition2 JCSB">
+                        <div className="ed-box">
                           <p>Current bid</p>
                           <h3>0.00 BNB</h3>
                         </div>
-                        <div className='ed-box'>
+                        <div className="ed-box">
                           <button>Buy now</button>
                         </div>
                       </Edition>
                       <UserImgName>
-                        <img src={UserImg} alt='' />
+                        <img src={UserImg} alt="" />
                         @username
                       </UserImgName>
                     </div>
@@ -356,7 +356,7 @@ class Dashboard extends Component {
             <ViewallButton>
               <button>View all auctions</button>
             </ViewallButton>
-            <div className='star-title'>
+            <div className="star-title">
               <h3>Hall of Fame</h3>
             </div>
             <HomeTabs>
@@ -372,11 +372,11 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@skyistheanswer</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@skyistheanswer</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -384,11 +384,11 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@jimmy</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@jimmy</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -396,11 +396,11 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@ayeshachasm</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@ayeshachasm</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -408,11 +408,11 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@danielstagner</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@danielstagner</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -420,103 +420,11 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@wolfden</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                  </HomeTabDetail>
-                </TabPanel>
-                <TabPanel>
-                  <HomeTabDetail>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                  </HomeTabDetail>
-                </TabPanel>
-                <TabPanel>
-                  <HomeTabDetail>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@skyistheanswer</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@jimmy</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@wolfden</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -527,12 +435,76 @@ class Dashboard extends Component {
                   <HomeTabDetail>
                     <Gs.W20>
                       <Gs.TenpxGutter>
+                        <HallofFameBox2>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="title">
+                              Artwork name / title dolor lorem ipsum sit
+                              adipiscing
+                            </p>
+                            <p className="small">Sold for</p>
+                            <p className="price">0.00 BNB</p>
+                          </div>
+                        </HallofFameBox2>
+                      </Gs.TenpxGutter>
+                    </Gs.W20>
+                    <Gs.W20>
+                      <Gs.TenpxGutter>
+                        <HallofFameBox2>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="title">
+                              Artwork name / title dolor lorem ipsum sit
+                              adipiscing
+                            </p>
+                            <p className="small">Sold for</p>
+                            <p className="price">0.00 BNB</p>
+                          </div>
+                        </HallofFameBox2>
+                      </Gs.TenpxGutter>
+                    </Gs.W20>
+                    <Gs.W20>
+                      <Gs.TenpxGutter>
+                        <HallofFameBox2>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="title">
+                              Artwork name / title dolor lorem ipsum sit
+                              adipiscing
+                            </p>
+                            <p className="small">Sold for</p>
+                            <p className="price">0.00 BNB</p>
+                          </div>
+                        </HallofFameBox2>
+                      </Gs.TenpxGutter>
+                    </Gs.W20>
+                    <Gs.W20>
+                      <Gs.TenpxGutter>
+                        <HallofFameBox2>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="title">
+                              Artwork name / title dolor lorem ipsum sit
+                              adipiscing
+                            </p>
+                            <p className="small">Sold for</p>
+                            <p className="price">0.00 BNB</p>
+                          </div>
+                        </HallofFameBox2>
+                      </Gs.TenpxGutter>
+                    </Gs.W20>
+                  </HomeTabDetail>
+                </TabPanel>
+                <TabPanel>
+                  <HomeTabDetail>
+                    <Gs.W20>
+                      <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@skyistheanswer</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@skyistheanswer</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -540,11 +512,27 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@jimmy</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@jimmy</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
+                          </div>
+                        </HallofFameBox>
+                      </Gs.TenpxGutter>
+                    </Gs.W20>
+                  </HomeTabDetail>
+                </TabPanel>
+                <TabPanel>
+                  <HomeTabDetail>
+                    <Gs.W20>
+                      <Gs.TenpxGutter>
+                        <HallofFameBox>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@skyistheanswer</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -552,11 +540,23 @@ class Dashboard extends Component {
                     <Gs.W20>
                       <Gs.TenpxGutter>
                         <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@ayeshachasm</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@jimmy</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
+                          </div>
+                        </HallofFameBox>
+                      </Gs.TenpxGutter>
+                    </Gs.W20>
+                    <Gs.W20>
+                      <Gs.TenpxGutter>
+                        <HallofFameBox>
+                          <div className="HOF-inner">
+                            <img src={NFT2} alt="" />
+                            <p className="user-name">@ayeshachasm</p>
+                            <p className="small">Total Sale</p>
+                            <p className="price">0.00 BNB</p>
                           </div>
                         </HallofFameBox>
                       </Gs.TenpxGutter>
@@ -574,39 +574,41 @@ class Dashboard extends Component {
               </p>
               <button>Lorem ipsum</button>
             </AdBanner> */}
-        <AdBanner>
-          <a target='_blank' rel="noopener noreferrer"  href=""><img src={AdBannerIMG} alt='' /></a>
-          <button className="ani-1">Lorem ipsum</button>
-        </AdBanner>
-            <div className='heart-title'>
+            <AdBanner>
+              <a target="_blank" rel="noopener noreferrer" href="">
+                <img src={AdBannerIMG} alt="" />
+              </a>
+              <button className="ani-1">Lorem ipsum</button>
+            </AdBanner>
+            <div className="heart-title">
               <h3>Collections</h3>
             </div>
             <CollectionSection>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
+                  <Link to="/">
+                    <img src={NFT2} alt="" />
                   </Link>
                 </Gs.TenpxGutter>
               </Gs.W25>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
+                  <Link to="/">
+                    <img src={NFT2} alt="" />
                   </Link>
                 </Gs.TenpxGutter>
               </Gs.W25>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
+                  <Link to="/">
+                    <img src={NFT2} alt="" />
                   </Link>
                 </Gs.TenpxGutter>
               </Gs.W25>
               <Gs.W25>
                 <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
+                  <Link to="/">
+                    <img src={NFT2} alt="" />
                   </Link>
                 </Gs.TenpxGutter>
               </Gs.W25>
@@ -620,7 +622,7 @@ class Dashboard extends Component {
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
               at dui imperdiet, eleifend lacus gravida, accumsan arcu. Sed
-              consequat arcu finibus augue, eu pellentesque quam fermentum.{' '}
+              consequat arcu finibus augue, eu pellentesque quam fermentum.{" "}
             </p>
             <button>Lorem ipsum</button>
           </AdBanner2>
@@ -687,7 +689,7 @@ const HomeBanner = styled.div`
         color: #000;
       }
       :before {
-        content: '0';
+        content: "0";
         position: absolute;
         left: 0px;
       }
@@ -711,7 +713,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -733,7 +735,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -756,7 +758,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -1106,15 +1108,20 @@ const HallofFameBox2 = styled(FlexDiv)`
 const AdBanner = styled.div`
   border-radius: 20px;
   margin: 120px 0px;
-  height:406px;
-  position:relative;
-  a{
-    img{width: 100%; height: 100%; object-fit: cover; border-radius:20px;}
+  height: 406px;
+  position: relative;
+  a {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
   }
   button {
-    position:absolute;
-    bottom:50px;
-    left:calc(50% - 95px);
+    position: absolute;
+    bottom: 50px;
+    left: calc(50% - 95px);
     background-color: #000000;
     color: #fff;
     font-size: 14px;
