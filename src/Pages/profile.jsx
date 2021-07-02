@@ -276,7 +276,7 @@ class Profile extends Component {
                 </FollowerMBX>
                 <EditPrBTN>
                   <button
-                    onClick={() => this.props.history.push("/edit-profile")}
+                    onClick={() => this.props.history.push("/user/edit-profile")}
                   >
                     Edit Profile
                   </button>

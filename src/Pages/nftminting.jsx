@@ -272,7 +272,7 @@ class NFTPage extends Component {
   render() {
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
-      if (hash == curr) return "active";
+      if (hash === curr) return "active";
       else return "inactive";
     }
     const { categoryList, collectionList, error } = this.state;

@@ -114,7 +114,7 @@ class ProfileEdit extends Component {
 
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
-      if (hash == curr) return "active";
+      if (hash === curr) return "active";
       else return "inactive";
     }
 
@@ -174,7 +174,7 @@ class ProfileEdit extends Component {
                   </NFTLeft>
 
                   <BackBTN01
-                    onClick={() => this.props.history.push("/profile")}
+                    onClick={() => this.props.history.push("/user/profile")}
                   >
                     Back to Profile
                   </BackBTN01>

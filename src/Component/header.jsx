@@ -118,7 +118,7 @@ class Header extends Component {
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
         <AvBTN02 className="colorBTN">
-          <Link to="/nftminting">
+          <Link to="/user/nftminting">
             <button>Create</button>
           </Link>
         </AvBTN02>
@@ -132,6 +132,7 @@ class Header extends Component {
     localStorage.clear();
     this.props.authLogout();
     this.props.web3Logout();
+    this.props.history.push("/")
   }
 
   render() {
@@ -252,7 +253,7 @@ class Header extends Component {
                     <DDContainer className="ver2">
                       <DDBtnbar02>
                         <button
-                          onClick={() => this.props.history.push("/profile")}
+                          onClick={() => this.props.history.push("/user/profile")}
                         >
                           <i>
                             {" "}
