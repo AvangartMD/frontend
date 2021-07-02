@@ -272,7 +272,7 @@ class NFTPage extends Component {
   render() {
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
-      if (hash == curr) return "active";
+      if (hash === curr) return "active";
       else return "inactive";
     }
     const { categoryList, collectionList, error } = this.state;
@@ -650,6 +650,9 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard
+                          nftId={undefined}
+                          collectionId={nftObj.collectionId?._id}
+                          auctionEndDate={nftObj.auctionTime}
                           nftImg={nftObj.imgSrc}
                           title={nftObj.title}
                           edition={nftObj.edition}
@@ -657,6 +660,7 @@ class NFTPage extends Component {
                           auctionTime={nftObj.auctionTime}
                           userImg={this.props.authData?.profile}
                           username={this.props.authData?.username}
+                          previewCard={true}
                         />
                       </NFTfourbox>
                     </NFTRight>

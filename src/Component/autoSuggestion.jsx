@@ -9,7 +9,6 @@ function escapeRegexCharacters(str) {
 }
 
 async function getSuggestions(value) {
-  console.log(value);
   const escapedValue = escapeRegexCharacters(value.trim());
 
   if (escapedValue === "") {
@@ -49,7 +48,6 @@ class Autosuggestion extends React.Component {
 
   onSuggestionsFetchRequested = async ({ value }) => {
     let newSuggestion = await getSuggestions(value);
-    console.log("new suggestions here", newSuggestion);
     this.props.setError(undefined, newSuggestion.length === 0, true);
     this.setState({
       suggestions: newSuggestion,

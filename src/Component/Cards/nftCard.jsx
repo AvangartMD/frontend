@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import UserImg from "../../Assets/images/user-img.jpg";
 import NFT2 from "../../Assets/images/nft2.jpg";
 import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
 function NFTCard({
-  id,
+  nftId,
+  collectionId,
   auctionEndDate,
   nftImg,
   title,
@@ -16,14 +19,15 @@ function NFTCard({
   auctionTime,
   userImg,
   username,
+  previewCard,
 }) {
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
-        <Link to={`nftDetails/${id}`}>
+        <Link to={`/nftDetails/${nftId}`}>
           <div className="NFT-home-box">
             <NFTImgBX>
-              <img src={nftImg} alt="" />
+              <LazyLoadImage src={nftImg} />
             </NFTImgBX>
             <div className="NFT-home-box-inner">
               <h4>
@@ -36,7 +40,7 @@ function NFTCard({
                   0 <span>of {edition ? edition : 0}</span>
                 </p>
                 <p>
-                  <Link to="/">
+                  <Link to={`/collection-detail/${collectionId}`}>
                     See the collection
                     <i className="fas fa-angle-right"></i>
                   </Link>
@@ -51,9 +55,13 @@ function NFTCard({
                   {auctionEndDate ? (
                     <>
                       <p>Ending in</p>
-                      <h3>
-                        <Timer timeLeft={auctionEndDate} onlyHours={true} />
-                      </h3>
+                      {previewCard ? (
+                        <h3>{auctionEndDate}h 00m 00s</h3>
+                      ) : (
+                        <h3>
+                          <Timer timeLeft={auctionEndDate} onlyHours={true} />
+                        </h3>
+                      )}
                     </>
                   ) : (
                     <button>Buy now</button>

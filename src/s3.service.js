@@ -18,10 +18,8 @@ export async function deleteToS3(fileName) {
 
       s3.deleteObject(params, (err, data) => {
         if (data) {
-          // console.log('File deleted successfully', data);
           resolve(data);
         } else {
-          // console.log('Check if you have sufficient permissions : ' + err);
           reject(err);
         }
       });

@@ -103,6 +103,7 @@ class MarketPlace extends Component {
     if (moreNFTs) {
       NFTs = NFTs.concat(moreNFTs);
     }
+    console.log("nft ", NFTs);
     return (
       <Gs.MainSection>
         <FilterMBX>
@@ -234,14 +235,15 @@ class MarketPlace extends Component {
                 <NFTfourbox>
                   {NFTs.map((nft) => (
                     <NFTCard
-                      id={nft.id}
+                      nftId={nft.id}
+                      collectionId={nft.collectionId?.id}
                       auctionEndDate={nft.auctionEndDate}
                       nftImg={nft.image.compressed}
                       title={nft.title}
                       edition={nft.edition}
                       price={nft.price}
                       auctionTime={nft.auctionTime}
-                      userImg={nft.ownerId.profile}
+                      // userImg={}
                       username={nft.ownerId.username}
                     />
                   ))}
@@ -919,10 +921,10 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.getMoreMarketPlaceNFT(params)),
     getCategories: () => dispatch(actions.fetchCategories()),
     clearMarketPlaceNFT: () =>
-      dispatch({ type: "CLEAR_MARKETPLACE", data: [] }),
-    clearPagination: () => dispatch({ type: "CLEAR_PAGINATION", data: [] }),
+      dispatch({ type: "FETCHED_MARKETPLACE", data: [] }),
+    clearPagination: () => dispatch({ type: "FETCHED_PAGINATION", data: [] }),
     clearMoreMarketPlaceNFT: () =>
-      dispatch({ type: "CLEAR_MORE_MARKETPLACE", data: [] }),
+      dispatch({ type: "FETCHED_MORE_MARKETPLACE", data: [] }),
   };
 };
 const mapStateToProps = (state) => {

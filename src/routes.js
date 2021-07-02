@@ -1,14 +1,13 @@
-// import Login from "./components/Login";
-// import Home from "./components/Home";
-// import Dashboard from "./components/Dashboard";
 import Home from "./Pages/home";
 import NFTMinting from "./Pages/nftminting";
 import NftDetail from "./Pages/nftDetails";
 import MarketPlace from "./Pages/marketplace";
-import Creators from "./Pages/creators";
+import Creators from "./Pages/creators.jsx";
 import Profile from "./Pages/profile";
 import EditProfile from "./Pages/profile-edit";
-import Collection from "./Pages/collection";
+import Collection from "./Pages/collection.jsx";
+import CollectionDetail from "./Pages/collection-detail";
+import CollectionDetailEdit from "./Pages/collection-detail-edit";
 
 var routes = [
   {
@@ -18,10 +17,10 @@ var routes = [
     layout: "/",
   },
   {
-    path: "nftminting",
+    path: "/nftminting",
     name: "NFT Minting",
     component: NFTMinting,
-    layout: "/",
+    layout: "/user",
   },
   {
     path: "marketplace",
@@ -36,16 +35,16 @@ var routes = [
     layout: "/",
   },
   {
-    path: "edit-profile",
+    path: "/edit-profile",
     name: "Edit Profile",
     component: EditProfile,
-    layout: "/",
+    layout: "/user",
   },
   {
-    path: "profile",
+    path: "/profile",
     name: "Profile",
     component: Profile,
-    layout: "/",
+    layout: "/user",
   },
   {
     path: "nftDetails/:id",
@@ -54,23 +53,23 @@ var routes = [
     layout: "/",
   },
   {
-    path: "collection",
-    name: "Collection",
+    path: "collections",
+    name: "Collections",
     component: Collection,
     layout: "/",
   },
-  // {
-  //     path: "login",
-  //     name: "User Login",
-  //     component: Login,
-  //     layout: "/",
-  // },
-  // {
-  //     path: "",
-  //     name: "User Dashboard",
-  //     component: Dashboard,
-  //     layout: "/user",
-  // }
+  {
+    path: "collection-detail/:id",
+    name: "Collection Detail",
+    component: CollectionDetail,
+    layout: "/",
+  },
+  {
+    path: "collection-detail-edit",
+    name: "Collection Detail Edit",
+    component: CollectionDetailEdit,
+    layout: "/",
+  },
 ];
 
 export default routes;

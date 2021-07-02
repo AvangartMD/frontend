@@ -29,11 +29,10 @@ function CreateCollection(props) {
     }
   }, [props.newCollection]);
   const onFormChange = (e) => {
-    console.log(e.target.files);
+    // console.log(e.target.files);
   };
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("fie", e.target.file.files[0]);
     const logoLink = await services.uploadFileOnBucket(
       e.target.file.files[0],
       "collctionLogos"
@@ -43,7 +42,6 @@ function CreateCollection(props) {
       description: e.target.description.value,
       logo: logoLink,
     };
-    console.log("here", obj);
     props.createCollection(obj);
   };
   return (

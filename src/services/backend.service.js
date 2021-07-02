@@ -19,13 +19,11 @@ async function post(url, params) {
     : {
         "content-type": "application/json",
       };
-  console.log("header", params);
   try {
     const response = await axios.post(url, params, { headers: header });
-    console.log("resp", response);
     return response;
   } catch (error) {
-    console.log("new", error.response);
+    // console.log("new", error.response);
     return error;
   }
 }
@@ -97,7 +95,6 @@ async function uploadFileOnBucket(file, folder, isCompressed) {
       : file.name.substr(0, file.name.lastIndexOf("."));
 
     // const extension = file.name.split(".").pop().toLowerCase();
-    console.log("here=>", extension, fileName, extension);
     const uploadTo = await uploadToS3(fileName, file, folder, extension);
     return uploadTo.Location;
   } catch (error) {
