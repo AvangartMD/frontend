@@ -9,6 +9,7 @@ export const authActions = {
   getMoreCreators,
   getMarketPlaceNFT,
   getMoreMarketPlaceNFT,
+  getCollections,
 };
 
 function fetchedData(type, data) {
@@ -119,6 +120,19 @@ function getMoreMarketPlaceNFT(params={}) {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MORE_MARKETPLACE", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getCollections(params={}) {
+  return async (dispatch) => {
+    const response = services.get(`nft/listCollection`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_COLLECTIONS", promise.data.data));
       } else {
         // console.log("error");
       }

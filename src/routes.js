@@ -54,8 +54,8 @@ var routes = [
     layout: "/",
   },
   {
-    path: "collection",
-    name: "Collection",
+    path: "collections",
+    name: "Collections",
     component: Collection,
     layout: "/",
   },

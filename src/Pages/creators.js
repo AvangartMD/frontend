@@ -270,9 +270,9 @@ const mapDipatchToProps = (dispatch) => {
       getCreators: (params) => dispatch(actions.getCreators(params)),
       getCategories: () => dispatch(actions.fetchCategories()),
       getMoreCreators: (params) => dispatch(actions.getMoreCreators(params)),
-      clearCreators: () => dispatch({ type: 'CLEAR_CREATORS', data: []}),
-      clearPagination: () => dispatch({ type: 'CLEAR_PAGINATION', data: []}),
-      clearMoreCreators: () => dispatch({ type: 'CLEAR_MORE_CREATORS', data: []}),
+      clearCreators: () => dispatch({ type: 'FETCHED_CREATORS', data: []}),
+      clearPagination: () => dispatch({ type: 'FETCHED_PAGINATION', data: []}),
+      clearMoreCreators: () => dispatch({ type: 'FETCHED_MORE_CREATORS', data: []}),
     }
 }
 

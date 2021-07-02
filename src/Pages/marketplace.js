@@ -880,9 +880,9 @@ const mapDipatchToProps = (dispatch) => {
     getMarketPlaceNFT: (params) => dispatch(actions.getMarketPlaceNFT(params)),
     getMoreMarketPlaceNFT: (params) => dispatch(actions.getMoreMarketPlaceNFT(params)),
     getCategories: () => dispatch(actions.fetchCategories()),
-    clearMarketPlaceNFT: () => dispatch({ type: 'CLEAR_MARKETPLACE', data: []}),
-    clearPagination: () => dispatch({ type: 'CLEAR_PAGINATION', data: []}),
-    clearMoreMarketPlaceNFT: () => dispatch({ type: 'CLEAR_MORE_MARKETPLACE', data: []}),
+    clearMarketPlaceNFT: () => dispatch({ type: 'FETCHED_MARKETPLACE', data: []}),
+    clearPagination: () => dispatch({ type: 'FETCHED_PAGINATION', data: []}),
+    clearMoreMarketPlaceNFT: () => dispatch({ type: 'FETCHED_MORE_MARKETPLACE', data: []}),
   }
 }
 const mapStateToProps = (state) => {

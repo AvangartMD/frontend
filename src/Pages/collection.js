@@ -1,15 +1,15 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
-import { Link } from "react-router-dom";
-import Collapse from "@kunukn/react-collapse";
-
-
+import { actions } from "../actions";
+import CollectionCard from "../Component/Cards/collectionCard";
+import LoaderGif from "../Assets/images/loading.gif";
 import SerICON from "../Assets/images/searchICO.svg";
-import CollImg from "../Assets/images/nft1.jpg";
+
 
 class Collection extends Component {
 
@@ -19,20 +19,30 @@ class Collection extends Component {
       isOpen1: false,
       tabPanel: 'all',
       searched: false,
-      filter: [],
-      page: 1,
     };
   }
 
+  async componentDidMount() {
+    const { categories, collections } = this.props;
+    if (!collections) {
+      this.props.getCollections() // fetch collections
+    }
+    if (!categories) {
+      this.props.getCategories() // fetch categories
+    }
+  }
+
   render() {
+    const { collections, categories } = this.props;
+    const { tabPanel } = this.state;
     return (
       <Gs.MainSection>
         <FilterMBX>
           <FilterLbx>
-            <button class="active" id="all">All</button>
-            <button class="">Art</button>
-            <button class="">Celebrity</button>
-            <button class="">Sport</button>
+            <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.setState({ tabPanel: 'All' })}}>All</button> 
+            {categories?categories.map((category, key)=>{
+                return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.setState({ tabPanel: category.id })}} >{category.categoryName}</button>
+            }):''}
           </FilterLbx>
 
           <FilterRbx>
@@ -47,94 +57,28 @@ class Collection extends Component {
 
         <Gs.Container>
           <CollectionBoxes>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
-            <OneCollBox>
-              <Link to=''>
-                <div className="CIbox">
-                  <img src={CollImg} alt="" />
-                </div>
-                <div className="collbox-desc">
-                  <p className="coll-title">Collection Name</p>
-                  <p className="creator-name">by Creator Name</p>
-                </div>
-              </Link>
-            </OneCollBox>
+              {collections? 
+                  collections.map((collection) => (
+                    <CollectionCard
+                      collImg={collection.logo}
+                      collName={collection.name}
+                      // creatorName={}
+                    />
+                  ))
+              : <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
+            
+              {/* <OneCollBox>
+                <Link to=''>
+                  <div className="CIbox">
+                    <img src={CollImg} alt="" />
+                  </div>
+                  <div className="collbox-desc">
+                    <p className="coll-title">Collection Name</p>
+                    <p className="creator-name">by Creator Name</p>
+                  </div>
+                </Link>
+              </OneCollBox> */}
+
           </CollectionBoxes>
         </Gs.Container>
       </Gs.MainSection>
@@ -277,5 +221,17 @@ const OneCollBox = styled.div`
   }
 `;
 
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getCollections: () => dispatch(actions.getCollections()),
+    getCategories: () => dispatch(actions.fetchCategories()),
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    collections: state.fetchCollections,
+    categories: state.fetchCategory,
+  }
+}
 
-export default Collection;
+export default connect(mapStateToProps, mapDipatchToProps)(Collection);
