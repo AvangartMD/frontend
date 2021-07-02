@@ -4,8 +4,11 @@ import { HashLink as Link } from "react-router-hash-link";
 import UserImg from "../../Assets/images/user-img.jpg";
 import NFT2 from "../../Assets/images/nft2.jpg";
 import Gs from "../../Theme/globalStyles";
+import Timer from "../timer";
 
 function NFTCard({
+  id,
+  auctionEndDate,
   nftImg,
   title,
   edition,
@@ -17,42 +20,53 @@ function NFTCard({
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
-        <div className="NFT-home-box">
-          <NFTImgBX>
-            <img src={nftImg} alt="" />
-          </NFTImgBX>
-          <div className="NFT-home-box-inner">
-            <h4>
-              {title
-                ? title
-                : "Artwork name / title dolor lorem ipsum sit adipiscing"}
-            </h4>
-            <CollectionBar>
-              <p>
-                0 <span>of {edition ? edition : 0}</span>
-              </p>
-              <p>
-                <Link to="/">
-                  See the collection
-                  <i className="fas fa-angle-right"></i>
-                </Link>
-              </p>
-            </CollectionBar>
-            <Edition className="edition2">
-              <div className="ed-box">
-                <p>Current bid</p>
-                <h3>{price} BNB</h3>
-              </div>
-              <div className="ed-box">
-                <p>Ending in</p>
-                <h3>{auctionTime}h 00m 00s</h3>
-              </div>
-            </Edition>
-            <UserImgName>
-              <img src={userImg ? userImg : UserImg} alt="" />@{username}
-            </UserImgName>
+        <Link to={`nftDetails/${id}`}>
+          <div className="NFT-home-box">
+            <NFTImgBX>
+              <img src={nftImg} alt="" />
+            </NFTImgBX>
+            <div className="NFT-home-box-inner">
+              <h4>
+                {title
+                  ? title
+                  : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+              </h4>
+              <CollectionBar>
+                <p>
+                  0 <span>of {edition ? edition : 0}</span>
+                </p>
+                <p>
+                  <Link to="/">
+                    See the collection
+                    <i className="fas fa-angle-right"></i>
+                  </Link>
+                </p>
+              </CollectionBar>
+              <Edition className="edition2 JCSB">
+                <div className="ed-box">
+                  <p>Current bid</p>
+                  <h3>{price} BNB</h3>
+                </div>
+                <div className="ed-box">
+                  {auctionEndDate ? (
+                    <>
+                      <p>Ending in</p>
+                      <h3>
+                        <Timer timeLeft={auctionEndDate} onlyHours={true} />
+                      </h3>
+                    </>
+                  ) : (
+                    <button>Buy now</button>
+                  )}
+                  {/* <h3>{auctionTime}h 00m 00s</h3> */}
+                </div>
+              </Edition>
+              <UserImgName>
+                <img src={userImg ? userImg : UserImg} alt="" />@{username}
+              </UserImgName>
+            </div>
           </div>
-        </div>
+        </Link>
       </Gs.TenpxGutter>
     </Gs.W25V2>
   );
