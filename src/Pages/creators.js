@@ -8,6 +8,7 @@ import Collapse from '@kunukn/react-collapse'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { actions } from "../actions";
+import CreatorCard from "../Component/Cards/creatorCard";
 
 import NftImg from '../Assets/images/nftBack.jpg';
 import SerICON from '../Assets/images/searchICO.svg';
@@ -37,36 +38,6 @@ class Creators extends Component {
         if (!categories) {
             this.props.getCategories() // fetch categories
         }
-    }
-
-    renderCreators = (creators) => {
-        return creators.map( (creator, key) => {
-            return <CreatSBX01 key={key}>
-                <ImgBannerBX>
-                    <img src={creator.cover} alt='' />
-                </ImgBannerBX>
-                <CreatSBX02>
-                    <UserImg> <img src={creator.profile} alt='' /></UserImg>
-                    <CretrTitle01>
-                        {creator.name}
-                    <span>@{creator.username}</span>
-                    </CretrTitle01>
-                    <CretrText01>
-                    {/* Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu. */}
-                        {creator.bio}
-                    </CretrText01>
-
-                    <CretrInfoMBX>
-                        <CretrInfoSBX01>Created<span>{creator.nftCreated}</span></CretrInfoSBX01>
-                        <CretrInfoSBX01>Followers<span>{creator.followersCount}</span></CretrInfoSBX01>
-                        <CretrInfoSBX01>Following<span>{creator.followingCount}</span></CretrInfoSBX01> 
-                    </CretrInfoMBX>
-
-                    <CretrBTN01>See artworks</CretrBTN01>
-
-                </CreatSBX02>
-            </CreatSBX01>
-        })
     }
 
     clearPreviousCreators = () => {
@@ -156,7 +127,18 @@ class Creators extends Component {
                             // endMessage={<p>You have seen it all.!</p>}
                         >
                             <CreatorMBX>
-                                {this.renderCreators(creators)}
+                                {creators.map((creator) => {
+                                    return <CreatorCard
+                                                cover={creator.cover}
+                                                profile={creator.profile}
+                                                name={creator.name}
+                                                username={creator.username}
+                                                bio={creator.bio}
+                                                nftCreated={creator.nftCreated}
+                                                followersCount={creator.followersCount}
+                                                followingCount={ creator.followingCount }
+                                            />
+                                })}
                             </CreatorMBX>
                         </InfiniteScroll>
                     :<LoaderBX> 

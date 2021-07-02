@@ -20,6 +20,7 @@ import RArrow from "../Assets/images/banner-rarrow.svg";
 import SerICON from "../Assets/images/searchICO.svg";
 import FiltICON from "../Assets/images/filterICO.svg";
 import LoaderGif from "../Assets/images/loading.gif";
+import NFTCard from "../Component/Cards/nftCard";
 
 import { actions } from "../actions";
 
@@ -45,52 +46,6 @@ class MarketPlace extends Component {
     if (!categories) {
       this.props.getCategories() // fetch categories
     }
-  }
-
-  renderNFT = (NFTs) => {
-    return NFTs.map( (nft, key) => {
-      return <Gs.W25V2 key={key}>
-          <Gs.TenpxGutter>
-            <div className="NFT-home-box">
-              <NFTImgBX>
-                {" "}
-                <img src={nft.image.compressed} alt="" />{" "}
-              </NFTImgBX>
-              <div className="NFT-home-box-inner">
-                <h4>
-                  {/* Artwork name / title dolor lorem ipsum sit adipiscing */}
-                  {nft.title}
-                </h4>
-                <CollectionBar>
-                  <p>
-                    {nft.edition} <span>of 2500</span>
-                  </p>
-                  <p>
-                    <Link to="/">
-                      See the collection{" "}
-                      <i className="fas fa-angle-right"></i>
-                    </Link>
-                  </p>
-                </CollectionBar>
-                <Edition className="edition2">
-                  <div className="ed-box">
-                    <p>Current bid</p>
-                    <h3>{nft.price} BNB</h3>
-                  </div>
-                  <div className="ed-box">
-                    <p>Ending in</p>
-                    <h3>{nft.saleState==='AUCTION'?`${nft.auctionTime}h`:'13h 12m 11s'}</h3>
-                  </div>
-                </Edition>
-                <UserImgName>
-                  <img src={UserImg} alt="" />
-                  @{nft.ownerId.username}
-                </UserImgName>
-              </div>
-            </div>
-          </Gs.TenpxGutter>
-        </Gs.W25V2>
-    })
   }
   
   fetchMore = () => {
@@ -246,7 +201,17 @@ class MarketPlace extends Component {
                     // endMessage={<p>You have seen it all.!</p>}
                 >
                   <NFTfourbox>
-                    {this.renderNFT(NFTs)}
+                    {NFTs.map((nft) => (
+                      <NFTCard
+                        nftImg={nft.image.compressed}
+                        title={nft.title}
+                        edition={nft.edition}
+                        price={nft.price}
+                        auctionTime={nft.auctionTime}
+                        // userImg={}
+                        username={nft.ownerId.username}
+                      />
+                    ))}
                   </NFTfourbox>
                 </InfiniteScroll>
               :<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
