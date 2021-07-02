@@ -9,6 +9,8 @@ import Creators from "./Pages/creators";
 import Profile from "./Pages/profile";
 import EditProfile from "./Pages/profile-edit";
 import Collection from "./Pages/collection";
+import CollectionDetail from "./Pages/collection-detail";
+import CollectionDetailEdit from "./Pages/collection-detail-edit";
 
 var routes = [
   {
@@ -57,6 +59,18 @@ var routes = [
     path: "collection",
     name: "Collection",
     component: Collection,
+    layout: "/",
+  },
+  {
+    path: "collection-detail",
+    name: "Collection Detail",
+    component: CollectionDetail,
+    layout: "/",
+  },
+  {
+    path: "collection-detail-edit",
+    name: "Collection Detail Edit",
+    component: CollectionDetailEdit,
     layout: "/",
   },
   // {

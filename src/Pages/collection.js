@@ -1,6 +1,5 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -10,15 +9,14 @@ import Collapse from "@kunukn/react-collapse";
 
 
 import SerICON from "../Assets/images/searchICO.svg";
-import FiltICON from "../Assets/images/filterICO.svg";
 import CollImg from "../Assets/images/nft1.jpg";
 
 class Collection extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
-    isOpen1: false,
+    this.state = {
+      isOpen1: false,
       tabPanel: 'all',
       searched: false,
       filter: [],
@@ -27,98 +25,30 @@ class Collection extends Component {
   }
 
   render() {
-    let { NFTs, moreNFTs, categories, pagination } = this.props;
-    const { tabPanel, page, filter } = this.state;
-    if (moreNFTs) {
-      NFTs = NFTs.concat(moreNFTs)
-    }
     return (
       <Gs.MainSection>
         <FilterMBX>
-          
           <FilterLbx>
-              <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.onCategoryChange('all')}}>All</button> 
-              {categories?categories.map((category, key)=>{
-                  return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.onCategoryChange(category.id)}} >{category.categoryName}</button>
-              }):''}
+            <button class="active" id="all">All</button>
+            <button class="">Art</button>
+            <button class="">Celebrity</button>
+            <button class="">Sport</button>
           </FilterLbx>
 
           <FilterRbx>
             <FilterInputBX>
-              <input placeholder='Search' onKeyUp={(e)=> this.onSearchKeyUp(e)}></input>
+              <input placeholder='Search'></input>
               <SearchICO>
                 <img src={SerICON} alt="" />
               </SearchICO>
             </FilterInputBX>
-
-            <FilterBAR
-              onClick={() => this.toggle(1)}
-              className={this.state.isOpen1 ? "active" : ""}
-            >
-              <FilterICO>
-                <img src={FiltICON} alt="" />
-              </FilterICO>
-              Filter: Live auction
-              <Collapse
-                isOpen={this.state.isOpen1}
-                className={
-                  "app__collapse collapse-css-transition  " +
-                  (this.state.isOpen1 ? "collapse-active" : "")
-                }
-              >
-                <DDContainer>
-                  {/* <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle1"
-                      name="vehicle1"
-                      value="ALL"
-                      defaultChecked={filter.includes('All')?true:false}
-                      onChange={(e) => {this.setFilter('ALL', e)}}
-                    />
-                    <label htmlFor="vehicle1">All</label>
-                  </div> */}
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle2"
-                      name="vehicle2"
-                      value="AUCTION"
-                      defaultChecked={filter.includes('AUCTION')?true:false}
-                      onChange={(e) => {this.setFilter('AUCTION', e)}}
-                    />
-                    <label htmlFor="vehicle2">Live auction</label>
-                  </div>
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle3"
-                      name="vehicle3"
-                      value="BUYNOW"
-                      onChange={(e) => {this.setFilter('BUYNOW', e)}}
-                    />
-                    <label htmlFor="vehicle3">Buy now</label>
-                  </div>
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle4"
-                      name="vehicle4"
-                      value="SOLD"
-                      defaultChecked={filter.includes('SOLD')?true:false}
-                      onChange={(e) => {this.setFilter('SOLD', e)}}
-                    />
-                    <label htmlFor="vehicle4">Sold</label>
-                  </div>
-                </DDContainer>
-              </Collapse>
-            </FilterBAR>
           </FilterRbx>
         </FilterMBX>
-        
+
         <Gs.Container>
           <CollectionBoxes>
-              <OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -126,8 +56,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -135,8 +67,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -144,8 +78,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -153,8 +89,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -162,8 +100,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -171,8 +111,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -180,8 +122,10 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
-              <OneCollBox>
+              </Link>
+            </OneCollBox>
+            <OneCollBox>
+              <Link to=''>
                 <div className="CIbox">
                   <img src={CollImg} alt="" />
                 </div>
@@ -189,7 +133,8 @@ class Collection extends Component {
                   <p className="coll-title">Collection Name</p>
                   <p className="creator-name">by Creator Name</p>
                 </div>
-              </OneCollBox>
+              </Link>
+            </OneCollBox>
           </CollectionBoxes>
         </Gs.Container>
       </Gs.MainSection>
@@ -277,55 +222,9 @@ const SearchICO = styled(FlexDiv)`
   left: 11px;
   top: 9px;
 `;
-const FilterICO = styled(FlexDiv)`
-  width: 21px;
-  height: 21px;
-  position: absolute;
-  left: 11px;
-  top: 9px;
-`;
-const FilterBAR = styled(FlexDiv)`
-  width: 100%;
-  max-width: 220px;
-  justify-content: flex-start;
-  position: relative;
-  background-color: #eef2f7;
-  border-radius: 15px;
-  border: 0px;
-  outline: none;
-  height: 38px;
-  padding: 3px 3px 3px 40px;
-  font-size: 14px;
-  color: #000000;
-  cursor: pointer;
-  border: 1px solid transparent;
-  &.active,
-  &:hover {
-    background-color: #fff;
-    border: 1px solid #00babc;
-    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const DDContainer = styled(FlexDiv)`
-  position: absolute;
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 20px;
-  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
-  top: calc(100% + 7px);
-  width: 100%;
-  left: 0;
-  overflow: hidden;
-  z-index: 100;
-
-  .md-checkbox:hover {
-    background-color: #d9f5f5;
-  }
-`;
 
 const CollectionBoxes = styled(FlexDiv)`
-  margin:40px 0px 120px;
+  margin:40px -10px 120px;
 `;
 
 const OneCollBox = styled.div`
@@ -347,12 +246,22 @@ const OneCollBox = styled.div`
   .collbox-desc
   {
     position:absolute;
-    top:20px;
-    left:20px;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:rgb(0 0 0 / 70%);
+    border-radius:10px;
+    padding:20px 10px 0px 20px;
+    opacity:0;
+    :hover
+    {
+      opacity:1;
+    }
     .coll-title
     {
       font-size:20px;
-      color:#000000;
+      color:#fff;
       letter-spacing:-0.75px;
       font-weight:700;
       margin:0px 0px 2px;
@@ -360,7 +269,7 @@ const OneCollBox = styled.div`
     .creator-name
     {
       font-size:16px;
-      color:rgb(0 0 0 / 30%);
+      color:rgb(255 255 255 / 50%);
       letter-spacing:-0.8px;
       font-weight:600;
       margin:0px;
@@ -369,4 +278,4 @@ const OneCollBox = styled.div`
 `;
 
 
-export default Collection ;
+export default Collection;
