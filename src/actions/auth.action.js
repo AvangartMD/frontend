@@ -75,11 +75,10 @@ function getCreators(params={}) {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log(promise.data.data)
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -93,7 +92,7 @@ function getMoreCreators(params={}) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MORE_CREATORS", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -107,7 +106,7 @@ function getMarketPlaceNFT(params={}) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MARKETPLACE", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -121,7 +120,7 @@ function getMoreMarketPlaceNFT(params={}) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MORE_MARKETPLACE", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };

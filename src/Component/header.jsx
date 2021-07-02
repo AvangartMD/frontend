@@ -68,9 +68,7 @@ class Header extends Component {
 
   componentDidMount() {
     let { web3Data } = this.props;
-    console.log(web3Data);
     if (!web3Data.accounts[0]) {
-      console.log("here");
       this.props.getWeb3();
     } else {
       this.setState({ web3Data: web3Data }, () => {
@@ -107,7 +105,6 @@ class Header extends Component {
     }
   }
   connectToWallet = (isWalletConnect) => {
-    console.log("works");
     this.props.enableMetamask();
     this.setState({ loader: true });
   };
@@ -116,7 +113,6 @@ class Header extends Component {
   };
 
   checkRole = (user) => {
-    console.log("user", user);
     if (user.role.roleName === "COLLECTOR") {
       return <BecomeCreator />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
@@ -132,9 +128,14 @@ class Header extends Component {
     }
   };
 
+  disconnect = () => {
+    localStorage.clear();
+    this.props.authLogout();
+    this.props.web3Logout();
+  }
+
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
-    console.log("render userDetails ? ", userDetails);
     const { authData } = this.props;
     return (
       <>
@@ -272,16 +273,16 @@ class Header extends Component {
                             <img src={RightArrow} alt="" />
                           </span>
                         </button>
-                        <button>
+                        <button onClick={()=>{this.disconnect()}}>
                           <i>
                             {" "}
                             <img src={DisconnectICO} alt="" />
                           </i>
                           Disconnect{" "}
-                          <span>
+                          {/* <span>
                             {" "}
                             <img src={RightArrow} alt="" />
-                          </span>
+                          </span> */}
                         </button>
                       </DDBtnbar02>
                     </DDContainer>
@@ -615,6 +616,8 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
+    authLogout: () => dispatch({ type: 'AUTH_LOGOUT', data: null }),
+    web3Logout: () => dispatch({ type: 'FETCH_WEB3_DATA', data: { isLoggedIn: false, accounts: [] }})
   };
 };
 const mapStateToProps = (state) => {

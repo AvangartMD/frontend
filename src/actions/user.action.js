@@ -37,7 +37,7 @@ function getProfile(userId) {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -50,7 +50,7 @@ function updateUserDetails(params) {
       if (promise.status === 200) {
         dispatch(fetchedData("PROFILE_UPDATED", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -63,20 +63,17 @@ function getUserNFT() {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
 }
 function createCollection(data) {
   let params = JSON.stringify(data);
-  console.log("new", params);
   return async (dispatch) => {
     const response = services.post("nft/addCollection", params);
     response.then((promise) => {
-      console.log("promise", response);
       if (promise.status === 200) {
-        console.log("thus", promise.data);
         dispatch(fetchedData("CREATE_COLLECTION", promise.data));
       } else {
         dispatch(fetchedData("CREATE_COLLECTION", promise.response.data));
@@ -90,11 +87,10 @@ function getCreators(params = {}) {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log(promise.data.data);
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -108,7 +104,7 @@ function getMoreCreators(params = {}) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MORE_CREATORS", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };
@@ -121,7 +117,7 @@ function getUserDraftNFT() {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_DRAFT_NFT", promise.data.data));
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
   };

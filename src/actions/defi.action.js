@@ -51,10 +51,9 @@ function generateNonce(address) {
     const response = services.get(url);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("token", promise.data.data);
         dispatch(setData(promise.data.data.nonce, "GENERATE_NONCE"));
       } else {
-        console.log("erroer");
+        // console.log("erroer");
       }
     });
   };
@@ -65,10 +64,9 @@ function getCategoryList() {
     const response = services.get(url);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("category List", promise.data.data);
         dispatch(setData(promise.data.data, "CATEGORY_LIST"));
       } else {
-        console.log("erroer");
+        // console.log("erroer");
       }
     });
   };
@@ -79,10 +77,9 @@ function getCollectionList() {
     const response = services.get(url, true);
     response.then((promise) => {
       if (promise.status === 200) {
-        console.log("collection here", promise.data.data);
         dispatch(setData(promise.data.data, "COLLECTION_LIST"));
       } else {
-        console.log("erroer");
+        // console.log("erroer");
       }
     });
   };
@@ -108,7 +105,6 @@ function getUserDetails() {
           const newresp = await services.getWeb3();
           localStorage.setItem("userAddress", newresp.accounts[0]);
           newresp.isLoggedIn = true;
-          console.log("new rsp", newresp);
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
         dispatch(setData(promise.data.data, "AUTH_LOGIN"));
