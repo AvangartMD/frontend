@@ -105,6 +105,7 @@ class MarketPlace extends Component {
     if (moreNFTs) {
       NFTs = NFTs.concat(moreNFTs)
     }
+    console.log('nft ', NFTs)
     return (
       <Gs.MainSection>
         <FilterMBX>
@@ -203,6 +204,7 @@ class MarketPlace extends Component {
                   <NFTfourbox>
                     {NFTs.map((nft) => (
                       <NFTCard
+                        id={nft.collectionId?.id}
                         nftImg={nft.image.compressed}
                         title={nft.title}
                         edition={nft.edition}

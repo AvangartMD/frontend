@@ -10,6 +10,7 @@ export const authActions = {
   getMarketPlaceNFT,
   getMoreMarketPlaceNFT,
   getCollections,
+  getCollectionDetails,
 };
 
 function fetchedData(type, data) {
@@ -127,12 +128,25 @@ function getMoreMarketPlaceNFT(params={}) {
   };
 }
 
-function getCollections(params={}) {
+function getCollections() {
   return async (dispatch) => {
-    const response = services.get(`nft/listCollection`, params);
+    const response = services.get(`nft/listCollection`);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_COLLECTIONS", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getCollectionDetails(params={}) {
+  return async (dispatch) => {
+    const response = services.get(`nft/getCollectionInfo/${params.id}`);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_COLLECTION_DETAIL", promise.data.data));
       } else {
         // console.log("error");
       }

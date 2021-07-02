@@ -650,6 +650,7 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard
+                          id={nftObj.collectionId._id}
                           nftImg={nftObj.imgSrc}
                           title={nftObj.title}
                           edition={nftObj.edition}

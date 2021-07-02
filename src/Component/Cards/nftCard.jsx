@@ -8,6 +8,7 @@ import NFT2 from "../../Assets/images/nft2.jpg";
 import Gs from "../../Theme/globalStyles";
 
 function NFTCard({
+  id='',
   nftImg,
   title,
   edition,
@@ -34,7 +35,7 @@ function NFTCard({
                 0 <span>of {edition ? edition : 0}</span>
               </p>
               <p>
-                <Link to="/">
+                <Link to={ `/collection-detail/${id}`} >
                   See the collection
                   <i className="fas fa-angle-right"></i>
                 </Link>

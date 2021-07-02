@@ -57,7 +57,8 @@ function Artist(props) {
                     <NFTfourbox>
                     {NFTs ? (
                         NFTs.map((nft) => (
-                        <NFTCard
+                          <NFTCard
+                            id={nft.collectionId._id}
                             nftImg={nft.image.compressed}
                             title={nft.title}
                             edition={nft.edition}

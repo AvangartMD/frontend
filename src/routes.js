@@ -60,7 +60,7 @@ var routes = [
     layout: "/",
   },
   {
-    path: "collection-detail",
+    path: "collection-detail/:id",
     name: "Collection Detail",
     component: CollectionDetail,
     layout: "/",
