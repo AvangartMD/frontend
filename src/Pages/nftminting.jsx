@@ -107,6 +107,7 @@ class NFTPage extends Component {
     if (!categoryList) this.props.getCategoryList();
     else this.setState({ categoryList });
     if (collectionList) this.setState({ collectionList });
+    else this.props.getCollectionList();
     if (!web3Data) {
       // this.props.getWeb3();
     } else {
