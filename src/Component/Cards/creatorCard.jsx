@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import UserImg01 from '../../Assets/images/userImg.png'
 
 
@@ -16,10 +17,12 @@ function CreatorCard({
   return (
     <CreatSBX01>
         <ImgBannerBX>
-            <img src={cover} alt='' />
+              <LazyLoadImage src={cover} />
         </ImgBannerBX>
         <CreatSBX02>
-            <UserImg> <img src={profile} alt='' /></UserImg>
+              <UserImg>
+                  <LazyLoadImage src={profile} />
+              </UserImg>
             <CretrTitle01>
                 {name}
             <span>@{username}</span>
