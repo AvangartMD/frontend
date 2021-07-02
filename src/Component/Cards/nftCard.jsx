@@ -19,10 +19,14 @@ function NFTCard({
       <Gs.TenpxGutter>
         <div className="NFT-home-box">
           <NFTImgBX>
-            <img src={nftImg ? nftImg : NFT2} alt="" />
+            <img src={nftImg} alt="" />
           </NFTImgBX>
           <div className="NFT-home-box-inner">
-            <h4>{title}</h4>
+            <h4>
+              {title
+                ? title
+                : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+            </h4>
             <CollectionBar>
               <p>
                 0 <span>of {edition ? edition : 0}</span>
@@ -41,7 +45,7 @@ function NFTCard({
               </div>
               <div className="ed-box">
                 <p>Ending in</p>
-                <h3>{auctionTime}hrs 00min 00sec</h3>
+                <h3>{auctionTime}h 00m 00s</h3>
               </div>
             </Edition>
             <UserImgName>

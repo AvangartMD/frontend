@@ -13,7 +13,6 @@ function Drafts(props) {
   const { userDraftNFT } = props;
   useEffect(() => {
     if (!userDraftNFT) props.getUserDraftNFT();
-    console.log(userDraftNFT);
   }, [userDraftNFT]);
   return (
     <HomeNFTs>

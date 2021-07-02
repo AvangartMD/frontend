@@ -58,6 +58,14 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus }) {
               </LoaderBX>
             </>
           )}
+          {mintNFTStatus === "progress1" && (
+            <>
+              <OnbTitle01 className="v2">Submission in progress</OnbTitle01>
+              <LoaderBX>
+                <img src={LoaderGif} alt="" />
+              </LoaderBX>
+            </>
+          )}
 
           {mintNFTStatus === "complete" && (
             <>

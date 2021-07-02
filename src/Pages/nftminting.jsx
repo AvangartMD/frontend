@@ -44,18 +44,18 @@ class NFTPage extends Component {
         accounts: [],
       },
       nftObj: {
-        title: "Artwork name / title dolor lorem ipsum sit adipiscing",
+        title: "",
         description: "",
         coCreatorUserName: "",
         percentShare: 0,
         category: [],
         collection: "",
         saleState: "",
-        auctionTime: "",
-        edition: "",
+        auctionTime: "0",
+        edition: 0,
         price: "0.00",
         digitalKey: "",
-        nftFile: {},
+        nftFile: undefined,
         imgSrc: "",
         categoryList: null,
         collectionList: [],
@@ -83,7 +83,7 @@ class NFTPage extends Component {
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          console.log("will do something in future");
+          // console.log("will do something in future");
         }
       });
     }
@@ -92,7 +92,7 @@ class NFTPage extends Component {
     if (categoryList !== prevProps.categoryList)
       this.setState({ categoryList });
     if (createdNFTID !== prevProps.createdNFTID) {
-      this.setState({ mintNFTStatus: "" }, () => this.toggle(3));
+      this.setState({ mintNFTStatus: "" });
     }
   }
 
@@ -119,10 +119,8 @@ class NFTPage extends Component {
   }
 
   mintNFT = async (_tokenURI) => {
-    console.log(this.props.createdNFTID);
     this.setState({ mintNFTStatus: "initiate" });
     const { web3Data, nftObj, suggestionVAl } = this.state;
-    console.log(suggestionVAl);
     const obj = [
       nftObj.edition,
       this.props.createdNFTID._id,
@@ -133,11 +131,10 @@ class NFTPage extends Component {
       suggestionVAl.walletAddress ? Number(100 - nftObj.percentShare) : 100,
       suggestionVAl.walletAddress ? Number(nftObj.percentShare) : 0,
       nftObj.saleState === "BUY" ? "0" : "1",
-      nftObj.auctionTime ? Number(nftObj.auctionTime) : "0",
+      nftObj.saleState === "BUY" ? 0 : Number(nftObj.auctionTime),
       web3.utils.toWei(nftObj.price, "ether"),
       "0",
     ];
-    console.log("mint obj", obj);
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
@@ -146,7 +143,6 @@ class NFTPage extends Component {
       })
       .on("receipt", (receipt) => {
         this.setState({ mintNFTStatus: "complete" });
-        console.log("recoihlk", receipt);
       })
       .on("error", (error) => {
         this.setState({ mintNFTStatus: "complete" });
@@ -158,7 +154,7 @@ class NFTPage extends Component {
     if (e.target.name === "coCreatorUserName") {
       // this.setState({ suggestionVAl: e.target.value });
       if (e.target.value.length >= 3) {
-        console.log("t", e.target.value);
+        // console.log("t", e.target.value);
       }
     } else if (e.target.name === "category") {
       const exists = nftObj["category"].includes(e.target.value);
@@ -186,48 +182,84 @@ class NFTPage extends Component {
     }
     this.setState({ nftObj });
   }
+  checkFormErrors() {
+    const {
+      title,
+      percentShare,
+      category,
+      saleState,
+      auctionTime,
+      edition,
+      price,
+      nftFile,
+    } = this.state.nftObj;
+    if (!title) this.setError("Please enter the Title", true);
+    else if (!nftFile) this.setError("Please select your file", true);
+    else if (this.state.suggestionVAl.length && !percentShare)
+      this.setError("Please set the percent share of your Co-creator", true);
+    else if (!category.length)
+      this.setError(
+        "Please select atleast 1 category.You can choose up to 2.",
+        true
+      );
+    else if (category.length >= 3)
+      this.setError("You can choose up to 2 category.", true);
+    else if (!saleState) this.setError("Please select sale state.", true);
+    else if (saleState === "AUCTION" && !+auctionTime)
+      this.setError("Please select the auction time.", true);
+    else if (!edition || (+edition < 0 || +edition) > 20)
+      this.setError("Edition ranges between 1 to 20", true);
+    else if (!+price) this.setError("Please enter the price", true);
+    else {
+      this.setError("", false);
+      return true;
+    }
+  }
   async createNFT(e) {
     e.preventDefault();
-    const { nftObj } = this.state;
-    const { nftFile, compressionRequired } = this.state.nftObj;
-    let compressedNFTFile = nftFile;
-    if (compressionRequired) {
-      compressedNFTFile = await compressImage(nftFile);
-    }
-    Promise.all([
-      services.uploadFileOnBucket(nftFile, "nft"),
-      services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true),
-    ]).then((urls) => {
-      let dataObj = {
-        title: nftObj.title,
-        description: nftObj.description,
-        image: {
-          original: urls[0],
-          compressed: urls[1],
-        },
-        category: nftObj.category,
-        price: nftObj.price,
-        saleState: nftObj.saleState,
-        auctionTime: nftObj.auctionTime,
-        edition: nftObj.edition,
-        unlockContent: false,
-      };
-      if (nftObj.collection) {
-        dataObj.collectionId = nftObj.collection;
+    const checked = this.checkFormErrors();
+    if (checked) {
+      this.setState({ mintNFTStatus: "progress1" }, () => this.toggle(3));
+      const { nftObj } = this.state;
+      const { nftFile, compressionRequired } = this.state.nftObj;
+      let compressedNFTFile = nftFile;
+      if (compressionRequired) {
+        compressedNFTFile = await compressImage(nftFile);
       }
-      if (this.state.suggestionVAl) {
-        dataObj.coCreator = {
-          userId: this.state.suggestionVAl.id,
-          percentage: nftObj.percentShare,
+      Promise.all([
+        services.uploadFileOnBucket(nftFile, "nft"),
+        services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true),
+      ]).then((urls) => {
+        let dataObj = {
+          title: nftObj.title,
+          description: nftObj.description,
+          image: {
+            original: urls[0],
+            compressed: urls[1],
+          },
+          category: nftObj.category,
+          price: nftObj.price,
+          saleState: nftObj.saleState,
+          auctionTime: nftObj.auctionTime,
+          edition: nftObj.edition,
+          unlockContent: false,
         };
-      }
-      if (nftObj.digitalKey) {
-        dataObj.unlockContent = true;
-        dataObj.digitalKey = nftObj.digitalKey;
-      }
-      console.log("dataObj", dataObj);
-      const result = this.props.addNFT(dataObj);
-    });
+        if (nftObj.collection) {
+          dataObj.collectionId = nftObj.collection;
+        }
+        if (this.state.suggestionVAl) {
+          dataObj.coCreator = {
+            userId: this.state.suggestionVAl.id,
+            percentage: nftObj.percentShare,
+          };
+        }
+        if (nftObj.digitalKey) {
+          dataObj.unlockContent = true;
+          dataObj.digitalKey = nftObj.digitalKey;
+        }
+        this.props.addNFT(dataObj);
+      });
+    }
   }
 
   setSuggestionValue = (val) => this.setState({ suggestionVAl: val });
@@ -244,7 +276,6 @@ class NFTPage extends Component {
       else return "inactive";
     }
     const { categoryList, collectionList, error } = this.state;
-    console.log("this is colledcteuodsn", this.props.authData);
     const nftObj = this.state.nftObj;
     return (
       <Gs.MainSection>

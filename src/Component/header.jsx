@@ -122,7 +122,9 @@ class Header extends Component {
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
         <AvBTN02 className="colorBTN">
-          <button>Create</button>
+          <Link to="/nftminting">
+            <button>Create</button>
+          </Link>
         </AvBTN02>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
@@ -132,7 +134,7 @@ class Header extends Component {
 
   render() {
     const { web3Data, loader, error, userDetails } = this.state;
-    console.log('render userDetails ? ', userDetails);
+    console.log("render userDetails ? ", userDetails);
     const { authData } = this.props;
     return (
       <>
@@ -140,7 +142,9 @@ class Header extends Component {
           <HeadMBX02>
             <HeadSbx01>
               <Logo>
-                <Link to="/"><img src={LogoImg} alt="" /></Link>
+                <Link to="/">
+                  <img src={LogoImg} alt="" />
+                </Link>
               </Logo>
             </HeadSbx01>
 

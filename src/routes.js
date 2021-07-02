@@ -48,7 +48,7 @@ var routes = [
     layout: "/",
   },
   {
-    path: "nftDetails",
+    path: "nftDetails/:id",
     name: "NFT Detail",
     component: NftDetail,
     layout: "/",
