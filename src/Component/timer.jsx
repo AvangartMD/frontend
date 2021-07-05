@@ -38,7 +38,7 @@ class Timer extends React.Component {
   }
 
   componentDidMount() {
-    const timeLeft = this.props.timeLeft + 172800;
+    const timeLeft = this.props.timeLeft + 572800;
     const onlyHours = this.props.onlyHours;
     this.setState({ timeLeft, onlyHours });
     let timeLeftVar = this.secondsToTime(timeLeft, onlyHours);

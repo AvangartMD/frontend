@@ -13,6 +13,8 @@ import NftdLimg from "../Assets/images/nftcard1.jpg";
 import Redheart from "../Assets/images/Redheart.svg";
 import Lock from "../Assets/images/icon-set-lock.svg";
 import UserImg from "../Assets/images/user-img.jpg";
+import { actions } from "../actions";
+import { connect } from "react-redux";
 
 class NftDetail extends React.Component {
   constructor(props) {
@@ -20,6 +22,9 @@ class NftDetail extends React.Component {
     this.state = {
       isOpen1: false,
     };
+  }
+  componentDidMount() {
+    this.props.getNFTDetails(this.props.match.params);
   }
   render() {
     let id = this.props.match.params;
@@ -391,4 +396,15 @@ const NFTcartButtons = styled.div`
   }
 `;
 
-export default NftDetail;
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getNFTDetails: (id) => dispatch(actions.getNFTDetails(id)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    NFTDetails: state.fetchNFTDetails,
+  };
+};
+
+export default connect(mapStateToProps, mapDipatchToProps)(NftDetail);

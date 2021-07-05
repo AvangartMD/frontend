@@ -9,6 +9,7 @@ export const userActions = {
   getMoreCreators,
   createCollection,
   getUserDraftNFT,
+  getNFTDetails,
 };
 
 function fetchedData(type, data) {
@@ -113,6 +114,19 @@ function getMoreCreators(params = {}) {
 function getUserDraftNFT() {
   return async (dispatch) => {
     const response = services.get(`nft/listNftByUser?filter=draft`, true);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_USER_DRAFT_NFT", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getNFTDetails(id) {
+  return async (dispatch) => {
+    const response = services.get(`nft/single/${id}`);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_DRAFT_NFT", promise.data.data));
