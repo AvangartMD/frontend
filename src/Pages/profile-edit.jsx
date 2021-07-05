@@ -1072,13 +1072,13 @@ const CloseBTN = styled.button`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getProfile: () => dispatch(actions.getUserDetails()),
+    getProfile: () => dispatch(actions.getProfile()),
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    profile: state.fetchAuthData,
+    profile: state.fetchProfile,
     updated: state.updateProfile,
   };
 };

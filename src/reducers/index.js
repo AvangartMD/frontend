@@ -30,6 +30,8 @@ import {
   fetchUserNFT,
   fetchNewCollection,
   fetchUserDraftNFT,
+  fetchUserProfile,
+  fetchProfile,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -57,6 +59,8 @@ const rootReducer = combineReducers({
   fetchMoreMarketPlaceNFT,
   fetchCollections,
   fetchCollectionDetails,
+  fetchUserProfile,
+  fetchProfile,
 });
 
 export default rootReducer;

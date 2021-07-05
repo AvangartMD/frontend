@@ -47,6 +47,12 @@ var routes = [
     layout: "/user",
   },
   {
+    path: "/profile/:id",
+    name: "User Profile",
+    component: Profile,
+    layout: "/user",
+  },
+  {
     path: "nftDetails/:id",
     name: "NFT Detail",
     component: NftDetail,
