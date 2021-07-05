@@ -28,9 +28,7 @@ function CreateCollection(props) {
       setCollectionAdded(false);
     }
   }, [props.newCollection]);
-  const onFormChange = (e) => {
-    // console.log(e.target.files);
-  };
+
   const onFormSubmit = async (e) => {
     e.preventDefault();
     const logoLink = await services.uploadFileOnBucket(
@@ -42,7 +40,7 @@ function CreateCollection(props) {
       description: e.target.description.value,
       logo: logoLink,
     };
-    props.createCollection(obj);
+    if (obj.name) props.createCollection(obj);
   };
   return (
     <>
@@ -58,8 +56,8 @@ function CreateCollection(props) {
             </WGdescText> */}
               <WGBtn
                 onClick={() => {
-                  setCollectionAdded(false);
-                  props.toggle(4);
+                  // setCollectionAdded(false);
+                  props.toggle(2);
                 }}
               >
                 OK
@@ -67,13 +65,10 @@ function CreateCollection(props) {
             </WhiteBX01>
           </>
         ) : (
-          <form
-            onChange={(e) => onFormChange(e)}
-            onSubmit={(e) => onFormSubmit(e)}
-          >
+          <form onSubmit={(e) => onFormSubmit(e)}>
             <>
               <WhiteBX01>
-                <CloseBTN className="ani-1" onClick={() => props.toggle(4)}>
+                <CloseBTN className="ani-1" onClick={() => props.toggle(2)}>
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
                 <CCTitle>Create Collection</CCTitle>

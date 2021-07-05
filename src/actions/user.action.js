@@ -9,6 +9,7 @@ export const userActions = {
   getMoreCreators,
   createCollection,
   getUserDraftNFT,
+  getSingleNFTDetails,
 };
 
 function fetchedData(type, data) {
@@ -32,7 +33,7 @@ function fetchCategories() {
 
 function getProfile(userId) {
   return (dispatch) => {
-    const response = services.get(`user/userDetails?userId?=${userId}`);
+    const response = services.get(`user/userDetails?userId?=${userId}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
@@ -116,6 +117,19 @@ function getUserDraftNFT() {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_DRAFT_NFT", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getSingleNFTDetails(id) {
+  return async (dispatch) => {
+    const response = services.get(`nft/single/${id}`);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_SINGLE_NFT_DETAILS", promise.data.data));
       } else {
         // console.log("error");
       }

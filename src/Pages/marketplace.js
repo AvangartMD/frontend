@@ -103,7 +103,6 @@ class MarketPlace extends Component {
     if (moreNFTs) {
       NFTs = NFTs.concat(moreNFTs);
     }
-    // console.log("nft ", NFTs);
     return (
       <Gs.MainSection>
         <FilterMBX>
@@ -243,7 +242,7 @@ class MarketPlace extends Component {
                       edition={nft.edition}
                       price={nft.price}
                       auctionTime={nft.auctionTime}
-                      // userImg={}
+                      userImg={nft.ownerId.profile}
                       username={nft.ownerId.username}
                     />
                   ))}

@@ -40,3 +40,12 @@ export function fetchCollectionList(state = null, action) {
       return state;
   }
 }
+
+export function fetchUserProfile(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_USER_PROFILE":
+      return action.data;
+    default:
+      return state;
+  }
+}

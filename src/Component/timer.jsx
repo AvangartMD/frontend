@@ -36,9 +36,9 @@ class Timer extends React.Component {
     };
     return obj;
   }
-
+  //  componentDidUpdate(){}
   componentDidMount() {
-    const timeLeft = this.props.timeLeft + 172800;
+    const timeLeft = this.props.timeLeft + 572800;
     const onlyHours = this.props.onlyHours;
     this.setState({ timeLeft, onlyHours });
     let timeLeftVar = this.secondsToTime(timeLeft, onlyHours);
@@ -57,7 +57,7 @@ class Timer extends React.Component {
 
   countDown() {
     // Remove one second, set state so a re-render happens.
-    let timeLeft = this.state.timeLeft - 1;
+    let timeLeft = this.state.timeLeft;
     this.setState({
       time: this.secondsToTime(timeLeft, this.state.onlyHours),
       timeLeft: timeLeft,
@@ -70,7 +70,22 @@ class Timer extends React.Component {
   }
 
   render() {
-    return (
+    return this.props.isDetailed ? (
+      <>
+        <div className="time-block">
+          <h3>{this.state.time.h}</h3>
+          <p className="gray-t">hours</p>
+        </div>
+        <div className="time-block">
+          <h3>{this.state.time.m}</h3>
+          <p className="gray-t">minutes</p>
+        </div>
+        <div className="time-block">
+          <h3>{this.state.time.s}</h3>
+          <p className="gray-t">seconds</p>
+        </div>
+      </>
+    ) : (
       <>
         {this.state.time.h}h {this.state.time.m}m {this.state.time.s}s
       </>

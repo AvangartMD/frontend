@@ -678,7 +678,7 @@ class NFTPage extends Component {
           }
         >
           <CreateCollection toggle={this.toggle} />
-          <MintNFTPopup mintNFT={this.mintNFT} toggle={this.toggle} />
+          {/* <MintNFTPopup mintNFT={this.mintNFT} toggle={this.toggle} /> */}
         </Collapse>
         <Collapse
           isOpen={this.state.isOpen3}
