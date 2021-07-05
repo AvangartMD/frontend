@@ -10,72 +10,72 @@ import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
 function Artist(props) {
-    let { NFTs, categories } = props;
-    const [ tabPanel, setTaPanel ] = useState("All");
-    const [ loading, setLoading ] = useState(false);
+  let { NFTs, categories } = props;
+  const [tabPanel, setTaPanel] = useState("All");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (!NFTs) props.getNFTs();
   }, [NFTs]);
-    useEffect(() => {
+  useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-  useEffect(() => {
-  }, [tabPanel]);
-    return (
-        <>
-            <FilterMBX>
-                <FilterLbx>
-                    <button
-                      className={tabPanel === "all" ? "active" : ""}
-                      id="all"
-                      onClick={() => {
-                          setTaPanel('All')
-                      }}
-                    >
-                      All
-                    </button>
-                    {categories
-                      ? categories.map((category) => {
-                          return (
-                            <button
-                              className={
-                                tabPanel === category.id ? "active" : ""
-                              }
-                                  onClick={() => {
-                                  setTaPanel(category.id)
-                              }}
-                            >
-                              {category.categoryName}
-                            </button>
-                          );
-                        })
-                      : "loading.."}
-                </FilterLbx>
-            </FilterMBX>
-            <HomeNFTs>
-                <Gs.Container>
-                    <NFTfourbox>
-                    {NFTs ? (
-                        NFTs.map((nft) => (
-                        <NFTCard
-                            nftImg={nft.image.compressed}
-                            title={nft.title}
-                            edition={nft.edition}
-                            price={nft.price}
-                            auctionTime={nft.auctionTime}
-                            // userImg={}
-                            username={nft.ownerId.username}
-                        />
-                        ))
-                    ) : (
-                        <LoaderBX>
-                        <img src={LoaderGif} alt="" />
-                        </LoaderBX>
-                    )}
-                    </NFTfourbox>
-                </Gs.Container>
-            </HomeNFTs>
-        </>    
+  useEffect(() => {}, [tabPanel]);
+  return (
+    <>
+      <FilterMBX>
+        <FilterLbx>
+          <button
+            className={tabPanel === "all" ? "active" : ""}
+            id="all"
+            onClick={() => {
+              setTaPanel("All");
+            }}
+          >
+            All
+          </button>
+          {categories
+            ? categories.map((category) => {
+                return (
+                  <button
+                    className={tabPanel === category.id ? "active" : ""}
+                    onClick={() => {
+                      setTaPanel(category.id);
+                    }}
+                  >
+                    {category.categoryName}
+                  </button>
+                );
+              })
+            : "loading.."}
+        </FilterLbx>
+      </FilterMBX>
+      <HomeNFTs>
+        <Gs.Container>
+          <NFTfourbox>
+            {NFTs ? (
+              NFTs.map((nft) => (
+                <NFTCard
+                  nftId={nft.id}
+                  collectionId={nft.collectionId._id}
+                  auctionEndDate={nft.auctionEndDate}
+                  nftImg={nft.image.compressed}
+                  title={nft.title}
+                  edition={nft.edition}
+                  price={nft.price}
+                  auctionTime={nft.auctionTime}
+                  userImg={nft.ownerId.profile}
+                  username={nft.ownerId.username}
+                />
+              ))
+            ) : (
+              <LoaderBX>
+                <img src={LoaderGif} alt="" />
+              </LoaderBX>
+            )}
+          </NFTfourbox>
+        </Gs.Container>
+      </HomeNFTs>
+    </>
   );
 }
 
@@ -236,15 +236,15 @@ const FilterLbx = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
   return {
     //   getUserDraftNFT: () => dispatch(actions.getUserDraftNFT()),
-      getCategories: () => dispatch(actions.fetchCategories()),
-      getNFTs: () => dispatch(actions.getUserNFT()),
+    getCategories: () => dispatch(actions.fetchCategories()),
+    getNFTs: () => dispatch(actions.getUserNFT()),
   };
 };
 const mapStateToProps = (state) => {
   return {
     //   userDraftNFT: state.fetchUserDraftNFT,
-      categories: state.fetchCategory,
-      NFTs: state.fetchUserNFT,
+    categories: state.fetchCategory,
+    NFTs: state.fetchUserNFT,
   };
 };
 

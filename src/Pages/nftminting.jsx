@@ -107,6 +107,7 @@ class NFTPage extends Component {
     if (!categoryList) this.props.getCategoryList();
     else this.setState({ categoryList });
     if (collectionList) this.setState({ collectionList });
+    else this.props.getCollectionList();
     if (!web3Data) {
       // this.props.getWeb3();
     } else {
@@ -650,6 +651,9 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard
+                          nftId={undefined}
+                          collectionId={nftObj.collectionId?._id}
+                          auctionEndDate={nftObj.auctionTime}
                           nftImg={nftObj.imgSrc}
                           title={nftObj.title}
                           edition={nftObj.edition}
@@ -657,6 +661,7 @@ class NFTPage extends Component {
                           auctionTime={nftObj.auctionTime}
                           userImg={this.props.authData?.profile}
                           username={this.props.authData?.username}
+                          previewCard={true}
                         />
                       </NFTfourbox>
                     </NFTRight>
@@ -673,7 +678,7 @@ class NFTPage extends Component {
           }
         >
           <CreateCollection toggle={this.toggle} />
-          <MintNFTPopup mintNFT={this.mintNFT} toggle={this.toggle} />
+          {/* <MintNFTPopup mintNFT={this.mintNFT} toggle={this.toggle} /> */}
         </Collapse>
         <Collapse
           isOpen={this.state.isOpen3}

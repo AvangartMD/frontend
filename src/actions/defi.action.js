@@ -114,6 +114,20 @@ function getUserDetails() {
     });
   };
 }
+
+function getUserProfile(id) {
+  return async (dispatch) => {
+    const response = services.get(`user/getSingleUser/${id}`);
+    response.then((promise) => { 
+      if (promise.status === 200) {
+        dispatch(setData(promise.data.data, "FETCHED_USER_PROFILE"));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
 export const defiActions = {
   addNFT,
   authLogin,
@@ -121,4 +135,5 @@ export const defiActions = {
   getCategoryList,
   getCollectionList,
   getUserDetails,
+  getUserProfile,
 };

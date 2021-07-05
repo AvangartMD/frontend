@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { HashLink as Link } from "react-router-hash-link";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import UserImg01 from '../../Assets/images/userImg.png'
 
 
 function CreatorCard({
+    id,
   cover,
   profile,
   name,
@@ -15,7 +17,8 @@ function CreatorCard({
   followingCount
 }) {
   return (
-    <CreatSBX01>
+      <CreatSBX01>
+          <Link to={`/creator/${id}`}>
         <ImgBannerBX>
               <LazyLoadImage src={cover} />
         </ImgBannerBX>
@@ -39,7 +42,8 @@ function CreatorCard({
 
             <CretrBTN01>See artworks</CretrBTN01>
 
-        </CreatSBX02>
+              </CreatSBX02>
+              </Link>
     </CreatSBX01>
   );
 }

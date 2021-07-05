@@ -5,6 +5,7 @@ import {
   fetchCategoryList,
   fetchCollectionList,
   fetchNewNFTId,
+  fetchUserProfile,
 } from "./defi.reducer";
 import {
   fetchDashboardBanners,
@@ -16,6 +17,8 @@ import {
   fetchMoreCreators,
   fetchMarketPlaceNFT,
   fetchMoreMarketPlaceNFT,
+  fetchCollections,
+  fetchCollectionDetails,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -26,14 +29,14 @@ import {
   fetchCategory,
   updateProfile,
   fetchUserNFT,
-  // fetchCreators,
-  // fetchPagination,
-  // fetchMoreCreators,
   fetchNewCollection,
   fetchUserDraftNFT,
+  fetchSingleNFTDetails,
+  fetchProfile,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
+  fetchSingleNFTDetails,
   fetchUserDraftNFT,
   fetchNewCollection,
   fetchCategoryList,
@@ -56,6 +59,10 @@ const rootReducer = combineReducers({
   fetchMoreCreators,
   fetchMarketPlaceNFT,
   fetchMoreMarketPlaceNFT,
+  fetchCollections,
+  fetchCollectionDetails,
+  fetchUserProfile,
+  fetchProfile,
 });
 
 export default rootReducer;

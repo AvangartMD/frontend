@@ -2,15 +2,16 @@ import Home from "./Pages/home";
 import NFTMinting from "./Pages/nftminting";
 import NftDetail from "./Pages/nftDetails";
 import MarketPlace from "./Pages/marketplace";
-import Creators from "./Pages/creators";
+import Creators from "./Pages/creators.jsx";
 import Profile from "./Pages/profile";
 import EditProfile from "./Pages/profile-edit";
-import Collection from "./Pages/collection";
+import Collection from "./Pages/collection.jsx";
 import CollectionDetail from "./Pages/collection-detail";
 import CollectionDetailEdit from "./Pages/collection-detail-edit";
 import HowToUse from "./Pages/how-to-use";
 import About from "./Pages/about";
 import Legal from "./Pages/legal";
+import CreatorProfile from "./Pages/creator-profile";
 
 var routes = [
   {
@@ -50,19 +51,25 @@ var routes = [
     layout: "/user",
   },
   {
+    path: "creator/:id",
+    name: "Creator Profile",
+    component: CreatorProfile,
+    layout: "/",
+  },
+  {
     path: "nftDetails/:id",
     name: "NFT Detail",
     component: NftDetail,
     layout: "/",
   },
   {
-    path: "collection",
-    name: "Collection",
+    path: "collections",
+    name: "Collections",
     component: Collection,
     layout: "/",
   },
   {
-    path: "collection-detail",
+    path: "collection-detail/:id",
     name: "Collection Detail",
     component: CollectionDetail,
     layout: "/",

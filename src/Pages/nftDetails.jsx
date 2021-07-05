@@ -1,18 +1,22 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { Link, useParams } from "react-router-dom";
-import Magnifypopup from "../Component/magnifypopup";
-import POSpopup from "../Component/putonsalepopup";
-import PABpopup from "../Component/placebidpopup";
-import Historypopup from "../Component/historypopup";
-import SEpopup from "../Component/selectedition";
-import Collapse from "@kunukn/react-collapse";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { Link, useParams } from 'react-router-dom';
+import Magnifypopup from '../Component/Modals/magnifyPopup';
+import POSpopup from '../Component/putonsalepopup';
+import PABpopup from '../Component/placebidpopup';
+import Historypopup from '../Component/historypopup';
+import SEpopup from '../Component/selectedition';
+import Collapse from '@kunukn/react-collapse';
 
-import NftdLimg from "../Assets/images/nftcard1.jpg";
-import Redheart from "../Assets/images/Redheart.svg";
-import Lock from "../Assets/images/icon-set-lock.svg";
-import UserImg from "../Assets/images/user-img.jpg";
+import NftdLimg from '../Assets/images/nftcard1.jpg';
+import Redheart from '../Assets/images/Redheart.svg';
+import Lock from '../Assets/images/icon-set-lock.svg';
+import UserImg from '../Assets/images/user-img.jpg';
+import redheartBorder from '../Assets/images/redheartBorder.svg';
+import { actions } from '../actions';
+import { connect } from 'react-redux';
+import Timer from '../Component/timer';
 
 class NftDetail extends React.Component {
   constructor(props) {
@@ -21,8 +25,19 @@ class NftDetail extends React.Component {
       isOpen1: false,
     };
   }
+  componentDidUpdate() {
+    const { NFTDetails } = this.props;
+    // console.log(NFTDetails);
+  }
+  componentDidMount() {
+    if (this.props.match.params.id)
+      this.props.getSingleNFTDetails(this.props.match.params.id);
+  }
+  likeHandler() {}
   render() {
     let id = this.props.match.params;
+    const { NFTDetails } = this.props;
+    // console.log(NFTDetails);
     return (
       <>
         <Gs.MainSection>
@@ -31,7 +46,7 @@ class NftDetail extends React.Component {
               <NFTDleftcontainer>
                 <NFTDleftImg>
                   <Link onClick={() => this.toggle(6)}>
-                    <img src={NftdLimg} alt="" />
+                    <img src={NFTDetails?.image.compressed} alt='' />
                   </Link>
                 </NFTDleftImg>
               </NFTDleftcontainer>
@@ -40,73 +55,83 @@ class NftDetail extends React.Component {
               <NFTDrightcontainer>
                 <NFTDRtopbar>
                   <NFTDrtitle>
-                    Artwork name / title dolor lorem ipsum sit adipiscing
+                    {NFTDetails?.title
+                      ? NFTDetails?.title
+                      : 'Artwork name / title dolor lorem ipsum sit adipiscing'}
                   </NFTDrtitle>
                   <NFTtopbarright>
-                    <NFTLock>
-                      <img src={Lock} alt="" />
-                    </NFTLock>
+                    {NFTDetails?.unlockContent && (
+                      <NFTLock>
+                        <img src={Lock} alt='' />
+                      </NFTLock>
+                    )}
                     <NFTLike>
-                      <Link to="/">
-                        <img src={Redheart} alt="" />
-                      </Link>
+                      {NFTDetails?.isLiked ? (
+                        <img
+                          src={Redheart}
+                          alt=''
+                          onDoubleClick={() => this.likeHandler()}
+                        />
+                      ) : (
+                        <img
+                          src={redheartBorder}
+                          alt=''
+                          onDoubleClick={() => this.likeHandler()}
+                        />
+                      )}
+
                       <p>306</p>
                     </NFTLike>
                   </NFTtopbarright>
                 </NFTDRtopbar>
-                <Decs2>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Mauris vitae ultrices nulla, ut cursus lorem. Quisque egestas
-                  feugiat ligula, sed aliquam lectus. Ut ac nibh diam. Duis
-                  lobortis blandit dui, sit amet rhoncus est gravida non. In
-                  vehicula justo arcu.
-                </Decs2>
+                {NFTDetails?.description && (
+                  <Decs2>{NFTDetails.description}</Decs2>
+                )}
                 <Historysection>
                   <UserImgName>
-                    <img src={UserImg} alt="" />
-                    @username
+                    <img src={NFTDetails?.ownerId.profile} alt='' />@
+                    {NFTDetails?.ownerId.username}
                   </UserImgName>
                   <button onClick={() => this.toggle(9)}>History</button>
                 </Historysection>
                 <Edition>
-                  <div className="ed-box">
+                  <div className='ed-box'>
                     <p>Edition</p>
-                    <h3>2500</h3>
-                    <p className="gray-t">of 2500</p>
+                    <h3>0</h3>
+                    <p className='gray-t'>of {NFTDetails?.edition}</p>
                     <Link onClick={() => this.toggle(10)}>Select edition</Link>
                   </div>
-                  <div className="ed-box">
+                  <div className='ed-box'>
                     <p>Current bid</p>
                     <h3>0.00 BNB</h3>
-                    <p className="gray-t">0.00 USD</p>
-                    <p className="royalty">
+                    <p className='gray-t'>0.00 USD</p>
+                    <p className='royalty'>
                       A 10% royalty goes to the <br></br>creator for future
                       resale
                     </p>
                   </div>
-                  <div className="ed-box">
+                  <div className='ed-box'>
                     <p>Ending in</p>
-                    <FlexDiv className="JCFS">
-                      <div className="time-block">
-                        <h3>13</h3>
-                        <p className="gray-t">hours</p>
-                      </div>
-                      <div className="time-block">
-                        <h3>12</h3>
-                        <p className="gray-t">minutes</p>
-                      </div>
-                      <div className="time-block">
-                        <h3>11</h3>
-                        <p className="gray-t">seconds</p>
-                      </div>
+                    <FlexDiv className='JCFS'>
+                      {NFTDetails && (
+                        <Timer
+                          timeLeft={NFTDetails?.auctionEndDate}
+                          onlyHours={true}
+                          isDetailed={true}
+                        />
+                      )}
                     </FlexDiv>
                   </div>
-                  {/* <div className='ed-box'>
-                      <p>Unlockable content message</p>
-                      <SkyNoteBox>
-                        <p className="note-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat congue accumsan. Pellentesque et auctor quam, consequat bibendum sapien.</p>
-                      </SkyNoteBox>
-                    </div> */}
+                  <div className='ed-box'>
+                    <p>Unlockable content message</p>
+                    <SkyNoteBox>
+                      <p className='note-text'>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Etiam volutpat congue accumsan. Pellentesque et auctor
+                        quam, consequat bibendum sapien.
+                      </p>
+                    </SkyNoteBox>
+                  </div>
                 </Edition>
                 <NFTcartButtons>
                   <button onClick={() => this.toggle(8)}>Place a bid</button>
@@ -121,15 +146,18 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen6}
             className={
-              "app__collapse " + (this.state.isOpen6 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen6 ? 'collapse-active' : '')
             }
           >
-            <Magnifypopup toggle={this.toggle} />
+            <Magnifypopup
+              toggle={this.toggle}
+              imageURL={NFTDetails?.image.original}
+            />
           </Collapse>
           <Collapse
             isOpen={this.state.isOpen7}
             className={
-              "app__collapse " + (this.state.isOpen7 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen7 ? 'collapse-active' : '')
             }
           >
             <POSpopup toggle={this.toggle} />
@@ -137,7 +165,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen8}
             className={
-              "app__collapse " + (this.state.isOpen8 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen8 ? 'collapse-active' : '')
             }
           >
             <PABpopup toggle={this.toggle} />
@@ -145,7 +173,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen9}
             className={
-              "app__collapse " + (this.state.isOpen9 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen9 ? 'collapse-active' : '')
             }
           >
             <Historypopup toggle={this.toggle} />
@@ -153,7 +181,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen10}
             className={
-              "app__collapse " + (this.state.isOpen10 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen10 ? 'collapse-active' : '')
             }
           >
             <SEpopup toggle={this.toggle} />
@@ -163,7 +191,7 @@ class NftDetail extends React.Component {
     );
   }
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -246,7 +274,7 @@ const NFTLike = styled(FlexDiv)`
     font-weight: 600;
     margin: 0px;
   }
-  a {
+  img {
     line-height: normal;
     width: 15px;
     height: 15px;
@@ -391,4 +419,15 @@ const NFTcartButtons = styled.div`
   }
 `;
 
-export default NftDetail;
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getSingleNFTDetails: (id) => dispatch(actions.getSingleNFTDetails(id)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    NFTDetails: state.fetchSingleNFTDetails,
+  };
+};
+
+export default connect(mapStateToProps, mapDipatchToProps)(NftDetail);

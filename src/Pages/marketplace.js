@@ -1,36 +1,34 @@
-import "react-multi-carousel/lib/styles.css";
-import "react-tabs/style/react-tabs.css";
+import 'react-multi-carousel/lib/styles.css';
+import 'react-tabs/style/react-tabs.css';
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { Link } from "react-router-dom";
-import Collapse from "@kunukn/react-collapse";
-import InfiniteScroll from 'react-infinite-scroll-component'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { Link } from 'react-router-dom';
+import Collapse from '@kunukn/react-collapse';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-import NFT2 from "../Assets/images/nft2.jpg";
-import UserImg from "../Assets/images/user-img.jpg";
-import HeartIcon from "../Assets/images/heart-icon.svg";
-import StarIcon from "../Assets/images/star-icon.svg";
-import RoundIcon from "../Assets/images/round-icon.svg";
-import AdBannerIMG from "../Assets/images/adbanner.jpg";
-import LArrow from "../Assets/images/banner-larrow.svg";
-import RArrow from "../Assets/images/banner-rarrow.svg";
-import SerICON from "../Assets/images/searchICO.svg";
-import FiltICON from "../Assets/images/filterICO.svg";
-import LoaderGif from "../Assets/images/loading.gif";
-import NFTCard from "../Component/Cards/nftCard";
+import NFT2 from '../Assets/images/nft2.jpg';
+import UserImg from '../Assets/images/user-img.jpg';
+import HeartIcon from '../Assets/images/heart-icon.svg';
+import StarIcon from '../Assets/images/star-icon.svg';
+import RoundIcon from '../Assets/images/round-icon.svg';
+import AdBannerIMG from '../Assets/images/adbanner.jpg';
+import LArrow from '../Assets/images/banner-larrow.svg';
+import RArrow from '../Assets/images/banner-rarrow.svg';
+import SerICON from '../Assets/images/searchICO.svg';
+import FiltICON from '../Assets/images/filterICO.svg';
+import LoaderGif from '../Assets/images/loading.gif';
+import NFTCard from '../Component/Cards/nftCard';
 
-import { actions } from "../actions";
-
+import { actions } from '../actions';
 
 class MarketPlace extends Component {
-
   constructor(props) {
     super(props);
-    this.state = { 
-    isOpen1: false,
+    this.state = {
+      isOpen1: false,
       tabPanel: 'all',
       searched: false,
       filter: [],
@@ -41,102 +39,125 @@ class MarketPlace extends Component {
   async componentDidMount() {
     const { categories, NFTs } = this.props;
     if (!NFTs) {
-      this.props.getMarketPlaceNFT() // fetch market place nft's
+      this.props.getMarketPlaceNFT(); // fetch market place nft's
     }
     if (!categories) {
-      this.props.getCategories() // fetch categories
+      this.props.getCategories(); // fetch categories
     }
   }
-  
+
   fetchMore = () => {
-    const { searched, filter, tabPanel, page } = this.state
-    this.setState({ page: page+1 })
+    const { searched, filter, tabPanel, page } = this.state;
+    this.setState({ page: page + 1 });
     let params = {
-        'page': page+1,
-        'search': searched?searched:null,
-        'filter': filter?filter:null,
-        'category': tabPanel!=='all'?tabPanel:[],
-    }
-    this.props.getMoreMarketPlaceNFT(params) // fetch more market place NFTs
-  }
+      page: page + 1,
+      search: searched ? searched : null,
+      filter: filter ? filter : null,
+      category: tabPanel !== 'all' ? tabPanel : [],
+    };
+    this.props.getMoreMarketPlaceNFT(params); // fetch more market place NFTs
+  };
 
   clearPreviousCreators = () => {
-    this.props.clearMarketPlaceNFT() // clear the previous nft
-    this.props.clearMoreMarketPlaceNFT() // clear the previous more nft
-    this.props.clearPagination() // clear the previous pagination
-  } 
+    this.props.clearMarketPlaceNFT(); // clear the previous nft
+    this.props.clearMoreMarketPlaceNFT(); // clear the previous more nft
+    this.props.clearPagination(); // clear the previous pagination
+  };
 
   onSearchKeyUp = (e) => {
-      if (e.key === 'Enter' || e.keyCode === 13) {
-          this.clearPreviousCreators()
-          this.setState({ page: 1 })
-          this.props.getMarketPlaceNFT({ 'search' : e.target.value }) // fetch search market place nft's
-      }
-  }
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      this.clearPreviousCreators();
+      this.setState({ page: 1 });
+      this.props.getMarketPlaceNFT({ search: e.target.value }); // fetch search market place nft's
+    }
+  };
 
   setFilter = (value, event) => {
-      const { filter } = this.state;
-      let array = filter
-      this.clearPreviousCreators()
-      if (event.target.checked) {
-        array.push(event.target.value)
-        this.setState({ filter: array, page: 1 })
-      } else {
-        const index = array.indexOf(value)
-        array.splice(index, 1)
-        this.setState({ filter: array, page: 1 })
-      }
-      this.props.getMarketPlaceNFT({ 'filter' : array }) // fetch filter market place nft's
-  }
+    const { filter } = this.state;
+    let array = filter;
+    this.clearPreviousCreators();
+    if (event.target.checked) {
+      array.push(event.target.value);
+      this.setState({ filter: array, page: 1 });
+    } else {
+      const index = array.indexOf(value);
+      array.splice(index, 1);
+      this.setState({ filter: array, page: 1 });
+    }
+    this.props.getMarketPlaceNFT({ filter: array }); // fetch filter market place nft's
+  };
 
   onCategoryChange = (category) => {
-      this.clearPreviousCreators()
-      if (category === 'all') {
-          this.props.getMarketPlaceNFT() // fetch market place nft's
-      } else {
-          this.props.getMarketPlaceNFT({ 'category': [category] }) // fetch filter market place nft's
-      }
-      this.setState({ tabPanel: category, page: 1 })
-  }
+    this.clearPreviousCreators();
+    if (category === 'all') {
+      this.props.getMarketPlaceNFT(); // fetch market place nft's
+    } else {
+      this.props.getMarketPlaceNFT({ category: [category] }); // fetch filter market place nft's
+    }
+    this.setState({ tabPanel: category, page: 1 });
+  };
 
   render() {
     let { NFTs, moreNFTs, categories, pagination } = this.props;
     const { tabPanel, page, filter } = this.state;
     if (moreNFTs) {
-      NFTs = NFTs.concat(moreNFTs)
+      NFTs = NFTs.concat(moreNFTs);
     }
     return (
       <Gs.MainSection>
         <FilterMBX>
-          
           <FilterLbx>
-              <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.onCategoryChange('all')}}>All</button> 
-              {categories?categories.map((category, key)=>{
-                  return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.onCategoryChange(category.id)}} >{category.categoryName}</button>
-              }):''}
+            <button
+              className={tabPanel === 'all' ? 'active' : ''}
+              id='all'
+              onClick={() => {
+                this.onCategoryChange('all');
+              }}
+            >
+              All
+            </button>
+            {categories
+              ? categories.map((category, key) => {
+                  return (
+                    <button
+                      id={category.id}
+                      key={key}
+                      className={tabPanel === category.id ? 'active' : ''}
+                      onClick={() => {
+                        this.onCategoryChange(category.id);
+                      }}
+                    >
+                      {category.categoryName}
+                    </button>
+                  );
+                })
+              : ''}
           </FilterLbx>
 
           <FilterRbx>
             <FilterInputBX>
-              <input placeholder='Search' onKeyUp={(e)=> this.onSearchKeyUp(e)}></input>
+              <input
+                placeholder='Search'
+                onKeyUp={(e) => this.onSearchKeyUp(e)}
+              ></input>
               <SearchICO>
-                <img src={SerICON} alt="" />{" "}
+                <img src={SerICON} alt='' />{' '}
               </SearchICO>
             </FilterInputBX>
 
             <FilterBAR
               onClick={() => this.toggle(1)}
-              className={this.state.isOpen1 ? "active" : ""}
+              className={this.state.isOpen1 ? 'active' : ''}
             >
               <FilterICO>
-                <img src={FiltICON} alt="" />
-              </FilterICO>{" "}
+                <img src={FiltICON} alt='' />
+              </FilterICO>{' '}
               Filter: Live auction
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
-                  "app__collapse collapse-css-transition  " +
-                  (this.state.isOpen1 ? "collapse-active" : "")
+                  'app__collapse collapse-css-transition  ' +
+                  (this.state.isOpen1 ? 'collapse-active' : '')
                 }
               >
                 <DDContainer>
@@ -151,78 +172,95 @@ class MarketPlace extends Component {
                     />
                     <label htmlFor="vehicle1">All</label>
                   </div> */}
-                  <div className="md-checkbox">
+                  <div className='md-checkbox'>
                     <input
-                      type="checkbox"
-                      id="vehicle2"
-                      name="vehicle2"
-                      value="AUCTION"
-                      defaultChecked={filter.includes('AUCTION')?true:false}
-                      onChange={(e) => {this.setFilter('AUCTION', e)}}
+                      type='checkbox'
+                      id='vehicle2'
+                      name='vehicle2'
+                      value='AUCTION'
+                      defaultChecked={filter.includes('AUCTION') ? true : false}
+                      onChange={(e) => {
+                        this.setFilter('AUCTION', e);
+                      }}
                     />
-                    <label htmlFor="vehicle2">Live auction</label>
+                    <label htmlFor='vehicle2'>Live auction</label>
                   </div>
-                  <div className="md-checkbox">
+                  <div className='md-checkbox'>
                     <input
-                      type="checkbox"
-                      id="vehicle3"
-                      name="vehicle3"
-                      value="BUYNOW"
-                      onChange={(e) => {this.setFilter('BUYNOW', e)}}
+                      type='checkbox'
+                      id='vehicle3'
+                      name='vehicle3'
+                      value='BUYNOW'
+                      onChange={(e) => {
+                        this.setFilter('BUYNOW', e);
+                      }}
                     />
-                    <label htmlFor="vehicle3">Buy now</label>
+                    <label htmlFor='vehicle3'>Buy now</label>
                   </div>
-                  <div className="md-checkbox">
+                  <div className='md-checkbox'>
                     <input
-                      type="checkbox"
-                      id="vehicle4"
-                      name="vehicle4"
-                      value="SOLD"
-                      defaultChecked={filter.includes('SOLD')?true:false}
-                      onChange={(e) => {this.setFilter('SOLD', e)}}
+                      type='checkbox'
+                      id='vehicle4'
+                      name='vehicle4'
+                      value='SOLD'
+                      defaultChecked={filter.includes('SOLD') ? true : false}
+                      onChange={(e) => {
+                        this.setFilter('SOLD', e);
+                      }}
                     />
-                    <label htmlFor="vehicle4">Sold</label>
+                    <label htmlFor='vehicle4'>Sold</label>
                   </div>
                 </DDContainer>
               </Collapse>
             </FilterBAR>
           </FilterRbx>
         </FilterMBX>
-        
+
         <HomeNFTs>
           <Gs.Container>
-
-              {NFTs? 
-                <InfiniteScroll 
-                    dataLength={pagination.totalRecords}
-                    next={this.fetchMore}
-                    hasMore={page < pagination.totalPages}
-                    loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
-                    // endMessage={<p>You have seen it all.!</p>}
-                >
-                  <NFTfourbox>
-                    {NFTs.map((nft) => (
-                      <NFTCard
-                        nftImg={nft.image.compressed}
-                        title={nft.title}
-                        edition={nft.edition}
-                        price={nft.price}
-                        auctionTime={nft.auctionTime}
-                        // userImg={}
-                        username={nft.ownerId.username}
-                      />
-                    ))}
-                  </NFTfourbox>
-                </InfiniteScroll>
-              :<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
-
+            {NFTs ? (
+              <InfiniteScroll
+                dataLength={pagination.totalRecords}
+                next={this.fetchMore}
+                hasMore={page < pagination.totalPages}
+                loader={
+                  <LoaderBX>
+                    {' '}
+                    <img src={LoaderGif} alt='' />{' '}
+                  </LoaderBX>
+                }
+                // endMessage={<p>You have seen it all.!</p>}
+              >
+                <NFTfourbox>
+                  {NFTs.map((nft) => (
+                    <NFTCard
+                      nftId={nft.id}
+                      collectionId={nft.collectionId?.id}
+                      auctionEndDate={nft.auctionEndDate}
+                      nftImg={nft.image.compressed}
+                      title={nft.title}
+                      edition={nft.edition}
+                      price={nft.price}
+                      auctionTime={nft.auctionTime}
+                      userImg={nft.ownerId.profile}
+                      username={nft.ownerId.username}
+                    />
+                  ))}
+                </NFTfourbox>
+              </InfiniteScroll>
+            ) : (
+              <LoaderBX>
+                {' '}
+                <img src={LoaderGif} alt='' />{' '}
+              </LoaderBX>
+            )}
           </Gs.Container>
         </HomeNFTs>
       </Gs.MainSection>
     );
   }
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -287,7 +325,7 @@ const HomeBanner = styled.div`
         color: #000;
       }
       :before {
-        content: "0";
+        content: '0';
         position: absolute;
         left: 0px;
       }
@@ -311,7 +349,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -333,7 +371,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -356,7 +394,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -878,20 +916,23 @@ const DDContainer = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
   return {
     getMarketPlaceNFT: (params) => dispatch(actions.getMarketPlaceNFT(params)),
-    getMoreMarketPlaceNFT: (params) => dispatch(actions.getMoreMarketPlaceNFT(params)),
+    getMoreMarketPlaceNFT: (params) =>
+      dispatch(actions.getMoreMarketPlaceNFT(params)),
     getCategories: () => dispatch(actions.fetchCategories()),
-    clearMarketPlaceNFT: () => dispatch({ type: 'CLEAR_MARKETPLACE', data: []}),
-    clearPagination: () => dispatch({ type: 'CLEAR_PAGINATION', data: []}),
-    clearMoreMarketPlaceNFT: () => dispatch({ type: 'CLEAR_MORE_MARKETPLACE', data: []}),
-  }
-}
+    clearMarketPlaceNFT: () =>
+      dispatch({ type: 'FETCHED_MARKETPLACE', data: [] }),
+    clearPagination: () => dispatch({ type: 'FETCHED_PAGINATION', data: [] }),
+    clearMoreMarketPlaceNFT: () =>
+      dispatch({ type: 'FETCHED_MORE_MARKETPLACE', data: [] }),
+  };
+};
 const mapStateToProps = (state) => {
   return {
     NFTs: state.fetchMarketPlaceNFT,
     pagination: state.fetchPagination,
     moreNFTs: state.fetchMoreMarketPlaceNFT,
     categories: state.fetchCategory,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDipatchToProps)(MarketPlace);
