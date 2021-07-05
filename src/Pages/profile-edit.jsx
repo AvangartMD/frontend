@@ -111,6 +111,7 @@ class ProfileEdit extends Component {
   };
 
   profileUpdated = (data) => {
+    this.props.getProfile(); // fetch profile
     this.setState({ loading: false, updated: true }); // stop loader
   };
 
