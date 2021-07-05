@@ -2,55 +2,55 @@ import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import dateFormat from "dateformat";
 
-import AdBannerIMG from "../Assets/images/adbanner.jpg";
-import LoaderGif from "../Assets/images/loading.gif";
-import ProfielBack from "../Assets/images/profile-back.jpg";
-import CopyICO from "../Assets/images/icon-copy.svg";
-import PlusICO from "../Assets/images/icon-plus.svg";
-import ADBanner from "../Assets/images/adbanner01.jpg";
+import Gs from "../../Theme/globalStyles";
+import LoaderGif from "../../Assets/images/loading.gif";
+import ProfielBack from "../../Assets/images/profile-back.jpg";
+import CopyICO from "../../Assets/images/icon-copy.svg";
+import PlusICO from "../../Assets/images/icon-plus.svg";
 
-import SocialICO01 from "../Assets/images/social-icon01.svg";
-import SocialICO03 from "../Assets/images/social-icon03.svg";
-import SocialICO04 from "../Assets/images/social-icon04.svg";
-import SocialICO05 from "../Assets/images/social-icon05.svg";
-import SocialICO06 from "../Assets/images/social-icon06.svg";
+import SocialICO01 from "../../Assets/images/social-icon01.svg";
+import SocialICO03 from "../../Assets/images/social-icon03.svg";
+import SocialICO04 from "../../Assets/images/social-icon04.svg";
+import SocialICO05 from "../../Assets/images/social-icon05.svg";
+import SocialICO06 from "../../Assets/images/social-icon06.svg";
 
-import { actions } from "../actions";
-import { services } from "../services";
-import { compressImage } from "../helper/functions";
-import Drafts from "../Component/profile/drafts";
-import Artist from "../Component/profile/artits";
+import { actions } from "../../actions";
+import { services } from "../../services";
+import { compressImage } from "../../helper/functions";
 
 
-class Profile extends Component {
+class ProfileCard extends Component {
+
   constructor(props) {
     super(props);
     this.profileInput = React.createRef();
     this.profileCoverInput = React.createRef();
     this.walletAddress = React.createRef();
     this.state = {
-      profile: { file: null, url: null },
+      profile: this.props.profile?this.props.profile:{ file: null, url: null },
       cover: { file: null, url: null },
+      id: this.props.id,
     };
   }
 
   async componentDidMount() {
-    const { profile } = this.props;
-    if (!profile) {
-      this.props.getProfile(); // fetch profile
+    const { id } = this.state;
+    if (id) {
+      this.props.getUserProfile(id); // fetch user profile by id
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { updated } = this.props;
+    let { updated, userProfile } = this.props;
     if (updated !== prevProps.updated) {
       this.profileUpdated(updated); // profile updated
+    }
+    if (userProfile !== prevProps.userProfile) {
+      this.setState({ profile: userProfile }); // store props into state
     }
   }
 
@@ -83,12 +83,12 @@ class Profile extends Component {
   };
 
   profileUpdated = (data) => {
+    this.props.getUserProfile(); // fetch profile
     this.setState({ loading: false }); // stop loader
   };
 
   render() {
-    const { profile } = this.props;
-    const { loading } = this.state;
+    const { loading, id, profile } = this.state;
     return (
       <>
         <ProMBannerBX
@@ -114,51 +114,52 @@ class Profile extends Component {
                     <img src={profile ? profile.profile : ""} alt="" />
                   )}
                 </UserImgSB>
-
-                <ImgUplBTN>
-                  <button>
-                    <img src={PlusICO} alt="" />{" "}
-                  </button>
-                  <div className="ddMBX">
-                    <input
-                      type="file"
-                      accept="image/png, image/gif, image/jpeg"
-                      ref={this.profileInput}
-                      name="profile_pic"
-                      id="profile_file"
-                      hidden
-                      onChange={() => {
-                        this.profileFileChange();
-                      }}
-                    />
-                    <button
-                      onClick={() => {
-                        this.profileInput.current.click();
-                      }}
-                    >
-                      Edit Profile Pic
+                {id ? ("") : (
+                  <ImgUplBTN>
+                    <button>
+                      <img src={PlusICO} alt="" />{" "}
                     </button>
+                    <div className="ddMBX">
+                      <input
+                        type="file"
+                        accept="image/png, image/gif, image/jpeg"
+                        ref={this.profileInput}
+                        name="profile_pic"
+                        id="profile_file"
+                        hidden
+                        onChange={() => {
+                          this.profileFileChange();
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          this.profileInput.current.click();
+                        }}
+                      >
+                        Edit Profile Pic
+                      </button>
 
-                    <input
-                      type="file"
-                      accept="image/png, image/gif, image/jpeg"
-                      ref={this.profileCoverInput}
-                      name="profileCoverInput"
-                      id="profileCoverInput"
-                      hidden
-                      onChange={() => {
-                        this.coverFileChange();
-                      }}
-                    />
-                    <button
-                      onClick={() => {
-                        this.profileCoverInput.current.click();
-                      }}
-                    >
-                      Edit Cover Pic
-                    </button>
-                  </div>
-                </ImgUplBTN>
+                      <input
+                        type="file"
+                        accept="image/png, image/gif, image/jpeg"
+                        ref={this.profileCoverInput}
+                        name="profileCoverInput"
+                        id="profileCoverInput"
+                        hidden
+                        onChange={() => {
+                          this.coverFileChange();
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          this.profileCoverInput.current.click();
+                        }}
+                      >
+                        Edit Cover Pic
+                      </button>
+                    </div>
+                  </ImgUplBTN>
+                )}
               </UserImgBX>
 
               <UserDetailBX>
@@ -275,11 +276,18 @@ class Profile extends Component {
                   <span>{profile ? profile.followingCount : "000"}</span>
                 </FollowerMBX>
                 <EditPrBTN>
-                  <button
-                    onClick={() => this.props.history.push("/user/edit-profile")}
-                  >
-                    Edit Profile
-                  </button>
+                  {id ? (
+                    <button
+                    >
+                      Follow
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => this.props.history.push("/user/edit-profile")}
+                    >
+                      Edit Profile
+                    </button>
+                  )}
                 </EditPrBTN>
               </ProSBX03>
 
@@ -318,40 +326,10 @@ class Profile extends Component {
           ) : (
             ""
           )}
-
-          {/* <ADBannerMBX>
-                        <img src={ADBanner} alt='' />
-                    </ADBannerMBX> */}
-
-          <HomeTabs>
-            <Tabs>
-              <TabList>
-                <Tab>Artist</Tab>
-                <Tab>Artworks</Tab>
-                <Tab>Collector</Tab>
-                <Tab>Our Picks</Tab>
-                <Tab>Drafts</Tab>
-              </TabList>
-
-              <TabPanel>
-                <Artist />
-              </TabPanel>
-              <TabPanel>2</TabPanel>
-              <TabPanel>3</TabPanel>
-              <TabPanel>4</TabPanel>
-              <TabPanel>
-                <Drafts />
-              </TabPanel>
-            </Tabs>
-          </HomeTabs>
         </Gs.Container>
       </>
     );
   }
-  toggle = (index) => {
-    let collapse = "isOpen" + index;
-    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-  };
 }
 // Common Style Div
 const FlexDiv = styled.div`
@@ -581,17 +559,6 @@ const ImgUplBTN = styled(FlexDiv)`
   }
 `;
 
-const ADBannerMBX = styled(FlexDiv)`
-  width: 100%;
-  margin: 0 0 50px 0;
-  border-radius: 10px;
-  overflow: hidden;
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-`;
-
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
@@ -616,119 +583,6 @@ const HomeTabs = styled.div`
     border: none;
     border-bottom: 3px solid #000000;
     color: #000;
-  }
-`;
-
-const HomeTabDetail = styled(FlexDiv)`
-  margin: 0px -10px;
-  justify-content: flex-start;
-`;
-
-const HallofFameBox = styled(FlexDiv)`
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  text-align: center;
-  min-height: 260px;
-  .HOF-inner {
-    img {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      margin: 0px 0px 10px;
-    }
-    p.user-name {
-      margin: 0px 0px 15px;
-      font-size: 18px;
-      color: #000000;
-      font-weight: 700;
-      letter-spacing: -0.9px;
-    }
-    p.small {
-      margin: 0px;
-      font-size: 10px;
-      color: #8e9194;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-    p.price {
-      margin: 0px;
-      font-size: 16px;
-      color: #000000;
-      font-weight: 600;
-      letter-spacing: -0.71px;
-    }
-  }
-`;
-const HallofFameBox2 = styled(FlexDiv)`
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  text-align: center;
-  .HOF-inner {
-    img {
-      width: 200px;
-      height: 200px;
-      margin: 0px 0px 10px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
-    p.title {
-      margin: 0px 0px 15px;
-      padding: 0px 15px;
-      font-size: 12px;
-      color: #000000;
-      font-weight: 700;
-      letter-spacing: -0.45px;
-      line-height: normal;
-    }
-    p.small {
-      margin: 0px;
-      font-size: 10px;
-      color: #8e9194;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-    p.price {
-      margin: 0px 0px 20px;
-      font-size: 16px;
-      color: #000000;
-      font-weight: 600;
-      letter-spacing: -0.71px;
-    }
-  }
-`;
-
-const AdBanner = styled.div`
-  border-radius: 20px;
-  padding: 120px 0px;
-  margin: 120px 0px;
-  text-align: center;
-  background: url(${AdBannerIMG}) no-repeat;
-  background-size: cover;
-  p {
-    color: #000000;
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 50px;
-    :last-child {
-      margin-bottom: 0px;
-    }
-  }
-  button {
-    background-color: #000000;
-    color: #fff;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    border-radius: 15px;
-    width: 190px;
-    height: 44px;
-    :hover {
-      background-color: #d121d6;
-    }
   }
 `;
 
@@ -773,15 +627,15 @@ const WhiteBX01 = styled(FlexDiv)`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getProfile: () => dispatch(actions.getProfile()),
+    getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    profile: state.fetchProfile,
+    userProfile: state.fetchUserProfile,
     updated: state.updateProfile,
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Profile));
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(ProfileCard));

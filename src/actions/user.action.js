@@ -33,7 +33,7 @@ function fetchCategories() {
 
 function getProfile(userId) {
   return (dispatch) => {
-    const response = services.get(`user/userDetails?userId?=${userId}`);
+    const response = services.get(`user/userDetails?userId?=${userId}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
@@ -122,6 +122,7 @@ function getUserDraftNFT() {
       }
     });
   };
+<<<<<<< HEAD
 }
 
 function getSingleNFTDetails(id) {
@@ -136,3 +137,6 @@ function getSingleNFTDetails(id) {
     });
   };
 }
+=======
+}
+>>>>>>> 07933cd5feb30b56583b81c9a0fbd1c16f239371
