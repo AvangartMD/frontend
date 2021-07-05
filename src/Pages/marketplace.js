@@ -1,35 +1,35 @@
-import "react-multi-carousel/lib/styles.css";
-import "react-tabs/style/react-tabs.css";
+import 'react-multi-carousel/lib/styles.css';
+import 'react-tabs/style/react-tabs.css';
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { Link } from "react-router-dom";
-import Collapse from "@kunukn/react-collapse";
-import InfiniteScroll from "react-infinite-scroll-component";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { Link } from 'react-router-dom';
+import Collapse from '@kunukn/react-collapse';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-import NFT2 from "../Assets/images/nft2.jpg";
-import UserImg from "../Assets/images/user-img.jpg";
-import HeartIcon from "../Assets/images/heart-icon.svg";
-import StarIcon from "../Assets/images/star-icon.svg";
-import RoundIcon from "../Assets/images/round-icon.svg";
-import AdBannerIMG from "../Assets/images/adbanner.jpg";
-import LArrow from "../Assets/images/banner-larrow.svg";
-import RArrow from "../Assets/images/banner-rarrow.svg";
-import SerICON from "../Assets/images/searchICO.svg";
-import FiltICON from "../Assets/images/filterICO.svg";
-import LoaderGif from "../Assets/images/loading.gif";
-import NFTCard from "../Component/Cards/nftCard";
+import NFT2 from '../Assets/images/nft2.jpg';
+import UserImg from '../Assets/images/user-img.jpg';
+import HeartIcon from '../Assets/images/heart-icon.svg';
+import StarIcon from '../Assets/images/star-icon.svg';
+import RoundIcon from '../Assets/images/round-icon.svg';
+import AdBannerIMG from '../Assets/images/adbanner.jpg';
+import LArrow from '../Assets/images/banner-larrow.svg';
+import RArrow from '../Assets/images/banner-rarrow.svg';
+import SerICON from '../Assets/images/searchICO.svg';
+import FiltICON from '../Assets/images/filterICO.svg';
+import LoaderGif from '../Assets/images/loading.gif';
+import NFTCard from '../Component/Cards/nftCard';
 
-import { actions } from "../actions";
+import { actions } from '../actions';
 
 class MarketPlace extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
-      tabPanel: "all",
+      tabPanel: 'all',
       searched: false,
       filter: [],
       page: 1,
@@ -53,7 +53,7 @@ class MarketPlace extends Component {
       page: page + 1,
       search: searched ? searched : null,
       filter: filter ? filter : null,
-      category: tabPanel !== "all" ? tabPanel : [],
+      category: tabPanel !== 'all' ? tabPanel : [],
     };
     this.props.getMoreMarketPlaceNFT(params); // fetch more market place NFTs
   };
@@ -65,7 +65,7 @@ class MarketPlace extends Component {
   };
 
   onSearchKeyUp = (e) => {
-    if (e.key === "Enter" || e.keyCode === 13) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
       this.clearPreviousCreators();
       this.setState({ page: 1 });
       this.props.getMarketPlaceNFT({ search: e.target.value }); // fetch search market place nft's
@@ -89,7 +89,7 @@ class MarketPlace extends Component {
 
   onCategoryChange = (category) => {
     this.clearPreviousCreators();
-    if (category === "all") {
+    if (category === 'all') {
       this.props.getMarketPlaceNFT(); // fetch market place nft's
     } else {
       this.props.getMarketPlaceNFT({ category: [category] }); // fetch filter market place nft's
@@ -103,16 +103,16 @@ class MarketPlace extends Component {
     if (moreNFTs) {
       NFTs = NFTs.concat(moreNFTs);
     }
-    console.log("nft ", NFTs);
+    // console.log("nft ", NFTs);
     return (
       <Gs.MainSection>
         <FilterMBX>
           <FilterLbx>
             <button
-              className={tabPanel === "all" ? "active" : ""}
-              id="all"
+              className={tabPanel === 'all' ? 'active' : ''}
+              id='all'
               onClick={() => {
-                this.onCategoryChange("all");
+                this.onCategoryChange('all');
               }}
             >
               All
@@ -123,7 +123,7 @@ class MarketPlace extends Component {
                     <button
                       id={category.id}
                       key={key}
-                      className={tabPanel === category.id ? "active" : ""}
+                      className={tabPanel === category.id ? 'active' : ''}
                       onClick={() => {
                         this.onCategoryChange(category.id);
                       }}
@@ -132,33 +132,33 @@ class MarketPlace extends Component {
                     </button>
                   );
                 })
-              : ""}
+              : ''}
           </FilterLbx>
 
           <FilterRbx>
             <FilterInputBX>
               <input
-                placeholder="Search"
+                placeholder='Search'
                 onKeyUp={(e) => this.onSearchKeyUp(e)}
               ></input>
               <SearchICO>
-                <img src={SerICON} alt="" />{" "}
+                <img src={SerICON} alt='' />{' '}
               </SearchICO>
             </FilterInputBX>
 
             <FilterBAR
               onClick={() => this.toggle(1)}
-              className={this.state.isOpen1 ? "active" : ""}
+              className={this.state.isOpen1 ? 'active' : ''}
             >
               <FilterICO>
-                <img src={FiltICON} alt="" />
-              </FilterICO>{" "}
+                <img src={FiltICON} alt='' />
+              </FilterICO>{' '}
               Filter: Live auction
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
-                  "app__collapse collapse-css-transition  " +
-                  (this.state.isOpen1 ? "collapse-active" : "")
+                  'app__collapse collapse-css-transition  ' +
+                  (this.state.isOpen1 ? 'collapse-active' : '')
                 }
               >
                 <DDContainer>
@@ -173,43 +173,43 @@ class MarketPlace extends Component {
                     />
                     <label htmlFor="vehicle1">All</label>
                   </div> */}
-                  <div className="md-checkbox">
+                  <div className='md-checkbox'>
                     <input
-                      type="checkbox"
-                      id="vehicle2"
-                      name="vehicle2"
-                      value="AUCTION"
-                      defaultChecked={filter.includes("AUCTION") ? true : false}
+                      type='checkbox'
+                      id='vehicle2'
+                      name='vehicle2'
+                      value='AUCTION'
+                      defaultChecked={filter.includes('AUCTION') ? true : false}
                       onChange={(e) => {
-                        this.setFilter("AUCTION", e);
+                        this.setFilter('AUCTION', e);
                       }}
                     />
-                    <label htmlFor="vehicle2">Live auction</label>
+                    <label htmlFor='vehicle2'>Live auction</label>
                   </div>
-                  <div className="md-checkbox">
+                  <div className='md-checkbox'>
                     <input
-                      type="checkbox"
-                      id="vehicle3"
-                      name="vehicle3"
-                      value="BUYNOW"
+                      type='checkbox'
+                      id='vehicle3'
+                      name='vehicle3'
+                      value='BUYNOW'
                       onChange={(e) => {
-                        this.setFilter("BUYNOW", e);
+                        this.setFilter('BUYNOW', e);
                       }}
                     />
-                    <label htmlFor="vehicle3">Buy now</label>
+                    <label htmlFor='vehicle3'>Buy now</label>
                   </div>
-                  <div className="md-checkbox">
+                  <div className='md-checkbox'>
                     <input
-                      type="checkbox"
-                      id="vehicle4"
-                      name="vehicle4"
-                      value="SOLD"
-                      defaultChecked={filter.includes("SOLD") ? true : false}
+                      type='checkbox'
+                      id='vehicle4'
+                      name='vehicle4'
+                      value='SOLD'
+                      defaultChecked={filter.includes('SOLD') ? true : false}
                       onChange={(e) => {
-                        this.setFilter("SOLD", e);
+                        this.setFilter('SOLD', e);
                       }}
                     />
-                    <label htmlFor="vehicle4">Sold</label>
+                    <label htmlFor='vehicle4'>Sold</label>
                   </div>
                 </DDContainer>
               </Collapse>
@@ -226,8 +226,8 @@ class MarketPlace extends Component {
                 hasMore={page < pagination.totalPages}
                 loader={
                   <LoaderBX>
-                    {" "}
-                    <img src={LoaderGif} alt="" />{" "}
+                    {' '}
+                    <img src={LoaderGif} alt='' />{' '}
                   </LoaderBX>
                 }
                 // endMessage={<p>You have seen it all.!</p>}
@@ -251,8 +251,8 @@ class MarketPlace extends Component {
               </InfiniteScroll>
             ) : (
               <LoaderBX>
-                {" "}
-                <img src={LoaderGif} alt="" />{" "}
+                {' '}
+                <img src={LoaderGif} alt='' />{' '}
               </LoaderBX>
             )}
           </Gs.Container>
@@ -261,7 +261,7 @@ class MarketPlace extends Component {
     );
   }
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -326,7 +326,7 @@ const HomeBanner = styled.div`
         color: #000;
       }
       :before {
-        content: "0";
+        content: '0';
         position: absolute;
         left: 0px;
       }
@@ -350,7 +350,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -372,7 +372,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -395,7 +395,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -921,10 +921,10 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.getMoreMarketPlaceNFT(params)),
     getCategories: () => dispatch(actions.fetchCategories()),
     clearMarketPlaceNFT: () =>
-      dispatch({ type: "FETCHED_MARKETPLACE", data: [] }),
-    clearPagination: () => dispatch({ type: "FETCHED_PAGINATION", data: [] }),
+      dispatch({ type: 'FETCHED_MARKETPLACE', data: [] }),
+    clearPagination: () => dispatch({ type: 'FETCHED_PAGINATION', data: [] }),
     clearMoreMarketPlaceNFT: () =>
-      dispatch({ type: "FETCHED_MORE_MARKETPLACE", data: [] }),
+      dispatch({ type: 'FETCHED_MORE_MARKETPLACE', data: [] }),
   };
 };
 const mapStateToProps = (state) => {
