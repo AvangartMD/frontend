@@ -122,7 +122,6 @@ function getUserDraftNFT() {
       }
     });
   };
-<<<<<<< HEAD
 }
 
 function getSingleNFTDetails(id) {
@@ -137,6 +136,3 @@ function getSingleNFTDetails(id) {
     });
   };
 }
-=======
-}
->>>>>>> 07933cd5feb30b56583b81c9a0fbd1c16f239371
