@@ -9,7 +9,7 @@ export const userActions = {
   getMoreCreators,
   createCollection,
   getUserDraftNFT,
-  getNFTDetails,
+  getSingleNFTDetails,
 };
 
 function fetchedData(type, data) {
@@ -124,12 +124,12 @@ function getUserDraftNFT() {
   };
 }
 
-function getNFTDetails(id) {
+function getSingleNFTDetails(id) {
   return async (dispatch) => {
     const response = services.get(`nft/single/${id}`);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_USER_DRAFT_NFT", promise.data.data));
+        dispatch(fetchedData("FETCHED_SINGLE_NFT_DETAILS", promise.data.data));
       } else {
         // console.log("error");
       }

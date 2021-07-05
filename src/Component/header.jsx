@@ -36,6 +36,8 @@ class Header extends Component {
       loader: false,
       error: { isError: false, msg: "" },
       userDetails: null,
+      accountBalance: 0,
+      compactUserAddress: "00000000000",
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -48,6 +50,7 @@ class Header extends Component {
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
+          this.fetchTokenBalance(web3Data);
           this.checkAuthentication(web3Data);
         }
       });
@@ -73,12 +76,27 @@ class Header extends Component {
     } else {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
+          this.fetchTokenBalance(web3Data);
           this.checkAuthentication(web3Data);
 
           // else this.props.authenticateUser();
         }
       });
     }
+  }
+  async fetchTokenBalance(web3Data) {
+    const accountBalance = Number(
+      web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
+    ).toLocaleString(undefined, 2);
+    // function _compactAddress(address) {
+    const newAddress = web3Data.accounts[0];
+    const compactUserAddress = newAddress
+      ? newAddress.substring(0, 5) +
+        "...." +
+        newAddress.substring(newAddress.length - 5, newAddress.length)
+      : "00000000000";
+
+    this.setState({ accountBalance, compactUserAddress });
   }
   checkAuthentication(web3Data) {
     if (
@@ -132,11 +150,18 @@ class Header extends Component {
     localStorage.clear();
     this.props.authLogout();
     this.props.web3Logout();
-    this.props.history.push("/")
-  }
+    this.props.history.push("/");
+  };
 
   render() {
-    const { web3Data, loader, error, userDetails } = this.state;
+    const {
+      web3Data,
+      loader,
+      error,
+      userDetails,
+      accountBalance,
+      compactUserAddress,
+    } = this.state;
     const { authData } = this.props;
     return (
       <>
@@ -227,8 +252,8 @@ class Header extends Component {
                 </NotificationBX>
                 <AccountBX onClick={() => this.toggle(2)}>
                   <span>
-                    0.00 BNB
-                    <span>0000000000000</span>
+                    {accountBalance} BNB
+                    <span>{compactUserAddress}</span>
                   </span>{" "}
                   <i>
                     {" "}
@@ -253,7 +278,9 @@ class Header extends Component {
                     <DDContainer className="ver2">
                       <DDBtnbar02>
                         <button
-                          onClick={() => this.props.history.push("/user/profile")}
+                          onClick={() =>
+                            this.props.history.push("/user/profile")
+                          }
                         >
                           <i>
                             {" "}
@@ -274,7 +301,11 @@ class Header extends Component {
                             <img src={RightArrow} alt="" />
                           </span>
                         </button>
-                        <button onClick={()=>{this.disconnect()}}>
+                        <button
+                          onClick={() => {
+                            this.disconnect();
+                          }}
+                        >
                           <i>
                             {" "}
                             <img src={DisconnectICO} alt="" />
@@ -617,8 +648,12 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: 'AUTH_LOGOUT', data: null }),
-    web3Logout: () => dispatch({ type: 'FETCH_WEB3_DATA', data: { isLoggedIn: false, accounts: [] }})
+    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    web3Logout: () =>
+      dispatch({
+        type: "FETCH_WEB3_DATA",
+        data: { isLoggedIn: false, accounts: [] },
+      }),
   };
 };
 const mapStateToProps = (state) => {

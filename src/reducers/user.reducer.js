@@ -40,3 +40,11 @@ export function fetchUserDraftNFT(state = null, action) {
       return state;
   }
 }
+export function fetchSingleNFTDetails(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_SINGLE_NFT_DETAILS":
+      return action.data;
+    default:
+      return state;
+  }
+}

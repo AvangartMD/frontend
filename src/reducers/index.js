@@ -30,9 +30,11 @@ import {
   fetchUserNFT,
   fetchNewCollection,
   fetchUserDraftNFT,
+  fetchSingleNFTDetails,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
+  fetchSingleNFTDetails,
   fetchUserDraftNFT,
   fetchNewCollection,
   fetchCategoryList,
