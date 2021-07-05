@@ -16,6 +16,7 @@ import CICON04 from "../Assets/images/peSocICO-04.svg";
 import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
 import LoaderGif from "../Assets/images/loading.gif";
+import SuccesPopup from "../Component/Modals/sucessPopup";
 
 import { actions } from "../actions";
 
@@ -25,7 +26,9 @@ class ProfileEdit extends Component {
     this.state = {
       errors: [],
       loading: false,
+      updated: false,
       userObj: null,
+      formChange: false,
     };
   }
 
@@ -49,7 +52,7 @@ class ProfileEdit extends Component {
   }
 
   formChange = (e) => {
-    const { userObj } = this.state;
+    const { userObj, formChange } = this.state;
     if (
       e.target.name === "website" ||
       e.target.name === "instagarm" ||
@@ -64,6 +67,7 @@ class ProfileEdit extends Component {
     ) {
       if (userObj.portfolio) {
         this.setState({
+          formChange: true,
           userObj: {
             ...userObj,
             portfolio: {
@@ -77,6 +81,7 @@ class ProfileEdit extends Component {
         });
       } else {
         this.setState({
+          formChange: true,
           userObj: {
             ...userObj,
             portfolio: { [e.target.name]: e.target.value },
@@ -85,6 +90,7 @@ class ProfileEdit extends Component {
       }
     } else {
       this.setState({
+        formChange: true,
         userObj: { ...userObj, [e.target.name]: e.target.value },
       });
     }
@@ -92,7 +98,7 @@ class ProfileEdit extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true }); // start the loader
+    this.setState({ loading: true, updated: false, formChange: false }); // start the loader
     const { userObj } = this.state;
     let params = {
       name: userObj.name,
@@ -105,12 +111,12 @@ class ProfileEdit extends Component {
   };
 
   profileUpdated = (data) => {
-    this.setState({ loading: false }); // stop loader
+    this.setState({ loading: false, updated: true }); // stop loader
   };
 
   render() {
     const { profile } = this.props;
-    const { loading } = this.state;
+    const { loading, updated, formChange } = this.state;
 
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
@@ -136,6 +142,8 @@ class ProfileEdit extends Component {
         ) : (
           ""
         )}
+
+        {updated ? <SuccesPopup message="Your profile details are updated sucessfuly."/> : ("")}
 
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
@@ -470,7 +478,7 @@ class ProfileEdit extends Component {
                         </div>
                       </NFTForm>
                       <CreateItemButton>
-                        <button type="submit">Update</button>
+                        <button type="submit" disabled={!formChange?true:false}>Update</button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>
@@ -479,21 +487,10 @@ class ProfileEdit extends Component {
             </NFTminting>
           </Gs.Container>
         </div>
-        <Collapse
-          isOpen={this.state.isOpen4}
-          className={
-            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-          }
-        >
-          <NFTModal toggle={this.toggle} />
-        </Collapse>
       </Gs.MainSection>
     );
   }
-  toggle = (index) => {
-    let collapse = "isOpen" + index;
-    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-  };
+
 }
 // Common Style Div
 const FlexDiv = styled.div`
