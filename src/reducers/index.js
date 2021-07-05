@@ -5,6 +5,7 @@ import {
   fetchCategoryList,
   fetchCollectionList,
   fetchNewNFTId,
+  fetchUserProfile,
 } from "./defi.reducer";
 import {
   fetchDashboardBanners,
@@ -30,7 +31,6 @@ import {
   fetchUserNFT,
   fetchNewCollection,
   fetchUserDraftNFT,
-  fetchUserProfile,
   fetchProfile,
 } from "./user.reducer";
 

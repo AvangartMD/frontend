@@ -18,7 +18,7 @@ function CreatorCard({
 }) {
   return (
       <CreatSBX01>
-          <Link to={`/user/profile/${id}`}>
+          <Link to={`/creator/${id}`}>
         <ImgBannerBX>
               <LazyLoadImage src={cover} />
         </ImgBannerBX>

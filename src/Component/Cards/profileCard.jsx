@@ -83,6 +83,7 @@ class ProfileCard extends Component {
   };
 
   profileUpdated = (data) => {
+    this.props.getUserProfile(); // fetch profile
     this.setState({ loading: false }); // stop loader
   };
 

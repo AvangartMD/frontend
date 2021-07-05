@@ -8,6 +8,7 @@ import EditProfile from "./Pages/profile-edit";
 import Collection from "./Pages/collection.jsx";
 import CollectionDetail from "./Pages/collection-detail";
 import CollectionDetailEdit from "./Pages/collection-detail-edit";
+import CreatorProfile from "./Pages/creator-profile";
 
 var routes = [
   {
@@ -47,10 +48,10 @@ var routes = [
     layout: "/user",
   },
   {
-    path: "/profile/:id",
-    name: "User Profile",
-    component: Profile,
-    layout: "/user",
+    path: "creator/:id",
+    name: "Creator Profile",
+    component: CreatorProfile,
+    layout: "/",
   },
   {
     path: "nftDetails/:id",
