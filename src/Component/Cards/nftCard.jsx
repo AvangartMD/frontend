@@ -40,10 +40,10 @@ function NFTCard({
                   0 <span>of {edition ? edition : 0}</span>
                 </p>
                 <p>
-                  <Link to={`/collection-detail/${collectionId}`}>
+                  {/* <Link to={`/collection-detail/${collectionId}`}> */}
                     See the collection
                     <i className="fas fa-angle-right"></i>
-                  </Link>
+                  {/* </Link> */}
                 </p>
               </CollectionBar>
               <Edition className="edition2 JCSB">
