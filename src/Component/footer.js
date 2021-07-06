@@ -14,6 +14,7 @@ import RightArrow from "../Assets/images/rightArrow.svg";
 import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
 import { actions } from "../actions";
+import Login from "./Modals/login";
 
 class Footer extends Component {
   constructor(props) {
@@ -105,6 +106,21 @@ class Footer extends Component {
             </FooterSSbx03>
           </FooterSbx01>
         </FooterMBX>
+        {/* <Collapse
+          isOpen={this.state.isOpen4}
+          className={
+            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+          }
+        >
+          <Login
+            toggle={this.toggle}
+            connectToWallet={this.connectToWallet}
+            loader={"s"}
+            error={"s"}
+            refreshStates={this.refreshStates}
+          />
+          {/* <BecomeCreator toggle={this.toggle} /> */}
+        {/* </Collapse> */}
       </>
     );
   }

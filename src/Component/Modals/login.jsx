@@ -12,6 +12,34 @@ import WalletICO02 from "../../Assets/images/walletICO-02.png";
 import LoaderGif from "../../Assets/images/loading.gif";
 
 function Login({ toggle, connectToWallet, loader, error, refreshStates }) {
+  // connectToWallet = (isWalletConnect) => {
+  //   props.enableMetamask();
+  //   this.setState({ loader: true });
+  // };
+  // checkAuthentication(web3Data) {
+  //   if (
+  //     !localStorage.getItem("token") ||
+  //     web3Data.accounts[0] !== localStorage.getItem("userAddress")
+  //   )
+  //     this.signatureRequest(undefined, true);
+  //   else this.props.getUserDetails();
+  // }
+  // async signatureRequest(nonce, stepOne) {
+  //   const { web3Data } = this.state;
+  //   if (stepOne) {
+  //     this.props.generateNonce(web3Data.accounts[0]);
+  //   } else {
+  //     try {
+  //       const signature = await web3.eth.personal.sign(
+  //         web3.utils.utf8ToHex(nonce),
+  //         web3Data.accounts[0]
+  //       );
+  //       this.props.authLogin(nonce, signature);
+  //     } catch (error) {
+  //       this.setState({ error: { isError: true, msg: error.message } });
+  //     }
+  //   }
+  // }
   return (
     <>
       <BlackWrap>

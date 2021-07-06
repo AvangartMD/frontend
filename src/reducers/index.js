@@ -33,9 +33,13 @@ import {
   fetchUserDraftNFT,
   fetchSingleNFTDetails,
   fetchProfile,
+  fetchLikesCount,
+  fetchIsLiked,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
+  fetchIsLiked,
+  fetchLikesCount,
   fetchSingleNFTDetails,
   fetchUserDraftNFT,
   fetchNewCollection,

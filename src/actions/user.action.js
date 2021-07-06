@@ -10,6 +10,9 @@ export const userActions = {
   createCollection,
   getUserDraftNFT,
   getSingleNFTDetails,
+  getLikesCount,
+  likeToggler,
+  getIsLiked,
 };
 
 function fetchedData(type, data) {
@@ -126,10 +129,50 @@ function getUserDraftNFT() {
 
 function getSingleNFTDetails(id) {
   return async (dispatch) => {
-    const response = services.get(`nft/single/${id}`);
+    const response = services.get(`nft/single/${id}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_SINGLE_NFT_DETAILS", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getLikesCount(id) {
+  return async (dispatch) => {
+    const response = services.get(`like/getLikesCount/${id}`);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_LIKES_COUNT", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+function likeToggler(id) {
+  return async (dispatch) => {
+    const response = services.get(`like/toggle/${id}`, true);
+    response.then((promise) => {
+      console.log(promise);
+      if (promise.status === 200) {
+        dispatch(getIsLiked(id));
+        dispatch(getLikesCount(id));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getIsLiked(id) {
+  return async (dispatch) => {
+    const response = services.get(`like/isLiked/${id}`, true);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_IS_LIKED", promise.data.data));
       } else {
         // console.log("error");
       }
