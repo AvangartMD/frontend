@@ -27,7 +27,7 @@ const MarketPlace = lazy(() => retry(() => import('./Pages/marketplace')));
 const Creators = lazy(() => retry(() => import('./Pages/creators.jsx')));
 const Profile = lazy(() => retry(() => import('./Pages/profile')));
 const EditProfile = lazy(() => retry(() => import('./Pages/profile-edit')));
-const Collection = lazy(() => retry(() => import('./Pages/collection.jsx')));
+const Collections = lazy(() => retry(() => import('./Pages/collections.jsx')));
 const CollectionDetail = lazy(() =>
   retry(() => import('./Pages/collection-detail'))
 );
@@ -107,7 +107,7 @@ var routes = [
   {
     path: 'collections',
     name: 'Collections',
-    component: Collection,
+    component: Collections,
     layout: '/',
   },
   {

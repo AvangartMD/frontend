@@ -20,6 +20,7 @@ import {
   fetchMoreMarketPlaceNFT,
   fetchCollections,
   fetchCollectionDetails,
+  fetchMoreCollections,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -65,6 +66,7 @@ const rootReducer = combineReducers({
   fetchUserProfile,
   fetchProfile,
   fetchResponseFailed,
+  fetchMoreCollections,
 });
 
 export default rootReducer;

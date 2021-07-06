@@ -174,7 +174,7 @@ class ProfileEdit extends Component {
                 </CloseBTN>
                 <>
                   <OnbTitle01>Attention!</OnbTitle01>
-                  <OnbText01>{errors}</OnbText01>
+                  <OnbText01 className="w100">{errors}</OnbText01>
                 </>
               </WhiteBX01>
             </BlackWrap>
@@ -1037,20 +1037,9 @@ const BackBTN01 = styled.button`
   font-weight: 600;
   letter-spacing: -0.5px;
 `;
-
-const AlertNote = styled.div`
-  background-color: #ffe5e9;
-  border: 1px solid #ff2a44;
-  border-radius: 10px;
-  margin: 0px 0px 40px;
-  padding: 17px 15px;
-  p {
-    margin: 0px;
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.8px;
-  }
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 60px auto 0 auto;
 `;
 
 const OnbTitle01 = styled.div`
@@ -1066,12 +1055,16 @@ const OnbTitle01 = styled.div`
     line-height: 28px;
   }
 `;
-
-const LoaderBX = styled(FlexDiv)`
-  width: 100%;
-  margin: 60px auto 0 auto;
+const OnbText01 = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.5px;
+  
+  &.w100 {
+    width: 100%;
+  }
 `;
-
 const BlackWrap = styled(FlexDiv)`
   position: fixed;
   left: 0;
@@ -1082,7 +1075,6 @@ const BlackWrap = styled(FlexDiv)`
   z-index: 101;
   backdrop-filter: blur(2px);
 `;
-
 const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
@@ -1095,7 +1087,6 @@ const WhiteBX01 = styled(FlexDiv)`
   justify-content: flex-start;
   align-content: center;
 `;
-
 const CloseBTN = styled.button`
   width: 20px;
   height: 20px;
@@ -1107,12 +1098,6 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
-`;
-const OnbText01 = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  color: #000;
-  letter-spacing: -0.5px;
 `;
 
 const mapDipatchToProps = (dispatch) => {
