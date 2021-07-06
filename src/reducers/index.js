@@ -6,6 +6,7 @@ import {
   fetchCollectionList,
   fetchNewNFTId,
   fetchUserProfile,
+  fetchResponseFailed,
 } from "./defi.reducer";
 import {
   fetchDashboardBanners,
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
   fetchCollectionDetails,
   fetchUserProfile,
   fetchProfile,
+  fetchResponseFailed,
 });
 
 export default rootReducer;

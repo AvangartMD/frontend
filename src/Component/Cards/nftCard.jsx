@@ -9,6 +9,7 @@ import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
 function NFTCard({
+  name,
   nftId,
   collectionId,
   auctionEndDate,
@@ -70,7 +71,8 @@ function NFTCard({
                 </div>
               </Edition>
               <UserImgName>
-                <img src={userImg ? userImg : UserImg} alt="" />@{username}
+                <img src={userImg ? userImg : UserImg} alt="" />
+                {username ? `@${username}` : name}
               </UserImgName>
             </div>
           </div>

@@ -49,3 +49,12 @@ export function fetchUserProfile(state = null, action) {
       return state;
   }
 }
+
+export function fetchResponseFailed(state = null, action) {
+  switch (action.type) {
+    case "API_FAILED":
+      return action.data;
+    default:
+      return state;
+  }
+}

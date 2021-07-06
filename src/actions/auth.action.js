@@ -130,7 +130,7 @@ function getMoreMarketPlaceNFT(params={}) {
 
 function getCollections() {
   return async (dispatch) => {
-    const response = services.get(`nft/listCollection`);
+    const response = services.get(`nft/listCollection`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_COLLECTIONS", promise.data.data));

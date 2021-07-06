@@ -46,14 +46,23 @@ function getProfile(userId) {
 
 function updateUserDetails(params) {
   return async (dispatch) => {
-    const response = services.put(`user/update`, params);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(fetchedData("PROFILE_UPDATED", promise.data.data));
-      } else {
-        // console.log("error");
-      }
-    });
+    try {
+      const response = services.put(`user/update`, params);
+      response.then((promise) => {
+        if (promise.status === 200) {
+          dispatch(fetchedData("PROFILE_UPDATED", promise.data.data));
+        } else {
+          // console.log("error");
+        }
+      });
+      response.then(data => {
+        if (data.response) {
+          dispatch(fetchedData("API_FAILED", data.response.data.message));
+        }
+      })
+    } catch (error) {
+      // console.log("error");
+    }
   };
 }
 
