@@ -55,6 +55,7 @@ function Artist(props) {
             {NFTs ? (
               NFTs.map((nft) => (
                 <NFTCard
+                  name={ nft.ownerId.name }
                   nftId={nft.id}
                   collectionId={nft.collectionId?._id}
                   auctionEndDate={nft.auctionEndDate}

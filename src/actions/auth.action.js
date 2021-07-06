@@ -11,6 +11,7 @@ export const authActions = {
   getMoreMarketPlaceNFT,
   getCollections,
   getCollectionDetails,
+  getMoreCollections,
 };
 
 function fetchedData(type, data) {
@@ -128,11 +129,12 @@ function getMoreMarketPlaceNFT(params={}) {
   };
 }
 
-function getCollections() {
+function getCollections(params={}) {
   return async (dispatch) => {
-    const response = services.get(`nft/listCollection`);
+    const response = services.post(`nft/listCollections`, params);
     response.then((promise) => {
       if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_COLLECTIONS", promise.data.data));
       } else {
         // console.log("error");
@@ -140,6 +142,21 @@ function getCollections() {
     });
   };
 }
+
+function getMoreCollections(params={}) {
+  return async (dispatch) => {
+    const response = services.post(`nft/listCollections`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
+        dispatch(fetchedData("FETCHED_MORE_COLLECTIONS", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
 
 function getCollectionDetails(params={}) {
   return async (dispatch) => {

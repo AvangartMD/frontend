@@ -234,6 +234,7 @@ class MarketPlace extends Component {
                 <NFTfourbox>
                   {NFTs.map((nft) => (
                     <NFTCard
+                      name={nft.ownerId.name}
                       nftId={nft.id}
                       collectionId={nft.collectionId?.id}
                       auctionEndDate={nft.auctionEndDate}

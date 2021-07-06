@@ -89,6 +89,15 @@ export function fetchCollections(state = null, action) {
   }
 }
 
+export function fetchMoreCollections(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_MORE_COLLECTIONS":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 export function fetchCollectionDetails(state = null, action) {
   switch (action.type) {
     case "FETCHED_COLLECTION_DETAIL":
