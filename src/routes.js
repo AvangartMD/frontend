@@ -12,6 +12,8 @@ import HowToUse from "./Pages/how-to-use";
 import About from "./Pages/about";
 import Legal from "./Pages/legal";
 import CreatorProfile from "./Pages/creator-profile";
+import Faq from "./Pages/faq";
+import BlogList from "./Pages/blog-list";
 
 var routes = [
   {
@@ -96,6 +98,18 @@ var routes = [
     path: "legal",
     name: "Legal",
     component: Legal,
+    layout: "/",
+  },
+  {
+    path: "faq",
+    name: "Faq",
+    component: Faq,
+    layout: "/",
+  },
+  {
+    path: "blog-list",
+    name: "Blog List",
+    component: BlogList,
     layout: "/",
   },
 ];
