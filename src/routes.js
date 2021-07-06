@@ -8,6 +8,9 @@ import EditProfile from "./Pages/profile-edit";
 import Collection from "./Pages/collection.jsx";
 import CollectionDetail from "./Pages/collection-detail";
 import CollectionDetailEdit from "./Pages/collection-detail-edit";
+import HowToUse from "./Pages/how-to-use";
+import About from "./Pages/about";
+import Legal from "./Pages/legal";
 import CreatorProfile from "./Pages/creator-profile";
 
 var routes = [
@@ -75,6 +78,24 @@ var routes = [
     path: "collection-detail-edit",
     name: "Collection Detail Edit",
     component: CollectionDetailEdit,
+    layout: "/",
+  },
+  {
+    path: "how-to-use",
+    name: "How to Use",
+    component: HowToUse,
+    layout: "/",
+  },
+  {
+    path: "about",
+    name: "About Us",
+    component: About,
+    layout: "/",
+  },
+  {
+    path: "legal",
+    name: "Legal",
+    component: Legal,
     layout: "/",
   },
 ];
