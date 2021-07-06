@@ -6,7 +6,7 @@ import Gs from '../Theme/globalStyles';
 import Banner from '../Component/home/banner';
 import TopNFT from '../Component/home/topNFT';
 import HallOfFrame from '../Component/home/hall.frame';
-import Collections from '../Component/home/collections';
+import Collections from '../Component/home/collection';
 import Info from '../Component/home/info';
 import HallOfFrameInfo from '../Component/home/hall.frame.info';
 

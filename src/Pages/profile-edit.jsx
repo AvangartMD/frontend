@@ -15,6 +15,7 @@ import CICON03 from "../Assets/images/peSocICO-03.svg";
 import CICON04 from "../Assets/images/peSocICO-04.svg";
 import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
+import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import LoaderGif from "../Assets/images/loading.gif";
 import SuccesPopup from "../Component/Modals/sucessPopup";
 
@@ -24,11 +25,12 @@ class ProfileEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: [],
+      errors: null,
       loading: false,
       updated: false,
       userObj: null,
       formChange: false,
+      isOpen1: false,
     };
   }
 
@@ -42,12 +44,18 @@ class ProfileEdit extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { profile, updated } = this.props;
+    let { profile, updated, error } = this.props;
     if (profile !== prevProps.profile) {
       this.setState({ userObj: profile }); // store props into state
     }
     if (updated !== prevProps.updated) {
       this.profileUpdated(updated); // profile updated
+    }
+    if (error !== prevProps.error) {
+      if (error) {
+        this.setState({ errors: error, loading: false }); // set api error into state
+        this.props.clearErrors(); // clear the error
+      }
     }
   }
 
@@ -98,7 +106,7 @@ class ProfileEdit extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true, updated: false, formChange: false }); // start the loader
+    this.setState({ loading: true, updated: false, formChange: false, isOpen1: false }); // start the loader
     const { userObj } = this.state;
     let params = {
       name: userObj.name,
@@ -108,6 +116,7 @@ class ProfileEdit extends Component {
       portfolio: userObj.portfolio,
     };
     this.props.setProfile(params); // update the user profile
+    this.setState({ errors: null });
   };
 
   profileUpdated = (data) => {
@@ -115,9 +124,15 @@ class ProfileEdit extends Component {
     this.setState({ loading: false, updated: true }); // stop loader
   };
 
+  toggle = (index) => {
+    let collapse = "isOpen" + index;
+    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+  };
+
+
   render() {
     const { profile } = this.props;
-    const { loading, updated, formChange } = this.state;
+    const { loading, updated, formChange, errors, isOpen1 } = this.state;
 
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
@@ -127,6 +142,7 @@ class ProfileEdit extends Component {
 
     return (
       <Gs.MainSection>
+          
         {loading ? (
           <>
             <BlackWrap>
@@ -143,6 +159,29 @@ class ProfileEdit extends Component {
         ) : (
           ""
         )}
+
+        {errors && !isOpen1 ? (
+          <>
+            <BlackWrap>
+              <WhiteBX01>
+                <CloseBTN
+                  className="ani-1"
+                  onClick={() => {
+                    this.toggle(1);
+                  }}
+                >
+                  <img src={CloseBTN01} alt="" />
+                </CloseBTN>
+                <>
+                  <OnbTitle01>Attention!</OnbTitle01>
+                  <OnbText01 className="w100">{errors}</OnbText01>
+                </>
+              </WhiteBX01>
+            </BlackWrap>
+          </>
+        ) : (
+          ""
+          )}
 
         {updated ? <SuccesPopup message="Your profile details are updated sucessfuly."/> : ("")}
 
@@ -998,20 +1037,9 @@ const BackBTN01 = styled.button`
   font-weight: 600;
   letter-spacing: -0.5px;
 `;
-
-const AlertNote = styled.div`
-  background-color: #ffe5e9;
-  border: 1px solid #ff2a44;
-  border-radius: 10px;
-  margin: 0px 0px 40px;
-  padding: 17px 15px;
-  p {
-    margin: 0px;
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.8px;
-  }
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 60px auto 0 auto;
 `;
 
 const OnbTitle01 = styled.div`
@@ -1027,12 +1055,16 @@ const OnbTitle01 = styled.div`
     line-height: 28px;
   }
 `;
-
-const LoaderBX = styled(FlexDiv)`
-  width: 100%;
-  margin: 60px auto 0 auto;
+const OnbText01 = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.5px;
+  
+  &.w100 {
+    width: 100%;
+  }
 `;
-
 const BlackWrap = styled(FlexDiv)`
   position: fixed;
   left: 0;
@@ -1043,7 +1075,6 @@ const BlackWrap = styled(FlexDiv)`
   z-index: 101;
   backdrop-filter: blur(2px);
 `;
-
 const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
@@ -1056,7 +1087,6 @@ const WhiteBX01 = styled(FlexDiv)`
   justify-content: flex-start;
   align-content: center;
 `;
-
 const CloseBTN = styled.button`
   width: 20px;
   height: 20px;
@@ -1074,12 +1104,14 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getProfile()),
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
+    clearErrors: () => dispatch({ type: 'API_FAILED', data: null}),
   };
 };
 const mapStateToProps = (state) => {
   return {
     profile: state.fetchProfile,
     updated: state.updateProfile,
+    error: state.fetchResponseFailed,
   };
 };
 

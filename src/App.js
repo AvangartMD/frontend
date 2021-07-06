@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Gs from './Theme/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
-import { theme } from './Theme/theme' 
-import Header from './Component/header' 
-import Footer from './Component/footer'  
-import MarketPlace from './Pages/marketplace'
-import Media from './Theme/media-breackpoint'  
+import { theme } from './Theme/theme';
+import Header from './Component/header';
+import Footer from './Component/footer';
+import MarketPlace from './Pages/marketplace';
+import Media from './Theme/media-breackpoint';
 
 import AuthLayout from './layouts/auth.layout';
 import UserLayout from './layouts/user.layout';
-import { PrivateRoute }  from './views/private.route';
-import { PublicRoute }  from './views/public.route';
+import { PrivateRoute } from './views/private.route';
+import { PublicRoute } from './views/public.route';
 
 const FlexDiv = styled.div`
   display: flex;
@@ -31,9 +31,10 @@ const DMainContainer = styled(FlexDiv)`
 `;
 
 function App() {
-  
   const [isDark, setDarkTheme] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token')?true:false)
+  const [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem('token') ? true : false
+  );
   const selectedTheme = theme(isDark);
 
   function setTheme(flag) {
@@ -43,27 +44,38 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={selectedTheme}>
-          <section className='MainBox clearfix'>
-              <Gs.GlobalStyle />
-              <DMainContainer>
-                  <Header loggedIn={loggedIn} />
-                        <Switch>
-                              <PrivateRoute
-                                  path="/user"
-                                  component={(props) => <UserLayout {...props} />}
-                              />
-                              <PublicRoute
-                                  path="/"
-                                  component={(props) => <AuthLayout {...props} loggedIn={loggedIn} />}
-                              />
-                              {
-                                  loggedIn ? <Redirect to="/user" from="/" /> :
-                                    <Redirect from="/user" to="/" />
-                              }
-                        </Switch>
-                  <Footer loggedIn={loggedIn} />
-              </DMainContainer>
-          </section>
+        <section className='MainBox clearfix'>
+          <Gs.GlobalStyle />
+          <DMainContainer>
+            <Header loggedIn={loggedIn} />
+            <Suspense
+              fallback={
+                <div class='loader-outer'>
+                  <div className='loader'></div>
+                </div>
+              }
+            >
+              <Switch>
+                <PrivateRoute
+                  path='/user'
+                  component={(props) => <UserLayout {...props} />}
+                />
+                <PublicRoute
+                  path='/'
+                  component={(props) => (
+                    <AuthLayout {...props} loggedIn={loggedIn} />
+                  )}
+                />
+                {loggedIn ? (
+                  <Redirect to='/user' from='/' />
+                ) : (
+                  <Redirect from='/user' to='/' />
+                )}
+              </Switch>
+            </Suspense>
+            <Footer loggedIn={loggedIn} />
+          </DMainContainer>
+        </section>
       </ThemeProvider>
     </Router>
   );

@@ -12,6 +12,7 @@ import RoundIcon from '../../Assets/images/round-icon.svg';
 import AdBannerIMG from '../../Assets/images/adbanner.jpg';
 import Gs from '../../Theme/globalStyles';
 
+
 class Collections extends Component {
 
   render() {

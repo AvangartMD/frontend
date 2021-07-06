@@ -6,13 +6,14 @@ import NFT2 from "../../Assets/images/nft2.jpg";
 import CollImg from "../../Assets/images/nft1.jpg";
 
 function collectionCard({
+    id,
     collImg,
     collName,
     creatorName,
 }) {
   return (
         <OneCollBox>
-            <Link to=''>
+            <Link to={`/collection-detail/${id}`}>
             <div className="CIbox">
                   <LazyLoadImage src={collImg?collImg:NFT2} />
             </div>

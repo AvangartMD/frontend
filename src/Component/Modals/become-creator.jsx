@@ -19,6 +19,7 @@ class BecomeCreator extends Component {
         isOpen1: false,
         isOpen2: false,
         isOpen3: false,
+        isOpen4: false,
         loading: false,
         becomeCreator: false,
       }
@@ -77,15 +78,38 @@ class BecomeCreator extends Component {
               }
           });
     }
+  
+    toggle = (index) => {
+        let collapse = "isOpen" + index;
+        this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+    }
 
     render() {
       const { categories } = this.props
-      const { isOpen1, isOpen2, isOpen3, loading, becomeCreator } = this.state
+      const { isOpen1, isOpen2, isOpen3, loading, becomeCreator, isOpen4 } = this.state
       return (
         <>
+
+          { !isOpen4 && becomeCreator? (
+            <>
+              <BlackWrap>
+                <WhiteBX01>
+                  <CloseBTN className="ani-1" onClick={() => this.toggle(4)}>
+                    {" "}
+                    <img src={CloseBTN01} alt="" />{" "}
+                  </CloseBTN>
+                  
+                  <TokenBox>
+                    <WGTitle>Profile request sent</WGTitle>
+                    <WGdescText>Profile status will be updated once admin approves the request</WGdescText>
+                  </TokenBox>
+                </WhiteBX01>
+              </BlackWrap>
+            </>
+          ):("")}
           <AvBTN02 className="colorBTN">
             {becomeCreator?
-            <button>Create</button>
+            <button>Waiting</button>
             :<button onClick={() => {this.setState({isOpen1: true})}}>
               <FormattedMessage id = "Become_a_creator" defaultMessage="Become a Creator" />
             </button>}
@@ -273,6 +297,18 @@ const BlackWrap = styled(FlexDiv)`
   z-index: 1011;
   backdrop-filter: blur(2px);
 `;
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
 const CloseBTN = styled.button`
   width: 20px;
   height: 20px;
@@ -286,6 +322,40 @@ const CloseBTN = styled.button`
     transform: rotate(90deg);
   }
 `;
+const TokenBox = styled(FlexDiv)`
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  button {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    padding: 13px 35px;
+    border-radius: 15px;
+    border: 1px solid #000000;
+    :hover {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+`;
+const TokenLeft = styled.div`
+  p {
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: -0.8px;
+    font-weight: 600;
+    margin: 0px;
+    &.small {
+      color: rgb(0 0 0 / 23%);
+      margin: 0px;
+      font-size: 12px;
+      letter-spacing: -0.6px;
+    }
+  }
+`;
+
 const WhiteBX02 = styled.div`
   width: 100%;
   position: relative;
@@ -518,7 +588,22 @@ const OnbTitle01 = styled.div`
     line-height: 28px;
   }
 `;
-
+const WGTitle = styled.div`
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+`;
+const WGdescText = styled.div`
+  color: #000000;
+  font-size: 14px;
+  letter-spacing: -0.7px;
+  margin-bottom: 10px;
+  text-align: center;
+`;
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 60px auto 0 auto;

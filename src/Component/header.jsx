@@ -122,6 +122,7 @@ class Header extends Component {
       }
     }
   }
+
   connectToWallet = (isWalletConnect) => {
     this.props.enableMetamask();
     this.setState({ loader: true });
