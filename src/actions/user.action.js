@@ -13,6 +13,8 @@ export const userActions = {
   getLikesCount,
   likeToggler,
   getIsLiked,
+  getIsFollow,
+  followToggler,
 };
 
 function fetchedData(type, data) {
@@ -182,6 +184,32 @@ function getIsLiked(id) {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_IS_LIKED", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getIsFollow(id) {
+  return async (dispatch) => {
+    const response = services.get(`follow/checkIsFollowed/${id}`, true);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_IS_FOLLOW", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function followToggler(id) {
+  return async (dispatch) => {
+    const response = services.get(`follow/toggle/${id}`, true);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(getIsFollow(id));
       } else {
         // console.log("error");
       }

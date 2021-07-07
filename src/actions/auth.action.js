@@ -12,6 +12,7 @@ export const authActions = {
   getCollections,
   getCollectionDetails,
   getMoreCollections,
+  updateCollection,
 };
 
 function fetchedData(type, data) {
@@ -157,13 +158,25 @@ function getMoreCollections(params={}) {
   };
 }
 
-
 function getCollectionDetails(params={}) {
   return async (dispatch) => {
-    const response = services.get(`nft/getCollectionInfo/${params.id}`);
+    const response = services.get(`nft/getCollectionInfo/${params.id}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_COLLECTION_DETAIL", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function updateCollection(params = {}) {
+  return async (dispatch) => {
+    const response = services.put(`nft/updateCollection/${params.id}`, params);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("COLLECTION_UPDATED", promise.data));
       } else {
         // console.log("error");
       }

@@ -9,7 +9,7 @@ class SuccessPopup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen1: false,
+          isOpen1: false,
         };
     }
 
@@ -19,7 +19,7 @@ class SuccessPopup extends Component {
     }
 
     render() {
-        const { message } = this.props;
+        const { message, url } = this.props;
         const { isOpen1 } = this.state
         return (
             <>
@@ -32,7 +32,7 @@ class SuccessPopup extends Component {
                         </CloseBTN>
                             <TokenBox >
                                 <p >{message}</p>
-                                <button onClick={() => this.props.history.push("/user/profile")}>View Profile</button>
+                                <button onClick={() => this.props.history.push(url)}>View</button>
                             </TokenBox>
                         </WhiteBX01>
                     </BlackWrap>

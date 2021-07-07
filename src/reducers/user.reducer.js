@@ -82,3 +82,11 @@ export function fetchIsLiked(state = { isFollowed: false }, action) {
       return state;
   }
 }
+export function fetchIsFollow(state = { isFollowed: false }, action) {
+  switch (action.type) {
+    case "FETCHED_IS_FOLLOW":
+      return action.data;
+    default:
+      return state;
+  }
+}

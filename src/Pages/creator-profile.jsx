@@ -26,42 +26,51 @@ class CreatorProfile extends Component {
     super(props);
     this.state = {
         id: this.props.match.params.id,
-        loading: true,
+        loading: false,
     }
   }
 
    componentDidMount() {
        const { id } = this.state;
-      this.props.getUserProfile(id); // fetch user profile by id
+     this.props.getUserProfile(id); // fetch user profile by id
+     this.props.getIsFollow(id); // check user is following
    }
     
     componentDidUpdate(prevProps, prevState) {
-        const { profile } = this.props;
-        if (profile !== prevProps.profile) {
-            this.setState({ loading: false }) // stop loader
-        }
+      const { status } = this.props;
+      const { id } = this.state;
+      if (status !== prevProps.status) {
+        this.setState({ loading: false }) // stop loader
+        this.props.getUserProfile(id); // fetch user profile by id
+      }
+    }
+  
+  followToggler = (id) => {
+    this.setState({ loading: true }) // start loader
+    this.props.followToggler(id); // follow toggle api called
   }
+  
+  
 
     render() {
-        const { profile } = this.props;
+        const { profile, status, web3Data, authData } = this.props;
         const { id, loading } = this.state;
     return (
         <>
             
-            {loading ? (
-                <>
-                    <BlackWrap>
-                    <WhiteBX01>
-                        <OnbTitle01 className="v2">
-                            Please wait fetching creator profile
-                        </OnbTitle01>
-                        <LoaderBX>
-                        <img src={LoaderGif} alt="" />
-                        </LoaderBX>
-                    </WhiteBX01>
-                    </BlackWrap>
-                </>
-            ) : (
+        {loading ? (
+          <>
+            <BlackWrap>
+              <WhiteBX01>
+                <LoaderBX>
+                  <img src={LoaderGif} alt="" />
+                </LoaderBX>
+              </WhiteBX01>
+            </BlackWrap>
+          </>
+        ) : ('')}
+        { profile ?
+          (
             <>
                 <ProMBannerBX
                     style={{
@@ -74,7 +83,7 @@ class CreatorProfile extends Component {
                         <ProSBX01>
                         <UserImgBX>
                             <UserImgSB>
-                                <img src={profile.url} alt="" />
+                                <img src={profile.profile} alt="" />
                             </UserImgSB>
                         </UserImgBX>
 
@@ -191,20 +200,20 @@ class CreatorProfile extends Component {
                             Following{" "}
                             <span>{profile ? profile.followingCount : "000"}</span>
                             </FollowerMBX>
-                            <EditPrBTN>
-                            {id ? (
-                                <button
-                                >
-                                Follow
-                                </button>
+                            
+                        {id ? (
+                            authData ?
+                              web3Data.isLoggedIn && (authData.id !== profile.id)? <EditPrBTN><button className="ani-1" onClick={()=>this.followToggler(profile.id)}>{status.isFollowed?'Unfollow':'Follow'}</button></EditPrBTN>:('')
+                            : ''
                             ) : (
+                              <EditPrBTN>
                                 <button
                                 onClick={() => this.props.history.push("/user/edit-profile")}
                                 >
                                 Edit Profile
                                 </button>
+                              </EditPrBTN>
                             )}
-                            </EditPrBTN>
                         </ProSBX03>
 
                         <ProSBX04>
@@ -241,11 +250,10 @@ class CreatorProfile extends Component {
                         <TabPanel>3</TabPanel>
                         <TabPanel>4</TabPanel>
                     </Tabs>
-                    </HomeTabs>
-
-                </Gs.Container>
+                </HomeTabs>
+              </Gs.Container>
             </>
-            )}
+          ) : <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
       </>
     );
   }
@@ -546,11 +554,16 @@ const WhiteBX01 = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
     return {
       getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
+      getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
+      followToggler: (id) => dispatch(actions.followToggler(id)),
   };
 };
 const mapStateToProps = (state) => {
     return {
       profile: state.fetchUserProfile,
+      status: state.fetchIsFollow,
+      web3Data: state.fetchWeb3Data,
+      authData: state.fetchAuthData,
   };
 };
 

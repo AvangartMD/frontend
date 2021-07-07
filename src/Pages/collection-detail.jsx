@@ -4,6 +4,7 @@ import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { withRouter } from "react-router";
 
 import Gs from "../Theme/globalStyles";
 import LoaderGif from "../Assets/images/loading.gif";
@@ -16,22 +17,50 @@ class CollectionDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
       id: this.props.match.params.id,
+      loading: false,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { id } = this.state;
-    this.props.getCollectionDetails({ id: id}) // fetch collection details
-    this.props.getProfile(); // fetch the profile
+    this.props.getCollectionDetails({ id: id }) // fetch collection details
+    this.props.getIsFollow(id); // check user is following
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props;
+    const { id } = this.state;
+    if (status !== prevProps.status) {
+      this.props.getCollectionDetails({ id: id }) // fetch collection details
+      this.setState({ loading: false }); // stop loader
+    }
+  }
+
+  followToggler = (id) => {
+    this.setState({ loading: true }); // start loader
+    this.props.followToggler(id); // follow toggle api called
   }
 
   render() {
-    const { collection, profile } = this.props;
+    const { collection, status, web3Data, authData } = this.props;
+    const { loading } = this.state;
+    console.log('authData ? ', authData)
     return (
       <Gs.MainSection>
         <CollectionContainer>
+
+          {loading ? (
+            <>
+              <BlackWrap>
+                <WhiteBX01>
+                  <LoaderBX>
+                    <img src={LoaderGif} alt="" />
+                  </LoaderBX>
+                </WhiteBX01>
+              </BlackWrap>
+            </>
+          ) : ('')}
           {collection ?
             <>
               <CreatorInfo>
@@ -54,7 +83,9 @@ class CollectionDetail extends Component {
                     <h3>{collection.ownerId?.followingCount}</h3>
                   </div>
                   <div className='ed-box'>
-                    {profile?<button className="ani-1">Follow</button>:('')}
+                    {authData ?
+                      web3Data.isLoggedIn && (authData.id !== collection.ownerId.id) ? <button className="ani-1" onClick={() => this.followToggler(collection.ownerId.id)}>{status.isFollowed ? 'Unfollow' : 'Follow'}</button> : ('')
+                      : ''}
                   </div>
                 </CreatorIRight>
               </CreatorInfo>
@@ -65,29 +96,33 @@ class CollectionDetail extends Component {
               </CollectionDesc>
 
               <NFTfourbox className="cdetail">
-                  {collection.nft?collection.nft.map((nft) => (
-                      <NFTCard
-                        name={nft.ownerId.name}
-                        nftId={nft.id}
-                        collectionId={nft.collectionId?.id}
-                        auctionEndDate={nft.auctionEndDate}
-                        nftImg={nft.image.compressed}
-                        title={nft.title}
-                        edition={nft.edition}
-                        price={nft.price}
-                        auctionTime={nft.auctionTime}
-                        userImg={nft.ownerId.profile}
-                        username={nft.ownerId.username}
-                      />
-                  )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
+                {collection.nft ? collection.nft.map((nft) => (
+                  <NFTCard
+                    name={nft.ownerId.name}
+                    nftId={nft.id}
+                    collectionId={nft.collectionId?.id}
+                    auctionEndDate={nft.auctionEndDate}
+                    nftImg={nft.image.compressed}
+                    title={nft.title}
+                    edition={nft.edition}
+                    price={nft.price}
+                    auctionTime={nft.auctionTime}
+                    userImg={nft.ownerId.profile}
+                    username={nft.ownerId.username}
+                  />
+                )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
               </NFTfourbox>
-
-              {profile ? profile.id===collection.ownerId.id?(
+              {/* <EditCollection>
+                <button className="ani-1 disabled"
+                >Edit Collection</button>
+              </EditCollection> */}
+              {collection.isOwner ? (
                 <EditCollection>
-                  <button className="ani-1 disabled">Edit Collection</button>
+                  <button className="ani-1 disabled"
+                    onClick={() => this.props.history.push(`/user/collection-edit/${collection.id}`)}
+                  >Edit Collection</button>
                 </EditCollection>
-              ):(''):('')}
-
+              ) : ("")}
             </>
             : <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
         </CollectionContainer>
@@ -191,7 +226,7 @@ const CreatorIRight = styled(FlexDiv)`
 `;
 
 const CollectionDesc = styled.div`
-  margin:0px 15px;
+  margin:0px 15px; width:100%;
   h3{
     color: #000;
     font-size: 24px;
@@ -209,6 +244,8 @@ const CollectionDesc = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
+  width:100%;
+  justify-content:flex-start;
   img.main {
     width: 100%;
     border-top-left-radius: 10px;
@@ -235,6 +272,7 @@ Gs.W25V2 = styled(Gs.W25V2)`
   ${NFTfourbox}.cdetail & {
     width: 33.33%;
   }
+  
 `;
 
 const EditCollection = styled.div`
@@ -244,17 +282,44 @@ const EditCollection = styled.div`
   }
 `;
 
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+`;
+
 const mapDipatchToProps = (dispatch) => {
   return {
     getCollectionDetails: (params) => dispatch(actions.getCollectionDetails(params)),
-    getProfile: () => dispatch(actions.getProfile()),
+    getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
+    followToggler: (id) => dispatch(actions.followToggler(id)),
   }
 }
 const mapStateToProps = (state) => {
   return {
     collection: state.fetchCollectionDetails,
-    profile: state.fetchProfile,
+    web3Data: state.fetchWeb3Data,
+    status: state.fetchIsFollow,
+    authData: state.fetchAuthData,
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(CollectionDetail);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(CollectionDetail));

@@ -21,6 +21,7 @@ import {
   fetchCollections,
   fetchCollectionDetails,
   fetchMoreCollections,
+  updateCollection,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -37,6 +38,7 @@ import {
   fetchProfile,
   fetchLikesCount,
   fetchIsLiked,
+  fetchIsFollow,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -71,6 +73,8 @@ const rootReducer = combineReducers({
   fetchProfile,
   fetchResponseFailed,
   fetchMoreCollections,
+  updateCollection,
+  fetchIsFollow,
 });
 
 export default rootReducer;
