@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+import Media from "../Theme/media-breackpoint";
 
 var Gs = {};
 
@@ -30,6 +31,12 @@ Gs.Container = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 1080px;
+  ${Media.lg}{
+    max-width:88%;
+  }
+  ${Media.md}{
+    max-width:94%;
+  }
 `;
 Gs.W25 = styled.div`
   width: 25%;
@@ -37,6 +44,15 @@ Gs.W25 = styled.div`
 Gs.W25V2 = styled.div`
   width: 25%;
   margin-bottom: 20px;
+  ${Media.md}{
+   width:33.33%;
+  }
+  ${Media.sm}{
+    width:50%;
+  }
+  ${Media.xs}{
+    width:100%;
+  }
 `;
 Gs.W20 = styled.div`
   width: 20%;
