@@ -31,8 +31,8 @@ const Collections = lazy(() => retry(() => import('./Pages/collections.jsx')));
 const CollectionDetail = lazy(() =>
   retry(() => import('./Pages/collection-detail'))
 );
-const CollectionDetailEdit = lazy(() =>
-  retry(() => import('./Pages/collection-detail-edit'))
+const CollectionEdit = lazy(() =>
+  retry(() => import('./Pages/collection-edit'))
 );
 const HowToUse = lazy(() => retry(() => import('./Pages/how-to-use')));
 const About = lazy(() => retry(() => import('./Pages/about')));
@@ -51,7 +51,7 @@ const CreatorProfile = lazy(() =>
 // import EditProfile from './Pages/profile-edit';
 // import Collection from './Pages/collection.jsx';
 // import CollectionDetail from './Pages/collection-detail';
-// import CollectionDetailEdit from './Pages/collection-detail-edit';
+// import CollectionEdit from './Pages/collection-detail-edit';
 // import HowToUse from './Pages/how-to-use';
 // import About from './Pages/about';
 // import Legal from './Pages/legal';
@@ -119,10 +119,10 @@ var routes = [
     layout: '/',
   },
   {
-    path: 'collection-detail-edit',
-    name: 'Collection Detail Edit',
-    component: CollectionDetailEdit,
-    layout: '/',
+    path: '/collection-edit/:id',
+    name: 'Collection Edit',
+    component: CollectionEdit,
+    layout: '/user',
   },
   {
     path: 'how-to-use',

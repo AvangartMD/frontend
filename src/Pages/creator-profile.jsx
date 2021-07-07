@@ -74,7 +74,7 @@ class CreatorProfile extends Component {
                         <ProSBX01>
                         <UserImgBX>
                             <UserImgSB>
-                                <img src={profile.url} alt="" />
+                                <img src={profile.profile} alt="" />
                             </UserImgSB>
                         </UserImgBX>
 

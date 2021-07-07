@@ -4,6 +4,7 @@ import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { withRouter } from "react-router";
 
 import Gs from "../Theme/globalStyles";
 import LoaderGif from "../Assets/images/loading.gif";
@@ -16,7 +17,6 @@ class CollectionDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
       id: this.props.match.params.id,
     };
   }
@@ -24,11 +24,10 @@ class CollectionDetail extends Component {
   async componentDidMount() {
     const { id } = this.state;
     this.props.getCollectionDetails({ id: id}) // fetch collection details
-    this.props.getProfile(); // fetch the profile
   }
 
   render() {
-    const { collection, profile } = this.props;
+    const { collection } = this.props;
     return (
       <Gs.MainSection>
         <CollectionContainer>
@@ -54,7 +53,7 @@ class CollectionDetail extends Component {
                     <h3>{collection.ownerId?.followingCount}</h3>
                   </div>
                   <div className='ed-box'>
-                    {profile?<button className="ani-1">Follow</button>:('')}
+                    {/* {<button className="ani-1">Follow</button>} */}
                   </div>
                 </CreatorIRight>
               </CreatorInfo>
@@ -82,12 +81,13 @@ class CollectionDetail extends Component {
                   )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
               </NFTfourbox>
 
-              {profile ? profile.id===collection.ownerId.id?(
+              {collection.isOwner ? (
                 <EditCollection>
-                  <button className="ani-1 disabled">Edit Collection</button>
+                  <button className="ani-1 disabled"
+                    onClick={() => this.props.history.push(`/user/collection-edit/${collection.id}`)}
+                  >Edit Collection</button>
                 </EditCollection>
-              ):(''):('')}
-
+              ):("")}
             </>
             : <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
         </CollectionContainer>
@@ -247,14 +247,12 @@ const EditCollection = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getCollectionDetails: (params) => dispatch(actions.getCollectionDetails(params)),
-    getProfile: () => dispatch(actions.getProfile()),
   }
 }
 const mapStateToProps = (state) => {
   return {
-    collection: state.fetchCollectionDetails,
-    profile: state.fetchProfile,
+    collection: state.fetchCollectionDetails
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(CollectionDetail);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(CollectionDetail));

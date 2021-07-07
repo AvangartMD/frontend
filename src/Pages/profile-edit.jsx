@@ -17,7 +17,7 @@ import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import LoaderGif from "../Assets/images/loading.gif";
-import SuccesPopup from "../Component/Modals/sucessPopup";
+import SuccessPopup from "../Component/Modals/sucessPopup";
 
 import { actions } from "../actions";
 
@@ -183,7 +183,7 @@ class ProfileEdit extends Component {
           ""
           )}
 
-        {updated ? <SuccesPopup message="Your profile details are updated sucessfuly."/> : ("")}
+        {updated ? <SuccessPopup message="Your profile details are updated sucessfully." url="/user/profile"/> : ("")}
 
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
