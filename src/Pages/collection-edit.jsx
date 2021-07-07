@@ -22,7 +22,7 @@ class CollectionEdit extends Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      collection: {name: null, file: null, description:null, logo: null, nftId: []},
+      collection: { name: null, file: null, description: null, logo: null, nftId: [] },
       formChange: false,
       loading: false,
       updated: false,
@@ -38,7 +38,7 @@ class CollectionEdit extends Component {
 
   componentDidMount() {
     const { id } = this.state;
-    this.props.getCollectionDetails({ id: id}) // fetch collection details
+    this.props.getCollectionDetails({ id: id }) // fetch collection details
   }
 
   formChange = (e) => {
@@ -57,7 +57,7 @@ class CollectionEdit extends Component {
         formChange: true,
         collection: { ...collection, [name]: value },
       });
-    }    
+    }
   }
 
   categoryChecked = (e, id) => {
@@ -105,7 +105,7 @@ class CollectionEdit extends Component {
     return (
       <Gs.MainSection>
 
-        {updated ? <SuccessPopup message="Collection details are updated sucessfully." url={ `/collection-detail/${id}`}/> : ("")}
+        {updated ? <SuccessPopup message="Collection details are updated sucessfully." url={`/collection-detail/${id}`} /> : ("")}
 
         {loading ? (
           <>
@@ -151,61 +151,61 @@ class CollectionEdit extends Component {
                 </div>
               </CreatorIRight>
             </CreatorInfo>
-            
-            <form
-                onChange={(e) => this.formChange(e)}
-                onSubmit={(e) => this.formSubmit(e)}
-              >
-                <Colleditform>
-                  <label>Collection Name</label>
-                  <input type="text" name="name"
-                    placeholder="Collection Name Here"
-                    required defaultValue={collection.name}
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                      }
-                    }} />
-                </Colleditform>
 
-                <Colleditform>
-                  <label>About Collection</label>
-                  <textarea
-                      type="textarea"
-                      required
-                      name="description"
-                      placeholder="Add description"
-                      defaultValue={collection.description}
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                        }
-                      }} />
-                </Colleditform>
-                
-                <Colleditform>
-                  <label>Collection Cover Image</label>
-                  <FlexDiv className="JCFS AIFS">
-                    <div className="CIbox">
-                      <img src={logo?logo:collection.logo} alt="" name="logo" />
-                    </div>
-                    <div className="label-line">
-                      <p>Upload PNG, GIF, WEBP</p>
-                      <p>
-                        <b>Max 30 mb.</b>
-                      </p>
-                      <FileuploadBox>
-                        <label class="custom-file-upload">
+            <form className="w100"
+              onChange={(e) => this.formChange(e)}
+              onSubmit={(e) => this.formSubmit(e)}
+            >
+              <Colleditform>
+                <label>Collection Name</label>
+                <input type="text" name="name"
+                  placeholder="Collection Name Here"
+                  required defaultValue={collection.name}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }} />
+              </Colleditform>
+
+              <Colleditform>
+                <label>About Collection</label>
+                <textarea
+                  type="textarea"
+                  required
+                  name="description"
+                  placeholder="Add description"
+                  defaultValue={collection.description}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }} />
+              </Colleditform>
+
+              <Colleditform>
+                <label>Collection Cover Image</label>
+                <FlexDiv className="JCFS AIFS">
+                  <div className="CIbox">
+                    <img src={logo ? logo : collection.logo} alt="" name="logo" />
+                  </div>
+                  <div className="label-line">
+                    <p>Upload PNG, GIF, WEBP</p>
+                    <p>
+                      <b>Max 30 mb.</b>
+                    </p>
+                    <FileuploadBox>
+                      <label class="custom-file-upload">
                         <input type="file" name="logo" />
-                          Change
-                        </label>
-                        <input type="file" placeholder="Choose" />
-                      </FileuploadBox>
-                    </div>
-                  </FlexDiv>
-                </Colleditform>
+                        Change
+                      </label>
+                      <input type="file" placeholder="Choose" />
+                    </FileuploadBox>
+                  </div>
+                </FlexDiv>
+              </Colleditform>
 
-                <CardTitle>Artworks</CardTitle>
+              <CardTitle>Artworks</CardTitle>
               <NFTfourbox className="cdetail">
 
                 {collection.nft.map((nft) => {
@@ -252,21 +252,21 @@ class CollectionEdit extends Component {
                               </UserImgName>
                             </div>
                             <RedCross>
-                            <button type="button">
-                              <img src={Whitecross} alt='' onClick={(e) => this.categoryChecked(e, nft.id)} />
+                              <button type="button">
+                                <img src={Whitecross} alt='' onClick={(e) => this.categoryChecked(e, nft.id)} />
                               </button>
                             </RedCross>
                           </div>
                         </Gs.TenpxGutter>
                       </Gs.W25V2>)
                   }
-                 })}
-                </NFTfourbox>
+                })}
+              </NFTfourbox>
 
-                <EditCollection>
-                <button type="submit" className="ani-1" disabled={!formChange?true:false}>Save changes</button>
-                </EditCollection>
-              </form>
+              <EditCollection>
+                <button type="submit" className="ani-1" disabled={!formChange ? true : false}>Save changes</button>
+              </EditCollection>
+            </form>
           </CollectionContainer>
         ) : (
           <LoaderBX>
@@ -300,6 +300,10 @@ const CollectionContainer = styled(FlexDiv)`
   max-width:845px;
   width:100%;
   margin:40px auto 120px;
+  .w100
+  {
+    width:100%;
+  }
 `;
 
 const CreatorInfo = styled(FlexDiv)`
@@ -379,6 +383,7 @@ const CreatorIRight = styled(FlexDiv)`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
+  width:100%; justify-content:flex-start;
   img.main {
     width: 100%;
     border-top-left-radius: 10px;
@@ -505,7 +510,7 @@ Gs.W25V2 = styled(Gs.W25V2)`
 `;
 
 const EditCollection = styled.div`
-  margin:65px auto 0px;
+  margin:65px auto 0px; text-align:center;
   button{ background-color:#000; border:1px solid #000; color:#fff; padding:13px 53px; border-radius:15px; font-size:14px; letter-spacing:-0.5px; font-weight:600;
     :hover{ box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);}
     &.bordered{ background-color:transparent; border:1px solid #000; color:#000;}

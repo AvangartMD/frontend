@@ -90,19 +90,19 @@ class Collection extends Component {
             </button>
             {categories
               ? categories.map((category, key) => {
-                  return (
-                    <button
-                      id={category.id}
-                      key={key}
-                      className={tabPanel === category.id ? 'active' : ''}
-                      onClick={() => {
-                        this.onCategoryChange(category.id);
-                      }}
-                    >
-                      {category.categoryName}
-                    </button>
-                  );
-                })
+                return (
+                  <button
+                    id={category.id}
+                    key={key}
+                    className={tabPanel === category.id ? 'active' : ''}
+                    onClick={() => {
+                      this.onCategoryChange(category.id);
+                    }}
+                  >
+                    {category.categoryName}
+                  </button>
+                );
+              })
               : ''}
           </FilterLbx>
 
@@ -120,33 +120,33 @@ class Collection extends Component {
         </FilterMBX>
 
         {collections ? (
-            <InfiniteScroll
-                dataLength={pagination.totalRecords}
-                next={this.fetchMore}
-                hasMore={page < pagination.totalPages}
-                loader={
-                  <LoaderBX>
-                    {' '}
-                    <img src={LoaderGif} alt='' />{' '}
-                  </LoaderBX>
-                }
-                // endMessage={<p>You have seen it all.!</p>}
+          <InfiniteScroll
+            dataLength={pagination.totalRecords}
+            next={this.fetchMore}
+            hasMore={page < pagination.totalPages}
+            loader={
+              <LoaderBX>
+                {' '}
+                <img src={LoaderGif} alt='' />{' '}
+              </LoaderBX>
+            }
+          // endMessage={<p>You have seen it all.!</p>}
           >
-              <Gs.Container>
-                <CollectionBoxes>
-                  {collections.map((collection) => (
-                      <CollectionCard
-                          id={collection.id}
-                          collImg={collection.logo}
-                          collName={collection.name}
-                          creatorName={collection.ownerId?.username}
-                        />
-                  ))}
-                </CollectionBoxes>
-              </Gs.Container>
-            </InfiniteScroll>
+            <Gs.Container>
+              <CollectionBoxes>
+                {collections.map((collection) => (
+                  <CollectionCard
+                    id={collection.id}
+                    collImg={collection.logo}
+                    collName={collection.name}
+                    creatorName={collection.ownerId?.username}
+                  />
+                ))}
+              </CollectionBoxes>
+            </Gs.Container>
+          </InfiniteScroll>
         ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
-        
+
       </Gs.MainSection>
     );
   }
@@ -235,6 +235,7 @@ const SearchICO = styled(FlexDiv)`
 
 const CollectionBoxes = styled(FlexDiv)`
   margin:40px -10px 120px;
+  justify-content:flex-start;
 `;
 
 const OneCollBox = styled.div`

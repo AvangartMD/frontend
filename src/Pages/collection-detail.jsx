@@ -112,7 +112,10 @@ class CollectionDetail extends Component {
                   />
                 )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
               </NFTfourbox>
-
+              {/* <EditCollection>
+                <button className="ani-1 disabled"
+                >Edit Collection</button>
+              </EditCollection> */}
               {collection.isOwner ? (
                 <EditCollection>
                   <button className="ani-1 disabled"
