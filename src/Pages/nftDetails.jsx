@@ -4,11 +4,11 @@ import Gs from "../Theme/globalStyles";
 import { Link, useParams } from "react-router-dom";
 import Magnifypopup from "../Component/Modals/magnifyPopup";
 import POSpopup from "../Component/putonsalepopup";
-import PABpopup from "../Component/placebidpopup";
+import PABpopup from "../Component/Modals/placebidpopup";
 import Historypopup from "../Component/historypopup";
 import SEpopup from "../Component/selectedition";
 import Collapse from "@kunukn/react-collapse";
-
+import { web3 } from "../web3";
 import NftdLimg from "../Assets/images/nftcard1.jpg";
 import Redheart from "../Assets/images/Redheart.svg";
 import Lock from "../Assets/images/icon-set-lock.svg";
@@ -17,29 +17,68 @@ import redheartBorder from "../Assets/images/redheartBorder.svg";
 import { actions } from "../actions";
 import { connect } from "react-redux";
 import Timer from "../Component/timer";
+import { getContractInstance } from "../helper/functions";
 
 class NftDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
+      bnbUSDPrice: 0,
+      bidDetails: {
+        currentBidValue: "0",
+        bidder: "0x0000000000000000000000000000000000000000",
+      },
     };
   }
-  componentDidUpdate() {
-    const { likeToggled } = this.props;
+  componentDidUpdate(prevProps, prevState) {
+    const { NFTDetails } = this.props;
+    if (NFTDetails !== prevProps.NFTDetails) {
+      if (NFTDetails.tokenId && NFTDetails.edition)
+        this.fetchBidDetails(NFTDetails.tokenId, NFTDetails.edition);
+    }
   }
-  componentDidMount() {
+
+  async componentDidMount() {
     if (this.props.match.params.id) {
       this.props.getSingleNFTDetails(this.props.match.params.id);
       this.props.getLikesCount(this.props.match.params.id);
       this.props.getIsLiked(this.props.match.params.id);
     }
+    const string =
+      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+    await fetch(string)
+      .then((resp) => resp.json())
+      .then(async (data) => {
+        this.setState({ bnbUSDPrice: data.binancecoin.usd });
+      });
+  }
+  async fetchBidDetails(tokenID, edition) {
+    const escrowContractInstance = getContractInstance(true);
+
+    const bidDetails = await escrowContractInstance.methods
+      .bid(+tokenID, +edition)
+      .call();
+    this.setState({
+      bidDetails: {
+        currentBidValue: web3.utils.fromWei(bidDetails.bidValue),
+        bidder: bidDetails.bidder,
+      },
+    });
+    console.log(bidDetails);
   }
   render() {
     let id = this.props.match.params.id;
-    const { NFTDetails, likesCount, isLiked } = this.props;
+    const bidDetails = this.state.bidDetails;
+    const {
+      NFTDetails,
+      likesCount,
+      isLiked,
+      bnbUSDPrice,
+      authData,
+    } = this.props;
 
-    console.log(isLiked);
+    console.log(NFTDetails);
     return (
       <>
         <Gs.MainSection>
@@ -105,8 +144,13 @@ class NftDetail extends React.Component {
                   </div>
                   <div className="ed-box">
                     <p>Current bid</p>
-                    <h3>0.00 BNB</h3>
-                    <p className="gray-t">0.00 USD</p>
+                    <h3>{bidDetails.currentBidValue.toLocaleString(2)} BNB</h3>
+                    <p className="gray-t">
+                      {(
+                        bidDetails.currentBidValue * bnbUSDPrice
+                      ).toLocaleString(2)}
+                      USD
+                    </p>
                     <p className="royalty">
                       A 10% royalty goes to the <br></br>creator for future
                       resale
@@ -139,7 +183,9 @@ class NftDetail extends React.Component {
                   <button onClick={() => this.toggle(8)}>Place a bid</button>
                   {/* <button disabled>Sold out</button> */}
                   {/* <button className="bordered">Burn</button> */}
-                  {/* <button className="bordered">Transfer</button> */}
+                  {NFTDetails?.ownerId.id === authData?.role?.id && (
+                    <button className="bordered">Transfer</button>
+                  )}
                   {/* <button onClick={() => this.toggle(7)}>Put on Sale</button> */}
                 </NFTcartButtons>
               </NFTDrightcontainer>
@@ -170,7 +216,13 @@ class NftDetail extends React.Component {
               "app__collapse " + (this.state.isOpen8 ? "collapse-active" : "")
             }
           >
-            <PABpopup toggle={this.toggle} />
+            <PABpopup
+              toggle={this.toggle}
+              edition={NFTDetails?.edition}
+              tokenID={NFTDetails?.tokenId}
+              price={NFTDetails?.price}
+              currentBidValue={bidDetails.currentBidValue}
+            />
           </Collapse>
           <Collapse
             isOpen={this.state.isOpen9}
@@ -435,6 +487,7 @@ const mapStateToProps = (state) => {
     likesCount: state.fetchLikesCount,
     likeToggled: state.fetchLikeToggled,
     isLiked: state.fetchIsLiked,
+    authData: state.fetchAuthData,
   };
 };
 

@@ -10,36 +10,63 @@ import WalletICO01 from "../../Assets/images/walletICO-01.png";
 import WalletICO02 from "../../Assets/images/walletICO-02.png";
 
 import LoaderGif from "../../Assets/images/loading.gif";
+import { useEffect } from "react";
+import { useState } from "react";
+import { connect } from "react-redux";
+import { web3 } from "../../web3";
+import { actions } from "../../actions";
 
-function Login({ toggle, connectToWallet, loader, error, refreshStates }) {
-  // connectToWallet = (isWalletConnect) => {
-  //   props.enableMetamask();
-  //   this.setState({ loader: true });
-  // };
-  // checkAuthentication(web3Data) {
-  //   if (
-  //     !localStorage.getItem("token") ||
-  //     web3Data.accounts[0] !== localStorage.getItem("userAddress")
-  //   )
-  //     this.signatureRequest(undefined, true);
-  //   else this.props.getUserDetails();
-  // }
-  // async signatureRequest(nonce, stepOne) {
-  //   const { web3Data } = this.state;
-  //   if (stepOne) {
-  //     this.props.generateNonce(web3Data.accounts[0]);
-  //   } else {
-  //     try {
-  //       const signature = await web3.eth.personal.sign(
-  //         web3.utils.utf8ToHex(nonce),
-  //         web3Data.accounts[0]
-  //       );
-  //       this.props.authLogin(nonce, signature);
-  //     } catch (error) {
-  //       this.setState({ error: { isError: true, msg: error.message } });
-  //     }
-  //   }
-  // }
+function Login(props) {
+  const [loader, setLoader] = useState(false);
+  const [error, setError] = useState({ isError: false, msg: "" });
+  const {
+    web3Data,
+    getUserDetails,
+    generateNonce,
+    enableMetamask,
+    authLogin,
+    toggle,
+    nonce,
+  } = props;
+  useEffect(() => {
+    console.log("web3", web3Data);
+    if (web3Data.accounts[0]) checkAuthentication(web3Data);
+  }, [web3Data.accounts[0]]);
+  useEffect(() => {
+    if (nonce) signatureRequest(nonce);
+  }, [nonce]);
+  const connectToWallet = (isWalletConnect) => {
+    enableMetamask();
+    setLoader(true);
+  };
+  const checkAuthentication = (web3Data) => {
+    if (
+      !localStorage.getItem("token") ||
+      web3Data.accounts[0] !== localStorage.getItem("userAddress")
+    )
+      signatureRequest(undefined, true);
+    else getUserDetails();
+  };
+  const signatureRequest = async (nonce, stepOne) => {
+    // const { web3Data } = this.state;
+    if (stepOne) {
+      generateNonce(web3Data.accounts[0]);
+    } else {
+      try {
+        const signature = await web3.eth.personal.sign(
+          web3.utils.utf8ToHex(nonce),
+          web3Data.accounts[0]
+        );
+        authLogin(nonce, signature);
+      } catch (error) {
+        setError({ error: { isError: true, msg: error.message } });
+      }
+    }
+  };
+  const refreshStates = () => {
+    setError({ isError: false, msg: "" });
+    setLoader(false);
+  };
   return (
     <>
       <BlackWrap>
@@ -196,4 +223,30 @@ const CloseBTN = styled.button`
   }
 `;
 
-export default Login;
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getWeb3: () => dispatch(actions.getWeb3()),
+    enableMetamask: () => dispatch(actions.enableMetamask()),
+    generateNonce: (address) => dispatch(actions.generateNonce(address)),
+    authLogin: (nonce, signature) =>
+      dispatch(actions.authLogin(nonce, signature)),
+    authenticateUser: () => dispatch(actions.authenticateUser()),
+    getUserDetails: () => dispatch(actions.getUserDetails()),
+    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    web3Logout: () =>
+      dispatch({
+        type: "FETCH_WEB3_DATA",
+        data: { isLoggedIn: false, accounts: [] },
+      }),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    web3Data: state.fetchWeb3Data,
+    networkId: state.fetchNetworkId,
+    isMetamaskEnabled: state.fetchMetamask,
+    nonce: state.fetchNonce,
+    authData: state.fetchAuthData,
+  };
+};
+export default connect(mapStateToProps, mapDipatchToProps)(Login);
