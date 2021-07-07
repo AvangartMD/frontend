@@ -38,6 +38,7 @@ import {
   fetchProfile,
   fetchLikesCount,
   fetchIsLiked,
+  fetchIsFollow,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
   fetchResponseFailed,
   fetchMoreCollections,
   updateCollection,
+  fetchIsFollow,
 });
 
 export default rootReducer;
