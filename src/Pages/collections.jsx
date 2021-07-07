@@ -119,8 +119,7 @@ class Collection extends Component {
           </FilterRbx>
         </FilterMBX>
 
-        <Gs.Container>
-          {collections ? (
+        {collections ? (
             <InfiniteScroll
                 dataLength={pagination.totalRecords}
                 next={this.fetchMore}
@@ -132,30 +131,22 @@ class Collection extends Component {
                   </LoaderBX>
                 }
                 // endMessage={<p>You have seen it all.!</p>}
-            >
-              <CollectionBoxes>
-                {/* <OneCollBox>
-                    <div className="CIbox">
-                      <img src={''} alt="" />
-                    </div>
-                    <div className="collbox-desc">
-                      <p className="coll-title">Collection Name</p>
-                      <p className="creator-name">by Creator Name</p>
-                    </div>
-                </OneCollBox> */}
-                {collections.map((collection) => (
-                    <CollectionCard
-                        id={collection.id}
-                        collImg={collection.logo}
-                        collName={collection.name}
-                        creatorName={collection.ownerId?.username}
-                      />
-                ))}
-              </CollectionBoxes>
-              
+          >
+              <Gs.Container>
+                <CollectionBoxes>
+                  {collections.map((collection) => (
+                      <CollectionCard
+                          id={collection.id}
+                          collImg={collection.logo}
+                          collName={collection.name}
+                          creatorName={collection.ownerId?.username}
+                        />
+                  ))}
+                </CollectionBoxes>
+              </Gs.Container>
             </InfiniteScroll>
-          ): ( <LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
-        </Gs.Container>
+        ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+        
       </Gs.MainSection>
     );
   }
