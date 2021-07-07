@@ -23,7 +23,7 @@ class CollectionDetail extends Component {
 
   async componentDidMount() {
     const { id } = this.state;
-    this.props.getCollectionDetails({ id: id}) // fetch collection details
+    this.props.getCollectionDetails({ id: id }) // fetch collection details
   }
 
   render() {
@@ -64,21 +64,21 @@ class CollectionDetail extends Component {
               </CollectionDesc>
 
               <NFTfourbox className="cdetail">
-                  {collection.nft?collection.nft.map((nft) => (
-                      <NFTCard
-                        name={nft.ownerId.name}
-                        nftId={nft.id}
-                        collectionId={nft.collectionId?.id}
-                        auctionEndDate={nft.auctionEndDate}
-                        nftImg={nft.image.compressed}
-                        title={nft.title}
-                        edition={nft.edition}
-                        price={nft.price}
-                        auctionTime={nft.auctionTime}
-                        userImg={nft.ownerId.profile}
-                        username={nft.ownerId.username}
-                      />
-                  )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
+                {collection.nft ? collection.nft.map((nft) => (
+                  <NFTCard
+                    name={nft.ownerId.name}
+                    nftId={nft.id}
+                    collectionId={nft.collectionId?.id}
+                    auctionEndDate={nft.auctionEndDate}
+                    nftImg={nft.image.compressed}
+                    title={nft.title}
+                    edition={nft.edition}
+                    price={nft.price}
+                    auctionTime={nft.auctionTime}
+                    userImg={nft.ownerId.profile}
+                    username={nft.ownerId.username}
+                  />
+                )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
               </NFTfourbox>
 
               {collection.isOwner ? (
@@ -87,7 +87,7 @@ class CollectionDetail extends Component {
                     onClick={() => this.props.history.push(`/user/collection-edit/${collection.id}`)}
                   >Edit Collection</button>
                 </EditCollection>
-              ):("")}
+              ) : ("")}
             </>
             : <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
         </CollectionContainer>
@@ -191,7 +191,7 @@ const CreatorIRight = styled(FlexDiv)`
 `;
 
 const CollectionDesc = styled.div`
-  margin:0px 15px;
+  margin:0px 15px; width:100%;
   h3{
     color: #000;
     font-size: 24px;
@@ -209,6 +209,8 @@ const CollectionDesc = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
+  width:100%;
+  justify-content:flex-start;
   img.main {
     width: 100%;
     border-top-left-radius: 10px;
@@ -235,6 +237,7 @@ Gs.W25V2 = styled(Gs.W25V2)`
   ${NFTfourbox}.cdetail & {
     width: 33.33%;
   }
+  
 `;
 
 const EditCollection = styled.div`
