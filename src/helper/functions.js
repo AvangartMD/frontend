@@ -1,5 +1,6 @@
 import Compressor from "compressorjs";
 import nftABI from "../contractData/abis/nft.json";
+import escrowABI from "../contractData/abis/escrow.json";
 import getContractAddresses from "../contractData/contractAddress/addresses";
 import { web3 } from "../web3";
 
@@ -24,13 +25,15 @@ export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function getContractInstance(contract) {
-  const { nftContractAddress } = getContractAddresses();
+export function getContractInstance(isEscrow) {
+  const { nftContractAddress, escrowContractAddres } = getContractAddresses();
+  const currentaddress = isEscrow ? escrowContractAddres : nftContractAddress;
+  const currentABI = isEscrow ? escrowABI : nftABI;
   try {
     if (web3) {
       const contractInstance = new web3.eth.Contract(
-        nftABI,
-        nftContractAddress
+        currentABI,
+        currentaddress
       );
       return contractInstance;
     }

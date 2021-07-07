@@ -51,20 +51,20 @@ class Header extends Component {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
-          this.checkAuthentication(web3Data);
+          // this.checkAuthentication(web3Data);
         }
       });
     }
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data });
     }
-    if (nonce !== prevProps.nonce) {
-      this.signatureRequest(nonce);
-    }
+    // if (nonce !== prevProps.nonce) {
+    //   // this.signatureRequest(nonce);
+    // }
     if (authData !== prevProps.authData) {
       this.setState({ userDetails: authData, isOpen4: false }, () => {
         // this.toggle(4);
-        this.refreshStates();
+        // this.refreshStates();
       });
     }
   }
@@ -77,7 +77,7 @@ class Header extends Component {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
-          this.checkAuthentication(web3Data);
+          // this.checkAuthentication(web3Data);
 
           // else this.props.authenticateUser();
         }
@@ -98,38 +98,38 @@ class Header extends Component {
 
     this.setState({ accountBalance, compactUserAddress });
   }
-  checkAuthentication(web3Data) {
-    if (
-      !localStorage.getItem("token") ||
-      web3Data.accounts[0] !== localStorage.getItem("userAddress")
-    )
-      this.signatureRequest(undefined, true);
-    else this.props.getUserDetails();
-  }
-  async signatureRequest(nonce, stepOne) {
-    const { web3Data } = this.state;
-    if (stepOne) {
-      this.props.generateNonce(web3Data.accounts[0]);
-    } else {
-      try {
-        const signature = await web3.eth.personal.sign(
-          web3.utils.utf8ToHex(nonce),
-          web3Data.accounts[0]
-        );
-        this.props.authLogin(nonce, signature);
-      } catch (error) {
-        this.setState({ error: { isError: true, msg: error.message } });
-      }
-    }
-  }
+  // checkAuthentication(web3Data) {
+  //   if (
+  //     !localStorage.getItem("token") ||
+  //     web3Data.accounts[0] !== localStorage.getItem("userAddress")
+  //   )
+  //     this.signatureRequest(undefined, true);
+  //   else this.props.getUserDetails();
+  // }
+  // async signatureRequest(nonce, stepOne) {
+  //   const { web3Data } = this.state;
+  //   if (stepOne) {
+  //     this.props.generateNonce(web3Data.accounts[0]);
+  //   } else {
+  //     try {
+  //       const signature = await web3.eth.personal.sign(
+  //         web3.utils.utf8ToHex(nonce),
+  //         web3Data.accounts[0]
+  //       );
+  //       this.props.authLogin(nonce, signature);
+  //     } catch (error) {
+  //       this.setState({ error: { isError: true, msg: error.message } });
+  //     }
+  //   }
+  // }
 
-  connectToWallet = (isWalletConnect) => {
-    this.props.enableMetamask();
-    this.setState({ loader: true });
-  };
-  refreshStates = () => {
-    this.setState({ error: { isError: false, msg: "" }, loader: false });
-  };
+  // connectToWallet = (isWalletConnect) => {
+  //   this.props.enableMetamask();
+  //   this.setState({ loader: true });
+  // };
+  // refreshStates = () => {
+  //   this.setState({ error: { isError: false, msg: "" }, loader: false });
+  // };
 
   checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
@@ -334,10 +334,10 @@ class Header extends Component {
         >
           <Login
             toggle={this.toggle}
-            connectToWallet={this.connectToWallet}
-            loader={loader}
-            error={error}
-            refreshStates={this.refreshStates}
+            // connectToWallet={this.connectToWallet}
+            // loader={loader}
+            // error={error}
+            // refreshStates={this.refreshStates}
           />
           {/* <BecomeCreator toggle={this.toggle} /> */}
         </Collapse>
