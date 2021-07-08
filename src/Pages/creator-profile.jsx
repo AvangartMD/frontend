@@ -8,6 +8,7 @@ import dateFormat from "dateformat";
 
 import Gs from "../Theme/globalStyles";
 import LoaderGif from "../Assets/images/loading.gif";
+import UserIcon from "../Assets/images/user-img.jpg";
 import ProfielBack from "../Assets/images/profile-back.jpg";
 import CopyICO from "../Assets/images/icon-copy.svg";
 import PlusICO from "../Assets/images/icon-plus.svg";
@@ -83,7 +84,7 @@ class CreatorProfile extends Component {
                         <ProSBX01>
                         <UserImgBX>
                             <UserImgSB>
-                                <img src={profile.profile} alt="" />
+                                <img src={profile.profile?profile.profile:UserIcon} alt="" />
                             </UserImgSB>
                         </UserImgBX>
 

@@ -27,16 +27,30 @@ function Login(props) {
     authLogin,
     toggle,
     nonce,
+    authData,
+    isFooter,
+    footerToggleVal,
   } = props;
   useEffect(() => {
-    console.log("web3", web3Data);
-    if (web3Data.accounts[0]) checkAuthentication(web3Data);
+    console.log("1", isFooter);
+    if (web3Data.accounts[0] && !isFooter) checkAuthentication(web3Data);
   }, [web3Data.accounts[0]]);
   useEffect(() => {
-    if (nonce) signatureRequest(nonce);
+    console.log("2", isFooter);
+    if (nonce && !isFooter) signatureRequest(nonce);
   }, [nonce]);
+  useEffect(() => {
+    console.log("3", isFooter);
+    if (authData?.status === 401 && !isFooter) {
+      setError({ isError: true, msg: authData.data.message });
+    }
+  }, [authData]);
   const connectToWallet = (isWalletConnect) => {
-    enableMetamask();
+    if (web3Data.accounts[0]) {
+      checkAuthentication(web3Data);
+    } else {
+      enableMetamask();
+    }
     setLoader(true);
   };
   const checkAuthentication = (web3Data) => {
@@ -67,6 +81,7 @@ function Login(props) {
     setError({ isError: false, msg: "" });
     setLoader(false);
   };
+
   return (
     <>
       <BlackWrap>

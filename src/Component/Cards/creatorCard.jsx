@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import UserImg01 from '../../Assets/images/userImg.png'
+import { AnimateSharedLayout, motion, AnimatePresence } from "framer-motion";
+import UserIcon from "../../Assets/images/user-img.jpg";
 
 
 function CreatorCard({
@@ -17,34 +17,52 @@ function CreatorCard({
     followingCount
 }) {
     return (
-        <CreatSBX01>
-            <Link to={`/creator/${id}`}>
-                <ImgBannerBX>
-                    <LazyLoadImage src={cover} />
-                </ImgBannerBX>
-                <CreatSBX02>
-                    <UserImg>
-                        <LazyLoadImage src={profile} />
-                    </UserImg>
-                    <CretrTitle01>
-                        {name}
-                        <span>@{username}</span>
-                    </CretrTitle01>
-                    <CretrText01>
-                        {bio}
-                    </CretrText01>
+        <AnimateSharedLayout>
+            <AnimatePresence>
+                <CreatSBX01>
+                    <Link to={`/creator/${id}`}>
+                        <ImgBannerBX>
+                            <motion.img
+                                initial={{ opacity: 0.2 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                                key={cover}
+                                src={cover}
+                                exit={{ opacity: 0 }}
+                            />
+                        </ImgBannerBX>
+                        <CreatSBX02>
+                            <UserImg>
+                                <motion.img
+                                    initial={{ opacity: 0.2 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.4 }}
+                                    key={profile?profile:UserIcon}
+                                    src={profile?profile:UserIcon}
+                                    exit={{ opacity: 0 }}
+                                />
+                            </UserImg>
+                            <CretrTitle01>
+                                {name}
+                                <span>@{username}</span>
+                            </CretrTitle01>
+                            <CretrText01>
+                                {bio}
+                            </CretrText01>
 
-                    <CretrInfoMBX>
-                        <CretrInfoSBX01>Created<span>{nftCreated}</span></CretrInfoSBX01>
-                        <CretrInfoSBX01>Followers<span>{followersCount}</span></CretrInfoSBX01>
-                        <CretrInfoSBX01>Following<span>{followingCount}</span></CretrInfoSBX01>
-                    </CretrInfoMBX>
+                            <CretrInfoMBX>
+                                <CretrInfoSBX01>Created<span>{nftCreated}</span></CretrInfoSBX01>
+                                <CretrInfoSBX01>Followers<span>{followersCount}</span></CretrInfoSBX01>
+                                <CretrInfoSBX01>Following<span>{followingCount}</span></CretrInfoSBX01>
+                            </CretrInfoMBX>
 
-                    <CretrBTN01>See artworks</CretrBTN01>
+                            <CretrBTN01>See artworks</CretrBTN01>
 
-                </CreatSBX02>
-            </Link>
-        </CreatSBX01>
+                        </CreatSBX02>
+                    </Link>
+                </CreatSBX01>
+            </AnimatePresence>
+        </AnimateSharedLayout>
     );
 }
 

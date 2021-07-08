@@ -107,9 +107,14 @@ function getUserDetails() {
           newresp.isLoggedIn = true;
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
-        dispatch(setData(promise.data.data, "AUTH_LOGIN"));
+        dispatch(setData(promise.data, "AUTH_LOGIN"));
       } else {
-        // console.log('erroer');
+        console.log("erroer", promise.response);
+        if (promise.response.status === 401) {
+          localStorage.setItem("token", "");
+          dispatch(setData(promise.response, "AUTH_LOGIN_ERROR"));
+          // localStorage.setItem("userAddress", );
+        }
       }
     });
   };
@@ -118,7 +123,7 @@ function getUserDetails() {
 function getUserProfile(id) {
   return async (dispatch) => {
     const response = services.get(`user/getSingleUser/${id}`);
-    response.then((promise) => { 
+    response.then((promise) => {
       if (promise.status === 200) {
         dispatch(setData(promise.data.data, "FETCHED_USER_PROFILE"));
       } else {

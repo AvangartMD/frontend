@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from "framer-motion";
 
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
@@ -65,7 +66,16 @@ class Info extends Component {
     }
     return (
       <AdBanner2 key={index}>
-        <a target='_blank' rel="noopener noreferrer"  href={info.url}><img src={img} alt='' /></a>
+        <a target='_blank' rel="noopener noreferrer" href={info.url}>
+          <motion.img
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            key={img}
+            src={img}
+            exit={{ opacity: 0 }}
+          />
+        </a>
         <button className="ani-1" onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
       </AdBanner2>
     )
@@ -74,9 +84,11 @@ class Info extends Component {
   render() {
     return (
       <HomeNFTs>
-        {this.props.infos?
-            this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
-          :'loading..'}
+        <AnimatePresence>
+          {this.props.infos?
+              this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
+            : 'loading..'}
+        </AnimatePresence>
       </HomeNFTs>
     );
   }

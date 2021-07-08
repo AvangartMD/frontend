@@ -5,12 +5,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { motion, AnimatePresence } from "framer-motion";
 import styled from 'styled-components';
+
 import Gs from '../../Theme/globalStyles';
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
 import RoundIcon from '../../Assets/images/round-icon.svg';
-import AdBannerIMG from '../../Assets/images/adbanner.jpg';
 
 import { actions } from '../../actions';
 import { Context } from '../wrapper';
@@ -46,6 +47,7 @@ class HallOfFrameInfo extends Component {
   componentDidUpdate(){
     const { infos, cookies } = this.props;
     if (infos && !cookies.get('hallFrameInfo')) {
+      console.log('did updated ??? ', infos)
       this.setCookie(infos) // set hall frame info in cookie
     }
   }
@@ -64,9 +66,19 @@ class HallOfFrameInfo extends Component {
     } else {
       img = info.banner.en
     }
+    console.log('img ?', img)
     return (
       <AdBanner key={index}>
-        <a target='_blank' rel="noopener noreferrer"  href={info.url}><img src={img} alt='' /></a>
+        <a target='_blank' rel="noopener noreferrer" href={info.url}>
+          <motion.img
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            key={img}
+            src={img}
+            exit={{ opacity: 0 }}
+          />
+        </a>
         <button onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
       </AdBanner>
     )
@@ -76,9 +88,11 @@ class HallOfFrameInfo extends Component {
     return (
         <HomeNFTs>
           <Gs.Container>
-            {this.props.infos?
-              this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
-            :'loading..'}
+            <AnimatePresence>
+              {this.props.infos?
+              this.props.infos.map((banner, index) => { this.renderedInfo(banner, index); console.log('mappppp ', banner)})
+                : 'loading..'}
+            </AnimatePresence>
           </Gs.Container>
       </HomeNFTs>
     );

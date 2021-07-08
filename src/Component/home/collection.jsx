@@ -3,20 +3,51 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from "react-router";
+import { motion, AnimatePresence } from "framer-motion";
 
+import Gs from '../../Theme/globalStyles';
 import NFT2 from '../../Assets/images/nft2.jpg';
 import HeartIcon from '../../Assets/images/heart-icon.svg';
-import StarIcon from '../../Assets/images/star-icon.svg';
-import RoundIcon from '../../Assets/images/round-icon.svg';
-import AdBannerIMG from '../../Assets/images/adbanner.jpg';
-import Gs from '../../Theme/globalStyles';
+import LoaderGif from "../../Assets/images/loading.gif";
+
+import { actions } from '../../actions';
 
 
 class Collections extends Component {
 
+  componentDidMount() {
+    const { collections } = this.props
+    if (!collections) {
+      this.props.getCollections() // fetch popular collection list
+    }
+  }
+
+  renderedCollection = (collection) => {
+    return (
+      <AnimatePresence>
+        <Gs.W25>
+          <Gs.TenpxGutter>
+            <Link to={`/collection-detail/${collection.collectionId.id}`}>
+              <motion.img
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                key={collection.collectionId.logo}
+                src={collection.collectionId.logo}
+                exit={{ opacity: 0 }}
+              />
+            </Link>
+          </Gs.TenpxGutter>
+        </Gs.W25>
+      </AnimatePresence>
+    )
+  }
+
   render() {
+    const { collections } = this.props
     return (
       <>
         <HomeNFTs>
@@ -25,34 +56,10 @@ class Collections extends Component {
               <h3>Collections</h3>
             </div>
             <CollectionSection>
-              <Gs.W25>
-                <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
-                  </Link>
-                </Gs.TenpxGutter>
-              </Gs.W25>
-              <Gs.W25>
-                <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
-                  </Link>
-                </Gs.TenpxGutter>
-              </Gs.W25>
-              <Gs.W25>
-                <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
-                  </Link>
-                </Gs.TenpxGutter>
-              </Gs.W25>
-              <Gs.W25>
-                <Gs.TenpxGutter>
-                  <Link to='/'>
-                    <img src={NFT2} alt='' />
-                  </Link>
-                </Gs.TenpxGutter>
-              </Gs.W25>
+              
+              {!collections ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) : 
+                collections.map((collection) => this.renderedCollection(collection))}
+
             </CollectionSection>
             <ViewallButton>
               <button
@@ -127,4 +134,21 @@ const CollectionSection = styled(FlexDiv)`
   }
 `;
 
-export default withRouter(Collections);
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 50px auto;
+`;
+
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getCollections: () => dispatch(actions.getTopCollection()),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    collections: state.fetchTopCollection,
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Collections));

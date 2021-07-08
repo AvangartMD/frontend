@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from "framer-motion";
 import Media from "../../Theme/media-breackpoint";
 
 import LArrow from '../../Assets/images/banner-larrow.svg';
@@ -94,8 +95,18 @@ class BannerTab extends Component {
     }
     return (
       <div className='item' key={index}>
-        <a target='_blank' rel="noopener noreferrer" href={banner.url}><img src={img} alt='' id={banner.id} /></a>
-      </div>
+        <a target='_blank' rel="noopener noreferrer" href={banner.url}>
+          <motion.img
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            key={index}
+            src={img}
+            exit={{ opacity: 0 }}
+          />
+        </a>
+        {/* <img src={img} alt='' id={banner.id} /> */}
+      </div >
     )
   }
 
@@ -109,11 +120,13 @@ class BannerTab extends Component {
     return (
       <>
         <HomeBanner>
-          {this.props.banners ?
-            <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
-              {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
-            </Carousel>
-            : 'loading..'}
+          <AnimatePresence>
+            {this.props.banners ?
+              <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
+                {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
+              </Carousel>
+              : 'loading..'}
+          </AnimatePresence>
         </HomeBanner>
       </>
     );

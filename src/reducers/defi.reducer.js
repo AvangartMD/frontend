@@ -11,6 +11,8 @@ export function fetchAuthData(state = null, action) {
   switch (action.type) {
     case "AUTH_LOGIN":
       return action.data;
+    case "AUTH_LOGIN_ERROR":
+      return action.data;
     default:
       return state;
   }

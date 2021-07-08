@@ -23,6 +23,7 @@ import {
   fetchMoreCollections,
   updateCollection,
   fetchTopNFT,
+  fetchTopCollection,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -77,6 +78,7 @@ const rootReducer = combineReducers({
   updateCollection,
   fetchIsFollow,
   fetchTopNFT,
+  fetchTopCollection,
 });
 
 export default rootReducer;

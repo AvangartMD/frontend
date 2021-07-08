@@ -13,137 +13,110 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { web3 } from "../../web3";
 
-function PABpopup(props) {
-  const { web3Data, edition, tokenID, price, currentBidValue } = props;
+function NftOwnerActions(props) {
+  const { web3Data, toggle, ownerActionName, edition, tokenID } = props;
   const escrowContractInstance = getContractInstance(true);
+  const [reciever, setReciever] = "";
   const [mintNFTStatus, setNFTStatus] = useState("");
-  const [bnbVal, setBnbVal] = useState("");
-  const [usdVal, setUsdVal] = useState("");
-  const [bnbUSDPrice, setBnbUSDPrice] = useState();
-  const [accountBalance, setAccountBalance] = useState({ bnb: 0, usd: 0 });
   const [error, setError] = useState({ isError: false, msg: "" });
 
-  useEffect(async () => {
-    const string =
-      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
-    await fetch(string)
-      .then((resp) => resp.json())
-      .then(async (data) => {
-        setBnbUSDPrice(data.binancecoin.usd);
+  const handleAction = async () => {
+    const params = [+tokenID, +edition];
+    console.log(ownerActionName);
+    await escrowContractInstance.methods[ownerActionName](...params)
+      .send({
+        from: web3Data.accounts[0],
+      })
+      .on("transactionHash", (hash) => {
+        setNFTStatus("progress");
+      })
+      .on("receipt", (receipt) => {
+        setNFTStatus("complete");
+      })
+      .on("error", (error) => {
+        setNFTStatus("complete");
       });
-  }, []);
-  useEffect(async () => {
-    console.log("web3data", web3Data, bnbUSDPrice);
-    if (web3Data.accounts[0] && bnbUSDPrice) {
-      console.log("1");
-      const bnbBalance = Number(
-        web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
-      );
-      console.log("2");
-      setAccountBalance({
-        bnb: bnbBalance,
-        usd: bnbUSDPrice * bnbBalance,
-      });
-    }
-  }, [web3Data.accounts[0], bnbUSDPrice]);
-
-  const placeBid = async () => {
-    if (!error.isError && bnbVal) {
-      await escrowContractInstance.methods
-        .placeBid(+tokenID, +edition)
-        .send({
-          from: web3Data.accounts[0],
-          value: web3.utils.toWei(bnbVal, "ether"),
-        })
-        .on("transactionHash", (hash) => {
-          setNFTStatus("progress");
-        })
-        .on("receipt", (receipt) => {
-          setNFTStatus("complete");
-        })
-        .on("error", (error) => {
-          setNFTStatus("complete");
-        });
-    }
-  };
-  const onValEnter = (e, inUSD) => {
-    const val = e.target.value;
-    const _bnbVal = inUSD ? val / bnbUSDPrice : val;
-    const _usdval = inUSD ? val : val * bnbUSDPrice;
-    if (+_bnbVal <= currentBidValue)
-      setError({
-        isError: true,
-        msg: "Input should be greater than NFT's current bid price ",
-      });
-    else if (+_bnbVal <= price)
-      setError({
-        isError: true,
-        msg: "Input amount should be greater than NFT's price ",
-      });
-    else if (+_bnbVal > accountBalance.bnb)
-      setError({
-        isError: true,
-        msg: "Input amount exceeded account balance",
-      });
-    else
-      setError({
-        isError: false,
-        msg: "",
-      });
-
-    setBnbVal(_bnbVal);
-    setUsdVal(_usdval);
   };
   return (
     <>
       <BlackWrap>
         <WhiteBX01>
-          <CloseBTN className="ani-1" onClick={() => props.toggle(8)}>
+          <CloseBTN className="ani-1" onClick={() => toggle(1)}>
             <img src={CloseBTN01} alt="" />
           </CloseBTN>
 
-          {/* place a bid and make an offer popup */}
-          <PBtitle>Place a Bid</PBtitle>
-          <PBDesc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit donec ut
-            sapien faucibus.
-          </PBDesc>
-          <BalanceLine>
-            <p className="balance">Your Balance :</p>
-            <p className="price-state">
-              {accountBalance.bnb.toLocaleString(2)} BNB |{" "}
-              {accountBalance.usd.toLocaleString(2)} USD
-            </p>
-          </BalanceLine>
-          <HalfInputs className={error.isError ? "errorinput" : null}>
-            <HIBox>
-              <input
-                className="BR-straight"
-                type="text"
-                placeholder="0.00"
-                value={bnbVal}
-                onChange={(e) => onValEnter(e)}
-              />
-              <p>BNB</p>
-            </HIBox>
-            <HIBox>
-              <input
-                className="BL-straight"
-                type="text"
-                placeholder="0.00"
-                value={usdVal}
-                onChange={(e) => onValEnter(e, true)}
-              />
-              <p>USD</p>
-            </HIBox>
-            {error.isError ? <p className="error">{error.msg}</p> : null}
-          </HalfInputs>
+          {ownerActionName === "burnTokenEdition" && (
+            <>
+              <PBtitle className="AStitle">Are you sure?</PBtitle>
+              <PBDesc className="ASDesc">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
+                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
+              </PBDesc>
+              <NFTcartButtons>
+                <button className="ani-1 bordered">Cancel</button>
+                <button className="ani-1" onClick={() => handleAction()}>
+                  Burn
+                </button>
+              </NFTcartButtons>
 
-          <PBbutton>
-            <button className="ani-1" onClick={() => placeBid()}>
-              Place
-            </button>
-          </PBbutton>
+              <PBtitle className="AStitle">Burned</PBtitle>
+              <PBDesc className="ASDesc">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
+                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
+              </PBDesc>
+              <NFTcartButtons>
+                <button className="ani-1 bordered bor-large">OK</button>
+              </NFTcartButtons>
+            </>
+          )}
+
+          {/* Transfer NFT popup */}
+          {ownerActionName === "transfer" && (
+            <>
+              <PBtitle className="TN-title">Transfer NFT</PBtitle>
+              <PBDesc className="mb-20">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
+                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
+              </PBDesc>
+              <NFTForm>
+                <div className="label-line">
+                  <label>Wallet Address</label>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Add Wallet Address"
+                  onChange={(e) => setReciever(e.target.value)}
+                />
+              </NFTForm>
+              <NFTcartButtons>
+                <button
+                  className="ani-1 bor-large"
+                  onClick={() => setConfirm(true)}
+                >
+                  Transfer
+                </button>
+              </NFTcartButtons>
+
+              <PBtitle className="AStitle">Confirm</PBtitle>
+              <PBDesc className="ASDesc mb-10">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
+                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
+              </PBDesc>
+              <SkyWalletAddress>{reciever}</SkyWalletAddress>
+              <NFTcartButtons>
+                <button className="ani-1 bordered" onClick={() => toggle(1)}>
+                  Cancel
+                </button>
+                <button className="ani-1" onClick={() => handleAction()}>
+                  Transfer
+                </button>
+              </NFTcartButtons>
+            </>
+          )}
         </WhiteBX01>
       </BlackWrap>
     </>
@@ -468,4 +441,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(PABpopup);
+export default connect(mapStateToProps, mapDipatchToProps)(NftOwnerActions);

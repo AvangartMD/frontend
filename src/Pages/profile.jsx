@@ -10,6 +10,7 @@ import dateFormat from "dateformat";
 
 import AdBannerIMG from "../Assets/images/adbanner.jpg";
 import LoaderGif from "../Assets/images/loading.gif";
+import UserIcon from "../Assets/images/user-img.jpg";
 import ProfielBack from "../Assets/images/profile-back.jpg";
 import CopyICO from "../Assets/images/icon-copy.svg";
 import PlusICO from "../Assets/images/icon-plus.svg";
@@ -27,6 +28,8 @@ import { compressImage } from "../helper/functions";
 import Drafts from "../Component/profile/drafts";
 import Artist from "../Component/profile/artits";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 
 class Profile extends Component {
   constructor(props) {
@@ -41,10 +44,7 @@ class Profile extends Component {
   }
 
   async componentDidMount() {
-    const { profile } = this.props;
-    if (!profile) {
-      this.props.getProfile(); // fetch profile
-    }
+    this.props.getProfile(); // fetch profile
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -111,7 +111,16 @@ class Profile extends Component {
                   {this.state.profile.url ? (
                     <img src={this.state.profile.url} alt="" />
                   ) : (
-                    <img src={profile ? profile.profile : ""} alt="" />
+                      <AnimatePresence>
+                        <motion.img
+                          initial={{ opacity: 0.2 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.4 }}
+                          key={profile?.profile}
+                          src={profile?.profile}
+                          exit={{ opacity: 0 }}
+                        />
+                      </AnimatePresence>
                   )}
                 </UserImgSB>
 
@@ -163,8 +172,8 @@ class Profile extends Component {
 
               <UserDetailBX>
                 <UserDTitle01>
-                  {profile ? profile.name : "User Name"}
-                  <span>@{profile ? profile.username : "username"}</span>
+                  {profile ? profile.name ? profile.name : "User Name" : "User Name"}
+                  <span>@{profile ? profile.username ? profile.username : "username" : "username"}</span>
                 </UserDTitle01>
                 <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
                 <UserSocilMBX>
