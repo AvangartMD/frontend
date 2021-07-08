@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styled from 'styled-components';
+import Media from "../../Theme/media-breackpoint";
 
 import NFT2 from '../../Assets/images/nft2.jpg';
 import HeartIcon from '../../Assets/images/heart-icon.svg';
@@ -28,7 +29,7 @@ class HallOfFrame extends Component {
                   <Tab>Artist</Tab>
                   <Tab>Artworks</Tab>
                   <Tab>Collector</Tab>
-                  <Tab>Our Picks</Tab>
+                  {/* <Tab>Our Picks</Tab> */}
                 </TabList>
                 <TabPanel>
                   <HomeTabDetail>
@@ -100,7 +101,9 @@ class HallOfFrame extends Component {
                       <Gs.TenpxGutter>
                         <HallofFameBox2>
                           <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
+                            <div className="img-outer">
+                              <img src={NFT2} alt='' />
+                            </div>
                             <p className='title'>
                               Artwork name / title dolor lorem ipsum sit
                               adipiscing
@@ -115,7 +118,9 @@ class HallOfFrame extends Component {
                       <Gs.TenpxGutter>
                         <HallofFameBox2>
                           <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
+                            <div className="img-outer">
+                              <img src={NFT2} alt='' />
+                            </div>
                             <p className='title'>
                               Artwork name / title dolor lorem ipsum sit
                               adipiscing
@@ -130,7 +135,9 @@ class HallOfFrame extends Component {
                       <Gs.TenpxGutter>
                         <HallofFameBox2>
                           <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
+                            <div className="img-outer">
+                              <img src={NFT2} alt='' />
+                            </div>
                             <p className='title'>
                               Artwork name / title dolor lorem ipsum sit
                               adipiscing
@@ -145,7 +152,9 @@ class HallOfFrame extends Component {
                       <Gs.TenpxGutter>
                         <HallofFameBox2>
                           <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
+                            <div className="img-outer">
+                              <img src={NFT2} alt='' />
+                            </div>
                             <p className='title'>
                               Artwork name / title dolor lorem ipsum sit
                               adipiscing
@@ -186,7 +195,7 @@ class HallOfFrame extends Component {
                     </Gs.W20>
                   </HomeTabDetail>
                 </TabPanel>
-                <TabPanel>
+                {/* <TabPanel>
                   <HomeTabDetail>
                     <Gs.W20>
                       <Gs.TenpxGutter>
@@ -225,7 +234,7 @@ class HallOfFrame extends Component {
                       </Gs.TenpxGutter>
                     </Gs.W20>
                   </HomeTabDetail>
-                </TabPanel>
+                </TabPanel> */}
               </Tabs>
             </HomeTabs>
           </Gs.Container>
@@ -256,11 +265,19 @@ const HomeTabs = styled.div`
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.8px;
+    ${Media.xs}{
+      margin: 0px 15px;
+    }
   }
   .react-tabs__tab--selected {
     border: none;
     border-bottom: 3px solid #000000;
     color: #000;
+  }
+  .react-tabs__tab:focus
+  {
+    box-shadow:none;
+    border:none;
   }
 `;
 
@@ -274,6 +291,9 @@ const HallofFameBox = styled(FlexDiv)`
   border-radius: 10px;
   text-align: center;
   min-height: 260px;
+  ${Media.md}{
+    margin:0px 0px 20px;
+  }
   .HOF-inner {
     img {
       width: 72px;
@@ -308,13 +328,23 @@ const HallofFameBox2 = styled(FlexDiv)`
   border: 1px solid #dddddd;
   border-radius: 10px;
   text-align: center;
+  ${Media.md}{
+    margin:0px 0px 20px;
+  }
   .HOF-inner {
-    img {
-      width: 200px;
+    width:100%;
+    .img-outer{
+      width: 100%;
       height: 200px;
-      margin: 0px 0px 10px;
+      overflow:hidden;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
+      margin: 0px 0px 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit:cover;
+      }
     }
     p.title {
       margin: 0px 0px 15px;

@@ -26,21 +26,21 @@ function NFTCard({
     <Gs.W25V2>
       <Gs.TenpxGutter>
         <div className="NFT-home-box">
-          <Link to={`/nftDetails/${nftId}`}> 
+          <Link to={`/nftDetails/${nftId}`}>
             <NFTImgBX>
               <LazyLoadImage src={nftImg} />
             </NFTImgBX>
-            </Link>
-            <div className="NFT-home-box-inner">
-              <h4>
-                {title
-                  ? title
-                  : "Artwork name / title dolor lorem ipsum sit adipiscing"}
-              </h4>
-              <CollectionBar>
-                <p>
-                  0 <span>of {edition ? edition : 0}</span>
-                </p>
+          </Link>
+          <div className="NFT-home-box-inner">
+            <h4>
+              {title
+                ? title
+                : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+            </h4>
+            <CollectionBar>
+              <p>
+                0 <span>of {edition ? edition : 0}</span>
+              </p>
               {collectionId ?
                 <p>
                   <Link to={`/collection-detail/${collectionId}`}>
@@ -48,37 +48,37 @@ function NFTCard({
                     <i className="fas fa-angle-right"></i>
                   </Link>
                 </p>
-              : ''}
-              </CollectionBar>
-              <Edition className="edition2 JCSB">
-                <div className="ed-box">
-                  <p>Current bid</p>
-                  <h3>{price} BNB</h3>
-                </div>
-                <div className="ed-box">
-                  {auctionEndDate ? (
-                    <>
-                      <p>Ending in</p>
-                      {previewCard ? (
-                        <h3>{auctionEndDate}h 00m 00s</h3>
-                      ) : (
-                        <h3>
-                          <Timer timeLeft={auctionEndDate} onlyHours={true} />
-                        </h3>
-                      )}
-                    </>
-                  ) : (
-                    <button>Buy now</button>
-                  )}
-                  {/* <h3>{auctionTime}h 00m 00s</h3> */}
-                </div>
-              </Edition>
-              <UserImgName>
-                <img src={userImg ? userImg : UserImg} alt="" />
-                {username ? `@${username}` : name}
-              </UserImgName>
-            </div>
+                : ''}
+            </CollectionBar>
+            <Edition className="edition2 JCSB">
+              <div className="ed-box">
+                <p>Current bid</p>
+                <h3>{price} BNB</h3>
+              </div>
+              <div className="ed-box">
+                {auctionEndDate ? (
+                  <>
+                    <p>Ending in</p>
+                    {previewCard ? (
+                      <h3>{auctionEndDate}h 00m 00s</h3>
+                    ) : (
+                      <h3>
+                        <Timer timeLeft={auctionEndDate} onlyHours={true} />
+                      </h3>
+                    )}
+                  </>
+                ) : (
+                  <button>Buy now</button>
+                )}
+                {/* <h3>{auctionTime}h 00m 00s</h3> */}
+              </div>
+            </Edition>
+            <UserImgName>
+              <img src={userImg ? userImg : UserImg} alt="" />
+              {username ? `@${username}` : name}
+            </UserImgName>
           </div>
+        </div>
       </Gs.TenpxGutter>
     </Gs.W25V2>
   );
@@ -92,6 +92,7 @@ const FlexDiv = styled.div`
     justify-content: space-between;
   }
 `;
+
 const Edition = styled(FlexDiv)`
   justify-content: space-between;
   background-color: #eef2f7;
@@ -120,6 +121,8 @@ const Edition = styled(FlexDiv)`
     }
   }
 `;
+
+
 
 const NFTImgBX = styled(FlexDiv)`
   width: 100%;

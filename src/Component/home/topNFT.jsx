@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Media from "../../Theme/media-breackpoint";
 
 import Redheart from '../../Assets/images/Redheart.svg';
 import UserImg from '../../Assets/images/user-img.jpg';
@@ -122,7 +123,7 @@ class TopNFT extends Component {
                   {this.renderedFirstElement(nfts[0], likesCount)}
                 </NFTfirstbox>
 
-                <NFTfourbox>
+                <NFTfourbox className='homepage'>
                   {(nfts.slice(1)).map((nft) => {
                     return (
                       <NFTCard
@@ -199,10 +200,20 @@ const NFTfirstbox = styled(FlexDiv)`
   margin-bottom: 30px;
   .w60 {
     width: 60%;
+    ${Media.md}{
+      width:100%;
+    }
   }
   .w40 {
     width: 40%;
+    ${Media.md}{
+      width:100%;
+    }
   }
+  ${Media.md}{
+    position:initial;
+  }
+  
 `;
 const NFTfbleft = styled(FlexDiv)`
   background-color: #eef2f7;
@@ -211,10 +222,27 @@ const NFTfbleft = styled(FlexDiv)`
   border-bottom-left-radius: 10px;
   img {
     box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
+    ${Media.sm}{
+      box-shadow: 0px 5px 10px 1px rgb(0 0 0 /30%);
+    }
+  }
+  ${Media.md}{
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+  }
+  ${Media.sm}{
+    padding:40px 30px;
+  }
+  ${Media.xs}{
+    padding:30px 20px;
   }
 `;
 const NFTfbright = styled.div`
   padding: 20px 50px;
+  ${Media.md}{
+    position:relative;
+    padding:20px 15px;
+  }
   h3 {
     color: #000000;
     font-size: 22px;
@@ -240,6 +268,9 @@ const NFTfbright = styled.div`
     :hover {
       color: #555;
       text-decoration: underline;
+    }
+    ${Media.md}{
+      margin: 0px 0px 20px;
     }
   }
 `;
@@ -271,6 +302,9 @@ const Edition = styled(FlexDiv)`
   border-radius: 10px;
   padding: 16px 20px;
   margin: 0px 0px 40px;
+  ${Media.md}{
+    margin: 0px 0px 20px;
+  }
   .ed-box {
     p {
       color: #8e9194;
@@ -310,6 +344,7 @@ const UserImgName = styled(FlexDiv)`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
+  justify-content:flex-start;
   flex-wrap: wrap;
   margin: 0px -10px 50px;
   .row {
@@ -390,6 +425,17 @@ const ViewallButton = styled.div`
     :hover {
       background-color: #000;
       color: #fff;
+    }
+  }
+`;
+
+Gs.W25V2 = styled(Gs.W25V2)`
+  ${NFTfourbox}.homepage & {
+    ${Media.md}{
+      width:50%;
+    }
+    ${Media.xs}{
+      width:100%;
     }
   }
 `;

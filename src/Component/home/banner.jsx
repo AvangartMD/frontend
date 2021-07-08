@@ -1,12 +1,12 @@
 import 'react-multi-carousel/lib/styles.css';
 import 'react-tabs/style/react-tabs.css';
-
 import React, { Component } from 'react';
 import Carousel from 'react-multi-carousel';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
+import Media from "../../Theme/media-breackpoint";
 
 import LArrow from '../../Assets/images/banner-larrow.svg';
 import RArrow from '../../Assets/images/banner-rarrow.svg';
@@ -71,13 +71,13 @@ class BannerTab extends Component {
   async componentDidMount() {
     const { banners, cookies } = this.props
     if (!this.state.banners && !banners) {
-        this.props.getBanners() // fetch banner list
+      this.props.getBanners() // fetch banner list
     } else {
       this.props.setBanners(cookies.get('banners'))
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     const { banners, cookies } = this.props
     if (banners && !cookies.get('banners')) {
       this.setCookie(banners) // set banners in cookie
@@ -94,14 +94,14 @@ class BannerTab extends Component {
     }
     return (
       <div className='item' key={index}>
-        <a target='_blank' rel="noopener noreferrer"  href={banner.url}><img src={img} alt='' id={banner.id} /></a>
+        <a target='_blank' rel="noopener noreferrer" href={banner.url}><img src={img} alt='' id={banner.id} /></a>
       </div>
     )
   }
 
   setCookie = (banners) => {
     const { cookies } = this.props;
-    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    const expire = new Date(Date.now() + (expiryTime * 60 * 60 * 1000)) // cookie will expire after 12 hours
     cookies.set('banners', banners, { path: '/', expires: expire });
   }
 
@@ -109,11 +109,11 @@ class BannerTab extends Component {
     return (
       <>
         <HomeBanner>
-            {this.props.banners?
-              <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
-                {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
-              </Carousel>
-            :'loading..'}
+          {this.props.banners ?
+            <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
+              {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
+            </Carousel>
+            : 'loading..'}
         </HomeBanner>
       </>
     );
@@ -129,7 +129,7 @@ const FlexDiv = styled.div`
 `;
 
 const HomeBanner = styled.div`
-  height: 660px;
+  max-height: 660px;
   width: 100%;
   .item {
     img {
@@ -189,7 +189,7 @@ const HomeBanner = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getBanners: () => dispatch(actions.fetchBanners()),
-    setBanners: (data) => dispatch({type: 'FETCHED_NFT_BANNERS', data: data})
+    setBanners: (data) => dispatch({ type: 'FETCHED_NFT_BANNERS', data: data })
   }
 }
 
