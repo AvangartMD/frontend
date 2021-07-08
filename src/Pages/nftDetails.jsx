@@ -18,6 +18,7 @@ import { actions } from "../actions";
 import { connect } from "react-redux";
 import Timer from "../Component/timer";
 import { getContractInstance } from "../helper/functions";
+import NftOwnerActions from "../Component/Modals/nftOwnerAction";
 
 class NftDetail extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class NftDetail extends React.Component {
         currentBidValue: "0",
         bidder: "0x0000000000000000000000000000000000000000",
       },
+      ownerActionName: "",
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -78,7 +80,7 @@ class NftDetail extends React.Component {
       authData,
     } = this.props;
 
-    console.log(NFTDetails);
+    console.log(NFTDetails?.ownerId.id, authData?.data?.id);
     return (
       <>
         <Gs.MainSection>
@@ -182,15 +184,59 @@ class NftDetail extends React.Component {
                 <NFTcartButtons>
                   <button onClick={() => this.toggle(8)}>Place a bid</button>
                   {/* <button disabled>Sold out</button> */}
-                  {/* <button className="bordered">Burn</button> */}
-                  {NFTDetails?.ownerId.id === authData?.role?.id && (
-                    <button className="bordered">Transfer</button>
+
+                  {NFTDetails?.ownerId.id === authData?.data?.id && (
+                    <>
+                      <button
+                        className="bordered"
+                        onClick={() => {
+                          this.setState(
+                            { ownerActionName: "burnTokenEdition" },
+                            () => this.toggle(1)
+                          );
+                        }}
+                      >
+                        Burn
+                      </button>
+                      <button
+                        className="bordered"
+                        onClick={() => {
+                          this.setState({ ownerActionName: "transfer" }, () =>
+                            this.toggle(1)
+                          );
+                        }}
+                      >
+                        Transfer
+                      </button>
+                      <button
+                        onClick={() => {
+                          this.setState(
+                            { ownerActionName: "burnTokenEdition" },
+                            () => this.toggle(7)
+                          );
+                        }}
+                      >
+                        Put on Sale
+                      </button>
+                    </>
                   )}
-                  {/* <button onClick={() => this.toggle(7)}>Put on Sale</button> */}
                 </NFTcartButtons>
               </NFTDrightcontainer>
             </NFTDright>
           </NFTdetailSection>
+          <Collapse
+            isOpen={this.state.isOpen1}
+            className={
+              "app__collapse " + (this.state.isOpen1 ? "collapse-active" : "")
+            }
+          >
+            <NftOwnerActions
+              toggle={this.toggle}
+              ownerActionName={this.state.ownerActionName}
+              edition={NFTDetails?.edition}
+              tokenID={NFTDetails?.tokenId}
+            />
+          </Collapse>
           <Collapse
             isOpen={this.state.isOpen6}
             className={

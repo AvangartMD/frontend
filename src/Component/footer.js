@@ -26,7 +26,7 @@ function Footer(props) {
       return (
         <AvBTN01>
           <Link to="/user/nftminting">
-            <FormattedMessage id="Login" defaultMessage="Create" />
+            <FormattedMessage id="Create" defaultMessage="Create" />
           </Link>
         </AvBTN01>
       );
@@ -109,13 +109,13 @@ function Footer(props) {
                 <AvBTN01 onClick={() => toggle()}>
                   <FormattedMessage id="Login" defaultMessage="Login" />
                 </AvBTN01>
-                <Language header={false} />
               </>
-            ) : userDetails ? (
-              checkRole(userDetails)
+            ) : userDetails && userDetails.status === true ? (
+              checkRole(userDetails.data)
             ) : (
               ""
             )}
+            <Language header={false} />
           </FooterSSbx03>
         </FooterSbx01>
       </FooterMBX>
@@ -123,7 +123,7 @@ function Footer(props) {
         isOpen={isOpen4}
         className={"app__collapse " + (isOpen4 ? "collapse-active" : "")}
       >
-        <Login toggle={toggle} />
+        <Login toggle={toggle} isFooter={true} footerToggleVal={isOpen4} />
         {/* <BecomeCreator toggle={this.toggle} /> */}
       </Collapse>
     </>

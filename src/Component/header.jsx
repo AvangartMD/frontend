@@ -62,10 +62,10 @@ class Header extends Component {
     //   // this.signatureRequest(nonce);
     // }
     if (authData !== prevProps.authData) {
-      this.setState({ userDetails: authData, isOpen4: false }, () => {
-        // this.toggle(4);
-        // this.refreshStates();
-      });
+      console.log(authData);
+      if (authData.status === true) {
+        this.setState({ userDetails: authData.data });
+      }
     }
   }
 
