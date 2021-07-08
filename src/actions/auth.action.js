@@ -13,6 +13,7 @@ export const authActions = {
   getCollectionDetails,
   getMoreCollections,
   updateCollection,
+  getTopNFT,
 };
 
 function fetchedData(type, data) {
@@ -177,6 +178,19 @@ function updateCollection(params = {}) {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("COLLECTION_UPDATED", promise.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getTopNFT() {
+  return (dispatch) => {
+    const response = services.get(`/admin/popular/list`, true);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_TOP_NFT", promise.data.data));
       } else {
         // console.log("error");
       }

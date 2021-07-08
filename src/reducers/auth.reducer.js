@@ -115,3 +115,12 @@ export function updateCollection(state = null, action) {
       return state;
   }
 }
+
+export function fetchTopNFT(state = null, action) {
+    switch (action.type) {
+      case 'FETCHED_TOP_NFT':
+        return action.data;
+      default:
+        return state;
+    }
+}
