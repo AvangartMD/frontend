@@ -92,7 +92,12 @@ function NftOwnerActions(props) {
                 />
               </NFTForm>
               <NFTcartButtons>
-                <button className="ani-1 bor-large" onClick = {()=>setConfirm(true)}></button></NFTcartButtons>>Transfer</button>
+                <button
+                  className="ani-1 bor-large"
+                  onClick={() => setConfirm(true)}
+                >
+                  Transfer
+                </button>
               </NFTcartButtons>
 
               <PBtitle className="AStitle">Confirm</PBtitle>
