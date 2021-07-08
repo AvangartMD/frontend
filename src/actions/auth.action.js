@@ -14,6 +14,7 @@ export const authActions = {
   getMoreCollections,
   updateCollection,
   getTopNFT,
+  getTopCollection,
 };
 
 function fetchedData(type, data) {
@@ -191,6 +192,19 @@ function getTopNFT() {
     return response.then((promise) => {
       if (promise.data) {
         dispatch(fetchedData("FETCHED_TOP_NFT", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getTopCollection() {
+  return (dispatch) => {
+    const response = services.get(`/admin/popularCollection/list`, true);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_TOP_COLLECTION", promise.data.data));
       } else {
         // console.log("error");
       }

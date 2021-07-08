@@ -15,15 +15,12 @@ import redheartBorder from "../../Assets/images/redheartBorder.svg";
 import Gs from '../../Theme/globalStyles';
 
 import { actions } from '../../actions';
-import { Context } from '../wrapper';
 import Timer from "../timer";
 import NFTCard from '../../Component/Cards/nftCard';
 
 
 
 class TopNFT extends Component {
-
-  static contextType = Context;
 
   constructor(props) {
     super(props)
