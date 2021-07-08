@@ -7,6 +7,7 @@ import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
 import Collapse from "@kunukn/react-collapse";
 import Collapsible from 'react-collapsible';
+import Media from "../Theme/media-breackpoint";
 
 import Blackcross from "../Assets/images/black-cross.svg";
 import Bluecross from "../Assets/images/blue-cross.svg";
@@ -139,6 +140,9 @@ const FlexDiv = styled.div`
 
 const FaqContainer = styled.div`
   margin:60px auto 80px; max-width:835px; width:100%;
+  ${Media.md}{
+    width:94%;
+  }
 `;
 
 const Faqtitle = styled.div`
@@ -154,7 +158,7 @@ const FilterLbx = styled(FlexDiv)`
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin-right: 8px;
+    margin:0px 8px 8px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -169,7 +173,7 @@ const FilterLbx = styled(FlexDiv)`
 
 const FaqAccordian = styled.div`
   .Collapsible{margin:0px 0px 40px;}
-  .Collapsible__trigger{font-size:20px; letter-spacing:-0.89px; font-weight:bold; color:#000; border-bottom:1px solid #ddd; cursor:pointer; padding-bottom:13px; display:block; position:relative;
+  .Collapsible__trigger{font-size:20px; letter-spacing:-0.89px; font-weight:bold; color:#000; line-height:normal; border-bottom:1px solid #ddd; cursor:pointer; padding:0px 17px 13px 0px; display:block; position:relative;
   :after{content:''; width:14px; height:14px; position:absolute; right:0px; top:0px; background:url(${Blackcross}); background-size:contain;}
   &.is-open{
     color:#00babc;
