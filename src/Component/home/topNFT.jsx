@@ -10,6 +10,7 @@ import Redheart from '../../Assets/images/Redheart.svg';
 import UserImg from '../../Assets/images/user-img.jpg';
 import LoaderGif from "../../Assets/images/loading.gif";
 import RoundIcon from '../../Assets/images/round-icon.svg';
+import redheartBorder from "../../Assets/images/redheartBorder.svg";
 import Gs from '../../Theme/globalStyles';
 
 import { actions } from '../../actions';
@@ -23,6 +24,13 @@ class TopNFT extends Component {
 
   static contextType = Context;
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      like_fetched: false,
+    }
+  }
+
   componentDidMount() {
     const { nfts } = this.props
     if (!nfts) {
@@ -30,7 +38,14 @@ class TopNFT extends Component {
     }
   }
 
-  renderedFirstElement = (nft) => {
+  componentDidUpdate(prevProps, prevState) {
+    const { likesCount } = this.props
+    if (likesCount !== prevProps.likesCount) {
+      this.setState({ like_fetched: true })
+    }
+  }
+
+  renderedFirstElement = (nft, likesCount) => {
     return (
       <>
         {/* <Link to={`/nftDetails/${nft.nftId.id}`}> */}
@@ -40,23 +55,22 @@ class TopNFT extends Component {
             </NFTfbleft>
           </div>
           <div className='w40'>
-            <NFTfbright>
-              {nft.isLike ?
-                <NFTLike>
-                  <Link to='/'>
-                    <img src={Redheart} alt='' />
-                  </Link>
-                  <p>306</p>
-                </NFTLike>
-                : ''}
+          <NFTfbright>
+            <NFTLike>
+              {nft.isLiked ?
+                <img src={Redheart} alt='' />
+              : <img src={redheartBorder} alt='' />
+              }
+              <p>{likesCount.count}</p>
+              </NFTLike>
               <h3>
                 {nft.nftId.title}
               </h3>
               <p>
                 {nft.nftId.description}
               </p>
-                {nft.nftId.collectionId ?
-                  <Link to={`collection-detail/${nft.nftId.collectionId}`}>
+                {nft.nftId.collectionId?.id ?
+                  <Link to={`collection-detail/${nft.nftId.collectionId.id}`}>
                     See the collection <i className='fas fa-angle-right'></i>
                   </Link>
                 : ''}
@@ -89,7 +103,11 @@ class TopNFT extends Component {
   }
 
   render() {
-    const { nfts } = this.props
+    const { nfts, likesCount } = this.props
+    const { like_fetched } = this.state
+    if (nfts && !like_fetched) {
+      this.props.getLikesCount(nfts[0].nftId.id) // fetch the likes count for the first NFT
+    }
     return (
       <>
         <HomeNFTs>
@@ -101,7 +119,7 @@ class TopNFT extends Component {
             {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
               <>
                 <NFTfirstbox>
-                    {this.renderedFirstElement(nfts[0])}
+                    {this.renderedFirstElement(nfts[0], likesCount)}
                 </NFTfirstbox>
                 <NFTfourbox>
                   {(nfts.slice(1)).map((nft) => {
@@ -236,7 +254,7 @@ const NFTLike = styled(FlexDiv)`
     font-weight: 600;
     margin: 0px;
   }
-  a {
+  img {
     line-height: normal;
     width: 15px;
     height: 15px;
@@ -376,12 +394,14 @@ const ViewallButton = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getTopNFT: () => dispatch(actions.getTopNFT()),
+    getLikesCount: (id) => dispatch(actions.getLikesCount(id)),
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     nfts: state.fetchTopNFT,
+    likesCount: state.fetchLikesCount,
   }
 }
 

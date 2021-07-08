@@ -25,11 +25,12 @@ function NFTCard({
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
-        <Link to={`/nftDetails/${nftId}`}>
-          <div className="NFT-home-box">
+        <div className="NFT-home-box">
+          <Link to={`/nftDetails/${nftId}`}> 
             <NFTImgBX>
               <LazyLoadImage src={nftImg} />
             </NFTImgBX>
+            </Link>
             <div className="NFT-home-box-inner">
               <h4>
                 {title
@@ -40,12 +41,14 @@ function NFTCard({
                 <p>
                   0 <span>of {edition ? edition : 0}</span>
                 </p>
+              {collectionId ?
                 <p>
-                  {/* <Link to={`/collection-detail/${collectionId}`}> */}
+                  <Link to={`/collection-detail/${collectionId}`}>
                     See the collection
                     <i className="fas fa-angle-right"></i>
-                  {/* </Link> */}
+                  </Link>
                 </p>
+              : ''}
               </CollectionBar>
               <Edition className="edition2 JCSB">
                 <div className="ed-box">
@@ -76,7 +79,6 @@ function NFTCard({
               </UserImgName>
             </div>
           </div>
-        </Link>
       </Gs.TenpxGutter>
     </Gs.W25V2>
   );
