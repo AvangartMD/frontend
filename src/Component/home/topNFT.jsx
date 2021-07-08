@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from "framer-motion";
 
 import Redheart from '../../Assets/images/Redheart.svg';
 import UserImg from '../../Assets/images/user-img.jpg';
@@ -51,7 +52,14 @@ class TopNFT extends Component {
         <div className='w60'>
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
-              <img src={nft.nftId.image.compressed} alt='' />
+              <motion.img
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                key={nft.nftId.image.compressed}
+                src={nft.nftId.image.compressed}
+                exit={{ opacity: 0 }}
+              />
             </NFTfbleft>
           </Link>
         </div>
@@ -112,39 +120,41 @@ class TopNFT extends Component {
       <>
         <HomeNFTs>
           <Gs.Container>
-            <div className='home-title'>
-              <h3>Top NFTs</h3>
-            </div>
+            <AnimatePresence>
+              <div className='home-title'>
+                <h3>Top NFTs</h3>
+              </div>
 
-            {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
-              <>
-                <NFTfirstbox>
-                  {this.renderedFirstElement(nfts[0], likesCount)}
-                </NFTfirstbox>
+              {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
+                <>
+                  <NFTfirstbox>
+                    {this.renderedFirstElement(nfts[0], likesCount)}
+                  </NFTfirstbox>
 
-                <NFTfourbox>
-                  {(nfts.slice(1)).map((nft) => {
-                    return (
-                      <NFTCard
-                        name={nft.nftId.ownerId.name}
-                        nftId={nft.nftId.id}
-                        collectionId={nft.nftId.collectionId?.id}
-                        auctionEndDate={nft.nftId.auctionEndDate}
-                        nftImg={nft.nftId.image.compressed}
-                        title={nft.nftId.title}
-                        edition={nft.nftId.edition}
-                        price={nft.nftId.price}
-                        auctionTime={nft.nftId.auctionTime}
-                        userImg={nft.nftId.ownerId.profile}
-                        username={nft.nftId.ownerId.username}
-                      />
-                    )
-                  })}
-                </NFTfourbox>
-              </>}
-            <ViewallButton>
-              <button>View all auctions</button>
-            </ViewallButton>
+                  <NFTfourbox>
+                    {(nfts.slice(1)).map((nft) => {
+                      return (
+                        <NFTCard
+                          name={nft.nftId.ownerId.name}
+                          nftId={nft.nftId.id}
+                          collectionId={nft.nftId.collectionId?.id}
+                          auctionEndDate={nft.nftId.auctionEndDate}
+                          nftImg={nft.nftId.image.compressed}
+                          title={nft.nftId.title}
+                          edition={nft.nftId.edition}
+                          price={nft.nftId.price}
+                          auctionTime={nft.nftId.auctionTime}
+                          userImg={nft.nftId.ownerId.profile}
+                          username={nft.nftId.ownerId.username}
+                        />
+                      )
+                    })}
+                  </NFTfourbox>
+                </>}
+              <ViewallButton>
+                <button>View all auctions</button>
+              </ViewallButton>
+            </AnimatePresence>
           </Gs.Container>
         </HomeNFTs>
       </>

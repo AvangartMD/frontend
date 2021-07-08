@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 import UserImg from "../../Assets/images/user-img.jpg";
 import NFT3 from "../../Assets/images/nft3.jpg";
@@ -23,64 +23,75 @@ function NFTCard({
   previewCard,
 }) {
   return (
-    <Gs.W25V2>
-      <Gs.TenpxGutter>
-        <div className="NFT-home-box">
-          <Link to={`/nftDetails/${nftId}`}> 
-            <NFTImgBX>
-              <LazyLoadImage src={previewCard?NFT3:nftImg} />
-            </NFTImgBX>
-            </Link>
-            <div className="NFT-home-box-inner">
-              <h4>
-                {title
-                  ? title
-                  : "Artwork name / title dolor lorem ipsum sit adipiscing"}
-              </h4>
-              <CollectionBar>
-                <p>
-                  0 <span>of {edition ? edition : 0}</span>
-                </p>
-              {collectionId ?
-                <p>
-                  <Link to={`/collection-detail/${collectionId}`}>
-                    See the collection
-                    <i className="fas fa-angle-right"></i>
-                  </Link>
-                </p>
-              : ''}
-              </CollectionBar>
-              <Edition className="edition2 JCSB">
-                <div className="ed-box">
-                  <p>Current bid</p>
-                  <h3>{price} BNB</h3>
-                </div>
-                <div className="ed-box">
-                  {auctionEndDate ? (
-                    <>
-                      <p>Ending in</p>
-                      {previewCard ? (
-                        <h3>{auctionEndDate}h 00m 00s</h3>
-                      ) : (
-                        <h3>
-                          <Timer timeLeft={auctionEndDate} onlyHours={true} />
-                        </h3>
-                      )}
-                    </>
-                  ) : (
-                    <button>Buy now</button>
-                  )}
-                  {/* <h3>{auctionTime}h 00m 00s</h3> */}
-                </div>
-              </Edition>
-              <UserImgName>
-                <img src={userImg ? userImg : UserImg} alt="" />
-                {username ? `@${username}` : name}
-              </UserImgName>
+    <AnimateSharedLayout>
+    <AnimatePresence>
+      <Gs.W25V2>
+        <Gs.TenpxGutter>
+          <div className="NFT-home-box">
+            <Link to={`/nftDetails/${nftId}`}> 
+              <NFTImgBX>
+                <motion.img
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={previewCard ? NFT3 : nftImg}
+                  src={previewCard ? NFT3 : nftImg}
+                  exit={{ opacity: 0 }}
+                />
+              </NFTImgBX>
+              </Link>
+              <div className="NFT-home-box-inner">
+                <h4>
+                  {title
+                    ? title
+                    : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+                </h4>
+                <CollectionBar>
+                  <p>
+                    0 <span>of {edition ? edition : 0}</span>
+                  </p>
+                {collectionId ?
+                  <p>
+                    <Link to={`/collection-detail/${collectionId}`}>
+                      See the collection
+                      <i className="fas fa-angle-right"></i>
+                    </Link>
+                  </p>
+                : ''}
+                </CollectionBar>
+                <Edition className="edition2 JCSB">
+                  <div className="ed-box">
+                    <p>Current bid</p>
+                    <h3>{price} BNB</h3>
+                  </div>
+                  <div className="ed-box">
+                    {auctionEndDate ? (
+                      <>
+                        <p>Ending in</p>
+                        {previewCard ? (
+                          <h3>{auctionEndDate}h 00m 00s</h3>
+                        ) : (
+                          <h3>
+                            <Timer timeLeft={auctionEndDate} onlyHours={true} />
+                          </h3>
+                        )}
+                      </>
+                    ) : (
+                      <button>Buy now</button>
+                    )}
+                    {/* <h3>{auctionTime}h 00m 00s</h3> */}
+                  </div>
+                </Edition>
+                <UserImgName>
+                  <img src={userImg ? userImg : UserImg} alt="" />
+                  {username ? `@${username}` : name}
+                </UserImgName>
+              </div>
             </div>
-          </div>
-      </Gs.TenpxGutter>
-    </Gs.W25V2>
+        </Gs.TenpxGutter>
+      </Gs.W25V2>
+      </AnimatePresence>
+      </AnimateSharedLayout>
   );
 }
 const FlexDiv = styled.div`

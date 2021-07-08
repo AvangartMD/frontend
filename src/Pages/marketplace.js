@@ -5,12 +5,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
-import { Link } from 'react-router-dom';
 import Collapse from '@kunukn/react-collapse';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import NFT2 from '../Assets/images/nft2.jpg';
-import UserImg from '../Assets/images/user-img.jpg';
 import HeartIcon from '../Assets/images/heart-icon.svg';
 import StarIcon from '../Assets/images/star-icon.svg';
 import RoundIcon from '../Assets/images/round-icon.svg';
