@@ -4,7 +4,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import UserImg from "../../Assets/images/user-img.jpg";
-import NFT2 from "../../Assets/images/nft2.jpg";
+import NFT3 from "../../Assets/images/nft3.jpg";
 import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
@@ -25,11 +25,12 @@ function NFTCard({
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
-        <Link to={`/nftDetails/${nftId}`}>
-          <div className="NFT-home-box">
+        <div className="NFT-home-box">
+          <Link to={`/nftDetails/${nftId}`}> 
             <NFTImgBX>
-              <LazyLoadImage src={nftImg} />
+              <LazyLoadImage src={previewCard?NFT3:nftImg} />
             </NFTImgBX>
+            </Link>
             <div className="NFT-home-box-inner">
               <h4>
                 {title
@@ -40,12 +41,14 @@ function NFTCard({
                 <p>
                   0 <span>of {edition ? edition : 0}</span>
                 </p>
+              {collectionId ?
                 <p>
-                  {/* <Link to={`/collection-detail/${collectionId}`}> */}
+                  <Link to={`/collection-detail/${collectionId}`}>
                     See the collection
                     <i className="fas fa-angle-right"></i>
-                  {/* </Link> */}
+                  </Link>
                 </p>
+              : ''}
               </CollectionBar>
               <Edition className="edition2 JCSB">
                 <div className="ed-box">
@@ -76,7 +79,6 @@ function NFTCard({
               </UserImgName>
             </div>
           </div>
-        </Link>
       </Gs.TenpxGutter>
     </Gs.W25V2>
   );

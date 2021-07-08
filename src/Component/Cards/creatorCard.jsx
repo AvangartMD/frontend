@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import UserImg01 from '../../Assets/images/userImg.png'
+import UserIcon from "../../Assets/images/user-img.jpg";
 
 
 function CreatorCard({
@@ -24,7 +24,7 @@ function CreatorCard({
                 </ImgBannerBX>
                 <CreatSBX02>
                     <UserImg>
-                        <LazyLoadImage src={profile} />
+                        <LazyLoadImage src={profile?profile:UserIcon} />
                     </UserImg>
                     <CretrTitle01>
                         {name}

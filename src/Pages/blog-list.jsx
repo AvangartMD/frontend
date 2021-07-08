@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
 import Collapse from "@kunukn/react-collapse";
+import Media from "../Theme/media-breackpoint";
 
 import SerICON from '../Assets/images/searchICO.svg';
 import NFT2 from "../Assets/images/nft1.jpg";
@@ -359,6 +360,9 @@ const FilterMBX = styled(FlexDiv)`
   justify-content: space-between;
   max-width: 1080px;
   margin: 30px auto 40px;
+  ${Media.lg}{
+    max-width:100%;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
@@ -371,7 +375,7 @@ const FilterLbx = styled(FlexDiv)`
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin-right: 8px;
+    margin:0px 8px 8px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -382,17 +386,24 @@ const FilterLbx = styled(FlexDiv)`
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
   }
+  ${Media.md}{
+    width:100%;
+  }
 `;
 const FilterRbx = styled(FlexDiv)`
   width: 55%;
   justify-content: flex-end;
+  ${Media.md}{
+    width:100%;
+    justify-content: flex-start;
+    margin-top:20px;
+  }
 `;
 const FilterInputBX = styled(FlexDiv)`
   width: 100%;
   max-width: 220px;
   position: relative;
   margin-right: 9px;
-
   input {
     background-color: #eef2f7;
     font-size: 14px;
@@ -408,6 +419,10 @@ const FilterInputBX = styled(FlexDiv)`
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
   }
+  ${Media.md}{
+    max-width:100%;
+    margin-right:0px;
+  }
 `;
 const SearchICO = styled(FlexDiv)`
   width: 21px;
@@ -417,7 +432,7 @@ const SearchICO = styled(FlexDiv)`
   top: 9px;
 `;
 const ImgOuter = styled.div`
-  width:255px;
+  width:100%;
   height:255px;
   border-top-left-radius:10px;
   border-top-right-radius:10px;
@@ -430,7 +445,7 @@ const ImgOuter = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
-  flex-wrap: wrap;
+  justify-content:flex-start;
   margin: 0px -10px 120px;
   .row {
     margin: 0px -10px;
@@ -465,6 +480,7 @@ const NFTfourbox = styled(FlexDiv)`
       }
     }
   }
+ 
 `;
 
 export default BlogList;

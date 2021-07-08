@@ -12,6 +12,7 @@ import Banner1 from "../Assets/images/banner-1.jpg";
 import Banner2 from "../Assets/images/banner-2.jpg";
 import NFT1 from "../Assets/images/nft1.jpg";
 import NFT2 from "../Assets/images/nft2.jpg";
+import NFT3 from "../Assets/images/nft3.jpg";
 import Redheart from "../Assets/images/Redheart.svg";
 import UserImg from "../Assets/images/user-img.jpg";
 import HeartIcon from "../Assets/images/heart-icon.svg";
@@ -110,7 +111,7 @@ class Dashboard extends Component {
     // set initial cards
     this.setState(
       { cards: Array.from({ length: 8 }), hasMore: true },
-      () => {}
+      () => { }
     );
   }
   render() {
@@ -158,7 +159,7 @@ class Dashboard extends Component {
             <NFTfirstbox>
               <div className="w60">
                 <NFTfbleft>
-                  <img src={NFT1} alt="" />
+                  <img src={NFT3} alt="" />
                 </NFTfbleft>
               </div>
               <div className="w40">

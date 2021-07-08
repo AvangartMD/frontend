@@ -7,6 +7,7 @@ import Gs from "../Theme/globalStyles";
 // import { Link } from 'react-router-dom';
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
+import Media from "../Theme/media-breackpoint";
 
 import AdBannerIMG from "../Assets/images/adbanner.jpg";
 import NFT2 from "../Assets/images/nft1.jpg";
@@ -152,11 +153,29 @@ const NFTLeft = styled.div`
 const Legalleft = styled.div`
   max-width:240px;
   width:100%;
+  ${Media.lg}{
+    max-width:20%;
+  }
+  ${Media.md}{
+    max-width:25%;
+  }
+  ${Media.sm}{
+    display:none;
+  }
 `;
 const Legalright = styled.div`
   max-width:840px; width:100%;
   h3{font-size:24px; letter-spacing:-1.07px; font-weight:700; margin:0px 0px 15px; color:#000;}
   p{font-size:16px; letter-spacing:-0.8px; line-height:normal; margin:0px 0px 30px; color:#000;}
+  ${Media.lg}{
+    max-width:80%;
+  }
+  ${Media.md}{
+    max-width:75%;
+  }
+  ${Media.sm}{
+    max-width:100%;
+  }
 `;
 
 

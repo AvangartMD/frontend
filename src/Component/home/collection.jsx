@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { withRouter } from "react-router";
 
 import NFT2 from '../../Assets/images/nft2.jpg';
 import HeartIcon from '../../Assets/images/heart-icon.svg';
@@ -54,7 +55,9 @@ class Collections extends Component {
               </Gs.W25>
             </CollectionSection>
             <ViewallButton>
-              <button>View all collections</button>
+              <button
+                onClick={() => this.props.history.push("/collections")}
+              >View all collections</button>
             </ViewallButton>
           </Gs.Container>
         </HomeNFTs>
@@ -124,4 +127,4 @@ const CollectionSection = styled(FlexDiv)`
   }
 `;
 
-export default Collections;
+export default withRouter(Collections);
