@@ -49,54 +49,54 @@ class TopNFT extends Component {
     return (
       <>
         {/* <Link to={`/nftDetails/${nft.nftId.id}`}> */}
-          <div className='w60'>
-            <NFTfbleft>
-              <img src={nft.nftId.image.compressed} alt='' />
-            </NFTfbleft>
-          </div>
-          <div className='w40'>
+        <div className='w60'>
+          <NFTfbleft>
+            <img src={nft.nftId.image.compressed} alt='' />
+          </NFTfbleft>
+        </div>
+        <div className='w40'>
           <NFTfbright>
             <NFTLike>
               {nft.isLiked ?
                 <img src={Redheart} alt='' />
-              : <img src={redheartBorder} alt='' />
+                : <img src={redheartBorder} alt='' />
               }
               <p>{likesCount.count}</p>
-              </NFTLike>
-              <h3>
-                {nft.nftId.title}
-              </h3>
-              <p>
-                {nft.nftId.description}
-              </p>
-                {nft.nftId.collectionId?.id ?
-                  <Link to={`collection-detail/${nft.nftId.collectionId.id}`}>
-                    See the collection <i className='fas fa-angle-right'></i>
-                  </Link>
-                : ''}
-              <Edition>
-                <div className='ed-box'>
-                  <p>Edition</p>
-                  <h3>
-                    {nft.nftId.edition}
-                    {/* <span>of 2500</span> */}
-                  </h3>
-                </div>
-                <div className='ed-box'>
-                  <p>Current bid</p>
-                  <h3>{nft.nftId.price} BNB</h3>
-                </div>
-                <div className='ed-box'>
-                  <p>Ending in</p>
-                  <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
-                </div>
-              </Edition>
-              <UserImgName>
-                <img src={nft.nftId.ownerId.profile ? nft.nftId.ownerId.profile : UserImg} alt="" />
-                {nft.nftId.ownerId.username ? `@${nft.nftId.ownerId.username}` : nft.nftId.ownerId.name}
-              </UserImgName>
-            </NFTfbright>
-            </div>
+            </NFTLike>
+            <h3>
+              {nft.nftId.title}
+            </h3>
+            <p>
+              {nft.nftId.description}
+            </p>
+            {nft.nftId.collectionId?.id ?
+              <Link to={`collection-detail/${nft.nftId.collectionId.id}`}>
+                See the collection <i className='fas fa-angle-right'></i>
+              </Link>
+              : ''}
+            <Edition>
+              <div className='ed-box'>
+                <p>Edition</p>
+                <h3>
+                  {nft.nftId.edition}
+                  {/* <span>of 2500</span> */}
+                </h3>
+              </div>
+              <div className='ed-box'>
+                <p>Current bid</p>
+                <h3>{nft.nftId.price} BNB</h3>
+              </div>
+              <div className='ed-box'>
+                <p>Ending in</p>
+                <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
+              </div>
+            </Edition>
+            <UserImgName>
+              <img src={nft.nftId.ownerId.profile ? nft.nftId.ownerId.profile : UserImg} alt="" />
+              {nft.nftId.ownerId.username ? `@${nft.nftId.ownerId.username}` : nft.nftId.ownerId.name}
+            </UserImgName>
+          </NFTfbright>
+        </div>
         {/* </Link> */}
       </>
     )
@@ -119,25 +119,26 @@ class TopNFT extends Component {
             {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
               <>
                 <NFTfirstbox>
-                    {this.renderedFirstElement(nfts[0], likesCount)}
+                  {this.renderedFirstElement(nfts[0], likesCount)}
                 </NFTfirstbox>
+
                 <NFTfourbox>
                   {(nfts.slice(1)).map((nft) => {
                     return (
-                        <NFTCard
-                          name={nft.nftId.ownerId.name}
-                          nftId={nft.nftId.id}
-                          collectionId={nft.nftId.collectionId?.id}
-                          auctionEndDate={nft.nftId.auctionEndDate}
-                          nftImg={nft.nftId.image.compressed}
-                          title={nft.nftId.title}
-                          edition={nft.nftId.edition}
-                          price={nft.nftId.price}
-                          auctionTime={nft.nftId.auctionTime}
-                          userImg={nft.nftId.ownerId.profile}
-                          username={nft.nftId.ownerId.username}
-                        />
-                      )
+                      <NFTCard
+                        name={nft.nftId.ownerId.name}
+                        nftId={nft.nftId.id}
+                        collectionId={nft.nftId.collectionId?.id}
+                        auctionEndDate={nft.nftId.auctionEndDate}
+                        nftImg={nft.nftId.image.compressed}
+                        title={nft.nftId.title}
+                        edition={nft.nftId.edition}
+                        price={nft.nftId.price}
+                        auctionTime={nft.nftId.auctionTime}
+                        userImg={nft.nftId.ownerId.profile}
+                        username={nft.nftId.ownerId.username}
+                      />
+                    )
                   })}
                 </NFTfourbox>
               </>}
@@ -205,7 +206,9 @@ const NFTfirstbox = styled(FlexDiv)`
 `;
 const NFTfbleft = styled(FlexDiv)`
   background-color: #eef2f7;
-  padding: 80px 0px;
+  padding: 80px 60px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   img {
     box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
   }
