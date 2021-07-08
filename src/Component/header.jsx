@@ -12,8 +12,7 @@ import { withRouter } from "react-router";
 import { actions } from "../actions";
 import LogoImg from "../Assets/images/logo.png";
 import NotifiIcon from "../Assets/images/notification.svg";
-import UserIcon from "../Assets/images/userIcon.png";
-import UserIcon2 from "../Assets/images/userImg.png";
+import UserIcon from "../Assets/images/user-img.jpg";
 import RightArrow from "../Assets/images/rightArrow.svg";
 import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
@@ -263,8 +262,8 @@ class Header extends Component {
                         userDetails
                           ? userDetails.profile
                             ? userDetails.profile
-                            : UserIcon2
-                          : UserIcon2
+                            : UserIcon
+                          : UserIcon
                       }
                       alt=""
                     />
@@ -290,8 +289,8 @@ class Header extends Component {
                                 userDetails
                                   ? userDetails.profile
                                     ? userDetails.profile
-                                    : UserIcon2
-                                  : UserIcon2
+                                    : UserIcon
+                                  : UserIcon
                               }
                               alt=""
                             />

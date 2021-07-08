@@ -48,11 +48,12 @@ class TopNFT extends Component {
   renderedFirstElement = (nft, likesCount) => {
     return (
       <>
-        {/* <Link to={`/nftDetails/${nft.nftId.id}`}> */}
         <div className='w60'>
-          <NFTfbleft>
-            <img src={nft.nftId.image.compressed} alt='' />
-          </NFTfbleft>
+          <Link to={`/nftDetails/${nft.nftId.id}`}>
+            <NFTfbleft>
+              <img src={nft.nftId.image.compressed} alt='' />
+            </NFTfbleft>
+          </Link>
         </div>
         <div className='w40'>
           <NFTfbright>
@@ -97,7 +98,6 @@ class TopNFT extends Component {
             </UserImgName>
           </NFTfbright>
         </div>
-        {/* </Link> */}
       </>
     )
   }

@@ -4,7 +4,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import UserImg from "../../Assets/images/user-img.jpg";
-import NFT2 from "../../Assets/images/nft2.jpg";
+import NFT3 from "../../Assets/images/nft3.jpg";
 import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
@@ -28,7 +28,7 @@ function NFTCard({
         <div className="NFT-home-box">
           <Link to={`/nftDetails/${nftId}`}> 
             <NFTImgBX>
-              <LazyLoadImage src={nftImg} />
+              <LazyLoadImage src={previewCard?NFT3:nftImg} />
             </NFTImgBX>
             </Link>
             <div className="NFT-home-box-inner">

@@ -8,6 +8,7 @@ import dateFormat from "dateformat";
 
 import Gs from "../../Theme/globalStyles";
 import LoaderGif from "../../Assets/images/loading.gif";
+import UserIcon from "../../Assets/images/user-img.jpg";
 import ProfielBack from "../../Assets/images/profile-back.jpg";
 import CopyICO from "../../Assets/images/icon-copy.svg";
 import PlusICO from "../../Assets/images/icon-plus.svg";
@@ -111,7 +112,7 @@ class ProfileCard extends Component {
                   {this.state.profile.url ? (
                     <img src={this.state.profile.url} alt="" />
                   ) : (
-                    <img src={profile ? profile.profile : ""} alt="" />
+                    <img src={profile ? profile.profile ? profile.profile : UserIcon : UserIcon} alt="" />
                   )}
                 </UserImgSB>
                 {id ? ("") : (
