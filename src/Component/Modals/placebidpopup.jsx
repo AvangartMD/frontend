@@ -12,11 +12,20 @@ import { actions } from "../../actions";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { web3 } from "../../web3";
+import TxnStatus from "./txnStatus";
 
 function PABpopup(props) {
-  const { web3Data, edition, tokenID, price, currentBidValue } = props;
+  const {
+    web3Data,
+    edition,
+    nonce,
+    price,
+    currentBidValue,
+    toggle,
+    method,
+  } = props;
   const escrowContractInstance = getContractInstance(true);
-  const [mintNFTStatus, setNFTStatus] = useState("");
+  const [txnStatus, setTxnStatus] = useState("");
   const [bnbVal, setBnbVal] = useState("");
   const [usdVal, setUsdVal] = useState("");
   const [bnbUSDPrice, setBnbUSDPrice] = useState();
@@ -45,21 +54,23 @@ function PABpopup(props) {
   }, [web3Data.accounts[0], bnbUSDPrice]);
 
   const placeBid = async () => {
-    if (!error.isError && bnbVal) {
-      await escrowContractInstance.methods
-        .placeBid(+tokenID, +edition)
+    console.log("the val", bnbVal);
+    const val = method === "buyNow" ? price.toString() : bnbVal;
+    if (!error.isError && val) {
+      setTxnStatus("initiate");
+      await escrowContractInstance.methods[method](+nonce, +1)
         .send({
           from: web3Data.accounts[0],
-          value: web3.utils.toWei(bnbVal, "ether"),
+          value: web3.utils.toWei(val, "ether"),
         })
         .on("transactionHash", (hash) => {
-          setNFTStatus("progress");
+          setTxnStatus("progress");
         })
         .on("receipt", (receipt) => {
-          setNFTStatus("complete");
+          setTxnStatus("complete");
         })
         .on("error", (error) => {
-          setNFTStatus("complete");
+          setTxnStatus("complete");
         });
     }
   };
@@ -91,56 +102,106 @@ function PABpopup(props) {
     setBnbVal(_bnbVal);
     setUsdVal(_usdval);
   };
+  const refreshStates = () => {
+    setBnbVal("");
+    setUsdVal("");
+    setTxnStatus("");
+  };
   return (
     <>
       <BlackWrap>
         <WhiteBX01>
-          <CloseBTN className="ani-1" onClick={() => props.toggle(8)}>
+          <CloseBTN
+            className="ani-1"
+            onClick={() => {
+              toggle(8);
+              refreshStates();
+            }}
+          >
             <img src={CloseBTN01} alt="" />
           </CloseBTN>
 
           {/* place a bid and make an offer popup */}
-          <PBtitle>Place a Bid</PBtitle>
-          <PBDesc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit donec ut
-            sapien faucibus.
-          </PBDesc>
-          <BalanceLine>
-            <p className="balance">Your Balance :</p>
-            <p className="price-state">
-              {accountBalance.bnb.toLocaleString(2)} BNB |{" "}
-              {accountBalance.usd.toLocaleString(2)} USD
-            </p>
-          </BalanceLine>
-          <HalfInputs className={error.isError ? "errorinput" : null}>
-            <HIBox>
-              <input
-                className="BR-straight"
-                type="text"
-                placeholder="0.00"
-                value={bnbVal}
-                onChange={(e) => onValEnter(e)}
-              />
-              <p>BNB</p>
-            </HIBox>
-            <HIBox>
-              <input
-                className="BL-straight"
-                type="text"
-                placeholder="0.00"
-                value={usdVal}
-                onChange={(e) => onValEnter(e, true)}
-              />
-              <p>USD</p>
-            </HIBox>
-            {error.isError ? <p className="error">{error.msg}</p> : null}
-          </HalfInputs>
-
-          <PBbutton>
-            <button className="ani-1" onClick={() => placeBid()}>
-              Place
-            </button>
-          </PBbutton>
+          {!txnStatus ? (
+            <>
+              {method === "placeBid" ? (
+                <>
+                  {" "}
+                  <PBtitle>Place a Bid</PBtitle>
+                  <PBDesc>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    donec ut sapien faucibus.
+                  </PBDesc>
+                  <BalanceLine>
+                    <p className="balance">Your Balance :</p>
+                    <p className="price-state">
+                      {accountBalance.bnb.toLocaleString(2)} BNB |{" "}
+                      {accountBalance.usd.toLocaleString(2)} USD
+                    </p>
+                  </BalanceLine>
+                  <HalfInputs className={error.isError ? "errorinput" : null}>
+                    <HIBox>
+                      <input
+                        className="BR-straight"
+                        type="text"
+                        placeholder="0.00"
+                        value={bnbVal}
+                        onChange={(e) => onValEnter(e)}
+                      />
+                      <p>BNB</p>
+                    </HIBox>
+                    <HIBox>
+                      <input
+                        className="BL-straight"
+                        type="text"
+                        placeholder="0.00"
+                        value={usdVal}
+                        onChange={(e) => onValEnter(e, true)}
+                      />
+                      <p>USD</p>
+                    </HIBox>
+                    {error.isError ? (
+                      <p className="error">{error.msg}</p>
+                    ) : null}
+                  </HalfInputs>
+                  <PBbutton>
+                    <button className="ani-1" onClick={() => placeBid()}>
+                      Place
+                    </button>
+                  </PBbutton>
+                </>
+              ) : (
+                <>
+                  <PBtitle className="AStitle">Confirm</PBtitle>
+                  <PBDesc className="ASDesc mb-10">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                    cursus.
+                  </PBDesc>
+                  {/* <SkyWalletAddress>{reciever}</SkyWalletAddress> */}
+                  <NFTcartButtons>
+                    <button
+                      className="ani-1 bordered"
+                      onClick={() => toggle(8)}
+                    >
+                      Cancel
+                    </button>
+                    <button className="ani-1" onClick={() => placeBid()}>
+                      buy
+                    </button>
+                  </NFTcartButtons>
+                </>
+              )}
+            </>
+          ) : (
+            <TxnStatus
+              status={txnStatus}
+              toggle={toggle}
+              toggleIndex={8}
+              refreshStates={refreshStates}
+            />
+          )}
         </WhiteBX01>
       </BlackWrap>
     </>

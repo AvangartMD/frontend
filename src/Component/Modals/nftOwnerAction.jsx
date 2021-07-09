@@ -16,7 +16,7 @@ function NftOwnerActions(props) {
   const escrowContractInstance = getContractInstance(true);
   const [reciever, setReciever] = useState("");
   const [mintNFTStatus, setNFTStatus] = useState("");
-  const [error, setError] = useState({ isError: false, msg: "" });
+  // const [error, setError] = useState({ isError: false, msg: "" });
   const [confirm, setConfirm] = useState(false);
 
   const handleAction = async () => {
@@ -409,9 +409,9 @@ const NFTForm = styled.div`
 
 const SkyWalletAddress = styled.div`
   background-color: #eef2f7;
-  padding: 10px 47px;
+  padding: 10px;
   border-radius: 15px;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: -0.8px;
   font-weight: 600;
   color: #000;
