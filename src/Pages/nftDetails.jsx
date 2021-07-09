@@ -67,7 +67,6 @@ class NftDetail extends React.Component {
         bidder: bidDetails.bidder,
       },
     });
-    console.log(bidDetails);
   }
   render() {
     let id = this.props.match.params.id;
@@ -80,7 +79,6 @@ class NftDetail extends React.Component {
       authData,
     } = this.props;
 
-    console.log(NFTDetails?.ownerId.id, authData?.data?.id);
     return (
       <>
         <Gs.MainSection>

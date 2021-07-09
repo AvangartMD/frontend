@@ -33,13 +33,10 @@ function PABpopup(props) {
       });
   }, []);
   useEffect(async () => {
-    console.log("web3data", web3Data, bnbUSDPrice);
     if (web3Data.accounts[0] && bnbUSDPrice) {
-      console.log("1");
       const bnbBalance = Number(
         web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
       );
-      console.log("2");
       setAccountBalance({
         bnb: bnbBalance,
         usd: bnbUSDPrice * bnbBalance,
