@@ -26,7 +26,7 @@ import { actions } from "../actions";
 import { services } from "../services";
 import { compressImage } from "../helper/functions";
 import Drafts from "../Component/profile/drafts";
-import Artist from "../Component/profile/artits";
+import Created from "../Component/profile/created";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -334,16 +334,25 @@ class Profile extends Component {
 
           <HomeTabs>
             <Tabs>
-              <TabList>
-                <Tab>Artist</Tab>
-                <Tab>Artworks</Tab>
-                <Tab>Collector</Tab>
-                <Tab>Our Picks</Tab>
-                <Tab>Drafts</Tab>
-              </TabList>
+
+              {profile?.role.roleName === 'CREATOR' ? (
+                <TabList>
+                  <Tab>Created</Tab>
+                  <Tab>Collected</Tab>
+                  <Tab>Collections</Tab>
+                  <Tab>Linked</Tab>
+                  <Tab>Drafts</Tab>
+                </TabList>
+              ) : (
+                <TabList>
+                  <Tab>Collected</Tab>
+                  <Tab>Collections</Tab>
+                  <Tab>Linked</Tab>
+                </TabList>
+              )}
 
               <TabPanel>
-                <Artist />
+                <Created />
               </TabPanel>
               <TabPanel>2</TabPanel>
               <TabPanel>3</TabPanel>

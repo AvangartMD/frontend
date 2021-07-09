@@ -9,7 +9,8 @@ import { connect } from "react-redux";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
-function Artist(props) {
+function Created(props) {
+  
   let { NFTs, categories } = props;
   const [tabPanel, setTaPanel] = useState("All");
   const [loading, setLoading] = useState(false);
@@ -249,4 +250,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Artist);
+export default connect(mapStateToProps, mapDipatchToProps)(Created);

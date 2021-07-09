@@ -55,7 +55,7 @@ class CreatorProfile extends Component {
 
     render() {
         const { profile, status, web3Data, authData } = this.props;
-        const { id, loading } = this.state;
+      const { id, loading } = this.state;
     return (
         <>
             
@@ -204,7 +204,7 @@ class CreatorProfile extends Component {
                             
                         {id ? (
                             authData ?
-                              web3Data.isLoggedIn && (authData.id !== profile.id)? <EditPrBTN><button className="ani-1" onClick={()=>this.followToggler(profile.id)}>{status.isFollowed?'Unfollow':'Follow'}</button></EditPrBTN>:('')
+                              web3Data.isLoggedIn && (authData.data.id !== profile.id)? <EditPrBTN><button className="ani-1" onClick={()=>this.followToggler(profile.id)}>{status.isFollowed?'Unfollow':'Follow'}</button></EditPrBTN>:('')
                             : ''
                             ) : (
                               <EditPrBTN>
@@ -239,12 +239,20 @@ class CreatorProfile extends Component {
 
                     <HomeTabs>
                     <Tabs>
+                    {profile.role.roleName === 'CREATOR' ? (
                         <TabList>
-                        <Tab>Created</Tab>
-                        <Tab>Collected</Tab>
-                        <Tab>Collections</Tab>
-                        <Tab>Linked</Tab>
+                          <Tab>Created</Tab>
+                          <Tab>Collected</Tab>
+                          <Tab>Collections</Tab>
+                          <Tab>Linked</Tab>
                         </TabList>
+                      ): (
+                        <TabList>
+                          <Tab>Collected</Tab>
+                          <Tab>Collections</Tab>
+                          <Tab>Linked</Tab>
+                        </TabList>
+                      )}
 
                         <TabPanel>1</TabPanel>
                         <TabPanel>2</TabPanel>
