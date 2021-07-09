@@ -28,6 +28,8 @@ import { compressImage } from "../helper/functions";
 import Drafts from "../Component/profile/drafts";
 import Artist from "../Component/profile/artits";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 
 class Profile extends Component {
   constructor(props) {
@@ -109,7 +111,16 @@ class Profile extends Component {
                   {this.state.profile.url ? (
                     <img src={this.state.profile.url} alt="" />
                   ) : (
-                    <img src={profile ? profile.profile? '':UserIcon : UserIcon} alt="" />
+                      <AnimatePresence>
+                        <motion.img
+                          initial={{ opacity: 0.2 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.4 }}
+                          key={profile?.profile}
+                          src={profile?.profile}
+                          exit={{ opacity: 0 }}
+                        />
+                      </AnimatePresence>
                   )}
                 </UserImgSB>
 

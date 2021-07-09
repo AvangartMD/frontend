@@ -56,6 +56,15 @@ Gs.W25V2 = styled.div`
 `;
 Gs.W20 = styled.div`
   width: 20%;
+  ${Media.md}{
+    width:25%;
+  }
+  ${Media.sm}{
+    width:50%;
+  }
+  ${Media.xs}{
+    width:100%;
+  }
 `;
 Gs.W80 = styled.div`
   width: 80%;

@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from "framer-motion";
+import Media from "../../Theme/media-breackpoint";
 
 import Redheart from '../../Assets/images/Redheart.svg';
 import UserImg from '../../Assets/images/user-img.jpg';
@@ -14,15 +16,12 @@ import redheartBorder from "../../Assets/images/redheartBorder.svg";
 import Gs from '../../Theme/globalStyles';
 
 import { actions } from '../../actions';
-import { Context } from '../wrapper';
 import Timer from "../timer";
 import NFTCard from '../../Component/Cards/nftCard';
 
 
 
 class TopNFT extends Component {
-
-  static contextType = Context;
 
   constructor(props) {
     super(props)
@@ -51,7 +50,14 @@ class TopNFT extends Component {
         <div className='w60'>
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
-              <img src={nft.nftId.image.compressed} alt='' />
+              <motion.img
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                key={nft.nftId.image.compressed}
+                src={nft.nftId.image.compressed}
+                exit={{ opacity: 0 }}
+              />
             </NFTfbleft>
           </Link>
         </div>
@@ -112,39 +118,41 @@ class TopNFT extends Component {
       <>
         <HomeNFTs>
           <Gs.Container>
-            <div className='home-title'>
-              <h3>Top NFTs</h3>
-            </div>
+            <AnimatePresence>
+              <div className='home-title'>
+                <h3>Top NFTs</h3>
+              </div>
 
-            {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
-              <>
-                <NFTfirstbox>
-                  {this.renderedFirstElement(nfts[0], likesCount)}
-                </NFTfirstbox>
+              {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
+                <>
+                  <NFTfirstbox>
+                    {this.renderedFirstElement(nfts[0], likesCount)}
+                  </NFTfirstbox>
 
-                <NFTfourbox>
-                  {(nfts.slice(1)).map((nft) => {
-                    return (
-                      <NFTCard
-                        name={nft.nftId.ownerId.name}
-                        nftId={nft.nftId.id}
-                        collectionId={nft.nftId.collectionId?.id}
-                        auctionEndDate={nft.nftId.auctionEndDate}
-                        nftImg={nft.nftId.image.compressed}
-                        title={nft.nftId.title}
-                        edition={nft.nftId.edition}
-                        price={nft.nftId.price}
-                        auctionTime={nft.nftId.auctionTime}
-                        userImg={nft.nftId.ownerId.profile}
-                        username={nft.nftId.ownerId.username}
-                      />
-                    )
-                  })}
-                </NFTfourbox>
-              </>}
-            <ViewallButton>
-              <button>View all auctions</button>
-            </ViewallButton>
+                  <NFTfourbox className='homepage'>
+                    {(nfts.slice(1)).map((nft) => {
+                      return (
+                        <NFTCard
+                          name={nft.nftId.ownerId.name}
+                          nftId={nft.nftId.id}
+                          collectionId={nft.nftId.collectionId?.id}
+                          auctionEndDate={nft.nftId.auctionEndDate}
+                          nftImg={nft.nftId.image.compressed}
+                          title={nft.nftId.title}
+                          edition={nft.nftId.edition}
+                          price={nft.nftId.price}
+                          auctionTime={nft.nftId.auctionTime}
+                          userImg={nft.nftId.ownerId.profile}
+                          username={nft.nftId.ownerId.username}
+                        />
+                      )
+                    })}
+                  </NFTfourbox>
+                </>}
+              <ViewallButton>
+                <button>View all auctions</button>
+              </ViewallButton>
+            </AnimatePresence>
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -199,10 +207,20 @@ const NFTfirstbox = styled(FlexDiv)`
   margin-bottom: 30px;
   .w60 {
     width: 60%;
+    ${Media.md}{
+      width:100%;
+    }
   }
   .w40 {
     width: 40%;
+    ${Media.md}{
+      width:100%;
+    }
   }
+  ${Media.md}{
+    position:initial;
+  }
+  
 `;
 const NFTfbleft = styled(FlexDiv)`
   background-color: #eef2f7;
@@ -211,10 +229,27 @@ const NFTfbleft = styled(FlexDiv)`
   border-bottom-left-radius: 10px;
   img {
     box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
+    ${Media.sm}{
+      box-shadow: 0px 5px 10px 1px rgb(0 0 0 /30%);
+    }
+  }
+  ${Media.md}{
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+  }
+  ${Media.sm}{
+    padding:40px 30px;
+  }
+  ${Media.xs}{
+    padding:30px 20px;
   }
 `;
 const NFTfbright = styled.div`
   padding: 20px 50px;
+  ${Media.md}{
+    position:relative;
+    padding:20px 15px;
+  }
   h3 {
     color: #000000;
     font-size: 22px;
@@ -240,6 +275,9 @@ const NFTfbright = styled.div`
     :hover {
       color: #555;
       text-decoration: underline;
+    }
+    ${Media.md}{
+      margin: 0px 0px 20px;
     }
   }
 `;
@@ -271,6 +309,9 @@ const Edition = styled(FlexDiv)`
   border-radius: 10px;
   padding: 16px 20px;
   margin: 0px 0px 40px;
+  ${Media.md}{
+    margin: 0px 0px 20px;
+  }
   .ed-box {
     p {
       color: #8e9194;
@@ -310,6 +351,7 @@ const UserImgName = styled(FlexDiv)`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
+  justify-content:flex-start;
   flex-wrap: wrap;
   margin: 0px -10px 50px;
   .row {
@@ -390,6 +432,17 @@ const ViewallButton = styled.div`
     :hover {
       background-color: #000;
       color: #fff;
+    }
+  }
+`;
+
+Gs.W25V2 = styled(Gs.W25V2)`
+  ${NFTfourbox}.homepage & {
+    ${Media.md}{
+      width:50%;
+    }
+    ${Media.xs}{
+      width:100%;
     }
   }
 `;
