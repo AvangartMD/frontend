@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import dateFormat from "dateformat";
+import { motion, AnimatePresence } from "framer-motion";
 
 import AdBannerIMG from "../Assets/images/adbanner.jpg";
 import LoaderGif from "../Assets/images/loading.gif";
@@ -25,10 +26,12 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 import { actions } from "../actions";
 import { services } from "../services";
 import { compressImage } from "../helper/functions";
-import Drafts from "../Component/profile/drafts";
-import Artist from "../Component/profile/artits";
 
-import { motion, AnimatePresence } from "framer-motion";
+import Created from "../Component/profile/created";
+import Collected from "../Component/profile/collected";
+import Collection from "../Component/profile/collection";
+import Liked from "../Component/profile/liked";
+import Drafts from "../Component/profile/drafts";
 
 
 class Profile extends Component {
@@ -334,23 +337,39 @@ class Profile extends Component {
 
           <HomeTabs>
             <Tabs>
-              <TabList>
-                <Tab>Artist</Tab>
-                <Tab>Artworks</Tab>
-                <Tab>Collector</Tab>
-                <Tab>Our Picks</Tab>
-                <Tab>Drafts</Tab>
-              </TabList>
 
-              <TabPanel>
-                <Artist />
-              </TabPanel>
-              <TabPanel>2</TabPanel>
-              <TabPanel>3</TabPanel>
-              <TabPanel>4</TabPanel>
-              <TabPanel>
-                <Drafts />
-              </TabPanel>
+              {profile?.role.roleName === 'CREATOR' ? (
+                <>
+                  <TabList>
+                    <Tab>Created</Tab>
+                    <Tab>Collected</Tab>
+                    <Tab>Collections</Tab>
+                    <Tab>Liked</Tab>
+                    <Tab>Drafts</Tab>
+                  </TabList>
+
+                  <TabPanel> <Created /> </TabPanel>
+                  <TabPanel> <Collected />  </TabPanel>
+                  <TabPanel> <Collection /> </TabPanel>
+                  <TabPanel> <Liked /> </TabPanel>
+                  <TabPanel> <Drafts /> </TabPanel>
+                </>
+              ) : (
+                <>
+                  <TabList>
+                    <Tab>Collected</Tab>
+                    <Tab>Collections</Tab>
+                    <Tab>Liked</Tab>
+                    <Tab>Drafts</Tab>
+                  </TabList>
+                  
+                  <TabPanel> <Collected /> </TabPanel>
+                  <TabPanel> <Collection /> </TabPanel>
+                  <TabPanel> <Liked /> </TabPanel>
+                  <TabPanel> <Drafts /> </TabPanel>
+                </>
+              )}
+
             </Tabs>
           </HomeTabs>
         </Gs.Container>

@@ -24,7 +24,7 @@ function Footer(props) {
       return <BecomeCreator isFooter={false} />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
-        <AvBTN01>
+        <AvBTN01 className='createButton'>
           <Link to="/user/nftminting">
             <FormattedMessage id="Create" defaultMessage="Create" />
           </Link>
@@ -55,13 +55,13 @@ function Footer(props) {
             </button>
           </FooterSSbx01>
           <FooterSSbx02>
-            <NavLink to="-">
+            <NavLink to="/marketplace">
               <FormattedMessage id="Marketplace" defaultMessage="Marketplace" />
             </NavLink>
-            <NavLink to="-">
+            <NavLink to="/collections">
               <FormattedMessage id="Collections" defaultMessage="Collections" />
             </NavLink>
-            <NavLink to="-">
+            <NavLink to="/creators">
               <FormattedMessage id="Creators" defaultMessage="Creators" />
             </NavLink>
             <NavLink to="-">
@@ -92,23 +92,30 @@ function Footer(props) {
             </NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="-">Instagram</NavLink>
-            <NavLink to="-">Twitter</NavLink>
-            <NavLink to="-">Discord</NavLink>
-            <NavLink to="-">Blog</NavLink>
+            <NavLink to="">Instagram</NavLink>
+            <NavLink to="">Twitter</NavLink>
+            <NavLink to="">Discord</NavLink>
+            <NavLink to="blog-list">Blog</NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="-">How to use?</NavLink>
-            <NavLink to="-">FAQ</NavLink>
-            <NavLink to="-">Support</NavLink>
+            <NavLink to="/how-to-use">How to use?</NavLink>
+            <NavLink to="/faq">FAQ</NavLink>
+            <NavLink to="">Support</NavLink>
           </FooterSSbx02>
 
           <FooterSSbx03>
             {!web3Data.isLoggedIn ? (
               <>
-                <AvBTN01 onClick={() => toggle()}>
+                {/* <AvBTN01 onClick={() => toggle()}>
                   <FormattedMessage id="Login" defaultMessage="Login" />
-                </AvBTN01>
+                </AvBTN01> */}
+                {/* <AvBTN01 className='createButton'>
+                  <Link to="/user/nftminting">
+                    <FormattedMessage id="Create" defaultMessage="Create" />
+                  </Link>
+                </AvBTN01> */}
+                {/* <AvBTN01>Waitlist</AvBTN01> */}
+               
               </>
             ) : userDetails && userDetails.status === true ? (
               checkRole(userDetails.data)
@@ -212,7 +219,13 @@ const AvBTN01 = styled.button`
     -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
     box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
   }
+  &.createButton{
+    a{
+      color:#fff;
+    }
+  }
 `;
+
 const LanBTN = styled(FlexDiv)`
   margin-left: 30px;
   position: relative;

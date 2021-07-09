@@ -1,31 +1,41 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import { connect } from "react-redux";
+
 import HeartIcon from "../../Assets/images/heart-icon.svg";
 import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
-import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
-function Artist(props) {
+
+function Collected(props) {
+  
   let { NFTs, categories } = props;
+  const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
-  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    if (!NFTs) props.getNFTs();
+    console.log('NFT Collected ? ', NFTs)
+    if (!NFTs) props.getNFTs(params.id?params.id:null);
   }, [NFTs]);
+  
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-  useEffect(() => {}, [tabPanel]);
+  
+  useEffect(() => { }, [tabPanel]);
+  
   return (
     <>
       <FilterMBX>
         <FilterLbx>
           <button
-            className={tabPanel === "all" ? "active" : ""}
+            className={tabPanel === "All" ? "active" : ""}
             id="all"
             onClick={() => {
               setTaPanel("All");
@@ -236,17 +246,15 @@ const FilterLbx = styled(FlexDiv)`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    //   getUserDraftNFT: () => dispatch(actions.getUserDraftNFT()),
     getCategories: () => dispatch(actions.fetchCategories()),
-    getNFTs: () => dispatch(actions.getUserNFT()),
+    getNFTs: (id) => dispatch(actions.getCollectedNFT(id)),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    //   userDraftNFT: state.fetchUserDraftNFT,
     categories: state.fetchCategory,
-    NFTs: state.fetchUserNFT,
+    NFTs: state.fetchCollectedNFT,
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Artist);
+export default connect(mapStateToProps, mapDipatchToProps)(Collected);

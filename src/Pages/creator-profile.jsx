@@ -21,6 +21,12 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 
 import { actions } from "../actions";
 
+import Created from "../Component/profile/created";
+import Collected from "../Component/profile/collected";
+import Collection from "../Component/profile/collection";
+import Liked from "../Component/profile/liked";
+
+
 class CreatorProfile extends Component {
 
   constructor(props) {
@@ -55,7 +61,7 @@ class CreatorProfile extends Component {
 
     render() {
         const { profile, status, web3Data, authData } = this.props;
-        const { id, loading } = this.state;
+      const { id, loading } = this.state;
     return (
         <>
             
@@ -204,7 +210,7 @@ class CreatorProfile extends Component {
                             
                         {id ? (
                             authData ?
-                              web3Data.isLoggedIn && (authData.id !== profile.id)? <EditPrBTN><button className="ani-1" onClick={()=>this.followToggler(profile.id)}>{status.isFollowed?'Unfollow':'Follow'}</button></EditPrBTN>:('')
+                              web3Data.isLoggedIn && (authData.data.id !== profile.id)? <EditPrBTN><button className="ani-1" onClick={()=>this.followToggler(profile.id)}>{status.isFollowed?'Unfollow':'Follow'}</button></EditPrBTN>:('')
                             : ''
                             ) : (
                               <EditPrBTN>
@@ -237,19 +243,36 @@ class CreatorProfile extends Component {
                     
                 <Gs.Container>
 
-                    <HomeTabs>
+                  <HomeTabs>
                     <Tabs>
+                    {profile.role.roleName === 'CREATOR' ? (
+                      <>
                         <TabList>
-                        <Tab>Created</Tab>
+                          <Tab>Created</Tab>
+                          <Tab>Collected</Tab>
+                          <Tab>Collections</Tab>
+                          <Tab>Liked</Tab>
+                        </TabList>
+                      
+                        <TabPanel> <Created /> </TabPanel>
+                        <TabPanel> <Collected />  </TabPanel>
+                        <TabPanel> <Collection /> </TabPanel>
+                        <TabPanel> <Liked /> </TabPanel>
+                      </>
+                    ) : (
+                      <>
+                        <TabList>
                         <Tab>Collected</Tab>
                         <Tab>Collections</Tab>
                         <Tab>Linked</Tab>
                         </TabList>
 
-                        <TabPanel>1</TabPanel>
-                        <TabPanel>2</TabPanel>
-                        <TabPanel>3</TabPanel>
-                        <TabPanel>4</TabPanel>
+                        <TabPanel> <Collected /> </TabPanel>
+                        <TabPanel> <Collection /> </TabPanel>
+                        <TabPanel> <Liked /> </TabPanel>
+                      </>
+                    )}
+
                     </Tabs>
                 </HomeTabs>
               </Gs.Container>

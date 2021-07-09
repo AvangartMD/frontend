@@ -135,22 +135,16 @@ class BecomeCreator extends Component {
           ""
         )}
 
-        <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>
-          {becomeCreator ? (
-            <button>Waiting</button>
-          ) : (
-            <button
-              onClick={() => {
-                this.setState({ isOpen1: true });
-              }}
-            >
+        {becomeCreator ? (
+          <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>Waiting</AvBTN02>
+        ) : (
+            <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""} onClick={() => { this.setState({ isOpen1: true }); }}>
               <FormattedMessage
                 id="Become_a_creator"
                 defaultMessage="Become a Creator"
               />
-            </button>
-          )}
-        </AvBTN02>
+          </AvBTN02>
+        )}
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -269,26 +263,26 @@ class BecomeCreator extends Component {
                     <CustomCheckbox1>
                       {categories
                         ? categories.map((category, index) => {
-                            return (
-                              <label class="checkbox-container">
-                                <img
-                                  src={category.image}
-                                  alt=""
-                                  style={{
-                                    maxWidth: "32px",
-                                    maxHeight: "32px",
-                                  }}
-                                />
-                                {category.categoryName}
-                                <input
-                                  type="checkbox"
-                                  name="category"
-                                  value={category.id}
-                                />
-                                <span class="checkmark"></span>
-                              </label>
-                            );
-                          })
+                          return (
+                            <label class="checkbox-container">
+                              <img
+                                src={category.image}
+                                alt=""
+                                style={{
+                                  maxWidth: "32px",
+                                  maxHeight: "32px",
+                                }}
+                              />
+                              {category.categoryName}
+                              <input
+                                type="checkbox"
+                                name="category"
+                                value={category.id}
+                              />
+                              <span class="checkmark"></span>
+                            </label>
+                          );
+                        })
                         : ""}
                     </CustomCheckbox1>
                   </NFTForm>
