@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
 import { AnimateSharedLayout, motion, AnimatePresence } from "framer-motion";
+
+import ProfielBack from "../../Assets/images/profile-back.jpg";
 import UserIcon from "../../Assets/images/user-img.jpg";
 
 
@@ -26,8 +28,8 @@ function CreatorCard({
                                 initial={{ opacity: 0.2 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.4 }}
-                                key={cover}
-                                src={cover}
+                                key={cover?cover:ProfielBack}
+                                src={cover?cover:ProfielBack}
                                 exit={{ opacity: 0 }}
                             />
                         </ImgBannerBX>
