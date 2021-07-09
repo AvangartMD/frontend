@@ -31,14 +31,16 @@ class Collections extends Component {
         <Gs.W25>
           <Gs.TenpxGutter>
             <Link to={`/collection-detail/${collection.collectionId.id}`}>
-              <motion.img
-                initial={{ opacity: 0.2 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                key={collection.collectionId.logo}
-                src={collection.collectionId.logo}
-                exit={{ opacity: 0 }}
-              />
+              <div className="img-outer">
+                <motion.img
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={collection.collectionId.logo}
+                  src={collection.collectionId.logo}
+                  exit={{ opacity: 0 }}
+                />
+              </div>
             </Link>
           </Gs.TenpxGutter>
         </Gs.W25>
@@ -56,8 +58,8 @@ class Collections extends Component {
               <h3>Collections</h3>
             </div>
             <CollectionSection>
-              
-              {!collections ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) : 
+
+              {!collections ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
                 collections.map((collection) => this.renderedCollection(collection))}
 
             </CollectionSection>
@@ -128,9 +130,18 @@ const ViewallButton = styled.div`
 
 const CollectionSection = styled(FlexDiv)`
   margin: 0px -10px 50px;
-  img {
+  .img-outer
+  {
+    width:255px;
+    height:255px;
     border-radius: 10px;
-    border: 1px solid #dddddd;
+    overflow:hidden;
+    img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border: 1px solid #dddddd;
+    }
   }
 `;
 
