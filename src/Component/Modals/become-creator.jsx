@@ -135,22 +135,16 @@ class BecomeCreator extends Component {
           ""
         )}
 
-        <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>
-          {becomeCreator ? (
-            <button>Waiting</button>
-          ) : (
-            <button
-              onClick={() => {
-                this.setState({ isOpen1: true });
-              }}
-            >
+        {becomeCreator ? (
+          <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>Waiting</AvBTN02>
+        ) : (
+            <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""} onClick={() => { this.setState({ isOpen1: true }); }}>
               <FormattedMessage
                 id="Become_a_creator"
                 defaultMessage="Become a Creator"
               />
-            </button>
-          )}
-        </AvBTN02>
+          </AvBTN02>
+        )}
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (

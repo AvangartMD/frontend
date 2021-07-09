@@ -13,22 +13,22 @@ import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
 
-function Created(props) {
+function Liked(props) {
   
   let { NFTs, categories } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
-
+  
   useEffect(() => {
-    console.log('NFT Created ? ', NFTs)
+    console.log('NFT Liked ? ', NFTs)
     if (!NFTs) props.getNFTs(params.id?params.id:null);
   }, [NFTs]);
-  
+    
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-  
-  useEffect(() => { }, [tabPanel]);
+    
+  useEffect(() => {}, [tabPanel]);
   
   return (
     <>
@@ -247,14 +247,14 @@ const FilterLbx = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
-    getNFTs: (id) => dispatch(actions.getUserNFT(id)),
+    getNFTs: (id) => dispatch(actions.getLikedNFT(id)),
   };
 };
 const mapStateToProps = (state) => {
   return {
     categories: state.fetchCategory,
-    NFTs: state.fetchUserNFT,
+    NFTs: state.fetchLikedNFT,
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Created);
+export default connect(mapStateToProps, mapDipatchToProps)(Liked);

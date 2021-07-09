@@ -1,7 +1,7 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
@@ -89,7 +89,9 @@ class HowToUse extends Component {
             </Howtoright>
           </HowtoRow>
           <HUbottombuttons>
-            <button>FAQ</button>
+            <button
+              onClick={() => this.props.history.push("/faq")}
+            >FAQ</button>
             <button>Support</button>
           </HUbottombuttons>
         </Gs.Container>
@@ -196,4 +198,4 @@ const Howtoright = styled.div`
   }
 `;
 
-export default HowToUse;
+export default withRouter(HowToUse);
