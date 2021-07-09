@@ -15,6 +15,7 @@ import RoundIcon from '../../Assets/images/round-icon.svg';
 import { actions } from '../../actions';
 import { Context } from '../wrapper';
 import { expiryTime } from '../../config';
+import Media from "../../Theme/media-breackpoint";
 
 
 
@@ -43,7 +44,7 @@ class Info extends Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     const { infos, cookies } = this.props;
     if (infos && !cookies.get('infos')) {
       this.setCookie(infos) // set infos in cookie
@@ -52,10 +53,10 @@ class Info extends Component {
 
   setCookie = (infos) => {
     const { cookies } = this.props;
-    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    const expire = new Date(Date.now() + (expiryTime * 60 * 60 * 1000)) // cookie will expire after 12 hours
     cookies.set('infos', infos, { path: '/', expires: expire });
   }
-  
+
   renderedInfo(info, index) {
     let context = this.context;
     let img = ''
@@ -76,7 +77,7 @@ class Info extends Component {
             exit={{ opacity: 0 }}
           />
         </a>
-        <button className="ani-1" onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
+        <button className="ani-1" onClick={() => { window.open(info.button_url, "_blank") }}>{info.button_text}</button>
       </AdBanner2>
     )
   }
@@ -85,8 +86,8 @@ class Info extends Component {
     return (
       <HomeNFTs>
         <AnimatePresence>
-          {this.props.infos?
-              this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
+          {this.props.infos ?
+            this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
             : 'loading..'}
         </AnimatePresence>
       </HomeNFTs>
@@ -170,8 +171,15 @@ const AdBanner2 = styled.div`
   height:540px;
   width:100%;
   position:relative;
+  ${Media.md}{
+    height:auto;
+  }
   a{
-    img{width: 100%; height: 100%; object-fit: cover;}
+    img{width: 100%; height: 100%; object-fit: cover;
+      ${Media.md}{
+        object-fit:contain;
+      }
+    }
   }
   button {
     position:absolute;
@@ -189,12 +197,15 @@ const AdBanner2 = styled.div`
       background-color: #000;
       box-shadow: 2px 5px 10px 0px rgb(0 0 0 / 30%);
     }
+    ${Media.md}{
+      bottom:20px;
+    }
   }
 `;
 const mapDipatchToProps = (dispatch) => {
   return {
     getInfo: () => dispatch(actions.fetcInfo()),
-    setInfos: (data) => dispatch({type: 'FETCHED_INFO', data: data})
+    setInfos: (data) => dispatch({ type: 'FETCHED_INFO', data: data })
   }
 }
 
