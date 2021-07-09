@@ -34,8 +34,8 @@ function NFTCard({
                     initial={{ opacity: 0.2 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    key={previewCard ? NFT3 : nftImg}
-                    src={previewCard ? NFT3 : nftImg}
+                    key={nftImg}
+                    src={nftImg}
                     exit={{ opacity: 0 }}
                   />
                 </NFTImgBX>
@@ -50,14 +50,16 @@ function NFTCard({
                   <p>
                     0 <span>of {edition ? edition : 0}</span>
                   </p>
-                  {collectionId ?
+                  {collectionId ? (
                     <p>
                       <Link to={`/collection-detail/${collectionId}`}>
                         See the collection
                         <i className="fas fa-angle-right"></i>
                       </Link>
                     </p>
-                    : ''}
+                  ) : (
+                    ""
+                  )}
                 </CollectionBar>
                 <Edition className="edition2 JCSB">
                   <div className="ed-box">
@@ -132,8 +134,6 @@ const Edition = styled(FlexDiv)`
     }
   }
 `;
-
-
 
 const NFTImgBX = styled(FlexDiv)`
   width: 100%;

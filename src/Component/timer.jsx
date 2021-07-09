@@ -36,7 +36,17 @@ class Timer extends React.Component {
     };
     return obj;
   }
-  //  componentDidUpdate(){}
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.timeLeft + 572800 !== prevProps.timeLeft + 572800) {
+      const timeLeft = this.props.timeLeft + 572800;
+      const onlyHours = this.props.onlyHours;
+      this.setState({ timeLeft, onlyHours });
+      let timeLeftVar = this.secondsToTime(timeLeft, onlyHours);
+      this.setState({ time: timeLeftVar }, () => {
+        this.startTimer();
+      });
+    }
+  }
   componentDidMount() {
     const timeLeft = this.props.timeLeft + 572800;
     const onlyHours = this.props.onlyHours;
@@ -46,8 +56,10 @@ class Timer extends React.Component {
       this.startTimer();
     });
   }
+
   componentWillUnmount() {
     clearInterval(this.timer);
+    this.setState({ time: {}, timeLeft: 0 });
   }
   startTimer() {
     if (this.timer === 0 && this.state.timeLeft > 0) {

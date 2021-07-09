@@ -31,6 +31,7 @@ class NftDetail extends React.Component {
         bidder: "0x0000000000000000000000000000000000000000",
       },
       ownerActionName: "",
+      currentEdition: 1,
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -55,11 +56,19 @@ class NftDetail extends React.Component {
         this.setState({ bnbUSDPrice: data.binancecoin.usd });
       });
   }
+  // setCurrentEdition() {
+  //   if (editions.length) {
+  //     let currEdition = 1;
+  //     for (let i = 0; i < editions.length; i++) {
+  //       console.log("here");
+  //     }
+  //   } else this.setState({ currentEdition: 1 });
+  // }
   async fetchBidDetails(tokenID, edition) {
     const escrowContractInstance = getContractInstance(true);
 
     const bidDetails = await escrowContractInstance.methods
-      .bid(+tokenID, +edition)
+      .bid(+tokenID, +1)
       .call();
     this.setState({
       bidDetails: {
@@ -71,16 +80,10 @@ class NftDetail extends React.Component {
   }
   render() {
     let id = this.props.match.params.id;
-    const bidDetails = this.state.bidDetails;
-    const {
-      NFTDetails,
-      likesCount,
-      isLiked,
-      bnbUSDPrice,
-      authData,
-    } = this.props;
-
-    console.log(NFTDetails?.ownerId.id, authData?.data?.id);
+    const { bidDetails, bnbUSDPrice } = this.state;
+    const { NFTDetails, likesCount, isLiked, authData } = this.props;
+    let method = NFTDetails?.auctionEndDate ? 1 : 0;
+    console.log(NFTDetails);
     return (
       <>
         <Gs.MainSection>
@@ -150,7 +153,7 @@ class NftDetail extends React.Component {
                     <p className="gray-t">
                       {(
                         bidDetails.currentBidValue * bnbUSDPrice
-                      ).toLocaleString(2)}
+                      ).toLocaleString(2)}{" "}
                       USD
                     </p>
                     <p className="royalty">
@@ -158,18 +161,18 @@ class NftDetail extends React.Component {
                       resale
                     </p>
                   </div>
-                  <div className="ed-box">
-                    <p>Ending in</p>
-                    <FlexDiv className="JCFS">
-                      {NFTDetails && (
+                  {NFTDetails?.auctionEndDate && (
+                    <div className="ed-box">
+                      <p>Ending in</p>
+                      <FlexDiv className="JCFS">
                         <Timer
                           timeLeft={NFTDetails?.auctionEndDate}
                           onlyHours={true}
                           isDetailed={true}
                         />
-                      )}
-                    </FlexDiv>
-                  </div>
+                      </FlexDiv>
+                    </div>
+                  )}
                   <div className="ed-box">
                     <p>Unlockable content message</p>
                     <SkyNoteBox>
@@ -182,10 +185,13 @@ class NftDetail extends React.Component {
                   </div>
                 </Edition>
                 <NFTcartButtons>
-                  <button onClick={() => this.toggle(8)}>Place a bid</button>
-                  {/* <button disabled>Sold out</button> */}
+                  {NFTDetails?.ownerId.id !== authData?.data?.id ? (
+                    <button onClick={() => this.toggle(8)}>
+                      {method ? "Place a bid" : "Buy Now"}
+                    </button>
+                  ) : (
+                    // {/* <button disabled>Sold out</button> */}
 
-                  {NFTDetails?.ownerId.id === authData?.data?.id && (
                     <>
                       <button
                         className="bordered"
@@ -264,8 +270,9 @@ class NftDetail extends React.Component {
           >
             <PABpopup
               toggle={this.toggle}
-              edition={NFTDetails?.edition}
-              tokenID={NFTDetails?.tokenId}
+              method={method ? "placeBid" : "buyNow"}
+              edition={2}
+              nonce={NFTDetails?.nonce}
               price={NFTDetails?.price}
               currentBidValue={bidDetails.currentBidValue}
             />
