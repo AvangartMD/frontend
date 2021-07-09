@@ -82,7 +82,7 @@ class CreatorProfile extends Component {
                 <ProMBannerBX
                     style={{
                         backgroundImage: `url(${
-                            profile ? profile.cover?.url : ProfielBack
+                            profile.cover ? profile.cover : ProfielBack
                         })`,
                     }}
                     >
@@ -90,7 +90,7 @@ class CreatorProfile extends Component {
                         <ProSBX01>
                         <UserImgBX>
                             <UserImgSB>
-                                <img src={profile.profile?profile.profile:UserIcon} alt="" />
+                                <img src={profile.profile? profile.profile :UserIcon} alt="" />
                             </UserImgSB>
                         </UserImgBX>
 

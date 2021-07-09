@@ -61,7 +61,6 @@ class BecomeCreator extends Component {
         twitter: { username: twitter },
       },
       isCreator: true,
-      profile: website,
       category: category,
     };
     this.setState({ loading: true }); // start loading

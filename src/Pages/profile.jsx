@@ -119,8 +119,8 @@ class Profile extends Component {
                           initial={{ opacity: 0.2 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.4 }}
-                          key={profile?.profile}
-                          src={profile?.profile}
+                          key={profile?.profile?UserIcon:UserIcon}
+                          src={profile?.profile?UserIcon:UserIcon}
                           exit={{ opacity: 0 }}
                         />
                       </AnimatePresence>
