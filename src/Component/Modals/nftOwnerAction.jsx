@@ -1,17 +1,10 @@
 import React, { Component, useState } from "react";
 import styled from "styled-components";
-import Gs from "../../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
-import Media from "../../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
-import { Link } from "react-router-dom";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import { getContractInstance } from "../../helper/functions";
 import { actions } from "../../actions";
 import { connect } from "react-redux";
-import { useEffect } from "react";
-import { web3 } from "../../web3";
 import TxnStatus from "./txnStatus";
 
 function NftOwnerActions(props) {
@@ -167,12 +160,6 @@ function NftOwnerActions(props) {
   );
 }
 
-const toggle = (index) => {
-  let collapse = "isOpen" + index;
-  this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-};
-// }
-
 const FlexDiv = styled.div`
   display: flex;
   align-items: center;
@@ -261,44 +248,6 @@ const PBDesc = styled.div`
   }
   &.mb-10 {
     margin: 0px 0px 10px;
-  }
-`;
-
-const BalanceLine = styled(FlexDiv)`
-  justify-content: space-between;
-  margin: 0px 0px 6px;
-  width: 100%;
-  .balance {
-    font-size: 12px;
-    color: #8e9194;
-    margin: 0px;
-    font-weight: 600;
-  }
-  .price-state {
-    font-size: 16px;
-    letter-spacing: -0.8px;
-    color: #000;
-    margin: 0px;
-    font-weight: 300;
-  }
-`;
-
-const HalfInputs = styled(FlexDiv)`
-  justify-content: flex-start;
-
-  &.errorinput {
-    input {
-      border-color: #ff2a44;
-      &.BR-straight {
-        border-right-color: #ddd;
-      }
-    }
-    .error {
-      font-size: 12px;
-      color: #ff2a44;
-      margin: 8px 0px 0px;
-      letter-spacing: -0.6px;
-    }
   }
 `;
 

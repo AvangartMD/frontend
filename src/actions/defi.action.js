@@ -38,7 +38,12 @@ function authLogin(nonce, signature) {
           newresp.isLoggedIn = true;
           dispatch(setData(newresp, "FETCH_WEB3_DATA"));
         }
-        dispatch(setData(promise.data.data.details, "AUTH_LOGIN"));
+        dispatch(
+          setData(
+            { data: promise.data.data.details, status: true },
+            "AUTH_LOGIN"
+          )
+        );
       } else {
         // console.log('erroer');
       }

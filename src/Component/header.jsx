@@ -152,7 +152,9 @@ class Header extends Component {
     this.props.web3Logout();
     this.props.history.push("/");
   };
-
+  closePopUp = () => {
+    this.setState({ isOpen4: false });
+  };
   render() {
     const {
       web3Data,
@@ -333,6 +335,7 @@ class Header extends Component {
         >
           <Login
             toggle={this.toggle}
+            closePopUp={this.closePopUp}
             // connectToWallet={this.connectToWallet}
             // loader={loader}
             // error={error}

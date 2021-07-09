@@ -29,6 +29,7 @@ function Login(props) {
     nonce,
     authData,
     isFooter,
+    closePopUp,
     footerToggleVal,
   } = props;
   useEffect(() => {
@@ -40,9 +41,11 @@ function Login(props) {
     if (nonce && !isFooter) signatureRequest(nonce);
   }, [nonce]);
   useEffect(() => {
-    console.log("3", isFooter);
+    console.log(authData);
     if (authData?.status === 401 && !isFooter) {
       setError({ isError: true, msg: authData.data.message });
+    } else if (authData && !isFooter) {
+      closePopUp();
     }
   }, [authData]);
   const connectToWallet = (isWalletConnect) => {
