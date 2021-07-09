@@ -12,17 +12,27 @@ import { actions } from "../../actions";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { web3 } from "../../web3";
+import TxnStatus from "./txnStatus";
 
 function NftOwnerActions(props) {
   const { web3Data, toggle, ownerActionName, edition, tokenID } = props;
+  const succesMsg = {
+    burnTokenEdition: "Burn Succesfull",
+    transfer: "Transfer Succesfull",
+  };
   const escrowContractInstance = getContractInstance(true);
-  const [reciever, setReciever] = "";
+  const [reciever, setReciever] = useState("");
   const [mintNFTStatus, setNFTStatus] = useState("");
   const [error, setError] = useState({ isError: false, msg: "" });
+  const [confirm, setConfirm] = useState(false);
 
   const handleAction = async () => {
-    const params = [+tokenID, +edition];
+    let params = [+tokenID, +edition];
+    if (reciever)
+      params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
+
     console.log(ownerActionName);
+    setNFTStatus("initiate");
     await escrowContractInstance.methods[ownerActionName](...params)
       .send({
         from: web3Data.accounts[0],
@@ -34,88 +44,122 @@ function NftOwnerActions(props) {
         setNFTStatus("complete");
       })
       .on("error", (error) => {
-        setNFTStatus("complete");
+        setNFTStatus("error");
       });
+  };
+  const refreshStates = () => {
+    setNFTStatus("");
+    setReciever("");
+    setConfirm(false);
   };
   return (
     <>
       <BlackWrap>
         <WhiteBX01>
-          <CloseBTN className="ani-1" onClick={() => toggle(1)}>
+          <CloseBTN
+            className="ani-1"
+            onClick={() => {
+              toggle(1);
+              refreshStates();
+            }}
+          >
             <img src={CloseBTN01} alt="" />
           </CloseBTN>
 
-          {ownerActionName === "burnTokenEdition" && (
+          {!mintNFTStatus ? (
             <>
-              <PBtitle className="AStitle">Are you sure?</PBtitle>
-              <PBDesc className="ASDesc">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
-                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
-              </PBDesc>
-              <NFTcartButtons>
-                <button className="ani-1 bordered">Cancel</button>
-                <button className="ani-1" onClick={() => handleAction()}>
-                  Burn
-                </button>
-              </NFTcartButtons>
+              {ownerActionName === "burnTokenEdition" && (
+                <>
+                  <PBtitle className="AStitle">Are you sure?</PBtitle>
+                  <PBDesc className="ASDesc">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                    cursus.
+                  </PBDesc>
+                  <NFTcartButtons>
+                    <button className="ani-1 bordered">Cancel</button>
+                    <button className="ani-1" onClick={() => handleAction()}>
+                      Burn
+                    </button>
+                  </NFTcartButtons>
 
-              <PBtitle className="AStitle">Burned</PBtitle>
-              <PBDesc className="ASDesc">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
-                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
-              </PBDesc>
-              <NFTcartButtons>
-                <button className="ani-1 bordered bor-large">OK</button>
-              </NFTcartButtons>
+                  {/* <PBtitle className="AStitle">Burned</PBtitle>
+                  <PBDesc className="ASDesc">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                    cursus.
+                  </PBDesc>
+                  <NFTcartButtons>
+                    <button className="ani-1 bordered bor-large">OK</button>
+                  </NFTcartButtons> */}
+                </>
+              )}
+              {
+                // {/* Transfer NFT popup */}
+                ownerActionName === "transfer" && !confirm && (
+                  <>
+                    <PBtitle className="TN-title">Transfer NFT</PBtitle>
+                    <PBDesc className="mb-20">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                      Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                      cursus.
+                    </PBDesc>
+                    <NFTForm>
+                      <div className="label-line">
+                        <label>Wallet Address</label>
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Add Wallet Address"
+                        onChange={(e) => setReciever(e.target.value)}
+                      />
+                    </NFTForm>
+                    <NFTcartButtons>
+                      <button
+                        className="ani-1 bor-large"
+                        onClick={() => setConfirm(true)}
+                      >
+                        Transfer
+                      </button>
+                    </NFTcartButtons>
+                  </>
+                )
+              }
+              {confirm && (
+                <>
+                  <PBtitle className="AStitle">Confirm</PBtitle>
+                  <PBDesc className="ASDesc mb-10">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                    cursus.
+                  </PBDesc>
+                  <SkyWalletAddress>{reciever}</SkyWalletAddress>
+                  <NFTcartButtons>
+                    <button
+                      className="ani-1 bordered"
+                      onClick={() => toggle(1)}
+                    >
+                      Cancel
+                    </button>
+                    <button className="ani-1" onClick={() => handleAction()}>
+                      Transfer
+                    </button>
+                  </NFTcartButtons>
+                </>
+              )}
             </>
-          )}
-
-          {/* Transfer NFT popup */}
-          {ownerActionName === "transfer" && (
-            <>
-              <PBtitle className="TN-title">Transfer NFT</PBtitle>
-              <PBDesc className="mb-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
-                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
-              </PBDesc>
-              <NFTForm>
-                <div className="label-line">
-                  <label>Wallet Address</label>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Add Wallet Address"
-                  onChange={(e) => setReciever(e.target.value)}
-                />
-              </NFTForm>
-              <NFTcartButtons>
-                <button
-                  className="ani-1 bor-large"
-                  onClick={() => setConfirm(true)}
-                >
-                  Transfer
-                </button>
-              </NFTcartButtons>
-
-              <PBtitle className="AStitle">Confirm</PBtitle>
-              <PBDesc className="ASDesc mb-10">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                ut sapien faucibus, ornare arcu et, bibendum risus. Nam
-                ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
-              </PBDesc>
-              <SkyWalletAddress>{reciever}</SkyWalletAddress>
-              <NFTcartButtons>
-                <button className="ani-1 bordered" onClick={() => toggle(1)}>
-                  Cancel
-                </button>
-                <button className="ani-1" onClick={() => handleAction()}>
-                  Transfer
-                </button>
-              </NFTcartButtons>
-            </>
+          ) : (
+            <TxnStatus
+              status={mintNFTStatus}
+              msg={succesMsg[ownerActionName]}
+              toggleIndex={1}
+              toggle={toggle}
+              refreshStates={refreshStates}
+            />
           )}
         </WhiteBX01>
       </BlackWrap>
