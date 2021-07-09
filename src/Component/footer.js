@@ -106,9 +106,9 @@ function Footer(props) {
           <FooterSSbx03>
             {!web3Data.isLoggedIn ? (
               <>
-                {/* <AvBTN01 onClick={() => toggle()}>
+                <AvBTN01 onClick={() => toggle()}>
                   <FormattedMessage id="Login" defaultMessage="Login" />
-                </AvBTN01> */}
+                </AvBTN01>
                 {/* <AvBTN01 className='createButton'>
                   <Link to="/user/nftminting">
                     <FormattedMessage id="Create" defaultMessage="Create" />
