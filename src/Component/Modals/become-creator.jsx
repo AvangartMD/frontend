@@ -263,26 +263,26 @@ class BecomeCreator extends Component {
                     <CustomCheckbox1>
                       {categories
                         ? categories.map((category, index) => {
-                            return (
-                              <label class="checkbox-container">
-                                <img
-                                  src={category.image}
-                                  alt=""
-                                  style={{
-                                    maxWidth: "32px",
-                                    maxHeight: "32px",
-                                  }}
-                                />
-                                {category.categoryName}
-                                <input
-                                  type="checkbox"
-                                  name="category"
-                                  value={category.id}
-                                />
-                                <span class="checkmark"></span>
-                              </label>
-                            );
-                          })
+                          return (
+                            <label class="checkbox-container">
+                              <img
+                                src={category.image}
+                                alt=""
+                                style={{
+                                  maxWidth: "32px",
+                                  maxHeight: "32px",
+                                }}
+                              />
+                              {category.categoryName}
+                              <input
+                                type="checkbox"
+                                name="category"
+                                value={category.id}
+                              />
+                              <span class="checkmark"></span>
+                            </label>
+                          );
+                        })
                         : ""}
                     </CustomCheckbox1>
                   </NFTForm>
