@@ -15,6 +15,9 @@ export const userActions = {
   getIsLiked,
   getIsFollow,
   followToggler,
+  getLikedNFT,
+  getCollectedNFT,
+  getCollectionNFT,
 };
 
 function fetchedData(type, data) {
@@ -71,9 +74,12 @@ function updateUserDetails(params) {
   };
 }
 
-function getUserNFT() {
+function getUserNFT(id) {
   return async (dispatch) => {
-    const response = services.get(`nft/listNftByUser`, true);
+    let response = services.get(`nft/listNftByUser`, true);
+    if (id) {
+      response = services.get(`nft/listNftByUser/${id}`, true);
+    }
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
@@ -167,7 +173,6 @@ function likeToggler(id) {
   return async (dispatch) => {
     const response = services.get(`like/toggle/${id}`, true);
     response.then((promise) => {
-      console.log(promise);
       if (promise.status === 200) {
         dispatch(getIsLiked(id));
         dispatch(getLikesCount(id));
@@ -210,6 +215,54 @@ function followToggler(id) {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(getIsFollow(id));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getLikedNFT(id) {
+  return async (dispatch) => {
+    let response = services.get(`nft/getLikedNfts`, true);
+    if (id) {
+      response = services.get(`nft/getLikedNfts/${id}`, true);
+    }
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_LIKED_NFT", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getCollectedNFT(id) {
+  return async (dispatch) => {
+    let response = services.get(`nft/getCollectedNfts`, true);
+    if (id) {
+      response = services.get(`nft/getCollectedNfts/${id}`, true);
+    }
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_COLLECTED_NFT", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getCollectionNFT(id) {
+  return async (dispatch) => {
+    let response = services.get(`nft/listCollection`, true);
+    if (id) {
+      response = services.get(`nft/listCollection/${id}`, true);
+    }
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_COLLECTION_NFT", promise.data.data));
       } else {
         // console.log("error");
       }

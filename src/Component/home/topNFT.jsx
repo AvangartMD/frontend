@@ -111,7 +111,7 @@ class TopNFT extends Component {
   render() {
     const { nfts, likesCount } = this.props
     const { like_fetched } = this.state
-    if (nfts && !like_fetched) {
+    if (nfts && !like_fetched && nfts[0]) {
       this.props.getLikesCount(nfts[0].nftId.id) // fetch the likes count for the first NFT
     }
     return (
@@ -126,7 +126,7 @@ class TopNFT extends Component {
               {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
                 <>
                   <NFTfirstbox>
-                    {this.renderedFirstElement(nfts[0], likesCount)}
+                    {nfts[0]?this.renderedFirstElement(nfts[0], likesCount):''}
                   </NFTfirstbox>
 
                   <NFTfourbox className='homepage'>

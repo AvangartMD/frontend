@@ -16,7 +16,7 @@ function NftOwnerActions(props) {
   const escrowContractInstance = getContractInstance(true);
   const [reciever, setReciever] = useState("");
   const [mintNFTStatus, setNFTStatus] = useState("");
-  const [error, setError] = useState({ isError: false, msg: "" });
+  // const [error, setError] = useState({ isError: false, msg: "" });
   const [confirm, setConfirm] = useState(false);
 
   const handleAction = async () => {
@@ -24,7 +24,6 @@ function NftOwnerActions(props) {
     if (reciever)
       params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
 
-    console.log(ownerActionName);
     setNFTStatus("initiate");
     await escrowContractInstance.methods[ownerActionName](...params)
       .send({
@@ -410,9 +409,9 @@ const NFTForm = styled.div`
 
 const SkyWalletAddress = styled.div`
   background-color: #eef2f7;
-  padding: 10px 47px;
+  padding: 10px;
   border-radius: 15px;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: -0.8px;
   font-weight: 600;
   color: #000;

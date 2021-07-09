@@ -34,6 +34,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
 import MintNFTPopup from "../Component/Modals/mintNFTPopup";
+import NFT3 from "../Assets/images/nft3.jpg";
 
 class NFTPage extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class NFTPage extends Component {
         price: "0.00",
         digitalKey: "",
         nftFile: undefined,
-        imgSrc: "",
+        imgSrc: NFT3,
         categoryList: null,
         collectionList: [],
       },

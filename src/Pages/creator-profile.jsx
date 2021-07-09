@@ -21,6 +21,12 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 
 import { actions } from "../actions";
 
+import Created from "../Component/profile/created";
+import Collected from "../Component/profile/collected";
+import Collection from "../Component/profile/collection";
+import Liked from "../Component/profile/liked";
+
+
 class CreatorProfile extends Component {
 
   constructor(props) {
@@ -237,27 +243,36 @@ class CreatorProfile extends Component {
                     
                 <Gs.Container>
 
-                    <HomeTabs>
+                  <HomeTabs>
                     <Tabs>
                     {profile.role.roleName === 'CREATOR' ? (
+                      <>
                         <TabList>
                           <Tab>Created</Tab>
                           <Tab>Collected</Tab>
                           <Tab>Collections</Tab>
-                          <Tab>Linked</Tab>
+                          <Tab>Liked</Tab>
                         </TabList>
-                      ): (
+                      
+                        <TabPanel> <Created /> </TabPanel>
+                        <TabPanel> <Collected />  </TabPanel>
+                        <TabPanel> <Collection /> </TabPanel>
+                        <TabPanel> <Liked /> </TabPanel>
+                      </>
+                    ) : (
+                      <>
                         <TabList>
-                          <Tab>Collected</Tab>
-                          <Tab>Collections</Tab>
-                          <Tab>Linked</Tab>
+                        <Tab>Collected</Tab>
+                        <Tab>Collections</Tab>
+                        <Tab>Linked</Tab>
                         </TabList>
-                      )}
 
-                        <TabPanel>1</TabPanel>
-                        <TabPanel>2</TabPanel>
-                        <TabPanel>3</TabPanel>
-                        <TabPanel>4</TabPanel>
+                        <TabPanel> <Collected /> </TabPanel>
+                        <TabPanel> <Collection /> </TabPanel>
+                        <TabPanel> <Liked /> </TabPanel>
+                      </>
+                    )}
+
                     </Tabs>
                 </HomeTabs>
               </Gs.Container>

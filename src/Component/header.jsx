@@ -61,7 +61,6 @@ class Header extends Component {
     //   // this.signatureRequest(nonce);
     // }
     if (authData !== prevProps.authData) {
-      console.log(authData);
       if (authData.status === true) {
         this.setState({ userDetails: authData.data });
       }

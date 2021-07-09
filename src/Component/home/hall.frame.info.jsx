@@ -47,7 +47,6 @@ class HallOfFrameInfo extends Component {
   componentDidUpdate(){
     const { infos, cookies } = this.props;
     if (infos && !cookies.get('hallFrameInfo')) {
-      console.log('did updated ??? ', infos)
       this.setCookie(infos) // set hall frame info in cookie
     }
   }
@@ -66,7 +65,6 @@ class HallOfFrameInfo extends Component {
     } else {
       img = info.banner.en
     }
-    console.log('img ?', img)
     return (
       <AdBanner key={index}>
         <a target='_blank' rel="noopener noreferrer" href={info.url}>
@@ -90,7 +88,7 @@ class HallOfFrameInfo extends Component {
           <Gs.Container>
             <AnimatePresence>
               {this.props.infos?
-              this.props.infos.map((banner, index) => { this.renderedInfo(banner, index); console.log('mappppp ', banner)})
+              this.props.infos.map((banner, index) => { this.renderedInfo(banner, index);})
                 : 'loading..'}
             </AnimatePresence>
           </Gs.Container>

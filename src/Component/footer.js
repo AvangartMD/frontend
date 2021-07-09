@@ -55,13 +55,13 @@ function Footer(props) {
             </button>
           </FooterSSbx01>
           <FooterSSbx02>
-            <NavLink to="-">
+            <NavLink to="/marketplace">
               <FormattedMessage id="Marketplace" defaultMessage="Marketplace" />
             </NavLink>
-            <NavLink to="-">
+            <NavLink to="/collections">
               <FormattedMessage id="Collections" defaultMessage="Collections" />
             </NavLink>
-            <NavLink to="-">
+            <NavLink to="/creators">
               <FormattedMessage id="Creators" defaultMessage="Creators" />
             </NavLink>
             <NavLink to="-">
@@ -92,15 +92,15 @@ function Footer(props) {
             </NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="-">Instagram</NavLink>
-            <NavLink to="-">Twitter</NavLink>
-            <NavLink to="-">Discord</NavLink>
-            <NavLink to="-">Blog</NavLink>
+            <NavLink to="">Instagram</NavLink>
+            <NavLink to="">Twitter</NavLink>
+            <NavLink to="">Discord</NavLink>
+            <NavLink to="blog-list">Blog</NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="-">How to use?</NavLink>
-            <NavLink to="-">FAQ</NavLink>
-            <NavLink to="-">Support</NavLink>
+            <NavLink to="/how-to-use">How to use?</NavLink>
+            <NavLink to="/faq">FAQ</NavLink>
+            <NavLink to="">Support</NavLink>
           </FooterSSbx02>
 
           <FooterSSbx03>

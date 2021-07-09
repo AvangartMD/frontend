@@ -33,15 +33,12 @@ function Login(props) {
     footerToggleVal,
   } = props;
   useEffect(() => {
-    console.log("1", isFooter);
     if (web3Data.accounts[0] && !isFooter) checkAuthentication(web3Data);
   }, [web3Data.accounts[0]]);
   useEffect(() => {
-    console.log("2", isFooter);
     if (nonce && !isFooter) signatureRequest(nonce);
   }, [nonce]);
   useEffect(() => {
-    console.log(authData);
     if (authData?.status === 401 && !isFooter) {
       setError({ isError: true, msg: authData.data.message });
     } else if (authData && !isFooter) {

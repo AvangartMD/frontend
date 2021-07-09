@@ -1,33 +1,31 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import { connect } from "react-redux";
-
 import HeartIcon from "../../Assets/images/heart-icon.svg";
 import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
-
+import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import { connect } from "react-redux";
 import { actions } from "../../actions";
-import NFTCard from "../Cards/nftCard";
+import CollectionCard from "../Cards/collectionCard";
 
 
-function Created(props) {
+function Collection(props) {
   
-  let { NFTs, categories } = props;
+  let { collections, categories } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
-
-  useEffect(() => {
-    if (!NFTs) props.getNFTs(params.id?params.id:null);
-  }, [NFTs]);
   
+  useEffect(() => {
+    if (!collections) props.getCollections(params.id?params.id:null);
+  }, [collections]);
+    
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-  
-  useEffect(() => { }, [tabPanel]);
+    
+  useEffect(() => {}, [tabPanel]);
   
   return (
     <>
@@ -61,20 +59,13 @@ function Created(props) {
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
-            {NFTs ? (
-              NFTs.map((nft) => (
-                <NFTCard
-                  name={ nft.ownerId.name }
-                  nftId={nft.id}
-                  collectionId={nft.collectionId?._id}
-                  auctionEndDate={nft.auctionEndDate}
-                  nftImg={nft.image.compressed}
-                  title={nft.title}
-                  edition={nft.edition}
-                  price={nft.price}
-                  auctionTime={nft.auctionTime}
-                  userImg={nft.ownerId.profile}
-                  username={nft.ownerId.username}
+            {collections ? (
+              collections.map((collection) => (
+                <CollectionCard
+                  id={collection.id}
+                  collImg={collection.logo}
+                  collName={collection.name}
+                  creatorName={collection.ownerId?.username}
                 />
               ))
             ) : (
@@ -246,14 +237,14 @@ const FilterLbx = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
-    getNFTs: (id) => dispatch(actions.getUserNFT(id)),
+    getCollections: (id) => dispatch(actions.getCollectionNFT(id)),
   };
 };
 const mapStateToProps = (state) => {
   return {
     categories: state.fetchCategory,
-    NFTs: state.fetchUserNFT,
+    collections: state.fetchCollectionNFT,
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Created);
+export default connect(mapStateToProps, mapDipatchToProps)(Collection);

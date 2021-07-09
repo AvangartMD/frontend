@@ -90,3 +90,30 @@ export function fetchIsFollow(state = { isFollowed: false }, action) {
       return state;
   }
 }
+
+export function fetchLikedNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_LIKED_NFT":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchCollectedNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_COLLECTED_NFT":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchCollectionNFT(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_COLLECTION_NFT":
+      return action.data;
+    default:
+      return state;
+  }
+}

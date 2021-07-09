@@ -13,7 +13,7 @@ import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
 
-function Created(props) {
+function Collected(props) {
   
   let { NFTs, categories } = props;
   const params = useParams();
@@ -246,14 +246,14 @@ const FilterLbx = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
-    getNFTs: (id) => dispatch(actions.getUserNFT(id)),
+    getNFTs: (id) => dispatch(actions.getCollectedNFT(id)),
   };
 };
 const mapStateToProps = (state) => {
   return {
     categories: state.fetchCategory,
-    NFTs: state.fetchUserNFT,
+    NFTs: state.fetchCollectedNFT,
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Created);
+export default connect(mapStateToProps, mapDipatchToProps)(Collected);
