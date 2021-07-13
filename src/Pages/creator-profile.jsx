@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
 import dateFormat from "dateformat";
 
 import Gs from "../Theme/globalStyles";
@@ -63,8 +64,8 @@ class CreatorProfile extends Component {
         const { profile, status, web3Data, authData } = this.props;
       const { id, loading } = this.state;
     return (
-        <>
-            
+      <>
+
         {loading ? (
           <>
             <BlackWrap>
@@ -79,6 +80,13 @@ class CreatorProfile extends Component {
         { profile ?
           (
             <>
+              <Helmet>
+                <meta property="og:url" content={ window.location.href } />
+                <meta property="og:title" content={ profile?.name } />
+                <meta property="og:image" content={ profile.profile? profile.profile : UserIcon } />
+                <meta property="og:description" content={ profile?.bio } />
+              </Helmet>
+              
                 <ProMBannerBX
                     style={{
                         backgroundImage: `url(${
