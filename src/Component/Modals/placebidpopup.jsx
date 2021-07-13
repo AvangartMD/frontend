@@ -56,13 +56,16 @@ function PABpopup(props) {
   const placeBid = async () => {
     console.log("the val", bnbVal);
     const val = method === "buyNow" ? price.toString() : bnbVal;
-    if (!error.isError && val) {
+    const sendObj = { from: web3Data.accounts[0] };
+    if (method != "claimAfterAuction") {
+      if (!val) return;
+      sendObj.value = web3.utils.toWei(val, "ether");
+    }
+
+    if (!error.isError) {
       setTxnStatus("initiate");
       await escrowContractInstance.methods[method](+nonce, +1)
-        .send({
-          from: web3Data.accounts[0],
-          value: web3.utils.toWei(val, "ether"),
-        })
+        .send(sendObj)
         .on("transactionHash", (hash) => {
           setTxnStatus("progress");
         })
@@ -188,7 +191,7 @@ function PABpopup(props) {
                       Cancel
                     </button>
                     <button className="ani-1" onClick={() => placeBid()}>
-                      buy
+                      {method === "buyNow" ? "Buy" : "Claim"}
                     </button>
                   </NFTcartButtons>
                 </>

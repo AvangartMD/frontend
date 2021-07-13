@@ -19,6 +19,7 @@ async function post(url, params) {
     : {
         "content-type": "application/json",
       };
+  console.log("this", header);
   try {
     const response = await axios.post(url, params, { headers: header });
     return response;

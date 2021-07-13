@@ -67,21 +67,26 @@ function NFTCard({
                     <h3>{price} BNB</h3>
                   </div>
                   <div className="ed-box">
-                    {auctionEndDate ? (
+                    {previewCard ? (
+                      auctionEndDate ? (
+                        <>
+                          <p>Ending in</p> <h3>{auctionEndDate}h 00m 00s</h3>
+                        </>
+                      ) : (
+                        <button>Buy now</button>
+                      )
+                    ) : auctionEndDate &&
+                      auctionEndDate > new Date().getTime() / 1000 ? (
                       <>
                         <p>Ending in</p>
-                        {previewCard ? (
-                          <h3>{auctionEndDate}h 00m 00s</h3>
-                        ) : (
-                          <h3>
-                            <Timer timeLeft={auctionEndDate} onlyHours={true} />
-                          </h3>
-                        )}
+
+                        <h3>
+                          <Timer timeLeft={auctionEndDate} onlyHours={true} />
+                        </h3>
                       </>
                     ) : (
                       <button>Buy now</button>
                     )}
-                    {/* <h3>{auctionTime}h 00m 00s</h3> */}
                   </div>
                 </Edition>
                 <UserImgName>
