@@ -44,6 +44,7 @@ import {
   fetchLikedNFT,
   fetchCollectedNFT,
   fetchCollectionNFT,
+  fetchNFTEditionHistory,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -85,6 +86,7 @@ const rootReducer = combineReducers({
   fetchLikedNFT,
   fetchCollectedNFT,
   fetchCollectionNFT,
+  fetchNFTEditionHistory,
 });
 
 export default rootReducer;
