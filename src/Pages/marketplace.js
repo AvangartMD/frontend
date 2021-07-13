@@ -214,8 +214,7 @@ class MarketPlace extends Component {
         </FilterMBX>
 
         <HomeNFTs>
-          <Gs.Container>
-            {NFTs ? (
+          {NFTs ? (
               <InfiniteScroll
                 dataLength={pagination.totalRecords}
                 next={this.fetchMore}
@@ -227,10 +226,12 @@ class MarketPlace extends Component {
                   </LoaderBX>
                 }
                 // endMessage={<p>You have seen it all.!</p>}
-              >
+            >
+              <Gs.Container>
                 <NFTfourbox>
                   {NFTs.map((nft) => (
                     <NFTCard
+                      nftSold={nft.nftSold}
                       name={nft.ownerId.name}
                       nftId={nft.id}
                       collectionId={nft.collectionId?.id}
@@ -245,6 +246,7 @@ class MarketPlace extends Component {
                     />
                   ))}
                 </NFTfourbox>
+              </Gs.Container>
               </InfiniteScroll>
             ) : (
               <LoaderBX>
@@ -252,7 +254,6 @@ class MarketPlace extends Component {
                 <img src={LoaderGif} alt='' />{' '}
               </LoaderBX>
             )}
-          </Gs.Container>
         </HomeNFTs>
       </Gs.MainSection>
     );

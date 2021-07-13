@@ -652,6 +652,7 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard
+                          nftSold={0}
                           nftId={undefined}
                           collectionId={nftObj.collectionId?._id}
                           auctionEndDate={nftObj.auctionTime}

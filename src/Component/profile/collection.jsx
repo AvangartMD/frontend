@@ -18,7 +18,7 @@ function Collection(props) {
   const [tabPanel, setTaPanel] = useState("All");
   
   useEffect(() => {
-    if (!collections) props.getCollections(params.id?params.id:null);
+    props.getCollections(params.id?params.id:null);
   }, [collections]);
     
   useEffect(() => {

@@ -9,6 +9,7 @@ import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
 function NFTCard({
+  nftSold,
   name,
   nftId,
   collectionId,
@@ -48,7 +49,7 @@ function NFTCard({
                 </h4>
                 <CollectionBar>
                   <p>
-                    0 <span>of {edition ? edition : 0}</span>
+                    {nftSold} <span>of {edition ? edition : 0}</span>
                   </p>
                   {collectionId ? (
                     <p>

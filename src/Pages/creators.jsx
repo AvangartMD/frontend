@@ -116,64 +116,37 @@ class Creators extends Component {
                     </FilterRbx>
                 </FilterMBX>
 
-                <Gs.Container>
 
-                    {creators?
-                        <InfiniteScroll 
-                            dataLength={pagination.totalRecords}
-                            next={this.fetchMore}
-                            hasMore={page < pagination.totalPages}
-                            loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
-                            // endMessage={<p>You have seen it all.!</p>}
-                        >
-                            <CreatorMBX>
-                                {creators.map((creator) => {
-                                    return <CreatorCard
-                                                id={creator.id}
-                                                cover={creator.cover}
-                                                profile={creator.profile}
-                                                name={creator.name}
-                                                username={creator.username}
-                                                bio={creator.bio}
-                                                nftCreated={creator.nftCreated}
-                                                followersCount={creator.followersCount}
-                                                followingCount={ creator.followingCount }
-                                            />
-                                })}
-                            </CreatorMBX>
-                        </InfiniteScroll>
-                    :<LoaderBX> 
-                        <img src={LoaderGif} alt="" />
-                    </LoaderBX>}
+                {creators?
+                    <InfiniteScroll 
+                        dataLength={pagination.totalRecords}
+                        next={this.fetchMore}
+                        hasMore={page < pagination.totalPages}
+                        loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
+                        // endMessage={<p>You have seen it all.!</p>}
+                >
+                    <Gs.Container>
+                        <CreatorMBX>
+                            {creators.map((creator) => {
+                                return <CreatorCard
+                                            id={creator.id}
+                                            cover={creator.cover}
+                                            profile={creator.profile}
+                                            name={creator.name}
+                                            username={creator.username}
+                                            bio={creator.bio}
+                                            nftCreated={creator.nftCreated}
+                                            followersCount={creator.followersCount}
+                                            followingCount={ creator.followingCount }
+                                        />
+                            })}
+                        </CreatorMBX>
+                    </Gs.Container>
+                </InfiniteScroll>
+                :<LoaderBX> 
+                    <img src={LoaderGif} alt="" />
+                </LoaderBX>}
 
-                    {/* <CreatorMBX>
-                        <CreatSBX01>
-                            <ImgBannerBX>
-                                <img src={NftImg} alt='' />
-                            </ImgBannerBX>
-                            <CreatSBX02>
-                                <UserImg> <img src={UserImg01} alt='' /></UserImg>
-                                <CretrTitle01>
-                                User Name
-                                <span>@username</span>
-                                </CretrTitle01>
-                                <CretrText01>
-                                Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.
-                                </CretrText01>
-
-                                <CretrInfoMBX>
-                                    <CretrInfoSBX01>Created<span>519</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Followers<span>9875</span></CretrInfoSBX01>
-                                    <CretrInfoSBX01>Following<span>4301</span></CretrInfoSBX01> 
-                                </CretrInfoMBX>
-
-                                <CretrBTN01>See artworks</CretrBTN01>
-
-                            </CreatSBX02>
-                        </CreatSBX01>
-                    </CreatorMBX> */}
-
-                </Gs.Container>
             </Gs.MainSection>
         );
     }

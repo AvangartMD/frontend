@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Magnifypopup from "../Component/Modals/magnifyPopup";
 import POSpopup from "../Component/putonsalepopup";
 import PABpopup from "../Component/Modals/placebidpopup";
@@ -84,6 +85,13 @@ class NftDetail extends React.Component {
     let method = NFTDetails?.auctionEndDate ? 1 : 0;
     return (
       <>
+        <Helmet>
+          <meta property="og:url" content={ window.location.href } />
+          <meta property="og:title" content={ NFTDetails?.title } />
+          <meta property="og:image" content={NFTDetails?.image.compressed} />
+          <meta property="og:description" content={ NFTDetails?.description } />
+        </Helmet>
+
         <Gs.MainSection>
           <NFTdetailSection>
             <NFTDleft>
