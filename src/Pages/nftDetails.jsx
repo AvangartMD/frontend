@@ -33,13 +33,17 @@ class NftDetail extends React.Component {
       },
       ownerActionName: "",
       currentEdition: 1,
+      loading: false,
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const { NFTDetails } = this.props;
+    const { NFTDetails, isLiked } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
         this.fetchBidDetails(NFTDetails.tokenId, NFTDetails.edition);
+    }
+    if (isLiked !== prevProps.isLiked) {
+      this.setState({ loading: false })
     }
   }
 
@@ -80,7 +84,7 @@ class NftDetail extends React.Component {
   }
   render() {
     let id = this.props.match.params.id;
-    const { bidDetails, bnbUSDPrice, currentEdition } = this.state;
+    const { bidDetails, bnbUSDPrice, currentEdition, loading } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
     let method = NFTDetails?.auctionEndDate ? 1 : 0;
     return (
@@ -117,18 +121,18 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike className="disabled">
+                    <NFTLike className={loading?`disabled`:``}>
                       {isLiked.isFollowed ? (
                         <img
                           src={Redheart}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                          onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       ) : (
                         <img
                           src={redheartBorder}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                            onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       )}
 

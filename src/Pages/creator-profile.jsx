@@ -65,18 +65,6 @@ class CreatorProfile extends Component {
     const { id, loading } = this.state;
     return (
       <>
-
-        {loading ? (
-          <>
-            <BlackWrap>
-              <WhiteBX01>
-                <LoaderBX>
-                  <img src={LoaderGif} alt="" />
-                </LoaderBX>
-              </WhiteBX01>
-            </BlackWrap>
-          </>
-        ) : ('')}
         {profile ?
           (
             <>
@@ -217,7 +205,10 @@ class CreatorProfile extends Component {
 
                       {id ? (
                         authData ?
-                          web3Data.isLoggedIn && (authData.data.id !== profile.id) ? <EditPrBTN className="disabled"><button className="ani-1" onClick={() => this.followToggler(profile.id)}>{status.isFollowed ? 'Unfollow' : 'Follow'}</button></EditPrBTN> : ('')
+                          web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
+                            <EditPrBTN className={loading?`disabled`:``} onClick={() => this.followToggler(profile.id)}>
+                              {loading? 'loading' : status.isFollowed ? 'Unfollow' : 'Follow'}
+                            </EditPrBTN> : ('')
                           : ''
                       ) : (
                         <EditPrBTN>
