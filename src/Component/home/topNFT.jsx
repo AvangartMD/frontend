@@ -126,7 +126,7 @@ class TopNFT extends Component {
               {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
                 <>
                   <NFTfirstbox>
-                    {nfts[0]?this.renderedFirstElement(nfts[0], likesCount):''}
+                    {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount) : ''}
                   </NFTfirstbox>
 
                   <NFTfourbox className='homepage'>
@@ -198,6 +198,8 @@ const HomeNFTs = styled.div`
         background: url(${RoundIcon}) no-repeat;
       }
     }
+  }${Media.md}{
+    margin-top: 100px;
   }
 `;
 
@@ -434,6 +436,9 @@ const ViewallButton = styled.div`
       background-color: #000;
       color: #fff;
     }
+  }
+  ${Media.md}{
+    margin-bottom: 100px;
   }
 `;
 
