@@ -14,21 +14,21 @@ import NFTCard from "../Cards/nftCard";
 
 
 function Collected(props) {
-  
+
   let { NFTs, categories } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    props.getNFTs(params.id?params.id:null);
+    props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-  
+
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-  
+
   useEffect(() => { }, [tabPanel]);
-  
+
   return (
     <>
       <FilterMBX>
@@ -44,17 +44,17 @@ function Collected(props) {
           </button>
           {categories
             ? categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })
+              return (
+                <button
+                  className={tabPanel === category.id ? "active" : ""}
+                  onClick={() => {
+                    setTaPanel(category.id);
+                  }}
+                >
+                  {category.categoryName}
+                </button>
+              );
+            })
             : "loading.."}
         </FilterLbx>
       </FilterMBX>
@@ -65,7 +65,7 @@ function Collected(props) {
               NFTs.map((nft) => (
                 <NFTCard
                   nftSold={nft.nftSold}
-                  name={ nft.ownerId.name }
+                  name={nft.ownerId.name}
                   nftId={nft.id}
                   collectionId={nft.collectionId?._id}
                   auctionEndDate={nft.auctionEndDate}
@@ -98,7 +98,7 @@ const FlexDiv = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
