@@ -20,12 +20,14 @@ import { connect } from "react-redux";
 import Timer from "../Component/timer";
 import { getContractInstance } from "../helper/functions";
 import NftOwnerActions from "../Component/Modals/nftOwnerAction";
+import Login from "../Component/Modals/login";
 
 class NftDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
+      isOpen4: false,
       bnbUSDPrice: 0,
       bidDetails: {
         currentBidValue: "0",
@@ -33,13 +35,17 @@ class NftDetail extends React.Component {
       },
       ownerActionName: "",
       currentEdition: 1,
+      loading: false,
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const { NFTDetails } = this.props;
+    const { NFTDetails, isLiked } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
         this.fetchBidDetails(NFTDetails.tokenId, NFTDetails.edition);
+    }
+    if (isLiked !== prevProps.isLiked) {
+      this.setState({ loading: false })
     }
   }
 
@@ -78,9 +84,13 @@ class NftDetail extends React.Component {
       },
     });
   }
+
+  closePopUp = () => {
+    this.setState({ isOpen4: false });
+  };
   render() {
     let id = this.props.match.params.id;
-    const { bidDetails, bnbUSDPrice, currentEdition } = this.state;
+    const { bidDetails, bnbUSDPrice, currentEdition, loading } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
     let method = NFTDetails?.auctionEndDate ? 1 : 0;
     return (
@@ -117,18 +127,18 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike className="disabled">
+                    <NFTLike className={loading?`disabled`:``}>
                       {isLiked.isFollowed ? (
                         <img
                           src={Redheart}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                          onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       ) : (
                         <img
                           src={redheartBorder}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                            onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       )}
 
@@ -192,7 +202,14 @@ class NftDetail extends React.Component {
                 </Edition>
                 <NFTcartButtons>
                   {NFTDetails?.ownerId.id !== authData?.data?.id ? (
-                    <button onClick={() => this.toggle(8)}>
+                    <button onClick={() => {
+                      if (authData) { // check user is logged in 
+                        this.toggle(8)
+                      } else {
+                        this.toggle(4) // open login pop up
+                      }
+                      }
+                    }>
                       {method ? "Place a bid" : "Buy Now"}
                     </button>
                   ) : (
@@ -298,6 +315,18 @@ class NftDetail extends React.Component {
             }
           >
             <SEpopup toggle={this.toggle} />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen4}
+            className={
+              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+            }
+          >
+            <Login
+              toggle={this.toggle}
+              closePopUp={this.closePopUp}
+              isFooter={true}
+            />
           </Collapse>
         </Gs.MainSection>
       </>
