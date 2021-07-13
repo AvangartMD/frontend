@@ -20,12 +20,14 @@ import { connect } from "react-redux";
 import Timer from "../Component/timer";
 import { getContractInstance } from "../helper/functions";
 import NftOwnerActions from "../Component/Modals/nftOwnerAction";
+import Login from "../Component/Modals/login";
 
 class NftDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
+      isOpen4: false,
       bnbUSDPrice: 0,
       bidDetails: {
         currentBidValue: "0",
@@ -82,6 +84,10 @@ class NftDetail extends React.Component {
       },
     });
   }
+
+  closePopUp = () => {
+    this.setState({ isOpen4: false });
+  };
   render() {
     let id = this.props.match.params.id;
     const { bidDetails, bnbUSDPrice, currentEdition, loading } = this.state;
@@ -196,7 +202,14 @@ class NftDetail extends React.Component {
                 </Edition>
                 <NFTcartButtons>
                   {NFTDetails?.ownerId.id !== authData?.data?.id ? (
-                    <button onClick={() => this.toggle(8)}>
+                    <button onClick={() => {
+                      if (authData) { // check user is logged in 
+                        this.toggle(8)
+                      } else {
+                        this.toggle(4) // open login pop up
+                      }
+                      }
+                    }>
                       {method ? "Place a bid" : "Buy Now"}
                     </button>
                   ) : (
@@ -302,6 +315,18 @@ class NftDetail extends React.Component {
             }
           >
             <SEpopup toggle={this.toggle} />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen4}
+            className={
+              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+            }
+          >
+            <Login
+              toggle={this.toggle}
+              closePopUp={this.closePopUp}
+              isFooter={true}
+            />
           </Collapse>
         </Gs.MainSection>
       </>
