@@ -133,6 +133,7 @@ class TopNFT extends Component {
                     {(nfts.slice(1)).map((nft) => {
                       return (
                         <NFTCard
+                          nftSold={nft.nftSold}
                           name={nft.nftId.ownerId.name}
                           nftId={nft.nftId.id}
                           collectionId={nft.nftId.collectionId?.id}

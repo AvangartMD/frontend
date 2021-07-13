@@ -20,7 +20,7 @@ function Collected(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    if (!NFTs) props.getNFTs(params.id?params.id:null);
+    props.getNFTs(params.id?params.id:null);
   }, [NFTs]);
   
   useEffect(() => {
@@ -64,6 +64,7 @@ function Collected(props) {
             {NFTs ? (
               NFTs.map((nft) => (
                 <NFTCard
+                  nftSold={nft.nftSold}
                   name={ nft.ownerId.name }
                   nftId={nft.id}
                   collectionId={nft.collectionId?._id}

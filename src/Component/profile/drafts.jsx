@@ -21,6 +21,7 @@ function Drafts(props) {
           {userDraftNFT ? (
             userDraftNFT.map((nft) => (
               <NFTCard
+                nftSold={nft.nftSold}
                 nftId={nft.id}
                 name={ nft.ownerId.name }
                 collectionId={nft.collectionId?._id}
