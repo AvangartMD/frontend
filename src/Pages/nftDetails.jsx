@@ -86,10 +86,10 @@ class NftDetail extends React.Component {
     return (
       <>
         <Helmet>
-          <meta property="og:url" content={ window.location.href } />
-          <meta property="og:title" content={ NFTDetails?.title } />
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:title" content={NFTDetails?.title} />
           <meta property="og:image" content={NFTDetails?.image.compressed} />
-          <meta property="og:description" content={ NFTDetails?.description } />
+          <meta property="og:description" content={NFTDetails?.description} />
         </Helmet>
 
         <Gs.MainSection>
@@ -117,7 +117,7 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike>
+                    <NFTLike className="disabled">
                       {isLiked.isFollowed ? (
                         <img
                           src={Redheart}
@@ -392,6 +392,11 @@ const NFTLike = styled(FlexDiv)`
     width: 15px;
     height: 15px;
     margin: 0px 4px 0px 0px;
+  }
+  &.disabled
+  {
+    pointer-events: none;
+    opacity:0.5;
   }
 `;
 
