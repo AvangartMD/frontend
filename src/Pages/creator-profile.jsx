@@ -434,11 +434,7 @@ const EditPrBTN = styled.div`
   }
   &.disabled{
     pointer-events: none;
-    background-color:rgb(244 0 88 / 30%);
-    border-color:rgb(244 0 88 / 20%);
-    button{
-    color:rgb(0 0 0 / 30%);
-    }
+    opacity:0.3;
   }
 `;
 
