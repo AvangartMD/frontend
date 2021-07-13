@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
-import Media from "../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
 import { Link } from "react-router-dom";
 import { Scrollbars } from 'react-custom-scrollbars';
+import { connect } from "react-redux";
+import dateFormat from "dateformat";
 
+import { actions } from "../actions";
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
-import RedirectLink from "../Assets/images/icon-set-link.svg";
+import LoaderGif from "../Assets/images/loading.gif";
 
 
 class CustomScrollbars extends Component {
@@ -27,138 +26,69 @@ class CustomScrollbars extends Component {
 }
 
 class Historypopup extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
+      nftId: this.props.nftId,
+      edition: this.props.edition,
     };
   }
 
+  componentDidMount() {
+    const { nftId, edition } = this.state;
+    this.props.getHistory(nftId, edition); // get NFT edition history
+  }
+
   render() {
+    const { history } = this.props;
     return (
       <>
 
         <BlackWrap>
           <WhiteBX0D2>
-            <CloseBTN className="ani-1" onClick={() => this.props.toggle(9)}>
-              <img src={CloseBTN01} alt="" />
-            </CloseBTN>
 
-            <Htitle>History</Htitle>
-            <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width: '100%', height: '400px', position: 'relative' }} >
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-              <HDsection>
-                <HDleft>
-                  <h3>Lorem ipsum dolor sit amet</h3>
-                  <p>Transaction Date Here</p>
-                </HDleft>
-                <HDmiddle>
-                  <p>by @<b>username</b></p>
-                </HDmiddle>
-                <HDright>
-                  <HDrightbox>
-                    <h3>0.00 BNB</h3>
-                    <p>0.00 USD</p>
-                  </HDrightbox>
-                  <Link to="/"><img src={RedirectLink} alt="" /></Link>
-                </HDright>
-              </HDsection>
-            </CustomScrollbars>
+            {history ?
+              <>
+                <CloseBTN className="ani-1" onClick={() => this.props.toggle(9)}>
+                  <img src={CloseBTN01} alt="" />
+                </CloseBTN>
+
+                <Htitle>History</Htitle>
+                <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width: '100%', height: '400px', position: 'relative' }} >
+
+                  {history.map((history, key) => {
+                    return <HDsection key={key}>
+                      <HDleft>
+                        <h3>{history ? history.text : 'Lorem ipsum dolor sit amet'}</h3>
+                        <p>{history ? history.createdAt ? dateFormat(new Date(history.createdAt).toString(), "dd mmmm yyyy")
+                          : 'Transaction Date Here' : 'Transaction Date Here'}</p>
+                      </HDleft>
+                      <HDmiddle>
+                        <p>by
+                          @<b>{history ? history.ownerId?.username : ''}</b>
+                        </p>
+                      </HDmiddle>
+                      <HDright>
+                        <HDrightbox>
+                          <h3>{history ? history.buyPrice : '0.00'} BNB</h3>
+                          <p>0.00 USD</p>
+                        </HDrightbox>
+                      </HDright>
+                    </HDsection>
+                  })}
+
+                </CustomScrollbars>
+              </>
+            : <>
+              <OnbTitle01 className="v2">
+                Please wait history is fetching
+              </OnbTitle01>
+              <LoaderBX>
+                <img src={LoaderGif} alt="" />
+              </LoaderBX>  
+            </>}
 
           </WhiteBX0D2>
         </BlackWrap>
@@ -243,6 +173,34 @@ const HDrightbox = styled.div`
   p{margin:0px; font-size:12px; font-weight:300; letter-spacing:-0.6px; color:#8e9194;}
 `;
 
-export default Historypopup;
+const OnbTitle01 = styled.div`
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
 
+  &.v2 {
+    max-width: 220px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 28px;
+  }
+`;
 
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 50px auto;
+`;
+
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getHistory: (nftId, edition) => dispatch(actions.getEditionHistory(nftId, edition)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    history: state.fetchNFTEditionHistory,
+  };
+};
+
+export default connect(mapStateToProps, mapDipatchToProps)(Historypopup);

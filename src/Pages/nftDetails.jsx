@@ -80,7 +80,7 @@ class NftDetail extends React.Component {
   }
   render() {
     let id = this.props.match.params.id;
-    const { bidDetails, bnbUSDPrice } = this.state;
+    const { bidDetails, bnbUSDPrice, currentEdition } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
     let method = NFTDetails?.auctionEndDate ? 1 : 0;
     return (
@@ -289,7 +289,7 @@ class NftDetail extends React.Component {
               "app__collapse " + (this.state.isOpen9 ? "collapse-active" : "")
             }
           >
-            <Historypopup toggle={this.toggle} />
+            <Historypopup toggle={this.toggle} edition={currentEdition} nftId={id} />
           </Collapse>
           <Collapse
             isOpen={this.state.isOpen10}

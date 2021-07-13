@@ -117,3 +117,12 @@ export function fetchCollectionNFT(state = null, action) {
       return state;
   }
 }
+
+export function fetchNFTEditionHistory(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_NFT_EDITION_HISTORY":
+      return action.data;
+    default:
+      return state;
+  }
+}

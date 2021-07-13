@@ -290,7 +290,7 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    authLogout: () => dispatch({ type: "AUTH_LOGIN", data: {status: false, data: null} }),
     web3Logout: () =>
       dispatch({
         type: "FETCH_WEB3_DATA",
