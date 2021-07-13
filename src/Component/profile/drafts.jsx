@@ -23,7 +23,7 @@ function Drafts(props) {
               <NFTCard
                 nftSold={nft.nftSold}
                 nftId={nft.id}
-                name={ nft.ownerId.name }
+                name={nft.ownerId.name}
                 collectionId={nft.collectionId?._id}
                 auctionEndDate={nft.auctionEndDate}
                 nftImg={nft.image.compressed}
@@ -54,7 +54,7 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content: flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
