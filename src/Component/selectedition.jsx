@@ -460,7 +460,7 @@ const EditionTable = styled.div`
       td{color:#000; font-size:18px; font-weight:600; letter-spacing:-0.9px;
         .JCFS{justify-content:flex-start;}
         .table-Img{width:32px; height:32px; border-radius:50%; margin-right:10px;
-          img{width:100%; height:100%; object-fit: cover;}
+          img{width:100%; height:100%; object-fit: cover; border-radius:50%;}
         }
       }
     }
