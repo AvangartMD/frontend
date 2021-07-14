@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from "react-router";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import Gs from '../../Theme/globalStyles';
 import NFT2 from '../../Assets/images/nft2.jpg';
@@ -27,8 +27,7 @@ class Collections extends Component {
 
   renderedCollection = (collection) => {
     return (
-      <AnimatePresence>
-        <Gs.W25>
+        <Gs.W25 key={collection.collectionId.id}>
           <Gs.TenpxGutter>
             <Link to={`/collection-detail/${collection.collectionId.id}`}>
               <div className="img-outer">
@@ -44,7 +43,6 @@ class Collections extends Component {
             </Link>
           </Gs.TenpxGutter>
         </Gs.W25>
-      </AnimatePresence>
     )
   }
 

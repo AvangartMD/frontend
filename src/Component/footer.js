@@ -26,7 +26,7 @@ function Footer(props) {
       return (
         <AvBTN01 className='createButton'>
           <Link to="/user/nftminting">
-            <FormattedMessage id="Create" defaultMessage="Create" />
+            Create
           </Link>
         </AvBTN01>
       );

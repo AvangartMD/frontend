@@ -7,7 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import dateFormat from "dateformat";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import AdBannerIMG from "../Assets/images/adbanner.jpg";
 import LoaderGif from "../Assets/images/loading.gif";
@@ -114,16 +114,14 @@ class Profile extends Component {
                   {this.state.profile.url ? (
                     <img src={this.state.profile.url} alt="" />
                   ) : (
-                      <AnimatePresence>
-                        <motion.img
-                          initial={{ opacity: 0.2 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.4 }}
-                          key={profile?.profile?profile.profile:UserIcon}
-                          src={profile?.profile?profile.profile:UserIcon}
-                          exit={{ opacity: 0 }}
-                        />
-                      </AnimatePresence>
+                      <motion.img
+                        initial={{ opacity: 0.2 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.4 }}
+                        key={profile?.profile?profile.profile:UserIcon}
+                        src={profile?.profile?profile.profile:UserIcon}
+                        exit={{ opacity: 0 }}
+                      />
                   )}
                 </UserImgSB>
 
