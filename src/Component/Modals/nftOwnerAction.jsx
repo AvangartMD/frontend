@@ -6,6 +6,7 @@ import { getContractInstance } from "../../helper/functions";
 import { actions } from "../../actions";
 import { connect } from "react-redux";
 import TxnStatus from "./txnStatus";
+import Media from "./../../Theme/media-breackpoint";
 
 function NftOwnerActions(props) {
   const { web3Data, toggle, ownerActionName, edition, tokenID } = props;
@@ -180,13 +181,16 @@ const WhiteBX0D3 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: flex-start;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -200,19 +204,26 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
+  }
 `;
 
 const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const PBtitle = styled.div`

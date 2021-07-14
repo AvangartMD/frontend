@@ -9,6 +9,7 @@ import { actions } from "../actions";
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import LoaderGif from "../Assets/images/loading.gif";
 
+import Media from "../Theme/media-breackpoint";
 
 class CustomScrollbars extends Component {
   render() {
@@ -81,14 +82,14 @@ class Historypopup extends Component {
 
                 </CustomScrollbars>
               </>
-            : <>
-              <OnbTitle01 className="v2">
-                Please wait history is fetching
-              </OnbTitle01>
-              <LoaderBX>
-                <img src={LoaderGif} alt="" />
-              </LoaderBX>  
-            </>}
+              : <>
+                <OnbTitle01 className="v2">
+                  Please wait history is fetching
+                </OnbTitle01>
+                <LoaderBX>
+                  <img src={LoaderGif} alt="" />
+                </LoaderBX>
+              </>}
 
           </WhiteBX0D2>
         </BlackWrap>
@@ -123,13 +124,16 @@ const WhiteBX0D2 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 491px;
   padding: 50px 50px 0px 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -142,6 +146,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 

@@ -20,6 +20,7 @@ import LoaderGif from "../Assets/images/loading.gif";
 import SuccessPopup from "../Component/Modals/sucessPopup";
 
 import { actions } from "../actions";
+import Media from '../Theme/media-breackpoint';
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -142,7 +143,7 @@ class ProfileEdit extends Component {
 
     return (
       <Gs.MainSection>
-          
+
         {loading ? (
           <>
             <BlackWrap>
@@ -181,9 +182,9 @@ class ProfileEdit extends Component {
           </>
         ) : (
           ""
-          )}
+        )}
 
-        {updated ? <SuccessPopup message="Your profile details are updated sucessfully." url="/user/profile"/> : ("")}
+        {updated ? <SuccessPopup message="Your profile details are updated sucessfully." url="/user/profile" /> : ("")}
 
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
@@ -518,7 +519,7 @@ class ProfileEdit extends Component {
                         </div>
                       </NFTForm>
                       <CreateItemButton>
-                        <button type="submit" disabled={!formChange?true:false}>Update</button>
+                        <button type="submit" disabled={!formChange ? true : false}>Update</button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>
@@ -590,18 +591,6 @@ const NFTLeft = styled.div`
 const NFTRight = styled.div`
   margin: 0px 10px;
 `;
-
-// const NFTImgBX = styled(FlexDiv)`
-//   width: 100%;
-//   height: 253px;
-//   border-radius: 10px 10px 0 0;
-//   overflow: hidden;
-//   img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//   }
-// `;
 
 const NFTtitle = styled.div`
   h4 {
@@ -1079,13 +1068,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -1098,13 +1090,17 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
+  }
 `;
 
 const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getProfile()),
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
-    clearErrors: () => dispatch({ type: 'API_FAILED', data: null}),
+    clearErrors: () => dispatch({ type: 'API_FAILED', data: null }),
   };
 };
 const mapStateToProps = (state) => {

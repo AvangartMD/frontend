@@ -15,6 +15,7 @@ import Timer from "../Component/timer";
 import LoaderGif from "../Assets/images/loading.gif";
 import Whitecross from "../Assets/images/white-cross.svg";
 
+import Media from '../Theme/media-breackpoint';
 
 class CollectionEdit extends Component {
 
@@ -623,13 +624,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const OnbTitle01 = styled.div`
   font-size: 26px;

@@ -2,44 +2,45 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
+import Media from '../../Theme/media-breackpoint';
 
 
 class SuccessPopup extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          isOpen1: false,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen1: false,
+    };
+  }
 
-    toggle = (index) => {
-        let collapse = "isOpen" + index;
-        this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-    }
+  toggle = (index) => {
+    let collapse = "isOpen" + index;
+    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+  }
 
-    render() {
-        const { message, url } = this.props;
-        const { isOpen1 } = this.state
-        return (
-            <>
-                {!isOpen1 ?
-                    <BlackWrap>
-                        <WhiteBX01>
-                        <CloseBTN className="ani-1" onClick={() => this.toggle(1)}>
-                            {" "}
-                            <img src={CloseBTN01} alt="" />{" "}
-                        </CloseBTN>
-                            <TokenBox >
-                                <p >{message}</p>
-                                <button onClick={() => this.props.history.push(url)}>View</button>
-                            </TokenBox>
-                        </WhiteBX01>
-                    </BlackWrap>
-                : ''}
-            </>
-        );
-    }
+  render() {
+    const { message, url } = this.props;
+    const { isOpen1 } = this.state
+    return (
+      <>
+        {!isOpen1 ?
+          <BlackWrap>
+            <WhiteBX01>
+              <CloseBTN className="ani-1" onClick={() => this.toggle(1)}>
+                {" "}
+                <img src={CloseBTN01} alt="" />{" "}
+              </CloseBTN>
+              <TokenBox >
+                <p >{message}</p>
+                <button onClick={() => this.props.history.push(url)}>View</button>
+              </TokenBox>
+            </WhiteBX01>
+          </BlackWrap>
+          : ''}
+      </>
+    );
+  }
 }
 
 const FlexDiv = styled.div`
@@ -65,13 +66,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -83,6 +87,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 const TokenBox = styled(FlexDiv)`

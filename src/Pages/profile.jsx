@@ -32,7 +32,7 @@ import Collected from "../Component/profile/collected";
 import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 import Drafts from "../Component/profile/drafts";
-
+import Media from '../Theme/media-breackpoint';
 
 class Profile extends Component {
   constructor(props) {
@@ -96,15 +96,14 @@ class Profile extends Component {
       <>
         <ProMBannerBX
           style={{
-            backgroundImage: `url(${
-              this.state.cover.url
-                ? this.state.cover.url
-                : profile
+            backgroundImage: `url(${this.state.cover.url
+              ? this.state.cover.url
+              : profile
                 ? profile.cover
                   ? profile.cover
                   : ProfielBack
                 : ProfielBack
-            })`,
+              })`,
           }}
         >
           <ProMBX01>
@@ -114,14 +113,14 @@ class Profile extends Component {
                   {this.state.profile.url ? (
                     <img src={this.state.profile.url} alt="" />
                   ) : (
-                      <motion.img
-                        initial={{ opacity: 0.2 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        key={profile?.profile?profile.profile:UserIcon}
-                        src={profile?.profile?profile.profile:UserIcon}
-                        exit={{ opacity: 0 }}
-                      />
+                    <motion.img
+                      initial={{ opacity: 0.2 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                      key={profile?.profile ? profile.profile : UserIcon}
+                      src={profile?.profile ? profile.profile : UserIcon}
+                      exit={{ opacity: 0 }}
+                    />
                   )}
                 </UserImgSB>
 
@@ -262,9 +261,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                          new Date(profile.createdAt).toString(),
-                          "dd mmmm yyyy"
-                        )
+                        new Date(profile.createdAt).toString(),
+                        "dd mmmm yyyy"
+                      )
                       : "join date"}
                   </span>
                 </UserDText02>
@@ -356,7 +355,7 @@ class Profile extends Component {
                     <Tab>Liked</Tab>
                     <Tab>Drafts</Tab>
                   </TabList>
-                  
+
                   <TabPanel> <Collected /> </TabPanel>
                   <TabPanel> <Collection /> </TabPanel>
                   <TabPanel> <Liked /> </TabPanel>
@@ -366,6 +365,16 @@ class Profile extends Component {
 
             </Tabs>
           </HomeTabs>
+          <CEmpty>
+            <h2>Your collection is empty.</h2>
+            <p>Start building your collection<br /> by placing bids on artwork.</p>
+            <button className="ani-1">Explore artworks</button>
+          </CEmpty>
+          <CEmpty>
+            <h2>Become a Creator</h2>
+            <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            <button className="ani-1">Become a Creator</button>
+          </CEmpty>
         </Gs.Container>
       </>
     );
@@ -783,15 +792,43 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
+  }
+`;
 
 const mapDipatchToProps = (dispatch) => {
   return {
