@@ -87,10 +87,11 @@ function Collected(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
+
           <CEmpty>
-            <h2>Become a Creator</h2>
-            <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-            <button className="ani-1">Become a Creator</button>
+            <h2>Your collection is empty.</h2>
+            <p>Start building your collection<br /> by placing bids on artwork.</p>
+            <button className="ani-1">Explore artworks</button>
           </CEmpty>
         </Gs.Container>
       </HomeNFTs>
