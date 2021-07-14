@@ -16,6 +16,8 @@ import FiltICON02 from '../Assets/images/sortICO.svg';
 import LoaderGif from '../Assets/images/loading.gif'
 import UserImg01 from '../Assets/images/userImg.png'
 
+import Media from "./../Theme/media-breackpoint";
+
 
 class Creators extends Component {
 
@@ -44,20 +46,20 @@ class Creators extends Component {
         this.props.clearCreators() // clear the previous creators
         this.props.clearMoreCreators() // clear the previous more creators
         this.props.clearPagination() // clear the previous pagination
-    } 
+    }
 
     onSearchKeyUp = (e) => {
         if (e.key === 'Enter' || e.keyCode === 13) {
             this.clearPreviousCreators()
             this.setState({ page: 1 })
-            this.props.getCreators({ 'search' : e.target.value }) // fetch search creators
+            this.props.getCreators({ 'search': e.target.value }) // fetch search creators
         }
     }
 
     setRank = (rank) => {
         this.clearPreviousCreators()
         this.setState({ page: 1 })
-        this.props.getCreators({ 'rank' : rank }) // fetch rank creators
+        this.props.getCreators({ 'rank': rank }) // fetch rank creators
     }
 
     onCategoryChange = (category) => {
@@ -72,12 +74,12 @@ class Creators extends Component {
 
     fetchMore = () => {
         const { searched, ranked, tabPanel, page } = this.state
-        this.setState({ page: page+1 })
+        this.setState({ page: page + 1 })
         let params = {
-            'page': page+1,
-            'search': searched?searched:null,
-            'rank': ranked?ranked:null,
-            'category': tabPanel!=='all'?tabPanel:[],
+            'page': page + 1,
+            'search': searched ? searched : null,
+            'rank': ranked ? ranked : null,
+            'category': tabPanel !== 'all' ? tabPanel : [],
         }
         this.props.getMoreCreators(params) // fetch more creators
     }
@@ -90,63 +92,63 @@ class Creators extends Component {
         }
         return (
             <Gs.MainSection>
+                <Gs.Container>
+                    <FilterMBX>
+                        <FilterLbx>
+                            <button className={tabPanel === 'all' ? 'active' : ''} id='all' onClick={() => { this.onCategoryChange('all') }}>All</button>
+                            {categories ? categories.map((category, key) => {
+                                return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >{category.categoryName}</button>
+                            }) : ''}
+                        </FilterLbx>
 
-                <FilterMBX>
-                    <FilterLbx>
-                        <button className={tabPanel==='all'?'active':''} id='all' onClick={() => {this.onCategoryChange('all')}}>All</button> 
-                        {categories?categories.map((category, key)=>{
-                            return <button id={category.id} key={key} className={tabPanel===category.id?'active':''} onClick={() => {this.onCategoryChange(category.id)}} >{category.categoryName}</button>
-                        }):''}
-                    </FilterLbx>
-
-                    <FilterRbx>
-                        <FilterInputBX>
-                            <input placeholder='Search' onKeyUp={(e)=> this.onSearchKeyUp(e)}></input>
-                            <SearchICO><img src={SerICON} alt="" /> </SearchICO>
-                        </FilterInputBX>
-                        <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '')}>
-                            <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
-                            <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
-                                <DDContainer>
-                                    <DDBTN01 onClick={() => {this.setRank('name')}}>by Name</DDBTN01>
-                                    <DDBTN01 onClick={() => {this.setRank('follower')}}>by Follower</DDBTN01> 
-                                </DDContainer>
-                            </Collapse>
-                        </FilterBAR>
-                    </FilterRbx>
-                </FilterMBX>
+                        <FilterRbx>
+                            <FilterInputBX>
+                                <input placeholder='Search' onKeyUp={(e) => this.onSearchKeyUp(e)}></input>
+                                <SearchICO><img src={SerICON} alt="" /> </SearchICO>
+                            </FilterInputBX>
+                            <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '')}>
+                                <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
+                                <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
+                                    <DDContainer>
+                                        <DDBTN01 onClick={() => { this.setRank('name') }}>by Name</DDBTN01>
+                                        <DDBTN01 onClick={() => { this.setRank('follower') }}>by Follower</DDBTN01>
+                                    </DDContainer>
+                                </Collapse>
+                            </FilterBAR>
+                        </FilterRbx>
+                    </FilterMBX>
 
 
-                {creators?
-                    <InfiniteScroll 
-                        dataLength={pagination.totalRecords}
-                        next={this.fetchMore}
-                        hasMore={page < pagination.totalPages}
-                        loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
+                    {creators ?
+                        <InfiniteScroll
+                            dataLength={pagination.totalRecords}
+                            next={this.fetchMore}
+                            hasMore={page < pagination.totalPages}
+                            loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
                         // endMessage={<p>You have seen it all.!</p>}
-                >
-                    <Gs.Container>
-                        <CreatorMBX>
-                            {creators.map((creator) => {
-                                return <CreatorCard
-                                            id={creator.id}
-                                            cover={creator.cover}
-                                            profile={creator.profile}
-                                            name={creator.name}
-                                            username={creator.username}
-                                            bio={creator.bio}
-                                            nftCreated={creator.nftCreated}
-                                            followersCount={creator.followersCount}
-                                            followingCount={ creator.followingCount }
-                                        />
-                            })}
-                        </CreatorMBX>
-                    </Gs.Container>
-                </InfiniteScroll>
-                :<LoaderBX> 
-                    <img src={LoaderGif} alt="" />
-                </LoaderBX>}
+                        >
 
+                            <CreatorMBX>
+                                {creators.map((creator) => {
+                                    return <CreatorCard
+                                        id={creator.id}
+                                        cover={creator.cover}
+                                        profile={creator.profile}
+                                        name={creator.name}
+                                        username={creator.username}
+                                        bio={creator.bio}
+                                        nftCreated={creator.nftCreated}
+                                        followersCount={creator.followersCount}
+                                        followingCount={creator.followingCount}
+                                    />
+                                })}
+                            </CreatorMBX>
+
+                        </InfiniteScroll>
+                        : <LoaderBX>
+                            <img src={LoaderGif} alt="" />
+                        </LoaderBX>}
+                </Gs.Container>
             </Gs.MainSection>
         );
     }
@@ -164,22 +166,37 @@ const LoaderBX = styled(FlexDiv)`
 `
 const FilterMBX = styled(FlexDiv)`
   width:100%; justify-content:space-between; max-width:1080px; margin:30px auto 0 auto;
+  ${Media.lg}{
+    max-width:100%;
+  }
 `
 const FilterLbx = styled(FlexDiv)`
  width:45%; justify-content:flex-start; 
- button{  display:inline-block;padding: 10px 25px; font-size:14px; font-weight:600; color:#000000; border-radius: 15px; background-color: #eef2f7; margin-right:8px;  
+ button{display:inline-block;padding: 10px 19px; font-size:14px; font-weight:600; color:#000000; border-radius: 15px; background-color: #eef2f7; margin:0px 6px 0px 0px;  
   &.active{ background-color:#00babc; color:#fff; } 
   :hover{ background-color:#00babc; color:#fff; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); }
+  :last-child{margin:0px;}
  } 
+ ${Media.md}{
+    width:100%;
+  }
 `
 const FilterRbx = styled(FlexDiv)`
- width:55%; justify-content:flex-end; 
+ width:55%; justify-content:flex-end;
+ ${Media.md}{
+    width:100%;
+    justify-content: space-between;
+    margin-top:20px;
+  } 
 `
 const FilterInputBX = styled(FlexDiv)`
   width:100%; max-width:220px; position:relative; margin-right: 9px; 
   input{ background-color:#eef2f7; font-size:14px; border-radius:15px; border:1px solid transparent; outline:none; height:38px; width:100%; padding:3px 3px 3px 40px;
   :focus{background-color:#fff; border:1px solid #00babc; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
   } 
+  ${Media.md}{
+    max-width:calc(50% - 5px);
+  }
 `
 const SearchICO = styled(FlexDiv)`
   width:21px; height:21px; position:absolute; left: 11px;  top: 9px;
@@ -190,17 +207,19 @@ const FilterICO = styled(FlexDiv)`
 const FilterBAR = styled(FlexDiv)`
    width:100%; max-width:220px; justify-content:flex-start; position:relative; background-color:#eef2f7; border-radius:15px; border:0px; outline:none; height:38px;padding:3px 3px 3px 40px; font-size:14px; color:#000000;  cursor: pointer; border:1px solid transparent;  
   &.active, &:hover{ background-color:#fff; border:1px solid #00babc; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); }  
+  ${Media.md}{
+    max-width:calc(50% - 5px);
+  }
 `
 const DDContainer = styled(FlexDiv)` 
     position:absolute; background-color:#fff; padding:15px; border-radius: 20px; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); top:calc(100% + 7px); width:100%; left:0;  overflow:hidden; z-index:100;   
   & .md-checkbox:hover{ background-color:#D9F5F5;} 
 `
 const CreatorMBX = styled(FlexDiv)`
- margin:40px -10px 40px -10px; justify-content:flex-start; overflow:hidden;
+ margin:40px -10px 40px -10px; justify-content:flex-start; align-items:flex-start; overflow:hidden;
 `
 const CreatSBX01 = styled(FlexDiv)`
     width:calc(25% - 20px); margin:10px 10px 20px 10px;  border:1px solid #dddddd; border-radius:10px; justify-content:flex-start; align-items:flex-start; 
-
     :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
 `
 const ImgBannerBX = styled(FlexDiv)`
@@ -213,7 +232,7 @@ const CreatSBX02 = styled(FlexDiv)`
 const UserImg = styled(FlexDiv)`
     width:72px; height:72px; border-radius:36px; overflow:hidden; border:solid 1px #eef2f7; margin-top: -50px; 
     img{ width:100%; height:100%; object-fit: cover;}
-` 
+`
 const CretrTitle01 = styled.div`
     display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; 
     span{ display:block; text-align:center; font-size:12px; } 
@@ -225,10 +244,10 @@ const CretrText01 = styled.div`
 const CretrInfoMBX = styled(FlexDiv)`
     width:100%; padding:12px; margin:32px 0 18px 0; border:1px solid #dddddd; border-radius: 10px;
 `
-const CretrInfoSBX01  = styled(FlexDiv)`
+const CretrInfoSBX01 = styled(FlexDiv)`
     width:33.33%; color:#8e9194; font-size:10px;
     span{ width:100%; font-weight:600; color:#000; font-size:16px; text-align:center}
-`                              
+`
 const CretrBTN01 = styled.button`
     color:#000; border:2px solid #000; display: inline-block; padding:11px 26px; border-radius:15px; font-size:14px; font-weight:600; margin-bottom:15px; 
 `
@@ -241,21 +260,21 @@ const DDBTN01 = styled.button`
 
 const mapDipatchToProps = (dispatch) => {
     return {
-      getCreators: (params) => dispatch(actions.getCreators(params)),
-      getCategories: () => dispatch(actions.fetchCategories()),
-      getMoreCreators: (params) => dispatch(actions.getMoreCreators(params)),
-      clearCreators: () => dispatch({ type: 'FETCHED_CREATORS', data: []}),
-      clearPagination: () => dispatch({ type: 'FETCHED_PAGINATION', data: []}),
-      clearMoreCreators: () => dispatch({ type: 'FETCHED_MORE_CREATORS', data: []}),
+        getCreators: (params) => dispatch(actions.getCreators(params)),
+        getCategories: () => dispatch(actions.fetchCategories()),
+        getMoreCreators: (params) => dispatch(actions.getMoreCreators(params)),
+        clearCreators: () => dispatch({ type: 'FETCHED_CREATORS', data: [] }),
+        clearPagination: () => dispatch({ type: 'FETCHED_PAGINATION', data: [] }),
+        clearMoreCreators: () => dispatch({ type: 'FETCHED_MORE_CREATORS', data: [] }),
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-      creators: state.fetchCreators,
-      moreCreators: state.fetchMoreCreators,
-      pagination: state.fetchPagination,
-      categories: state.fetchCategory,
+        creators: state.fetchCreators,
+        moreCreators: state.fetchMoreCreators,
+        pagination: state.fetchPagination,
+        categories: state.fetchCategory,
     }
 }
 
