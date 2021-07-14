@@ -90,8 +90,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-        "...." +
-        newAddress.substring(newAddress.length - 5, newAddress.length)
+      "...." +
+      newAddress.substring(newAddress.length - 5, newAddress.length)
       : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
@@ -187,7 +187,7 @@ class Header extends Component {
                 <NavLink to="/creators" exact activeClassName="active">
                   <FormattedMessage id="Creators" defaultMessage="Creators" />
                 </NavLink>
-                <NavLink to="/3" exact activeClassName="active">
+                <NavLink to="/how-to-use" exact activeClassName="active">
                   <FormattedMessage
                     id="How_to_use?"
                     defaultMessage="How to use?"
@@ -335,10 +335,10 @@ class Header extends Component {
           <Login
             toggle={this.toggle}
             closePopUp={this.closePopUp}
-            // connectToWallet={this.connectToWallet}
-            // loader={loader}
-            // error={error}
-            // refreshStates={this.refreshStates}
+          // connectToWallet={this.connectToWallet}
+          // loader={loader}
+          // error={error}
+          // refreshStates={this.refreshStates}
           />
           {/* <BecomeCreator toggle={this.toggle} /> */}
         </Collapse>

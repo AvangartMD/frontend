@@ -21,7 +21,7 @@ button{  background:transparent; outline:none; border:0;}
 .react-autosuggest__suggestions-list{ list-style-type:none; padding:0px 15px;}
 .react-autosuggest__suggestion{margin-bottom:5px; padding:5px 10px; cursor:pointer; border-radius:5px;}
 .react-autosuggest__suggestion--highlighted{background-color:#eef2f7;}
-
+.IScroll{overflow-x:hidden !important;}
 `;
 Gs.MainSection = styled.div`
   margin: 100px auto 0 auto;

@@ -217,7 +217,7 @@ class MarketPlace extends Component {
 
         <HomeNFTs>
           {NFTs ? (
-              <InfiniteScroll
+              <InfiniteScroll className="IScroll"
                 dataLength={pagination.totalRecords}
                 next={this.fetchMore}
                 hasMore={page < pagination.totalPages}
