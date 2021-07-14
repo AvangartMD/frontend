@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
@@ -88,11 +88,9 @@ class Info extends Component {
   render() {
     return (
       <HomeNFTs>
-        <AnimatePresence>
-          {this.props.infos ?
-            this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
-            : 'loading..'}
-        </AnimatePresence>
+        {this.props.infos ?
+          this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
+          : 'loading..'}
       </HomeNFTs>
     );
   }

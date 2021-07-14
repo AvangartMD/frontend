@@ -231,8 +231,9 @@ class MarketPlace extends Component {
             >
              
                 <NFTfourbox>
-                  {NFTs.map((nft) => (
+                  {NFTs.map((nft, key) => (
                     <NFTCard
+                      key={key}
                       nftSold={nft.nftSold}
                       name={nft.ownerId.name}
                       nftId={nft.id}

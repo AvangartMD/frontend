@@ -85,7 +85,7 @@ class NFTModal extends Component {
                 </FlexDiv>
               </div>
               <FileuploadBox>
-                <label class="custom-file-upload">
+                <label className="custom-file-upload">
                   <input type="file" />
                   Choose
                 </label>

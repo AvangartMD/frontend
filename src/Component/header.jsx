@@ -19,6 +19,7 @@ import Language from "./lang.switch";
 import Login from "./Modals/login";
 import { web3 } from "../web3";
 import BecomeCreator from "./Modals/become-creator";
+import Notifications from "../Component/header/notification";
 
 class Header extends Component {
   constructor(props) {
@@ -221,34 +222,10 @@ class Header extends Component {
                       (this.state.isOpen3 ? "collapse-active" : "")
                     }
                   >
-                    <DDContainer className="ver3">
-                      <NotificationSBX01>
-                        <button>
-                          Lorem ipsum dolor sit amet{" "}
-                          <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ut sapien faucibus, ornare arcu et,
-                            bibendum risus.
-                          </span>
-                        </button>
-                        <button>
-                          Lorem ipsum dolor sit amet{" "}
-                          <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ut sapien faucibus, ornare arcu et,
-                            bibendum risus.
-                          </span>
-                        </button>
-                        <button>
-                          Lorem ipsum dolor sit amet{" "}
-                          <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ut sapien faucibus, ornare arcu et,
-                            bibendum risus.
-                          </span>
-                        </button>
-                      </NotificationSBX01>
-                    </DDContainer>
+                      <DDContainer className="ver3">
+                        <Notifications />
+                      </DDContainer>
+
                   </Collapse>
                 </NotificationBX>
                 <AccountBX onClick={() => this.toggle(2)}>
@@ -605,33 +582,6 @@ const DDBtnbar02 = styled(FlexDiv)`
       border-bottom: 0px;
     }
     &:hover {
-      background-color: #d9f5f5;
-    }
-  }
-`;
-const NotificationSBX01 = styled(FlexDiv)`
-  align-items: flex-start;
-  justify-content: flex-start;
-
-  button {
-    width: 100%;
-    height: auto;
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
-    display: block;
-    text-align: left;
-    padding: 15px;
-    border-bottom: 1px solid #eef2f7;
-
-    span {
-      font-size: 10px;
-      font-weight: 400;
-      display: block;
-      width: 100%;
-      margin-top: 5px;
-    }
-    :hover {
       background-color: #d9f5f5;
     }
   }

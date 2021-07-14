@@ -195,7 +195,7 @@ class CollectionEdit extends Component {
                       <b>Max 30 mb.</b>
                     </p>
                     <FileuploadBox>
-                      <label class="custom-file-upload">
+                      <label className="custom-file-upload">
                         <input type="file" name="logo" />
                         Change
                       </label>

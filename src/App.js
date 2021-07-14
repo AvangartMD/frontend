@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Gs from './Theme/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
+import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { theme } from './Theme/theme';
 import Header from './Component/header';
 import Footer from './Component/footer';
@@ -44,38 +45,42 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={selectedTheme}>
-        <section className='MainBox clearfix'>
-          <Gs.GlobalStyle />
-          <DMainContainer>
-            <Header loggedIn={loggedIn} />
-            <Suspense
-              fallback={
-                <div class='loader-outer'>
-                  <div className='loader'></div>
-                </div>
-              }
-            >
-              <Switch>
-                <PrivateRoute
-                  path='/user'
-                  component={(props) => <UserLayout {...props} />}
-                />
-                <PublicRoute
-                  path='/'
-                  component={(props) => (
-                    <AuthLayout {...props} loggedIn={loggedIn} />
-                  )}
-                />
-                {loggedIn ? (
-                  <Redirect to='/user' from='/' />
-                ) : (
-                  <Redirect from='/user' to='/' />
-                )}
-              </Switch>
-            </Suspense>
-            <Footer loggedIn={loggedIn} />
-          </DMainContainer>
-        </section>
+        <AnimateSharedLayout>
+          <AnimatePresence>
+            <section className='MainBox clearfix'>
+              <Gs.GlobalStyle />
+              <DMainContainer>
+                <Header loggedIn={loggedIn} />
+                <Suspense
+                  fallback={
+                    <div className='loader-outer'>
+                      <div className='loader'></div>
+                    </div>
+                  }
+                >
+                  <Switch>
+                    <PrivateRoute
+                      path='/user'
+                      component={(props) => <UserLayout {...props} />}
+                    />
+                    <PublicRoute
+                      path='/'
+                      component={(props) => (
+                        <AuthLayout {...props} loggedIn={loggedIn} />
+                      )}
+                    />
+                    {loggedIn ? (
+                      <Redirect to='/user' from='/' />
+                    ) : (
+                      <Redirect from='/user' to='/' />
+                    )}
+                  </Switch>
+                </Suspense>
+                <Footer loggedIn={loggedIn} />
+              </DMainContainer>
+            </section>
+          </AnimatePresence>
+        </AnimateSharedLayout>
       </ThemeProvider>
     </Router>
   );

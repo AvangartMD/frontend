@@ -19,6 +19,7 @@ export const userActions = {
   getCollectedNFT,
   getCollectionNFT,
   getEditionHistory,
+  getNotifications,
 };
 
 function fetchedData(type, data) {
@@ -277,6 +278,20 @@ function getEditionHistory(nftId, edition) {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_NFT_EDITION_HISTORY", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+
+function getNotifications() {
+  return async (dispatch) => {
+    const response = services.get(`notification/list`, true);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(fetchedData("FETCHED_NOTIFICATIONS", promise.data.data));
       } else {
         // console.log("error");
       }

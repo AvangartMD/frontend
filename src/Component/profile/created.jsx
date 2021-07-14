@@ -33,37 +33,41 @@ function Created(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
-              return (
-                <button
-                  className={tabPanel === category.id ? "active" : ""}
-                  onClick={() => {
-                    setTaPanel(category.id);
-                  }}
-                >
-                  {category.categoryName}
-                </button>
-              );
-            })
-            : "loading.."}
+          {categories && NFTs
+            ? NFTs.length > 0 && categories.length > 0 ? <>
+              <button
+                className={tabPanel === "All" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("All");
+                }}
+              >
+                All
+              </button>
+              {categories.map((category, key) => {
+                  return (
+                    <button key={key}
+                      className={tabPanel === category.id ? "active" : ""}
+                      onClick={() => {
+                        setTaPanel(category.id);
+                      }}
+                    >
+                      {category.categoryName}
+                    </button>
+                  );
+                })
+              }
+            </> : ``
+            : ``}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
             {NFTs ? (
-              NFTs.map((nft) => (
+              NFTs.map((nft, key) => (
                 <NFTCard
+                  key={key}
                   nftSold={nft.nftSold}
                   name={nft.ownerId.name}
                   nftId={nft.id}

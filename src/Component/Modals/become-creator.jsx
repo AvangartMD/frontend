@@ -263,7 +263,7 @@ class BecomeCreator extends Component {
                       {categories
                         ? categories.map((category, index) => {
                           return (
-                            <label class="checkbox-container">
+                            <label className="checkbox-container">
                               <img
                                 src={category.image}
                                 alt=""
@@ -278,7 +278,7 @@ class BecomeCreator extends Component {
                                 name="category"
                                 value={category.id}
                               />
-                              <span class="checkmark"></span>
+                              <span className="checkmark"></span>
                             </label>
                           );
                         })

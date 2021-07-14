@@ -87,7 +87,7 @@ function CreateCollection(props) {
                   <div className="label-line">
                     <label>About Collection</label>
                   </div>
-                  <textarea name="description">Type something…</textarea>
+                  <textarea name="description" defaultValue="Type something…"></textarea>
                 </NFTForm>
                 <NFTForm>
                   <div className="label-line">
@@ -100,7 +100,7 @@ function CreateCollection(props) {
                     </FlexDiv>
                   </div>
                   <FileuploadBox>
-                    <label class="custom-file-upload">
+                    <label className="custom-file-upload">
                       <input type="file" name="file" />
                       Choose
                     </label>

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Media from "../../Theme/media-breackpoint";
 
 import Redheart from '../../Assets/images/Redheart.svg';
@@ -118,7 +118,6 @@ class TopNFT extends Component {
       <>
         <HomeNFTs>
           <Gs.Container>
-            <AnimatePresence>
               <div className='home-title'>
                 <h3>Top NFTs</h3>
               </div>
@@ -153,7 +152,6 @@ class TopNFT extends Component {
               <ViewallButton>
                 <button>View all auctions</button>
               </ViewallButton>
-            </AnimatePresence>
           </Gs.Container>
         </HomeNFTs>
       </>
