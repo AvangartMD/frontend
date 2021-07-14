@@ -98,8 +98,8 @@ function Collected(props) {
           {NFTs && categories && !params.id ?
             NFTs.length === 0 ? <>
               <CEmpty>
-                <h2>Become a Creator</h2>
-                <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+                <h2 className="Bec">Become a Creator</h2>
+                <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
                 <div className="BecBTN">
                   <BecomeCreator isProfile={true} />
                 </div>
@@ -270,7 +270,7 @@ const FilterLbx = styled(FlexDiv)`
 
 const CEmpty = styled.div`
   margin-bottom:120px;
-  h2{ 
+  h2.Bec{ 
     font-size:22px;
     letter-spacing:-0.55px;
     color:#000;
@@ -278,7 +278,7 @@ const CEmpty = styled.div`
     font-weight:600;
     text-align:center;
   }
-  p{ 
+  p.Bec{ 
     font-size:16px;
     letter-spacing:-0.8px;
     color:#000;
