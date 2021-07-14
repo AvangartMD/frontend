@@ -33,29 +33,31 @@ function Liked(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
-              return (
-                <button
-                  className={tabPanel === category.id ? "active" : ""}
-                  onClick={() => {
-                    setTaPanel(category.id);
-                  }}
-                >
-                  {category.categoryName}
-                </button>
-              );
-            })
-            : "loading.."}
+          {categories && NFTs
+            ? NFTs.length > 0 && categories.length > 0 ? <>
+              <button
+                className={tabPanel === "All" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("All");
+                }}
+              >
+                All
+              </button>
+              {categories.map((category) => {
+                return (
+                  <button
+                    className={tabPanel === category.id ? "active" : ""}
+                    onClick={() => {
+                      setTaPanel(category.id);
+                    }}
+                  >
+                    {category.categoryName}
+                  </button>
+                );
+              })}
+            </> : ``
+            : ``}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>

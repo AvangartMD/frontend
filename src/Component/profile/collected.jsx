@@ -33,29 +33,32 @@ function Collected(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
-              return (
+          {categories && NFTs ? 
+              NFTs.length > 0 && categories.length > 0 ? <>
                 <button
-                  className={tabPanel === category.id ? "active" : ""}
+                  className={tabPanel === "All" ? "active" : ""}
+                  id="all"
                   onClick={() => {
-                    setTaPanel(category.id);
+                    setTaPanel("All");
                   }}
                 >
-                  {category.categoryName}
+                  All
                 </button>
-              );
-            })
-            : "loading.."}
+                {categories.map((category) => {
+                  return (
+                    <button
+                      className={tabPanel === category.id ? "active" : ""}
+                      onClick={() => {
+                        setTaPanel(category.id);
+                      }}
+                    >
+                      {category.categoryName}
+                    </button>
+                  );
+                })}
+              </>
+              : ``
+            : ``}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
