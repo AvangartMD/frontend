@@ -123,7 +123,7 @@ class BecomeCreator extends Component {
 
         {isHeader ? <AvBTN02 className="colorBTN" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
         {isFooter ? <AvBTN02 className="" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
-        {isProfile ? <button className="ani-1 BCreatorbtn" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</button> : ``}
+        {isProfile ? <AvBTN02 className="ani-1 borderBTN" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -702,6 +702,20 @@ const AvBTN02 = styled.button`
     color: #fff;
     :hover {
       filter: brightness(0.9);
+    }
+  }
+  &.borderBTN{
+    padding:13px 44px;
+    font-size: 14px;
+    color:#000;
+    background-color:#fff;
+    border:1px solid #000;
+    letter-spacing:-0.5px;
+    border-radius: 15px;
+    :hover {
+      background-color:#000; color:#fff;
+      -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
+      box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
     }
   }
 `;

@@ -287,18 +287,12 @@ const CEmpty = styled.div`
   }
   .BecBTN{
     display:flex;
-    button.BCreatorbtn{
+    button.borderBTN{
       margin:0 auto;
-      font-size:14px;
-      letter-spacing:-0.5px;
-      color:#000;
-      padding:13px 44px;
-      border-radius:15px;
-      border:1px solid #000;
-      :hover{background-color:#000; color:#fff;}
     }
   }
 `;
+
 
 const mapDipatchToProps = (dispatch) => {
   return {
