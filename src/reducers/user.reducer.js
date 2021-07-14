@@ -126,3 +126,12 @@ export function fetchNFTEditionHistory(state = null, action) {
       return state;
   }
 }
+
+export function fetchNotifications(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_NOTIFICATIONS":
+      return action.data;
+    default:
+      return state;
+  }
+}
