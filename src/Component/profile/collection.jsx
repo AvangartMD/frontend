@@ -18,7 +18,7 @@ function Collection(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    props.getCollections(params.id ? params.id : null);
+    if (!collections) props.getCollections(params.id ? params.id : null);
   }, [collections]);
 
   useEffect(() => {
@@ -26,6 +26,12 @@ function Collection(props) {
   }, [categories]);
 
   useEffect(() => { }, [tabPanel]);
+
+  useEffect(() => {
+    return function cleanup() {
+      props.clearCollections(); // clear the collection data
+    };
+  }, [])
 
   return (
     <>
@@ -43,9 +49,9 @@ function Collection(props) {
               >
                 All
               </button>
-              {categories.map((category) => {
+              {categories.map((category, key) => {
                   return (
-                    <button
+                    <button key={key}
                       className={tabPanel === category.id ? "active" : ""}
                       onClick={() => {
                         setTaPanel(category.id);
@@ -64,8 +70,9 @@ function Collection(props) {
         <Gs.Container>
           <NFTfourbox>
             {collections ? (
-              collections.map((collection) => (
+              collections.map((collection, key) => (
                 <CollectionCard
+                  key={key}
                   id={collection.id}
                   collImg={collection.logo}
                   collName={collection.name}
@@ -78,6 +85,16 @@ function Collection(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
+
+          {categories && collections ? 
+            collections.length === 0 ?
+              <CEmpty>
+                <h2>Your collection is empty.</h2>
+                <p>Start building your collection<br /> by placing bids on artwork.</p>
+                <button className="ani-1">Explore artworks</button>
+              </CEmpty>
+            : ``
+          : ``}
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -238,10 +255,38 @@ const FilterLbx = styled(FlexDiv)`
   }
 `;
 
+
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
+  }
+`;
+
 const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
     getCollections: (id) => dispatch(actions.getCollectionNFT(id)),
+    clearCollections: () => dispatch({ type: 'FETCHED_COLLECTION_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {

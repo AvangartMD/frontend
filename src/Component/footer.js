@@ -21,7 +21,7 @@ function Footer(props) {
   const { web3Data, authData: userDetails } = props;
   const checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
-      return <BecomeCreator isFooter={false} />;
+      return <BecomeCreator isFooter={true} />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
         <AvBTN01 className='createButton'>

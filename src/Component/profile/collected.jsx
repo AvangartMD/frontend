@@ -11,6 +11,7 @@ import LoaderGif from "../../Assets/images/loading.gif";
 
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
+import BecomeCreator from "../../Component/Modals/become-creator";
 
 
 function Collected(props) {
@@ -20,7 +21,7 @@ function Collected(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    props.getNFTs(params.id ? params.id : null);
+    if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
 
   useEffect(() => {
@@ -28,6 +29,12 @@ function Collected(props) {
   }, [categories]);
 
   useEffect(() => { }, [tabPanel]);
+
+  useEffect(() => {
+    return function cleanup() {
+      props.clearNFTs(); // clear the NFT data
+    };
+  }, [])
 
   return (
     <>
@@ -87,12 +94,18 @@ function Collected(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
-
-          <CEmpty>
-            <h2>Your collection is empty.</h2>
-            <p>Start building your collection<br /> by placing bids on artwork.</p>
-            <button className="ani-1">Explore artworks</button>
-          </CEmpty>
+{/* 
+          {NFTs && categories ?
+            NFTs.length === 0 ? <>
+              <CEmpty>
+                <h2>Become a Creator</h2>
+                <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+                <BecomeCreator isProfile={true} />
+              </CEmpty>
+            </>
+            : ``
+          : ``} */}
+          
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -283,6 +296,7 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getCollectedNFT(id)),
+    clearNFTs: () => dispatch({ type: 'FETCHED_COLLECTED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {

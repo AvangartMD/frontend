@@ -78,10 +78,7 @@ function updateUserDetails(params) {
 
 function getUserNFT(id) {
   return async (dispatch) => {
-    let response = services.get(`nft/listNftByUser`, true);
-    if (id) {
-      response = services.get(`nft/listNftByUser/${id}`, true);
-    }
+    const response = services.get(id?`nft/listNftByUser/${id}`:`nft/listNftByUser`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
@@ -226,10 +223,7 @@ function followToggler(id) {
 
 function getLikedNFT(id) {
   return async (dispatch) => {
-    let response = services.get(`nft/getLikedNfts`, true);
-    if (id) {
-      response = services.get(`nft/getLikedNfts/${id}`, true);
-    }
+    const response = services.get(id?`nft/getLikedNfts/${id}`:`nft/getLikedNfts`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_LIKED_NFT", promise.data.data));
@@ -242,10 +236,7 @@ function getLikedNFT(id) {
 
 function getCollectedNFT(id) {
   return async (dispatch) => {
-    let response = services.get(`nft/getCollectedNfts`, true);
-    if (id) {
-      response = services.get(`nft/getCollectedNfts/${id}`, true);
-    }
+    const response = services.get(id?`nft/getCollectedNfts/${id}`:`nft/getCollectedNfts`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_COLLECTED_NFT", promise.data.data));
@@ -258,10 +249,7 @@ function getCollectedNFT(id) {
 
 function getCollectionNFT(id) {
   return async (dispatch) => {
-    let response = services.get(`nft/listCollection`, true);
-    if (id) {
-      response = services.get(`nft/listCollection/${id}`, true);
-    }
+    const response = services.get(id?`nft/listCollection/${id}`:`nft/listCollection`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_COLLECTION_NFT", promise.data.data));

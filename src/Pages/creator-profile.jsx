@@ -42,8 +42,13 @@ class CreatorProfile extends Component {
 
   componentDidMount() {
     const { id } = this.state;
-    this.props.getUserProfile(id); // fetch user profile by id
-    this.props.getIsFollow(id); // check user is following
+    const { web3Data, profile } = this.props;
+    if (!profile) this.props.getUserProfile(id); // fetch user profile by id
+    if (web3Data.isLoggedIn) this.props.getIsFollow(id); // check user is following
+  }
+
+  componentWillUnmount() {
+    this.props.clearUserProfile(); // clear the user profile data
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -587,6 +592,7 @@ const mapDipatchToProps = (dispatch) => {
     getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
     getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
     followToggler: (id) => dispatch(actions.followToggler(id)),
+    clearUserProfile: () => dispatch({ type: 'FETCHED_USER_PROFILE', data: null}),
   };
 };
 const mapStateToProps = (state) => {

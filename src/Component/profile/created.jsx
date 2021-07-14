@@ -20,7 +20,7 @@ function Created(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    props.getNFTs(params.id ? params.id : null);
+    if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
 
   useEffect(() => {
@@ -28,6 +28,12 @@ function Created(props) {
   }, [categories]);
 
   useEffect(() => { }, [tabPanel]);
+
+  useEffect(() => {
+    return function cleanup() {
+      props.clearNFTs(); // clear the NFT data
+    };
+  }, [])
 
   return (
     <>
@@ -88,12 +94,6 @@ function Created(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
-
-          <CEmpty>
-            <h2>Become a Creator</h2>
-            <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-            <button className="ani-1">Become a Creator</button>
-          </CEmpty>
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -254,36 +254,11 @@ const FilterLbx = styled(FlexDiv)`
   }
 `;
 
-const CEmpty = styled.div`
-  text-align:center; margin-bottom:120px;
-  h2{ 
-    font-size:22px;
-    letter-spacing:-0.55px;
-    color:#000;
-    margin:0px 0px 10px;
-    font-weight:600;
-  }
-  p{ 
-    font-size:16px;
-    letter-spacing:-0.8px;
-    color:#000;
-    margin:0px 0px 22px;
-  }
-  button{
-    font-size:14px;
-    letter-spacing:-0.5px;
-    color:#000;
-    padding:13px 44px;
-    border-radius:15px;
-    border:1px solid #000;
-    :hover{background-color:#000; color:#fff;}
-  }
-`;
-
 const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getUserNFT(id)),
+    clearNFTs: () => dispatch({ type: 'FETCHED_USER_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {

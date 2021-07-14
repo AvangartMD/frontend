@@ -132,7 +132,7 @@ class Header extends Component {
 
   checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
-      return <BecomeCreator />;
+      return <BecomeCreator isHeader={true} />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
         <Link to="/user/nftminting">

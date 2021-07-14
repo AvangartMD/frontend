@@ -20,7 +20,7 @@ function Liked(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    props.getNFTs(params.id ? params.id : null);
+    if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
 
   useEffect(() => {
@@ -28,6 +28,12 @@ function Liked(props) {
   }, [categories]);
 
   useEffect(() => { }, [tabPanel]);
+
+  useEffect(() => {
+    return function cleanup() {
+      props.clearNFTs(); // clear the NFT data
+    };
+  }, [])
 
   return (
     <>
@@ -250,6 +256,7 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getLikedNFT(id)),
+    clearNFTs: () => dispatch({ type: 'FETCHED_LIKED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {

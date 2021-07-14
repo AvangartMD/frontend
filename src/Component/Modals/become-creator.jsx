@@ -100,6 +100,13 @@ class BecomeCreator extends Component {
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
+  clickHandler = (e) => {
+    e.preventDefault();
+    if (!this.state.becomeCreator) {
+      this.setState({ isOpen1: true });
+    }
+  }
+
   render() {
     const { categories } = this.props;
     const {
@@ -110,41 +117,13 @@ class BecomeCreator extends Component {
       becomeCreator,
       isOpen4,
     } = this.state;
+    const { isFooter, isProfile, isHeader } = this.props;
     return (
       <>
-        {!isOpen4 && becomeCreator ? (
-          <>
-            <BlackWrap>
-              <WhiteBX01>
-                <CloseBTN className="ani-1" onClick={() => this.toggle(4)}>
-                  {" "}
-                  <img src={CloseBTN01} alt="" />{" "}
-                </CloseBTN>
-
-                <TokenBox>
-                  <WGTitle>Profile request sent</WGTitle>
-                  <WGdescText>
-                    Profile status will be updated once admin approves the
-                    request
-                  </WGdescText>
-                </TokenBox>
-              </WhiteBX01>
-            </BlackWrap>
-          </>
-        ) : (
-          ""
-        )}
-
-        {becomeCreator ? (
-          <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>Waiting</AvBTN02>
-        ) : (
-          <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""} onClick={() => { this.setState({ isOpen1: true }); }}>
-            <FormattedMessage
-              id="Become_a_creator"
-              defaultMessage="Become a Creator"
-            />
-          </AvBTN02>
-        )}
+        
+        {isHeader ? <AvBTN02 className="colorBTN" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
+        {isFooter ? <AvBTN02 className="" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
+        {isProfile ? <button className="ani-1" onClick={(e) => this.clickHandler(e) }>{ !becomeCreator ? `Become a Creator` : `Waiting` }</button> : ``}
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -227,6 +206,7 @@ class BecomeCreator extends Component {
           ) : (
             ""
           )}
+          
 
           {isOpen2 ? (
             <BlackWrap>
@@ -394,6 +374,29 @@ class BecomeCreator extends Component {
             ""
           )}
         </form>
+
+        {!isOpen4 && becomeCreator ? (
+          <>
+            <BlackWrap>
+              <WhiteBX01>
+                <CloseBTN className="ani-1" onClick={() => this.toggle(4)}>
+                  {" "}
+                  <img src={CloseBTN01} alt="" />{" "}
+                </CloseBTN>
+
+                <TokenBox>
+                  <WGTitle>Profile request sent</WGTitle>
+                  <WGdescText>
+                    Profile status will be updated once admin approves the
+                    request
+                  </WGdescText>
+                </TokenBox>
+              </WhiteBX01>
+            </BlackWrap>
+          </>
+        ) : (
+          ""
+        )}
       </>
     );
   }
@@ -731,21 +734,6 @@ const WGdescText = styled.div`
   letter-spacing: -0.7px;
   margin-bottom: 10px;
   text-align: center;
-`;
-const LoaderBX = styled(FlexDiv)`
-  width: 100%;
-  margin: 60px auto 0 auto;
-`;
-const AvBTN01 = styled.button`
-  padding: 9px 40px;
-  color: #fff;
-  background-color: #000;
-  border-radius: 15px;
-  :hover {
-    background-color: #d121d6;
-    -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
-    box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
-  }
 `;
 
 const mapDipatchToProps = (dispatch) => {
