@@ -33,30 +33,30 @@ function Collected(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          {categories && NFTs ? 
-              NFTs.length > 0 && categories.length > 0 ? <>
-                <button
-                  className={tabPanel === "All" ? "active" : ""}
-                  id="all"
-                  onClick={() => {
-                    setTaPanel("All");
-                  }}
-                >
-                  All
-                </button>
-                {categories.map((category) => {
-                  return (
-                    <button
-                      className={tabPanel === category.id ? "active" : ""}
-                      onClick={() => {
-                        setTaPanel(category.id);
-                      }}
-                    >
-                      {category.categoryName}
-                    </button>
-                  );
-                })}
-              </>
+          {categories && NFTs ?
+            NFTs.length > 0 && categories.length > 0 ? <>
+              <button
+                className={tabPanel === "All" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("All");
+                }}
+              >
+                All
+              </button>
+              {categories.map((category) => {
+                return (
+                  <button
+                    className={tabPanel === category.id ? "active" : ""}
+                    onClick={() => {
+                      setTaPanel(category.id);
+                    }}
+                  >
+                    {category.categoryName}
+                  </button>
+                );
+              })}
+            </>
               : ``
             : ``}
         </FilterLbx>
@@ -87,6 +87,11 @@ function Collected(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
+          <CEmpty>
+            <h2>Become a Creator</h2>
+            <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            <button className="ani-1">Become a Creator</button>
+          </CEmpty>
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -244,6 +249,32 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+`;
+
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

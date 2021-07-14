@@ -45,17 +45,17 @@ function Created(props) {
                 All
               </button>
               {categories.map((category, key) => {
-                  return (
-                    <button key={key}
-                      className={tabPanel === category.id ? "active" : ""}
-                      onClick={() => {
-                        setTaPanel(category.id);
-                      }}
-                    >
-                      {category.categoryName}
-                    </button>
-                  );
-                })
+                return (
+                  <button key={key}
+                    className={tabPanel === category.id ? "active" : ""}
+                    onClick={() => {
+                      setTaPanel(category.id);
+                    }}
+                  >
+                    {category.categoryName}
+                  </button>
+                );
+              })
               }
             </> : ``
             : ``}
@@ -88,6 +88,12 @@ function Created(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
+
+          <CEmpty>
+            <h2>Your collection is empty.</h2>
+            <p>Start building your collection<br /> by placing bids on artwork.</p>
+            <button className="ani-1">Explore artworks</button>
+          </CEmpty>
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -245,6 +251,32 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+`;
+
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

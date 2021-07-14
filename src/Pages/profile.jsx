@@ -365,16 +365,6 @@ class Profile extends Component {
 
             </Tabs>
           </HomeTabs>
-          <CEmpty>
-            <h2>Your collection is empty.</h2>
-            <p>Start building your collection<br /> by placing bids on artwork.</p>
-            <button className="ani-1">Explore artworks</button>
-          </CEmpty>
-          <CEmpty>
-            <h2>Become a Creator</h2>
-            <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-            <button className="ani-1">Become a Creator</button>
-          </CEmpty>
         </Gs.Container>
       </>
     );
@@ -801,32 +791,6 @@ const WhiteBX01 = styled(FlexDiv)`
   align-content: center;
   ${Media.xs}{
     padding:50px 25px;
-  }
-`;
-
-const CEmpty = styled.div`
-  text-align:center; margin-bottom:120px;
-  h2{ 
-    font-size:22px;
-    letter-spacing:-0.55px;
-    color:#000;
-    margin:0px 0px 10px;
-    font-weight:600;
-  }
-  p{ 
-    font-size:16px;
-    letter-spacing:-0.8px;
-    color:#000;
-    margin:0px 0px 22px;
-  }
-  button{
-    font-size:14px;
-    letter-spacing:-0.5px;
-    color:#000;
-    padding:13px 44px;
-    border-radius:15px;
-    border:1px solid #000;
-    :hover{background-color:#000; color:#fff;}
   }
 `;
 
