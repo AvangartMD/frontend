@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
-import { AnimateSharedLayout , motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import NFT2 from "../../Assets/images/nft2.jpg";
 
 
@@ -12,28 +12,24 @@ function collectionCard({
     creatorName,
 }) {
   return (
-    <AnimateSharedLayout>
-      <AnimatePresence>
-        <OneCollBox>
-            <Link to={`/collection-detail/${id}`}>
-            <div className="CIbox">
-              <motion.img
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  key={collImg?collImg:NFT2}
-                  src={collImg?collImg:NFT2}
-                  exit={{ opacity: 0 }}
-                />
-            </div>
-            <div className="collbox-desc">
-                  <p className="coll-title">{ collName?collName:'Collection Name' }</p>
-                  <p className="creator-name">{ creatorName?creatorName:'Creator Name' }</p>
-            </div>
-            </Link>
-        </OneCollBox>
-      </AnimatePresence>
-    </AnimateSharedLayout>
+      <OneCollBox>
+          <Link to={`/collection-detail/${id}`}>
+          <div className="CIbox">
+            <motion.img
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                key={collImg?collImg:NFT2}
+                src={collImg?collImg:NFT2}
+                exit={{ opacity: 0 }}
+              />
+          </div>
+          <div className="collbox-desc">
+                <p className="coll-title">{ collName?collName:'Collection Name' }</p>
+                <p className="creator-name">{ creatorName?creatorName:'Creator Name' }</p>
+          </div>
+          </Link>
+      </OneCollBox>
   );
 }
 

@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
 import RoundIcon from '../../Assets/images/round-icon.svg';
+import MobileAd from '../../Assets/images/mobile-adbanner.jpg';
 
 import { actions } from '../../actions';
 import { Context } from '../wrapper';
@@ -75,7 +76,9 @@ class Info extends Component {
             key={img}
             src={img}
             exit={{ opacity: 0 }}
+            className="desk-img"
           />
+          <img src={MobileAd} className="mobile-img" alt="" />
         </a>
         <button className="ani-1" onClick={() => { window.open(info.button_url, "_blank") }}>{info.button_text}</button>
       </AdBanner2>
@@ -85,11 +88,9 @@ class Info extends Component {
   render() {
     return (
       <HomeNFTs>
-        <AnimatePresence>
-          {this.props.infos ?
-            this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
-            : 'loading..'}
-        </AnimatePresence>
+        {this.props.infos ?
+          this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
+          : 'loading..'}
       </HomeNFTs>
     );
   }
@@ -174,10 +175,30 @@ const AdBanner2 = styled.div`
   ${Media.md}{
     height:auto;
   }
+  ${Media.sm}{
+    height:486px;
+  }
   a{
+    margin-bottom:-4px; display:block; width:100%; height:100%;
     img{width: 100%; height: 100%; object-fit: cover;
       ${Media.md}{
         object-fit:contain;
+      }
+      ${Media.sm}{
+        object-fit:cover;
+      }
+      &.desk-img
+      {
+        ${Media.sm}{
+          display:none;
+        }
+      }
+      &.mobile-img
+      {
+        display:none;
+        ${Media.sm}{
+          display:block;
+        }
       }
     }
   }
@@ -199,6 +220,9 @@ const AdBanner2 = styled.div`
     }
     ${Media.md}{
       bottom:20px;
+    }
+    ${Media.sm}{
+      bottom:70px;
     }
   }
 `;

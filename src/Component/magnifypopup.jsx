@@ -72,6 +72,10 @@ const CloseBTND2 = styled(FlexDiv)`
   :hover img{
     transform: rotate(90deg);
   }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
+  }
 `;
 
 export default Magnifypopup;

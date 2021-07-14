@@ -32,13 +32,13 @@ class Faq extends Component {
           <Faqtitle>
             <h2>Frequently Asked Questions</h2>
             <FilterLbx>
-              <button class="active" id="all">All</button>
-              <button class="">Getting Started</button>
-              <button class="">Wallet Usage</button>
-              <button class="">Buying NFTs</button>
-              <button class="">Creating NFTs</button>
-              <button class="">Becoming a Creator</button>
-              <button class="">Fees & Commissions</button>
+              <button className="active" id="all">All</button>
+              <button className="">Getting Started</button>
+              <button className="">Wallet Usage</button>
+              <button className="">Buying NFTs</button>
+              <button className="">Creating NFTs</button>
+              <button className="">Becoming a Creator</button>
+              <button className="">Fees & Commissions</button>
             </FilterLbx>
             <FaqAccordian>
               <Collapsible trigger="What is Avangart?">

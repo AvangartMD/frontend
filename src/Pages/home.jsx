@@ -9,7 +9,6 @@ import HallOfFrame from '../Component/home/hall.frame';
 import Collections from '../Component/home/collection';
 import Info from '../Component/home/info';
 import HallOfFrameInfo from '../Component/home/hall.frame.info';
-import { AnimateSharedLayout } from "framer-motion";
 
 import { actions } from '../actions';
 import { expiryTime } from '../config';
@@ -56,27 +55,25 @@ class Home extends React.Component {
     render() {
         return(
             <Gs.MainSection>
-                <AnimateSharedLayout>
-                    {this.props.dashboard?
-                        this.props.dashboard.map((data, index) => {
-                            if (data.name==='Banner' && data.isActive) {
-                                return <Banner key={index}/>
-                            } else if (data.name==='Top Nft' && data.isActive) {
-                                return <TopNFT key={index}/>
-                            } else if (data.name==='Hall Of Frame' && data.isActive) {
-                                return <HallOfFrame key={index}/>
-                            } else if (data.name === 'Hall Of Frame' && !data.isActive) {
-                                return <HallOfFrameInfo key={index}/>
-                            } else if (data.name==='Collections' && data.isActive) {
-                                return <Collections key={index}/>
-                            } else if (data.name==='Info' && data.isActive) {
-                                return <Info key={index}/>
-                            } else {
-                                return ''
-                            }
-                        })
-                        : 'loading'}
-                </AnimateSharedLayout>
+                {this.props.dashboard?
+                    this.props.dashboard.map((data, index) => {
+                        if (data.name==='Banner' && data.isActive) {
+                            return <Banner key={index}/>
+                        } else if (data.name==='Top Nft' && data.isActive) {
+                            return <TopNFT key={index}/>
+                        } else if (data.name==='Hall Of Frame' && data.isActive) {
+                            return <HallOfFrame key={index}/>
+                        } else if (data.name === 'Hall Of Frame' && !data.isActive) {
+                            return <HallOfFrameInfo key={index}/>
+                        } else if (data.name==='Collections' && data.isActive) {
+                            return <Collections key={index}/>
+                        } else if (data.name==='Info' && data.isActive) {
+                            return <Info key={index}/>
+                        } else {
+                            return ''
+                        }
+                    })
+                : 'loading'}
             </Gs.MainSection>
         )
     }

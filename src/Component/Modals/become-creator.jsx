@@ -8,6 +8,7 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 
 import { actions } from "../../actions";
 import { services } from "../../services";
+import Media from "./../../Theme/media-breackpoint";
 
 class BecomeCreator extends Component {
   constructor(props) {
@@ -137,11 +138,11 @@ class BecomeCreator extends Component {
         {becomeCreator ? (
           <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>Waiting</AvBTN02>
         ) : (
-            <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""} onClick={() => { this.setState({ isOpen1: true }); }}>
-              <FormattedMessage
-                id="Become_a_creator"
-                defaultMessage="Become a Creator"
-              />
+          <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""} onClick={() => { this.setState({ isOpen1: true }); }}>
+            <FormattedMessage
+              id="Become_a_creator"
+              defaultMessage="Become a Creator"
+            />
           </AvBTN02>
         )}
 
@@ -263,7 +264,7 @@ class BecomeCreator extends Component {
                       {categories
                         ? categories.map((category, index) => {
                           return (
-                            <label class="checkbox-container">
+                            <label className="checkbox-container">
                               <img
                                 src={category.image}
                                 alt=""
@@ -278,7 +279,7 @@ class BecomeCreator extends Component {
                                 name="category"
                                 value={category.id}
                               />
-                              <span class="checkmark"></span>
+                              <span className="checkmark"></span>
                             </label>
                           );
                         })
@@ -418,13 +419,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -437,6 +441,10 @@ const CloseBTN = styled.button`
   z-index: 9;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 const TokenBox = styled(FlexDiv)`
@@ -477,11 +485,14 @@ const WhiteBX02 = styled.div`
   width: 100%;
   position: relative;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 518px;
   background-color: #fff;
   border-radius: 30px;
   display: flex;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const BACLeft = styled.div`

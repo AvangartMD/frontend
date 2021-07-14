@@ -12,48 +12,52 @@ import CollectionCard from "../Cards/collectionCard";
 
 
 function Collection(props) {
-  
+
   let { collections, categories } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
-  
+
   useEffect(() => {
-    if (!collections) props.getCollections(params.id?params.id:null);
+    props.getCollections(params.id ? params.id : null);
   }, [collections]);
-    
+
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-    
-  useEffect(() => {}, [tabPanel]);
-  
+
+  useEffect(() => { }, [tabPanel]);
+
   return (
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })
-            : "loading.."}
+          {categories && collections
+            ?
+            collections.length > 0 && categories.length > 0 ? <>
+                <button
+                className={tabPanel === "All" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("All");
+                }}
+              >
+                All
+              </button>
+              {categories.map((category) => {
+                  return (
+                    <button
+                      className={tabPanel === category.id ? "active" : ""}
+                      onClick={() => {
+                        setTaPanel(category.id);
+                      }}
+                    >
+                      {category.categoryName}
+                    </button>
+                  );
+                })
+              }
+            </> : ``
+          : ``}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
@@ -88,7 +92,7 @@ const FlexDiv = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 

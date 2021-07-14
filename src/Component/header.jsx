@@ -19,6 +19,7 @@ import Language from "./lang.switch";
 import Login from "./Modals/login";
 import { web3 } from "../web3";
 import BecomeCreator from "./Modals/become-creator";
+import Notifications from "../Component/header/notification";
 
 class Header extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class Header extends Component {
     //   // this.signatureRequest(nonce);
     // }
     if (authData !== prevProps.authData) {
-      if (authData.status === true) {
+      if (authData) {
         this.setState({ userDetails: authData.data });
       }
     }
@@ -90,8 +91,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-        "...." +
-        newAddress.substring(newAddress.length - 5, newAddress.length)
+      "...." +
+      newAddress.substring(newAddress.length - 5, newAddress.length)
       : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
@@ -134,11 +135,11 @@ class Header extends Component {
       return <BecomeCreator />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
-        <AvBTN02 className="colorBTN">
-          <Link to="/user/nftminting">
-            <button>Create</button>
-          </Link>
-        </AvBTN02>
+        <Link to="/user/nftminting">
+          <AvBTN02 className="colorBTN">
+            Create
+          </AvBTN02>
+        </Link>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
       return <AvBTN02 className="colorBTN">Waitlist</AvBTN02>;
@@ -187,7 +188,7 @@ class Header extends Component {
                 <NavLink to="/creators" exact activeClassName="active">
                   <FormattedMessage id="Creators" defaultMessage="Creators" />
                 </NavLink>
-                <NavLink to="/3" exact activeClassName="active">
+                <NavLink to="/how-to-use" exact activeClassName="active">
                   <FormattedMessage
                     id="How_to_use?"
                     defaultMessage="How to use?"
@@ -221,34 +222,10 @@ class Header extends Component {
                       (this.state.isOpen3 ? "collapse-active" : "")
                     }
                   >
-                    <DDContainer className="ver3">
-                      <NotificationSBX01>
-                        <button>
-                          Lorem ipsum dolor sit amet{" "}
-                          <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ut sapien faucibus, ornare arcu et,
-                            bibendum risus.
-                          </span>
-                        </button>
-                        <button>
-                          Lorem ipsum dolor sit amet{" "}
-                          <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ut sapien faucibus, ornare arcu et,
-                            bibendum risus.
-                          </span>
-                        </button>
-                        <button>
-                          Lorem ipsum dolor sit amet{" "}
-                          <span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Donec ut sapien faucibus, ornare arcu et,
-                            bibendum risus.
-                          </span>
-                        </button>
-                      </NotificationSBX01>
-                    </DDContainer>
+                      <DDContainer className="ver3">
+                        <Notifications />
+                      </DDContainer>
+
                   </Collapse>
                 </NotificationBX>
                 <AccountBX onClick={() => this.toggle(2)}>
@@ -335,10 +312,10 @@ class Header extends Component {
           <Login
             toggle={this.toggle}
             closePopUp={this.closePopUp}
-            // connectToWallet={this.connectToWallet}
-            // loader={loader}
-            // error={error}
-            // refreshStates={this.refreshStates}
+          // connectToWallet={this.connectToWallet}
+          // loader={loader}
+          // error={error}
+          // refreshStates={this.refreshStates}
           />
           {/* <BecomeCreator toggle={this.toggle} /> */}
         </Collapse>
@@ -609,33 +586,6 @@ const DDBtnbar02 = styled(FlexDiv)`
     }
   }
 `;
-const NotificationSBX01 = styled(FlexDiv)`
-  align-items: flex-start;
-  justify-content: flex-start;
-
-  button {
-    width: 100%;
-    height: auto;
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
-    display: block;
-    text-align: left;
-    padding: 15px;
-    border-bottom: 1px solid #eef2f7;
-
-    span {
-      font-size: 10px;
-      font-weight: 400;
-      display: block;
-      width: 100%;
-      margin-top: 5px;
-    }
-    :hover {
-      background-color: #d9f5f5;
-    }
-  }
-`;
 
 const ABC = styled(FlexDiv)`
   align-items: flex-start;
@@ -650,7 +600,7 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
     web3Logout: () =>
       dispatch({
         type: "FETCH_WEB3_DATA",

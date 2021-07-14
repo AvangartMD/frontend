@@ -7,7 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import dateFormat from "dateformat";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import AdBannerIMG from "../Assets/images/adbanner.jpg";
 import LoaderGif from "../Assets/images/loading.gif";
@@ -32,7 +32,7 @@ import Collected from "../Component/profile/collected";
 import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 import Drafts from "../Component/profile/drafts";
-
+import Media from '../Theme/media-breackpoint';
 
 class Profile extends Component {
   constructor(props) {
@@ -96,15 +96,14 @@ class Profile extends Component {
       <>
         <ProMBannerBX
           style={{
-            backgroundImage: `url(${
-              this.state.cover.url
-                ? this.state.cover.url
-                : profile
+            backgroundImage: `url(${this.state.cover.url
+              ? this.state.cover.url
+              : profile
                 ? profile.cover
                   ? profile.cover
                   : ProfielBack
                 : ProfielBack
-            })`,
+              })`,
           }}
         >
           <ProMBX01>
@@ -114,16 +113,14 @@ class Profile extends Component {
                   {this.state.profile.url ? (
                     <img src={this.state.profile.url} alt="" />
                   ) : (
-                      <AnimatePresence>
-                        <motion.img
-                          initial={{ opacity: 0.2 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.4 }}
-                          key={profile?.profile?UserIcon:UserIcon}
-                          src={profile?.profile?UserIcon:UserIcon}
-                          exit={{ opacity: 0 }}
-                        />
-                      </AnimatePresence>
+                    <motion.img
+                      initial={{ opacity: 0.2 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                      key={profile?.profile ? profile.profile : UserIcon}
+                      src={profile?.profile ? profile.profile : UserIcon}
+                      exit={{ opacity: 0 }}
+                    />
                   )}
                 </UserImgSB>
 
@@ -264,9 +261,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                          new Date(profile.createdAt).toString(),
-                          "dd mmmm yyyy"
-                        )
+                        new Date(profile.createdAt).toString(),
+                        "dd mmmm yyyy"
+                      )
                       : "join date"}
                   </span>
                 </UserDText02>
@@ -286,12 +283,8 @@ class Profile extends Component {
                   Following{" "}
                   <span>{profile ? profile.followingCount : "000"}</span>
                 </FollowerMBX>
-                <EditPrBTN>
-                  <button
-                    onClick={() => this.props.history.push("/user/edit-profile")}
-                  >
-                    Edit Profile
-                  </button>
+                <EditPrBTN onClick={() => this.props.history.push("/user/edit-profile")}>
+                  Edit Profile
                 </EditPrBTN>
               </ProSBX03>
 
@@ -362,7 +355,7 @@ class Profile extends Component {
                     <Tab>Liked</Tab>
                     <Tab>Drafts</Tab>
                   </TabList>
-                  
+
                   <TabPanel> <Collected /> </TabPanel>
                   <TabPanel> <Collection /> </TabPanel>
                   <TabPanel> <Liked /> </TabPanel>
@@ -789,15 +782,17 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
-
 
 const mapDipatchToProps = (dispatch) => {
   return {

@@ -10,6 +10,7 @@ import Gs from "../Theme/globalStyles";
 import LoaderGif from "../Assets/images/loading.gif";
 import NFTCard from "../Component/Cards/nftCard";
 import { actions } from "../actions";
+import Media from '../Theme/media-breackpoint';
 
 
 class CollectionDetail extends Component {
@@ -95,8 +96,10 @@ class CollectionDetail extends Component {
               </CollectionDesc>
 
               <NFTfourbox className="cdetail">
-                {collection.nft ? collection.nft.map((nft) => (
+                {collection.nft ? collection.nft.map((nft, key) => (
                   <NFTCard
+                    key={key}
+                    nftSold={nft.nftSold}
                     name={nft.ownerId.name}
                     nftId={nft.id}
                     collectionId={nft.collectionId?.id}
@@ -296,13 +299,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const mapDipatchToProps = (dispatch) => {

@@ -132,14 +132,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -159,14 +159,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -186,14 +186,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -213,14 +213,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -240,14 +240,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -267,14 +267,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -294,14 +294,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -343,13 +343,16 @@ const WhiteBX0D2 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 491px;
   padding: 50px 50px 0px 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -362,6 +365,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 
@@ -460,7 +467,7 @@ const EditionTable = styled.div`
       td{color:#000; font-size:18px; font-weight:600; letter-spacing:-0.9px;
         .JCFS{justify-content:flex-start;}
         .table-Img{width:32px; height:32px; border-radius:50%; margin-right:10px;
-          img{width:100%; height:100%; object-fit: cover;}
+          img{width:100%; height:100%; object-fit: cover; border-radius:50%;}
         }
       }
     }

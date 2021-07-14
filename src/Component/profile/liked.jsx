@@ -14,36 +14,37 @@ import NFTCard from "../Cards/nftCard";
 
 
 function Liked(props) {
-  
+
   let { NFTs, categories } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
-  
+
   useEffect(() => {
-    if (!NFTs) props.getNFTs(params.id?params.id:null);
+    props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-    
+
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-    
-  useEffect(() => {}, [tabPanel]);
-  
+
+  useEffect(() => { }, [tabPanel]);
+
   return (
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
+          {categories && NFTs
+            ? NFTs.length > 0 && categories.length > 0 ? <>
+              <button
+                className={tabPanel === "All" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("All");
+                }}
+              >
+                All
+              </button>
+              {categories.map((category) => {
                 return (
                   <button
                     className={tabPanel === category.id ? "active" : ""}
@@ -54,8 +55,9 @@ function Liked(props) {
                     {category.categoryName}
                   </button>
                 );
-              })
-            : "loading.."}
+              })}
+            </> : ``
+            : ``}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
@@ -64,7 +66,8 @@ function Liked(props) {
             {NFTs ? (
               NFTs.map((nft) => (
                 <NFTCard
-                  name={ nft.ownerId.name }
+                  nftSold={nft.nftSold}
+                  name={nft.ownerId.name}
                   nftId={nft.id}
                   collectionId={nft.collectionId?._id}
                   auctionEndDate={nft.auctionEndDate}
@@ -97,7 +100,7 @@ const FlexDiv = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 

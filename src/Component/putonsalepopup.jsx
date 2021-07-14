@@ -30,13 +30,13 @@ class POSpopup extends Component {
 
             <PBtitle className="TN-title">Put on Sale</PBtitle>
             <CustomRadio1>
-              <label class="radio-container"> Buy now
+              <label className="radio-container"> Buy now
                 <input type="radio" name="category" value="buy now" />
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
               </label>
-              <label class="radio-container">Accept offers
+              <label className="radio-container">Accept offers
                 <input type="radio" name="category" value="accept offers" />
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
               </label>
             </CustomRadio1>
             <NFTForm className="Custom-piece">
@@ -100,13 +100,16 @@ const WhiteBX0D3 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: flex-start;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -119,6 +122,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 

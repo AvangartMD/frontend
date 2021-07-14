@@ -14,38 +14,39 @@ import NFTCard from "../Cards/nftCard";
 
 
 function Created(props) {
-  
+
   let { NFTs, categories } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    if (!NFTs) props.getNFTs(params.id?params.id:null);
+    props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-  
+
   useEffect(() => {
     if (!categories) props.getCategories();
   }, [categories]);
-  
+
   useEffect(() => { }, [tabPanel]);
-  
+
   return (
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
+          {categories && NFTs
+            ? NFTs.length > 0 && categories.length > 0 ? <>
+              <button
+                className={tabPanel === "All" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("All");
+                }}
+              >
+                All
+              </button>
+              {categories.map((category, key) => {
                 return (
-                  <button
+                  <button key={key}
                     className={tabPanel === category.id ? "active" : ""}
                     onClick={() => {
                       setTaPanel(category.id);
@@ -55,16 +56,20 @@ function Created(props) {
                   </button>
                 );
               })
-            : "loading.."}
+              }
+            </> : ``
+            : ``}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
             {NFTs ? (
-              NFTs.map((nft) => (
+              NFTs.map((nft, key) => (
                 <NFTCard
-                  name={ nft.ownerId.name }
+                  key={key}
+                  nftSold={nft.nftSold}
+                  name={nft.ownerId.name}
                   nftId={nft.id}
                   collectionId={nft.collectionId?._id}
                   auctionEndDate={nft.auctionEndDate}
@@ -83,6 +88,12 @@ function Created(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
+
+          <CEmpty>
+            <h2>Your collection is empty.</h2>
+            <p>Start building your collection<br /> by placing bids on artwork.</p>
+            <button className="ani-1">Explore artworks</button>
+          </CEmpty>
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -97,7 +108,7 @@ const FlexDiv = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
@@ -240,6 +251,32 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+`;
+
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

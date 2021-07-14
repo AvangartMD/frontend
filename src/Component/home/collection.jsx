@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from "react-router";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import Gs from '../../Theme/globalStyles';
 import NFT2 from '../../Assets/images/nft2.jpg';
@@ -14,7 +14,7 @@ import HeartIcon from '../../Assets/images/heart-icon.svg';
 import LoaderGif from "../../Assets/images/loading.gif";
 
 import { actions } from '../../actions';
-
+import Media from "../../Theme/media-breackpoint";
 
 class Collections extends Component {
 
@@ -27,8 +27,7 @@ class Collections extends Component {
 
   renderedCollection = (collection) => {
     return (
-      <AnimatePresence>
-        <Gs.W25>
+        <Gs.W25 key={collection.collectionId.id}>
           <Gs.TenpxGutter>
             <Link to={`/collection-detail/${collection.collectionId.id}`}>
               <div className="img-outer">
@@ -44,7 +43,6 @@ class Collections extends Component {
             </Link>
           </Gs.TenpxGutter>
         </Gs.W25>
-      </AnimatePresence>
     )
   }
 
@@ -108,6 +106,9 @@ const HomeNFTs = styled.div`
       }
     }
   }
+  ${Media.md}{
+    margin-top: 80px;
+  }
 `;
 const ViewallButton = styled.div`
   text-align: center;
@@ -126,6 +127,9 @@ const ViewallButton = styled.div`
       color: #fff;
     }
   }
+  ${Media.md}{
+    margin-bottom: 100px;
+  }
 `;
 
 const CollectionSection = styled(FlexDiv)`
@@ -136,11 +140,43 @@ const CollectionSection = styled(FlexDiv)`
     height:255px;
     border-radius: 10px;
     overflow:hidden;
+    ${Media.md}{
+      height:180px;
+    }
+    ${Media.xs}{
+      height:135px;
+    }
     img {
       width:100%;
       height:100%;
       object-fit:cover;
       border: 1px solid #dddddd;
+    }
+  }
+  ${Media.sm}{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    justify-content:flex-start;
+    margin:0px 0px 50px;
+  }
+`;
+
+Gs.W25 = styled(Gs.W25)`
+  ${CollectionSection} & {
+    ${Media.sm}{
+      width: 100%;
+      min-width:180px;
+    }
+    ${Media.xs}{
+      min-width:145px;
+    }
+  }
+`;
+
+Gs.TenpxGutter = styled(Gs.TenpxGutter)`
+  ${CollectionSection} & {
+    ${Media.xs}{
+     margin:0px 5px;
     }
   }
 `;

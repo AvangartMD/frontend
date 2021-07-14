@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import CloseBTN02 from "../../Assets/images/icon-set-exit.svg";
+import Media from "../../Theme/media-breackpoint";
 
 function Magnifypopup({ toggle, imageURL }) {
   return (
@@ -48,6 +49,10 @@ const CloseBTND2 = styled(FlexDiv)`
   z-index: 9;
   :hover img {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 

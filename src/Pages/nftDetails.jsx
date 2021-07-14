@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Magnifypopup from "../Component/Modals/magnifyPopup";
 import POSpopup from "../Component/putonsalepopup";
 import PABpopup from "../Component/Modals/placebidpopup";
@@ -19,12 +20,14 @@ import { connect } from "react-redux";
 import Timer from "../Component/timer";
 import { getContractInstance } from "../helper/functions";
 import NftOwnerActions from "../Component/Modals/nftOwnerAction";
+import Login from "../Component/Modals/login";
 
 class NftDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
+      isOpen4: false,
       bnbUSDPrice: 0,
       bidDetails: {
         currentBidValue: "0",
@@ -32,13 +35,17 @@ class NftDetail extends React.Component {
       },
       ownerActionName: "",
       currentEdition: 1,
+      loading: false,
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const { NFTDetails } = this.props;
+    const { NFTDetails, isLiked } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
         this.fetchBidDetails(NFTDetails.tokenId, NFTDetails.edition);
+    }
+    if (isLiked !== prevProps.isLiked) {
+      this.setState({ loading: false })
     }
   }
 
@@ -77,13 +84,24 @@ class NftDetail extends React.Component {
       },
     });
   }
+
+  closePopUp = () => {
+    this.setState({ isOpen4: false });
+  };
   render() {
     let id = this.props.match.params.id;
-    const { bidDetails, bnbUSDPrice } = this.state;
+    const { bidDetails, bnbUSDPrice, currentEdition, loading } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
     let method = NFTDetails?.auctionEndDate ? 1 : 0;
     return (
       <>
+        <Helmet>
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:title" content={NFTDetails?.title} />
+          <meta property="og:image" content={NFTDetails?.image.compressed} />
+          <meta property="og:description" content={NFTDetails?.description} />
+        </Helmet>
+
         <Gs.MainSection>
           <NFTdetailSection>
             <NFTDleft>
@@ -109,18 +127,18 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike>
+                    <NFTLike className={loading?`disabled`:``}>
                       {isLiked.isFollowed ? (
                         <img
                           src={Redheart}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                          onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       ) : (
                         <img
                           src={redheartBorder}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                            onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       )}
 
@@ -184,7 +202,14 @@ class NftDetail extends React.Component {
                 </Edition>
                 <NFTcartButtons>
                   {NFTDetails?.ownerId.id !== authData?.data?.id ? (
-                    <button onClick={() => this.toggle(8)}>
+                    <button onClick={() => {
+                      if (authData) { // check user is logged in 
+                        this.toggle(8)
+                      } else {
+                        this.toggle(4) // open login pop up
+                      }
+                      }
+                    }>
                       {method ? "Place a bid" : "Buy Now"}
                     </button>
                   ) : (
@@ -281,7 +306,7 @@ class NftDetail extends React.Component {
               "app__collapse " + (this.state.isOpen9 ? "collapse-active" : "")
             }
           >
-            <Historypopup toggle={this.toggle} />
+            <Historypopup toggle={this.toggle} edition={currentEdition} nftId={id} />
           </Collapse>
           <Collapse
             isOpen={this.state.isOpen10}
@@ -290,6 +315,18 @@ class NftDetail extends React.Component {
             }
           >
             <SEpopup toggle={this.toggle} />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen4}
+            className={
+              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+            }
+          >
+            <Login
+              toggle={this.toggle}
+              closePopUp={this.closePopUp}
+              isFooter={true}
+            />
           </Collapse>
         </Gs.MainSection>
       </>
@@ -384,6 +421,11 @@ const NFTLike = styled(FlexDiv)`
     width: 15px;
     height: 15px;
     margin: 0px 4px 0px 0px;
+  }
+  &.disabled
+  {
+    pointer-events: none;
+    opacity:0.5;
   }
 `;
 
