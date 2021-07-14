@@ -47,7 +47,7 @@ const naboxConnectInit = () => {
       // order to use the app.
       web3 = new Web3(
         new Web3.providers.HttpProvider(
-          'https://mainnet.infura.io/v3/de21e440aade484290be1e3c89e67f28'
+          'https://bsc-dataseed.binance.org/'
           // "https://rinkeby.infura.io/v3/de21e440aade484290be1e3c89e67f28"
         )
       );
