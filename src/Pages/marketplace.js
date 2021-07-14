@@ -20,6 +20,7 @@ import LoaderGif from '../Assets/images/loading.gif';
 import NFTCard from '../Component/Cards/nftCard';
 
 import { actions } from '../actions';
+import Media from "./../Theme/media-breackpoint";
 
 class MarketPlace extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class MarketPlace extends Component {
     }
     return (
       <Gs.MainSection>
+        <Gs.Container>
         <FilterMBX>
           <FilterLbx>
             <button
@@ -149,7 +151,7 @@ class MarketPlace extends Component {
               <FilterICO>
                 <img src={FiltICON} alt='' />
               </FilterICO>{' '}
-              Filter: Live auction
+              Filter: <span>Live auction</span>
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
@@ -227,7 +229,7 @@ class MarketPlace extends Component {
                 }
                 // endMessage={<p>You have seen it all.!</p>}
             >
-              <Gs.Container>
+             
                 <NFTfourbox>
                   {NFTs.map((nft) => (
                     <NFTCard
@@ -246,7 +248,7 @@ class MarketPlace extends Component {
                     />
                   ))}
                 </NFTfourbox>
-              </Gs.Container>
+              
               </InfiniteScroll>
             ) : (
               <LoaderBX>
@@ -255,6 +257,7 @@ class MarketPlace extends Component {
               </LoaderBX>
             )}
         </HomeNFTs>
+        </Gs.Container>
       </Gs.MainSection>
     );
   }
@@ -273,63 +276,6 @@ const FlexDiv = styled.div`
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
-`;
-const HomeBanner = styled.div`
-  height: 660px;
-  width: 100%;
-  .item {
-    img {
-      width: 100%;
-    }
-  }
-  .react-multiple-carousel__arrow {
-    background: transparent;
-    min-width: 20px;
-    min-height: 20px;
-    padding: 0px;
-    border-radius: 0px;
-    :hover {
-      background: transparent;
-    }
-  }
-  .react-multiple-carousel__arrow--left::before {
-    background: url(${LArrow}) no-repeat;
-    color: transparent;
-  }
-  .react-multiple-carousel__arrow--right::before {
-    background: url(${RArrow}) no-repeat;
-    color: transparent;
-  }
-  .react-multiple-carousel__arrow--left {
-    left: calc(42.8% + 1px);
-    bottom: 33px;
-  }
-  .react-multiple-carousel__arrow--right {
-    right: calc(42.8% + 1px);
-    bottom: 33px;
-  }
-  .react-multi-carousel-dot-list {
-    background-color: rgba(255, 255, 255, 0.85);
-    width: 320px;
-    height: 52px;
-    border-radius: 20px;
-    margin: 0 auto 20px;
-    button {
-      position: relative;
-      margin: 0px 10px;
-      padding: 0px 0px 0px 10px;
-      font-size: 14px;
-      color: rgb(0 0 0 / 20%);
-      &.active {
-        color: #000;
-      }
-      :before {
-        content: '0';
-        position: absolute;
-        left: 0px;
-      }
-    }
-  }
 `;
 
 const HomeNFTs = styled.div`
@@ -521,7 +467,7 @@ const UserImgName = styled(FlexDiv)`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
@@ -805,22 +751,23 @@ const FilterMBX = styled(FlexDiv)`
   justify-content: space-between;
   max-width: 1080px;
   margin: 30px auto 0 auto;
+  ${Media.lg}{
+    max-width:100%;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
-
   button {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 10px 19px;
     font-size: 14px;
     font-weight: 600;
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin-right: 8px;
-
+    margin:0px 6px 0px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -830,18 +777,29 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+    :last-child
+    {
+      margin:0px;
+    }
+  }
+  ${Media.md}{
+    width:100%;
   }
 `;
 const FilterRbx = styled(FlexDiv)`
   width: 55%;
   justify-content: flex-end;
+  ${Media.md}{
+    width:100%;
+    justify-content: space-between;
+    margin-top:20px;
+  }
 `;
 const FilterInputBX = styled(FlexDiv)`
   width: 100%;
   max-width: 220px;
   position: relative;
   margin-right: 9px;
-
   input {
     background-color: #eef2f7;
     font-size: 14px;
@@ -856,6 +814,9 @@ const FilterInputBX = styled(FlexDiv)`
       border: 1px solid #00babc;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+  ${Media.md}{
+    max-width:calc(50% - 5px);
   }
 `;
 const SearchICO = styled(FlexDiv)`
@@ -892,6 +853,14 @@ const FilterBAR = styled(FlexDiv)`
     background-color: #fff;
     border: 1px solid #00babc;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+  }
+  ${Media.md}{
+    max-width:calc(50% - 5px);
+  }
+  span{
+    ${Media.xs}{
+      display:none;
+    }
   }
 `;
 
