@@ -132,14 +132,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -159,14 +159,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -186,14 +186,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -213,14 +213,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -240,14 +240,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -267,14 +267,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>
@@ -294,14 +294,14 @@ class SEpopup extends Component {
                       </td>
                       <td>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             Select
                             <input
                               type="checkbox"
                               name="category"
                               value="art"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomCheckbox1>
                       </td>

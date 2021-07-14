@@ -350,7 +350,7 @@ class ProfileEdit extends Component {
                       </NFTtitle>
                       <NFTForm>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             {" "}
                             <img src={CICON01} alt="" />
                             Verify via Twitter
@@ -359,9 +359,9 @@ class ProfileEdit extends Component {
                               name="category"
                               value="aa"
                             />
-                            <span class="checkmark v2"></span>
+                            <span className="checkmark v2"></span>
                           </label>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             {" "}
                             <img src={CICON02} alt="" />
                             Verify via Instagram
@@ -370,7 +370,7 @@ class ProfileEdit extends Component {
                               name="category"
                               value="celebrity"
                             />
-                            <span class="checkmark v2"></span>
+                            <span className="checkmark v2"></span>
                           </label>
                         </CustomCheckbox1>
                       </NFTForm>

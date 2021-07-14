@@ -95,8 +95,9 @@ class CollectionDetail extends Component {
               </CollectionDesc>
 
               <NFTfourbox className="cdetail">
-                {collection.nft ? collection.nft.map((nft) => (
+                {collection.nft ? collection.nft.map((nft, key) => (
                   <NFTCard
+                    key={key}
                     nftSold={nft.nftSold}
                     name={nft.ownerId.name}
                     nftId={nft.id}

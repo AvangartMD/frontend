@@ -30,13 +30,13 @@ class POSpopup extends Component {
 
             <PBtitle className="TN-title">Put on Sale</PBtitle>
             <CustomRadio1>
-              <label class="radio-container"> Buy now
+              <label className="radio-container"> Buy now
                 <input type="radio" name="category" value="buy now" />
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
               </label>
-              <label class="radio-container">Accept offers
+              <label className="radio-container">Accept offers
                 <input type="radio" name="category" value="accept offers" />
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
               </label>
             </CustomRadio1>
             <NFTForm className="Custom-piece">

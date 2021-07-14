@@ -44,9 +44,9 @@ function Created(props) {
               >
                 All
               </button>
-              {categories.map((category) => {
+              {categories.map((category, key) => {
                   return (
-                    <button
+                    <button key={key}
                       className={tabPanel === category.id ? "active" : ""}
                       onClick={() => {
                         setTaPanel(category.id);
@@ -57,7 +57,7 @@ function Created(props) {
                   );
                 })
               }
-            </> : `Empty HTML`
+            </> : ``
             : ``}
         </FilterLbx>
       </FilterMBX>
@@ -65,8 +65,9 @@ function Created(props) {
         <Gs.Container>
           <NFTfourbox>
             {NFTs ? (
-              NFTs.map((nft) => (
+              NFTs.map((nft, key) => (
                 <NFTCard
+                  key={key}
                   nftSold={nft.nftSold}
                   name={nft.ownerId.name}
                   nftId={nft.id}

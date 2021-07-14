@@ -284,12 +284,8 @@ class Profile extends Component {
                   Following{" "}
                   <span>{profile ? profile.followingCount : "000"}</span>
                 </FollowerMBX>
-                <EditPrBTN>
-                  <button
-                    onClick={() => this.props.history.push("/user/edit-profile")}
-                  >
-                    Edit Profile
-                  </button>
+                <EditPrBTN onClick={() => this.props.history.push("/user/edit-profile")}>
+                  Edit Profile
                 </EditPrBTN>
               </ProSBX03>
 

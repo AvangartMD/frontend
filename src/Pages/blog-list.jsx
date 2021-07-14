@@ -31,10 +31,10 @@ class BlogList extends Component {
           <BlogListtitle>Avangart Blog</BlogListtitle>
           <FilterMBX>
             <FilterLbx>
-              <button class="active" id="all">All</button>
-              <button class="">Art</button>
-              <button class="">Celebrity</button>
-              <button class="">Sport</button>
+              <button className="active" id="all">All</button>
+              <button className="">Art</button>
+              <button className="">Celebrity</button>
+              <button className="">Sport</button>
             </FilterLbx>
             <FilterRbx>
               <FilterInputBX>

@@ -129,8 +129,9 @@ class Creators extends Component {
                         >
 
                             <CreatorMBX>
-                                {creators.map((creator) => {
+                                {creators.map((creator, key) => {
                                     return <CreatorCard
+                                        key={key}
                                         id={creator.id}
                                         cover={creator.cover}
                                         profile={creator.profile}
