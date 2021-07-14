@@ -100,12 +100,14 @@ function Collected(props) {
               <CEmpty>
                 <h2>Become a Creator</h2>
                 <p>Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-                <BecomeCreator isProfile={true} />
+                <div className="BecBTN">
+                  <BecomeCreator isProfile={true} />
+                </div>
               </CEmpty>
             </>
-            : ``
-          : ``}
-          
+              : ``
+            : ``}
+
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -267,28 +269,34 @@ const FilterLbx = styled(FlexDiv)`
 `;
 
 const CEmpty = styled.div`
-  text-align:center; margin-bottom:120px;
+  margin-bottom:120px;
   h2{ 
     font-size:22px;
     letter-spacing:-0.55px;
     color:#000;
     margin:0px 0px 10px;
     font-weight:600;
+    text-align:center;
   }
   p{ 
     font-size:16px;
     letter-spacing:-0.8px;
     color:#000;
     margin:0px 0px 22px;
+    text-align:center;
   }
-  button{
-    font-size:14px;
-    letter-spacing:-0.5px;
-    color:#000;
-    padding:13px 44px;
-    border-radius:15px;
-    border:1px solid #000;
-    :hover{background-color:#000; color:#fff;}
+  .BecBTN{
+    display:flex;
+    button.BCreatorbtn{
+      margin:0 auto;
+      font-size:14px;
+      letter-spacing:-0.5px;
+      color:#000;
+      padding:13px 44px;
+      border-radius:15px;
+      border:1px solid #000;
+      :hover{background-color:#000; color:#fff;}
+    }
   }
 `;
 

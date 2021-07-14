@@ -120,10 +120,10 @@ class BecomeCreator extends Component {
     const { isFooter, isProfile, isHeader } = this.props;
     return (
       <>
-        
+
         {isHeader ? <AvBTN02 className="colorBTN" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
         {isFooter ? <AvBTN02 className="" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
-        {isProfile ? <button className="ani-1" onClick={(e) => this.clickHandler(e) }>{ !becomeCreator ? `Become a Creator` : `Waiting` }</button> : ``}
+        {isProfile ? <button className="ani-1 BCreatorbtn" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</button> : ``}
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -206,7 +206,7 @@ class BecomeCreator extends Component {
           ) : (
             ""
           )}
-          
+
 
           {isOpen2 ? (
             <BlackWrap>
