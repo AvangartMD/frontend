@@ -76,9 +76,9 @@ function updateUserDetails(params) {
   };
 }
 
-function getUserNFT(id) {
+function getUserNFT(id, filter) {
   return async (dispatch) => {
-    const response = services.get(id?`nft/listNftByUser/${id}`:`nft/listNftByUser`, true);
+    const response = services.get(id?`nft/listNftByUser/${id}?filter=${filter}`:`nft/listNftByUser?filter=${filter}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));

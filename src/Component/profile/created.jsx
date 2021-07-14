@@ -17,17 +17,16 @@ function Created(props) {
 
   let { NFTs, categories } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
+  const [tabPanel, setTaPanel] = useState("ALL");
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
 
   useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
+    if (tabPanel !== 'ALL') props.getNFTs(params.id ? params.id : null, tabPanel);
+    else props.getNFTs(params.id ? params.id : null); 
+  }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -39,32 +38,45 @@ function Created(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          {categories && NFTs
-            ? NFTs.length > 0 && categories.length > 0 ? <>
-              <button
-                className={tabPanel === "All" ? "active" : ""}
+          <button
+                className={tabPanel === "ALL" ? "active" : ""}
                 id="all"
                 onClick={() => {
-                  setTaPanel("All");
+                  setTaPanel("ALL");
                 }}
               >
                 All
-              </button>
-              {categories.map((category, key) => {
-                return (
-                  <button key={key}
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })
-              }
-            </> : ``
-            : ``}
+          </button>
+          
+          <button
+                className={tabPanel === "SOLD" ? "active" : ""}
+                id="sold"
+                onClick={() => {
+                  setTaPanel("SOLD");
+                }}
+              >
+                Sold
+          </button>
+          
+          <button
+                className={tabPanel === "LIVEAUCTION" ? "active" : ""}
+                id="liveauction"
+                onClick={() => {
+                  setTaPanel("LIVEAUCTION");
+                }}
+              >
+                Live auction
+          </button>
+          
+          <button
+              className={tabPanel === "BOYNOW" ? "active" : ""}
+              id="boynow"
+              onClick={() => {
+                setTaPanel("BOYNOW");
+              }}
+            >
+              Boy now
+          </button>
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
@@ -256,14 +268,12 @@ const FilterLbx = styled(FlexDiv)`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
-    getNFTs: (id) => dispatch(actions.getUserNFT(id)),
+    getNFTs: (id, filter) => dispatch(actions.getUserNFT(id, filter)),
     clearNFTs: () => dispatch({ type: 'FETCHED_USER_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchUserNFT,
   };
 };

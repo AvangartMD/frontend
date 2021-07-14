@@ -95,7 +95,7 @@ function Collected(props) {
             )}
           </NFTfourbox>
 
-          {NFTs && categories && !params.id ?
+          {NFTs && categories && !params.id && props.role !== 'creator'?
             NFTs.length === 0 ? <>
               <CEmpty>
                 <h2 className="Bec">Become a Creator</h2>
