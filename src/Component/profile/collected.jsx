@@ -94,8 +94,8 @@ function Collected(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
-{/* 
-          {NFTs && categories ?
+
+          {NFTs && categories && !params.id ?
             NFTs.length === 0 ? <>
               <CEmpty>
                 <h2>Become a Creator</h2>
@@ -104,7 +104,7 @@ function Collected(props) {
               </CEmpty>
             </>
             : ``
-          : ``} */}
+          : ``}
           
         </Gs.Container>
       </HomeNFTs>
