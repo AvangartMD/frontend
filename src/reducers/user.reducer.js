@@ -135,3 +135,12 @@ export function fetchNotifications(state = null, action) {
       return state;
   }
 }
+
+export function fetchProfileBanner(state = null, action) {
+  switch (action.type) {
+    case "FETCHED_PROFILE_BANNERS":
+      return action.data;
+    default:
+      return state;
+  }
+}

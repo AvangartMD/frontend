@@ -20,6 +20,7 @@ export const userActions = {
   getCollectionNFT,
   getEditionHistory,
   getNotifications,
+  getProfileBanner,
 };
 
 function fetchedData(type, data) {
@@ -280,6 +281,19 @@ function getNotifications() {
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_NOTIFICATIONS", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getProfileBanner() {
+  return (dispatch) => {
+    const response = services.get(`/admin/profile-info/list`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_PROFILE_BANNERS", promise.data.data));
       } else {
         // console.log("error");
       }
