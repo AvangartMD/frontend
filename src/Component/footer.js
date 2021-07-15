@@ -5,6 +5,7 @@ import Gs from "./../Theme/globalStyles";
 import { Link, NavLink } from "react-router-dom";
 import Media from "./../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import LogoImg from "../Assets/images/logoWhite.png";
@@ -18,7 +19,9 @@ import Login from "./Modals/login";
 import BecomeCreator from "../Component/Modals/become-creator";
 
 function Footer(props) {
+  
   const { web3Data, authData: userDetails } = props;
+
   const checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
       return <BecomeCreator isFooter={true} />;
@@ -50,7 +53,7 @@ function Footer(props) {
               nisi.
             </p>
 
-            <button>
+            <button onClick={() => props.history.push("/about")}>
               <FormattedMessage id="Learn_more" defaultMessage="Learn More" />
             </button>
           </FooterSSbx01>
@@ -64,12 +67,14 @@ function Footer(props) {
             <NavLink to="/creators">
               <FormattedMessage id="Creators" defaultMessage="Creators" />
             </NavLink>
-            <NavLink to="-">
-              <FormattedMessage
-                id="Become_a_creator"
-                defaultMessage="Become a Creator"
-              />
-            </NavLink>
+            {!web3Data.isLoggedIn ?
+              <NavLink to="">
+                <FormattedMessage
+                  id="Become_a_creator"
+                  defaultMessage="Become a Creator"
+                />
+                </NavLink>
+            : ``}
           </FooterSSbx02>
           <FooterSSbx02>
             <NavLink to="-">
@@ -378,4 +383,4 @@ const mapStateToProps = (state) => {
     authData: state.fetchAuthData,
   };
 };
-export default connect(mapStateToProps, mapDipatchToProps)(Footer);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Footer));

@@ -7,26 +7,49 @@ import { actions } from "../../actions";
 import { connect } from "react-redux";
 import TxnStatus from "./txnStatus";
 import Media from "./../../Theme/media-breackpoint";
+import getContractAddresses from "../../contractData/contractAddress/addresses";
 
 function NftOwnerActions(props) {
-  const { web3Data, toggle, ownerActionName, edition, tokenID } = props;
+  const {
+    web3Data,
+    toggle,
+    ownerActionName,
+    edition,
+    tokenID,
+    isApprovedForAll,
+    changeOwnerActionName,
+  } = props;
   const succesMsg = {
     burnTokenEdition: "Burn Succesfull",
     transfer: "Transfer Succesfull",
   };
   const escrowContractInstance = getContractInstance(true);
+  const nftContractContractInstance = getContractInstance();
+
   const [reciever, setReciever] = useState("");
   const [mintNFTStatus, setNFTStatus] = useState("");
-  // const [error, setError] = useState({ isError: false, msg: "" });
+  const [approved, setApproved] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
-  const handleAction = async () => {
-    let params = [+tokenID, +edition];
-    if (reciever)
+  const handleAction = async (forApproval) => {
+    const { escrowContractAddres } = getContractAddresses();
+    // let params = [+tokenID, +edition];
+    // if (reciever){
+    //   params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
+    // }
+    let params;
+    if (ownerActionName === "burnTokenEdition") params = [+tokenID, +edition];
+    else if (ownerActionName === "transfer")
       params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
-
+    else if (ownerActionName === "setApprovalForAll")
+      params = [escrowContractAddres, true];
+    else return;
+    let contractInstance = !isApprovedForAll
+      ? nftContractContractInstance
+      : escrowContractInstance;
     setNFTStatus("initiate");
-    await escrowContractInstance.methods[ownerActionName](...params)
+    console.log(params);
+    await contractInstance.methods[ownerActionName](...params)
       .send({
         from: web3Data.accounts[0],
       })
@@ -34,7 +57,10 @@ function NftOwnerActions(props) {
         setNFTStatus("progress");
       })
       .on("receipt", (receipt) => {
-        setNFTStatus("complete");
+        if (forApproval) {
+          setApproved(true);
+          setNFTStatus("");
+        } else setNFTStatus("complete");
       })
       .on("error", (error) => {
         setNFTStatus("error");
@@ -121,6 +147,51 @@ function NftOwnerActions(props) {
                   </>
                 )
               }
+              {
+                // {/* Transfer NFT popup */}
+                ownerActionName === "setApprovalForAll" && !approved && (
+                  <>
+                    <PBtitle className="TN-title"> Approve Transfer</PBtitle>
+                    <PBDesc className="mb-20">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                      Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                      cursus.
+                    </PBDesc>
+
+                    <NFTcartButtons>
+                      <button
+                        className="ani-1 bor-large"
+                        onClick={() => handleAction(true)}
+                      >
+                        Approve
+                      </button>
+                    </NFTcartButtons>
+                  </>
+                )
+              }
+              {approved && (
+                <>
+                  <WGTitle>Approved !!</WGTitle>
+                  <WGdescText>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Aliquam nunc nulla, sollicitudin ac dignissim vitae, dapibus
+                    at enim.
+                  </WGdescText>
+                  <WGdescText>
+                    Cras sit amet augue consectetur, sodales quam a, congue
+                    lacus.
+                  </WGdescText>
+                  <WGBtn
+                    onClick={() => {
+                      setApproved(false);
+                      changeOwnerActionName("transfer");
+                    }}
+                  >
+                    Go to transfer
+                  </WGBtn>
+                </>
+              )}
               {confirm && (
                 <>
                   <PBtitle className="AStitle">Confirm</PBtitle>
@@ -188,8 +259,8 @@ const WhiteBX0D3 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: flex-start;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 
@@ -204,7 +275,7 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
@@ -221,8 +292,8 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 
@@ -429,7 +500,37 @@ const SkyWalletAddress = styled.div`
   margin: 0 auto 40px;
   width: auto;
 `;
+const WGTitle = styled.div`
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+`;
+const WGdescText = styled.div`
+  color: #000000;
+  font-size: 14px;
+  letter-spacing: -0.7px;
+  margin-bottom: 10px;
+  text-align: center;
+`;
 
+const WGBtn = styled.button`
+  color: #000000;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+  padding: 13px 86px;
+  border-radius: 15px;
+  border: 1px solid #000000;
+  margin: 30px auto 0px;
+  :hover {
+    background-color: #000;
+    color: #fff;
+  }
+`;
 const mapDipatchToProps = (dispatch) => {
   return {
     likeToggler: (id) => dispatch(actions.likeToggler(id)),

@@ -37,8 +37,8 @@ class Timer extends React.Component {
     return obj;
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.timeLeft + 572800 !== prevProps.timeLeft + 572800) {
-      const timeLeft = this.props.timeLeft + 572800;
+    if (this.props.timeLeft !== prevProps.timeLeft) {
+      const timeLeft = this.props.timeLeft;
       const onlyHours = this.props.onlyHours;
       this.setState({ timeLeft, onlyHours });
       let timeLeftVar = this.secondsToTime(timeLeft, onlyHours);
@@ -48,7 +48,7 @@ class Timer extends React.Component {
     }
   }
   componentDidMount() {
-    const timeLeft = this.props.timeLeft + 572800;
+    const timeLeft = this.props.timeLeft;
     const onlyHours = this.props.onlyHours;
     this.setState({ timeLeft, onlyHours });
     let timeLeftVar = this.secondsToTime(timeLeft, onlyHours);

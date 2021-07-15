@@ -25,6 +25,7 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 
 import { actions } from "../actions";
 import { services } from "../services";
+import { Context } from '../Component/wrapper';
 import { compressImage } from "../helper/functions";
 
 import Created from "../Component/profile/created";
@@ -35,6 +36,9 @@ import Drafts from "../Component/profile/drafts";
 import Media from '../Theme/media-breackpoint';
 
 class Profile extends Component {
+  
+  static contextType = Context;
+
   constructor(props) {
     super(props);
     this.profileInput = React.createRef();
@@ -88,6 +92,32 @@ class Profile extends Component {
   profileUpdated = (data) => {
     this.setState({ loading: false }); // stop loader
   };
+
+  renderedProfileInfo(profile, index) {
+    // let context = this.context;
+    // let img = ''
+    // if (context.locale === 'tr') {
+    //   img = profile.banner.tu
+    // } else {
+    //   img = profile.banner.en
+    // }
+    return (
+      <a target='_blank' rel="noopener noreferrer"
+        // href={profile.url}
+        href="/"
+        key={index}>
+        <motion.img
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            key={index}
+            // src={img}
+            src={ADBanner}
+            exit={{ opacity: 0 }}
+          />
+      </a>
+    )
+  }
 
   render() {
     const { profile } = this.props;
@@ -324,9 +354,9 @@ class Profile extends Component {
             ""
           )}
 
-          {/* <ADBannerMBX>
-                        <img src={ADBanner} alt='' />
-                    </ADBannerMBX> */}
+          <ADBannerMBX>
+            {this.renderedProfileInfo(null, 1)}
+          </ADBannerMBX>
 
           <HomeTabs>
             <Tabs>
@@ -798,12 +828,14 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getProfile()),
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
+    getProfileBanner: () => dispatch(actions.getProfileBanner()),
   };
 };
 const mapStateToProps = (state) => {
   return {
     profile: state.fetchProfile,
     updated: state.updateProfile,
+    profileBanner: state.fetchProfileBanner,
   };
 };
 

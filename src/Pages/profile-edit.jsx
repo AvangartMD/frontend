@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
-import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import { withRouter } from "react-router";
 import Sticky from "react-sticky-el";
-import NFTModal from "../Component/nftpopups";
 
 import DDdownA from "../Assets/images/dd-down-arrow.svg";
 import CICON01 from "../Assets/images/peSocICO-01.svg";
@@ -15,7 +13,6 @@ import CICON03 from "../Assets/images/peSocICO-03.svg";
 import CICON04 from "../Assets/images/peSocICO-04.svg";
 import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
-import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import LoaderGif from "../Assets/images/loading.gif";
 import SuccessPopup from "../Component/Modals/sucessPopup";
 
@@ -31,7 +28,6 @@ class ProfileEdit extends Component {
       updated: false,
       userObj: null,
       formChange: false,
-      isOpen1: false,
     };
   }
 
@@ -107,7 +103,9 @@ class ProfileEdit extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true, updated: false, formChange: false, isOpen1: false }); // start the loader
+    this.setState({
+      loading: true, updated: false, formChange: false,
+    }); // start the loader
     const { userObj } = this.state;
     let params = {
       name: userObj.name,
@@ -133,7 +131,7 @@ class ProfileEdit extends Component {
 
   render() {
     const { profile } = this.props;
-    const { loading, updated, formChange, errors, isOpen1 } = this.state;
+    const { loading, updated, formChange, errors } = this.state;
 
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
@@ -154,29 +152,6 @@ class ProfileEdit extends Component {
                 <LoaderBX>
                   <img src={LoaderGif} alt="" />
                 </LoaderBX>
-              </WhiteBX01>
-            </BlackWrap>
-          </>
-        ) : (
-          ""
-        )}
-
-        {errors && !isOpen1 ? (
-          <>
-            <BlackWrap>
-              <WhiteBX01>
-                <CloseBTN
-                  className="ani-1"
-                  onClick={() => {
-                    this.toggle(1);
-                  }}
-                >
-                  <img src={CloseBTN01} alt="" />
-                </CloseBTN>
-                <>
-                  <OnbTitle01>Attention!</OnbTitle01>
-                  <OnbText01 className="w100">{errors}</OnbText01>
-                </>
               </WhiteBX01>
             </BlackWrap>
           </>
@@ -230,6 +205,17 @@ class ProfileEdit extends Component {
                 </Sticky>
               </Gs.W200px>
               <Gs.W880px className="displayflex">
+
+                {errors ? (
+                  <Gs.W605px>
+                    <NFTMiddle>
+                      <AlertNote>
+                        <p>{errors}</p>
+                      </AlertNote>
+                    </NFTMiddle>
+                  </Gs.W605px>
+                ) : ``}
+
                 <Gs.W605px>
                   <NFTMiddle>
                     <NFTtitle id="accountSettings">
@@ -1095,6 +1081,21 @@ const CloseBTN = styled.button`
     top: 15px;
   }
 `;
+const AlertNote = styled.div`
+  background-color: #ffe5e9;
+  border: 1px solid #ff2a44;
+  border-radius: 10px;
+  margin: 0px 0px 40px;
+  padding: 17px 15px;
+  p {
+    margin: 0px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+  }
+`;
+
 
 const mapDipatchToProps = (dispatch) => {
   return {

@@ -87,7 +87,7 @@ class HallOfFrameInfo extends Component {
         <HomeNFTs>
           <Gs.Container>
             {this.props.infos?
-            this.props.infos.map((banner, index) => { this.renderedInfo(banner, index);})
+            this.props.infos.map((info, index) => { return this.renderedInfo(info, index);})
               : 'loading..'}
           </Gs.Container>
       </HomeNFTs>

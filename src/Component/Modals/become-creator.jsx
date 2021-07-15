@@ -120,10 +120,7 @@ class BecomeCreator extends Component {
     const { isFooter, isProfile, isHeader } = this.props;
     return (
       <>
-
-        {isHeader ? <AvBTN02 className="colorBTN" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
-        {isFooter ? <AvBTN02 className="" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
-        {isProfile ? <AvBTN02 className="ani-1 borderBTN" onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02> : ``}
+        <AvBTN02 className={isHeader?`colorBTN`:isProfile?`ani-1 borderBTN`:``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -385,11 +382,9 @@ class BecomeCreator extends Component {
                 </CloseBTN>
 
                 <TokenBox>
-                  <WGTitle>Profile request sent</WGTitle>
-                  <WGdescText>
-                    Profile status will be updated once admin approves the
-                    request
-                  </WGdescText>
+                  <WGTitle>We got your Submission!</WGTitle>
+                  <p>Profile status will be updated once admin approves the request</p>
+                  <button onClick={() => this.toggle(4)}>Ok</button>
                 </TokenBox>
               </WhiteBX01>
             </BlackWrap>
@@ -451,10 +446,13 @@ const CloseBTN = styled.button`
   }
 `;
 const TokenBox = styled(FlexDiv)`
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   margin-bottom: 20px;
+  text-align: center;
   button {
+    height: 100%;
+    width: 60%;
     color: #000000;
     font-size: 14px;
     font-weight: 700;

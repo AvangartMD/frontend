@@ -655,12 +655,20 @@ class NFTPage extends Component {
                           nftSold={0}
                           nftId={undefined}
                           collectionId={nftObj.collectionId?._id}
-                          auctionEndDate={nftObj.auctionTime}
+                          auctionEndDate={
+                            nftObj.saleState == "BUY"
+                              ? null
+                              : nftObj.auctionTime
+                          }
                           nftImg={nftObj.imgSrc}
                           title={nftObj.title}
                           edition={nftObj.edition}
                           price={nftObj.price}
-                          auctionTime={nftObj.auctionTime}
+                          auctionTime={
+                            nftObj.saleState == "BUY"
+                              ? null
+                              : nftObj.auctionTime
+                          }
                           userImg={this.props.authData?.profile}
                           username={this.props.authData?.username}
                           previewCard={true}

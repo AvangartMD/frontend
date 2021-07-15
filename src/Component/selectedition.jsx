@@ -1,327 +1,342 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import { Link } from "react-router-dom";
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbars } from "react-custom-scrollbars";
 
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import FiltICON from "../Assets/images/filterICO.svg";
 import UserIcon from "../Assets/images/userIcon.png";
+import { web3 } from "../web3";
+import { useEffect } from "react";
 
-class CustomScrollbars extends Component {
-  render() {
-    return (
-      <Scrollbars
-        renderTrackVertical={props => <div {...props} className="track-vertical" />}
-        renderThumbVertical={props => <div {...props} className="thumb-vertical" />}
-        renderView={props => <div {...props} className="view" />}
-        autoHide
-        style={this.props.style}>
-        {this.props.children}
-      </Scrollbars>
-    );
-  }
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
 }
 
-class SEpopup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen1: false,
-    };
-  }
-
-  render() {
-    return (
-      <>
-
-        <BlackWrap>
-          <WhiteBX0D2>
-            <CloseBTN className="ani-1" onClick={() => this.props.toggle(10)}>
-              <img src={CloseBTN01} alt="" />
-            </CloseBTN>
-
-            <Htitle>Select Edition</Htitle>
-
-            <FilterMBX>
-              <FilterLbx>
-                <button className="active">All</button> <button>For Sale</button>
-              </FilterLbx>
-              <FilterBAR
-                onClick={() => this.toggle(1)}
-                className={this.state.isOpen1 ? "active" : ""}
-              >
-                <FilterICO>
-                  <img src={FiltICON} alt="" />
-                </FilterICO>
-                Filter
-                <Collapse
-                  isOpen={this.state.isOpen1}
-                  className={
-                    "app__collapse collapse-css-transition  " +
-                    (this.state.isOpen1 ? "collapse-active" : "")
-                  }
-                >
-                  <DDContainer>
-                    <div className="md-checkbox">
-                      <input
-                        type="checkbox"
-                        id="vehicle1"
-                        name="vehicle1"
-                        value="Bike"
-                      />
-                      <label htmlFor="vehicle1">All</label>
-                    </div>
-                    <div className="md-checkbox">
-                      <input
-                        type="checkbox"
-                        id="vehicle2"
-                        name="vehicle2"
-                        defaultChecked
-                        value="Bike"
-                      />
-                      <label htmlFor="vehicle2">Live auction</label>
-                    </div>
-                    <div className="md-checkbox">
-                      <input
-                        type="checkbox"
-                        id="vehicle3"
-                        name="vehicle3"
-                        value="Bike"
-                      />
-                      <label htmlFor="vehicle3">Buy now</label>
-                    </div>
-                    <div className="md-checkbox">
-                      <input
-                        type="checkbox"
-                        id="vehicle4"
-                        name="vehicle4"
-                        value="Bike"
-                      />
-                      <label htmlFor="vehicle4">Sold</label>
-                    </div>
-                  </DDContainer>
-                </Collapse>
-              </FilterBAR>
-            </FilterMBX>
-            <CustomScrollbars autoHide autoHideTimeout={1000} style={{ width: '100%', height: '400px', position: 'relative' }} >
-              <EditionTable>
-                <table>
-                  <thead>
-                    <th>EDITION</th>
-                    <th>OWNER</th>
-                    <th className="text-center">PRICE</th>
-                    <th></th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>01</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>02</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>03</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>04</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>05</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>06</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>07</td>
-                      <td>
-                        <FlexDiv className="JCFS">
-                          <div className="table-Img">
-                            <img src={UserIcon} alt="" />
-                          </div>
-                          @username
-                        </FlexDiv>
-                      </td>
-                      <td className="text-center">
-                        0.00 BNB
-                      </td>
-                      <td>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            Select
-                            <input
-                              type="checkbox"
-                              name="category"
-                              value="art"
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </EditionTable>
-            </CustomScrollbars>
-          </WhiteBX0D2>
-        </BlackWrap>
-
-      </>
-    );
-  }
-
-  toggle = (index) => {
-    let collapse = "isOpen" + index;
-    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+function SelectEdition(props) {
+  const [editions, setEditions] = useState([]);
+  const [filterPopup, setFilterPopup] = useState([]);
+  const { NFTDetails, web3Data } = props;
+  useEffect(() => {
+    createEditionData();
+  }, [NFTDetails, web3Data]);
+  const createEditionData = () => {
+    let editionsData = [];
+    if (NFTDetails)
+      for (let i = 0; i < NFTDetails.edition; i++) {
+        const soldEdition = NFTDetails.editions.find(
+          ({ edition }) => edition == i + 1
+        );
+        if (soldEdition) {
+          editionsData.push({
+            number: Number(soldEdition.edition),
+            isOwner:
+              web3Data.accounts[0] ===
+              web3.utils.toChecksumAddress(soldEdition.walletAddress),
+            ownerId: soldEdition.ownerId,
+            isOpenForSale: soldEdition.isOpenForSale,
+            saleState: "",
+            price: web3.utils.fromWei(soldEdition.price.toString()),
+          });
+        } else {
+          editionsData.push({
+            number: i + 1,
+            isOwner: NFTDetails?.ownerId.id == props.authData?.data?.id,
+            ownerId: NFTDetails?.ownerId,
+            isOpenForSale: true,
+            saleState: "",
+            price: NFTDetails.price,
+          });
+        }
+      }
+    setEditions(editionsData);
   };
+  const toggle = (index) => {
+    let tVal = filterPopup === index ? "" : index;
+    setFilterPopup(tVal);
+  };
+
+  // render() {
+  return (
+    <>
+      <BlackWrap>
+        <WhiteBX0D2>
+          <CloseBTN className="ani-1" onClick={() => props.toggle(10)}>
+            <img src={CloseBTN01} alt="" />
+          </CloseBTN>
+
+          <Htitle>Select Edition</Htitle>
+
+          <FilterMBX>
+            <FilterLbx>
+              <button className="active">All</button> <button>For Sale</button>
+            </FilterLbx>
+            <FilterBAR
+              onClick={() => toggle(1)}
+              // className={state.isOpen1 ? "active" : ""}
+            >
+              <FilterICO>
+                <img src={FiltICON} alt="" />
+              </FilterICO>
+              Filter
+              <Collapse
+                isOpen={filterPopup === 1}
+                className={
+                  "app__collapse collapse-css-transition  " +
+                  (filterPopup === 1 ? "collapse-active" : "")
+                }
+              >
+                <DDContainer>
+                  <div className="md-checkbox">
+                    <input
+                      type="checkbox"
+                      id="vehicle1"
+                      name="vehicle1"
+                      value="Bike"
+                    />
+                    <label htmlFor="vehicle1">All</label>
+                  </div>
+                  <div className="md-checkbox">
+                    <input
+                      type="checkbox"
+                      id="vehicle2"
+                      name="vehicle2"
+                      defaultChecked
+                      value="Bike"
+                    />
+                    <label htmlFor="vehicle2">Live auction</label>
+                  </div>
+                  <div className="md-checkbox">
+                    <input
+                      type="checkbox"
+                      id="vehicle3"
+                      name="vehicle3"
+                      value="Bike"
+                    />
+                    <label htmlFor="vehicle3">Buy now</label>
+                  </div>
+                  <div className="md-checkbox">
+                    <input
+                      type="checkbox"
+                      id="vehicle4"
+                      name="vehicle4"
+                      value="Bike"
+                    />
+                    <label htmlFor="vehicle4">Sold</label>
+                  </div>
+                </DDContainer>
+              </Collapse>
+            </FilterBAR>
+          </FilterMBX>
+          <CustomScrollbars
+            autoHide
+            autoHideTimeout={1000}
+            style={{ width: "100%", height: "400px", position: "relative" }}
+          >
+            <EditionTable>
+              <table>
+                <thead>
+                  <th>EDITION</th>
+                  <th>OWNER</th>
+                  <th className="text-center">PRICE</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  {editions.map((edition) => {
+                    return (
+                      <tr>
+                        <td>{edition.number}</td>
+                        <td>
+                          <FlexDiv className="JCFS">
+                            <div className="table-Img">
+                              <img
+                                src={
+                                  edition.ownerId.profile
+                                    ? edition.ownerId.profile
+                                    : UserIcon
+                                }
+                                alt=""
+                              />
+                            </div>
+                            @{edition.ownerId.name}
+                          </FlexDiv>
+                        </td>
+                        <td className="text-center">{edition.price} BNB</td>
+                        <td>
+                          <CustomCheckbox1>
+                            <label class="checkbox-container">
+                              Select
+                              <input
+                                type="checkbox"
+                                name="category"
+                                value="art"
+                                onClick={() => {
+                                  props.setEditionnumber(edition.number);
+                                  props.toggle(10);
+                                }}
+                              />
+                              <span class="checkmark"></span>
+                            </label>
+                          </CustomCheckbox1>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                  {/* <tr>
+                    <td>02</td>
+                    <td>
+                      <FlexDiv className="JCFS">
+                        <div className="table-Img">
+                          <img src={UserIcon} alt="" />
+                        </div>
+                        @username
+                      </FlexDiv>
+                    </td>
+                    <td className="text-center">0.00 BNB</td>
+                    <td>
+                      <CustomCheckbox1>
+                        <label class="checkbox-container">
+                          Select
+                          <input type="checkbox" name="category" value="art" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </CustomCheckbox1>
+                    </td>
+                  </tr> */}
+                  {/* <tr>
+                    <td>03</td>
+                    <td>
+                      <FlexDiv className="JCFS">
+                        <div className="table-Img">
+                          <img src={UserIcon} alt="" />
+                        </div>
+                        @username
+                      </FlexDiv>
+                    </td>
+                    <td className="text-center">0.00 BNB</td>
+                    <td>
+                      <CustomCheckbox1>
+                        <label class="checkbox-container">
+                          Select
+                          <input type="checkbox" name="category" value="art" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </CustomCheckbox1>
+                    </td>
+                  </tr>
+                  <tr> */}
+                  {/* <td>04</td>
+                    <td>
+                      <FlexDiv className="JCFS">
+                        <div className="table-Img">
+                          <img src={UserIcon} alt="" />
+                        </div>
+                        @username
+                      </FlexDiv>
+                    </td>
+                    <td className="text-center">0.00 BNB</td>
+                    <td>
+                      <CustomCheckbox1>
+                        <label class="checkbox-container">
+                          Select
+                          <input type="checkbox" name="category" value="art" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </CustomCheckbox1>
+                    </td>
+                  </tr> */}
+                  {/* <tr>
+                    <td>05</td>
+                    <td>
+                      <FlexDiv className="JCFS">
+                        <div className="table-Img">
+                          <img src={UserIcon} alt="" />
+                        </div>
+                        @username
+                      </FlexDiv>
+                    </td>
+                    <td className="text-center">0.00 BNB</td>
+                    <td>
+                      <CustomCheckbox1>
+                        <label class="checkbox-container">
+                          Select
+                          <input type="checkbox" name="category" value="art" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </CustomCheckbox1>
+                    </td>
+                  </tr> */}
+                  {/* <tr>
+                    <td>06</td>
+                    <td>
+                      <FlexDiv className="JCFS">
+                        <div className="table-Img">
+                          <img src={UserIcon} alt="" />
+                        </div>
+                        @username
+                      </FlexDiv>
+                    </td>
+                    <td className="text-center">0.00 BNB</td>
+                    <td>
+                      <CustomCheckbox1>
+                        <label class="checkbox-container">
+                          Select
+                          <input type="checkbox" name="category" value="art" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </CustomCheckbox1>
+                    </td>
+                  </tr> */}
+                  {/* <tr>
+                    <td>07</td>
+                    <td>
+                      <FlexDiv className="JCFS">
+                        <div className="table-Img">
+                          <img src={UserIcon} alt="" />
+                        </div>
+                        @username
+                      </FlexDiv>
+                    </td>
+                    <td className="text-center">0.00 BNB</td>
+                    <td>
+                      <CustomCheckbox1>
+                        <label class="checkbox-container">
+                          Select
+                          <input type="checkbox" name="category" value="art" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </CustomCheckbox1>
+                    </td>
+                  </tr> */}
+                </tbody>
+              </table>
+            </EditionTable>
+          </CustomScrollbars>
+        </WhiteBX0D2>
+      </BlackWrap>
+    </>
+  );
 }
+
+// }
 
 const FlexDiv = styled.div`
   display: flex;
@@ -350,8 +365,8 @@ const WhiteBX0D2 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 
@@ -366,14 +381,19 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
 `;
 
 const Htitle = styled.div`
-  font-size:22px; letter-spacing:-0.55px; color:#000; font-weight:600; margin:0px 0px 20px; width:100%;
+  font-size: 22px;
+  letter-spacing: -0.55px;
+  color: #000;
+  font-weight: 600;
+  margin: 0px 0px 20px;
+  width: 100%;
 `;
 
 const FilterLbx = styled(FlexDiv)`
@@ -453,21 +473,47 @@ const FilterMBX = styled(FlexDiv)`
   justify-content: space-between;
 `;
 const EditionTable = styled.div`
-  width:100%;
-  table{
-    width:100%; border-collapse: separate;
+  width: 100%;
+  table {
+    width: 100%;
+    border-collapse: separate;
     border-spacing: 0 25px;
-    .text-center{text-align:center;}
-    .text-right{text-align:right;}
-    thead{ padding-bottom:30px;
-      th{color:rgb(0 0 0 / 30%); text-transform:uppercase; font-size:12px; font-weight:600; text-align:left;
+    .text-center {
+      text-align: center;
+    }
+    .text-right {
+      text-align: right;
+    }
+    thead {
+      padding-bottom: 30px;
+      th {
+        color: rgb(0 0 0 / 30%);
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: left;
       }
     }
-    tbody{
-      td{color:#000; font-size:18px; font-weight:600; letter-spacing:-0.9px;
-        .JCFS{justify-content:flex-start;}
-        .table-Img{width:32px; height:32px; border-radius:50%; margin-right:10px;
-          img{width:100%; height:100%; object-fit: cover; border-radius:50%;}
+    tbody {
+      td {
+        color: #000;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.9px;
+        .JCFS {
+          justify-content: flex-start;
+        }
+        .table-Img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          margin-right: 10px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+          }
         }
       }
     }
@@ -505,15 +551,13 @@ const CustomCheckbox1 = styled(FlexDiv)`
     height: 44px;
     width: 100%;
     background-color: transparent;
-    border-radius:15px;
-    border:1px solid #000;
+    border-radius: 15px;
+    border: 1px solid #000;
   }
   .checkbox-container input:checked ~ .checkmark {
-    background-color:rgb(0 0 0 / 30%);
+    background-color: rgb(0 0 0 / 30%);
     border-color: rgb(0 0 0 / 30%);
   }
 `;
 
-export default SEpopup;
-
-
+export default SelectEdition;
