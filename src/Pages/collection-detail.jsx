@@ -45,7 +45,6 @@ class CollectionDetail extends Component {
   render() {
     const { collection, status, web3Data, authData } = this.props;
     const { loading } = this.state;
-    console.log('authData ? ', authData)
     return (
       <Gs.MainSection>
         <CollectionContainer>

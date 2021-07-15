@@ -61,7 +61,6 @@ class Header extends Component {
     //   // this.signatureRequest(nonce);
     // }
     if (authData !== prevProps.authData) {
-      console.log(authData);
       if (authData.status === true) {
         this.setState({ userDetails: authData.data });
       }
@@ -135,11 +134,11 @@ class Header extends Component {
       return <BecomeCreator />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
-        <AvBTN02 className="colorBTN">
-          <Link to="/user/nftminting">
-            <button>Create</button>
-          </Link>
-        </AvBTN02>
+        <Link to="/user/nftminting">
+          <AvBTN02 className="colorBTN">
+            Create
+          </AvBTN02>
+        </Link>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
       return <AvBTN02 className="colorBTN">Waitlist</AvBTN02>;

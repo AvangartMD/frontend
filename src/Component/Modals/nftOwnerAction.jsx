@@ -24,7 +24,6 @@ function NftOwnerActions(props) {
     if (reciever)
       params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
 
-    console.log(ownerActionName);
     setNFTStatus("initiate");
     await escrowContractInstance.methods[ownerActionName](...params)
       .send({

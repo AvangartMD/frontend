@@ -20,7 +20,6 @@ function Created(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    console.log('NFT Created ? ', NFTs)
     if (!NFTs) props.getNFTs(params.id?params.id:null);
   }, [NFTs]);
   

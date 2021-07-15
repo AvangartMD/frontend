@@ -173,7 +173,6 @@ function likeToggler(id) {
   return async (dispatch) => {
     const response = services.get(`like/toggle/${id}`, true);
     response.then((promise) => {
-      console.log(promise);
       if (promise.status === 200) {
         dispatch(getIsLiked(id));
         dispatch(getLikesCount(id));

@@ -132,7 +132,7 @@ const CollectionSection = styled(FlexDiv)`
   margin: 0px -10px 50px;
   .img-outer
   {
-    width:255px;
+    width:100%;
     height:255px;
     border-radius: 10px;
     overflow:hidden;
@@ -149,6 +149,7 @@ const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
 `;
+
 
 const mapDipatchToProps = (dispatch) => {
   return {

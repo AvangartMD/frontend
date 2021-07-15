@@ -18,7 +18,6 @@ function Collection(props) {
   const [tabPanel, setTaPanel] = useState("All");
   
   useEffect(() => {
-    console.log('NFT Collections ? ', collections)
     if (!collections) props.getCollections(params.id?params.id:null);
   }, [collections]);
     

@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Magnifypopup from "../Component/Modals/magnifyPopup";
 import POSpopup from "../Component/putonsalepopup";
 import PABpopup from "../Component/Modals/placebidpopup";
 import Historypopup from "../Component/historypopup";
-import SEpopup from "../Component/selectedition";
+import SelectEdition from "../Component/selectedition";
 import Collapse from "@kunukn/react-collapse";
 import { web3 } from "../web3";
 import NftdLimg from "../Assets/images/nftcard1.jpg";
@@ -40,7 +41,10 @@ class NftDetail extends React.Component {
     const { NFTDetails } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
-        this.fetchBidDetails(NFTDetails.tokenId, NFTDetails.edition);
+        this.fetchNFTDetails(NFTDetails.tokenId, NFTDetails.edition);
+    }
+    if (this.state.currentEdition != prevState.currentEdition) {
+      this.fetchNFTDetails(this.state.currentEdition);
     }
   }
 
@@ -62,7 +66,6 @@ class NftDetail extends React.Component {
     const { NFTDetails, web3Data } = this.props;
     if (NFTDetails.saleState === "AUCTION") {
       if (NFTDetails.auctionEndDate < new Date().getTime() / 1000) {
-        console.log(NFTDetails.auctionEndDate, new Date().getTime() / 1000);
         this.setState({ showTimer: false });
         if (+bidDetails.bidValue > 0) {
           if (bidDetails.bidder === web3Data.accounts[0]) {
@@ -86,16 +89,29 @@ class NftDetail extends React.Component {
       });
     }
   };
-  // setCurrentEdition() {
-  //   if (editions.length) {
-  //     let currEdition = 1;
-  //     for (let i = 0; i < editions.length; i++) {
-  //       console.log("here");
-  //     }
-  //   } else this.setState({ currentEdition: 1 });
-  // }
-  async fetchBidDetails(tokenID, edition) {
+
+  getEditionNumber = (NFTDetails) => {
+    for (let i = 0; i < NFTDetails.editions.length; i++) {
+      console.log("1");
+    }
+  };
+  async fetchNFTDetails(_edition) {
+    const { NFTDetails } = this.props;
+    const tokenID = NFTDetails.tokenId;
+    let edition = _edition;
+    if (!edition) {
+      edition =
+        NFTDetails.saleState === "BUY"
+          ? this.getEditionNumber(NFTDetails)
+          : NFTDetails.auctionEndDate <= new Date().getTime() / 1000
+          ? this.getEditionNumber(NFTDetails)
+          : 1;
+    }
+
     const escrowContractInstance = getContractInstance(true);
+    const currentHolder = await escrowContractInstance.methods
+      .currentHolder(+tokenID, +1)
+      .call();
     const bidDetails = await escrowContractInstance.methods
       .bid(+tokenID, +1)
       .call();
@@ -108,14 +124,24 @@ class NftDetail extends React.Component {
     this.setNFTBuyMethod(bidDetails);
     console.log(bidDetails);
   }
+  setEditionnumber = (number) => {
+    this.setState({ currentEdition: number });
+  };
+
   render() {
     let id = this.props.match.params.id;
     const { bidDetails, bnbUSDPrice, showTimer, saleMethod } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
     let method = NFTDetails?.auctionEndDate ? 1 : 0;
-    console.log(NFTDetails);
     return (
       <>
+        <Helmet>
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:title" content={NFTDetails?.title} />
+          <meta property="og:image" content={NFTDetails?.image.compressed} />
+          <meta property="og:description" content={NFTDetails?.description} />
+        </Helmet>
+
         <Gs.MainSection>
           <NFTdetailSection>
             <NFTDleft>
@@ -173,7 +199,7 @@ class NftDetail extends React.Component {
                 <Edition>
                   <div className="ed-box">
                     <p>Edition</p>
-                    <h3>0</h3>
+                    <h3>{this.state.currentEdition}</h3>
                     <p className="gray-t">of {NFTDetails?.edition}</p>
                     <Link onClick={() => this.toggle(10)}>Select edition</Link>
                   </div>
@@ -320,7 +346,12 @@ class NftDetail extends React.Component {
               "app__collapse " + (this.state.isOpen10 ? "collapse-active" : "")
             }
           >
-            <SEpopup toggle={this.toggle} />
+            <SelectEdition
+              toggle={this.toggle}
+              NFTDetails={NFTDetails}
+              web3Data={this.props.web3Data}
+              setEditionnumber={this.setEditionnumber}
+            />
           </Collapse>
         </Gs.MainSection>
       </>

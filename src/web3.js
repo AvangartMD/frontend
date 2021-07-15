@@ -32,29 +32,6 @@ const metamaskConnectInit = () => {
     }
   });
 };
-const naboxConnectInit = () => {
-  // Check if Web3 has been injected by the browser (Mist/MetaMask).
-  return new Promise((resolve, reject) => {
-    if (typeof window.nabox !== 'undefined') {
-      // Use Mist/MetaMask's provider.
-      web3 = window.nabox;
-      // console.log('tt', window);
-      localStorage.setItem('walletConnect', 0);
-      resolve(true);
-    } else {
-      // Handle the case where the user doesn't have web3. Probably
-      // show them a message telling them to install Metamask in
-      // order to use the app.
-      web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          'https://mainnet.infura.io/v3/de21e440aade484290be1e3c89e67f28'
-          // "https://rinkeby.infura.io/v3/de21e440aade484290be1e3c89e67f28"
-        )
-      );
-      reject(false);
-    }
-  });
-};
 
 // const walletConnectInit = async () => {
 //   localStorage.setItem("walletConnect", 1);
@@ -82,9 +59,11 @@ const naboxConnectInit = () => {
 // };
 
 if (!web3) {
-  if (Number(localStorage.getItem('walletConnect'))) {
-    // walletConnectInit();
-  } else metamaskConnectInit();
+  // if (Number(localStorage.getItem('walletConnect'))) {
+  //   // walletConnectInit();
+  // } else metamaskConnectInit();
+
+  metamaskConnectInit();
 }
 
 export {
@@ -93,5 +72,4 @@ export {
   // walletConnectInit,
   metamaskConnectInit,
   // walletConnectModalInit,
-  naboxConnectInit,
 };

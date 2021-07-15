@@ -20,7 +20,6 @@ function Collected(props) {
   const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
-    console.log('NFT Collected ? ', NFTs)
     if (!NFTs) props.getNFTs(params.id?params.id:null);
   }, [NFTs]);
   
