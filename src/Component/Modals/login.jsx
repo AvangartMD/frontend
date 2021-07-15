@@ -72,8 +72,6 @@ function Login(props) {
           web3Data.accounts[0]
         );
         authLogin(nonce, signature);
-        toggle(4);
-        refreshStates();
       } catch (error) {
         setError({ error: { isError: true, msg: error.message } });
       }
