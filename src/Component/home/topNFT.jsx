@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from "framer-motion";
+import { withRouter } from "react-router";
 import Media from "../../Theme/media-breackpoint";
 
 import Redheart from '../../Assets/images/Redheart.svg';
@@ -148,10 +149,14 @@ class TopNFT extends Component {
                       )
                     })}
                   </NFTfourbox>
-                </>}
-              <ViewallButton>
-                <button>View all auctions</button>
-              </ViewallButton>
+                
+                  {nfts.length > 4 ? 
+                    <ViewallButton>
+                      <button onClick={() => this.props.history.push("/marketplace")}
+                      >View all auctions</button>
+                    </ViewallButton>
+                  : ``}
+              </>}
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -465,4 +470,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(TopNFT);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(TopNFT));

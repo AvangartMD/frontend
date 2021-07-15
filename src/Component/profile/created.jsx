@@ -59,20 +59,20 @@ function Created(props) {
           </button>
           
           <button
-                className={tabPanel === "LIVEAUCTION" ? "active" : ""}
+                className={tabPanel === "AUCTION" ? "active" : ""}
                 id="liveauction"
                 onClick={() => {
-                  setTaPanel("LIVEAUCTION");
+                  setTaPanel("AUCTION");
                 }}
               >
                 Live auction
           </button>
           
           <button
-              className={tabPanel === "BOYNOW" ? "active" : ""}
+              className={tabPanel === "BUY" ? "active" : ""}
               id="boynow"
               onClick={() => {
-                setTaPanel("BOYNOW");
+                setTaPanel("BUY");
               }}
             >
               Boy now

@@ -13,19 +13,12 @@ import CollectionCard from "../Cards/collectionCard";
 
 function Collection(props) {
 
-  let { collections, categories } = props;
+  let { collections } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
     if (!collections) props.getCollections(params.id ? params.id : null);
   }, [collections]);
-
-  useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -35,37 +28,6 @@ function Collection(props) {
 
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          {categories && collections
-            ?
-            collections.length > 0 && categories.length > 0 ? <>
-                <button
-                className={tabPanel === "All" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("All");
-                }}
-              >
-                All
-              </button>
-              {categories.map((category, key) => {
-                  return (
-                    <button key={key}
-                      className={tabPanel === category.id ? "active" : ""}
-                      onClick={() => {
-                        setTaPanel(category.id);
-                      }}
-                    >
-                      {category.categoryName}
-                    </button>
-                  );
-                })
-              }
-            </> : ``
-          : ``}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
@@ -86,7 +48,7 @@ function Collection(props) {
             )}
           </NFTfourbox>
 
-          {categories && collections ? 
+          {collections ? 
             collections.length === 0 ?
               <CEmpty>
                 <h2>Your collection is empty.</h2>
@@ -222,40 +184,6 @@ const HomeNFTs = styled.div`
   }
 `;
 
-const FilterMBX = styled(FlexDiv)`
-  width: 100%;
-  justify-content: space-between;
-  max-width: 1080px;
-  margin: 30px auto 0 auto;
-`;
-
-const FilterLbx = styled(FlexDiv)`
-  width: 45%;
-  justify-content: flex-start;
-
-  button {
-    display: inline-block;
-    padding: 10px 25px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #000000;
-    border-radius: 15px;
-    background-color: #eef2f7;
-    margin-right: 8px;
-
-    &.active {
-      background-color: #00babc;
-      color: #fff;
-    }
-    :hover {
-      background-color: #00babc;
-      color: #fff;
-      box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
-    }
-  }
-`;
-
-
 const CEmpty = styled.div`
   text-align:center; margin-bottom:120px;
   h2{ 
@@ -284,14 +212,12 @@ const CEmpty = styled.div`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getCollections: (id) => dispatch(actions.getCollectionNFT(id)),
     clearCollections: () => dispatch({ type: 'FETCHED_COLLECTION_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     collections: state.fetchCollectionNFT,
   };
 };
