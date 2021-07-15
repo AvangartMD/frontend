@@ -21,6 +21,7 @@ import Timer from "../Component/timer";
 import { getContractInstance } from "../helper/functions";
 import NftOwnerActions from "../Component/Modals/nftOwnerAction";
 import Login from "../Component/Modals/login";
+import Media from "../Theme/media-breackpoint";
 
 class NftDetail extends React.Component {
   constructor(props) {
@@ -127,7 +128,7 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike className={loading?`disabled`:``}>
+                    <NFTLike className={loading ? `disabled` : ``}>
                       {isLiked.isFollowed ? (
                         <img
                           src={Redheart}
@@ -138,7 +139,7 @@ class NftDetail extends React.Component {
                         <img
                           src={redheartBorder}
                           alt=""
-                            onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
+                          onDoubleClick={() => { this.props.likeToggler(id); this.setState({ loading: true }) }}
                         />
                       )}
 
@@ -158,27 +159,35 @@ class NftDetail extends React.Component {
                 </Historysection>
                 <Edition>
                   <div className="ed-box">
-                    <p>Edition</p>
-                    <h3>0</h3>
-                    <p className="gray-t">of {NFTDetails?.edition}</p>
+                    <div className="ed-left">
+                      <p>Edition</p>
+                      <div className="ed-left-inner">
+                        <h3>0</h3>
+                        <p className="gray-t">of {NFTDetails?.edition}</p>
+                      </div>
+                    </div>
                     <Link onClick={() => this.toggle(10)}>Select edition</Link>
                   </div>
                   <div className="ed-box">
-                    <p>Current bid</p>
-                    <h3>{bidDetails.currentBidValue.toLocaleString(2)} BNB</h3>
-                    <p className="gray-t">
-                      {(
-                        bidDetails.currentBidValue * bnbUSDPrice
-                      ).toLocaleString(2)}{" "}
-                      USD
-                    </p>
+                    <div className="ed-left">
+                      <p>Current bid</p>
+                      <div className="ed-left-inner">
+                        <h3>{bidDetails.currentBidValue.toLocaleString(2)} BNB</h3>
+                        <p className="gray-t">
+                          {(
+                            bidDetails.currentBidValue * bnbUSDPrice
+                          ).toLocaleString(2)}{" "}
+                          USD
+                        </p>
+                      </div>
+                    </div>
                     <p className="royalty">
                       A 10% royalty goes to the <br></br>creator for future
                       resale
                     </p>
                   </div>
                   {NFTDetails?.auctionEndDate && (
-                    <div className="ed-box">
+                    <div className="ed-box ed-mb-block">
                       <p>Ending in</p>
                       <FlexDiv className="JCFS">
                         <Timer
@@ -189,7 +198,7 @@ class NftDetail extends React.Component {
                       </FlexDiv>
                     </div>
                   )}
-                  <div className="ed-box">
+                  <div className="ed-box ed-mb-block">
                     <p>Unlockable content message</p>
                     <SkyNoteBox>
                       <p className="note-text">
@@ -208,7 +217,7 @@ class NftDetail extends React.Component {
                       } else {
                         this.toggle(4) // open login pop up
                       }
-                      }
+                    }
                     }>
                       {method ? "Place a bid" : "Buy Now"}
                     </button>
@@ -356,6 +365,10 @@ const NFTDleft = styled(FlexDiv)`
   background-color: #eef2f7;
   width: 41%;
   min-height: 660px;
+  ${Media.md}{
+    width:100%;
+    min-height:504px;
+  }
 `;
 
 const NFTDleftcontainer = styled.div`
@@ -363,6 +376,10 @@ const NFTDleftcontainer = styled.div`
   max-width: 515px;
   margin-left: auto;
   padding: 70px 70px 70px 15px;
+  ${Media.md}{
+    margin:0 auto;
+    padding:70px 43px;
+  }
 `;
 
 const NFTDleftImg = styled.div`
@@ -374,6 +391,9 @@ const NFTDleftImg = styled.div`
 `;
 const NFTDright = styled.div`
   width: 59%;
+  ${Media.md}{
+    width:100%;
+  }
 `;
 const NFTDrightcontainer = styled.div`
   width: 100%;
@@ -381,6 +401,13 @@ const NFTDrightcontainer = styled.div`
   margin-right: auto;
   padding: 70px 100px 70px 70px;
   position: relative;
+  ${Media.lg}{
+    padding: 30px 60px 30px 30px;
+  }
+  ${Media.md}{
+    max-width:100%;
+    padding: 30px 15px;
+  }
 `;
 const NFTDrtitle = styled.div`
   font-size: 28px;
@@ -389,14 +416,28 @@ const NFTDrtitle = styled.div`
   margin: 0px 0px 16px 0px;
   font-weight: 700;
   line-height: normal;
+  ${Media.md}{
+    margin:25px 0px 10px 0px;
+    font-size:22px;
+    letter-spacing: -1.1px;
+  }
 `;
 const NFTDRtopbar = styled(FlexDiv)`
   justify-content: space-between;
   align-items: flex-start;
+  ${Media.md}{
+    display:initial;
+  }
 `;
 const NFTtopbarright = styled(FlexDiv)`
   position: absolute;
   right: 0px;
+  ${Media.lg}{
+    right:10px;
+  }
+  ${Media.md}{
+    top:10px;
+  }
 `;
 const NFTLock = styled(FlexDiv)`
   width: 34px;
@@ -451,6 +492,12 @@ const Decs2 = styled.div`
   margin: 0px 0px 20px 0px;
   font-weight: 500;
   line-height: 28px;
+  ${Media.md}{
+    margin: 0px 0px 30px 0px;
+    font-size:14px;
+    line-height:22px;
+    letter-spacing: -0.7px;
+  }
 `;
 
 const Historysection = styled(FlexDiv)`
@@ -475,8 +522,43 @@ const Edition = styled(FlexDiv)`
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0px 0px 50px;
+  ${Media.md}{
+    display:initial;
+  }
   .ed-box {
     margin-right: 50px;
+    &.ed-mb-block
+    {
+      ${Media.md}{
+        display:block;
+      } 
+    }
+    ${Media.lg}{
+      margin-right: 40px;
+    }
+    ${Media.md}{
+      margin:0px 0px 30px 0px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+    }
+    .ed-left-inner
+    {
+      ${Media.md}{
+        display:flex;
+        justify-content:flex-start;
+        align-items:flex-end;
+        p.gray-t{
+          margin:0px 0px 0px 4px;
+          font-size:12px;
+          line-height:12px;
+        }
+        h3{
+          margin:0px;
+          font-size:24px;
+        }
+      }
+    }
     :last-child {
       margin-right: 0px;
       max-width: 232px;
@@ -487,6 +569,10 @@ const Edition = styled(FlexDiv)`
       font-size: 16px;
       letter-spacing: -0.5px;
       margin: 0px 0px 10px;
+      ${Media.md}{
+        font-size:12px;
+        margin:0px 0px 5px;
+      }
     }
     a {
       color: #0066ff;
@@ -517,6 +603,20 @@ const Edition = styled(FlexDiv)`
     }
     .time-block {
       margin-right: 20px;
+      ${Media.md}{
+        display:flex;
+        justify-content:flex-start;
+        align-items:flex-end;
+        p.gray-t{
+          margin:0px 0px 0px 4px;
+          font-size:12px;
+          line-height:12px;
+        }
+        h3{
+          margin:0px;
+          font-size:24px;
+        }
+      }
     }
   }
 `;
@@ -535,6 +635,9 @@ const SkyNoteBox = styled.div`
 `;
 
 const NFTcartButtons = styled.div`
+  ${Media.md}{
+    text-align:center;
+  } 
   button {
     background-color: #000;
     color: #fff;

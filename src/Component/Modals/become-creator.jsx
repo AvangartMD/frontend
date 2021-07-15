@@ -681,12 +681,14 @@ const AvBTN02 = styled.button`
   color: #fff;
   background-color: #000;
   border-radius: 15px;
+  ${Media.xs}{
+    padding: 9px 15px;
+  }
   :hover {
     background-color: #d121d6;
     -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
     box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
   }
-
   &.grayBTN {
     background-color: #b2b2b2;
     :hover {
