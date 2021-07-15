@@ -38,13 +38,13 @@ function Login(props) {
   useEffect(() => {
     if (nonce && !isFooter) signatureRequest(nonce);
   }, [nonce]);
-  useEffect(() => {
-    if (authData?.status === 401 && !isFooter) {
-      setError({ isError: true, msg: authData.data.message });
-    } else if (authData && !isFooter) {
-      closePopUp();
-    }
-  }, [authData]);
+  // useEffect(() => {
+  //   if (authData?.status === 401 && !isFooter) {
+  //     setError({ isError: true, msg: authData.data.message });
+  //   } else if (authData && !isFooter) {
+  //     closePopUp();
+  //   }
+  // }, [authData]);
   const connectToWallet = (isWalletConnect) => {
     if (web3Data.accounts[0]) {
       checkAuthentication(web3Data);
@@ -72,8 +72,10 @@ function Login(props) {
           web3Data.accounts[0]
         );
         authLogin(nonce, signature);
+        toggle(4);
+        refreshStates();
       } catch (error) {
-        setError({ error: { isError: true, msg: error.message } });
+        setError({ isError: true, msg: error.message });
       }
     }
   };

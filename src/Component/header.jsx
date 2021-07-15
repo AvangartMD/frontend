@@ -70,9 +70,10 @@ class Header extends Component {
 
   componentDidMount() {
     let { web3Data } = this.props;
-    if (!web3Data.accounts[0]) {
+    if (!web3Data.accounts[0] && localStorage.getItem('token')) {
       this.props.getWeb3();
     } else {
+      console.log('set web3Data from props to state variable')
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
