@@ -14,57 +14,80 @@ import NFTCard from "../Cards/nftCard";
 
 
 function Created(props) {
-  
+
   let { NFTs, categories } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
+  const [tabPanel, setTaPanel] = useState("ALL");
 
   useEffect(() => {
-    if (!NFTs) props.getNFTs(params.id?params.id:null);
+    if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-  
+
   useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-  
-  useEffect(() => { }, [tabPanel]);
-  
+    if (tabPanel !== 'ALL') props.getNFTs(params.id ? params.id : null, tabPanel);
+    else props.getNFTs(params.id ? params.id : null); 
+  }, [tabPanel]);
+
+  useEffect(() => {
+    return function cleanup() {
+      props.clearNFTs(); // clear the NFT data
+    };
+  }, [])
+
   return (
     <>
       <FilterMBX>
         <FilterLbx>
           <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
+                className={tabPanel === "ALL" ? "active" : ""}
+                id="all"
+                onClick={() => {
+                  setTaPanel("ALL");
+                }}
+              >
+                All
           </button>
-          {categories
-            ? categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })
-            : "loading.."}
+          
+          <button
+                className={tabPanel === "SOLD" ? "active" : ""}
+                id="sold"
+                onClick={() => {
+                  setTaPanel("SOLD");
+                }}
+              >
+                Sold
+          </button>
+          
+          <button
+                className={tabPanel === "AUCTION" ? "active" : ""}
+                id="liveauction"
+                onClick={() => {
+                  setTaPanel("AUCTION");
+                }}
+              >
+                Live auction
+          </button>
+          
+          <button
+              className={tabPanel === "BUY" ? "active" : ""}
+              id="boynow"
+              onClick={() => {
+                setTaPanel("BUY");
+              }}
+            >
+              Boy now
+          </button>
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
             {NFTs ? (
-              NFTs.map((nft) => (
+              NFTs.map((nft, key) => (
                 <NFTCard
-                  name={ nft.ownerId.name }
+                  key={key}
+                  nftSold={nft.nftSold}
+                  name={nft.ownerId.name}
                   nftId={nft.id}
                   collectionId={nft.collectionId?._id}
                   auctionEndDate={nft.auctionEndDate}
@@ -97,7 +120,7 @@ const FlexDiv = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
@@ -245,13 +268,12 @@ const FilterLbx = styled(FlexDiv)`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
-    getNFTs: (id) => dispatch(actions.getUserNFT(id)),
+    getNFTs: (id, filter) => dispatch(actions.getUserNFT(id, filter)),
+    clearNFTs: () => dispatch({ type: 'FETCHED_USER_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchUserNFT,
   };
 };

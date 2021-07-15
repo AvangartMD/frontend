@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { withRouter } from "react-router";
 import Media from "../../Theme/media-breackpoint";
 
 import Redheart from '../../Assets/images/Redheart.svg';
@@ -118,7 +119,6 @@ class TopNFT extends Component {
       <>
         <HomeNFTs>
           <Gs.Container>
-            <AnimatePresence>
               <div className='home-title'>
                 <h3>Top NFTs</h3>
               </div>
@@ -126,13 +126,14 @@ class TopNFT extends Component {
               {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
                 <>
                   <NFTfirstbox>
-                    {nfts[0]?this.renderedFirstElement(nfts[0], likesCount):''}
+                    {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount) : ''}
                   </NFTfirstbox>
 
                   <NFTfourbox className='homepage'>
                     {(nfts.slice(1)).map((nft) => {
                       return (
                         <NFTCard
+                          nftSold={nft.nftSold}
                           name={nft.nftId.ownerId.name}
                           nftId={nft.nftId.id}
                           collectionId={nft.nftId.collectionId?.id}
@@ -148,11 +149,14 @@ class TopNFT extends Component {
                       )
                     })}
                   </NFTfourbox>
-                </>}
-              <ViewallButton>
-                <button>View all auctions</button>
-              </ViewallButton>
-            </AnimatePresence>
+                
+                  {nfts.length > 4 ? 
+                    <ViewallButton>
+                      <button onClick={() => this.props.history.push("/marketplace")}
+                      >View all auctions</button>
+                    </ViewallButton>
+                  : ``}
+              </>}
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -197,6 +201,8 @@ const HomeNFTs = styled.div`
         background: url(${RoundIcon}) no-repeat;
       }
     }
+  }${Media.md}{
+    margin-top: 100px;
   }
 `;
 
@@ -434,6 +440,9 @@ const ViewallButton = styled.div`
       color: #fff;
     }
   }
+  ${Media.md}{
+    margin-bottom: 100px;
+  }
 `;
 
 Gs.W25V2 = styled(Gs.W25V2)`
@@ -461,4 +470,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(TopNFT);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(TopNFT));

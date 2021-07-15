@@ -31,10 +31,10 @@ class BlogList extends Component {
           <BlogListtitle>Avangart Blog</BlogListtitle>
           <FilterMBX>
             <FilterLbx>
-              <button class="active" id="all">All</button>
-              <button class="">Art</button>
-              <button class="">Celebrity</button>
-              <button class="">Sport</button>
+              <button className="active" id="all">All</button>
+              <button className="">Art</button>
+              <button className="">Celebrity</button>
+              <button className="">Sport</button>
             </FilterLbx>
             <FilterRbx>
               <FilterInputBX>
@@ -353,6 +353,9 @@ const LoaderBX = styled(FlexDiv)`
 `;
 const BlogListtitle = styled.div`
   font-size:32px; letter-spacing:-1.52px; font-weight:700; color:#000; margin:60px 0px 20px;
+  ${Media.sm}{
+    font-size:24px;
+  }
 `;
 
 const FilterMBX = styled(FlexDiv)`
@@ -369,13 +372,13 @@ const FilterLbx = styled(FlexDiv)`
   width:45%; justify-content: flex-start;
   button {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 10px 19px;
     font-size: 14px;
     font-weight: 600;
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin:0px 8px 8px 0px;
+    margin:0px 6px 0px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -384,6 +387,10 @@ const FilterLbx = styled(FlexDiv)`
       background-color: #00babc;
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+    }
+    :last-child
+    {
+      margin:0px;
     }
   }
   ${Media.md}{

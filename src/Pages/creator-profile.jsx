@@ -27,232 +27,229 @@ import Collected from "../Component/profile/collected";
 import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 
+import Media from '../Theme/media-breackpoint';
+
 
 class CreatorProfile extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-        id: this.props.match.params.id,
-        loading: false,
+      id: this.props.match.params.id,
+      loading: false,
     }
   }
 
-   componentDidMount() {
-       const { id } = this.state;
-     this.props.getUserProfile(id); // fetch user profile by id
-     this.props.getIsFollow(id); // check user is following
-   }
-    
-    componentDidUpdate(prevProps, prevState) {
-      const { status } = this.props;
-      const { id } = this.state;
-      if (status !== prevProps.status) {
-        this.setState({ loading: false }) // stop loader
-        this.props.getUserProfile(id); // fetch user profile by id
-      }
+  componentDidMount() {
+    const { id } = this.state;
+    const { web3Data, profile } = this.props;
+    if (!profile) this.props.getUserProfile(id); // fetch user profile by id
+    if (web3Data.isLoggedIn) this.props.getIsFollow(id); // check user is following
+  }
+
+  componentWillUnmount() {
+    this.props.clearUserProfile(); // clear the user profile data
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props;
+    const { id } = this.state;
+    if (status !== prevProps.status) {
+      this.setState({ loading: false }) // stop loader
+      this.props.getUserProfile(id); // fetch user profile by id
     }
-  
+  }
+
   followToggler = (id) => {
     this.setState({ loading: true }) // start loader
     this.props.followToggler(id); // follow toggle api called
   }
-  
-  
 
-    render() {
-        const { profile, status, web3Data, authData } = this.props;
-      const { id, loading } = this.state;
+
+
+  render() {
+    const { profile, status, web3Data, authData } = this.props;
+    const { id, loading } = this.state;
     return (
       <>
-
-        {loading ? (
-          <>
-            <BlackWrap>
-              <WhiteBX01>
-                <LoaderBX>
-                  <img src={LoaderGif} alt="" />
-                </LoaderBX>
-              </WhiteBX01>
-            </BlackWrap>
-          </>
-        ) : ('')}
-        { profile ?
+        {profile ?
           (
             <>
               <Helmet>
-                <meta property="og:url" content={ window.location.href } />
-                <meta property="og:title" content={ profile?.name } />
-                <meta property="og:image" content={ profile.profile? profile.profile : UserIcon } />
-                <meta property="og:description" content={ profile?.bio } />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:title" content={profile?.name} />
+                <meta property="og:image" content={profile.profile ? profile.profile : UserIcon} />
+                <meta property="og:description" content={profile?.bio} />
               </Helmet>
-              
-                <ProMBannerBX
-                    style={{
-                        backgroundImage: `url(${
-                            profile.cover ? profile.cover : ProfielBack
-                        })`,
-                    }}
-                    >
-                    <ProMBX01>
-                        <ProSBX01>
-                        <UserImgBX>
-                            <UserImgSB>
-                                <img src={profile.profile? profile.profile :UserIcon} alt="" />
-                            </UserImgSB>
-                        </UserImgBX>
 
-                        <UserDetailBX>
-                            <UserDTitle01>
-                            {profile ? profile.name : "User Name"}
-                            <span>@{profile ? profile.username : "username"}</span>
-                            </UserDTitle01>
-                            <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
-                            <UserSocilMBX>
-                            {profile ? (
-                                profile.portfolio?.website?.url ? (
-                                <button
-                                    onClick={() => {
-                                    window.open(profile.portfolio.website.url, "_blank");
-                                    }}
-                                >
-                                    <img src={SocialICO01} alt="" />
-                                </button>
-                                ) : (
-                                ""
-                                )
-                            ) : (
-                                ""
-                            )}
-                            {profile ? (
-                                profile.portfolio?.facebook?.url ? (
-                                <button
-                                    onClick={() => {
-                                    window.open(profile.portfolio.facebook.url, "_blank");
-                                    }}
-                                >
-                                    <img src={SocialICO03} alt="" />
-                                </button>
-                                ) : (
-                                ""
-                                )
-                            ) : (
-                                ""
-                            )}
-                            {profile ? (
-                                profile.portfolio?.twitter?.url ? (
-                                <button
-                                    onClick={() => {
-                                    window.open(profile.portfolio.twitter.url, "_blank");
-                                    }}
-                                >
-                                    <img src={SocialICO04} alt="" />
-                                </button>
-                                ) : (
-                                ""
-                                )
-                            ) : (
-                                ""
-                            )}
-                            {profile ? (
-                                profile.portfolio?.youtube?.url ? (
-                                <button
-                                    onClick={() => {
-                                    window.open(profile.portfolio.youtube.url, "_blank");
-                                    }}
-                                >
-                                    <img src={SocialICO05} alt="" />
-                                </button>
-                                ) : (
-                                ""
-                                )
-                            ) : (
-                                ""
-                            )}
-                            {profile ? (
-                                profile.portfolio?.instagarm?.url ? (
-                                <button
-                                    onClick={() => {
-                                    window.open(
-                                        profile.portfolio.instagarm.url,
-                                        "_blank"
-                                    );
-                                    }}
-                                >
-                                    <img src={SocialICO06} alt="" />
-                                </button>
-                                ) : (
-                                ""
-                                )
-                            ) : (
-                                ""
-                            )}
-                            </UserSocilMBX>
-                            <UserDText02>
-                            Join{" "}
-                            <span>
-                                {profile
-                                ? dateFormat(
-                                    new Date(profile.createdAt).toString(),
-                                    "dd mmmm yyyy"
-                                    )
-                                : "join date"}
-                            </span>
-                            </UserDText02>
-                        </UserDetailBX>
-                        </ProSBX01>
+              <ProMBannerBX
+                style={{
+                  backgroundImage: `url(${profile.cover ? profile.cover : ProfielBack
+                    })`,
+                }}
+              >
+                <ProMBX01>
+                  <ProSBX01>
+                    <UserImgBX>
+                      <UserImgSB>
+                        <img src={profile.profile ? profile.profile : UserIcon} alt="" />
+                      </UserImgSB>
+                    </UserImgBX>
 
-                        <ProSBX02>
-                        <ProSBX03>
-                            <FollowerMBX>
-                            Created <span>{profile ? profile.nftCreated : "000"}</span>
-                            </FollowerMBX>
-                            <FollowerMBX>
-                            Followers{" "}
-                            <span>{profile ? profile.followersCount : "000"}</span>
-                            </FollowerMBX>
-                            <FollowerMBX>
-                            Following{" "}
-                            <span>{profile ? profile.followingCount : "000"}</span>
-                            </FollowerMBX>
-                            
-                        {id ? (
-                            authData ?
-                              web3Data.isLoggedIn && (authData.data.id !== profile.id)? <EditPrBTN><button className="ani-1" onClick={()=>this.followToggler(profile.id)}>{status.isFollowed?'Unfollow':'Follow'}</button></EditPrBTN>:('')
-                            : ''
-                            ) : (
-                              <EditPrBTN>
-                                <button
-                                onClick={() => this.props.history.push("/user/edit-profile")}
-                                >
-                                Edit Profile
-                                </button>
-                              </EditPrBTN>
-                            )}
-                        </ProSBX03>
-
-                        <ProSBX04>
-                            <span>#000000</span>{" "}
-                            {profile ? profile.walletAddress : "xyz...."}{" "}
+                    <UserDetailBX>
+                      <UserDTitle01>
+                        {profile ? profile.name : "User Name"}
+                        <span>@{profile ? profile.username : "username"}</span>
+                      </UserDTitle01>
+                      <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
+                      <UserSocilMBX>
+                        {profile ? (
+                          profile.portfolio?.website?.url ? (
                             <button
-                            title="Copied"
-                            onClick={() => {
-                                navigator.clipboard.writeText(
-                                profile ? profile.walletAddress : "xyz...."
-                                );
-                            }}
+                              onClick={() => {
+                                window.open(profile.portfolio.website.url, "_blank");
+                              }}
                             >
-                            <img src={CopyICO} alt="" />
+                              <img src={SocialICO01} alt="" />
                             </button>
-                        </ProSBX04>
-                        </ProSBX02>
-                    </ProMBX01>
-                </ProMBannerBX>
-                    
-                <Gs.Container>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )}
+                        {profile ? (
+                          profile.portfolio?.facebook?.url ? (
+                            <button
+                              onClick={() => {
+                                window.open(profile.portfolio.facebook.url, "_blank");
+                              }}
+                            >
+                              <img src={SocialICO03} alt="" />
+                            </button>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )}
+                        {profile ? (
+                          profile.portfolio?.twitter?.url ? (
+                            <button
+                              onClick={() => {
+                                window.open(profile.portfolio.twitter.url, "_blank");
+                              }}
+                            >
+                              <img src={SocialICO04} alt="" />
+                            </button>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )}
+                        {profile ? (
+                          profile.portfolio?.youtube?.url ? (
+                            <button
+                              onClick={() => {
+                                window.open(profile.portfolio.youtube.url, "_blank");
+                              }}
+                            >
+                              <img src={SocialICO05} alt="" />
+                            </button>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )}
+                        {profile ? (
+                          profile.portfolio?.instagarm?.url ? (
+                            <button
+                              onClick={() => {
+                                window.open(
+                                  profile.portfolio.instagarm.url,
+                                  "_blank"
+                                );
+                              }}
+                            >
+                              <img src={SocialICO06} alt="" />
+                            </button>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )}
+                      </UserSocilMBX>
+                      <UserDText02>
+                        Join{" "}
+                        <span>
+                          {profile
+                            ? dateFormat(
+                              new Date(profile.createdAt).toString(),
+                              "dd mmmm yyyy"
+                            )
+                            : "join date"}
+                        </span>
+                      </UserDText02>
+                    </UserDetailBX>
+                  </ProSBX01>
 
-                  <HomeTabs>
-                    <Tabs>
+                  <ProSBX02>
+                    <ProSBX03>
+                      <FollowerMBX>
+                        Created <span>{profile ? profile.nftCreated : "000"}</span>
+                      </FollowerMBX>
+                      <FollowerMBX>
+                        Followers{" "}
+                        <span>{profile ? profile.followersCount : "000"}</span>
+                      </FollowerMBX>
+                      <FollowerMBX>
+                        Following{" "}
+                        <span>{profile ? profile.followingCount : "000"}</span>
+                      </FollowerMBX>
+
+                      {id ? (
+                        authData ?
+                          web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
+                            <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
+                              {loading ? 'loading' : status.isFollowed ? 'Unfollow' : 'Follow'}
+                            </EditPrBTN> : ('')
+                          : ''
+                      ) : (
+                        <EditPrBTN>
+                          <button
+                            onClick={() => this.props.history.push("/user/edit-profile")}
+                          >
+                            Edit Profile
+                          </button>
+                        </EditPrBTN>
+                      )}
+                    </ProSBX03>
+
+                    <ProSBX04>
+                      <span>#000000</span>{" "}
+                      {profile ? profile.walletAddress : "xyz...."}{" "}
+                      <button
+                        title="Copied"
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            profile ? profile.walletAddress : "xyz...."
+                          );
+                        }}
+                      >
+                        <img src={CopyICO} alt="" />
+                      </button>
+                    </ProSBX04>
+                  </ProSBX02>
+                </ProMBX01>
+              </ProMBannerBX>
+
+              <Gs.Container>
+
+                <HomeTabs>
+                  <Tabs>
                     {profile.role.roleName === 'CREATOR' ? (
                       <>
                         <TabList>
@@ -261,7 +258,7 @@ class CreatorProfile extends Component {
                           <Tab>Collections</Tab>
                           <Tab>Liked</Tab>
                         </TabList>
-                      
+
                         <TabPanel> <Created /> </TabPanel>
                         <TabPanel> <Collected />  </TabPanel>
                         <TabPanel> <Collection /> </TabPanel>
@@ -270,9 +267,9 @@ class CreatorProfile extends Component {
                     ) : (
                       <>
                         <TabList>
-                        <Tab>Collected</Tab>
-                        <Tab>Collections</Tab>
-                        <Tab>Linked</Tab>
+                          <Tab>Collected</Tab>
+                          <Tab>Collections</Tab>
+                          <Tab>Linked</Tab>
                         </TabList>
 
                         <TabPanel> <Collected /> </TabPanel>
@@ -281,7 +278,7 @@ class CreatorProfile extends Component {
                       </>
                     )}
 
-                    </Tabs>
+                  </Tabs>
                 </HomeTabs>
               </Gs.Container>
             </>
@@ -420,7 +417,7 @@ const FollowerMBX = styled(FlexDiv)`
     display: block;
   }
 `;
-const EditPrBTN = styled.button`
+const EditPrBTN = styled.div`
   border: 1px solid #000000;
   border-radius: 15px;
   padding: 8px 18px;
@@ -432,6 +429,10 @@ const EditPrBTN = styled.button`
     background-color: #f40058;
     color: #fff;
     border: 1px solid #f40058;
+  }
+  &.disabled{
+    pointer-events: none;
+    opacity:0.3;
   }
 `;
 
@@ -573,29 +574,33 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 
 const mapDipatchToProps = (dispatch) => {
-    return {
-      getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
-      getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
-      followToggler: (id) => dispatch(actions.followToggler(id)),
+  return {
+    getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
+    getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
+    followToggler: (id) => dispatch(actions.followToggler(id)),
+    clearUserProfile: () => dispatch({ type: 'FETCHED_USER_PROFILE', data: null}),
   };
 };
 const mapStateToProps = (state) => {
-    return {
-      profile: state.fetchUserProfile,
-      status: state.fetchIsFollow,
-      web3Data: state.fetchWeb3Data,
-      authData: state.fetchAuthData,
+  return {
+    profile: state.fetchUserProfile,
+    status: state.fetchIsFollow,
+    web3Data: state.fetchWeb3Data,
+    authData: state.fetchAuthData,
   };
 };
 

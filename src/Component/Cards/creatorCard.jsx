@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
-import { AnimateSharedLayout, motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import ProfielBack from "../../Assets/images/profile-back.jpg";
 import UserIcon from "../../Assets/images/user-img.jpg";
 
+import Media from "../../Theme/media-breackpoint";
 
 function CreatorCard({
     id,
@@ -19,52 +20,48 @@ function CreatorCard({
     followingCount
 }) {
     return (
-        <AnimateSharedLayout>
-            <AnimatePresence>
-                <CreatSBX01>
-                    <Link to={`/creator/${id}`}>
-                        <ImgBannerBX>
-                            <motion.img
-                                initial={{ opacity: 0.2 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.4 }}
-                                key={cover?cover:ProfielBack}
-                                src={cover?cover:ProfielBack}
-                                exit={{ opacity: 0 }}
-                            />
-                        </ImgBannerBX>
-                        <CreatSBX02>
-                            <UserImg>
-                                <motion.img
-                                    initial={{ opacity: 0.2 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.4 }}
-                                    key={profile?profile:UserIcon}
-                                    src={profile?profile:UserIcon}
-                                    exit={{ opacity: 0 }}
-                                />
-                            </UserImg>
-                            <CretrTitle01>
-                                {name}
-                                <span>@{username}</span>
-                            </CretrTitle01>
-                            <CretrText01>
-                                {bio}
-                            </CretrText01>
+        <CreatSBX01>
+            <Link to={`/creator/${id}`}>
+                <ImgBannerBX>
+                    <motion.img
+                        initial={{ opacity: 0.2 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.4 }}
+                        key={cover ? cover : ProfielBack}
+                        src={cover ? cover : ProfielBack}
+                        exit={{ opacity: 0 }}
+                    />
+                </ImgBannerBX>
+                <CreatSBX02>
+                    <UserImg>
+                        <motion.img
+                            initial={{ opacity: 0.2 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                            key={profile ? profile : UserIcon}
+                            src={profile ? profile : UserIcon}
+                            exit={{ opacity: 0 }}
+                        />
+                    </UserImg>
+                    <CretrTitle01>
+                        {name}
+                        <span>@{username}</span>
+                    </CretrTitle01>
+                    <CretrText01>
+                        {bio}
+                    </CretrText01>
 
-                            <CretrInfoMBX>
-                                <CretrInfoSBX01>Created<span>{nftCreated}</span></CretrInfoSBX01>
-                                <CretrInfoSBX01>Followers<span>{followersCount}</span></CretrInfoSBX01>
-                                <CretrInfoSBX01>Following<span>{followingCount}</span></CretrInfoSBX01>
-                            </CretrInfoMBX>
+                    <CretrInfoMBX>
+                        <CretrInfoSBX01>Created<span>{nftCreated}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01>Followers<span>{followersCount}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01>Following<span>{followingCount}</span></CretrInfoSBX01>
+                    </CretrInfoMBX>
 
-                            <CretrBTN01>See artworks</CretrBTN01>
+                    <CretrBTN01>See artworks</CretrBTN01>
 
-                        </CreatSBX02>
-                    </Link>
-                </CreatSBX01>
-            </AnimatePresence>
-        </AnimateSharedLayout>
+                </CreatSBX02>
+            </Link>
+        </CreatSBX01>
     );
 }
 
@@ -76,6 +73,15 @@ const CreatSBX01 = styled(FlexDiv)`
     width:calc(25% - 20px); margin:10px 10px 20px 10px;  border:1px solid #dddddd; border-radius:10px; justify-content:flex-start; align-items:flex-start; 
     a{ width:100%; border-radius:10px;
     :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
+    }
+    ${Media.md}{
+        width:calc(33.33% - 20px);
+    }
+    ${Media.sm}{
+        width:calc(50% - 20px);
+    }
+    ${Media.xs}{
+        width:calc(100% - 20px);
     }
 `
 const ImgBannerBX = styled(FlexDiv)`
@@ -94,7 +100,7 @@ const CretrTitle01 = styled.div`
     span{ display:block; text-align:center; font-size:12px; } 
 `
 const CretrText01 = styled.div`
-    font-size:10px; text-align:center; line-height:1.6; margin:10px 0 0 0; min-height:52px;
+    font-size:10px; text-align:center; line-height:1.6; margin:10px 0 0 0; min-height:52px; color:#000;
 
 `
 const CretrInfoMBX = styled(FlexDiv)`

@@ -12,56 +12,29 @@ import CollectionCard from "../Cards/collectionCard";
 
 
 function Collection(props) {
-  
-  let { collections, categories } = props;
+
+  let { collections } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
-  
+
   useEffect(() => {
-    if (!collections) props.getCollections(params.id?params.id:null);
+    if (!collections) props.getCollections(params.id ? params.id : null);
   }, [collections]);
-    
+
   useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-    
-  useEffect(() => {}, [tabPanel]);
-  
+    return function cleanup() {
+      props.clearCollections(); // clear the collection data
+    };
+  }, [])
+
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          <button
-            className={tabPanel === "All" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("All");
-            }}
-          >
-            All
-          </button>
-          {categories
-            ? categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })
-            : "loading.."}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
             {collections ? (
-              collections.map((collection) => (
+              collections.map((collection, key) => (
                 <CollectionCard
+                  key={key}
                   id={collection.id}
                   collImg={collection.logo}
                   collName={collection.name}
@@ -74,6 +47,16 @@ function Collection(props) {
               </LoaderBX>
             )}
           </NFTfourbox>
+
+          {collections ? 
+            collections.length === 0 ?
+              <CEmpty>
+                <h2>Your collection is empty.</h2>
+                <p>Start building your collection<br /> by placing bids on artwork.</p>
+                <button className="ani-1">Explore artworks</button>
+              </CEmpty>
+            : ``
+          : ``}
         </Gs.Container>
       </HomeNFTs>
     </>
@@ -88,7 +71,7 @@ const FlexDiv = styled.div`
 `;
 
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
@@ -201,48 +184,40 @@ const HomeNFTs = styled.div`
   }
 `;
 
-const FilterMBX = styled(FlexDiv)`
-  width: 100%;
-  justify-content: space-between;
-  max-width: 1080px;
-  margin: 30px auto 0 auto;
-`;
-
-const FilterLbx = styled(FlexDiv)`
-  width: 45%;
-  justify-content: flex-start;
-
-  button {
-    display: inline-block;
-    padding: 10px 25px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #000000;
-    border-radius: 15px;
-    background-color: #eef2f7;
-    margin-right: 8px;
-
-    &.active {
-      background-color: #00babc;
-      color: #fff;
-    }
-    :hover {
-      background-color: #00babc;
-      color: #fff;
-      box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
-    }
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getCollections: (id) => dispatch(actions.getCollectionNFT(id)),
+    clearCollections: () => dispatch({ type: 'FETCHED_COLLECTION_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     collections: state.fetchCollectionNFT,
   };
 };

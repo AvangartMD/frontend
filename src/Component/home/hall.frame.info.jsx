@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import styled from 'styled-components';
 
 import Gs from '../../Theme/globalStyles';
@@ -86,11 +86,9 @@ class HallOfFrameInfo extends Component {
     return (
         <HomeNFTs>
           <Gs.Container>
-            <AnimatePresence>
-              {this.props.infos?
-              this.props.infos.map((banner, index) => { this.renderedInfo(banner, index);})
-                : 'loading..'}
-            </AnimatePresence>
+            {this.props.infos?
+            this.props.infos.map((info, index) => { return this.renderedInfo(info, index);})
+              : 'loading..'}
           </Gs.Container>
       </HomeNFTs>
     );

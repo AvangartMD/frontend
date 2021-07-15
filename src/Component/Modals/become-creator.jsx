@@ -8,6 +8,7 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 
 import { actions } from "../../actions";
 import { services } from "../../services";
+import Media from "./../../Theme/media-breackpoint";
 
 class BecomeCreator extends Component {
   constructor(props) {
@@ -99,6 +100,13 @@ class BecomeCreator extends Component {
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
+  clickHandler = (e) => {
+    e.preventDefault();
+    if (!this.state.becomeCreator) {
+      this.setState({ isOpen1: true });
+    }
+  }
+
   render() {
     const { categories } = this.props;
     const {
@@ -109,41 +117,10 @@ class BecomeCreator extends Component {
       becomeCreator,
       isOpen4,
     } = this.state;
+    const { isFooter, isProfile, isHeader } = this.props;
     return (
       <>
-        {!isOpen4 && becomeCreator ? (
-          <>
-            <BlackWrap>
-              <WhiteBX01>
-                <CloseBTN className="ani-1" onClick={() => this.toggle(4)}>
-                  {" "}
-                  <img src={CloseBTN01} alt="" />{" "}
-                </CloseBTN>
-
-                <TokenBox>
-                  <WGTitle>Profile request sent</WGTitle>
-                  <WGdescText>
-                    Profile status will be updated once admin approves the
-                    request
-                  </WGdescText>
-                </TokenBox>
-              </WhiteBX01>
-            </BlackWrap>
-          </>
-        ) : (
-          ""
-        )}
-
-        {becomeCreator ? (
-          <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""}>Waiting</AvBTN02>
-        ) : (
-            <AvBTN02 className={!this.props.isFooter ? "colorBTN" : ""} onClick={() => { this.setState({ isOpen1: true }); }}>
-              <FormattedMessage
-                id="Become_a_creator"
-                defaultMessage="Become a Creator"
-              />
-          </AvBTN02>
-        )}
+        <AvBTN02 className={isHeader?`colorBTN`:isProfile?`ani-1 borderBTN`:``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -227,6 +204,7 @@ class BecomeCreator extends Component {
             ""
           )}
 
+
           {isOpen2 ? (
             <BlackWrap>
               <WhiteBX02>
@@ -263,7 +241,7 @@ class BecomeCreator extends Component {
                       {categories
                         ? categories.map((category, index) => {
                           return (
-                            <label class="checkbox-container">
+                            <label className="checkbox-container">
                               <img
                                 src={category.image}
                                 alt=""
@@ -278,7 +256,7 @@ class BecomeCreator extends Component {
                                 name="category"
                                 value={category.id}
                               />
-                              <span class="checkmark"></span>
+                              <span className="checkmark"></span>
                             </label>
                           );
                         })
@@ -393,6 +371,27 @@ class BecomeCreator extends Component {
             ""
           )}
         </form>
+
+        {!isOpen4 && becomeCreator ? (
+          <>
+            <BlackWrap>
+              <WhiteBX01>
+                <CloseBTN className="ani-1" onClick={() => this.toggle(4)}>
+                  {" "}
+                  <img src={CloseBTN01} alt="" />{" "}
+                </CloseBTN>
+
+                <TokenBox>
+                  <WGTitle>We got your Submission!</WGTitle>
+                  <p>Profile status will be updated once admin approves the request</p>
+                  <button onClick={() => this.toggle(4)}>Ok</button>
+                </TokenBox>
+              </WhiteBX01>
+            </BlackWrap>
+          </>
+        ) : (
+          ""
+        )}
       </>
     );
   }
@@ -418,13 +417,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -438,12 +440,19 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
+  }
 `;
 const TokenBox = styled(FlexDiv)`
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   margin-bottom: 20px;
+  text-align: center;
   button {
+    height: 100%;
+    width: 60%;
     color: #000000;
     font-size: 14px;
     font-weight: 700;
@@ -477,11 +486,14 @@ const WhiteBX02 = styled.div`
   width: 100%;
   position: relative;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 518px;
   background-color: #fff;
   border-radius: 30px;
   display: flex;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 
 const BACLeft = styled.div`
@@ -690,6 +702,20 @@ const AvBTN02 = styled.button`
       filter: brightness(0.9);
     }
   }
+  &.borderBTN{
+    padding:13px 44px;
+    font-size: 14px;
+    color:#000;
+    background-color:#fff;
+    border:1px solid #000;
+    letter-spacing:-0.5px;
+    border-radius: 15px;
+    :hover {
+      background-color:#000; color:#fff;
+      -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
+      box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
+    }
+  }
 `;
 
 const OnbTitle01 = styled.div`
@@ -720,21 +746,6 @@ const WGdescText = styled.div`
   letter-spacing: -0.7px;
   margin-bottom: 10px;
   text-align: center;
-`;
-const LoaderBX = styled(FlexDiv)`
-  width: 100%;
-  margin: 60px auto 0 auto;
-`;
-const AvBTN01 = styled.button`
-  padding: 9px 40px;
-  color: #fff;
-  background-color: #000;
-  border-radius: 15px;
-  :hover {
-    background-color: #d121d6;
-    -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
-    box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
-  }
 `;
 
 const mapDipatchToProps = (dispatch) => {

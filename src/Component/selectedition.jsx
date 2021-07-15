@@ -358,13 +358,16 @@ const WhiteBX0D2 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 491px;
   padding: 50px 50px 0px 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs} {
+    padding: 50px 25px;
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -377,6 +380,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs} {
+    right: 15px;
+    top: 15px;
   }
 `;
 
@@ -505,6 +512,7 @@ const EditionTable = styled.div`
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 50%;
           }
         }
       }

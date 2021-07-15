@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Media from "../../Theme/media-breackpoint";
 
 import LArrow from '../../Assets/images/banner-larrow.svg';
@@ -120,13 +120,11 @@ class BannerTab extends Component {
     return (
       <>
         <HomeBanner>
-          <AnimatePresence>
-            {this.props.banners ?
-              <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
-                {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
-              </Carousel>
-              : 'loading..'}
-          </AnimatePresence>
+          {this.props.banners ?
+            <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
+              {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
+            </Carousel>
+            : 'loading..'}
         </HomeBanner>
       </>
     );

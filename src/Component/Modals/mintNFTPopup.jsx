@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
+import Media from "./../../Theme/media-breackpoint";
 
 function MintNFTPopup({ mintNFT, toggle, mintNFTStatus }) {
   return (
@@ -109,13 +110,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -127,6 +131,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 const WGTitle = styled.div`

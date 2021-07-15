@@ -5,6 +5,7 @@ import Gs from "./../Theme/globalStyles";
 import { Link, NavLink } from "react-router-dom";
 import Media from "./../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import LogoImg from "../Assets/images/logoWhite.png";
@@ -18,15 +19,17 @@ import Login from "./Modals/login";
 import BecomeCreator from "../Component/Modals/become-creator";
 
 function Footer(props) {
+  
   const { web3Data, authData: userDetails } = props;
+
   const checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
-      return <BecomeCreator isFooter={false} />;
+      return <BecomeCreator isFooter={true} />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
         <AvBTN01 className='createButton'>
           <Link to="/user/nftminting">
-            <FormattedMessage id="Create" defaultMessage="Create" />
+            Create
           </Link>
         </AvBTN01>
       );
@@ -50,7 +53,7 @@ function Footer(props) {
               nisi.
             </p>
 
-            <button>
+            <button onClick={() => props.history.push("/about")}>
               <FormattedMessage id="Learn_more" defaultMessage="Learn More" />
             </button>
           </FooterSSbx01>
@@ -64,12 +67,14 @@ function Footer(props) {
             <NavLink to="/creators">
               <FormattedMessage id="Creators" defaultMessage="Creators" />
             </NavLink>
-            <NavLink to="-">
-              <FormattedMessage
-                id="Become_a_creator"
-                defaultMessage="Become a Creator"
-              />
-            </NavLink>
+            {!web3Data.isLoggedIn ?
+              <NavLink to="">
+                <FormattedMessage
+                  id="Become_a_creator"
+                  defaultMessage="Become a Creator"
+                />
+                </NavLink>
+            : ``}
           </FooterSSbx02>
           <FooterSSbx02>
             <NavLink to="-">
@@ -125,6 +130,17 @@ function Footer(props) {
             <Language header={false} />
           </FooterSSbx03>
         </FooterSbx01>
+        <FooterBottom>
+          <FooterSbx01 className="withborder">
+            <p>© 2021</p>
+            <FooterrightLinks>
+              <Link to='/'>Instagram</Link>
+              <Link to='/'>Twitter</Link>
+              <Link to='/'>Discord</Link>
+              <Link to='/'>Blog</Link>
+            </FooterrightLinks>
+          </FooterSbx01>
+        </FooterBottom>
       </FooterMBX>
       <Collapse
         isOpen={isOpen4}
@@ -146,7 +162,7 @@ const FlexDiv = styled.div`
 `;
 
 const FooterMBX = styled.div`
-  padding: 40px 0;
+  padding: 40px 15px;
   background-color: #2d2d2d;
   width: 100%;
 `;
@@ -156,13 +172,25 @@ const FooterSbx01 = styled(FlexDiv)`
   margin: 0 auto;
   align-items: flex-start;
   justify-content: flex-start;
+  ${Media.sm}{
+    justify-content: space-between;
+  }
+  &.withborder
+  {
+    border-top:1px solid #fff;
+    margin:30px auto 0px;
+    justify-content:space-between;
+    padding:15px 0px 0px;
+  }
 `;
 const FooterSSbx01 = styled(FlexDiv)`
   width: 36%;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-
+  ${Media.sm}{
+    width:50%;
+  }
   p {
     color: #fff;
     max-width: 320px;
@@ -200,6 +228,9 @@ const FooterSSbx02 = styled(FlexDiv)`
       text-decoration: underline;
     }
   }
+  ${Media.sm}{
+    display:none;
+  }
 `;
 const FooterSSbx03 = styled(FlexDiv)`
   width: 15.2%;
@@ -207,13 +238,18 @@ const FooterSSbx03 = styled(FlexDiv)`
   align-items: flex-end;
   flex-direction: column;
   padding-top: 48px;
+  ${Media.sm}{
+    width:50%;
+    padding-top:0px;
+  }
 `;
 
 const AvBTN01 = styled.button`
-  padding: 9px 40px;
+  padding: 9px 25px;
   color: #fff;
   background-color: #000;
   border-radius: 15px;
+  font-size:14px;
   :hover {
     background-color: #d121d6;
     -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
@@ -223,6 +259,12 @@ const AvBTN01 = styled.button`
     a{
       color:#fff;
     }
+  }
+  ${Media.md}{
+    padding: 9px 20px;
+  }
+  ${Media.sm}{
+    padding: 9px 15px;
   }
 `;
 
@@ -281,6 +323,40 @@ const DDBtnbar01 = styled(FlexDiv)`
   }
 `;
 
+const FooterBottom = styled.div`
+  display:none;
+  p
+  {
+    font-size:12px;
+    color:#fff;
+    letter-spacing:-0.6px;
+    font-weight:500;
+    margin:0px;
+  }
+  ${Media.sm}{
+    display:block;
+  }
+`;
+
+const FooterrightLinks = styled(FlexDiv)`
+  a{
+    font-size:12px;
+    color:#fff;
+    letter-spacing:-0.6px;
+    font-weight:500;
+    margin:0px 20px 0px 0px;
+    :hover
+    {
+      color:#f40058;
+    }
+    :last-child
+    {
+      margin-right:0px;
+    }
+  }
+`;
+
+
 const mapDipatchToProps = (dispatch) => {
   return {
     getWeb3: () => dispatch(actions.getWeb3()),
@@ -290,7 +366,7 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
     web3Logout: () =>
       dispatch({
         type: "FETCH_WEB3_DATA",
@@ -307,4 +383,4 @@ const mapStateToProps = (state) => {
     authData: state.fetchAuthData,
   };
 };
-export default connect(mapStateToProps, mapDipatchToProps)(Footer);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Footer));

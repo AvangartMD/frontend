@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
-import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import { withRouter } from "react-router";
 import Sticky from "react-sticky-el";
-import NFTModal from "../Component/nftpopups";
 
 import DDdownA from "../Assets/images/dd-down-arrow.svg";
 import CICON01 from "../Assets/images/peSocICO-01.svg";
@@ -15,11 +13,11 @@ import CICON03 from "../Assets/images/peSocICO-03.svg";
 import CICON04 from "../Assets/images/peSocICO-04.svg";
 import CICON05 from "../Assets/images/peSocICO-05.svg";
 import CICON06 from "../Assets/images/peSocICO-06.svg";
-import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import LoaderGif from "../Assets/images/loading.gif";
 import SuccessPopup from "../Component/Modals/sucessPopup";
 
 import { actions } from "../actions";
+import Media from '../Theme/media-breackpoint';
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -30,7 +28,6 @@ class ProfileEdit extends Component {
       updated: false,
       userObj: null,
       formChange: false,
-      isOpen1: false,
     };
   }
 
@@ -106,7 +103,9 @@ class ProfileEdit extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true, updated: false, formChange: false, isOpen1: false }); // start the loader
+    this.setState({
+      loading: true, updated: false, formChange: false,
+    }); // start the loader
     const { userObj } = this.state;
     let params = {
       name: userObj.name,
@@ -132,7 +131,7 @@ class ProfileEdit extends Component {
 
   render() {
     const { profile } = this.props;
-    const { loading, updated, formChange, errors, isOpen1 } = this.state;
+    const { loading, updated, formChange, errors } = this.state;
 
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
@@ -142,7 +141,7 @@ class ProfileEdit extends Component {
 
     return (
       <Gs.MainSection>
-          
+
         {loading ? (
           <>
             <BlackWrap>
@@ -160,30 +159,7 @@ class ProfileEdit extends Component {
           ""
         )}
 
-        {errors && !isOpen1 ? (
-          <>
-            <BlackWrap>
-              <WhiteBX01>
-                <CloseBTN
-                  className="ani-1"
-                  onClick={() => {
-                    this.toggle(1);
-                  }}
-                >
-                  <img src={CloseBTN01} alt="" />
-                </CloseBTN>
-                <>
-                  <OnbTitle01>Attention!</OnbTitle01>
-                  <OnbText01 className="w100">{errors}</OnbText01>
-                </>
-              </WhiteBX01>
-            </BlackWrap>
-          </>
-        ) : (
-          ""
-          )}
-
-        {updated ? <SuccessPopup message="Your profile details are updated sucessfully." url="/user/profile"/> : ("")}
+        {updated ? <SuccessPopup message="Your profile details are updated sucessfully." url="/user/profile" /> : ("")}
 
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
@@ -229,6 +205,17 @@ class ProfileEdit extends Component {
                 </Sticky>
               </Gs.W200px>
               <Gs.W880px className="displayflex">
+
+                {errors ? (
+                  <Gs.W605px>
+                    <NFTMiddle>
+                      <AlertNote>
+                        <p>{errors}</p>
+                      </AlertNote>
+                    </NFTMiddle>
+                  </Gs.W605px>
+                ) : ``}
+
                 <Gs.W605px>
                   <NFTMiddle>
                     <NFTtitle id="accountSettings">
@@ -350,7 +337,7 @@ class ProfileEdit extends Component {
                       </NFTtitle>
                       <NFTForm>
                         <CustomCheckbox1>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             {" "}
                             <img src={CICON01} alt="" />
                             Verify via Twitter
@@ -359,9 +346,9 @@ class ProfileEdit extends Component {
                               name="category"
                               value="aa"
                             />
-                            <span class="checkmark v2"></span>
+                            <span className="checkmark v2"></span>
                           </label>
-                          <label class="checkbox-container">
+                          <label className="checkbox-container">
                             {" "}
                             <img src={CICON02} alt="" />
                             Verify via Instagram
@@ -370,7 +357,7 @@ class ProfileEdit extends Component {
                               name="category"
                               value="celebrity"
                             />
-                            <span class="checkmark v2"></span>
+                            <span className="checkmark v2"></span>
                           </label>
                         </CustomCheckbox1>
                       </NFTForm>
@@ -518,7 +505,7 @@ class ProfileEdit extends Component {
                         </div>
                       </NFTForm>
                       <CreateItemButton>
-                        <button type="submit" disabled={!formChange?true:false}>Update</button>
+                        <button type="submit" disabled={!formChange ? true : false}>Update</button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>
@@ -590,18 +577,6 @@ const NFTLeft = styled.div`
 const NFTRight = styled.div`
   margin: 0px 10px;
 `;
-
-// const NFTImgBX = styled(FlexDiv)`
-//   width: 100%;
-//   height: 253px;
-//   border-radius: 10px 10px 0 0;
-//   overflow: hidden;
-//   img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//   }
-// `;
 
 const NFTtitle = styled.div`
   h4 {
@@ -1079,13 +1054,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -1098,13 +1076,32 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
+  }
 `;
+const AlertNote = styled.div`
+  background-color: #ffe5e9;
+  border: 1px solid #ff2a44;
+  border-radius: 10px;
+  margin: 0px 0px 40px;
+  padding: 17px 15px;
+  p {
+    margin: 0px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+  }
+`;
+
 
 const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getProfile()),
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
-    clearErrors: () => dispatch({ type: 'API_FAILED', data: null}),
+    clearErrors: () => dispatch({ type: 'API_FAILED', data: null }),
   };
 };
 const mapStateToProps = (state) => {

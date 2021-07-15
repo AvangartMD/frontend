@@ -4,7 +4,7 @@ import Gs from "../Theme/globalStyles";
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Magnifypopup from "../Component/Modals/magnifyPopup";
-import POSpopup from "../Component/putonsalepopup";
+import POSpopup from "../Component/Modals/putonsalepopup";
 import PABpopup from "../Component/Modals/placebidpopup";
 import Historypopup from "../Component/historypopup";
 import SelectEdition from "../Component/selectedition";
@@ -20,12 +20,15 @@ import { connect } from "react-redux";
 import Timer from "../Component/timer";
 import { getContractInstance } from "../helper/functions";
 import NftOwnerActions from "../Component/Modals/nftOwnerAction";
+import Login from "../Component/Modals/login";
+import getContractAddresses from "../contractData/contractAddress/addresses";
 
 class NftDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
+      isOpen4: false,
       bnbUSDPrice: 0,
       bidDetails: {
         currentBidValue: "0",
@@ -35,16 +38,25 @@ class NftDetail extends React.Component {
       currentEdition: 1,
       saleMethod: { name: "placeBid", btnName: "Place a bid" },
       showTimer: false,
+      loading: false,
+      selectedNFTDetails: null,
+      isApprovedForAll: false,
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const { NFTDetails } = this.props;
+    const { NFTDetails, isLiked, web3Data } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
         this.fetchNFTDetails(NFTDetails.tokenId, NFTDetails.edition);
     }
     if (this.state.currentEdition != prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
+    }
+    if (isLiked !== prevProps.isLiked) {
+      this.setState({ loading: false });
+    }
+    if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
+      this.checkUserApproval(web3Data);
     }
   }
 
@@ -62,6 +74,15 @@ class NftDetail extends React.Component {
         this.setState({ bnbUSDPrice: data.binancecoin.usd });
       });
   }
+  checkUserApproval = async (web3Data) => {
+    const nftContractContractInstance = getContractInstance();
+    const { escrowContractAddres } = getContractAddresses();
+
+    const isApprovedForAll = await nftContractContractInstance.methods
+      .isApprovedForAll(web3Data.accounts[0], escrowContractAddres)
+      .call();
+    this.setState({ isApprovedForAll });
+  };
   setNFTBuyMethod = (bidDetails) => {
     const { NFTDetails, web3Data } = this.props;
     if (NFTDetails.saleState === "AUCTION") {
@@ -80,7 +101,6 @@ class NftDetail extends React.Component {
           saleMethod: { name: "placeBid", btnName: "Place a bid" },
           showTimer: true,
         });
-        console.log(NFTDetails.auctionEndDate, new Date().getTime() / 1000);
       }
     } else {
       this.setState({
@@ -96,7 +116,9 @@ class NftDetail extends React.Component {
     }
   };
   async fetchNFTDetails(_edition) {
-    const { NFTDetails } = this.props;
+    const { NFTDetails, authData, web3Data } = this.props;
+    const escrowContractInstance = getContractInstance(true);
+
     const tokenID = NFTDetails.tokenId;
     let edition = _edition;
     if (!edition) {
@@ -107,32 +129,68 @@ class NftDetail extends React.Component {
           ? this.getEditionNumber(NFTDetails)
           : 1;
     }
-
-    const escrowContractInstance = getContractInstance(true);
     const currentHolder = await escrowContractInstance.methods
-      .currentHolder(+tokenID, +1)
+      .currentHolder(+tokenID, this.state.currentEdition)
       .call();
     const bidDetails = await escrowContractInstance.methods
-      .bid(+tokenID, +1)
+      .bid(+tokenID, this.state.currentEdition)
       .call();
+    const soldEdition = NFTDetails.editions.find(
+      ({ edition }) => edition == edition
+    );
+    let selectedNFTDetails;
+    if (soldEdition)
+      selectedNFTDetails = {
+        isOwner: currentHolder == web3Data.accounts[0],
+        ownerId: soldEdition.ownerId,
+        isOpenForSale: soldEdition.isOpenForSale,
+        price: web3.utils.fromWei(soldEdition.price.toString()),
+      };
+    else
+      selectedNFTDetails = {
+        isOwner: NFTDetails?.ownerId.id == authData?.data?.id,
+        ownerId: NFTDetails.ownerId,
+        isOpenForSale: true,
+        price:
+          NFTDetails.saleState === "AUCTION"
+            ? web3.utils.fromWei(bidDetails.bidValue)
+            : NFTDetails.price,
+        saleState: NFTDetails.saleState,
+      };
+
     this.setState({
       bidDetails: {
         currentBidValue: web3.utils.fromWei(bidDetails.bidValue),
         bidder: bidDetails.bidder,
       },
+      selectedNFTDetails,
     });
     this.setNFTBuyMethod(bidDetails);
-    console.log(bidDetails);
   }
   setEditionnumber = (number) => {
     this.setState({ currentEdition: number });
   };
 
+  closePopUp = () => {
+    this.setState({ isOpen4: false });
+  };
+  changeOwnerActionName = (action) => {
+    this.setState({ ownerActionName: action });
+  };
   render() {
     let id = this.props.match.params.id;
-    const { bidDetails, bnbUSDPrice, showTimer, saleMethod } = this.state;
+    const {
+      bidDetails,
+      bnbUSDPrice,
+      currentEdition,
+      loading,
+      saleMethod,
+      showTimer,
+      selectedNFTDetails,
+      isApprovedForAll,
+    } = this.state;
+    console.log("thiss", selectedNFTDetails);
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
-    let method = NFTDetails?.auctionEndDate ? 1 : 0;
     return (
       <>
         <Helmet>
@@ -167,18 +225,24 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike>
+                    <NFTLike className={loading ? `disabled` : ``}>
                       {isLiked.isFollowed ? (
                         <img
                           src={Redheart}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                          onDoubleClick={() => {
+                            this.props.likeToggler(id);
+                            this.setState({ loading: true });
+                          }}
                         />
                       ) : (
                         <img
                           src={redheartBorder}
                           alt=""
-                          onDoubleClick={() => this.props.likeToggler(id)}
+                          onDoubleClick={() => {
+                            this.props.likeToggler(id);
+                            this.setState({ loading: true });
+                          }}
                         />
                       )}
 
@@ -205,11 +269,11 @@ class NftDetail extends React.Component {
                   </div>
                   <div className="ed-box">
                     <p>Current bid</p>
-                    <h3>{bidDetails.currentBidValue.toLocaleString(2)} BNB</h3>
+                    <h3>{selectedNFTDetails?.price} BNB</h3>
                     <p className="gray-t">
-                      {(
-                        bidDetails.currentBidValue * bnbUSDPrice
-                      ).toLocaleString(2)}{" "}
+                      {(selectedNFTDetails?.price * bnbUSDPrice).toLocaleString(
+                        2
+                      )}{" "}
                       USD
                     </p>
                     <p className="royalty">
@@ -241,7 +305,25 @@ class NftDetail extends React.Component {
                   </div>
                 </Edition>
                 <NFTcartButtons>
-                  {NFTDetails?.ownerId.id == authData?.data?.id ? (
+                  {!selectedNFTDetails?.isOwner ? (
+                    <button
+                      onClick={() => {
+                        if (authData) {
+                          // check user is logged in
+                          this.toggle(8);
+                        } else {
+                          this.toggle(4); // open login pop up
+                        }
+                      }}
+                    >
+                      {saleMethod.btnName}
+                    </button>
+                  ) : (
+                    //   <button onClick={() => this.toggle(8)}>
+                    //
+                    //   </button>
+                    // {/* <button disabled>Sold out</button> */}
+
                     <>
                       <button
                         className="bordered"
@@ -257,8 +339,13 @@ class NftDetail extends React.Component {
                       <button
                         className="bordered"
                         onClick={() => {
-                          this.setState({ ownerActionName: "transfer" }, () =>
-                            this.toggle(1)
+                          this.setState(
+                            {
+                              ownerActionName: isApprovedForAll
+                                ? "transfer"
+                                : "setApprovalForAll",
+                            },
+                            () => this.toggle(1)
                           );
                         }}
                       >
@@ -275,12 +362,12 @@ class NftDetail extends React.Component {
                         Put on Sale
                       </button>
                     </>
-                  ) : (
-                    <button onClick={() => this.toggle(8)}>
-                      {saleMethod.btnName}
-                    </button>
-                    // {/* <button disabled>Sold out</button> */}
                   )}
+                  {/* //  : (
+                  //   <button onClick={() => this.toggle(8)}>
+                  //     {saleMethod.btnName}
+                  //   </button>
+                  //   // {/* <button disabled>Sold out</button> */}
                 </NFTcartButtons>
               </NFTDrightcontainer>
             </NFTDright>
@@ -294,8 +381,10 @@ class NftDetail extends React.Component {
             <NftOwnerActions
               toggle={this.toggle}
               ownerActionName={this.state.ownerActionName}
-              edition={NFTDetails?.edition}
+              edition={this.state.currentEdition}
               tokenID={NFTDetails?.tokenId}
+              isApprovedForAll={this.state.isApprovedForAll}
+              changeOwnerActionName={this.changeOwnerActionName}
             />
           </Collapse>
           <Collapse
@@ -330,6 +419,7 @@ class NftDetail extends React.Component {
               nonce={NFTDetails?.nonce}
               price={NFTDetails?.price}
               currentBidValue={bidDetails.currentBidValue}
+              currentEdition={this.state.currentEdition}
             />
           </Collapse>
           <Collapse
@@ -338,7 +428,11 @@ class NftDetail extends React.Component {
               "app__collapse " + (this.state.isOpen9 ? "collapse-active" : "")
             }
           >
-            <Historypopup toggle={this.toggle} />
+            <Historypopup
+              toggle={this.toggle}
+              edition={currentEdition}
+              nftId={id}
+            />
           </Collapse>
           <Collapse
             isOpen={this.state.isOpen10}
@@ -351,6 +445,18 @@ class NftDetail extends React.Component {
               NFTDetails={NFTDetails}
               web3Data={this.props.web3Data}
               setEditionnumber={this.setEditionnumber}
+            />
+          </Collapse>
+          <Collapse
+            isOpen={this.state.isOpen4}
+            className={
+              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
+            }
+          >
+            <Login
+              toggle={this.toggle}
+              closePopUp={this.closePopUp}
+              isFooter={true}
             />
           </Collapse>
         </Gs.MainSection>
@@ -446,6 +552,10 @@ const NFTLike = styled(FlexDiv)`
     width: 15px;
     height: 15px;
     margin: 0px 4px 0px 0px;
+  }
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
   }
 `;
 

@@ -1,84 +1,77 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
+import Gs from "../../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
-import Media from "../Theme/media-breackpoint";
+import Media from "../../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import { Link } from "react-router-dom";
 
-import CloseBTN01 from "../Assets/images/closeBTN01.svg";
-import DDdownA from "../Assets/images/dd-down-arrow.svg";
+import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
+import DDdownA from "../../Assets/images/dd-down-arrow.svg";
 
-class POSpopup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen1: false,
-    };
-  }
+function POSpopup(props) {
+  const [isOpen2, setIsOpen2] = useState(false);
+  return (
+    <>
+      <BlackWrap>
+        <WhiteBX0D3>
+          <CloseBTN className="ani-1" onClick={() => props.toggle(7)}>
+            <img src={CloseBTN01} alt="" />
+          </CloseBTN>
 
-  render() {
-    return (
-      <>
-
-        <BlackWrap>
-          <WhiteBX0D3>
-
-            <CloseBTN className="ani-1" onClick={() => this.props.toggle(7)}>
-              <img src={CloseBTN01} alt="" />
-            </CloseBTN>
-
-            <PBtitle className="TN-title">Put on Sale</PBtitle>
-            <CustomRadio1>
-              <label class="radio-container"> Buy now
-                <input type="radio" name="category" value="buy now" />
-                <span class="checkmark"></span>
-              </label>
-              <label class="radio-container">Accept offers
-                <input type="radio" name="category" value="accept offers" />
-                <span class="checkmark"></span>
-              </label>
-            </CustomRadio1>
-            <NFTForm className="Custom-piece">
-              <div className="label-line">
-                <label>Enter price for one piece</label>
-              </div>
-              <input type="text" placeholder="0.00" name="price" />
-              <AccountBX onClick={() => this.toggle(2)}>
-                <span>
-                  BNB <img src={DDdownA} alt="" />
-                </span>
-                <Collapse isOpen={this.state.isOpen2}
-                  className={
-                    "app__collapse collapse-css-transition  " +
-                    (this.state.isOpen2 ? "collapse-active" : "")
-                  }
-                >
-                  <DDContainer className="ver2">
-                    <DDBtnbar02>
-                      <button>ETH</button>
-                      <button>BTC</button>
-                    </DDBtnbar02>
-                  </DDContainer>
-                </Collapse>
-              </AccountBX>
-            </NFTForm>
-            <NFTcartButtons>
-              <button className="ani-1 bor-large">Place</button>
-            </NFTcartButtons>
-          </WhiteBX0D3>
-        </BlackWrap>
-
-
-      </>
-    );
-  }
-
-  toggle = (index) => {
-    let collapse = "isOpen" + index;
-    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-  };
+          <PBtitle className="TN-title">Put on Sale</PBtitle>
+          <CustomRadio1>
+            <label className="radio-container">
+              {" "}
+              Buy now
+              <input type="radio" name="category" value="buy now" />
+              <span className="checkmark"></span>
+            </label>
+            <label className="radio-container">
+              Accept offers
+              <input type="radio" name="category" value="accept offers" />
+              <span className="checkmark"></span>
+            </label>
+          </CustomRadio1>
+          <NFTForm className="Custom-piece">
+            <div className="label-line">
+              <label>Enter price for one piece</label>
+            </div>
+            <input type="text" placeholder="0.00" name="price" />
+            <AccountBX onClick={() => setIsOpen2(!isOpen2)}>
+              <span>
+                BNB <img src={DDdownA} alt="" />
+              </span>
+              <Collapse
+                isOpen={isOpen2}
+                className={
+                  "app__collapse collapse-css-transition  " +
+                  (isOpen2 ? "collapse-active" : "")
+                }
+              >
+                <DDContainer className="ver2">
+                  <DDBtnbar02>
+                    <button>ETH</button>
+                    <button>BTC</button>
+                  </DDBtnbar02>
+                </DDContainer>
+              </Collapse>
+            </AccountBX>
+          </NFTForm>
+          <NFTcartButtons>
+            <button className="ani-1 bor-large">Place</button>
+          </NFTcartButtons>
+        </WhiteBX0D3>
+      </BlackWrap>
+    </>
+  );
 }
+
+const toggle = (index) => {
+  let collapse = "isOpen" + index;
+  this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
+};
+// }
 
 const FlexDiv = styled.div`
   display: flex;
@@ -100,13 +93,16 @@ const WhiteBX0D3 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: flex-start;
+  ${Media.xs} {
+    padding: 50px 25px;
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -119,6 +115,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs} {
+    right: 15px;
+    top: 15px;
   }
 `;
 
@@ -140,34 +140,79 @@ const DDContainer = styled(FlexDiv)`
 `;
 
 const PBtitle = styled.div`
-  font-size:24px; letter-spacing:-1px; color:#000; font-weight:600; margin:0px 0px 10px; width:100%;
-  &.AStitle{text-align:center; margin:0px 0px 20px;}
-  &.TN-title{margin:0px 0px 20px;}
+  font-size: 24px;
+  letter-spacing: -1px;
+  color: #000;
+  font-weight: 600;
+  margin: 0px 0px 10px;
+  width: 100%;
+  &.AStitle {
+    text-align: center;
+    margin: 0px 0px 20px;
+  }
+  &.TN-title {
+    margin: 0px 0px 20px;
+  }
 `;
 
 const NFTcartButtons = styled.div`
-  margin:0 auto;
-  button{background-color:#000; color:#fff; width:140px; height:44px; border-radius:15px; font-size:14px; letter-spacing:-0.5px; margin:0px 5px 5px;
-    :hover{background-image:linear-gradient(90deg, #d121d6, #febf11); box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);}
-    &:disabled{background-color:rgb(0 0 0 / 30%);
-      :hover{background:rgb(0 0 0 / 30%); box-shadow:none;}
+  margin: 0 auto;
+  button {
+    background-color: #000;
+    color: #fff;
+    width: 140px;
+    height: 44px;
+    border-radius: 15px;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    margin: 0px 5px 5px;
+    :hover {
+      background-image: linear-gradient(90deg, #d121d6, #febf11);
+      box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);
     }
-    &.bordered{background-color:transparent; border:1px solid #000; color:#000;
-      :hover{background:none;}
-      &.bor-large{padding: 12px 85px; width:auto;}
+    &:disabled {
+      background-color: rgb(0 0 0 / 30%);
+      :hover {
+        background: rgb(0 0 0 / 30%);
+        box-shadow: none;
+      }
     }
-    &.bor-large{padding: 12px 70px; width:auto;}
+    &.bordered {
+      background-color: transparent;
+      border: 1px solid #000;
+      color: #000;
+      :hover {
+        background: none;
+      }
+      &.bor-large {
+        padding: 12px 85px;
+        width: auto;
+      }
+    }
+    &.bor-large {
+      padding: 12px 70px;
+      width: auto;
+    }
   }
-  ${WhiteBX0D3} &{
-    position:absolute; bottom:50px; left:0px; width:100%; text-align:center;
+  ${WhiteBX0D3} & {
+    position: absolute;
+    bottom: 50px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
   }
 `;
 
 const NFTForm = styled.div`
-  position: relative; width:100%;
-  &.Custom-piece{
-    .label-line{
-      label{font-size:16px; color:#000; font-weight:500;}  
+  position: relative;
+  width: 100%;
+  &.Custom-piece {
+    .label-line {
+      label {
+        font-size: 16px;
+        color: #000;
+        font-weight: 500;
+      }
     }
   }
   .label-line {
@@ -254,7 +299,6 @@ const CustomRadio1 = styled(FlexDiv)`
   }
 `;
 
-
 const AccountBX = styled(FlexDiv)`
   position: absolute;
   top: 37px;
@@ -282,7 +326,9 @@ const AccountBX = styled(FlexDiv)`
     text-align: right;
     line-height: 16px;
     padding-right: 8px;
-    img{margin-left:5px;}
+    img {
+      margin-left: 5px;
+    }
     span {
       font-size: 10px;
       color: #b3b3b3;
@@ -326,5 +372,3 @@ const DDBtnbar02 = styled(FlexDiv)`
 `;
 
 export default POSpopup;
-
-

@@ -20,6 +20,7 @@ import LoaderGif from '../Assets/images/loading.gif';
 import NFTCard from '../Component/Cards/nftCard';
 
 import { actions } from '../actions';
+import Media from "./../Theme/media-breackpoint";
 
 class MarketPlace extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class MarketPlace extends Component {
     }
     return (
       <Gs.MainSection>
+        <Gs.Container>
         <FilterMBX>
           <FilterLbx>
             <button
@@ -149,7 +151,7 @@ class MarketPlace extends Component {
               <FilterICO>
                 <img src={FiltICON} alt='' />
               </FilterICO>{' '}
-              Filter: Live auction
+              Filter: <span>Live auction</span>
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
@@ -214,9 +216,8 @@ class MarketPlace extends Component {
         </FilterMBX>
 
         <HomeNFTs>
-          <Gs.Container>
-            {NFTs ? (
-              <InfiniteScroll
+          {NFTs ? (
+              <InfiniteScroll className="IScroll"
                 dataLength={pagination.totalRecords}
                 next={this.fetchMore}
                 hasMore={page < pagination.totalPages}
@@ -227,10 +228,13 @@ class MarketPlace extends Component {
                   </LoaderBX>
                 }
                 // endMessage={<p>You have seen it all.!</p>}
-              >
+            >
+             
                 <NFTfourbox>
-                  {NFTs.map((nft) => (
+                  {NFTs.map((nft, key) => (
                     <NFTCard
+                      key={key}
+                      nftSold={nft.nftSold}
                       name={nft.ownerId.name}
                       nftId={nft.id}
                       collectionId={nft.collectionId?.id}
@@ -245,6 +249,7 @@ class MarketPlace extends Component {
                     />
                   ))}
                 </NFTfourbox>
+              
               </InfiniteScroll>
             ) : (
               <LoaderBX>
@@ -252,8 +257,8 @@ class MarketPlace extends Component {
                 <img src={LoaderGif} alt='' />{' '}
               </LoaderBX>
             )}
-          </Gs.Container>
         </HomeNFTs>
+        </Gs.Container>
       </Gs.MainSection>
     );
   }
@@ -272,63 +277,6 @@ const FlexDiv = styled.div`
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
-`;
-const HomeBanner = styled.div`
-  height: 660px;
-  width: 100%;
-  .item {
-    img {
-      width: 100%;
-    }
-  }
-  .react-multiple-carousel__arrow {
-    background: transparent;
-    min-width: 20px;
-    min-height: 20px;
-    padding: 0px;
-    border-radius: 0px;
-    :hover {
-      background: transparent;
-    }
-  }
-  .react-multiple-carousel__arrow--left::before {
-    background: url(${LArrow}) no-repeat;
-    color: transparent;
-  }
-  .react-multiple-carousel__arrow--right::before {
-    background: url(${RArrow}) no-repeat;
-    color: transparent;
-  }
-  .react-multiple-carousel__arrow--left {
-    left: calc(42.8% + 1px);
-    bottom: 33px;
-  }
-  .react-multiple-carousel__arrow--right {
-    right: calc(42.8% + 1px);
-    bottom: 33px;
-  }
-  .react-multi-carousel-dot-list {
-    background-color: rgba(255, 255, 255, 0.85);
-    width: 320px;
-    height: 52px;
-    border-radius: 20px;
-    margin: 0 auto 20px;
-    button {
-      position: relative;
-      margin: 0px 10px;
-      padding: 0px 0px 0px 10px;
-      font-size: 14px;
-      color: rgb(0 0 0 / 20%);
-      &.active {
-        color: #000;
-      }
-      :before {
-        content: '0';
-        position: absolute;
-        left: 0px;
-      }
-    }
-  }
 `;
 
 const HomeNFTs = styled.div`
@@ -404,123 +352,8 @@ const HomeNFTs = styled.div`
   }
 `;
 
-const NFTfirstbox = styled(FlexDiv)`
-  border: 1px solid #dddddd;
-  position: relative;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  .w60 {
-    width: 60%;
-  }
-  .w40 {
-    width: 40%;
-  }
-`;
-const NFTfbleft = styled(FlexDiv)`
-  background-color: #eef2f7;
-  padding: 80px 0px;
-  img {
-    box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
-  }
-`;
-const NFTfbright = styled.div`
-  padding: 20px 50px;
-  h3 {
-    color: #000000;
-    font-size: 22px;
-    letter-spacing: -0.83px;
-    margin: 0px 0px 10px;
-    line-height: normal;
-  }
-  p {
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: -0.53px;
-    margin: 0px 0px 10px;
-    line-height: 20px;
-  }
-  a {
-    color: #000000;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    margin: 0px 0px 40px;
-    line-height: 20px;
-    display: block;
-    :hover {
-      color: #555;
-      text-decoration: underline;
-    }
-  }
-`;
-const NFTLike = styled(FlexDiv)`
-  width: 56px;
-  height: 34px;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
-  border-radius: 30px;
-  p {
-    color: #ff2a44;
-    font-size: 12px;
-    font-weight: 600;
-    margin: 0px;
-  }
-  a {
-    line-height: normal;
-    width: 15px;
-    height: 15px;
-    margin: 0px 4px 0px 0px;
-  }
-`;
-
-const Edition = styled(FlexDiv)`
-  justify-content: space-between;
-  background-color: #eef2f7;
-  border-radius: 10px;
-  padding: 16px 20px;
-  margin: 0px 0px 40px;
-  .ed-box {
-    p {
-      color: #8e9194;
-      font-size: 12px;
-      letter-spacing: -0.6px;
-      font-weight: 600;
-      margin: 0px 0px 5px;
-    }
-    h3 {
-      color: #000;
-      font-size: 20px;
-      letter-spacing: -0.89px;
-      font-weight: 700;
-      margin: 0px;
-      span {
-        font-size: 10px;
-        font-weight: 300;
-        letter-spacing: -0.44px;
-      }
-    }
-  }
-`;
-
-const UserImgName = styled(FlexDiv)`
-  justify-content: flex-start;
-  color: #000;
-  font-size: 14px;
-  letter-spacing: -0.7px;
-  font-weight: 600;
-  margin: 0px;
-  img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 32px;
-    height: 32px;
-  }
-`;
-
 const NFTfourbox = styled(FlexDiv)`  
-    flex-wrap:wrap; margin:0px -10px 50px; 
+    flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start; align-items:flex-start;
     .row{margin:0px -10px;}
     img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
@@ -555,271 +388,29 @@ const NFTfourbox = styled(FlexDiv)`
   }
 `;
 
-const NFTImgBX = styled(FlexDiv)`
-  width: 100%;
-  height: 253px;
-  border-radius: 10px 10px 0 0;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
 
-const CollectionBar = styled(FlexDiv)`
-  justify-content: space-between;
-  margin-bottom: 20px;
-  p {
-    font-size: 14px;
-    letter-spacing: -0.62px;
-    font-weight: 600;
-    margin: 0px;
-    color: #000;
-    span {
-      font-size: 12px;
-      letter-spacing: -0.53px;
-      font-weight: 300;
-    }
-    a {
-      font-size: 10px;
-      letter-spacing: -0.5px;
-      font-weight: 600;
-      color: #000;
-      :hover {
-        color: #555;
-        text-decoration: underline;
-      }
-    }
-  }
-`;
-
-const ViewallButton = styled.div`
-  text-align: center;
-  margin-bottom: 120px;
-  button {
-    border: 1px solid #000000;
-    border-radius: 10px;
-    width: 190px;
-    height: 44px;
-    margin: 0 auto;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    :hover {
-      background-color: #000;
-      color: #fff;
-    }
-  }
-`;
-
-const CollectionSection = styled(FlexDiv)`
-  margin: 0px -10px 50px;
-  img {
-    border-radius: 10px;
-    border: 1px solid #dddddd;
-  }
-`;
-
-const HomeTabs = styled.div`
-  margin: 0px 0px 70px;
-  .react-tabs__tab-list {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 30px;
-  }
-  .react-tabs__tab {
-    bottom: 0px;
-    padding: 6px 0px;
-    margin: 0px 20px;
-    color: rgb(0 0 0 / 30%);
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.8px;
-  }
-  .react-tabs__tab--selected {
-    border: none;
-    border-bottom: 3px solid #000000;
-    color: #000;
-  }
-`;
-
-const HomeTabDetail = styled(FlexDiv)`
-  margin: 0px -10px;
-  justify-content: flex-start;
-`;
-
-const HallofFameBox = styled(FlexDiv)`
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  text-align: center;
-  min-height: 260px;
-  .HOF-inner {
-    img {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      margin: 0px 0px 10px;
-    }
-    p.user-name {
-      margin: 0px 0px 15px;
-      font-size: 18px;
-      color: #000000;
-      font-weight: 700;
-      letter-spacing: -0.9px;
-    }
-    p.small {
-      margin: 0px;
-      font-size: 10px;
-      color: #8e9194;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-    p.price {
-      margin: 0px;
-      font-size: 16px;
-      color: #000000;
-      font-weight: 600;
-      letter-spacing: -0.71px;
-    }
-  }
-`;
-const HallofFameBox2 = styled(FlexDiv)`
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  text-align: center;
-  .HOF-inner {
-    img {
-      width: 200px;
-      height: 200px;
-      margin: 0px 0px 10px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
-    p.title {
-      margin: 0px 0px 15px;
-      padding: 0px 15px;
-      font-size: 12px;
-      color: #000000;
-      font-weight: 700;
-      letter-spacing: -0.45px;
-      line-height: normal;
-    }
-    p.small {
-      margin: 0px;
-      font-size: 10px;
-      color: #8e9194;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-    p.price {
-      margin: 0px 0px 20px;
-      font-size: 16px;
-      color: #000000;
-      font-weight: 600;
-      letter-spacing: -0.71px;
-    }
-  }
-`;
-
-const AdBanner = styled.div`
-  border-radius: 20px;
-  padding: 120px 0px;
-  margin: 120px 0px;
-  text-align: center;
-  background: url(${AdBannerIMG}) no-repeat;
-  background-size: cover;
-  p {
-    color: #000000;
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 50px;
-    :last-child {
-      margin-bottom: 0px;
-    }
-  }
-  button {
-    background-color: #000000;
-    color: #fff;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    border-radius: 15px;
-    width: 190px;
-    height: 44px;
-    :hover {
-      background-color: #d121d6;
-    }
-  }
-`;
-
-const AdBanner2 = styled.div`
-  padding: 120px 0px;
-  margin: 120px 0px 0px;
-  text-align: center;
-  background: url(${AdBannerIMG}) no-repeat;
-  background-size: cover;
-  h2 {
-    color: #000000;
-    font-size: 42px;
-    letter-spacing: -2px;
-    font-weight: bold;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 30px;
-  }
-  p {
-    color: #000000;
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    line-height: normal;
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto 50px;
-    :last-child {
-      margin-bottom: 0px;
-    }
-  }
-  button {
-    background-color: #f40058;
-    color: #fff;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    font-weight: 700;
-    border-radius: 15px;
-    width: 190px;
-    height: 44px;
-    :hover {
-      background-color: #000;
-    }
-  }
-`;
 const FilterMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: space-between;
   max-width: 1080px;
   margin: 30px auto 0 auto;
+  ${Media.lg}{
+    max-width:100%;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
-
   button {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 10px 19px;
     font-size: 14px;
     font-weight: 600;
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin-right: 8px;
-
+    margin:0px 6px 0px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -829,18 +420,29 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+    :last-child
+    {
+      margin:0px;
+    }
+  }
+  ${Media.md}{
+    width:100%;
   }
 `;
 const FilterRbx = styled(FlexDiv)`
   width: 55%;
   justify-content: flex-end;
+  ${Media.md}{
+    width:100%;
+    justify-content: space-between;
+    margin-top:20px;
+  }
 `;
 const FilterInputBX = styled(FlexDiv)`
   width: 100%;
   max-width: 220px;
   position: relative;
   margin-right: 9px;
-
   input {
     background-color: #eef2f7;
     font-size: 14px;
@@ -855,6 +457,9 @@ const FilterInputBX = styled(FlexDiv)`
       border: 1px solid #00babc;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+  ${Media.md}{
+    max-width:calc(50% - 5px);
   }
 `;
 const SearchICO = styled(FlexDiv)`
@@ -891,6 +496,14 @@ const FilterBAR = styled(FlexDiv)`
     background-color: #fff;
     border: 1px solid #00babc;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+  }
+  ${Media.md}{
+    max-width:calc(50% - 5px);
+  }
+  span{
+    ${Media.xs}{
+      display:none;
+    }
   }
 `;
 

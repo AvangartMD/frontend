@@ -386,7 +386,7 @@ class NFTPage extends Component {
                           </FlexDiv>
                         </div>
                         <FileuploadBox>
-                          <label class="custom-file-upload">
+                          <label className="custom-file-upload">
                             <input type="file" name="nftFile" />
                             Choose
                           </label>
@@ -454,8 +454,8 @@ class NFTPage extends Component {
                           </p>
                         </div>
                         <CustomCheckbox1>
-                          {categoryList?.map((category) => (
-                            <label class="checkbox-container">
+                          {categoryList?.map((category, key) => (
+                            <label className="checkbox-container" key={key}>
                               <img src={Art} alt="" />
                               {capitalizeFirstLetter(category.categoryName)}
                               <input
@@ -463,10 +463,10 @@ class NFTPage extends Component {
                                 name="category"
                                 value={category._id}
                               />
-                              <span class="checkmark"></span>
+                              <span className="checkmark"></span>
                             </label>
                           ))}
-                          {/* <label class="checkbox-container">
+                          {/* <label className="checkbox-container">
                             <img src={Celebrity} alt="" />
                             Celebrity
                             <input
@@ -474,9 +474,9 @@ class NFTPage extends Component {
                               name="category"
                               value="celebrity"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label> */}
-                          {/* <label class="checkbox-container">
+                          {/* <label className="checkbox-container">
                             <img src={Sport} alt="" />
                             Sport
                             <input
@@ -484,7 +484,7 @@ class NFTPage extends Component {
                               name="category"
                               value="sport"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label> */}
                         </CustomCheckbox1>
                       </NFTForm>
@@ -496,8 +496,8 @@ class NFTPage extends Component {
                           <Gs.W80>
                             <select name="collection">
                               <option>Select or Create</option>
-                              {collectionList?.map((collection) => (
-                                <option value={collection._id}>
+                              {collectionList?.map((collection, key) => (
+                                <option value={collection._id} key={key}>
                                   {capitalizeFirstLetter(collection.name)}
                                 </option>
                               ))}
@@ -522,19 +522,19 @@ class NFTPage extends Component {
                           <label>Sale State</label>
                         </div>
                         <CustomRadio1>
-                          <label class="radio-container">
+                          <label className="radio-container">
                             <img src={Auction} alt="" /> Auction
                             <input
                               type="radio"
                               name="saleState"
                               value="AUCTION"
                             />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
-                          <label class="radio-container">
+                          <label className="radio-container">
                             <img src={Money} alt="" /> Buy now
                             <input type="radio" name="saleState" value="BUY" />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomRadio1>
                       </NFTForm>
@@ -543,20 +543,20 @@ class NFTPage extends Component {
                           <label>Auction Time</label>
                         </div>
                         <CustomRadio1>
-                          <label class="radio-container">
+                          <label className="radio-container">
                             12 hours
                             <input type="radio" name="auctionTime" value="12" />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
-                          <label class="radio-container">
+                          <label className="radio-container">
                             24 hours
                             <input type="radio" name="auctionTime" value="24" />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
-                          <label class="radio-container">
+                          <label className="radio-container">
                             48 hours
                             <input type="radio" name="auctionTime" value="48" />
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                           </label>
                         </CustomRadio1>
                       </NFTForm>
@@ -652,6 +652,7 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard
+                          nftSold={0}
                           nftId={undefined}
                           collectionId={nftObj.collectionId?._id}
                           auctionEndDate={

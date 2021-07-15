@@ -38,13 +38,13 @@ function Login(props) {
   useEffect(() => {
     if (nonce && !isFooter) signatureRequest(nonce);
   }, [nonce]);
-  useEffect(() => {
-    if (authData?.status === 401 && !isFooter) {
-      setError({ isError: true, msg: authData.data.message });
-    } else if (authData && !isFooter) {
-      closePopUp();
-    }
-  }, [authData]);
+  // useEffect(() => {
+  //   if (authData?.status === 401 && !isFooter) {
+  //     setError({ isError: true, msg: authData.data.message });
+  //   } else if (authData && !isFooter) {
+  //     closePopUp();
+  //   }
+  // }, [authData]);
   const connectToWallet = (isWalletConnect) => {
     if (web3Data.accounts[0]) {
       checkAuthentication(web3Data);
@@ -72,8 +72,10 @@ function Login(props) {
           web3Data.accounts[0]
         );
         authLogin(nonce, signature);
+        toggle(4);
+        refreshStates();
       } catch (error) {
-        setError({ error: { isError: true, msg: error.message } });
+        setError({ isError: true, msg: error.message });
       }
     }
   };
@@ -181,15 +183,15 @@ const OnBTNBar = styled(FlexDiv)`
 
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
-  margin: 60px auto 0 auto;
+  margin: 30px auto 0 auto;
 `;
 
 const OnbTitle01 = styled.div`
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 600;
   color: #000;
   margin-bottom: 15px;
-
+  letter-spacing:-1px;
   &.v2 {
     max-width: 220px;
     margin: 0 auto;
@@ -217,13 +219,16 @@ const WhiteBX01 = styled(FlexDiv)`
   width: 100%;
   position: relative;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 15px;
   min-height: 418px;
   padding: 50px;
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -235,6 +240,10 @@ const CloseBTN = styled.button`
   margin: 0px;
   :hover {
     transform: rotate(90deg);
+  }
+  ${Media.xs}{
+    right: 15px;
+    top: 15px;
   }
 `;
 
