@@ -42,7 +42,7 @@ class Profile extends Component {
   
   static contextType = Context;
   static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
+      cookies: instanceOf(Cookies).isRequired
   }
 
   constructor(props) {
@@ -51,16 +51,18 @@ class Profile extends Component {
     this.profileInput = React.createRef();
     this.profileCoverInput = React.createRef();
     this.walletAddress = React.createRef();
+
     this.state = {
       profile: { file: null, url: null },
       cover: { file: null, url: null },
-      dashboard: cookies.get('dashboard') || null,
       profile_banner: false,
+      dashboard: cookies.get('dashboard') || null,
+      profileInfo: cookies.get('profileInfo') || null,
     };
   }
 
   async componentDidMount() {
-    const { dashboard, cookies } = this.props;
+    const { dashboard, profileInfo, cookies } = this.props;
     if (!this.state.dashboard && !dashboard) {
         this.props.getDashboard() // fetch dashboard config
     } else {
@@ -68,25 +70,33 @@ class Profile extends Component {
       const isActive = cookies.get('dashboard').filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
       this.setState({ profile_banner: isActive })
     }
+    if (!this.state.profileInfo && !profileInfo) {
+      this.props.getProfileInfo() // fetch profile info list
+    } else {
+      this.props.setProfileInfo(cookies.get('profileInfo'))
+    }
     this.props.getProfile(); // fetch profile
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { updated, dashboard, cookies } = this.props;
+    let { updated, dashboard, cookies, profileInfo } = this.props;
     if (updated !== prevProps.updated) {
       this.profileUpdated(updated); // profile updated
     }
     if (dashboard && !cookies.get('dashboard')) {
-      this.setCookie(dashboard) // set dashboard data in cookie
+      this.setCookie('dashboard',dashboard) // set dashboard data in cookie
       const isActive = dashboard.filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
       this.setState({ profile_banner: isActive })
     }
+    if (profileInfo && !cookies.get('profileInfo')) {
+      this.setCookie('profileInfo', profileInfo) // set profile info in cookie
+    }
   }
 
-  setCookie = (dashboard) => {
+  setCookie = (name, dashboard) => {
     const { cookies } = this.props;
     const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
-    cookies.set('dashboard', dashboard, { path: '/', expires: expire });
+    cookies.set(name, dashboard, { path: '/', expires: expire });
   }
 
   profileFileChange = async () => {
@@ -122,25 +132,23 @@ class Profile extends Component {
   };
 
   renderedProfileInfo(profile, index) {
-    // let context = this.context;
-    // let img = ''
-    // if (context.locale === 'tr') {
-    //   img = profile.banner.tu
-    // } else {
-    //   img = profile.banner.en
-    // }
+    let context = this.context;
+    let img = ''
+    if (context.locale === 'tr') {
+      img = profile.banner.tu
+    } else {
+      img = profile.banner.en
+    }
     return (
       <a target='_blank' rel="noopener noreferrer"
-        // href={profile.url}
-        href="/"
+        href={profile.url}
         key={index}>
         <motion.img
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             key={index}
-            // src={img}
-            src={ADBanner}
+            src={img}
             exit={{ opacity: 0 }}
           />
       </a>
@@ -148,7 +156,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, profileInfo } = this.props;
     const { loading, profile_banner } = this.state;
     return (
       <>
@@ -383,8 +391,8 @@ class Profile extends Component {
           )}
 
           <ADBannerMBX>
-            {profile_banner ?
-              this.renderedProfileInfo(null, 1)
+            {profile_banner && profileInfo ?
+              profileInfo.map( (info, key) => this.renderedProfileInfo(info, key))
             : ``}
           </ADBannerMBX>
 
@@ -860,15 +868,18 @@ const mapDipatchToProps = (dispatch) => {
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
     getProfileBanner: () => dispatch(actions.getProfileBanner()),
     getDashboard: () => dispatch(actions.fetchDashboardConfig()),
-    setDashboard: (data) => dispatch({ type: 'FETCHED_DASHBOARD', data: data })
+    setDashboard: (data) => dispatch({ type: 'FETCHED_DASHBOARD', data: data }),
+    getProfileInfo: () => dispatch(actions.getProfileInfo()),
+    setProfileInfo: (data) => dispatch({ type: 'FETCHED_PROFILE_INFO', data: data })
   };
 };
 const mapStateToProps = (state) => {
   return {
     profile: state.fetchProfile,
     updated: state.updateProfile,
-    profileBanner: state.fetchProfileBanner,
     dashboard: state.fetchDashboard,
+    profileBanner: state.fetchProfileBanner,
+    profileInfo: state.fetchProfileInfo,
   };
 };
 

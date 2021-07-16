@@ -15,6 +15,7 @@ export const authActions = {
   updateCollection,
   getTopNFT,
   getTopCollection,
+  getProfileInfo,
 };
 
 function fetchedData(type, data) {
@@ -205,6 +206,19 @@ function getTopCollection() {
     return response.then((promise) => {
       if (promise.data) {
         dispatch(fetchedData("FETCHED_TOP_COLLECTION", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getProfileInfo() {
+  return (dispatch) => {
+    const response = services.get(`/admin/profile-info/list`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_PROFILE_INFO", promise.data.data));
       } else {
         // console.log("error");
       }
