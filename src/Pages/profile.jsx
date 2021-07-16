@@ -5,6 +5,8 @@ import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import { withRouter } from "react-router";
 import dateFormat from "dateformat";
 import { motion } from "framer-motion";
@@ -26,6 +28,7 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 import { actions } from "../actions";
 import { services } from "../services";
 import { Context } from '../Component/wrapper';
+import { expiryTime } from '../config';
 import { compressImage } from "../helper/functions";
 
 import Created from "../Component/profile/created";
@@ -38,27 +41,52 @@ import Media from '../Theme/media-breackpoint';
 class Profile extends Component {
   
   static contextType = Context;
+  static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+  }
 
   constructor(props) {
     super(props);
+    const { cookies } = props;
     this.profileInput = React.createRef();
     this.profileCoverInput = React.createRef();
     this.walletAddress = React.createRef();
     this.state = {
       profile: { file: null, url: null },
       cover: { file: null, url: null },
+      dashboard: cookies.get('dashboard') || null,
+      profile_banner: false,
     };
   }
 
   async componentDidMount() {
+    const { dashboard, cookies } = this.props;
+    if (!this.state.dashboard && !dashboard) {
+        this.props.getDashboard() // fetch dashboard config
+    } else {
+      this.props.setDashboard(cookies.get('dashboard'))
+      const isActive = cookies.get('dashboard').filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
+      this.setState({ profile_banner: isActive })
+    }
     this.props.getProfile(); // fetch profile
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { updated } = this.props;
+    let { updated, dashboard, cookies } = this.props;
     if (updated !== prevProps.updated) {
       this.profileUpdated(updated); // profile updated
     }
+    if (dashboard && !cookies.get('dashboard')) {
+      this.setCookie(dashboard) // set dashboard data in cookie
+      const isActive = dashboard.filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
+      this.setState({ profile_banner: isActive })
+    }
+  }
+
+  setCookie = (dashboard) => {
+    const { cookies } = this.props;
+    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    cookies.set('dashboard', dashboard, { path: '/', expires: expire });
   }
 
   profileFileChange = async () => {
@@ -121,7 +149,7 @@ class Profile extends Component {
 
   render() {
     const { profile } = this.props;
-    const { loading } = this.state;
+    const { loading, profile_banner } = this.state;
     return (
       <>
         <ProMBannerBX
@@ -355,7 +383,9 @@ class Profile extends Component {
           )}
 
           <ADBannerMBX>
-            {this.renderedProfileInfo(null, 1)}
+            {profile_banner ?
+              this.renderedProfileInfo(null, 1)
+            : ``}
           </ADBannerMBX>
 
           <HomeTabs>
@@ -829,6 +859,8 @@ const mapDipatchToProps = (dispatch) => {
     getProfile: () => dispatch(actions.getProfile()),
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
     getProfileBanner: () => dispatch(actions.getProfileBanner()),
+    getDashboard: () => dispatch(actions.fetchDashboardConfig()),
+    setDashboard: (data) => dispatch({ type: 'FETCHED_DASHBOARD', data: data })
   };
 };
 const mapStateToProps = (state) => {
@@ -836,7 +868,8 @@ const mapStateToProps = (state) => {
     profile: state.fetchProfile,
     updated: state.updateProfile,
     profileBanner: state.fetchProfileBanner,
+    dashboard: state.fetchDashboard,
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Profile));
+export default withCookies(withRouter(connect(mapStateToProps, mapDipatchToProps)(Profile)));
