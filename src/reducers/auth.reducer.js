@@ -133,3 +133,12 @@ export function fetchTopCollection(state = null, action) {
         return state;
     }
 }
+
+export function fetchProfileInfo(state = null, action) {
+    switch (action.type) {
+      case 'FETCHED_PROFILE_INFO':
+        return action.data;
+      default:
+        return state;
+    }
+}
