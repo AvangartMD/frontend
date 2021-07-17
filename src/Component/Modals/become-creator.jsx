@@ -57,9 +57,9 @@ class BecomeCreator extends Component {
       email: email,
       bio: bio,
       portfolio: {
-        instagarm: { username: instagram, url: null },
+        instagarm: { url: instagram },
         website: { url: website },
-        twitter: { username: twitter },
+        twitter: { url: twitter },
       },
       isCreator: true,
       category: category,
@@ -77,6 +77,7 @@ class BecomeCreator extends Component {
           throw new Error(response.statusText);
         }
         if (response.status === 200) {
+          this.props.getUserDetails(); //update the user details 
           this.setState({
             isOpen1: false,
             isOpen2: false,
@@ -753,6 +754,7 @@ const WGdescText = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getCategories: () => dispatch(actions.fetchCategories()),
+    getUserDetails: () => dispatch(actions.getUserDetails()),
   };
 };
 

@@ -38,17 +38,26 @@ class Historypopup extends Component {
       isOpen1: false,
       nftId: this.props.nftId,
       edition: this.props.edition,
+      bnbUSDPrice: 0,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { nftId, edition } = this.state;
     this.props.getHistory(nftId, edition); // get NFT edition history
+
+    const string =
+      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+    await fetch(string)
+      .then((resp) => resp.json())
+      .then(async (data) => {
+        this.setState({ bnbUSDPrice: data.binancecoin.usd });
+      });
   }
 
   render() {
     const { history } = this.props;
-    console.log(history);
+    const { bnbUSDPrice } = this.state;
     return (
       <>
         <BlackWrap>
@@ -101,7 +110,7 @@ class Historypopup extends Component {
                         <HDright>
                           <HDrightbox>
                             <h3>{history ? history.buyPrice : "0.00"} BNB</h3>
-                            <p>0.00 USD</p>
+                            <p>{(history?.buyPrice * bnbUSDPrice).toLocaleString( 2 )} USD</p>
                           </HDrightbox>
                         </HDright>
                       </HDsection>

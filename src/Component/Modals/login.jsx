@@ -18,6 +18,7 @@ import { actions } from "../../actions";
 
 function Login(props) {
   const [loader, setLoader] = useState(false);
+  // const [isClicked, setIsclicked] = useState(false);
   const [error, setError] = useState({ isError: false, msg: "" });
   const {
     web3Data,
@@ -33,7 +34,7 @@ function Login(props) {
     footerToggleVal,
   } = props;
   useEffect(() => {
-    if (web3Data.accounts[0] && !isFooter) checkAuthentication(web3Data);
+    if (web3Data.accounts[0] && !isFooter) getUserDetails();
   }, [web3Data.accounts[0]]);
   useEffect(() => {
     if (nonce && !isFooter) signatureRequest(nonce);
@@ -46,6 +47,7 @@ function Login(props) {
     }
   }, [authData]);
   const connectToWallet = (isWalletConnect) => {
+    // setIsclicked(true);
     if (web3Data.accounts[0]) {
       checkAuthentication(web3Data);
     } else {
@@ -73,7 +75,7 @@ function Login(props) {
         );
         authLogin(nonce, signature);
       } catch (error) {
-        setError({ error: { isError: true, msg: error.message } });
+        setError({ isError: true, msg: error.message });
       }
     }
   };
@@ -189,7 +191,7 @@ const OnbTitle01 = styled.div`
   font-weight: 600;
   color: #000;
   margin-bottom: 15px;
-  letter-spacing:-1px;
+  letter-spacing: -1px;
   &.v2 {
     max-width: 220px;
     margin: 0 auto;
@@ -224,8 +226,8 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 const CloseBTN = styled.button`
@@ -239,7 +241,7 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }

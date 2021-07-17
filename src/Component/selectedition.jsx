@@ -54,7 +54,7 @@ function SelectEdition(props) {
             ownerId: soldEdition.ownerId,
             isOpenForSale: soldEdition.isOpenForSale,
             saleState: "",
-            price: web3.utils.fromWei(soldEdition.price.toString()),
+            price: soldEdition.price,
           });
         } else {
           editionsData.push({

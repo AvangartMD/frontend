@@ -70,12 +70,12 @@ function Created(props) {
           
           <button
               className={tabPanel === "BUY" ? "active" : ""}
-              id="boynow"
+              id="buynow"
               onClick={() => {
                 setTaPanel("BUY");
               }}
             >
-              Boy now
+              Buy now
           </button>
         </FilterLbx>
       </FilterMBX>

@@ -24,6 +24,7 @@ import {
   updateCollection,
   fetchTopNFT,
   fetchTopCollection,
+  fetchProfileInfo,
 } from "./auth.reducer";
 import {
   fetchNFTContractInstance,
@@ -91,6 +92,7 @@ const rootReducer = combineReducers({
   fetchNFTEditionHistory,
   fetchNotifications,
   fetchProfileBanner,
+  fetchProfileInfo,
 });
 
 export default rootReducer;
