@@ -656,7 +656,7 @@ const Edition = styled(FlexDiv)`
     display:initial;
   }
   .ed-box {
-    margin-right: 50px;
+    margin-right: 48px;
     &.ed-mb-block
     {
       ${Media.md}{
@@ -664,7 +664,7 @@ const Edition = styled(FlexDiv)`
       } 
     }
     ${Media.lg}{
-      margin-right: 40px;
+      margin-right: 25px;
     }
     ${Media.md}{
       margin:0px 0px 30px 0px;

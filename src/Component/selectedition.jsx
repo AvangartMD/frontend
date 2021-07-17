@@ -91,7 +91,7 @@ function SelectEdition(props) {
             </FilterLbx>
             <FilterBAR
               onClick={() => toggle(1)}
-              // className={state.isOpen1 ? "active" : ""}
+            // className={state.isOpen1 ? "active" : ""}
             >
               <FilterICO>
                 <img src={FiltICON} alt="" />
@@ -399,6 +399,10 @@ const Htitle = styled.div`
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
+  ${Media.sm}{
+    width:100%;
+    margin:0px 0px 10px;
+  } 
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -449,6 +453,9 @@ const FilterBAR = styled(FlexDiv)`
     border: 1px solid #00babc;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
   }
+  ${Media.sm}{
+    max-width:100%;
+  } 
 `;
 
 const DDContainer = styled(FlexDiv)`
@@ -471,6 +478,9 @@ const DDContainer = styled(FlexDiv)`
 const FilterMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: space-between;
+  ${Media.sm}{
+    display:block;
+  } 
 `;
 const EditionTable = styled.div`
   width: 100%;
@@ -500,6 +510,9 @@ const EditionTable = styled.div`
         font-size: 18px;
         font-weight: 600;
         letter-spacing: -0.9px;
+        ${Media.sm}{
+          font-size: 12px;
+        } 
         .JCFS {
           justify-content: flex-start;
         }
