@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
 import Collapse from "@kunukn/react-collapse";
+import Media from '../Theme/media-breackpoint';
 
 
 import NFT2 from "../Assets/images/nft2.jpg";
@@ -130,6 +131,14 @@ const HUtopButtons = styled(FlexDiv)`
     :hover, &.active{
       background-color:#00babc; color:#fff;
     }
+    ${Media.sm} {
+      padding:10px 40px;
+      margin:0px 5px 5px 0px;
+    }
+    ${Media.xs} {
+      padding:10px 30px;
+      margin:0px 5px 5px 0px;
+    }
   }
 `;
 const HUbottombuttons = styled.div`
@@ -151,6 +160,13 @@ const HUbottombuttons = styled.div`
     :hover{
       background-color:#000; color:#fff;
     }
+    ${Media.sm} {
+      margin:0px auto 10px;
+    }
+  }
+  ${Media.sm} {
+    justify-content:center;
+    margin:0px 0px 100px;
   }
 `;
 
@@ -167,6 +183,15 @@ const Howtoleft = styled.div`
     font-size:16px; line-height:24px; letter-spacing:-0.8px; color:#000; margin:0px 0px 30px;
     :last-child{margin:0px;}
   }
+  ${Media.lg} {
+    max-width:680px;
+  }
+  ${Media.md} {
+    max-width:70%;
+  }
+  ${Media.sm} {
+    max-width:100%;
+  }
 `;
 const Howtoright = styled.div`
   max-width:255px;
@@ -176,6 +201,22 @@ const Howtoright = styled.div`
   position:relative;
   border-radius:10px;
   overflow:hidden;
+  ${Media.lg} {
+    max-width:220px;
+    max-height:220px;
+  }
+  ${Media.md} {
+    max-width:25%;
+    max-height:100%;
+    height:190px;
+    margin:0px 0px 0px auto;
+  }
+  ${Media.sm} {
+    max-width:255px;
+    max-height:255px;
+    height:auto;
+    margin:30px auto;
+  }
   img{
     width:100%; height:100%; object-fit:cover; 
   }

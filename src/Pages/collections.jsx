@@ -11,6 +11,8 @@ import CollectionCard from "../Component/Cards/collectionCard";
 import LoaderGif from "../Assets/images/loading.gif";
 import SerICON from "../Assets/images/searchICO.svg";
 
+import Media from '../Theme/media-breackpoint';
+
 
 class Collection extends Component {
 
@@ -77,62 +79,63 @@ class Collection extends Component {
     }
     return (
       <Gs.MainSection>
-        <FilterMBX>
-          <FilterLbx>
-            <button
-              className={tabPanel === 'all' ? 'active' : ''}
-              id='all'
-              onClick={() => {
-                this.onCategoryChange('all');
-              }}
+        <Gs.Container>
+          <FilterMBX>
+            <FilterLbx>
+              <button
+                className={tabPanel === 'all' ? 'active' : ''}
+                id='all'
+                onClick={() => {
+                  this.onCategoryChange('all');
+                }}
+              >
+                All
+              </button>
+              {categories
+                ? categories.map((category, key) => {
+                  return (
+                    <button
+                      id={category.id}
+                      key={key}
+                      className={tabPanel === category.id ? 'active' : ''}
+                      onClick={() => {
+                        this.onCategoryChange(category.id);
+                      }}
+                    >
+                      {category.categoryName}
+                    </button>
+                  );
+                })
+                : ''}
+            </FilterLbx>
+
+            <FilterRbx>
+              <FilterInputBX>
+                <input
+                  placeholder='Search'
+                  onKeyUp={(e) => this.onSearchKeyUp(e)}
+                ></input>
+                <SearchICO>
+                  <img src={SerICON} alt="" />
+                </SearchICO>
+              </FilterInputBX>
+            </FilterRbx>
+          </FilterMBX>
+
+          {collections ? (
+            <InfiniteScroll
+              dataLength={pagination.totalRecords}
+              next={this.fetchMore}
+              hasMore={page < pagination.totalPages}
+              loader={
+                <LoaderBX>
+                  {' '}
+                  <img src={LoaderGif} alt='' />{' '}
+                </LoaderBX>
+              }
+            // endMessage={<p>You have seen it all.!</p>}
             >
-              All
-            </button>
-            {categories
-              ? categories.map((category, key) => {
-                return (
-                  <button
-                    id={category.id}
-                    key={key}
-                    className={tabPanel === category.id ? 'active' : ''}
-                    onClick={() => {
-                      this.onCategoryChange(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })
-              : ''}
-          </FilterLbx>
 
-          <FilterRbx>
-            <FilterInputBX>
-              <input
-                placeholder='Search'
-                onKeyUp={(e) => this.onSearchKeyUp(e)}
-              ></input>
-              <SearchICO>
-                <img src={SerICON} alt="" />
-              </SearchICO>
-            </FilterInputBX>
-          </FilterRbx>
-        </FilterMBX>
-
-        {collections ? (
-          <InfiniteScroll
-            dataLength={pagination.totalRecords}
-            next={this.fetchMore}
-            hasMore={page < pagination.totalPages}
-            loader={
-              <LoaderBX>
-                {' '}
-                <img src={LoaderGif} alt='' />{' '}
-              </LoaderBX>
-            }
-          // endMessage={<p>You have seen it all.!</p>}
-          >
-            <Gs.Container>
               <CollectionBoxes>
                 {collections.map((collection) => (
                   <CollectionCard
@@ -143,10 +146,10 @@ class Collection extends Component {
                   />
                 ))}
               </CollectionBoxes>
-            </Gs.Container>
-          </InfiniteScroll>
-        ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
 
+            </InfiniteScroll>
+          ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+        </Gs.Container>
       </Gs.MainSection>
     );
   }
@@ -172,12 +175,14 @@ const FilterMBX = styled(FlexDiv)`
   justify-content: space-between;
   max-width: 1080px;
   margin: 30px auto 0 auto;
+  ${Media.lg}{
+    max-width:100%;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
-
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -186,8 +191,7 @@ const FilterLbx = styled(FlexDiv)`
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin-right: 8px;
-
+    margin:0px 6px 0px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -197,11 +201,26 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+    :last-child
+    {
+      margin:0px;
+    }
+    ${Media.sm}{
+      padding: 10px 19px;
+    }
+  }
+  ${Media.md}{
+    width:100%;
   }
 `;
 const FilterRbx = styled(FlexDiv)`
   width: 55%;
   justify-content: flex-end;
+  ${Media.md}{
+    width:100%;
+    justify-content: flex-start;
+    margin-top:20px;
+  }
 `;
 const FilterInputBX = styled(FlexDiv)`
   width: 100%;
@@ -224,6 +243,10 @@ const FilterInputBX = styled(FlexDiv)`
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
   }
+  ${Media.md}{
+    max-width:100%;
+    margin-right:0px;
+  }
 `;
 const SearchICO = styled(FlexDiv)`
   width: 21px;
@@ -236,6 +259,9 @@ const SearchICO = styled(FlexDiv)`
 const CollectionBoxes = styled(FlexDiv)`
   margin:40px -10px 120px;
   justify-content:flex-start;
+  ${Media.md}{
+    margin:40px -10px 60px;
+  }
 `;
 
 const OneCollBox = styled.div`

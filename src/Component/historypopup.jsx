@@ -79,6 +79,7 @@ class Historypopup extends Component {
                     width: "100%",
                     height: "400px",
                     position: "relative",
+                    className: "HCscroll"
                   }}
                 >
                   {history.map((history, key) => {
@@ -90,18 +91,34 @@ class Historypopup extends Component {
                               ? history.text
                               : "Lorem ipsum dolor sit amet"}
                           </h3>
-                          <p>
+                          <p className="desktop-block">
                             {history
                               ? history.createdAt
                                 ? dateFormat(
-                                    new Date(history.createdAt).toString(),
-                                    "dd mmmm yyyy"
-                                  )
+                                  new Date(history.createdAt).toString(),
+                                  "dd mmmm yyyy"
+                                )
+                                : "Transaction Date Here"
+                              : "Transaction Date Here"}
+                          </p>
+                          <HDmiddle className="mobile-block">
+                            <p>
+                              by @
+                              <b>{history ? history.ownerId?.username : ""}</b>
+                            </p>
+                          </HDmiddle>
+                          <p className="mobile-block">
+                            {history
+                              ? history.createdAt
+                                ? dateFormat(
+                                  new Date(history.createdAt).toString(),
+                                  "dd mmmm yyyy"
+                                )
                                 : "Transaction Date Here"
                               : "Transaction Date Here"}
                           </p>
                         </HDleft>
-                        <HDmiddle>
+                        <HDmiddle className="desktop-block">
                           <p>
                             by @
                             <b>{history ? history.ownerId?.username : ""}</b>
@@ -110,7 +127,7 @@ class Historypopup extends Component {
                         <HDright>
                           <HDrightbox>
                             <h3>{history ? history.buyPrice : "0.00"} BNB</h3>
-                            <p>{(history?.buyPrice * bnbUSDPrice).toLocaleString( 2 )} USD</p>
+                            <p>{(history?.buyPrice * bnbUSDPrice).toLocaleString(2)} USD</p>
                           </HDrightbox>
                         </HDright>
                       </HDsection>
@@ -170,6 +187,12 @@ const WhiteBX0D2 = styled(FlexDiv)`
   ${Media.xs} {
     padding: 50px 25px;
   }
+  .HCscroll
+  {
+    .view{
+      width:100%;
+    }
+  }
 `;
 
 const CloseBTN = styled.button`
@@ -200,11 +223,15 @@ const Htitle = styled.div`
 
 const HDsection = styled(FlexDiv)`
   justify-content: space-between;
+  align-items:flex-start;
   width: 100%;
   border: 1px solid #dddddd;
   padding: 20px 15px;
   border-radius: 10px;
   margin: 0px 0px 10px 0px;
+  ${Media.sm} {
+    padding:15px;
+  } 
 `;
 
 const HDleft = styled.div`
@@ -214,13 +241,33 @@ const HDleft = styled.div`
     font-weight: 300;
     letter-spacing: -0.9px;
     color: #000;
+    ${Media.sm} {
+      font-size:12px;
+      margin: 0px;
+    }
   }
   p {
     margin: 0px;
     font-size: 12px;
     font-weight: 300;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.2px;
     color: #8e9194;
+    ${Media.sm} {
+      font-size:10px;
+    }
+  }
+  .mobile-block
+  {
+    display:none;
+    ${Media.sm} {
+      display:block;
+    }
+  }
+  .desktop-block
+  {
+    ${Media.sm} {
+      display:none;
+    }
   }
 `;
 
@@ -231,9 +278,26 @@ const HDmiddle = styled.div`
     font-weight: 300;
     letter-spacing: -0.9px;
     color: #000;
+    ${Media.sm} {
+      font-size:12px;
+      margin:0px 0px 5px;
+    }
   }
   b {
     font-weight: 600;
+  }
+  &.mobile-block
+  {
+    display:none;
+    ${Media.sm} {
+      display:block;
+    }
+  }
+  &.desktop-block
+  {
+    ${Media.sm} {
+      display:none;
+    }
   }
 `;
 
@@ -243,12 +307,19 @@ const HDright = styled(FlexDiv)`
 
 const HDrightbox = styled.div`
   margin: 0px 10px 0px 0px;
+  ${Media.sm} {
+    margin:0px;
+  }
   h3 {
     font-size: 18px;
     color: #000;
     letter-spacing: -0.9px;
     font-weight: 600;
     margin: 0px 0px 5px;
+    ${Media.sm} {
+      font-size:12px;
+      margin: 0px;
+    }
   }
   p {
     margin: 0px;
@@ -256,6 +327,9 @@ const HDrightbox = styled.div`
     font-weight: 300;
     letter-spacing: -0.6px;
     color: #8e9194;
+    ${Media.sm} {
+      font-size:10px;
+    }
   }
 `;
 

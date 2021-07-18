@@ -18,6 +18,7 @@ import SuccessPopup from "../Component/Modals/sucessPopup";
 
 import { actions } from "../actions";
 import Media from '../Theme/media-breackpoint';
+import Scrollspy from 'react-scrollspy';
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -167,34 +168,36 @@ class ProfileEdit extends Component {
               <Gs.W200px>
                 <Sticky>
                   <NFTLeft>
-                    <Link
-                      className={pointSelect("accountSettings")}
-                      to="#accountSettings"
-                      smooth={true}
-                    >
-                      Account Settings
-                    </Link>
-                    <Link
-                      className={pointSelect("biography")}
-                      to="#biography"
-                      smooth={true}
-                    >
-                      Biography
-                    </Link>
-                    <Link
-                      className={pointSelect("verifyProfile")}
-                      to="#verifyProfile"
-                      smooth={true}
-                    >
-                      Verify Profile
-                    </Link>
-                    <Link
-                      className={pointSelect("socialLink")}
-                      to="#socialLink"
-                      smooth={true}
-                    >
-                      Social Links
-                    </Link>
+                    <Scrollspy items={['accountSettings', 'biography', 'verifyProfile', 'socialLink']} currentClassName="active">
+                      <Link
+                        className={pointSelect("accountSettings")}
+                        to="#accountSettings"
+                        smooth={true}
+                      >
+                        Account Settings
+                      </Link>
+                      <Link
+                        className={pointSelect("biography")}
+                        to="#biography"
+                        smooth={true}
+                      >
+                        Biography
+                      </Link>
+                      <Link
+                        className={pointSelect("verifyProfile")}
+                        to="#verifyProfile"
+                        smooth={true}
+                      >
+                        Verify Profile
+                      </Link>
+                      <Link
+                        className={pointSelect("socialLink")}
+                        to="#socialLink"
+                        smooth={true}
+                      >
+                        Social Links
+                      </Link>
+                    </Scrollspy>
                   </NFTLeft>
 
                   <BackBTN01
@@ -218,45 +221,25 @@ class ProfileEdit extends Component {
 
                 <Gs.W605px>
                   <NFTMiddle>
-                    <NFTtitle id="accountSettings">
-                      <h4>Account Settings</h4>
-                      <p className="mb-30">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </p>
-                    </NFTtitle>
                     <form
                       onChange={(e) => this.formChange(e)}
                       onSubmit={(e) => this.formSubmit(e)}
                     >
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Name</label>
-                        </div>
-                        <input
-                          type="text"
-                          required
-                          name="name"
-                          placeholder="Type something…"
-                          onKeyPress={(e) => {
-                            if (e.key === "Enter") {
-                              e.preventDefault();
-                            }
-                          }}
-                          defaultValue={
-                            profile ? (profile.name ? profile.name : "") : ""
-                          }
-                        />
-                      </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Username</label>
-                        </div>
-                        <div className="iLeft">
-                          <i>@</i>
+                      <div id="accountSettings">
+                        <NFTtitle>
+                          <h4>Account Settings</h4>
+                          <p className="mb-30">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                          </p>
+                        </NFTtitle>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Name</label>
+                          </div>
                           <input
                             type="text"
                             required
-                            name="username"
+                            name="name"
                             placeholder="Type something…"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
@@ -264,15 +247,36 @@ class ProfileEdit extends Component {
                               }
                             }}
                             defaultValue={
-                              profile
-                                ? profile.username
-                                  ? profile.username
-                                  : ""
-                                : ""
+                              profile ? (profile.name ? profile.name : "") : ""
                             }
                           />
-                        </div>
-                        {/* <div className="iLeft errorinput">
+                        </NFTForm>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Username</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>@</i>
+                            <input
+                              type="text"
+                              required
+                              name="username"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.username
+                                    ? profile.username
+                                    : ""
+                                  : ""
+                              }
+                            />
+                          </div>
+                          {/* <div className="iLeft errorinput">
                                                     <i>@</i>
                                                     <input
                                                         type="text"
@@ -282,228 +286,236 @@ class ProfileEdit extends Component {
                                                     />
                                                     <p className="error">it’s taken</p>
                                                 </div>  */}
-                      </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Email</label>
-                          <FlexDiv className="JCSB">
-                            <p>
-                              Phasellus at dui imperdiet, eleifend lacus
-                              gravida, accumsan arcu.{" "}
-                            </p>
-                          </FlexDiv>
-                        </div>
-                        <input
-                          type="text"
-                          name="email"
-                          required
-                          placeholder="Type something…"
-                          onKeyPress={(e) => {
-                            if (e.key === "Enter") {
-                              e.preventDefault();
+                        </NFTForm>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Email</label>
+                            <FlexDiv className="JCSB">
+                              <p>
+                                Phasellus at dui imperdiet, eleifend lacus
+                                gravida, accumsan arcu.{" "}
+                              </p>
+                            </FlexDiv>
+                          </div>
+                          <input
+                            type="text"
+                            name="email"
+                            required
+                            placeholder="Type something…"
+                            onKeyPress={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                              }
+                            }}
+                            defaultValue={
+                              profile ? (profile.email ? profile.email : "") : ""
                             }
-                          }}
-                          defaultValue={
-                            profile ? (profile.email ? profile.email : "") : ""
-                          }
-                        />
-                      </NFTForm>
-                      <NFTtitle id="biography">
-                        <h4 className="mt-30">Biography</h4>
-                        <p className="mb-30">
-                          Write a little bit about yourself
-                        </p>
-                      </NFTtitle>
-                      <NFTForm>
-                        <textarea
-                          type="textarea"
-                          name="bio"
-                          placeholder="0"
-                          onKeyPress={(e) => {
-                            if (e.key === "Enter") {
-                              e.preventDefault();
-                            }
-                          }}
-                          defaultValue={
-                            profile ? (profile.bio ? profile.bio : "") : ""
-                          }
-                        />
-                      </NFTForm>
-                      <NFTtitle id="verifyProfile">
-                        <h4 className="mt-30">Verify Profile</h4>
-                        <p className="mb-30">
-                          Show us how authentic your profile
-                        </p>
-                      </NFTtitle>
-                      <NFTForm>
-                        <CustomCheckbox1>
-                          <label className="checkbox-container">
-                            {" "}
-                            <img src={CICON01} alt="" />
-                            Verify via Twitter
-                            <button
-                              type="checkbox"
-                              name="category"
-                              value="aa"
-                            />
-                            <span className="checkmark v2"></span>
-                          </label>
-                          <label className="checkbox-container">
-                            {" "}
-                            <img src={CICON02} alt="" />
-                            Verify via Instagram
-                            <button
-                              type="checkbox"
-                              name="category"
-                              value="celebrity"
-                            />
-                            <span className="checkmark v2"></span>
-                          </label>
-                        </CustomCheckbox1>
-                      </NFTForm>
-                      <NFTtitle id="socialLink">
-                        <h4 className="mt-30">Social Links</h4>
-                        <p className="mb-30">
-                          Add your social media links for people who want you
-                          know more
-                        </p>
-                      </NFTtitle>
+                          />
+                        </NFTForm>
+                      </div>
 
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Website</label>
-                        </div>
-                        <div className="iLeft">
-                          <i>
-                            <img src={CICON03} alt="" />
-                          </i>
-                          <input
-                            type="url"
-                            name="website"
-                            placeholder="Type something…"
+                      <div id="biography">
+                        <NFTtitle>
+                          <h4 className="mt-30">Biography</h4>
+                          <p className="mb-30">
+                            Write a little bit about yourself
+                          </p>
+                        </NFTtitle>
+                        <NFTForm>
+                          <textarea
+                            type="textarea"
+                            name="bio"
+                            placeholder="0"
                             onKeyPress={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
                             defaultValue={
-                              profile
-                                ? profile.portfolio?.website
-                                  ? profile.portfolio.website.url
-                                  : ""
-                                : ""
+                              profile ? (profile.bio ? profile.bio : "") : ""
                             }
                           />
-                        </div>
-                      </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Instagram</label>
-                        </div>
-                        <div className="iLeft">
-                          <i>
-                            <img src={CICON02} alt="" />
-                          </i>
-                          <input
-                            type="url"
-                            name="instagarm"
-                            placeholder="Type something…"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
+                        </NFTForm>
+                      </div>
+                      <div id="verifyProfile">
+                        <NFTtitle>
+                          <h4 className="mt-30">Verify Profile</h4>
+                          <p className="mb-30">
+                            Show us how authentic your profile
+                          </p>
+                        </NFTtitle>
+                        <NFTForm>
+                          <CustomCheckbox1>
+                            <label className="checkbox-container">
+                              {" "}
+                              <img src={CICON01} alt="" />
+                              Verify via Twitter
+                              <button
+                                type="checkbox"
+                                name="category"
+                                value="aa"
+                              />
+                              <span className="checkmark v2"></span>
+                            </label>
+                            <label className="checkbox-container">
+                              {" "}
+                              <img src={CICON02} alt="" />
+                              Verify via Instagram
+                              <button
+                                type="checkbox"
+                                name="category"
+                                value="celebrity"
+                              />
+                              <span className="checkmark v2"></span>
+                            </label>
+                          </CustomCheckbox1>
+                        </NFTForm>
+                      </div>
+                      <div id="socialLink">
+                        <NFTtitle>
+                          <h4 className="mt-30">Social Links</h4>
+                          <p className="mb-30">
+                            Add your social media links for people who want you
+                            know more
+                          </p>
+                        </NFTtitle>
+
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Website</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>
+                              <img src={CICON03} alt="" />
+                            </i>
+                            <input
+                              type="url"
+                              name="website"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.website
+                                    ? profile.portfolio.website.url
+                                    : ""
+                                  : ""
                               }
-                            }}
-                            defaultValue={
-                              profile
-                                ? profile.portfolio?.instagarm
-                                  ? profile.portfolio.instagarm.url
+                            />
+                          </div>
+                        </NFTForm>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Instagram</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>
+                              <img src={CICON02} alt="" />
+                            </i>
+                            <input
+                              type="url"
+                              name="instagarm"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.instagarm
+                                    ? profile.portfolio.instagarm.url
+                                    : ""
                                   : ""
-                                : ""
-                            }
-                          />
-                        </div>
-                      </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Discord</label>
-                        </div>
-                        <div className="iLeft">
-                          <i>
-                            <img src={CICON04} alt="" />
-                          </i>
-                          <input
-                            type="url"
-                            name="discord"
-                            placeholder="Type something…"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
                               }
-                            }}
-                            defaultValue={
-                              profile
-                                ? profile.portfolio?.discord
-                                  ? profile.portfolio.discord.url
+                            />
+                          </div>
+                        </NFTForm>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Discord</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>
+                              <img src={CICON04} alt="" />
+                            </i>
+                            <input
+                              type="url"
+                              name="discord"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.discord
+                                    ? profile.portfolio.discord.url
+                                    : ""
                                   : ""
-                                : ""
-                            }
-                          />
-                        </div>
-                      </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Youtube</label>
-                        </div>
-                        <div className="iLeft">
-                          <i>
-                            <img src={CICON05} alt="" />
-                          </i>
-                          <input
-                            type="url"
-                            name="youtube"
-                            placeholder="Type something…"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
                               }
-                            }}
-                            defaultValue={
-                              profile
-                                ? profile.portfolio?.youtube
-                                  ? profile.portfolio.youtube.url
+                            />
+                          </div>
+                        </NFTForm>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Youtube</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>
+                              <img src={CICON05} alt="" />
+                            </i>
+                            <input
+                              type="url"
+                              name="youtube"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.youtube
+                                    ? profile.portfolio.youtube.url
+                                    : ""
                                   : ""
-                                : ""
-                            }
-                          />
-                        </div>
-                      </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Facebook</label>
-                        </div>
-                        <div className="iLeft">
-                          <i>
-                            <img src={CICON06} alt="" />
-                          </i>
-                          <input
-                            type="url"
-                            name="facebook"
-                            placeholder="Type something…"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
                               }
-                            }}
-                            defaultValue={
-                              profile
-                                ? profile.portfolio?.facebook
-                                  ? profile.portfolio.facebook.url
+                            />
+                          </div>
+                        </NFTForm>
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Facebook</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>
+                              <img src={CICON06} alt="" />
+                            </i>
+                            <input
+                              type="url"
+                              name="facebook"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.facebook
+                                    ? profile.portfolio.facebook.url
+                                    : ""
                                   : ""
-                                : ""
-                            }
-                          />
-                        </div>
-                      </NFTForm>
+                              }
+                            />
+                          </div>
+                        </NFTForm>
+                      </div>
                       <CreateItemButton>
                         <button type="submit" disabled={!formChange ? true : false}>Update</button>
                       </CreateItemButton>
@@ -514,108 +526,112 @@ class ProfileEdit extends Component {
             </NFTminting>
           </Gs.Container>
         </div>
-      </Gs.MainSection>
+      </Gs.MainSection >
     );
   }
 
 }
 // Common Style Div
 const FlexDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  .JCSB {
-    justify-content: space-between;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        .JCSB {
+          justify - content: space-between;
   }
-`;
+        `;
 
 const NFTminting = styled(FlexDiv)`
-  align-items: flex-start;
-  position: relative;
-  margin: 60px 0px;
-  .sticky {
-    top: 20px !important;
+        align-items: flex-start;
+        position: relative;
+        margin: 60px 0px;
+        .sticky {
+          top: 20px !important;
   }
-  .displayflex {
-    display: flex;
-    flex-wrap: wrap;
+        .displayflex {
+          display: flex;
+        flex-wrap: wrap;
   }
-`;
+        `;
 
 const NFTLeft = styled.div`
-  margin: 0px 10px;
-  .active {
-    color: #000000;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.8px;
-    margin: 0px 0px 15px;
-    border-bottom: 3px solid #000;
-    padding-bottom: 5px;
-    display: inline-block;
+        margin: 0px 10px;
+        ul{
+          padding-left:0px;
+          margin:0px;
+        }
+        .active {
+          color: #000000;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        margin: 0px 0px 15px;
+        border-bottom: 3px solid #000;
+        padding-bottom: 5px;
+        display: inline-block;
   }
-  a {
-    display: block;
-    margin: 0px 0px 22px;
-    font-size: 18px;
-    color: rgb(0 0 0 / 30%);
-    font-weight: 600;
-    letter-spacing: -0.8px;
-    :hover {
-      color: rgb(0 0 0 / 60%);
+        a {
+          display: block;
+        margin: 0px 0px 22px;
+        font-size: 18px;
+        color: rgb(0 0 0 / 30%);
+        font-weight: 600;
+        letter-spacing: -0.8px;
+        :hover {
+          color: rgb(0 0 0 / 60%);
     }
-    &.AdminLink {
-      color: rgb(0 186 188 / 30%);
-      :hover {
-        color: rgb(0 186 188 / 60%);
+        &.AdminLink {
+          color: rgb(0 186 188 / 30%);
+        :hover {
+          color: rgb(0 186 188 / 60%);
       }
     }
   }
-`;
+        `;
 
 const NFTRight = styled.div`
-  margin: 0px 10px;
-`;
+        margin: 0px 10px;
+        `;
 
 const NFTtitle = styled.div`
-  h4 {
-    color: #000000;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -1.07px;
-    margin: 0px 0px 9px;
-    &.mt-30 {
-      margin-top: 30px;
+        h4 {
+          color: #000000;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -1.07px;
+        margin: 0px 0px 9px;
+        &.mt-30 {
+          margin - top: 30px;
     }
-    &.text-till-blue {
-      color: #00babc;
-    }
-  }
-  p {
-    color: #000000;
-    font-size: 16px;
-    letter-spacing: -0.8px;
-    margin: 0px 0px 20px;
-    &.mb-30 {
-      margin-bottom: 30px;
+        &.text-till-blue {
+          color: #00babc;
     }
   }
-`;
+        p {
+          color: #000000;
+        font-size: 16px;
+        letter-spacing: -0.8px;
+        margin: 0px 0px 20px;
+        &.mb-30 {
+          margin - bottom: 30px;
+    }
+  }
+        `;
 
 const NFTfourbox = styled(FlexDiv)`
-  img.main {
-    width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+        img.main {
+          width: 100%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
   }
-  .NFT-home-box {
-    border-radius: 10px;
-    border: 1px solid #dddddd;
-    .NFT-home-box-inner {
-      padding: 20px 15px;
-      h4 {
-        margin: 0px 0px 10px;
+        .NFT-home-box {
+          border - radius: 10px;
+        border: 1px solid #dddddd;
+        .NFT-home-box-inner {
+          padding: 20px 15px;
+        h4 {
+          margin: 0px 0px 10px;
         font-size: 18px;
         color: #000000;
         font-weight: 600;
@@ -624,477 +640,477 @@ const NFTfourbox = styled(FlexDiv)`
       }
     }
   }
-`;
+        `;
 
 Gs.W25V2 = styled(Gs.W25V2)`
-  ${NFTfourbox}.nftnift & {
-    width: 100%;
+        ${NFTfourbox}.nftnift & {
+          width: 100%;
   }
-`;
+        `;
 
 Gs.TenpxGutter = styled(Gs.TenpxGutter)`
-  ${NFTfourbox}.nftnift & {
-    margin: 0px;
+        ${NFTfourbox}.nftnift & {
+          margin: 0px;
   }
-`;
+        `;
 
 const NFTMiddle = styled.div`
-  margin: 0px 40px;
-`;
+        margin: 0px 40px;
+        `;
 
 const NFTForm = styled.div`
-  position: relative;
-  .label-line {
-    margin: 0px 0px 6px;
-    label {
-      font-size: 16px;
-      color: #8e9194;
-      letter-spacing: -0.8px;
-      font-weight: 600;
-    }
-    span {
-      color: #8e9194;
-      font-size: 12px;
-      letter-spacing: -0.6px;
-      margin-left: 6px;
-    }
-    p {
-      color: #8e9194;
-      font-size: 14px;
-      letter-spacing: -0.7px;
-      font-weight: 300;
-      margin: 0px;
-    }
-  }
-  input,
-  select {
-    width: 100%;
-    height: 54px;
-    border: 1px solid #dddddd;
-    border-radius: 10px;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #000000;
-    letter-spacing: -0.9px;
-    margin: 0px 0px 30px;
-    ::placeholder {
-      color: #000;
-      opacity: 20%;
-    }
-  }
-  textarea {
-    width: 100%;
-    height: 110px;
-    border: 1px solid #dddddd;
-    border-radius: 10px;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #000000;
-    letter-spacing: -0.9px;
-    margin: 0px 0px 30px;
-    ::placeholder {
-      color: #000;
-      opacity: 20%;
-    }
-  }
-  .iLeft {
-    position: relative;
-    i {
-      position: absolute;
-      left: 15px;
-      top: 16px;
-      font-size: 18px;
-      color: #000;
-      font-weight: bold;
-      img {
         position: relative;
+        .label-line {
+          margin: 0px 0px 6px;
+        label {
+          font - size: 16px;
+        color: #8e9194;
+        letter-spacing: -0.8px;
+        font-weight: 600;
+    }
+        span {
+          color: #8e9194;
+        font-size: 12px;
+        letter-spacing: -0.6px;
+        margin-left: 6px;
+    }
+        p {
+          color: #8e9194;
+        font-size: 14px;
+        letter-spacing: -0.7px;
+        font-weight: 300;
+        margin: 0px;
+    }
+  }
+        input,
+        select {
+          width: 100%;
+        height: 54px;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #000000;
+        letter-spacing: -0.9px;
+        margin: 0px 0px 30px;
+        ::placeholder {
+          color: #000;
+        opacity: 20%;
+    }
+  }
+        textarea {
+          width: 100%;
+        height: 110px;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #000000;
+        letter-spacing: -0.9px;
+        margin: 0px 0px 30px;
+        ::placeholder {
+          color: #000;
+        opacity: 20%;
+    }
+  }
+        .iLeft {
+          position: relative;
+        i {
+          position: absolute;
+        left: 15px;
+        top: 16px;
+        font-size: 18px;
+        color: #000;
+        font-weight: bold;
+        img {
+          position: relative;
         left: -7px;
         top: -4px;
       }
     }
-    input {
-      padding-left: 45px;
+        input {
+          padding - left: 45px;
     }
   }
-  .iRight {
-    position: relative;
-    i {
-      position: absolute;
-      right: 15px;
-      top: 17px;
-      font-size: 18px;
-      color: #000;
-      font-weight: bold;
+        .iRight {
+          position: relative;
+        i {
+          position: absolute;
+        right: 15px;
+        top: 17px;
+        font-size: 18px;
+        color: #000;
+        font-weight: bold;
     }
-    input {
-      padding-right: 45px;
-    }
-  }
-  .errorinput {
-    position: relative;
-    input {
-      border-color: #ff2a44;
-    }
-    p.error {
-      color: #ff2a44;
-      font-size: 12px;
-      letter-spacing: -0.6px;
-      font-weight: 600;
-      margin: 0px;
-      position: absolute;
-      top: 18px;
-      right: 15px;
+        input {
+          padding - right: 45px;
     }
   }
-`;
+        .errorinput {
+          position: relative;
+        input {
+          border - color: #ff2a44;
+    }
+        p.error {
+          color: #ff2a44;
+        font-size: 12px;
+        letter-spacing: -0.6px;
+        font-weight: 600;
+        margin: 0px;
+        position: absolute;
+        top: 18px;
+        right: 15px;
+    }
+  }
+        `;
 
 const FileuploadBox = styled(FlexDiv)`
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  width: 100%;
-  height: 100px;
-  margin: 0px 0px 60px;
-  input {
-    display: none;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+        width: 100%;
+        height: 100px;
+        margin: 0px 0px 60px;
+        input {
+          display: none;
   }
-  .custom-file-upload {
-    border: 1px solid #000000;
-    border-radius: 15px;
-    font-size: 14px;
-    color: #000;
-    letter-spacing: -0.5px;
-    padding: 13px 28px;
-    cursor: pointer;
-    :hover {
-      background-color: #000;
-      color: #fff;
+        .custom-file-upload {
+          border: 1px solid #000000;
+        border-radius: 15px;
+        font-size: 14px;
+        color: #000;
+        letter-spacing: -0.5px;
+        padding: 13px 28px;
+        cursor: pointer;
+        :hover {
+          background - color: #000;
+        color: #fff;
     }
   }
-`;
+        `;
 
 const CreateItemButton = styled.div`
-  margin: 50px 0px 80px;
-  button {
-    font-size: 14px;
-    color: #fff;
-    letter-spacing: -0.5px;
-    padding: 13px 60px;
-    cursor: pointer;
-    border-radius: 15px;
-    background-color: rgb(0 0 0 / 30%);
-    :hover {
-      background-color: #000;
+        margin: 50px 0px 80px;
+        button {
+          font - size: 14px;
+        color: #fff;
+        letter-spacing: -0.5px;
+        padding: 13px 60px;
+        cursor: pointer;
+        border-radius: 15px;
+        background-color: rgb(0 0 0 / 30%);
+        :hover {
+          background - color: #000;
     }
   }
-`;
+        `;
 
 const CustomRadio1 = styled(FlexDiv)`
-  justify-content: flex-start;
-  margin-bottom: 30px;
-  .radio-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 54px;
-    width: calc(170px - 5px);
-    margin-right: 10px;
-    cursor: pointer;
-    padding-left: 15px;
-    line-height: 54px;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.9px;
-    color: #000;
-    img {
-      margin-right: 5px;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+        .radio-container {
+          display: flex;
+        align-items: center;
+        position: relative;
+        height: 54px;
+        width: calc(170px - 5px);
+        margin-right: 10px;
+        cursor: pointer;
+        padding-left: 15px;
+        line-height: 54px;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.9px;
+        color: #000;
+        img {
+          margin - right: 5px;
     }
   }
-  .radio-container input {
-    position: absolute;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
-    margin: 0px;
+        .radio-container input {
+          position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+        margin: 0px;
   }
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 54px;
-    width: 100%;
-    background-color: transparent;
-    border-radius: 10px;
-    border: 1px solid #dddddd;
+        .checkmark {
+          position: absolute;
+        top: 0;
+        left: 0;
+        height: 54px;
+        width: 100%;
+        background-color: transparent;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
   }
-  .radio-container input:checked ~ .checkmark {
-    border: 1px solid #00babc;
+        .radio-container input:checked ~ .checkmark {
+          border: 1px solid #00babc;
   }
-`;
+        `;
 
 const CustomCheckbox1 = styled(FlexDiv)`
-  justify-content: flex-start;
-  margin-bottom: 30px;
-  .checkbox-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 54px;
-    width: calc(250px - 5px);
-    margin-right: 10px;
-    cursor: pointer;
-    padding-left: 15px;
-    line-height: 54px;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.9px;
-    color: #000;
-    img {
-      margin-right: 5px;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+        .checkbox-container {
+          display: flex;
+        align-items: center;
+        position: relative;
+        height: 54px;
+        width: calc(250px - 5px);
+        margin-right: 10px;
+        cursor: pointer;
+        padding-left: 15px;
+        line-height: 54px;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.9px;
+        color: #000;
+        img {
+          margin - right: 5px;
     }
   }
-  .checkbox-container input {
-    position: absolute;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
-    margin: 0px;
+        .checkbox-container input {
+          position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+        margin: 0px;
   }
-  .checkbox-container button:hover {
-    background-color: #f7f7f7;
+        .checkbox-container button:hover {
+          background - color: #f7f7f7;
   }
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 54px;
-    width: 100%;
-    background-color: transparent;
-    border-radius: 10px;
-    border: 1px solid #dddddd;
+        .checkmark {
+          position: absolute;
+        top: 0;
+        left: 0;
+        height: 54px;
+        width: 100%;
+        background-color: transparent;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
   }
-  .checkmark.v2:hover {
-    border: 1px solid #00babc;
+        .checkmark.v2:hover {
+          border: 1px solid #00babc;
   }
-  .checkbox-container input:checked ~ .checkmark {
-    border: 1px solid #00babc;
+        .checkbox-container input:checked ~ .checkmark {
+          border: 1px solid #00babc;
   }
-`;
+        `;
 
 const CollectionSelect = styled(FlexDiv)`
-  margin-bottom: 60px;
-  position: relative;
-  select {
-    margin-bottom: 0px;
-    -webkit-appearance: none;
-    background: url(${DDdownA}) no-repeat 97% 55%;
-    option {
-      border-radius: 10px;
-      box-shadow: 0 10px 20px 0 rgb(0 0 0 / 30%);
-      margin: 30px;
+        margin-bottom: 60px;
+        position: relative;
+        select {
+          margin - bottom: 0px;
+        -webkit-appearance: none;
+        background: url(${DDdownA}) no-repeat 97% 55%;
+        option {
+          border - radius: 10px;
+        box-shadow: 0 10px 20px 0 rgb(0 0 0 / 30%);
+        margin: 30px;
     }
   }
-  button {
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    color: #000;
-    font-weight: 700;
-    border-radius: 15px;
-    border: 1px solid #000000;
-    padding: 16px 20px;
-    margin-left: 10px;
-    :hover {
-      background-color: #000;
-      color: #fff;
+        button {
+          font - size: 14px;
+        letter-spacing: -0.5px;
+        color: #000;
+        font-weight: 700;
+        border-radius: 15px;
+        border: 1px solid #000000;
+        padding: 16px 20px;
+        margin-left: 10px;
+        :hover {
+          background - color: #000;
+        color: #fff;
     }
   }
-`;
+        `;
 
 const AccountBX = styled(FlexDiv)`
-  position: absolute;
-  top: 37px;
-  right: 0px;
-  width: auto;
-  justify-content: flex-end;
-  padding: 8px 10px;
-  z-index: 101;
-  cursor: pointer;
-  & i {
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
+        position: absolute;
+        top: 37px;
+        right: 0px;
+        width: auto;
+        justify-content: flex-end;
+        padding: 8px 10px;
+        z-index: 101;
+        cursor: pointer;
+        & i {
+          width: 50px;
+        height: 50px;
+        overflow: hidden;
+        img {
+          width: 100%;
+        height: 100%;
     }
   }
-  & span {
-    font-size: 18px;
-    letter-spacing: -0.9px;
-    font-weight: 700;
-    color: #000;
-    display: block;
-    text-align: right;
-    line-height: 16px;
-    padding-right: 8px;
-    span {
-      font-size: 10px;
-      color: #b3b3b3;
-      width: 100%;
-      padding-right: 0;
+        & span {
+          font - size: 18px;
+        letter-spacing: -0.9px;
+        font-weight: 700;
+        color: #000;
+        display: block;
+        text-align: right;
+        line-height: 16px;
+        padding-right: 8px;
+        span {
+          font - size: 10px;
+        color: #b3b3b3;
+        width: 100%;
+        padding-right: 0;
     }
   }
-`;
+        `;
 
 const DDBtnbar02 = styled(FlexDiv)`
-  width: 100%;
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 45px;
-    font-size: 16px;
-    font-weight: 600;
-    border-bottom: 1px solid #eef2f7;
-    & i {
-      width: 34px;
-      height: 34px;
-      margin: 0 8px;
-      overflow: hidden;
-      img {
         width: 100%;
+        button {
+          display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 45px;
+        font-size: 16px;
+        font-weight: 600;
+        border-bottom: 1px solid #eef2f7;
+        & i {
+          width: 34px;
+        height: 34px;
+        margin: 0 8px;
+        overflow: hidden;
+        img {
+          width: 100%;
         height: 100%;
       }
     }
-    & span {
-      margin-left: auto;
+        & span {
+          margin - left: auto;
     }
-    &:nth-last-child(01) {
-      border-bottom: 0px;
+        &:nth-last-child(01) {
+          border - bottom: 0px;
     }
-    &:hover {
-      background-color: #d9f5f5;
+        &:hover {
+          background - color: #d9f5f5;
     }
   }
-`;
+        `;
 
 const DDContainer = styled(FlexDiv)`
-  position: absolute;
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
-  top: calc(100% + 30px);
-  width: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden;
-  z-index: 100;
-  &.ver2 {
-    width: 150px;
-    left: auto;
-    transform: translateX(0);
-    right: 0;
-    top: calc(100% + 20px);
-    padding: 0;
+        position: absolute;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+        top: calc(100% + 30px);
+        width: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+        z-index: 100;
+        &.ver2 {
+          width: 150px;
+        left: auto;
+        transform: translateX(0);
+        right: 0;
+        top: calc(100% + 20px);
+        padding: 0;
   }
-`;
+        `;
 
 const BackBTN01 = styled.button`
-  border: 1px solid #000000;
-  border-radius: 10px;
-  padding: 0 30px;
-  height: 44px;
-  margin: 60px 0 0 6px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-`;
+        border: 1px solid #000000;
+        border-radius: 10px;
+        padding: 0 30px;
+        height: 44px;
+        margin: 60px 0 0 6px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        `;
 const LoaderBX = styled(FlexDiv)`
-  width: 100%;
-  margin: 60px auto 0 auto;
-`;
+        width: 100%;
+        margin: 60px auto 0 auto;
+        `;
 
 const OnbTitle01 = styled.div`
-  font-size: 26px;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 15px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 15px;
 
-  &.v2 {
-    max-width: 220px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 28px;
+        &.v2 {
+          max - width: 220px;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 28px;
   }
-`;
+        `;
 const OnbText01 = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  color: #000;
-  letter-spacing: -0.5px;
-  
-  &.w100 {
-    width: 100%;
+        font-size: 14px;
+        font-weight: 400;
+        color: #000;
+        letter-spacing: -0.5px;
+
+        &.w100 {
+          width: 100%;
   }
-`;
+        `;
 const BlackWrap = styled(FlexDiv)`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 101;
-  backdrop-filter: blur(2px);
-`;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 101;
+        backdrop-filter: blur(2px);
+        `;
 const WhiteBX01 = styled(FlexDiv)`
-  width: 100%;
-  position: relative;
-  max-width: 400px;
-  margin: 0 15px;
-  min-height: 418px;
-  padding: 50px;
-  background-color: #fff;
-  border-radius: 30px;
-  justify-content: flex-start;
-  align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+        width: 100%;
+        position: relative;
+        max-width: 400px;
+        margin: 0 15px;
+        min-height: 418px;
+        padding: 50px;
+        background-color: #fff;
+        border-radius: 30px;
+        justify-content: flex-start;
+        align-content: center;
+        ${Media.xs}{
+          padding:50px 25px;
   }
-`;
+        `;
 const CloseBTN = styled.button`
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 20px;
-  top: 27px;
-  padding: 0;
-  margin: 0px;
-  :hover {
-    transform: rotate(90deg);
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 20px;
+        top: 27px;
+        padding: 0;
+        margin: 0px;
+        :hover {
+          transform: rotate(90deg);
   }
-  ${Media.xs}{
-    right: 15px;
-    top: 15px;
+        ${Media.xs}{
+          right: 15px;
+        top: 15px;
   }
-`;
+        `;
 const AlertNote = styled.div`
-  background-color: #ffe5e9;
-  border: 1px solid #ff2a44;
-  border-radius: 10px;
-  margin: 0px 0px 40px;
-  padding: 17px 15px;
-  p {
-    margin: 0px;
-    color: #000000;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.8px;
+        background-color: #ffe5e9;
+        border: 1px solid #ff2a44;
+        border-radius: 10px;
+        margin: 0px 0px 40px;
+        padding: 17px 15px;
+        p {
+          margin: 0px;
+        color: #000000;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.8px;
   }
-`;
+        `;
 
 
 const mapDipatchToProps = (dispatch) => {

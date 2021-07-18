@@ -404,7 +404,7 @@ const FilterLbx = styled(FlexDiv)`
   justify-content: flex-start;
   button {
     display: inline-block;
-    padding: 10px 19px;
+    padding: 10px 25px;
     font-size: 14px;
     font-weight: 600;
     color: #000000;
@@ -423,6 +423,9 @@ const FilterLbx = styled(FlexDiv)`
     :last-child
     {
       margin:0px;
+    }
+    ${Media.sm}{
+      padding: 10px 19px;
     }
   }
   ${Media.md}{

@@ -77,19 +77,19 @@ function Footer(props) {
             : ``}
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="-">
+            <NavLink to="/legal">
               <FormattedMessage
                 id="Term_of_service"
                 defaultMessage="Terms of Service"
               />
             </NavLink>
-            <NavLink to="-">
+            <NavLink to="/legal">
               <FormattedMessage
                 id="Privacy_policy"
                 defaultMessage="Privacy Policy"
               />
             </NavLink>
-            <NavLink to="-">
+            <NavLink to="/legal">
               <FormattedMessage
                 id="Cookie_policy"
                 defaultMessage="Cookie Policy"
