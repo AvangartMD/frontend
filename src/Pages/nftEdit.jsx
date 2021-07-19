@@ -88,7 +88,7 @@ class EditNFTPage extends Component {
           coCreatorUserName: NFTDetails.coCreator.userId,
           percentShare: NFTDetails.coCreator.percentage,
           category: NFTDetails.category ? NFTDetails.category.filter(cat => cat).map(catt => catt.id) : [],
-          collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : [] ,
+          collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : "" ,
           saleState: `${NFTDetails.saleState}`,
           auctionTime: `${NFTDetails.auctionTime}`,
           edition: `${NFTDetails.edition}`,

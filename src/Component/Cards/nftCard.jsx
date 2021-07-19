@@ -26,8 +26,8 @@ function NFTCard({
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
+        <Link to={`/nftDetails/${nftId}`}>
         <div className="NFT-home-box">
-          <Link to={`/nftDetails/${nftId}`}>
             <NFTImgBX>
               <motion.img
                 initial={{ opacity: 0.2 }}
@@ -38,7 +38,6 @@ function NFTCard({
                 exit={{ opacity: 0 }}
               />
             </NFTImgBX>
-          </Link>
           <div className="NFT-home-box-inner">
             <h4>
               {title
@@ -93,7 +92,8 @@ function NFTCard({
               {username ? `@${username}` : name}
             </UserImgName>
           </div>
-        </div>
+          </div>
+        </Link>
       </Gs.TenpxGutter>
     </Gs.W25V2>
   );
