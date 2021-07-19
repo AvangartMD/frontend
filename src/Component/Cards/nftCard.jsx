@@ -83,7 +83,7 @@ function NFTCard({
                       <Timer timeLeft={auctionEndDate} onlyHours={true} />
                     </h3>
                   </>
-                ) : (
+                ) : nftSold === edition ? (<button className="disabled" disabled>Sold Out</button>) : (
                   <button>Buy now</button>
                 )}
               </div>
