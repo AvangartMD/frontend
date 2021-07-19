@@ -82,8 +82,7 @@ class NFTPage extends Component {
           id: NFTDetails.id,
           title: NFTDetails.title,
           description: NFTDetails.description,
-          coCreator: NFTDetails.coCreator,
-          coCreatorUserName: NFTDetails.coCreator?.userId,
+          coCreatorUserName: NFTDetails.coCreator?.userId?.id,
           percentShare: NFTDetails.coCreator?.percentage,
           category: NFTDetails.category ? NFTDetails.category.filter(cat => cat).map(catt => catt.id) : [],
           collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : "" ,
@@ -468,7 +467,7 @@ class NFTPage extends Component {
                           <Autosuggestion
                             setSuggestionValue={this.setSuggestionValue}
                             setError={this.setError}
-                            username={nftObj?.coCreator?.username}
+                            username={this.props.NFTDetails?.coCreator?.userId?.username}
                           />
                           {error.isError && error.isCocreatorError && (
                             <p className="error">user doesn’t exist</p>
