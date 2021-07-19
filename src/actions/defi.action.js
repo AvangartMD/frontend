@@ -136,6 +136,20 @@ function getUserProfile(id) {
   };
 }
 
+function updateNFT(data) {
+  return (dispatch) => {
+    const url = `nft/updateNft/${data.id}`;  
+    const response = services.put(url, data);
+    response.then((promise) => {
+      if (promise.status === 200) {
+        dispatch(setData(promise.data, "UPDATE_NFT"));
+      } else {
+        // console.log('erroer');
+      }
+    });
+  };
+}
+
 export const defiActions = {
   addNFT,
   authLogin,
@@ -144,4 +158,5 @@ export const defiActions = {
   getCollectionList,
   getUserDetails,
   getUserProfile,
+  updateNFT,
 };

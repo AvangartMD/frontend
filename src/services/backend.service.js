@@ -1,6 +1,6 @@
 import axios from '../config';
 import { web3 } from '../web3';
-import { uploadToS3 } from '../s3.service';
+import { uploadToS3, deleteToS3 } from '../s3.service';
 // import userBalancesContract from "../contracts/userBalances/userBalances";
 // import tokens from "../tokens.json";
 // import { param } from "jquery";
@@ -10,6 +10,7 @@ export const backendServices = {
   post,
   put,
   uploadFileOnBucket,
+  removeFileOnBucket,
 };
 
 async function post(url, params) {
@@ -98,6 +99,16 @@ async function uploadFileOnBucket(file, folder, isCompressed) {
     // const extension = file.name.split(".").pop().toLowerCase();
     const uploadTo = await uploadToS3(fileName, file, folder, extension);
     return uploadTo.Location;
+  } catch (error) {
+    // console.log(error);
+    return false;
+  }
+}
+
+async function removeFileOnBucket(file, folderName) {
+  try {
+    var fileName = file.substring(file.indexOf(folderName))
+    await deleteToS3(fileName);
   } catch (error) {
     // console.log(error);
     return false;

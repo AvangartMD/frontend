@@ -60,3 +60,12 @@ export function fetchResponseFailed(state = null, action) {
       return state;
   }
 }
+
+export function fetchUpdatedNFTId(state = null, action) {
+  switch (action.type) {
+    case "UPDATE_NFT":
+      return action.data;
+    default:
+      return state;
+  }
+}

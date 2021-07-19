@@ -61,15 +61,11 @@ class Collections extends Component {
                 collections.map((collection) => this.renderedCollection(collection))}
 
             </CollectionSection>
-            {collections ?
-              collections.length > 4 ?
-                <ViewallButton>
-                  <button
-                    onClick={() => this.props.history.push("/collections")}
-                  >View all collections</button>
-                </ViewallButton>
-                : ``
-              : ``}
+            <ViewallButton>
+              <button
+                onClick={() => this.props.history.push("/collections")}
+              >View all collections</button>
+            </ViewallButton>
           </Gs.Container>
         </HomeNFTs>
       </>

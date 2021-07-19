@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { withRouter } from "react-router";
 import Magnifypopup from '../Component/Modals/magnifyPopup';
 import POSpopup from '../Component/Modals/putonsalepopup';
 import PABpopup from '../Component/Modals/placebidpopup';
@@ -261,8 +262,8 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       isApprovedForAll,
     } = this.state;
-    // console.log("thiss", selectedNFTDetails);
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
+    console.log("thiss", NFTDetails);
     return (
       <>
         <Helmet>
@@ -373,16 +374,16 @@ class NftDetail extends React.Component {
                       </FlexDiv>
                     </div>
                   )}
-                  <div className='ed-box ed-mb-block'>
-                    <p>Unlockable content message</p>
-                    <SkyNoteBox>
-                      <p className='note-text'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Etiam volutpat congue accumsan. Pellentesque et auctor
-                        quam, consequat bibendum sapien.
-                      </p>
-                    </SkyNoteBox>
-                  </div>
+                  {NFTDetails?.unlockContent ?
+                    <div className='ed-box ed-mb-block'>
+                      <p>Unlockable content message</p>
+                      <SkyNoteBox>
+                        <p className='note-text'>
+                          {NFTDetails?.digitalKey}
+                        </p>
+                      </SkyNoteBox>
+                    </div>
+                  : ``}
                 </Edition>
                 <NFTcartButtons>
                   {!selectedNFTDetails?.isOwner ? (
@@ -399,9 +400,16 @@ class NftDetail extends React.Component {
                       >
                         {saleMethod.btnName}
                       </button>
-                    ) : (
-                      <button disabled>Sold out</button>
-                    )
+                    ) :
+                      NFTDetails?.status === 'NOT_MINTED' ?
+                        (
+                          <button onClick={() => this.props.history.push(`/user/nftEdit/${NFTDetails.id}`)} >
+                            Edit </button>
+                        )
+                      :
+                        (
+                          <button disabled>Sold out</button>
+                        )
                   ) : (
                     //   <button onClick={() => this.toggle(8)}>
                     //
@@ -892,4 +900,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(NftDetail);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(NftDetail));

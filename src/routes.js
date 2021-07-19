@@ -154,6 +154,12 @@ var routes = [
     component: BlogList,
     layout: "/",
   },
+  {
+    path: '/nftEdit/:id',
+    name: 'NFT Edit',
+    component: NFTMinting,
+    layout: '/user',
+  },
 ];
 
 export default routes;

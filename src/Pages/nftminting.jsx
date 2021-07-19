@@ -64,6 +64,7 @@ class NFTPage extends Component {
         imgSrc: NFT3,
         categoryList: null,
         collectionList: [],
+        coCreator: null,
       },
       suggestionVAl: [],
       error: { isError: false, msg: "", isCocreatorError: false },
@@ -76,7 +77,29 @@ class NFTPage extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    let { web3Data, createdNFTID, collectionList, categoryList } = this.props;
+    let { web3Data, createdNFTID, updatedNFTID, NFTDetails, collectionList, categoryList } = this.props;
+
+    if (NFTDetails !== prevProps.NFTDetails) {
+      this.setState({
+        nftObj: {
+          ...this.state.nftObj,
+          id: NFTDetails.id,
+          title: NFTDetails.title,
+          description: NFTDetails.description,
+          coCreatorUserName: NFTDetails.coCreator?.userId?.id,
+          percentShare: NFTDetails.coCreator?.percentage,
+          category: NFTDetails.category ? NFTDetails.category.filter(cat => cat).map(catt => catt.id) : [],
+          collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : "",
+          saleState: `${NFTDetails.saleState}`,
+          auctionTime: `${NFTDetails.auctionTime}`,
+          edition: `${NFTDetails.edition}`,
+          price: `${NFTDetails.price}`,
+          digitalKey: NFTDetails.unlockContent ? NFTDetails.digitalKey : "",
+          imgSrc: NFTDetails.image.compressed,
+          image: NFTDetails.image
+        }
+      })
+    }
 
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data }, () => {
@@ -99,6 +122,9 @@ class NFTPage extends Component {
     if (createdNFTID !== prevProps.createdNFTID) {
       this.setState({ mintNFTStatus: "" });
     }
+    if (updatedNFTID !== prevProps.updatedNFTID) {
+      this.setState({ mintNFTStatus: "" });
+    }
   }
 
   componentDidMount() {
@@ -108,6 +134,7 @@ class NFTPage extends Component {
       collectionList,
       nftContractInstance,
     } = this.props;
+    if (this.props.match.params.id) this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the single nft details
     if (!nftContractInstance) this.props.getNFTContractInstance();
     if (!categoryList) this.props.getCategoryList();
     else this.setState({ categoryList });
@@ -129,7 +156,7 @@ class NFTPage extends Component {
     const { web3Data, nftObj, suggestionVAl } = this.state;
     const obj = [
       nftObj.edition,
-      this.props.createdNFTID._id,
+      this.props.createdNFTID ? this.props.createdNFTID._id : nftObj.id,
       web3Data.accounts[0],
       suggestionVAl.walletAddress
         ? suggestionVAl.walletAddress
@@ -198,9 +225,11 @@ class NFTPage extends Component {
       edition,
       price,
       nftFile,
+      description
     } = this.state.nftObj;
     if (!title) this.setError("Please enter the Title", true);
-    else if (!nftFile) this.setError("Please select your file", true);
+    if (!description) this.setError("Please enter the description", true);
+    else if (!nftFile && !this.props.match.params.id) this.setError("Please select your file", true);
     else if (this.state.suggestionVAl.length && !percentShare)
       this.setError("Please set the percent share of your Co-creator", true);
     else if (!category.length)
@@ -228,43 +257,64 @@ class NFTPage extends Component {
       this.setState({ mintNFTStatus: "progress1" }, () => this.toggle(3));
       const { nftObj } = this.state;
       const { nftFile, compressionRequired } = this.state.nftObj;
+      let image = nftObj.image;
       let compressedNFTFile = nftFile;
+
       if (compressionRequired) {
         compressedNFTFile = await compressImage(nftFile);
       }
-      Promise.all([
-        services.uploadFileOnBucket(nftFile, "nft"),
-        services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true),
-      ]).then((urls) => {
-        let dataObj = {
-          title: nftObj.title,
-          description: nftObj.description,
-          image: {
-            original: urls[0],
-            compressed: urls[1],
-          },
-          category: nftObj.category,
-          price: nftObj.price,
-          saleState: nftObj.saleState,
-          auctionTime: nftObj.auctionTime,
-          edition: nftObj.edition,
-          unlockContent: false,
+
+      if (this.props.match.params.id) {
+        if (nftFile) {
+          await services.removeFileOnBucket(nftObj.image.compressed); // remove the previous image
+          await services.removeFileOnBucket(nftObj.image.original); // remove the previous image
+          const url = await services.uploadFileOnBucket(nftFile, "nft"); // upload the image
+          const comUrl = await services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true); // upload the image
+          image = {
+            original: url,
+            compressed: comUrl
+          }
+        }
+      } else {
+        const url = await services.uploadFileOnBucket(nftFile, "nft"); // upload the image
+        const comUrl = await services.uploadFileOnBucket(compressedNFTFile, "compressedNft", true); // upload the image
+        image = {
+          original: url,
+          compressed: comUrl
+        }
+      }
+
+      let dataObj = {
+        id: nftObj.id,
+        title: nftObj.title,
+        description: nftObj.description,
+        image: image,
+        category: nftObj.category,
+        price: nftObj.price,
+        saleState: nftObj.saleState,
+        auctionTime: nftObj.auctionTime,
+        edition: nftObj.edition,
+        unlockContent: false,
+      };
+      if (nftObj.collection) {
+        dataObj.collectionId = nftObj.collection;
+      }
+      if (this.state.suggestionVAl) {
+        dataObj.coCreator = {
+          userId: this.state.suggestionVAl.id,
+          percentage: nftObj.percentShare,
         };
-        if (nftObj.collection) {
-          dataObj.collectionId = nftObj.collection;
-        }
-        if (this.state.suggestionVAl) {
-          dataObj.coCreator = {
-            userId: this.state.suggestionVAl.id,
-            percentage: nftObj.percentShare,
-          };
-        }
-        if (nftObj.digitalKey) {
-          dataObj.unlockContent = true;
-          dataObj.digitalKey = nftObj.digitalKey;
-        }
-        this.props.addNFT(dataObj);
-      });
+      }
+      if (nftObj.digitalKey) {
+        dataObj.unlockContent = true;
+        dataObj.digitalKey = nftObj.digitalKey;
+      }
+
+      if (this.props.match.params.id) {
+        this.props.updateNFT(dataObj); // update nft api called
+      } else {
+        this.props.addNFT(dataObj); // add new nft api called
+      }
     }
   }
 
@@ -652,7 +702,7 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm> */}
                       <CreateItemButton>
-                        <button type="submit">Create Item</button>
+                        <button type="submit">{nftObj?.id ? `Update` : `Create`} Item</button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>
@@ -667,7 +717,7 @@ class NFTPage extends Component {
                       <NFTfourbox className="nftnift">
                         <NFTCard
                           nftSold={0}
-                          nftId={undefined}
+                          nftId={nftObj?.id}
                           collectionId={nftObj.collectionId?._id}
                           auctionEndDate={
                             nftObj.saleState == "BUY"
@@ -683,8 +733,8 @@ class NFTPage extends Component {
                               ? null
                               : nftObj.auctionTime
                           }
-                          userImg={this.props.authData?.profile}
-                          username={this.props.authData?.username}
+                          userImg={this.props.authData?.data.profile}
+                          username={this.props.authData?.data.username}
                           previewCard={true}
                         />
                       </NFTfourbox>
@@ -1262,6 +1312,9 @@ const mapDipatchToProps = (dispatch) => {
     getCollectionList: () => dispatch(actions.getCollectionList()),
     getCategoryList: () => dispatch(actions.getCategoryList()),
     getNFTContractInstance: () => dispatch(actions.getNFTContractInstance()),
+
+    updateNFT: (obj) => dispatch(actions.updateNFT(obj)),
+    getSingleNFTDetails: (id) => dispatch(actions.getSingleNFTDetails(id)),
   };
 };
 const mapStateToProps = (state) => {
@@ -1274,6 +1327,9 @@ const mapStateToProps = (state) => {
     collectionList: state.fetchCollectionList,
     authData: state.fetchAuthData,
     nftContractInstance: state.fetchNFTContractInstance,
+
+    NFTDetails: state.fetchSingleNFTDetails,
+    updatedNFTID: state.fetchUpdatedNFTId,
   };
 };
 export default connect(mapStateToProps, mapDipatchToProps)(NFTPage);
