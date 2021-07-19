@@ -267,7 +267,6 @@ class EditNFTPage extends Component {
       let dataObj = {
         id: nftObj.id,
         title: nftObj.title,
-        description: nftObj.description,
         image: image,
         category: nftObj.category,
         price: nftObj.price,
@@ -276,6 +275,7 @@ class EditNFTPage extends Component {
         edition: nftObj.edition,
         unlockContent: false,
       };
+      if (nftObj.description) dataObj.description = nftObj.description;
       if (nftObj.collection) {
         dataObj.collectionId = nftObj.collection;
       }

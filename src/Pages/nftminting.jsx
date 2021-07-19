@@ -234,7 +234,7 @@ class NFTPage extends Component {
       ]).then((urls) => {
         let dataObj = {
           title: nftObj.title,
-          description: nftObj.description,
+
           image: {
             original: urls[0],
             compressed: urls[1],
@@ -246,6 +246,7 @@ class NFTPage extends Component {
           edition: nftObj.edition,
           unlockContent: false,
         };
+        if (nftObj.description) dataObj.description = nftObj.description;
         if (nftObj.collection) {
           dataObj.collectionId = nftObj.collection;
         }
