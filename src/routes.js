@@ -34,6 +34,7 @@ const CollectionDetail = lazy(() =>
 const CollectionEdit = lazy(() =>
   retry(() => import('./Pages/collection-edit'))
 );
+const NFTEdit = lazy(() => retry(() => import('./Pages/nftEdit')));
 const HowToUse = lazy(() => retry(() => import('./Pages/how-to-use')));
 const About = lazy(() => retry(() => import('./Pages/about')));
 const Legal = lazy(() => retry(() => import('./Pages/legal')));
@@ -153,6 +154,12 @@ var routes = [
     name: "Blog List",
     component: BlogList,
     layout: "/",
+  },
+  {
+    path: '/nftEdit/:id',
+    name: 'NFT Edit',
+    component: NFTEdit,
+    layout: '/user',
   },
 ];
 

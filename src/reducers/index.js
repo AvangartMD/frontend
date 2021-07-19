@@ -7,6 +7,7 @@ import {
   fetchNewNFTId,
   fetchUserProfile,
   fetchResponseFailed,
+  fetchUpdatedNFTId,
 } from "./defi.reducer";
 import {
   fetchDashboardBanners,
@@ -93,6 +94,7 @@ const rootReducer = combineReducers({
   fetchNotifications,
   fetchProfileBanner,
   fetchProfileInfo,
+  fetchUpdatedNFTId,
 });
 
 export default rootReducer;

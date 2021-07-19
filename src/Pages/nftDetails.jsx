@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { withRouter } from "react-router";
 import Magnifypopup from '../Component/Modals/magnifyPopup';
 import POSpopup from '../Component/Modals/putonsalepopup';
 import PABpopup from '../Component/Modals/placebidpopup';
@@ -399,9 +400,16 @@ class NftDetail extends React.Component {
                       >
                         {saleMethod.btnName}
                       </button>
-                    ) : (
-                      <button disabled>Sold out</button>
-                    )
+                    ) :
+                      NFTDetails?.status === 'NOT_MINTED' ?
+                        (
+                          <button onClick={() => this.props.history.push(`/user/nftEdit/${NFTDetails.id}`)} >
+                            Edit </button>
+                        )
+                      :
+                        (
+                          <button disabled>Sold out</button>
+                        )
                   ) : (
                     //   <button onClick={() => this.toggle(8)}>
                     //
@@ -892,4 +900,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(NftDetail);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(NftDetail));
