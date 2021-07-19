@@ -262,8 +262,8 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       isApprovedForAll,
     } = this.state;
-    // console.log("thiss", selectedNFTDetails);
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
+    console.log("thiss", NFTDetails);
     return (
       <>
         <Helmet>
@@ -374,16 +374,16 @@ class NftDetail extends React.Component {
                       </FlexDiv>
                     </div>
                   )}
-                  <div className='ed-box ed-mb-block'>
-                    <p>Unlockable content message</p>
-                    <SkyNoteBox>
-                      <p className='note-text'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Etiam volutpat congue accumsan. Pellentesque et auctor
-                        quam, consequat bibendum sapien.
-                      </p>
-                    </SkyNoteBox>
-                  </div>
+                  {NFTDetails?.unlockContent ?
+                    <div className='ed-box ed-mb-block'>
+                      <p>Unlockable content message</p>
+                      <SkyNoteBox>
+                        <p className='note-text'>
+                          {NFTDetails?.digitalKey}
+                        </p>
+                      </SkyNoteBox>
+                    </div>
+                  : ``}
                 </Edition>
                 <NFTcartButtons>
                   {!selectedNFTDetails?.isOwner ? (
