@@ -35,7 +35,7 @@ class Autosuggestion extends React.Component {
     super(props);
 
     this.state = {
-      value: "",
+      value: this.props.username?this.props.username:"",
       suggestions: [],
     };
   }
