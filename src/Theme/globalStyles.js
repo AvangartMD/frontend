@@ -68,22 +68,52 @@ Gs.W20 = styled.div`
 `;
 Gs.W80 = styled.div`
   width: 80%;
+  ${Media.sm}{
+    width:100%;
+  }
 `;
 Gs.W200px = styled.div`
   width: 100%;
   max-width: 200px;
+  ${Media.md}{
+    display:none;
+  }
 `;
 Gs.W275px = styled.div`
   width: 100%;
   max-width: 275px;
+  ${Media.lg}{
+    max-width: 250px;
+  }
+  ${Media.md}{
+    max-width: 35%;
+  }
+  ${Media.sm}{
+    display:none;
+  }
 `;
 Gs.W605px = styled.div`
   width: 100%;
   max-width: 605px;
+  ${Media.lg}{
+    max-width: 450px;
+  }
+  ${Media.md}{
+    max-width: 65%;
+  }
+  ${Media.sm}{
+    max-width: 100%;
+  }
 `;
 Gs.W880px = styled.div`
   width: 100%;
   max-width: 880px;
+  ${Media.lg}{
+    max-width: 700px;
+  }
+  ${Media.md}{
+    max-width: 100%;
+  }
 `;
 Gs.TenpxGutter = styled.div`
   margin: 0px 10px;

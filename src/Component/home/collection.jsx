@@ -27,22 +27,22 @@ class Collections extends Component {
 
   renderedCollection = (collection) => {
     return (
-        <Gs.W25 key={collection.collectionId.id}>
-          <Gs.TenpxGutter>
-            <Link to={`/collection-detail/${collection.collectionId.id}`}>
-              <div className="img-outer">
-                <motion.img
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  key={collection.collectionId.logo}
-                  src={collection.collectionId.logo}
-                  exit={{ opacity: 0 }}
-                />
-              </div>
-            </Link>
-          </Gs.TenpxGutter>
-        </Gs.W25>
+      <Gs.W25 key={collection.collectionId.id}>
+        <Gs.TenpxGutter>
+          <Link to={`/collection-detail/${collection.collectionId.id}`}>
+            <div className="img-outer">
+              <motion.img
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                key={collection.collectionId.logo}
+                src={collection.collectionId.logo}
+                exit={{ opacity: 0 }}
+              />
+            </div>
+          </Link>
+        </Gs.TenpxGutter>
+      </Gs.W25>
     )
   }
 
@@ -68,8 +68,8 @@ class Collections extends Component {
                     onClick={() => this.props.history.push("/collections")}
                   >View all collections</button>
                 </ViewallButton>
-              : ``
-            : ``}
+                : ``
+              : ``}
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -137,6 +137,7 @@ const ViewallButton = styled.div`
 `;
 
 const CollectionSection = styled(FlexDiv)`
+  justify-content:flex-start;
   margin: 0px -10px 50px;
   .img-outer
   {

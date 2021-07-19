@@ -538,7 +538,7 @@ const FlexDiv = styled.div`
         justify-content: center;
         flex-wrap: wrap;
         .JCSB {
-          justify - content: space-between;
+          justify-content: space-between;
   }
         `;
 
@@ -602,7 +602,10 @@ const NFTtitle = styled.div`
         letter-spacing: -1.07px;
         margin: 0px 0px 9px;
         &.mt-30 {
-          margin - top: 30px;
+          margin-top: 30px;
+          ${Media.sm}{
+            margin-top:10px;
+          }
     }
         &.text-till-blue {
           color: #00babc;
@@ -614,7 +617,7 @@ const NFTtitle = styled.div`
         letter-spacing: -0.8px;
         margin: 0px 0px 20px;
         &.mb-30 {
-          margin - bottom: 30px;
+          margin-bottom: 30px;
     }
   }
         `;
@@ -626,7 +629,7 @@ const NFTfourbox = styled(FlexDiv)`
         border-top-right-radius: 10px;
   }
         .NFT-home-box {
-          border - radius: 10px;
+          border-radius: 10px;
         border: 1px solid #dddddd;
         .NFT-home-box-inner {
           padding: 20px 15px;
@@ -652,18 +655,31 @@ Gs.TenpxGutter = styled(Gs.TenpxGutter)`
         ${NFTfourbox}.nftnift & {
           margin: 0px;
   }
-        `;
+`;
 
+Gs.W605px = styled(Gs.W605px)`
+  ${NFTminting} & {
+    ${Media.lg}{
+      max-width:100%;
+    }
+  }
+`;
 const NFTMiddle = styled.div`
-        margin: 0px 40px;
-        `;
+  margin: 0px 40px;
+  ${Media.lg}{
+    margin: 0px 15px;
+  }
+  ${Media.sm}{
+    margin: 0px;
+  }
+`;
 
 const NFTForm = styled.div`
         position: relative;
         .label-line {
           margin: 0px 0px 6px;
         label {
-          font - size: 16px;
+          font-size: 16px;
         color: #8e9194;
         letter-spacing: -0.8px;
         font-weight: 600;
@@ -731,7 +747,7 @@ const NFTForm = styled.div`
       }
     }
         input {
-          padding - left: 45px;
+          padding-left: 45px;
     }
   }
         .iRight {
@@ -745,13 +761,13 @@ const NFTForm = styled.div`
         font-weight: bold;
     }
         input {
-          padding - right: 45px;
+          padding-right: 45px;
     }
   }
         .errorinput {
           position: relative;
         input {
-          border - color: #ff2a44;
+          border-color: #ff2a44;
     }
         p.error {
           color: #ff2a44;
@@ -784,27 +800,31 @@ const FileuploadBox = styled(FlexDiv)`
         padding: 13px 28px;
         cursor: pointer;
         :hover {
-          background - color: #000;
+          background-color: #000;
         color: #fff;
     }
   }
         `;
 
 const CreateItemButton = styled.div`
-        margin: 50px 0px 80px;
-        button {
-          font - size: 14px;
-        color: #fff;
-        letter-spacing: -0.5px;
-        padding: 13px 60px;
-        cursor: pointer;
-        border-radius: 15px;
-        background-color: rgb(0 0 0 / 30%);
-        :hover {
-          background - color: #000;
+    margin: 50px 0px 80px;
+    button {
+      font-size: 14px;
+    color: #fff;
+    letter-spacing: -0.5px;
+    padding: 13px 60px;
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: rgb(0 0 0 / 30%);
+    :hover {
+      background-color: #000;
     }
   }
-        `;
+  ${Media.sm}{
+    margin: 30px 0px 40px;
+    text-align:center;
+  }
+`;
 
 const CustomRadio1 = styled(FlexDiv)`
         justify-content: flex-start;
@@ -824,7 +844,7 @@ const CustomRadio1 = styled(FlexDiv)`
         letter-spacing: -0.9px;
         color: #000;
         img {
-          margin - right: 5px;
+          margin-right: 5px;
     }
   }
         .radio-container input {
@@ -867,7 +887,10 @@ const CustomCheckbox1 = styled(FlexDiv)`
         letter-spacing: -0.9px;
         color: #000;
         img {
-          margin - right: 5px;
+          margin-right: 5px;
+    }
+    ${Media.lg}{
+      margin:0px 10px 10px 0px;
     }
   }
         .checkbox-container input {
@@ -878,7 +901,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
         margin: 0px;
   }
         .checkbox-container button:hover {
-          background - color: #f7f7f7;
+          background-color: #f7f7f7;
   }
         .checkmark {
           position: absolute;
@@ -902,17 +925,17 @@ const CollectionSelect = styled(FlexDiv)`
         margin-bottom: 60px;
         position: relative;
         select {
-          margin - bottom: 0px;
+          margin-bottom: 0px;
         -webkit-appearance: none;
         background: url(${DDdownA}) no-repeat 97% 55%;
         option {
-          border - radius: 10px;
+          border-radius: 10px;
         box-shadow: 0 10px 20px 0 rgb(0 0 0 / 30%);
         margin: 30px;
     }
   }
         button {
-          font - size: 14px;
+          font-size: 14px;
         letter-spacing: -0.5px;
         color: #000;
         font-weight: 700;
@@ -921,7 +944,7 @@ const CollectionSelect = styled(FlexDiv)`
         padding: 16px 20px;
         margin-left: 10px;
         :hover {
-          background - color: #000;
+          background-color: #000;
         color: #fff;
     }
   }
@@ -946,7 +969,7 @@ const AccountBX = styled(FlexDiv)`
     }
   }
         & span {
-          font - size: 18px;
+          font-size: 18px;
         letter-spacing: -0.9px;
         font-weight: 700;
         color: #000;
@@ -955,7 +978,7 @@ const AccountBX = styled(FlexDiv)`
         line-height: 16px;
         padding-right: 8px;
         span {
-          font - size: 10px;
+          font-size: 10px;
         color: #b3b3b3;
         width: 100%;
         padding-right: 0;
@@ -985,13 +1008,13 @@ const DDBtnbar02 = styled(FlexDiv)`
       }
     }
         & span {
-          margin - left: auto;
+          margin-left: auto;
     }
         &:nth-last-child(01) {
-          border - bottom: 0px;
+          border-bottom: 0px;
     }
         &:hover {
-          background - color: #d9f5f5;
+          background-color: #d9f5f5;
     }
   }
         `;
@@ -1040,7 +1063,7 @@ const OnbTitle01 = styled.div`
         margin-bottom: 15px;
 
         &.v2 {
-          max - width: 220px;
+          max-width: 220px;
         margin: 0 auto;
         text-align: center;
         line-height: 28px;
