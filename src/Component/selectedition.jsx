@@ -38,69 +38,65 @@ function SelectEdition(props) {
   const { NFTDetails, web3Data } = props;
   
   useEffect(() => {
+    const tabEditions = () => {
+      let saleEditions = totalEditions.filter(edition => tab === 'Sale' ? edition.isOpenForSale : edition)
+        .map(edition => edition)
+      setEditions(saleEditions); // set the filtered editions
+    }
     tabEditions(); // filter the tab editions
   }, [tab])
 
-  const tabEditions = () => {
-    let saleEditions = totalEditions.filter(edition => tab === 'Sale' ? edition.isOpenForSale : edition)
-      .map(edition => edition)
-    console.log('editions ? ', saleEditions)
-    setEditions(saleEditions); // set the filtered editions
-  }
-
   useEffect(() => {
+    const filterEditions = () => {
+      let saleEditions = [];
+      if (filter === 'AUCTION') 
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'AUCTION').map(edition => edition)
+      if (filter === 'BUY')
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'BUY').map(edition => edition)
+      if (filter === 'SOLD')
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'SOLD').map(edition => edition)
+      if (filter === 'OFFER')
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'OFFER').map(edition => edition)
+      setEditions(saleEditions); // set the filtered editions
+    }
     filterEditions(); // filter the editons
   }, [filter])
-
-  const filterEditions = () => {
-    let saleEditions = [];
-    if (filter === 'AUCTION') 
-      saleEditions = totalEditions.filter(edition => edition.saleState === 'AUCTION').map(edition => edition)
-    if (filter === 'BUY')
-      saleEditions = totalEditions.filter(edition => edition.saleState === 'BUY').map(edition => edition)
-    if (filter === 'SOLD')
-      saleEditions = totalEditions.filter(edition => edition.saleState === 'SOLD').map(edition => edition)
-    if (filter === 'OFFER')
-      saleEditions = totalEditions.filter(edition => edition.saleState === 'OFFER').map(edition => edition)
-    setEditions(saleEditions); // set the filtered editions
-  }
   
   useEffect(() => {
+    const createEditionData = () => {
+      let editionsData = [];
+      if (NFTDetails)
+        for (let i = 0; i < NFTDetails.edition; i++) {
+          const soldEdition = NFTDetails.editions.find(
+            ({ edition }) => edition === i + 1
+          );
+          if (soldEdition) {
+            editionsData.push({
+              number: Number(soldEdition.edition),
+              isOwner:
+                web3Data.accounts[0] ===
+                web3.utils.toChecksumAddress(soldEdition.walletAddress),
+              ownerId: soldEdition.ownerId,
+              isOpenForSale: soldEdition.isOpenForSale,
+              saleState: soldEdition.saleType.type ? soldEdition.saleType.type : 'SOLD',
+              price: soldEdition.price,
+            });
+          } else {
+            editionsData.push({
+              number: i + 1,
+              isOwner: NFTDetails?.ownerId.id === props.authData?.data?.id,
+              ownerId: NFTDetails?.ownerId,
+              isOpenForSale: true,
+              saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION': 'BUY' : 'BUY',
+              price: NFTDetails.price,
+            });
+          }
+        }
+      setTotalEditions(editionsData); // set the total editions
+      setEditions(editionsData); // set the editions
+    };
     createEditionData(); // fetch the editions
   }, [NFTDetails, web3Data]);
-  
-  const createEditionData = () => {
-    let editionsData = [];
-    if (NFTDetails)
-      for (let i = 0; i < NFTDetails.edition; i++) {
-        const soldEdition = NFTDetails.editions.find(
-          ({ edition }) => edition == i + 1
-        );
-        if (soldEdition) {
-          editionsData.push({
-            number: Number(soldEdition.edition),
-            isOwner:
-              web3Data.accounts[0] ===
-              web3.utils.toChecksumAddress(soldEdition.walletAddress),
-            ownerId: soldEdition.ownerId,
-            isOpenForSale: soldEdition.isOpenForSale,
-            saleState: soldEdition.saleType.type ? soldEdition.saleType.type : 'SOLD',
-            price: soldEdition.price,
-          });
-        } else {
-          editionsData.push({
-            number: i + 1,
-            isOwner: NFTDetails?.ownerId.id == props.authData?.data?.id,
-            ownerId: NFTDetails?.ownerId,
-            isOpenForSale: true,
-            saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION': 'BUY' : 'BUY',
-            price: NFTDetails.price,
-          });
-        }
-      }
-    setTotalEditions(editionsData); // set the total editions
-    setEditions(editionsData); // set the editions
-  };
   
   const toggle = (index) => {
     let tVal = filterPopup === index ? "" : index;
@@ -232,7 +228,7 @@ function SelectEdition(props) {
                         <td className="text-center">{edition.price} BNB</td>
                         <td>
                           <CustomCheckbox1>
-                            <label class="checkbox-container">
+                            <label className="checkbox-container">
                               Select
                               <input
                                 type="checkbox"
@@ -243,7 +239,7 @@ function SelectEdition(props) {
                                   props.toggle(10);
                                 }}
                               />
-                              <span class="checkmark"></span>
+                              <span className="checkmark"></span>
                             </label>
                           </CustomCheckbox1>
                         </td>

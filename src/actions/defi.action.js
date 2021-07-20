@@ -1,4 +1,3 @@
-import { CostExplorer } from "aws-sdk";
 import { services } from "../services";
 
 function setData(data, type) {
@@ -7,6 +6,7 @@ function setData(data, type) {
     data: data,
   };
 }
+
 function addNFT(data) {
   return (dispatch) => {
     const url = "nft/addNft";
