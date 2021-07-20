@@ -8,6 +8,9 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import Media from "./../../Theme/media-breackpoint";
 
+import Sport from "../../Assets/images/icon-set-sport.svg";
+import Celebrity from "../../Assets/images/icon-set-celebrity.svg";
+
 function CreateCollection(props) {
   const [collectionAdded, setCollectionAdded] = useState(false);
   const msg1 = {
@@ -90,6 +93,37 @@ function CreateCollection(props) {
                     <label>About Collection</label>
                   </div>
                   <textarea name="description" defaultValue="Type something…"></textarea>
+                </NFTForm>
+                <NFTForm>
+                  <div className="label-line">
+                    <label>Category</label>
+                    <p>
+                      Choose category for listing your NFT. You can choose
+                      up to 2.
+                    </p>
+                  </div>
+                  <CustomCheckbox1>
+                    <label className="checkbox-container">
+                      <img src={Celebrity} alt="" />
+                      Celebrity
+                      <input
+                        type="checkbox"
+                        name="category"
+                        value="celebrity"
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                    <label className="checkbox-container">
+                      <img src={Sport} alt="" />
+                      Sport
+                      <input
+                        type="checkbox"
+                        name="category"
+                        value="sport"
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </CustomCheckbox1>
                 </NFTForm>
                 <NFTForm>
                   <div className="label-line">
@@ -370,6 +404,58 @@ const CreateItemButton = styled.div`
     :hover {
       background-color: #000;
     }
+  }
+`;
+
+const CustomCheckbox1 = styled(FlexDiv)`
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 54px;
+    width: calc(130px - 5px);
+    margin-right: 10px;
+    cursor: pointer;
+    padding-left: 15px;
+    line-height: 54px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.9px;
+    color: #000;
+    img {
+      margin-right: 5px;
+      width:25px;
+    }
+    ${Media.lg} {
+      width: calc(130px - 5px);
+      margin: 0px 10px 10px 0px;
+    }
+    ${Media.sm} {
+      width: 100%;
+      margin-right:0px;
+    }
+  }
+  .checkbox-container input {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    margin: 0px;
+  }
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 54px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+  }
+  .checkbox-container input:checked ~ .checkmark {
+    border: 1px solid #00babc;
   }
 `;
 
