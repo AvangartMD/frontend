@@ -91,8 +91,7 @@ class NftDetail extends React.Component {
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition) this.fetchNFTDetails();
     }
-    if (this.state.currentEdition != prevState.currentEdition) {
-      // console.log("1");
+    if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
     }
     if (isLiked !== prevProps.isLiked) {
@@ -225,7 +224,7 @@ class NftDetail extends React.Component {
       .secondHand(+tokenID, newEdition)
       .call();
     const soldEdition = NFTDetails.editions.find(
-      ({ edition }) => edition == newEdition
+      ({ edition }) => edition === newEdition
     );
     console.log(soldEdition?.ownerId.id, authData?.data?.id);
     let selectedNFTDetails;
@@ -243,7 +242,7 @@ class NftDetail extends React.Component {
       };
     else
       selectedNFTDetails = {
-        isOwner: NFTDetails?.ownerId.id == authData?.data?.id,
+        isOwner: NFTDetails?.ownerId.id === authData?.data?.id,
         ownerId: NFTDetails.ownerId,
         isOpenForSale: true,
         price:
@@ -357,8 +356,10 @@ class NftDetail extends React.Component {
                 )}
                 <Historysection>
                   <UserImgName>
-                    <img src={NFTDetails?.ownerId.profile} alt="" />@
-                    {NFTDetails?.ownerId.username}
+                    <img src={NFTDetails?.ownerId.profile} alt="" />
+                    {NFTDetails?.ownerId.username
+                      ? `@${NFTDetails.ownerId.username}`
+                      : NFTDetails?.ownerId.name}
                   </UserImgName>
                   <button onClick={() => this.toggle(9)}>History</button>
                 </Historysection>

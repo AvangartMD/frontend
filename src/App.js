@@ -34,7 +34,7 @@ const DMainContainer = styled(FlexDiv)`
 function App() {
   const [isDark, setDarkTheme] = useState(true);
   const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem('token') ? true : false
+    localStorage.getItem('avangartAuthToken') ? true : false
   );
   const selectedTheme = theme(isDark);
 

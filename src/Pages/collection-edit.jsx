@@ -260,7 +260,7 @@ class CollectionEdit extends Component {
                           </div>
                         </Gs.TenpxGutter>
                       </Gs.W25V2>)
-                  }
+                  } else return ``
                 })}
               </NFTfourbox>
 

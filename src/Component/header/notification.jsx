@@ -11,34 +11,34 @@ import LoaderGif from '../../Assets/images/loading.gif';
 
 class Notifications extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
+  constructor(props) {
+      super(props);
+      this.state = {
+      }
+  }
 
-    componentDidMount() {
-        this.props.getNotifications() // fetch user notifications
-    }
+  componentDidMount() {
+      this.props.getNotifications() // fetch user notifications
+  }
 
-    render() {
-        let { notifications } = this.props;
-        return (
-            <>
-                {notifications ?
-                    <NotificationSBX01>
-                        {notifications.map((notification) => {
-                            return <button key={notification.id}>
-                                {notification.text}
-                            </button>
-                        })}
-                    </NotificationSBX01>
-                :<LoaderBX> 
-                    <img src={LoaderGif} alt="" />
-                </LoaderBX>}
-            </>
-        )
-    }
+  render() {
+    let { notifications } = this.props;
+    return (
+        <>
+          {notifications ?
+              <NotificationSBX01>
+                  {notifications.map((notification) => {
+                      return <button key={notification.id}>
+                          {notification.text}
+                      </button>
+                  })}
+              </NotificationSBX01>
+          :<LoaderBX> 
+              <img src={LoaderGif} alt="" />
+          </LoaderBX>}
+        </>
+    )
+  }
 }
 
 // Common Style Div 

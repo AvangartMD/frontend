@@ -14,7 +14,7 @@ export const backendServices = {
 };
 
 async function post(url, params) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('avangartAuthToken');
   const header = token
     ? { 'content-type': 'application/json', 'x-auth-token': token }
     : {
@@ -31,7 +31,7 @@ async function post(url, params) {
 }
 
 async function get(url, isAuthenticated) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('avangartAuthToken');
   const header = isAuthenticated
     ? { 'x-auth-token': token, 'content-type': 'application/json' }
     : {
@@ -46,7 +46,7 @@ async function get(url, isAuthenticated) {
 }
 
 async function put(url, parameters) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('avangartAuthToken');
   const header = token
     ? { 'x-auth-token': token }
     : {

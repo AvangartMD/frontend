@@ -105,7 +105,6 @@ class BannerTab extends Component {
             exit={{ opacity: 0 }}
           />
         </a>
-        {/* <img src={img} alt='' id={banner.id} /> */}
       </div >
     )
   }

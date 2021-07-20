@@ -1,17 +1,14 @@
-import React, { Component, useState } from "react";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
-import Media from "../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { Scrollbars } from "react-custom-scrollbars";
+import Collapse from "@kunukn/react-collapse";
+import Media from "../Theme/media-breackpoint";
+import styled from "styled-components";
 
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import FiltICON from "../Assets/images/filterICO.svg";
 import UserIcon from "../Assets/images/userIcon.png";
 import { web3 } from "../web3";
-import { useEffect } from "react";
+
 
 function CustomScrollbars(props) {
   return (
@@ -32,49 +29,80 @@ function CustomScrollbars(props) {
 }
 
 function SelectEdition(props) {
-  const [editions, setEditions] = useState([]);
+
+  const [totalEditions, setTotalEditions] = useState([]);
   const [filterPopup, setFilterPopup] = useState([]);
+  const [editions, setEditions] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [tab, setTab] = useState("All");
   const { NFTDetails, web3Data } = props;
+  
   useEffect(() => {
-    createEditionData();
-  }, [NFTDetails, web3Data]);
-  const createEditionData = () => {
-    let editionsData = [];
-    if (NFTDetails)
-      for (let i = 0; i < NFTDetails.edition; i++) {
-        const soldEdition = NFTDetails.editions.find(
-          ({ edition }) => edition == i + 1
-        );
-        if (soldEdition) {
-          editionsData.push({
-            number: Number(soldEdition.edition),
-            isOwner:
-              web3Data.accounts[0] ===
-              web3.utils.toChecksumAddress(soldEdition.walletAddress),
-            ownerId: soldEdition.ownerId,
-            isOpenForSale: soldEdition.isOpenForSale,
-            saleState: "",
-            price: soldEdition.price,
-          });
-        } else {
-          editionsData.push({
-            number: i + 1,
-            isOwner: NFTDetails?.ownerId.id == props.authData?.data?.id,
-            ownerId: NFTDetails?.ownerId,
-            isOpenForSale: true,
-            saleState: "",
-            price: NFTDetails.price,
-          });
+    const tabEditions = () => {
+      let saleEditions = totalEditions.filter(edition => tab === 'Sale' ? edition.isOpenForSale : edition)
+        .map(edition => edition)
+      setEditions(saleEditions); // set the filtered editions
+    }
+    tabEditions(); // filter the tab editions
+  }, [tab])
+
+  useEffect(() => {
+    const filterEditions = () => {
+      let saleEditions = [];
+      if (filter === 'AUCTION') 
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'AUCTION').map(edition => edition)
+      if (filter === 'BUY')
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'BUY').map(edition => edition)
+      if (filter === 'SOLD')
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'SOLD').map(edition => edition)
+      if (filter === 'OFFER')
+        saleEditions = totalEditions.filter(edition => edition.saleState === 'OFFER').map(edition => edition)
+      setEditions(saleEditions); // set the filtered editions
+    }
+    filterEditions(); // filter the editons
+  }, [filter])
+  
+  useEffect(() => {
+    const createEditionData = () => {
+      let editionsData = [];
+      if (NFTDetails)
+        for (let i = 0; i < NFTDetails.edition; i++) {
+          const soldEdition = NFTDetails.editions.find(
+            ({ edition }) => edition === i + 1
+          );
+          if (soldEdition) {
+            editionsData.push({
+              number: Number(soldEdition.edition),
+              isOwner:
+                web3Data.accounts[0] ===
+                web3.utils.toChecksumAddress(soldEdition.walletAddress),
+              ownerId: soldEdition.ownerId,
+              isOpenForSale: soldEdition.isOpenForSale,
+              saleState: soldEdition.saleType.type ? soldEdition.saleType.type : 'SOLD',
+              price: soldEdition.price,
+            });
+          } else {
+            editionsData.push({
+              number: i + 1,
+              isOwner: NFTDetails?.ownerId.id === props.authData?.data?.id,
+              ownerId: NFTDetails?.ownerId,
+              isOpenForSale: true,
+              saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION': 'BUY' : 'BUY',
+              price: NFTDetails.price,
+            });
+          }
         }
-      }
-    setEditions(editionsData);
-  };
+      setTotalEditions(editionsData); // set the total editions
+      setEditions(editionsData); // set the editions
+    };
+    createEditionData(); // fetch the editions
+  }, [NFTDetails, web3Data]);
+  
   const toggle = (index) => {
     let tVal = filterPopup === index ? "" : index;
     setFilterPopup(tVal);
   };
 
-  // render() {
   return (
     <>
       <BlackWrap>
@@ -87,11 +115,11 @@ function SelectEdition(props) {
 
           <FilterMBX>
             <FilterLbx>
-              <button className="active">All</button> <button>For Sale</button>
+              <button className={tab === 'All' ? `active`:``} onClick={() => setTab('All')} >All</button>
+              <button className={tab === 'Sale' ? `active`:``} onClick={() => setTab('Sale')} >For Sale</button>
             </FilterLbx>
             <FilterBAR
               onClick={() => toggle(1)}
-            // className={state.isOpen1 ? "active" : ""}
             >
               <FilterICO>
                 <img src={FiltICON} alt="" />
@@ -105,43 +133,61 @@ function SelectEdition(props) {
                 }
               >
                 <DDContainer>
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle1"
-                      name="vehicle1"
-                      value="Bike"
-                    />
-                    <label htmlFor="vehicle1">All</label>
-                  </div>
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle2"
-                      name="vehicle2"
-                      defaultChecked
-                      value="Bike"
-                    />
-                    <label htmlFor="vehicle2">Live auction</label>
-                  </div>
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle3"
-                      name="vehicle3"
-                      value="Bike"
-                    />
-                    <label htmlFor="vehicle3">Buy now</label>
-                  </div>
-                  <div className="md-checkbox">
-                    <input
-                      type="checkbox"
-                      id="vehicle4"
-                      name="vehicle4"
-                      value="Bike"
-                    />
-                    <label htmlFor="vehicle4">Sold</label>
-                  </div>
+                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 
+                    <div className="md-checkbox">
+                      <input
+                        type="checkbox"
+                        id="vehicle1"
+                        name="vehicle1"
+                        checked={filter.includes('AUCTION') ? true : false}
+                        onClick={(e) => {
+                          setFilter('AUCTION', e);
+                        }}
+                      />
+                      <label htmlFor="vehicle1">Live auction</label>
+                    </div>
+                  : <div className="md-checkbox">
+                      <input
+                        type="checkbox"
+                        id="vehicle2"
+                        name="vehicle1"
+                        checked={filter.includes('OFFER') ? true : false}
+                        onClick={(e) => {
+                          setFilter('OFFER', e);
+                        }}
+                      />
+                      <label htmlFor="vehicle2">Accept Offers</label>
+                    </div>
+                  }
+
+                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? `` :
+                    <>
+                      <div className="md-checkbox">
+                        <input
+                          type="checkbox"
+                          id="vehicle3"
+                          name="vehicle1"
+                          checked={filter.includes('BUY') ? true : false}
+                          onClick={(e) => {
+                            setFilter('BUY', e);
+                          }}
+                        />
+                        <label htmlFor="vehicle3">Buy now</label>
+                      </div>
+                      <div className="md-checkbox">
+                        <input
+                          type="checkbox"
+                          id="vehicle4"
+                          name="vehicle1"
+                          checked={filter.includes('SOLD') ? true : false}
+                          onClick={(e) => {
+                            setFilter('SOLD', e);
+                          }}
+                        />
+                        <label htmlFor="vehicle4">Sold</label>
+                      </div>
+                    </>
+                  }
                 </DDContainer>
               </Collapse>
             </FilterBAR>
@@ -176,13 +222,13 @@ function SelectEdition(props) {
                                 alt=""
                               />
                             </div>
-                            @{edition.ownerId.name}
+                            {edition.ownerId.username?`@${edition.ownerId.username}`:edition.ownerId.name}
                           </FlexDiv>
                         </td>
                         <td className="text-center">{edition.price} BNB</td>
                         <td>
                           <CustomCheckbox1>
-                            <label class="checkbox-container">
+                            <label className="checkbox-container">
                               Select
                               <input
                                 type="checkbox"
@@ -193,150 +239,21 @@ function SelectEdition(props) {
                                   props.toggle(10);
                                 }}
                               />
-                              <span class="checkmark"></span>
+                              <span className="checkmark"></span>
                             </label>
                           </CustomCheckbox1>
                         </td>
                       </tr>
                     );
                   })}
-                  {/* <tr>
-                    <td>02</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">0.00 BNB</td>
-                    <td>
-                      <CustomCheckbox1>
-                        <label class="checkbox-container">
-                          Select
-                          <input type="checkbox" name="category" value="art" />
-                          <span class="checkmark"></span>
-                        </label>
-                      </CustomCheckbox1>
-                    </td>
-                  </tr> */}
-                  {/* <tr>
-                    <td>03</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">0.00 BNB</td>
-                    <td>
-                      <CustomCheckbox1>
-                        <label class="checkbox-container">
-                          Select
-                          <input type="checkbox" name="category" value="art" />
-                          <span class="checkmark"></span>
-                        </label>
-                      </CustomCheckbox1>
-                    </td>
-                  </tr>
-                  <tr> */}
-                  {/* <td>04</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">0.00 BNB</td>
-                    <td>
-                      <CustomCheckbox1>
-                        <label class="checkbox-container">
-                          Select
-                          <input type="checkbox" name="category" value="art" />
-                          <span class="checkmark"></span>
-                        </label>
-                      </CustomCheckbox1>
-                    </td>
-                  </tr> */}
-                  {/* <tr>
-                    <td>05</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">0.00 BNB</td>
-                    <td>
-                      <CustomCheckbox1>
-                        <label class="checkbox-container">
-                          Select
-                          <input type="checkbox" name="category" value="art" />
-                          <span class="checkmark"></span>
-                        </label>
-                      </CustomCheckbox1>
-                    </td>
-                  </tr> */}
-                  {/* <tr>
-                    <td>06</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">0.00 BNB</td>
-                    <td>
-                      <CustomCheckbox1>
-                        <label class="checkbox-container">
-                          Select
-                          <input type="checkbox" name="category" value="art" />
-                          <span class="checkmark"></span>
-                        </label>
-                      </CustomCheckbox1>
-                    </td>
-                  </tr> */}
-                  {/* <tr>
-                    <td>07</td>
-                    <td>
-                      <FlexDiv className="JCFS">
-                        <div className="table-Img">
-                          <img src={UserIcon} alt="" />
-                        </div>
-                        @username
-                      </FlexDiv>
-                    </td>
-                    <td className="text-center">0.00 BNB</td>
-                    <td>
-                      <CustomCheckbox1>
-                        <label class="checkbox-container">
-                          Select
-                          <input type="checkbox" name="category" value="art" />
-                          <span class="checkmark"></span>
-                        </label>
-                      </CustomCheckbox1>
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </EditionTable>
           </CustomScrollbars>
         </WhiteBX0D2>
       </BlackWrap>
-    </>
-  );
+    </>);
 }
-
-// }
 
 const FlexDiv = styled.div`
   display: flex;
