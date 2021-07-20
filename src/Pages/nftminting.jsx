@@ -466,11 +466,10 @@ class NFTPage extends Component {
                           <label>Co-Creator Username</label>
                         </div>
                         <div
-                          className={`iLeft ${
-                            error.isError &&
+                          className={`iLeft ${error.isError &&
                             error.isCocreatorError &&
                             "errorinput"
-                          }`}
+                            }`}
                         >
                           <i>@</i>
                           <Autosuggestion
@@ -524,7 +523,7 @@ class NFTPage extends Component {
                               <input
                                 type="checkbox"
                                 name="category"
-                                checked={nftObj.category.filter(obj => obj === category.id).length > 0 ? true:false}
+                                checked={nftObj.category.filter(obj => obj === category.id).length > 0 ? true : false}
                                 value={category._id}
                               />
                               <span className="checkmark"></span>
@@ -592,14 +591,14 @@ class NFTPage extends Component {
                               type="radio"
                               name="saleState"
                               value="AUCTION"
-                              checked={nftObj.saleState === "AUCTION" ? true:false}
+                              checked={nftObj.saleState === "AUCTION" ? true : false}
                             />
                             <span className="checkmark"></span>
                           </label>
                           <label className="radio-container">
                             <img src={Money} alt="" /> Buy now
                             <input type="radio" name="saleState" value="BUY"
-                            checked={nftObj.saleState === "BUY" ? true:false}/>
+                              checked={nftObj.saleState === "BUY" ? true : false} />
                             <span className="checkmark"></span>
                           </label>
                         </CustomRadio1>
@@ -705,7 +704,7 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm> */}
                       <CreateItemButton>
-                        <button type="submit">{nftObj?.id?`Update`:`Create`} Item</button>
+                        <button type="submit">{nftObj?.id ? `Update` : `Create`} Item</button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>
@@ -1173,7 +1172,7 @@ const CollectionSelect = styled(FlexDiv)`
       color: #fff;
     }
     ${Media.lg}{
-      padding:16px;
+      padding:16px 10px;
     }
     ${Media.md}{
       padding:16px 10px;

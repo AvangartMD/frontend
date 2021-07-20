@@ -66,9 +66,10 @@ function CreateCollection(props) {
             </WhiteBX01>
           </>
         ) : (
-          <form onSubmit={(e) => onFormSubmit(e)}>
-            <>
-              <WhiteBX01>
+          <WhiteBX01>
+            <form onSubmit={(e) => onFormSubmit(e)}>
+              <>
+
                 <CloseBTN className="ani-1" onClick={() => props.toggle(2)}>
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
@@ -111,9 +112,10 @@ function CreateCollection(props) {
                 <CreateItemButton>
                   <button type="submit">Create Item</button>
                 </CreateItemButton>
-              </WhiteBX01>
-            </>
-          </form>
+
+              </>
+            </form>
+          </WhiteBX01>
         )}
       </BlackWrap>
     </>
@@ -153,6 +155,9 @@ const WhiteBX01 = styled(FlexDiv)`
   ${Media.xs}{
     padding:50px 25px;
   }
+  form{
+    width:100%;
+  }
 `;
 const CloseBTN = styled.button`
   width: 20px;
@@ -185,6 +190,7 @@ const WGdescText = styled.div`
   letter-spacing: -0.7px;
   margin-bottom: 10px;
   text-align: center;
+  width:100%;
 `;
 
 const WGBtn = styled.button`
