@@ -4,7 +4,7 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
 import Media from "./../../Theme/media-breackpoint";
 
-function MintNFTPopup({ mintNFT, toggle, mintNFTStatus }) {
+function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
   return (
     <>
       <BlackWrap>
@@ -70,15 +70,14 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus }) {
 
           {mintNFTStatus === "complete" && (
             <>
-              <WGTitle>NFT minting complete!</WGTitle>
-              <WGdescText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                nunc nulla, sollicitudin ac dignissim vitae, dapibus at enim.
-              </WGdescText>
-              <WGdescText>
-                Cras sit amet augue consectetur, sodales quam a, congue lacus.
-              </WGdescText>
-              <WGBtn onClick={() => toggle(3)}>OK</WGBtn>
+              <OnbTitle01 className="v2">Transaction in progress</OnbTitle01>
+            </>
+          )}
+
+          {mintNFTStatus === "error" && (
+            <>
+              <OnbTitle01>Attention!</OnbTitle01>
+              <OnbText01>NFT Can Not Update</OnbText01>
             </>
           )}
         </WhiteBX01>
@@ -351,5 +350,12 @@ const CreateItemButton = styled.div`
       background-color: #000;
     }
   }
+`;
+
+const OnbText01 = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.5px;
 `;
 export default MintNFTPopup;

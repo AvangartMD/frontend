@@ -78,8 +78,6 @@ class Autosuggestion extends React.Component {
       onChange: this.onChange,
     };
 
-    console.log('this state in autoSuggestion ? ', this.state)
-    console.log('this props ? ', this.props.username)
     return (
       <Autosuggest
         suggestions={suggestions}

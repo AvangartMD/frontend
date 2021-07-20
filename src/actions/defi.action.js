@@ -138,15 +138,19 @@ function getUserProfile(id) {
 
 function updateNFT(data) {
   return (dispatch) => {
-    const url = `nft/updateNft/${data.id}`;  
-    const response = services.put(url, data);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(setData(promise.data, "UPDATE_NFT"));
-      } else {
-        // console.log('erroer');
+    const url = `nft/updateNft/${data.id}`;
+    const response = services.put(url, data).then(response => {
+      console.log('response ? ', response)
+      if (response.status === 200) {
+        dispatch(setData(response.data, "UPDATE_NFT"));
       }
-    });
+      if (response.response && response.response.status === 403) {
+        dispatch(setData(response.response.data, "UPDATE_NFT"));
+      }
+      if (response.response && response.response.status === 400) {
+        dispatch(setData(response.response.data, "UPDATE_NFT"));
+      }
+    })
   };
 }
 

@@ -64,7 +64,6 @@ class NFTPage extends Component {
         imgSrc: NFT3,
         categoryList: null,
         collectionList: [],
-        coCreator: null,
       },
       suggestionVAl: [],
       error: { isError: false, msg: "", isCocreatorError: false },
@@ -123,7 +122,11 @@ class NFTPage extends Component {
       this.setState({ mintNFTStatus: "" });
     }
     if (updatedNFTID !== prevProps.updatedNFTID) {
-      this.setState({ mintNFTStatus: "" });
+      if (!updatedNFTID.status) {
+        this.setState({ mintNFTStatus: "error" });
+      } else {
+        this.setState({ mintNFTStatus: "" });
+      }
     }
   }
 
@@ -400,133 +403,134 @@ class NFTPage extends Component {
                 )}
                 <Gs.W605px>
                   <NFTMiddle>
+                    <NFTtitle id="itemDecription">
+                      <h4>Item Description</h4>
+                      <p className="mb-30">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      </p>
+                    </NFTtitle>
                     <form
                       onChange={(e) => this.formchange(e)}
                       onSubmit={(e) => this.createNFT(e)}
                     >
-                      <div id="itemDecription">
-                        <NFTtitle>
-                          <h4>Item Description</h4>
-                          <p className="mb-30">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Title</label>
+                        </div>
+                        <input
+                          type="text"
+                          name="title"
+                          defaultValue={nftObj.title}
+                          placeholder="Type something…"
+                        />
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Description</label>
+                          <span>optional</span>
+                        </div>
+                        <input
+                          type="text"
+                          name="description"
+                          defaultValue={nftObj.description}
+                          placeholder="Type something…"
+                        />
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Upload File</label>
+                          <FlexDiv className="JCSB">
+                            <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
+                            <p>
+                              <b>Max 30 mb.</b>
+                            </p>
+                          </FlexDiv>
+                        </div>
+                        <FileuploadBox>
+                          <label className="custom-file-upload">
+                            <input type="file" name="nftFile" />
+                            Choose
+                          </label>
+                          <input type="file" placeholder="Choose" />
+                        </FileuploadBox>
+                      </NFTForm>
+                      <NFTtitle id="creator">
+                        <h4 className="mt-30">Co-Creator</h4>
+                        <p className="mb-30">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit.
+                        </p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Co-Creator Username</label>
+                        </div>
+                        <div
+                          className={`iLeft ${
+                            error.isError &&
+                            error.isCocreatorError &&
+                            "errorinput"
+                          }`}
+                        >
+                          <i>@</i>
+                          <Autosuggestion
+                            setSuggestionValue={this.setSuggestionValue}
+                            setError={this.setError}
+                            username={this.props.NFTDetails?.coCreator?.userId?.username}
+                          />
+                          {error.isError && error.isCocreatorError && (
+                            <p className="error">user doesn’t exist</p>
+                          )}
+                        </div>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Percentage</label>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
                           </p>
-                        </NFTtitle>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Title</label>
-                          </div>
+                        </div>
+                        <div className="iRight">
                           <input
                             type="text"
-                            name="title"
-                            placeholder="Type something…"
+                            name="percentShare"
+                            placeholder="0"
+                            value={nftObj.percentShare}
                           />
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Description</label>
-                            <span>optional</span>
-                          </div>
-                          <input
-                            type="text"
-                            name="description"
-                            placeholder="Type something…"
-                          />
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Upload File</label>
-                            <FlexDiv className="JCSB">
-                              <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
-                              <p>
-                                <b>Max 30 mb.</b>
-                              </p>
-                            </FlexDiv>
-                          </div>
-                          <FileuploadBox>
-                            <label className="custom-file-upload">
-                              <input type="file" name="nftFile" />
-                              Choose
+                          <i>%</i>
+                        </div>
+                      </NFTForm>
+                      <NFTtitle id="collection">
+                        <h4 className="mt-30">Category & Collection</h4>
+                        <p className="mb-30">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit.
+                        </p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Category</label>
+                          <p>
+                            Choose category for listing your NFT. You can choose
+                            up to 2.
+                          </p>
+                        </div>
+                        <CustomCheckbox1>
+                          {categoryList?.map((category, key) => (
+                            <label className="checkbox-container" key={key}>
+                              <img src={Art} alt="" />
+                              {capitalizeFirstLetter(category.categoryName)}
+                              <input
+                                type="checkbox"
+                                name="category"
+                                checked={nftObj.category.filter(obj => obj === category.id).length > 0 ? true:false}
+                                value={category._id}
+                              />
+                              <span className="checkmark"></span>
                             </label>
-                            <input type="file" placeholder="Choose" />
-                          </FileuploadBox>
-                        </NFTForm>
-                      </div>
-                      <div id="creator">
-                        <NFTtitle>
-                          <h4 className="mt-30">Co-Creator</h4>
-                          <p className="mb-30">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                          </p>
-                        </NFTtitle>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Co-Creator Username</label>
-                          </div>
-                          <div
-                            className={`iLeft ${error.isError &&
-                              error.isCocreatorError &&
-                              "errorinput"
-                              }`}
-                          >
-                            <i>@</i>
-                            <Autosuggestion
-                              setSuggestionValue={this.setSuggestionValue}
-                              setError={this.setError}
-                            />
-                            {error.isError && error.isCocreatorError && (
-                              <p className="error">user doesn’t exist</p>
-                            )}
-                          </div>
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Percentage</label>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit.
-                            </p>
-                          </div>
-                          <div className="iRight">
-                            <input
-                              type="text"
-                              name="percentShare"
-                              placeholder="0"
-                            />
-                            <i>%</i>
-                          </div>
-                        </NFTForm>
-                      </div>
-                      <div id="collection">
-                        <NFTtitle>
-                          <h4 className="mt-30">Category & Collection</h4>
-                          <p className="mb-30">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                          </p>
-                        </NFTtitle>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Category</label>
-                            <p>
-                              Choose category for listing your NFT. You can choose
-                              up to 2.
-                            </p>
-                          </div>
-                          <CustomCheckbox1>
-                            {categoryList?.map((category, key) => (
-                              <label className="checkbox-container" key={key}>
-                                <img src={Art} alt="" />
-                                {capitalizeFirstLetter(category.categoryName)}
-                                <input
-                                  type="checkbox"
-                                  name="category"
-                                  value={category._id}
-                                />
-                                <span className="checkmark"></span>
-                              </label>
-                            ))}
-                            {/* <label className="checkbox-container">
+                          ))}
+                          {/* <label className="checkbox-container">
                             <img src={Celebrity} alt="" />
                             Celebrity
                             <input
@@ -536,7 +540,7 @@ class NFTPage extends Component {
                             />
                             <span className="checkmark"></span>
                           </label> */}
-                            {/* <label className="checkbox-container">
+                          {/* <label className="checkbox-container">
                             <img src={Sport} alt="" />
                             Sport
                             <input
@@ -546,139 +550,138 @@ class NFTPage extends Component {
                             />
                             <span className="checkmark"></span>
                           </label> */}
-                          </CustomCheckbox1>
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Collection</label>
-                          </div>
-                          <CollectionSelect>
-                            <Gs.W80>
-                              <select name="collection">
-                                <option>Select or Create</option>
-                                {collectionList?.map((collection, key) => (
-                                  <option value={collection._id} key={key}>
-                                    {capitalizeFirstLetter(collection.name)}
-                                  </option>
-                                ))}
-                              </select>
-                            </Gs.W80>
-                            <Gs.W20>
-                              <button onClick={() => this.toggle(2)}>
-                                + Create
-                              </button>
-                            </Gs.W20>
-                          </CollectionSelect>
-                        </NFTForm>
-                      </div>
-                      <div id="marketplace">
-                        <NFTtitle id="marketplace">
-                          <h4 className="mt-30">Marketplace Settings</h4>
-                          <p className="mb-30">
+                        </CustomCheckbox1>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Collection</label>
+                        </div>
+                        <CollectionSelect>
+                          <Gs.W80>
+                            <select name="collection" value={nftObj.collection}>
+                              <option>Select or Create</option>
+                              {collectionList?.map((collection, key) => (
+                                <option value={collection._id} key={key} >
+                                  {capitalizeFirstLetter(collection.name)}
+                                </option>
+                              ))}
+                            </select>
+                          </Gs.W80>
+                          <Gs.W20>
+                            <button onClick={() => this.toggle(2)}>
+                              + Create
+                            </button>
+                          </Gs.W20>
+                        </CollectionSelect>
+                      </NFTForm>
+                      <NFTtitle id="marketplace">
+                        <h4 className="mt-30">Marketplace Settings</h4>
+                        <p className="mb-30">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit.
+                        </p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Sale State</label>
+                        </div>
+                        <CustomRadio1>
+                          <label className="radio-container">
+                            <img src={Auction} alt="" /> Auction
+                            <input
+                              type="radio"
+                              name="saleState"
+                              value="AUCTION"
+                              checked={nftObj.saleState === "AUCTION" ? true:false}
+                            />
+                            <span className="checkmark"></span>
+                          </label>
+                          <label className="radio-container">
+                            <img src={Money} alt="" /> Buy now
+                            <input type="radio" name="saleState" value="BUY"
+                            checked={nftObj.saleState === "BUY" ? true:false}/>
+                            <span className="checkmark"></span>
+                          </label>
+                        </CustomRadio1>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Auction Time</label>
+                        </div>
+                        <CustomRadio1>
+                          <label className="radio-container">
+                            12 hours
+                            <input type="radio" name="auctionTime" value="12" checked={nftObj.auctionTime === "12"} />
+                            <span className="checkmark"></span>
+                          </label>
+                          <label className="radio-container">
+                            24 hours
+                            <input type="radio" name="auctionTime" value="24" checked={nftObj.auctionTime === "24"} />
+                            <span className="checkmark"></span>
+                          </label>
+                          <label className="radio-container">
+                            48 hours
+                            <input type="radio" name="auctionTime" value="48" checked={nftObj.auctionTime === "48"} />
+                            <span className="checkmark"></span>
+                          </label>
+                        </CustomRadio1>
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Edition</label>
+                          <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit.
                           </p>
-                        </NFTtitle>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Sale State</label>
-                          </div>
-                          <CustomRadio1>
-                            <label className="radio-container">
-                              <img src={Auction} alt="" /> Auction
-                              <input
-                                type="radio"
-                                name="saleState"
-                                value="AUCTION"
-                              />
-                              <span className="checkmark"></span>
-                            </label>
-                            <label className="radio-container">
-                              <img src={Money} alt="" /> Buy now
-                              <input type="radio" name="saleState" value="BUY" />
-                              <span className="checkmark"></span>
-                            </label>
-                          </CustomRadio1>
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Auction Time</label>
-                          </div>
-                          <CustomRadio1>
-                            <label className="radio-container">
-                              12 hours
-                              <input type="radio" name="auctionTime" value="12" />
-                              <span className="checkmark"></span>
-                            </label>
-                            <label className="radio-container">
-                              24 hours
-                              <input type="radio" name="auctionTime" value="24" />
-                              <span className="checkmark"></span>
-                            </label>
-                            <label className="radio-container">
-                              48 hours
-                              <input type="radio" name="auctionTime" value="48" />
-                              <span className="checkmark"></span>
-                            </label>
-                          </CustomRadio1>
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Edition</label>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit.
-                            </p>
-                          </div>
-                          <input type="text" placeholder="0" name="edition" />
-                        </NFTForm>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>Price</label>
-                          </div>
-                          <input type="text" placeholder="0.00" name="price" />
-                          <AccountBX onClick={() => this.toggle(1)}>
-                            <span>
-                              BNB <img src={DDdownA} alt="" />
-                            </span>
-                            <Collapse
-                              isOpen={this.state.isOpen1}
-                              className={
-                                "app__collapse collapse-css-transition  " +
-                                (this.state.isOpen1 ? "collapse-active" : "")
-                              }
-                            >
-                              <DDContainer className="ver2">
-                                <DDBtnbar02>
-                                  <button>ETH</button>
-                                  <button>BTC</button>
-                                </DDBtnbar02>
-                              </DDContainer>
-                            </Collapse>
-                          </AccountBX>
-                        </NFTForm>
-                      </div>
-                      <div id="unlockable">
-                        <NFTtitle>
-                          <h4 className="mt-30">Unlockable Content</h4>
-                          <p className="mb-30">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                          </p>
-                        </NFTtitle>
-                        <NFTForm>
-                          <div className="label-line">
-                            <label>
-                              Digital key, code to redeem or link to file
-                            </label>
-                          </div>
-                          <input
-                            type="text"
-                            placeholder="Type something…"
-                            name="digitalKey"
-                          />
-                        </NFTForm>
-                      </div>
+                        </div>
+                        <input type="text" placeholder="0" name="edition" value={nftObj.edition} />
+                      </NFTForm>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>Price</label>
+                        </div>
+                        <input type="text" placeholder="0.00" name="price" value={nftObj.price} />
+                        <AccountBX onClick={() => this.toggle(1)}>
+                          <span>
+                            BNB <img src={DDdownA} alt="" />
+                          </span>
+                          <Collapse
+                            isOpen={this.state.isOpen1}
+                            className={
+                              "app__collapse collapse-css-transition  " +
+                              (this.state.isOpen1 ? "collapse-active" : "")
+                            }
+                          >
+                            <DDContainer className="ver2">
+                              <DDBtnbar02>
+                                <button>ETH</button>
+                                <button>BTC</button>
+                              </DDBtnbar02>
+                            </DDContainer>
+                          </Collapse>
+                        </AccountBX>
+                      </NFTForm>
+                      <NFTtitle id="unlockable">
+                        <h4 className="mt-30">Unlockable Content</h4>
+                        <p className="mb-30">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit.
+                        </p>
+                      </NFTtitle>
+                      <NFTForm>
+                        <div className="label-line">
+                          <label>
+                            Digital key, code to redeem or link to file
+                          </label>
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Type something…"
+                          name="digitalKey"
+                          defaultValue={nftObj?.digitalKey}
+                        />
+                      </NFTForm>
+
                       {/* <NFTtitle id="admins">
                         <h4 className="mt-30 text-till-blue">for Admins</h4>
                         <p className="mb-30">
@@ -702,7 +705,7 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm> */}
                       <CreateItemButton>
-                        <button type="submit">{nftObj?.id ? `Update` : `Create`} Item</button>
+                        <button type="submit">{nftObj?.id?`Update`:`Create`} Item</button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>
@@ -720,7 +723,7 @@ class NFTPage extends Component {
                           nftId={nftObj?.id}
                           collectionId={nftObj.collectionId?._id}
                           auctionEndDate={
-                            nftObj.saleState == "BUY"
+                            nftObj.saleState === "BUY"
                               ? null
                               : nftObj.auctionTime
                           }
@@ -729,7 +732,7 @@ class NFTPage extends Component {
                           edition={nftObj.edition}
                           price={nftObj.price}
                           auctionTime={
-                            nftObj.saleState == "BUY"
+                            nftObj.saleState === "BUY"
                               ? null
                               : nftObj.auctionTime
                           }

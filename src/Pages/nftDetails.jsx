@@ -263,7 +263,6 @@ class NftDetail extends React.Component {
       isApprovedForAll,
     } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
-    console.log("thiss", NFTDetails);
     return (
       <>
         <Helmet>
