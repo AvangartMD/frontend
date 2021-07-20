@@ -1,13 +1,13 @@
-import React, { Component, useState } from "react";
-import styled from "styled-components";
+import React, { Component, useState } from 'react';
+import styled from 'styled-components';
 
-import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
-import { getContractInstance } from "../../helper/functions";
-import { actions } from "../../actions";
-import { connect } from "react-redux";
-import TxnStatus from "./txnStatus";
-import Media from "./../../Theme/media-breackpoint";
-import getContractAddresses from "../../contractData/contractAddress/addresses";
+import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
+import { getContractInstance } from '../../helper/functions';
+import { actions } from '../../actions';
+import { connect } from 'react-redux';
+import TxnStatus from './txnStatus';
+import Media from './../../Theme/media-breackpoint';
+import getContractAddresses from '../../contractData/contractAddress/addresses';
 
 function NftOwnerActions(props) {
   const {
@@ -20,14 +20,14 @@ function NftOwnerActions(props) {
     changeOwnerActionName,
   } = props;
   const succesMsg = {
-    burnTokenEdition: "Burn Succesfull",
-    transfer: "Transfer Succesfull",
+    burnTokenEdition: 'Burn Succesfull',
+    transfer: 'Transfer Succesfull',
   };
   const escrowContractInstance = getContractInstance(true);
   const nftContractContractInstance = getContractInstance();
 
-  const [reciever, setReciever] = useState("");
-  const [mintNFTStatus, setNFTStatus] = useState("");
+  const [reciever, setReciever] = useState('');
+  const [mintNFTStatus, setNFTStatus] = useState('');
   const [approved, setApproved] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
@@ -38,37 +38,37 @@ function NftOwnerActions(props) {
     //   params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
     // }
     let params;
-    if (ownerActionName === "burnTokenEdition") params = [+tokenID, +edition];
-    else if (ownerActionName === "transfer")
-      params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
-    else if (ownerActionName === "setApprovalForAll")
+    if (ownerActionName === 'burnTokenEdition') params = [+tokenID, +edition];
+    else if (ownerActionName === 'transfer')
+      params = [web3Data.accounts[0], reciever, +tokenID, +edition, '0111001'];
+    else if (ownerActionName === 'setApprovalForAll')
       params = [escrowContractAddres, true];
     else return;
     let contractInstance = !isApprovedForAll
       ? nftContractContractInstance
       : escrowContractInstance;
-    setNFTStatus("initiate");
-    console.log(params);
+    setNFTStatus('initiate');
+    // console.log(params);
     await contractInstance.methods[ownerActionName](...params)
       .send({
         from: web3Data.accounts[0],
       })
-      .on("transactionHash", (hash) => {
-        setNFTStatus("progress");
+      .on('transactionHash', (hash) => {
+        setNFTStatus('progress');
       })
-      .on("receipt", (receipt) => {
+      .on('receipt', (receipt) => {
         if (forApproval) {
           setApproved(true);
-          setNFTStatus("");
-        } else setNFTStatus("complete");
+          setNFTStatus('');
+        } else setNFTStatus('complete');
       })
-      .on("error", (error) => {
-        setNFTStatus("error");
+      .on('error', (error) => {
+        setNFTStatus('error');
       });
   };
   const refreshStates = () => {
-    setNFTStatus("");
-    setReciever("");
+    setNFTStatus('');
+    setReciever('');
     setConfirm(false);
   };
   return (
@@ -76,29 +76,29 @@ function NftOwnerActions(props) {
       <BlackWrap>
         <WhiteBX01>
           <CloseBTN
-            className="ani-1"
+            className='ani-1'
             onClick={() => {
               toggle(1);
               refreshStates();
             }}
           >
-            <img src={CloseBTN01} alt="" />
+            <img src={CloseBTN01} alt='' />
           </CloseBTN>
 
           {!mintNFTStatus ? (
             <>
-              {ownerActionName === "burnTokenEdition" && (
+              {ownerActionName === 'burnTokenEdition' && (
                 <>
-                  <PBtitle className="AStitle">Are you sure?</PBtitle>
-                  <PBDesc className="ASDesc">
+                  <PBtitle className='AStitle'>Are you sure?</PBtitle>
+                  <PBDesc className='ASDesc'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec ut sapien faucibus, ornare arcu et, bibendum risus.
                     Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
                     cursus.
                   </PBDesc>
                   <NFTcartButtons>
-                    <button className="ani-1 bordered">Cancel</button>
-                    <button className="ani-1" onClick={() => handleAction()}>
+                    <button className='ani-1 bordered'>Cancel</button>
+                    <button className='ani-1' onClick={() => handleAction()}>
                       Burn
                     </button>
                   </NFTcartButtons>
@@ -117,28 +117,28 @@ function NftOwnerActions(props) {
               )}
               {
                 // {/* Transfer NFT popup */}
-                ownerActionName === "transfer" && !confirm && (
+                ownerActionName === 'transfer' && !confirm && (
                   <>
-                    <PBtitle className="TN-title">Transfer NFT</PBtitle>
-                    <PBDesc className="mb-20">
+                    <PBtitle className='TN-title'>Transfer NFT</PBtitle>
+                    <PBDesc className='mb-20'>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Donec ut sapien faucibus, ornare arcu et, bibendum risus.
                       Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
                       cursus.
                     </PBDesc>
                     <NFTForm>
-                      <div className="label-line">
+                      <div className='label-line'>
                         <label>Wallet Address</label>
                       </div>
                       <input
-                        type="text"
-                        placeholder="Add Wallet Address"
+                        type='text'
+                        placeholder='Add Wallet Address'
                         onChange={(e) => setReciever(e.target.value)}
                       />
                     </NFTForm>
                     <NFTcartButtons>
                       <button
-                        className="ani-1 bor-large"
+                        className='ani-1 bor-large'
                         onClick={() => setConfirm(true)}
                       >
                         Transfer
@@ -149,10 +149,10 @@ function NftOwnerActions(props) {
               }
               {
                 // {/* Transfer NFT popup */}
-                ownerActionName === "setApprovalForAll" && !approved && (
+                ownerActionName === 'setApprovalForAll' && !approved && (
                   <>
-                    <PBtitle className="TN-title"> Approve Transfer</PBtitle>
-                    <PBDesc className="mb-20">
+                    <PBtitle className='TN-title'> Approve Transfer</PBtitle>
+                    <PBDesc className='mb-20'>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Donec ut sapien faucibus, ornare arcu et, bibendum risus.
                       Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
@@ -161,7 +161,7 @@ function NftOwnerActions(props) {
 
                     <NFTcartButtons>
                       <button
-                        className="ani-1 bor-large"
+                        className='ani-1 bor-large'
                         onClick={() => handleAction(true)}
                       >
                         Approve
@@ -185,7 +185,7 @@ function NftOwnerActions(props) {
                   <WGBtn
                     onClick={() => {
                       setApproved(false);
-                      changeOwnerActionName("transfer");
+                      changeOwnerActionName('transfer');
                     }}
                   >
                     Go to transfer
@@ -194,8 +194,8 @@ function NftOwnerActions(props) {
               )}
               {confirm && (
                 <>
-                  <PBtitle className="AStitle">Confirm</PBtitle>
-                  <PBDesc className="ASDesc mb-10">
+                  <PBtitle className='AStitle'>Confirm</PBtitle>
+                  <PBDesc className='ASDesc mb-10'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec ut sapien faucibus, ornare arcu et, bibendum risus.
                     Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
@@ -204,12 +204,12 @@ function NftOwnerActions(props) {
                   <SkyWalletAddress>{reciever}</SkyWalletAddress>
                   <NFTcartButtons>
                     <button
-                      className="ani-1 bordered"
+                      className='ani-1 bordered'
                       onClick={() => toggle(1)}
                     >
                       Cancel
                     </button>
-                    <button className="ani-1" onClick={() => handleAction()}>
+                    <button className='ani-1' onClick={() => handleAction()}>
                       Transfer
                     </button>
                   </NFTcartButtons>
