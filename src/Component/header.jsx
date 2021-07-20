@@ -99,7 +99,7 @@ class Header extends Component {
   }
   // checkAuthentication(web3Data) {
   //   if (
-  //     !localStorage.getItem("token") ||
+  //     !localStorage.getItem("avangartAuthToken") ||
   //     web3Data.accounts[0] !== localStorage.getItem("userAddress")
   //   )
   //     this.signatureRequest(undefined, true);

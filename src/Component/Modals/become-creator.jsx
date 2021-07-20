@@ -89,7 +89,7 @@ class BecomeCreator extends Component {
       .catch((e) => {
         if (e.response) {
           if (e.response.status === 401 || e.response.status === 403) {
-            localStorage.removeItem("token");
+            localStorage.removeItem("avangartAuthToken");
           }
           // other error code (404, 500, etc): no need to log out
         }

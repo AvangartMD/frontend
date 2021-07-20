@@ -16,6 +16,7 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import { actions } from '../../actions';
 import Media from "../../Theme/media-breackpoint";
 
+
 class Collections extends Component {
 
   componentDidMount() {
@@ -56,10 +57,8 @@ class Collections extends Component {
               <h3>Collections</h3>
             </div>
             <CollectionSection>
-
               {!collections ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
                 collections.map((collection) => this.renderedCollection(collection))}
-
             </CollectionSection>
             <ViewallButton>
               <button

@@ -5,7 +5,7 @@ export const PublicRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      localStorage.getItem("token") ? (
+      localStorage.getItem("avangartAuthToken") ? (
         // <Redirect
         //     to={{
         //     pathname: "/user",

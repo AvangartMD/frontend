@@ -4,7 +4,6 @@ import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
 
 import UserImg from "../../Assets/images/user-img.jpg";
-import NFT3 from "../../Assets/images/nft3.jpg";
 import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
