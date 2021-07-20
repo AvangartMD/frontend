@@ -79,8 +79,11 @@ class Profile extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { updated, dashboard, cookies, profileInfo } = this.props;
+    let { updated, dashboard, cookies, profileInfo, authData } = this.props;
     if (updated !== prevProps.updated) {
+      this.props.getUserDetails(); // fetch user updated details
+    }
+    if (authData !== prevProps.authData) {
       this.profileUpdated(updated); // profile updated
     }
     if (dashboard && !cookies.get('dashboard')) {
@@ -865,6 +868,7 @@ const WhiteBX01 = styled(FlexDiv)`
 const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getProfile()),
+    getUserDetails: () => dispatch(actions.getUserDetails()),
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
     getProfileBanner: () => dispatch(actions.getProfileBanner()),
     getDashboard: () => dispatch(actions.fetchDashboardConfig()),
@@ -880,6 +884,7 @@ const mapStateToProps = (state) => {
     dashboard: state.fetchDashboard,
     profileBanner: state.fetchProfileBanner,
     profileInfo: state.fetchProfileInfo,
+    authData: state.fetchAuthData,
   };
 };
 

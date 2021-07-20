@@ -44,7 +44,7 @@ function fetchCategories() {
 
 function getProfile(userId) {
   return (dispatch) => {
-    const response = services.get(`user/userDetails?userId?=${userId}`, true);
+    const response = services.get(`user/userDetails?userId=${userId}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
