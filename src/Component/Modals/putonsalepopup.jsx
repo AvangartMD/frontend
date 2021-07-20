@@ -18,6 +18,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
   const makeTransaction = async () => {
     const method = "putOnSaleBuy";
     setTxnStatus("initiate");
+    if (!price) return;
     await escrowContractInstance.methods[method](
       +tokenId,
       editionNumber,

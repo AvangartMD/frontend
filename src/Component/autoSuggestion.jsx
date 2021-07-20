@@ -33,11 +33,16 @@ function renderSuggestion(suggestion) {
 class Autosuggestion extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      value: "",
+      value: this.props.username?this.props.username:"",
       suggestions: [],
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.username !== this.props.username) {
+      this.setState({value: this.props.username});
+    }
   }
 
   onChange = (event, { newValue, method }) => {

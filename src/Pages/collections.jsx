@@ -121,36 +121,37 @@ class Collection extends Component {
               </FilterInputBX>
             </FilterRbx>
           </FilterMBX>
+          <CollectionBoxes>
+            {collections ? (
+              <InfiniteScroll
+                dataLength={pagination.totalRecords}
+                next={this.fetchMore}
+                hasMore={page < pagination.totalPages}
+                loader={
+                  <LoaderBX>
+                    {' '}
+                    <img src={LoaderGif} alt='' />{' '}
+                  </LoaderBX>
+                }
+              // endMessage={<p>You have seen it all.!</p>}
+              >
+                <CollectionBoxesInner>
 
-          {collections ? (
-            <InfiniteScroll
-              dataLength={pagination.totalRecords}
-              next={this.fetchMore}
-              hasMore={page < pagination.totalPages}
-              loader={
-                <LoaderBX>
-                  {' '}
-                  <img src={LoaderGif} alt='' />{' '}
-                </LoaderBX>
-              }
-            // endMessage={<p>You have seen it all.!</p>}
-            >
+                  {collections.map((collection) => (
+                    <CollectionCard
+                      id={collection.id}
+                      collImg={collection.logo}
+                      collName={collection.name}
+                      creatorName={collection.ownerId?.username}
+                    />
+                  ))}
+                </CollectionBoxesInner>
 
-              <CollectionBoxes>
-                {collections.map((collection) => (
-                  <CollectionCard
-                    id={collection.id}
-                    collImg={collection.logo}
-                    collName={collection.name}
-                    creatorName={collection.ownerId?.username}
-                  />
-                ))}
-              </CollectionBoxes>
-
-            </InfiniteScroll>
-          ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+              </InfiniteScroll>
+            ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+          </CollectionBoxes>
         </Gs.Container>
-      </Gs.MainSection>
+      </Gs.MainSection >
     );
   }
   toggle = (index) => {
@@ -256,12 +257,15 @@ const SearchICO = styled(FlexDiv)`
   top: 9px;
 `;
 
-const CollectionBoxes = styled(FlexDiv)`
+const CollectionBoxes = styled.div`
   margin:40px -10px 120px;
-  justify-content:flex-start;
   ${Media.md}{
     margin:40px -10px 60px;
   }
+`;
+
+const CollectionBoxesInner = styled(FlexDiv)`
+  justify-content:flex-start;
 `;
 
 const OneCollBox = styled.div`

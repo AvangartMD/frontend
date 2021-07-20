@@ -24,7 +24,48 @@ import NftOwnerActions from "../Component/Modals/nftOwnerAction";
 import Login from "../Component/Modals/login";
 import getContractAddresses from "../contractData/contractAddress/addresses";
 import Media from "../Theme/media-breackpoint";
-
+const saleMethods = {
+  sold: {
+    name: null,
+    btnName: "Sold",
+    bidDesc: "Sold for",
+  },
+  buyNow: {
+    name: "buyNow",
+    btnName: "Buy Now",
+    bidDesc: "Reserved price",
+  },
+  placeABid: {
+    name: "placeBid",
+    btnName: "Place a bid",
+    bidDesc: "Current bid",
+  },
+  makeAnOffer: {
+    name: "placeBid",
+    btnName: "Make an offer",
+    bidDesc: "Current offer",
+  },
+  putOnSale: {
+    name: null,
+    btnName: "Put on sale",
+    bidDesc: "Purchased at",
+  },
+  cancelSaleOrder: {
+    name: "cancelSaleOrder",
+    btnName: "Cancel sale order",
+    bidDesc: "",
+  },
+  noButton: {
+    name: "",
+    btnName: null,
+    bidDesc: "",
+  },
+  claimAfterAuction: {
+    name: "claimAfterAuction",
+    btnName: "Claim",
+    bidDesc: "Current bid",
+  },
+};
 class NftDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -85,83 +126,70 @@ class NftDetail extends React.Component {
       .call();
     this.setState({ isApprovedForAll });
   };
-  setNFTBuyMethod = (bidDetails, isOwner, secondHand, isOpenForSale) => {
+  setNFTBuyMethod = (
+    bidDetails,
+    isOwner,
+    secondHand,
+    isOpenForSale,
+    saleState
+  ) => {
     const { NFTDetails, web3Data } = this.props;
-
-    if (NFTDetails.saleState === "AUCTION") {
-      if (NFTDetails.auctionEndDate < new Date().getTime() / 1000) {
-        this.setState({ showTimer: false });
-        if (+bidDetails.bidValue > 0) {
-          if (bidDetails.bidder === web3Data.accounts[0]) {
-            this.setState({
-              saleMethod: {
-                name: "claimAfterAuction",
-                btnName: "Claim",
-                bidDesc: "Current bid",
-              },
-            });
-          } else
-            this.setState({
-              saleMethod: { name: "", btnName: "Sold", bidDesc: "Sold for" },
-            });
-        } else
-          this.setState({
-            saleMethod: {
-              name: "buyNow",
-              btnName: "Buy Now",
-              bidDesc: "Resereved price",
-            },
-          });
-      } else {
-        this.setState({
-          saleMethod: {
-            name: "placeBid",
-            btnName: "Place a bid",
-            bidDesc: "Current bid",
-          },
-          showTimer: true,
-        });
-      }
-    } else {
+    const isAuction = secondHand
+      ? false
+      : NFTDetails.auctionEndDate > new Date().getTime() / 1000;
+    if (secondHand) {
       if (isOwner) {
-        if (secondHand) {
+        if (isOpenForSale) {
           this.setState({
-            saleMethod: {
-              name: "acceptOffer",
-              btnName: "Put on sale",
-              bidDesc: "Purchased at",
-            },
-            showTimer: false,
+            saleMethod: saleMethods.cancelSaleOrder,
           });
         } else {
           this.setState({
-            saleMethod: {
-              name: "acceptOffer",
-              btnName: "To be added",
-              bidDesc: "Sold for",
-            },
-            showTimer: false,
+            saleMethod: saleMethods.putOnSale,
           });
         }
       } else {
         if (isOpenForSale) {
+          const method =
+            saleState == "BUY" ? saleMethods.buyNow : saleMethods.makeAnOffer;
           this.setState({
-            saleMethod: {
-              name: "buyNow",
-              btnName: "Buy Now",
-              bidDesc: "Reserved price",
-            },
-            showTimer: false,
+            saleMethod: method,
           });
         } else {
           this.setState({
-            saleMethod: {
-              name: "buyNow",
-              btnName: "Buy Now",
-              bidDesc: "Sold for",
-            },
-            showTimer: false,
+            saleMethod: saleMethods.sold,
           });
+        }
+      }
+    } else {
+      if (isOwner) {
+        const method = saleMethods.noButton;
+        method.bidDesc =
+          saleState == "BUY" ? "Resereved Price" : "Current offer";
+        return this.setState({
+          saleMethod: method,
+        });
+      } else {
+        if (isAuction) {
+          this.setState({
+            saleMethod: saleMethods.placeABid,
+            showTimer: true,
+          });
+        } else {
+          this.setState({ showTimer: false });
+          if (+bidDetails.bidValue > 0) {
+            if (bidDetails.bidder === web3Data.accounts[0]) {
+              this.setState({
+                saleMethod: saleMethods.claimAfterAuction,
+              });
+            } else
+              this.setState({
+                saleMethod: saleMethods.sold,
+              });
+          } else
+            this.setState({
+              saleMethod: saleMethods.buyNow,
+            });
         }
       }
     }
@@ -179,9 +207,7 @@ class NftDetail extends React.Component {
 
     const tokenID = NFTDetails.tokenId;
     let newEdition = _edition;
-    // console.log("called", _edition, newEdition);
     if (!newEdition) {
-      // console.log("not called");
       newEdition =
         NFTDetails.saleState === "BUY"
           ? this.getEditionNumber(NFTDetails)
@@ -195,22 +221,24 @@ class NftDetail extends React.Component {
     const bidDetails = await escrowContractInstance.methods
       .bid(+tokenID, newEdition)
       .call();
+    const secondHand = await escrowContractInstance.methods
+      .secondHand(+tokenID, newEdition)
+      .call();
     const soldEdition = NFTDetails.editions.find(
       ({ edition }) => edition == newEdition
     );
-    // console.log(
-    //   "Sold Edition",
-    //   soldEdition,
-    //   NFTDetails.editions[0].edition,
-    //   newEdition
-    // );
+    console.log(soldEdition?.ownerId.id, authData?.data?.id);
     let selectedNFTDetails;
+
     if (soldEdition)
       selectedNFTDetails = {
-        isOwner: currentHolder == web3Data.accounts[0],
+        isOwner: soldEdition.ownerId.id == authData?.data?.id,
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
-        price: soldEdition.price,
+        price: soldEdition.saleType.type
+          ? soldEdition.saleType.price
+          : soldEdition.price,
+        saleState: soldEdition.saleType.type,
         secondHand: true,
       };
     else
@@ -233,11 +261,13 @@ class NftDetail extends React.Component {
       },
       selectedNFTDetails,
     });
+    console.log(selectedNFTDetails);
     this.setNFTBuyMethod(
       bidDetails,
       selectedNFTDetails.isOwner,
       selectedNFTDetails.secondHand,
-      selectedNFTDetails.isOpenForSale
+      selectedNFTDetails.isOpenForSale,
+      selectedNFTDetails.saleState
     );
   }
   setEditionnumber = (number) => {
@@ -263,7 +293,6 @@ class NftDetail extends React.Component {
       isApprovedForAll,
     } = this.state;
     const { NFTDetails, likesCount, isLiked, authData } = this.props;
-    console.log("thiss", NFTDetails);
     return (
       <>
         <Helmet>
