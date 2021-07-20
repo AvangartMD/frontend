@@ -4,63 +4,114 @@ import Gs from "../../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import Media from "../../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
-import { Link } from "react-router-dom";
-
+import { web3 } from "../../web3";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import DDdownA from "../../Assets/images/dd-down-arrow.svg";
+import TxnStatus from "./txnStatus";
+import { getContractInstance } from "../../helper/functions";
 
-function POSpopup(props) {
+function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
   const [isOpen2, setIsOpen2] = useState(false);
+  const [price, setPrice] = useState("");
+  const [txnStatus, setTxnStatus] = useState("");
+  const escrowContractInstance = getContractInstance(true);
+  const makeTransaction = async () => {
+    const method = "putOnSaleBuy";
+    setTxnStatus("initiate");
+    await escrowContractInstance.methods[method](
+      +tokenId,
+      editionNumber,
+      web3.utils.toWei(price, "ether")
+    )
+      .send({ from: web3Data.accounts[0] })
+      .on("transactionHash", (hash) => {
+        setTxnStatus("progress");
+      })
+      .on("receipt", (receipt) => {
+        setTxnStatus("complete");
+      })
+      .on("error", (error) => {
+        setTxnStatus("complete");
+      });
+  };
+  const refreshStates = () => {
+    setPrice("");
+    setTxnStatus("");
+  };
   return (
     <>
       <BlackWrap>
         <WhiteBX0D3>
-          <CloseBTN className="ani-1" onClick={() => props.toggle(7)}>
+          <CloseBTN className="ani-1" onClick={() => toggle(7)}>
             <img src={CloseBTN01} alt="" />
           </CloseBTN>
 
-          <PBtitle className="TN-title">Put on Sale</PBtitle>
-          <CustomRadio1>
-            <label className="radio-container">
-              {" "}
-              Buy now
-              <input type="radio" name="category" value="buy now" />
-              <span className="checkmark"></span>
-            </label>
-            <label className="radio-container">
-              Accept offers
-              <input type="radio" name="category" value="accept offers" />
-              <span className="checkmark"></span>
-            </label>
-          </CustomRadio1>
-          <NFTForm className="Custom-piece">
-            <div className="label-line">
-              <label>Enter price for one piece</label>
-            </div>
-            <input type="text" placeholder="0.00" name="price" />
-            <AccountBX onClick={() => setIsOpen2(!isOpen2)}>
-              <span>
-                BNB <img src={DDdownA} alt="" />
-              </span>
-              <Collapse
-                isOpen={isOpen2}
-                className={
-                  "app__collapse collapse-css-transition  " +
-                  (isOpen2 ? "collapse-active" : "")
-                }
-              >
-                <DDContainer className="ver2">
-                  <DDBtnbar02>
-                    <button>ETH</button>
-                    <button>BTC</button>
-                  </DDBtnbar02>
-                </DDContainer>
-              </Collapse>
-            </AccountBX>
-          </NFTForm>
-          <NFTcartButtons>
-            <button className="ani-1 bor-large">Place</button>
-          </NFTcartButtons>
+          {!txnStatus ? (
+            <>
+              <PBtitle className="TN-title">Put on Sale</PBtitle>
+              <CustomRadio1>
+                <label className="radio-container">
+                  {" "}
+                  Buy now
+                  <input type="radio" name="category" value="buy now" />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="radio-container">
+                  Accept offers
+                  <input type="radio" name="category" value="accept offers" />
+                  <span className="checkmark"></span>
+                </label>
+              </CustomRadio1>
+              <NFTForm className="Custom-piece">
+                <div className="label-line">
+                  <label>Enter price for one piece</label>
+                </div>
+                <input
+                  type="text"
+                  placeholder="0.00"
+                  name="price"
+                  onChange={(e) => {
+                    if (!isNaN(Number(e.target.value)))
+                      setPrice(e.target.value);
+                  }}
+                />
+                <AccountBX onClick={() => setIsOpen2(!isOpen2)}>
+                  <span>
+                    BNB <img src={DDdownA} alt="" />
+                  </span>
+                  <Collapse
+                    isOpen={isOpen2}
+                    className={
+                      "app__collapse collapse-css-transition  " +
+                      (isOpen2 ? "collapse-active" : "")
+                    }
+                  >
+                    <DDContainer className="ver2">
+                      <DDBtnbar02>
+                        <button>ETH</button>
+                        <button>BTC</button>
+                      </DDBtnbar02>
+                    </DDContainer>
+                  </Collapse>
+                </AccountBX>
+              </NFTForm>
+              <NFTcartButtons>
+                <button
+                  className="ani-1 bor-large"
+                  onClick={() => makeTransaction()}
+                >
+                  Place
+                </button>
+              </NFTcartButtons>
+            </>
+          ) : (
+            <TxnStatus
+              status={txnStatus}
+              toggle={toggle}
+              toggleIndex={7}
+              refreshStates={refreshStates}
+            />
+          )}
         </WhiteBX0D3>
       </BlackWrap>
     </>
