@@ -327,8 +327,8 @@ class NftDetail extends React.Component {
                 )}
                 <Historysection>
                   <UserImgName>
-                    <img src={NFTDetails?.ownerId.profile} alt='' />@
-                    {NFTDetails?.ownerId.username}
+                    <img src={NFTDetails?.ownerId.profile} alt='' />
+                    {NFTDetails?.ownerId.username?`@${NFTDetails.ownerId.username}`:NFTDetails?.ownerId.name}
                   </UserImgName>
                   <button onClick={() => this.toggle(9)}>History</button>
                 </Historysection>

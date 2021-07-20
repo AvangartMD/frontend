@@ -57,7 +57,7 @@ function Login(props) {
   };
   const checkAuthentication = (web3Data) => {
     if (
-      !localStorage.getItem("token") ||
+      !localStorage.getItem("avangartAuthToken") ||
       web3Data.accounts[0] !== localStorage.getItem("userAddress")
     )
       signatureRequest(undefined, true);

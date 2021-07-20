@@ -31,7 +31,7 @@ function authLogin(nonce, signature) {
     const response = services.post(url, params);
     response.then(async (promise) => {
       if (promise.status === 200) {
-        localStorage.setItem("token", promise.data.data.token);
+        localStorage.setItem("avangartAuthToken", promise.data.data.token);
         if (promise.data.data.token) {
           const newresp = await services.getWeb3();
           localStorage.setItem("userAddress", newresp.accounts[0]);
@@ -115,7 +115,7 @@ function getUserDetails() {
         dispatch(setData(promise.data, "AUTH_LOGIN"));
       } else {
         if (!promise.response && promise.response?.status === 401) {
-          localStorage.setItem("token", "");
+          localStorage.setItem("avangartAuthToken", "");
           dispatch(setData(promise.response, "AUTH_LOGIN_ERROR"));
         }
       }
