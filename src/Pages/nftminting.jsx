@@ -492,11 +492,10 @@ class NFTPage extends Component {
                           <label>Co-Creator Username</label>
                         </div>
                         <div
-                          className={`iLeft ${
-                            error.isError &&
+                          className={`iLeft ${error.isError &&
                             error.isCocreatorError &&
                             "errorinput"
-                          }`}
+                            }`}
                         >
                           <i>@</i>
                           <Autosuggestion
@@ -1241,8 +1240,8 @@ const CollectionSelect = styled(FlexDiv)`
       background-color: #000;
       color: #fff;
     }
-    ${Media.lg} {
-      padding: 16px;
+    ${Media.lg}{
+      padding:16px 10px;
     }
     ${Media.md} {
       padding: 16px 10px;

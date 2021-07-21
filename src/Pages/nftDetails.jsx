@@ -277,7 +277,7 @@ class NftDetail extends React.Component {
       },
       selectedNFTDetails,
     });
-    console.log(selectedNFTDetails);
+    // console.log(selectedNFTDetails);
     this.setNFTBuyMethod(
       bidDetails,
       selectedNFTDetails.isOwner,
@@ -432,7 +432,7 @@ class NftDetail extends React.Component {
                       </FlexDiv>
                     </div>
                   )}
-                  {NFTDetails?.unlockContent ? (
+                  {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
                     <div className="ed-box ed-mb-block">
                       <p>Unlockable content message</p>
                       <SkyNoteBox>
