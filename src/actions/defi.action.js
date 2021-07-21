@@ -116,12 +116,7 @@ function getUserDetails() {
       } else {
         localStorage.setItem("avangartAuthToken", "");
         if (!promise.response && promise.response?.status === 401) {
-<<<<<<< HEAD
-          dispatch(setData(promise.response, "AUTH_LOGIN_ERROR"));
-=======
-          localStorage.setItem('avangartAuthToken', '');
           dispatch(setData(promise.response, 'AUTH_LOGIN_ERROR'));
->>>>>>> bf16897e51c1e2b2c8d05ccdd8b7831fe279c8bf
         }
       }
     });
@@ -145,11 +140,6 @@ function updateNFT(data) {
   return (dispatch) => {
     const url = `nft/updateNft/${data.id}`;
     const response = services.put(url, data).then((response) => {
-<<<<<<< HEAD
-      console.log("response ? ", response);
-=======
-      // console.log('response ? ', response)
->>>>>>> bf16897e51c1e2b2c8d05ccdd8b7831fe279c8bf
       if (response.status === 200) {
         dispatch(setData(response.data, 'UPDATE_NFT'));
       }
