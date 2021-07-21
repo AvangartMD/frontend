@@ -27,33 +27,39 @@ import Media from "../Theme/media-breackpoint";
 const saleMethods = {
   sold: {
     name: null,
-    btnName: "Sold",
+    btnName: "Sold out",
     bidDesc: "Sold for",
+    disable: true,
   },
   buyNow: {
     name: "buyNow",
     btnName: "Buy Now",
     bidDesc: "Reserved price",
+    open: 8,
   },
   placeABid: {
     name: "placeBid",
     btnName: "Place a bid",
     bidDesc: "Current bid",
+    open: 8,
   },
   makeAnOffer: {
     name: "placeBid",
     btnName: "Make an offer",
     bidDesc: "Current offer",
+    open: 8,
   },
   putOnSale: {
     name: null,
     btnName: "Put on sale",
     bidDesc: "Purchased at",
+    open: 7,
   },
   cancelSaleOrder: {
     name: "cancelSaleOrder",
     btnName: "Cancel sale order",
     bidDesc: "",
+    open: 1,
   },
   noButton: {
     name: "",
@@ -64,6 +70,13 @@ const saleMethods = {
     name: "claimAfterAuction",
     btnName: "Claim",
     bidDesc: "Current bid",
+    open: 8,
+  },
+  claimBack: {
+    name: "claimBack",
+    btnName: "Claim",
+    bidDesc: "Current bid",
+    open: 8,
   },
 };
 class NftDetail extends React.Component {
@@ -214,19 +227,23 @@ class NftDetail extends React.Component {
           ? this.getEditionNumber(NFTDetails)
           : 1;
     }
+    const secondHand = await escrowContractInstance.methods
+      .secondHand(+tokenID, newEdition)
+      .call();
     const currentHolder = await escrowContractInstance.methods
       .currentHolder(+tokenID, newEdition)
       .call();
     const bidDetails = await escrowContractInstance.methods
       .bid(+tokenID, newEdition)
       .call();
-    const secondHand = await escrowContractInstance.methods
-      .secondHand(+tokenID, newEdition)
-      .call();
+
     const soldEdition = NFTDetails.editions.find(
       ({ edition }) => edition === newEdition
     );
-    console.log(soldEdition?.ownerId.id, authData?.data?.id);
+    // if (false) {
+    //   const oderDetails = await escrowContractInstance.methods.order(1).call();
+    // }
+    console.log(soldEdition?.ownerId.id, authData, authData?.data?.id);
     let selectedNFTDetails;
 
     if (soldEdition)
@@ -278,6 +295,17 @@ class NftDetail extends React.Component {
   };
   changeOwnerActionName = (action) => {
     this.setState({ ownerActionName: action });
+  };
+  userTransactionHandler = () => {
+    const { authData } = this.props;
+    const { saleMethod, isApprovedForAll } = this.state;
+
+    if (authData) {
+      // check user is logged in
+      this.toggle(saleMethod.open);
+    } else {
+      this.toggle(4); // open login pop up
+    }
   };
   render() {
     let id = this.props.match.params.id;
@@ -416,39 +444,28 @@ class NftDetail extends React.Component {
                   )}
                 </Edition>
                 <NFTcartButtons>
-                  {!selectedNFTDetails?.isOwner ? (
-                    selectedNFTDetails?.isOpenForSale ? (
-                      <button
-                        onClick={() => {
-                          if (authData) {
-                            // check user is logged in
-                            this.toggle(8);
-                          } else {
-                            this.toggle(4); // open login pop up
-                          }
-                        }}
-                      >
-                        {saleMethod.btnName}
-                      </button>
-                    ) : NFTDetails?.status === "NOT_MINTED" ? (
-                      <button
-                        onClick={() =>
-                          this.props.history.push(
-                            `/user/nftEdit/${NFTDetails.id}`
-                          )
-                        }
-                      >
-                        Edit{" "}
-                      </button>
-                    ) : (
-                      <button disabled>Sold out</button>
-                    )
-                  ) : (
-                    //   <button onClick={() => this.toggle(8)}>
-                    //
-                    //   </button>
-                    // {/* <button disabled>Sold out</button> */}
-
+                  {saleMethod.btnName ? (
+                    <button
+                      disabled={saleMethod.disable}
+                      onClick={() => {
+                        this.userTransactionHandler();
+                      }}
+                    >
+                      {saleMethod.btnName}
+                    </button>
+                  ) : null}
+                  {NFTDetails?.status === "NOT_MINTED" ? (
+                    <button
+                      onClick={() =>
+                        this.props.history.push(
+                          `/user/nftEdit/${NFTDetails.id}`
+                        )
+                      }
+                    >
+                      Edit{" "}
+                    </button>
+                  ) : selectedNFTDetails?.isOwner &&
+                    selectedNFTDetails.secondHand ? (
                     <>
                       <button
                         className="bordered"
@@ -476,23 +493,8 @@ class NftDetail extends React.Component {
                       >
                         Transfer
                       </button>
-                      <button
-                        onClick={() => {
-                          this.setState(
-                            { ownerActionName: "burnTokenEdition" },
-                            () => this.toggle(7)
-                          );
-                        }}
-                      >
-                        Put on Sale
-                      </button>
                     </>
-                  )}
-                  {/* //  : (
-                  //   <button onClick={() => this.toggle(8)}>
-                  //     {saleMethod.btnName}
-                  //   </button>
-                  //   // {/* <button disabled>Sold out</button> */}
+                  ) : null}
                 </NFTcartButtons>
               </NFTDrightcontainer>
             </NFTDright>
