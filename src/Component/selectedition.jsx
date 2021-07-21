@@ -36,7 +36,7 @@ function SelectEdition(props) {
   const [filter, setFilter] = useState([]);
   const [tab, setTab] = useState("All");
   const { NFTDetails, web3Data } = props;
-  
+
   useEffect(() => {
     const tabEditions = () => {
       let saleEditions = totalEditions.filter(edition => tab === 'Sale' ? edition.isOpenForSale : edition)
@@ -49,7 +49,7 @@ function SelectEdition(props) {
   useEffect(() => {
     const filterEditions = () => {
       let saleEditions = [];
-      if (filter === 'AUCTION') 
+      if (filter === 'AUCTION')
         saleEditions = totalEditions.filter(edition => edition.saleState === 'AUCTION').map(edition => edition)
       if (filter === 'BUY')
         saleEditions = totalEditions.filter(edition => edition.saleState === 'BUY').map(edition => edition)
@@ -61,7 +61,7 @@ function SelectEdition(props) {
     }
     filterEditions(); // filter the editons
   }, [filter])
-  
+
   useEffect(() => {
     const createEditionData = () => {
       let editionsData = [];
@@ -87,7 +87,7 @@ function SelectEdition(props) {
               isOwner: NFTDetails?.ownerId.id === props.authData?.data?.id,
               ownerId: NFTDetails?.ownerId,
               isOpenForSale: true,
-              saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION': 'BUY' : 'BUY',
+              saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION' : 'BUY' : 'BUY',
               price: NFTDetails.price,
             });
           }
@@ -97,7 +97,7 @@ function SelectEdition(props) {
     };
     createEditionData(); // fetch the editions
   }, [NFTDetails, web3Data]);
-  
+
   const toggle = (index) => {
     let tVal = filterPopup === index ? "" : index;
     setFilterPopup(tVal);
@@ -115,8 +115,8 @@ function SelectEdition(props) {
 
           <FilterMBX>
             <FilterLbx>
-              <button className={tab === 'All' ? `active`:``} onClick={() => setTab('All')} >All</button>
-              <button className={tab === 'Sale' ? `active`:``} onClick={() => setTab('Sale')} >For Sale</button>
+              <button className={tab === 'All' ? `active` : ``} onClick={() => setTab('All')} >All</button>
+              <button className={tab === 'Sale' ? `active` : ``} onClick={() => setTab('Sale')} >For Sale</button>
             </FilterLbx>
             <FilterBAR
               onClick={() => toggle(1)}
@@ -133,7 +133,7 @@ function SelectEdition(props) {
                 }
               >
                 <DDContainer>
-                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 
+                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ?
                     <div className="md-checkbox">
                       <input
                         type="checkbox"
@@ -146,7 +146,7 @@ function SelectEdition(props) {
                       />
                       <label htmlFor="vehicle1">Live auction</label>
                     </div>
-                  : <div className="md-checkbox">
+                    : <div className="md-checkbox">
                       <input
                         type="checkbox"
                         id="vehicle2"
@@ -201,8 +201,8 @@ function SelectEdition(props) {
               <table>
                 <thead>
                   <th>EDITION</th>
-                  <th>OWNER</th>
-                  <th className="text-center">PRICE</th>
+                  <th>OWNER<span className="mobile-block">/PRICE</span></th>
+                  <th className="text-center desktop-block">PRICE</th>
                   <th></th>
                 </thead>
                 <tbody>
@@ -222,16 +222,19 @@ function SelectEdition(props) {
                                 alt=""
                               />
                             </div>
-                            {edition.ownerId.username?`@${edition.ownerId.username}`:edition.ownerId.name}
+                            <div className="eduerprice">
+                              {edition.ownerId.username ? `@${edition.ownerId.username}` : edition.ownerId.name}
+                              <div className="mobile-block">{edition.price} BNB</div>
+                            </div>
                           </FlexDiv>
                         </td>
-                        <td className="text-center">{edition.price} BNB</td>
+                        <td className="text-center desktop-block">{edition.price} BNB</td>
                         <td>
-                          <CustomCheckbox1>
-                            <label className="checkbox-container">
+                          <CustomRadio1>
+                            <label className="radio-container">
                               Select
                               <input
-                                type="checkbox"
+                                type="radio"
                                 name="category"
                                 value="art"
                                 onClick={() => {
@@ -241,7 +244,7 @@ function SelectEdition(props) {
                               />
                               <span className="checkmark"></span>
                             </label>
-                          </CustomCheckbox1>
+                          </CustomRadio1>
                         </td>
                       </tr>
                     );
@@ -411,6 +414,29 @@ const EditionTable = styled.div`
     .text-right {
       text-align: right;
     }
+    .eduerprice
+    {
+      .mobile-block
+      {
+        width:100%;
+      }
+    }
+    ${Media.sm}{
+      border-spacing: 10px 25px;
+    } 
+    .mobile-block
+    {
+      display:none;
+      ${Media.sm} {
+        display:block;
+      }
+    }
+    .desktop-block
+    {
+      ${Media.sm} {
+        display:none;
+      }
+    }
     thead {
       padding-bottom: 30px;
       th {
@@ -419,6 +445,13 @@ const EditionTable = styled.div`
         font-size: 12px;
         font-weight: 600;
         text-align: left;
+        span.mobile-block
+        {
+          display:inline-block;
+        }
+        ${Media.sm} {
+          font-size: 10px;
+        }
       }
     }
     tbody {
@@ -432,6 +465,9 @@ const EditionTable = styled.div`
         } 
         .JCFS {
           justify-content: flex-start;
+          ${Media.sm}{
+            flex-wrap:initial;
+          } 
         }
         .table-Img {
           width: 32px;
@@ -450,9 +486,9 @@ const EditionTable = styled.div`
   }
 `;
 
-const CustomCheckbox1 = styled(FlexDiv)`
+const CustomRadio1 = styled(FlexDiv)`
   justify-content: flex-end;
-  .checkbox-container {
+  .radio-container {
     display: flex;
     align-items: center;
     position: relative;
@@ -466,8 +502,12 @@ const CustomCheckbox1 = styled(FlexDiv)`
     img {
       margin-right: 5px;
     }
+    ${Media.sm} {
+      padding: 6px 20px;
+      font-size:10px;
+    }
   }
-  .checkbox-container input {
+  .radio-container input {
     position: absolute;
     left: 0;
     opacity: 0;
@@ -483,8 +523,12 @@ const CustomCheckbox1 = styled(FlexDiv)`
     background-color: transparent;
     border-radius: 15px;
     border: 1px solid #000;
+    ${Media.sm} {
+      height: 33px;
+      border-radius: 12px;
+    }
   }
-  .checkbox-container input:checked ~ .checkmark {
+  .radio-container input:checked ~ .checkmark {
     background-color: rgb(0 0 0 / 30%);
     border-color: rgb(0 0 0 / 30%);
   }

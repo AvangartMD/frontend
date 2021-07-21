@@ -187,11 +187,8 @@ const WhiteBX0D2 = styled(FlexDiv)`
   ${Media.xs} {
     padding: 50px 25px;
   }
-  .HCscroll
-  {
-    .view{
+  .view{
       width:100%;
-    }
   }
 `;
 
