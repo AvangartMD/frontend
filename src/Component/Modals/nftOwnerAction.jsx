@@ -131,7 +131,7 @@ function NftOwnerActions(props) {
                         <label>Wallet Address</label>
                       </div>
                       <input
-                        type='text'
+                        type='text' className="mb-0"
                         placeholder='Add Wallet Address'
                         onChange={(e) => setReciever(e.target.value)}
                       />
@@ -389,7 +389,7 @@ const PBbutton = styled.div`
 `;
 
 const NFTcartButtons = styled.div`
-  margin: 0 auto;
+  margin: 30px auto 0px;
   button {
     background-color: #000;
     color: #fff;
@@ -399,6 +399,9 @@ const NFTcartButtons = styled.div`
     font-size: 14px;
     letter-spacing: -0.5px;
     margin: 0px 5px 5px;
+    ${Media.sm} {
+      width: 110px;
+    }
     :hover {
       background-image: linear-gradient(90deg, #d121d6, #febf11);
       box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);
@@ -469,6 +472,10 @@ const NFTForm = styled.div`
     ::placeholder {
       color: #000;
       opacity: 20%;
+    }
+    &.mb-0
+    {
+      margin-bottom:0px;
     }
   }
   .errorinput {
