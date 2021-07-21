@@ -546,7 +546,7 @@ class NFTPage extends Component {
                         <CustomCheckbox1>
                           {categoryList?.map((category, key) => (
                             <label className="checkbox-container" key={key}>
-                              <img src={Art} alt="" />
+                              <img src={category.image} alt="" />
                               {capitalizeFirstLetter(category.categoryName)}
                               <input
                                 type="checkbox"
@@ -1183,6 +1183,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
     color: #000;
     img {
       margin-right: 5px;
+      width: 25px;
     }
     ${Media.lg} {
       width: calc(155px - 5px);

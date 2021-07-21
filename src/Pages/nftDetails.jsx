@@ -163,7 +163,7 @@ class NftDetail extends React.Component {
       } else {
         if (isOpenForSale) {
           const method =
-            saleState == "BUY" ? saleMethods.buyNow : saleMethods.makeAnOffer;
+            saleState === "BUY" ? saleMethods.buyNow : saleMethods.makeAnOffer;
           this.setState({
             saleMethod: method,
           });
@@ -177,7 +177,7 @@ class NftDetail extends React.Component {
       if (isOwner) {
         const method = saleMethods.noButton;
         method.bidDesc =
-          saleState == "BUY" ? "Resereved Price" : "Current offer";
+          saleState === "BUY" ? "Resereved Price" : "Current offer";
         return this.setState({
           saleMethod: method,
         });
@@ -248,7 +248,7 @@ class NftDetail extends React.Component {
 
     if (soldEdition)
       selectedNFTDetails = {
-        isOwner: soldEdition.ownerId.id == authData?.data?.id,
+        isOwner: soldEdition.ownerId.id === authData?.data?.id,
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
         price: soldEdition.saleType.type
