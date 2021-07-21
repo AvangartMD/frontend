@@ -228,10 +228,10 @@ class CollectionEdit extends Component {
                                 <p>
                                   0 <span>of {nft.edition ? nft.edition : 0}</span>
                                 </p>
-                                <p>
+                                {/* <p>
                                   See the collection
                                   <i className='fas fa-angle-right'></i>
-                                </p>
+                                </p> */}
                               </CollectionBar>
                               <Edition className='edition2'>
                                 <div className='ed-box'>
