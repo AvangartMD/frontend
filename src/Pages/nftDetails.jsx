@@ -224,8 +224,8 @@ class NftDetail extends React.Component {
         NFTDetails.saleState === "BUY"
           ? this.getEditionNumber(NFTDetails)
           : NFTDetails.auctionEndDate <= new Date().getTime() / 1000
-          ? this.getEditionNumber(NFTDetails)
-          : 1;
+            ? this.getEditionNumber(NFTDetails)
+            : 1;
     }
     const secondHand = await escrowContractInstance.methods
       .secondHand(+tokenID, newEdition)
@@ -656,7 +656,7 @@ const NFTDrightcontainer = styled.div`
   padding: 70px 100px 70px 70px;
   position: relative;
   ${Media.lg} {
-    padding: 30px 60px 30px 30px;
+    padding: 30px 100px 30px 30px;
   }
   ${Media.md} {
     max-width: 100%;
@@ -814,6 +814,9 @@ const Edition = styled(FlexDiv)`
       margin-right: 0px;
       max-width: 232px;
       width: 100%;
+      ${Media.md} {
+        max-width:100%;
+      }
     }
     p {
       color: #000;

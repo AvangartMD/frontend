@@ -161,7 +161,7 @@ const WhiteBX0D3 = styled(FlexDiv)`
   background-color: #fff;
   border-radius: 30px;
   justify-content: flex-start;
-  align-content: flex-start;
+  align-content: center;
   ${Media.xs} {
     padding: 50px 25px;
   }
@@ -213,7 +213,7 @@ const PBtitle = styled.div`
     margin: 0px 0px 20px;
   }
   &.TN-title {
-    margin: 0px 0px 20px;
+    margin: 15px 0px 20px;
   }
 `;
 
@@ -256,13 +256,13 @@ const NFTcartButtons = styled.div`
       width: auto;
     }
   }
-  ${WhiteBX0D3} & {
-    position: absolute;
-    bottom: 50px;
-    left: 0px;
-    width: 100%;
-    text-align: center;
-  }
+  // ${WhiteBX0D3} & {
+  //   position: absolute;
+  //   bottom: 50px;
+  //   left: 0px;
+  //   width: 100%;
+  //   text-align: center;
+  // }
 `;
 
 const NFTForm = styled.div`
@@ -321,12 +321,13 @@ const NFTForm = styled.div`
 const CustomRadio1 = styled(FlexDiv)`
   justify-content: flex-start;
   margin-bottom: 20px;
+  width:100%;
   .radio-container {
     display: flex;
     align-items: center;
     position: relative;
     height: 54px;
-    width: calc(145px - 5px);
+    width: calc(50% - 5px);
     margin-right: 10px;
     cursor: pointer;
     padding-left: 15px;
@@ -337,6 +338,10 @@ const CustomRadio1 = styled(FlexDiv)`
     color: #000;
     img {
       margin-right: 5px;
+    }
+    :last-child
+    {
+      margin-right:0px;
     }
   }
   .radio-container input {
