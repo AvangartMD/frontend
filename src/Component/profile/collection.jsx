@@ -53,7 +53,7 @@ function Collection(props) {
               <CEmpty>
                 <h2>Your collection is empty.</h2>
                 <p>Start building your collection<br /> by placing bids on artwork.</p>
-                <button className="ani-1">Explore artworks</button>
+                {/* <button className="ani-1">Explore artworks</button> */}
               </CEmpty>
             : ``
           : ``}

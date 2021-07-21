@@ -42,6 +42,14 @@ function Drafts(props) {
             </LoaderBX>
           )}
         </NFTfourbox>
+
+          {userDraftNFT?.length === 0 ?
+            <CEmpty>
+              <h2 className="Bec">Your draft is empty</h2>
+              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              <button className="ani-1" onClick={() =>  this.props.history.push("/user/nftminting") }>Create</button>
+            </CEmpty>
+          : ``}
       </Gs.Container>
     </HomeNFTs>
   );
@@ -163,6 +171,31 @@ const HomeNFTs = styled.div`
         background: url(${HeartIcon}) no-repeat;
       }
     }
+  }
+`;
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

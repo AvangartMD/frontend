@@ -38,36 +38,6 @@ function Collected(props) {
 
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          {categories && NFTs ?
-            NFTs.length > 0 && categories.length > 0 ? <>
-              <button
-                className={tabPanel === "All" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("All");
-                }}
-              >
-                All
-              </button>
-              {categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })}
-            </>
-              : ``
-            : ``}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
@@ -95,8 +65,8 @@ function Collected(props) {
             )}
           </NFTfourbox>
 
-          {NFTs && categories && !params.id && props.role !== 'creator'?
-            NFTs.length === 0 ? <>
+          {NFTs && !params.id && NFTs.length === 0 ?
+            props.role !== 'creator' ?
               <CEmpty>
                 <h2 className="Bec">Become a Creator</h2>
                 <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
@@ -104,8 +74,10 @@ function Collected(props) {
                   <BecomeCreator isProfile={true} />
                 </div>
               </CEmpty>
-            </>
-              : ``
+            : <CEmpty>
+                <h2 className="Bec">Your collected is empty</h2>
+                <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              </CEmpty>
             : ``}
 
         </Gs.Container>
