@@ -15,7 +15,7 @@ import NFTCard from "../Cards/nftCard";
 
 function Created(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("ALL");
 
@@ -107,7 +107,7 @@ function Created(props) {
             )}
           </NFTfourbox>
 
-          {NFTs?.length === 0 ?
+          {NFTs?.length === 0 && tabPanel === 'ALL' ?
             <CEmpty>
               <h2 className="Bec">Your artwork is empty</h2>
               <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>

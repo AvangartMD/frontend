@@ -15,19 +15,12 @@ import NFTCard from "../Cards/nftCard";
 
 function Liked(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-
-  useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -37,35 +30,6 @@ function Liked(props) {
 
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          {categories && NFTs
-            ? NFTs.length > 0 && categories.length > 0 ? <>
-              <button
-                className={tabPanel === "All" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("All");
-                }}
-              >
-                All
-              </button>
-              {categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })}
-            </> : ``
-            : ``}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
         <Gs.Container>
           <NFTfourbox>
@@ -97,7 +61,6 @@ function Liked(props) {
             <CEmpty>
               <h2 className="Bec">Your Liked is empty</h2>
               <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-              {/* <button className="ani-1" onClick={() =>  history.push("/user/nftminting") }>Create</button> */}
             </CEmpty>
           : ``}
 
@@ -288,14 +251,12 @@ const CEmpty = styled.div`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getLikedNFT(id)),
     clearNFTs: () => dispatch({ type: 'FETCHED_LIKED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchLikedNFT,
   };
 };

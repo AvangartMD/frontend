@@ -16,19 +16,12 @@ import BecomeCreator from "../../Component/Modals/become-creator";
 
 function Collected(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-
-  useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -268,14 +261,12 @@ const CEmpty = styled.div`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getCollectedNFT(id)),
     clearNFTs: () => dispatch({ type: 'FETCHED_COLLECTED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchCollectedNFT,
   };
 };
