@@ -34,7 +34,11 @@ function Login(props) {
     footerToggleVal,
   } = props;
   useEffect(() => {
-    if (web3Data.accounts[0] && !isFooter) getUserDetails();
+    if (web3Data.accounts[0] && !isFooter) {
+      if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
+        localStorage.setItem("userAddress", "");
+      else if (localStorage.getItem("avangartAuthToken")) getUserDetails();
+    }
   }, [web3Data.accounts[0]]);
   useEffect(() => {
     if (nonce && !isFooter) signatureRequest(nonce);

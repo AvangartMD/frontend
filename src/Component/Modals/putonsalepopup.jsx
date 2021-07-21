@@ -14,9 +14,10 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
   const [isOpen2, setIsOpen2] = useState(false);
   const [price, setPrice] = useState("");
   const [txnStatus, setTxnStatus] = useState("");
+  const [method, setMethod] = useState("");
   const escrowContractInstance = getContractInstance(true);
   const makeTransaction = async () => {
-    const method = "putOnSaleBuy";
+    if (!method) return;
     setTxnStatus("initiate");
     if (!price) return;
     await escrowContractInstance.methods[method](
@@ -52,14 +53,23 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
               <PBtitle className="TN-title">Put on Sale</PBtitle>
               <CustomRadio1>
                 <label className="radio-container">
-                  {" "}
                   Buy now
-                  <input type="radio" name="category" value="buy now" />
+                  <input
+                    type="radio"
+                    name="category"
+                    value="buy now"
+                    onClick={() => setMethod("putOnSaleBuy")}
+                  />
                   <span className="checkmark"></span>
                 </label>
                 <label className="radio-container">
                   Accept offers
-                  <input type="radio" name="category" value="accept offers" />
+                  <input
+                    type="radio"
+                    name="category"
+                    value="accept offers"
+                    onClick={() => setMethod("requestOffer")}
+                  />
                   <span className="checkmark"></span>
                 </label>
               </CustomRadio1>
