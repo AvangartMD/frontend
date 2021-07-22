@@ -12,6 +12,8 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
+import Media from '../../Theme/media-breackpoint';
+
 
 function Created(props) {
 
@@ -25,7 +27,7 @@ function Created(props) {
 
   useEffect(() => {
     if (tabPanel !== 'ALL') props.getNFTs(params.id ? params.id : null, tabPanel);
-    else props.getNFTs(params.id ? params.id : null); 
+    else props.getNFTs(params.id ? params.id : null);
   }, [tabPanel]);
 
   useEffect(() => {
@@ -39,74 +41,72 @@ function Created(props) {
       <FilterMBX>
         <FilterLbx>
           <button
-                className={tabPanel === "ALL" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("ALL");
-                }}
-              >
-                All
+            className={tabPanel === "ALL" ? "active" : ""}
+            id="all"
+            onClick={() => {
+              setTaPanel("ALL");
+            }}
+          >
+            All
           </button>
-          
+
           <button
-                className={tabPanel === "SOLD" ? "active" : ""}
-                id="sold"
-                onClick={() => {
-                  setTaPanel("SOLD");
-                }}
-              >
-                Sold
+            className={tabPanel === "SOLD" ? "active" : ""}
+            id="sold"
+            onClick={() => {
+              setTaPanel("SOLD");
+            }}
+          >
+            Sold
           </button>
-          
+
           <button
-                className={tabPanel === "AUCTION" ? "active" : ""}
-                id="liveauction"
-                onClick={() => {
-                  setTaPanel("AUCTION");
-                }}
-              >
-                Live auction
+            className={tabPanel === "AUCTION" ? "active" : ""}
+            id="liveauction"
+            onClick={() => {
+              setTaPanel("AUCTION");
+            }}
+          >
+            Live auction
           </button>
-          
+
           <button
-              className={tabPanel === "BUY" ? "active" : ""}
-              id="buynow"
-              onClick={() => {
-                setTaPanel("BUY");
-              }}
-            >
-              Buy now
+            className={tabPanel === "BUY" ? "active" : ""}
+            id="buynow"
+            onClick={() => {
+              setTaPanel("BUY");
+            }}
+          >
+            Buy now
           </button>
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
-        <Gs.Container>
-          <NFTfourbox>
-            {NFTs ? (
-              NFTs.map((nft, key) => (
-                <NFTCard
-                  key={key}
-                  nftSold={nft.nftSold}
-                  name={nft.ownerId.name}
-                  nftId={nft.id}
-                  collectionId={nft.collectionId?._id}
-                  auctionEndDate={nft.auctionEndDate}
-                  nftImg={nft.image.compressed}
-                  title={nft.title}
-                  edition={nft.edition}
-                  price={nft.price}
-                  auctionTime={nft.auctionTime}
-                  userImg={nft.ownerId.profile}
-                  username={nft.ownerId.username}
-                />
-              ))
-            ) : (
-              <LoaderBX>
-                <img src={LoaderGif} alt="" />
-              </LoaderBX>
-            )}
-          </NFTfourbox>
-        </Gs.Container>
+        <NFTfourbox>
+          {NFTs ? (
+            NFTs.map((nft, key) => (
+              <NFTCard
+                key={key}
+                nftSold={nft.nftSold}
+                name={nft.ownerId.name}
+                nftId={nft.id}
+                collectionId={nft.collectionId?._id}
+                auctionEndDate={nft.auctionEndDate}
+                nftImg={nft.image.compressed}
+                title={nft.title}
+                edition={nft.edition}
+                price={nft.price}
+                auctionTime={nft.auctionTime}
+                userImg={nft.ownerId.profile}
+                username={nft.ownerId.username}
+              />
+            ))
+          ) : (
+            <LoaderBX>
+              <img src={LoaderGif} alt="" />
+            </LoaderBX>
+          )}
+        </NFTfourbox>
       </HomeNFTs>
     </>
   );
@@ -241,9 +241,13 @@ const FilterMBX = styled(FlexDiv)`
 `;
 
 const FilterLbx = styled(FlexDiv)`
-  width: 45%;
+  width: 100%;
   justify-content: flex-start;
-
+  ${Media.sm}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -253,7 +257,9 @@ const FilterLbx = styled(FlexDiv)`
     border-radius: 15px;
     background-color: #eef2f7;
     margin-right: 8px;
-
+    ${Media.sm}{
+      white-space: pre;
+    }
     &.active {
       background-color: #00babc;
       color: #fff;

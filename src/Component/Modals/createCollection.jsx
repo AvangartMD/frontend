@@ -23,7 +23,7 @@ function CreateCollection(props) {
   };
   const [msg, setMsg] = useState(msg1);
   // const msg2 ={0:"Addition Failed!", 1:}
-  
+
   useEffect(() => {
     const { categoryList } = props;
     if (!categoryList) props.getCategoryList(); // get the category list
@@ -96,7 +96,7 @@ function CreateCollection(props) {
       } else {
         category.push(e.target.value);
       }
-      setParams({ ... params, category: category })
+      setParams({ ...params, category: category })
     } else {
       setParams({ ...params, [name]: value })
     }
@@ -120,17 +120,17 @@ function CreateCollection(props) {
           </>
         ) : (
           <WhiteBX01>
-              <form onSubmit={(e) => onFormSubmit(e)}
-                onChange={(e) => formChange(e)}
-                ref={(e) => myFormRef = e}
-              >
+            <form onSubmit={(e) => onFormSubmit(e)}
+              onChange={(e) => formChange(e)}
+              ref={(e) => myFormRef = e}
+            >
               <>
 
                 <CloseBTN className="ani-1" onClick={(e) => {
-                    e.preventDefault();
-                    clearData();
-                    props.toggle(2);
-                  }}
+                  e.preventDefault();
+                  clearData();
+                  props.toggle(2);
+                }}
                 >
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
@@ -143,7 +143,7 @@ function CreateCollection(props) {
                   <input
                     type="text"
                     name="name"
-                    className={error.name?`error`:``}
+                    className={error.name ? `error` : ``}
                     placeholder="Type something…"
                   />
                 </NFTForm>
@@ -151,14 +151,14 @@ function CreateCollection(props) {
                   <div className="label-line">
                     <label>About Collection</label>
                   </div>
-                    <textarea name="description" className={error.description?`error`:``}>
-                        Type something…
-                    </textarea>
+                  <textarea name="description" className={error.description ? `error` : ``}>
+                    Type something…
+                  </textarea>
                 </NFTForm>
                 <NFTForm>
                   <div className="label-line">
                     <label>Category</label>
-                    <p className={error.category?`error`:``}>
+                    <p className={error.category ? `error` : ``}>
                       Choose category for listing your NFT. You can choose
                       up to 2.
                     </p>
@@ -188,17 +188,17 @@ function CreateCollection(props) {
                       </p>
                     </FlexDiv>
                   </div>
-                  <FileuploadBox className={error.logo?`error`:``} >
+                  <FileuploadBox className={error.logo ? `error` : ``} >
                     <label className="custom-file-upload">
                       <input type="file" name="logo"
-                          accept="image/png, image/gif, image/jpeg"
+                        accept="image/png, image/gif, image/jpeg"
                       />
                       Choose
                     </label>
                   </FileuploadBox>
                 </NFTForm>
                 <CreateItemButton >
-                    <button type="submit" disabled={loading?true:false} >{loading?`loading..`:`Create`}</button>
+                  <button type="submit" disabled={loading ? true : false} >{loading ? `loading..` : `Create`}</button>
                 </CreateItemButton>
 
               </>
@@ -481,8 +481,8 @@ const CustomCheckbox1 = styled(FlexDiv)`
     align-items: center;
     position: relative;
     height: 54px;
-    width: calc(130px - 5px);
-    margin-right: 10px;
+    width: calc(50% - 5px);
+    margin:0px 5px 5px 0px;
     cursor: pointer;
     padding-left: 15px;
     line-height: 54px;
@@ -494,9 +494,9 @@ const CustomCheckbox1 = styled(FlexDiv)`
       margin-right: 5px;
       width:25px;
     }
-    ${Media.lg} {
-      width: calc(130px - 5px);
-      margin: 0px 10px 10px 0px;
+    :last-child
+    {
+      margin-right:0px;
     }
     ${Media.sm} {
       width: 100%;

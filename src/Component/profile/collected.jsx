@@ -12,7 +12,7 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 import BecomeCreator from "../../Component/Modals/become-creator";
-
+import Media from '../../Theme/media-breackpoint';
 
 function Collected(props) {
 
@@ -69,46 +69,46 @@ function Collected(props) {
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
-        <Gs.Container>
-          <NFTfourbox>
-            {NFTs ? (
-              NFTs.map((nft) => (
-                <NFTCard
-                  nftSold={nft.nftSold}
-                  name={nft.ownerId.name}
-                  nftId={nft.id}
-                  collectionId={nft.collectionId?._id}
-                  auctionEndDate={nft.auctionEndDate}
-                  nftImg={nft.image.compressed}
-                  title={nft.title}
-                  edition={nft.edition}
-                  price={nft.price}
-                  auctionTime={nft.auctionTime}
-                  userImg={nft.ownerId.profile}
-                  username={nft.ownerId.username}
-                />
-              ))
-            ) : (
-              <LoaderBX>
-                <img src={LoaderGif} alt="" />
-              </LoaderBX>
-            )}
-          </NFTfourbox>
 
-          {NFTs && categories && !params.id && props.role !== 'creator'?
-            NFTs.length === 0 ? <>
-              <CEmpty>
-                <h2 className="Bec">Become a Creator</h2>
-                <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-                <div className="BecBTN">
-                  <BecomeCreator isProfile={true} />
-                </div>
-              </CEmpty>
-            </>
-              : ``
-            : ``}
+        <NFTfourbox>
+          {NFTs ? (
+            NFTs.map((nft) => (
+              <NFTCard
+                nftSold={nft.nftSold}
+                name={nft.ownerId.name}
+                nftId={nft.id}
+                collectionId={nft.collectionId?._id}
+                auctionEndDate={nft.auctionEndDate}
+                nftImg={nft.image.compressed}
+                title={nft.title}
+                edition={nft.edition}
+                price={nft.price}
+                auctionTime={nft.auctionTime}
+                userImg={nft.ownerId.profile}
+                username={nft.ownerId.username}
+              />
+            ))
+          ) : (
+            <LoaderBX>
+              <img src={LoaderGif} alt="" />
+            </LoaderBX>
+          )}
+        </NFTfourbox>
 
-        </Gs.Container>
+        {NFTs && categories && !params.id && props.role !== 'creator' ?
+          NFTs.length === 0 ? <>
+            <CEmpty>
+              <h2 className="Bec">Become a Creator</h2>
+              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              <div className="BecBTN">
+                <BecomeCreator isProfile={true} />
+              </div>
+            </CEmpty>
+          </>
+            : ``
+          : ``}
+
+
       </HomeNFTs>
     </>
   );
@@ -243,9 +243,13 @@ const FilterMBX = styled(FlexDiv)`
 `;
 
 const FilterLbx = styled(FlexDiv)`
-  width: 45%;
+  width: 100%;
   justify-content: flex-start;
-
+  ${Media.sm}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -255,7 +259,9 @@ const FilterLbx = styled(FlexDiv)`
     border-radius: 15px;
     background-color: #eef2f7;
     margin-right: 8px;
-
+    ${Media.sm}{
+      white-space: pre;
+    }
     &.active {
       background-color: #00babc;
       color: #fff;

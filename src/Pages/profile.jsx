@@ -39,10 +39,10 @@ import Drafts from "../Component/profile/drafts";
 import Media from '../Theme/media-breackpoint';
 
 class Profile extends Component {
-  
+
   static contextType = Context;
   static propTypes = {
-      cookies: instanceOf(Cookies).isRequired
+    cookies: instanceOf(Cookies).isRequired
   }
 
   constructor(props) {
@@ -64,7 +64,7 @@ class Profile extends Component {
   async componentDidMount() {
     const { dashboard, profileInfo, cookies } = this.props;
     if (!this.state.dashboard && !dashboard) {
-        this.props.getDashboard() // fetch dashboard config
+      this.props.getDashboard() // fetch dashboard config
     } else {
       this.props.setDashboard(cookies.get('dashboard'))
       const isActive = cookies.get('dashboard').filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
@@ -87,7 +87,7 @@ class Profile extends Component {
       this.profileUpdated(updated); // profile updated
     }
     if (dashboard && !cookies.get('dashboard')) {
-      this.setCookie('dashboard',dashboard) // set dashboard data in cookie
+      this.setCookie('dashboard', dashboard) // set dashboard data in cookie
       const isActive = dashboard.filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
       this.setState({ profile_banner: isActive })
     }
@@ -98,7 +98,7 @@ class Profile extends Component {
 
   setCookie = (name, dashboard) => {
     const { cookies } = this.props;
-    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    const expire = new Date(Date.now() + (expiryTime * 60 * 60 * 1000)) // cookie will expire after 12 hours
     cookies.set(name, dashboard, { path: '/', expires: expire });
   }
 
@@ -147,13 +147,13 @@ class Profile extends Component {
         href={profile.url}
         key={index}>
         <motion.img
-            initial={{ opacity: 0.2 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            key={index}
-            src={img}
-            exit={{ opacity: 0 }}
-          />
+          initial={{ opacity: 0.2 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          key={index}
+          src={img}
+          exit={{ opacity: 0 }}
+        />
       </a>
     )
   }
@@ -395,8 +395,8 @@ class Profile extends Component {
 
           <ADBannerMBX>
             {profile_banner && profileInfo ?
-              profileInfo.map( (info, key) => this.renderedProfileInfo(info, key))
-            : ``}
+              profileInfo.map((info, key) => this.renderedProfileInfo(info, key))
+              : ``}
           </ADBannerMBX>
 
           <HomeTabs>
@@ -413,7 +413,7 @@ class Profile extends Component {
                   </TabList>
 
                   <TabPanel> <Created /> </TabPanel>
-                  <TabPanel> <Collected role='creator'/>  </TabPanel>
+                  <TabPanel> <Collected role='creator' />  </TabPanel>
                   <TabPanel> <Collection /> </TabPanel>
                   <TabPanel> <Liked /> </TabPanel>
                   <TabPanel> <Drafts /> </TabPanel>
@@ -460,6 +460,9 @@ const ProMBannerBX = styled(FlexDiv)`
   background-size: cover;
   background-position: 50% 50%;
   position: relative;
+  ${Media.md}{
+    margin-bottom: 150px;
+  }
 `;
 const ProMBX01 = styled(FlexDiv)`
   width: 100%;
@@ -471,17 +474,33 @@ const ProMBX01 = styled(FlexDiv)`
   margin-bottom: -291px;
   box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
   align-items: stretch;
+  ${Media.lg}{
+    max-width:94%;
+  }
+  ${Media.md}{
+    padding: 20px;
+    min-height:200px;
+  }
 `;
 const ProSBX01 = styled(FlexDiv)`
   width: 50%;
   justify-content: flex-start;
   align-items: flex-start;
+  ${Media.lg}{
+    width: 40%;
+  }
+  ${Media.sm}{
+    width: 100%;
+  }
 `;
 
 const UserImgBX = styled(FlexDiv)`
   width: 142px;
   justify-content: flex-start;
   position: relative;
+  ${Media.md}{
+    width:120px;
+  }
 `;
 const UserImgSB = styled.div`
   width: 122px;
@@ -489,6 +508,10 @@ const UserImgSB = styled.div`
   border-radius: 62px;
   overflow: hidden;
   border: 1px solid #efecf0;
+  ${Media.md}{
+    width: 100px;
+    height: 100px;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -523,7 +546,6 @@ const UserDText02 = styled(UserDText01)`
   color: rgba(0, 0, 0, 0.3);
   width: 100%;
   margin-top: 30px;
-
   span {
     color: #000000;
     padding-left: 25px;
@@ -533,7 +555,6 @@ const UserSocilMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: flex-start;
   margin-top: 22px;
-
   button {
     display: block;
     width: 28px;
@@ -556,11 +577,22 @@ const ProSBX02 = styled(FlexDiv)`
   justify-content: flex-end;
   flex-direction: column;
   align-items: flex-end;
+  ${Media.lg}{
+    width: 60%;
+  }
+  ${Media.sm}{
+    width: 100%;
+  }
 `;
 
 const ProSBX03 = styled(FlexDiv)`
   flex-direction: row;
   margin-bottom: auto;
+  ${Media.md}{
+    margin-top:15px;
+    width:-webkit-fill-available;
+    justify-content: flex-end;
+  }
 `;
 const FollowerMBX = styled(FlexDiv)`
   font-size: 16px;
@@ -589,6 +621,9 @@ const EditPrBTN = styled.button`
     color: #fff;
     border: 1px solid #f40058;
   }
+  ${Media.md}{
+    margin:initial;
+  }
 `;
 
 const ProSBX04 = styled(FlexDiv)`
@@ -601,7 +636,9 @@ const ProSBX04 = styled(FlexDiv)`
   font-size: 14px;
   color: #000;
   position: relative;
-
+  ${Media.md}{
+    width: -webkit-fill-available;
+  }
   span {
     background-color: #f40058;
     position: absolute;
@@ -694,6 +731,12 @@ const HomeTabs = styled.div`
   .react-tabs__tab-list {
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
+    ${Media.sm}{
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      flex-wrap:initial;
+    }
   }
   .react-tabs__tab {
     bottom: 0px;
@@ -703,6 +746,15 @@ const HomeTabs = styled.div`
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.8px;
+    ${Media.sm}{
+      font-size: 16px;
+      margin:0px 30px 0px 0px;
+    }
+    :focus
+    {
+      box-shadow:none;
+      border:none;
+    }
   }
   .react-tabs__tab--selected {
     border: none;

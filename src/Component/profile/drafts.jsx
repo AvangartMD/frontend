@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
+import Media from '../../Theme/media-breackpoint';
 
 function Drafts(props) {
   const { userDraftNFT } = props;
@@ -16,33 +17,33 @@ function Drafts(props) {
   }, [userDraftNFT]);
   return (
     <HomeNFTs>
-      <Gs.Container>
-        <NFTfourbox>
-          {userDraftNFT ? (
-            userDraftNFT.map((nft) => (
-              <NFTCard
-                nftSold={nft.nftSold}
-                nftId={nft.id}
-                name={nft.ownerId.name}
-                collectionId={nft.collectionId?._id}
-                auctionEndDate={nft.auctionEndDate}
-                nftImg={nft.image.compressed}
-                title={nft.title}
-                edition={nft.edition}
-                price={nft.price}
-                auctionTime={nft.auctionTime}
-                userImg={nft.ownerId.profile}
-                username={nft.ownerId.username}
-              />
-            ))
-          ) : (
-            // this.renderTabPanel(NFTs)
-            <LoaderBX>
-              <img src={LoaderGif} alt="" />
-            </LoaderBX>
-          )}
-        </NFTfourbox>
-      </Gs.Container>
+
+      <NFTfourbox>
+        {userDraftNFT ? (
+          userDraftNFT.map((nft) => (
+            <NFTCard
+              nftSold={nft.nftSold}
+              nftId={nft.id}
+              name={nft.ownerId.name}
+              collectionId={nft.collectionId?._id}
+              auctionEndDate={nft.auctionEndDate}
+              nftImg={nft.image.compressed}
+              title={nft.title}
+              edition={nft.edition}
+              price={nft.price}
+              auctionTime={nft.auctionTime}
+              userImg={nft.ownerId.profile}
+              username={nft.ownerId.username}
+            />
+          ))
+        ) : (
+          // this.renderTabPanel(NFTs)
+          <LoaderBX>
+            <img src={LoaderGif} alt="" />
+          </LoaderBX>
+        )}
+      </NFTfourbox>
+
     </HomeNFTs>
   );
 }
