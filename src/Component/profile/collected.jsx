@@ -29,9 +29,35 @@ function Collected(props) {
     };
   }, [])
 
+
   return (
     <>
       <HomeNFTs>
+
+        <NFTfourbox>
+          {NFTs ? (
+            NFTs.map((nft) => (
+              <NFTCard
+                nftSold={nft.nftSold}
+                name={nft.ownerId.name}
+                nftId={nft.id}
+                collectionId={nft.collectionId?._id}
+                auctionEndDate={nft.auctionEndDate}
+                nftImg={nft.image.compressed}
+                title={nft.title}
+                edition={nft.edition}
+                price={nft.price}
+                auctionTime={nft.auctionTime}
+                userImg={nft.ownerId.profile}
+                username={nft.ownerId.username}
+              />
+            ))
+          ) : (
+            <LoaderBX>
+              <img src={LoaderGif} alt="" />
+            </LoaderBX>
+          )}
+        </NFTfourbox>
 
         {NFTs && !params.id && NFTs.length === 0 ?
           props.role !== 'creator' ?
