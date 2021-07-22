@@ -17,7 +17,7 @@ import Media from '../../Theme/media-breackpoint';
 
 function Created(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("ALL");
 
@@ -82,6 +82,7 @@ function Created(props) {
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
+
         <NFTfourbox>
           {NFTs ? (
             NFTs.map((nft, key) => (
@@ -107,6 +108,15 @@ function Created(props) {
             </LoaderBX>
           )}
         </NFTfourbox>
+
+        {NFTs?.length === 0 && tabPanel === 'ALL' ?
+          <CEmpty>
+            <h2 className="Bec">Your artwork is empty</h2>
+            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>Create</button>
+          </CEmpty>
+          : ``}
+
       </HomeNFTs>
     </>
   );
@@ -269,6 +279,32 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+`;
+
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

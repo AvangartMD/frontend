@@ -16,19 +16,12 @@ import Media from '../../Theme/media-breackpoint';
 
 function Collected(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-
-  useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -38,65 +31,10 @@ function Collected(props) {
 
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          {categories && NFTs ?
-            NFTs.length > 0 && categories.length > 0 ? <>
-              <button
-                className={tabPanel === "All" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("All");
-                }}
-              >
-                All
-              </button>
-              {categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })}
-            </>
-              : ``
-            : ``}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
 
-        <NFTfourbox>
-          {NFTs ? (
-            NFTs.map((nft) => (
-              <NFTCard
-                nftSold={nft.nftSold}
-                name={nft.ownerId.name}
-                nftId={nft.id}
-                collectionId={nft.collectionId?._id}
-                auctionEndDate={nft.auctionEndDate}
-                nftImg={nft.image.compressed}
-                title={nft.title}
-                edition={nft.edition}
-                price={nft.price}
-                auctionTime={nft.auctionTime}
-                userImg={nft.ownerId.profile}
-                username={nft.ownerId.username}
-              />
-            ))
-          ) : (
-            <LoaderBX>
-              <img src={LoaderGif} alt="" />
-            </LoaderBX>
-          )}
-        </NFTfourbox>
-
-        {NFTs && categories && !params.id && props.role !== 'creator' ?
-          NFTs.length === 0 ? <>
+        {NFTs && !params.id && NFTs.length === 0 ?
+          props.role !== 'creator' ?
             <CEmpty>
               <h2 className="Bec">Become a Creator</h2>
               <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
@@ -104,10 +42,11 @@ function Collected(props) {
                 <BecomeCreator isProfile={true} />
               </div>
             </CEmpty>
-          </>
-            : ``
+            : <CEmpty>
+              <h2 className="Bec">Your collected is empty</h2>
+              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            </CEmpty>
           : ``}
-
 
       </HomeNFTs>
     </>
@@ -302,14 +241,12 @@ const CEmpty = styled.div`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getCollectedNFT(id)),
     clearNFTs: () => dispatch({ type: 'FETCHED_COLLECTED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchCollectedNFT,
   };
 };

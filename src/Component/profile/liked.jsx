@@ -16,19 +16,12 @@ import Media from '../../Theme/media-breackpoint';
 
 function Liked(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-
-  useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -38,35 +31,6 @@ function Liked(props) {
 
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          {categories && NFTs
-            ? NFTs.length > 0 && categories.length > 0 ? <>
-              <button
-                className={tabPanel === "All" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("All");
-                }}
-              >
-                All
-              </button>
-              {categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })}
-            </> : ``
-            : ``}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
 
         <NFTfourbox>
@@ -93,6 +57,14 @@ function Liked(props) {
             </LoaderBX>
           )}
         </NFTfourbox>
+
+        {NFTs?.length === 0 ?
+          <CEmpty>
+            <h2 className="Bec">Your Liked is empty</h2>
+            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+          </CEmpty>
+          : ``}
+
 
       </HomeNFTs>
     </>
@@ -258,17 +230,40 @@ const FilterLbx = styled(FlexDiv)`
     }
   }
 `;
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
+  }
+`;
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getLikedNFT(id)),
     clearNFTs: () => dispatch({ type: 'FETCHED_LIKED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchLikedNFT,
   };
 };
