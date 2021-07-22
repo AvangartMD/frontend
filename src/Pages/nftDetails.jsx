@@ -145,6 +145,7 @@ class NftDetail extends React.Component {
     isOpenForSale,
     saleState
   ) => {
+    console.log(saleState);
     const { NFTDetails, web3Data } = this.props;
     const isAuction = secondHand
       ? false
@@ -256,6 +257,7 @@ class NftDetail extends React.Component {
           : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: true,
+        orderNonce: soldEdition.nonce,
       };
     else
       selectedNFTDetails = {
@@ -268,6 +270,7 @@ class NftDetail extends React.Component {
             : NFTDetails.price,
         saleState: NFTDetails.saleState,
         secondHand: false,
+        orderNonce: NFTDetails.nonce,
       };
 
     this.setState({
@@ -302,6 +305,7 @@ class NftDetail extends React.Component {
 
     if (authData) {
       // check user is logged in
+      if (saleMethod.open == 1) this.changeOwnerActionName(saleMethod.name);
       this.toggle(saleMethod.open);
     } else {
       this.toggle(4); // open login pop up
@@ -465,7 +469,7 @@ class NftDetail extends React.Component {
                       Edit{" "}
                     </button>
                   ) : selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.secondHand ? (
+                    !selectedNFTDetails.isOpenForSale ? (
                     <>
                       <button
                         className="bordered"
@@ -512,6 +516,7 @@ class NftDetail extends React.Component {
               tokenID={NFTDetails?.tokenId}
               isApprovedForAll={this.state.isApprovedForAll}
               changeOwnerActionName={this.changeOwnerActionName}
+              orderNonce={selectedNFTDetails?.orderNonce}
             />
           </Collapse>
           <Collapse
@@ -547,9 +552,8 @@ class NftDetail extends React.Component {
             <PABpopup
               toggle={this.toggle}
               method={saleMethod.name}
-              edition={2}
-              nonce={NFTDetails?.nonce}
-              price={NFTDetails?.price}
+              nonce={selectedNFTDetails?.nonce}
+              price={selectedNFTDetails?.price}
               currentBidValue={bidDetails.currentBidValue}
               currentEdition={this.state.currentEdition}
             />

@@ -1,7 +1,5 @@
 import React, { Component, useState } from "react";
 import styled from "styled-components";
-import Gs from "../../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
 import Media from "../../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import { web3 } from "../../web3";
@@ -33,12 +31,13 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
         setTxnStatus("complete");
       })
       .on("error", (error) => {
-        setTxnStatus("complete");
+        setTxnStatus("error");
       });
   };
   const refreshStates = () => {
     setPrice("");
     setTxnStatus("");
+    // toggle(7);
   };
   return (
     <>
