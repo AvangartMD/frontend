@@ -20,6 +20,7 @@ import Login from "./Modals/login";
 import { web3 } from "../web3";
 import BecomeCreator from "./Modals/become-creator";
 import Notifications from "../Component/header/notification";
+import { FaBars } from 'react-icons/fa';
 
 class Header extends Component {
   constructor(props) {
@@ -45,22 +46,21 @@ class Header extends Component {
     if (web3Data !== prevState.web3Data) return { web3Data: web3Data };
   }
   async componentDidUpdate(prevProps, prevState) {
-    let { web3Data, nonce, authData } = this.props;
+    let { web3Data, authData } = this.props;
 
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
+      if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
+        localStorage.setItem("userAddress", "");
+      else if (localStorage.getItem("avangartAuthToken")) this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
-          // this.checkAuthentication(web3Data);
         }
       });
     }
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data });
     }
-    // if (nonce !== prevProps.nonce) {
-    //   // this.signatureRequest(nonce);
-    // }
     if (authData !== prevProps.authData) {
       if (authData) {
         this.setState({ userDetails: authData.data });
@@ -76,9 +76,6 @@ class Header extends Component {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
-          // this.checkAuthentication(web3Data);
-
-          // else this.props.authenticateUser();
         }
       });
     }
@@ -87,7 +84,6 @@ class Header extends Component {
     const accountBalance = Number(
       web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
     ).toLocaleString(undefined, 2);
-    // function _compactAddress(address) {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
@@ -97,38 +93,6 @@ class Header extends Component {
 
     this.setState({ accountBalance, compactUserAddress });
   }
-  // checkAuthentication(web3Data) {
-  //   if (
-  //     !localStorage.getItem("avangartAuthToken") ||
-  //     web3Data.accounts[0] !== localStorage.getItem("userAddress")
-  //   )
-  //     this.signatureRequest(undefined, true);
-  //   else this.props.getUserDetails();
-  // }
-  // async signatureRequest(nonce, stepOne) {
-  //   const { web3Data } = this.state;
-  //   if (stepOne) {
-  //     this.props.generateNonce(web3Data.accounts[0]);
-  //   } else {
-  //     try {
-  //       const signature = await web3.eth.personal.sign(
-  //         web3.utils.utf8ToHex(nonce),
-  //         web3Data.accounts[0]
-  //       );
-  //       this.props.authLogin(nonce, signature);
-  //     } catch (error) {
-  //       this.setState({ error: { isError: true, msg: error.message } });
-  //     }
-  //   }
-  // }
-
-  // connectToWallet = (isWalletConnect) => {
-  //   this.props.enableMetamask();
-  //   this.setState({ loader: true });
-  // };
-  // refreshStates = () => {
-  //   this.setState({ error: { isError: false, msg: "" }, loader: false });
-  // };
 
   checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
@@ -147,29 +111,30 @@ class Header extends Component {
   };
 
   disconnect = () => {
+    const { web3Data } = this.props;
     localStorage.clear();
     this.props.authLogout();
-    this.props.web3Logout();
+    this.props.web3Logout(web3Data.accounts);
     this.props.history.push("/");
   };
-  closePopUp = () => {
-    this.setState({ isOpen4: false });
+
+  toggle = (index) => {
+    let collapse = "isOpen" + index;
+    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
+
   render() {
     const {
       web3Data,
-      loader,
-      error,
       userDetails,
       accountBalance,
       compactUserAddress,
     } = this.state;
-    const { authData } = this.props;
     return (
       <>
         <HeadMBX>
           <HeadMBX02>
-            <HeadSbx01>
+            <HeadSbx01 className="mobile-logo">
               <Logo>
                 <Link to="/">
                   <img src={LogoImg} alt="" />
@@ -178,7 +143,33 @@ class Header extends Component {
             </HeadSbx01>
 
             <HeadSbx01>
-              <nav>
+              <MobileMenu>
+                <NotificationBX onClick={() => this.toggle(3)}>
+
+                  <button className="active">
+                    <img src={NotifiIcon} alt="" />
+                    <span className="RedDot"></span>
+                  </button>
+
+                  <Collapse
+                    isOpen={this.state.isOpen3}
+                    className={
+                      "app__collapse collapse-css-transition  " +
+                      (this.state.isOpen3 ? "collapse-active" : "")
+                    }
+                  >
+                    <DDContainer className="ver3">
+                      <Notifications />
+                    </DDContainer>
+
+                  </Collapse>
+                </NotificationBX>
+                <Bars />
+              </MobileMenu>
+              <MobileSidebar>
+                jsafgajfgajsf
+              </MobileSidebar>
+              <nav className="desktop-menu">
                 <NavLink to="/marketplace" exact activeClassName="active">
                   <FormattedMessage
                     id="Marketplace"
@@ -199,20 +190,21 @@ class Header extends Component {
 
             {/* without Login  */}
             {!web3Data.isLoggedIn ? (
-              <HeadSbx01>
+              <HeadSbx01 className="desktop-menu">
                 <AvBTN01 onClick={() => this.toggle(4)}>
                   <FormattedMessage id="Login" defaultMessage="Login" />
                 </AvBTN01>
                 <Language header={true} />
               </HeadSbx01>
             ) : (
-              <HeadSbx01>
+              <HeadSbx01 className="desktop-menu">
                 {userDetails ? this.checkRole(userDetails) : ""}
 
                 <NotificationBX onClick={() => this.toggle(3)}>
-                  <span className="RedDot"></span>
-                  <button>
+
+                  <button className="active">
                     <img src={NotifiIcon} alt="" />
+                    <span className="RedDot"></span>
                   </button>
 
                   <Collapse
@@ -222,9 +214,9 @@ class Header extends Component {
                       (this.state.isOpen3 ? "collapse-active" : "")
                     }
                   >
-                      <DDContainer className="ver3">
-                        <Notifications />
-                      </DDContainer>
+                    <DDContainer className="ver3">
+                      <Notifications />
+                    </DDContainer>
 
                   </Collapse>
                 </NotificationBX>
@@ -303,22 +295,7 @@ class Header extends Component {
           </HeadMBX02>
         </HeadMBX>
 
-        <Collapse
-          isOpen={this.state.isOpen4}
-          className={
-            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-          }
-        >
-          <Login
-            toggle={this.toggle}
-            closePopUp={this.closePopUp}
-          // connectToWallet={this.connectToWallet}
-          // loader={loader}
-          // error={error}
-          // refreshStates={this.refreshStates}
-          />
-          {/* <BecomeCreator toggle={this.toggle} /> */}
-        </Collapse>
+        {this.state.isOpen4 ? <Login toggle={this.toggle} /> : ``}
       </>
     );
   }
@@ -335,20 +312,64 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 
+const MobileMenu = styled(FlexDiv)`
+  display:none;
+  ${Media.md}{
+    display:flex;
+    position:absolute;
+    right:15px;
+  }
+`;
+
+const Bars = styled(FaBars)`
+  color:#000;
+  font-size:20px;
+  margin-left:10px;
+`;
+
+const MobileSidebar = styled(FlexDiv)`
+  background-color:#fff;
+  display:none;
+  ${Media.md}{
+    display:block;
+    position:absolute;
+    top:80px;
+  }
+`;
+
 const HeadMBX = styled(FlexDiv)`
   width: 100%;
   min-height: 100px;
   position: absolute;
   z-index: 100;
+  ${Media.md}{
+    min-height: 80px;
+  }
 `;
 const HeadMBX02 = styled(FlexDiv)`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
+  ${Media.lg}{
+    margin: 0 15px;
+    justify-content:flex-start;
+  }
 `;
 const HeadSbx01 = styled(FlexDiv)`
   width: 33.33%;
   justify-content: flex-start;
+  &.mobile-logo
+  {
+    ${Media.md}{
+      width:auto;
+    } 
+  }
+  &.desktop-menu,.desktop-menu
+  {
+    ${Media.md}{
+      display:none;
+    } 
+  }
   &:nth-child(2) {
     justify-content: center;
     & nav:hover {
@@ -364,6 +385,10 @@ const HeadSbx01 = styled(FlexDiv)`
       padding: 0 20px;
       line-height: 25px;
       position: relative;
+      ${Media.lg}{
+        font-size:15px;
+        padding: 0 15px;
+      }
       :hover,
       &.active {
         :after {
@@ -447,22 +472,25 @@ const NotificationBX = styled(FlexDiv)`
     align-items: center;
     justify-content: center;
     border: 1px solid #eef2f7;
+    background-color:#ffffff;
     border-radius: 15px;
-    :hover {
+    &.active,:hover {
       border: 1px solid #d6dde5;
       -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
+      span.RedDot {display:block;}
     }
-  }
-  span.RedDot {
-    width: 12px;
-    height: 12px;
-    border-radius: 8px;
-    display: block;
-    position: absolute;
-    right: -2px;
-    top: -2px;
-    background-color: #ff2a44;
+    span.RedDot {
+      width: 12px;
+      height: 12px;
+      border-radius: 8px;
+      display: block;
+      position: absolute;
+      right: -2px;
+      top: -2px;
+      background-color: #ff2a44;
+      display:none;
+    }
   }
 `;
 const AccountBX = styled(FlexDiv)`
@@ -601,10 +629,10 @@ const mapDipatchToProps = (dispatch) => {
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
     authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
-    web3Logout: () =>
+    web3Logout: (accounts) =>
       dispatch({
         type: "FETCH_WEB3_DATA",
-        data: { isLoggedIn: false, accounts: [] },
+        data: { isLoggedIn: false, accounts: accounts },
       }),
   };
 };

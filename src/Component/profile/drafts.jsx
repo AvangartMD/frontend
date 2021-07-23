@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
+import Media from '../../Theme/media-breackpoint';
 
 function Drafts(props) {
   const { userDraftNFT } = props;
@@ -16,33 +17,41 @@ function Drafts(props) {
   }, [userDraftNFT]);
   return (
     <HomeNFTs>
-      <Gs.Container>
-        <NFTfourbox>
-          {userDraftNFT ? (
-            userDraftNFT.map((nft) => (
-              <NFTCard
-                nftSold={nft.nftSold}
-                nftId={nft.id}
-                name={nft.ownerId.name}
-                collectionId={nft.collectionId?._id}
-                auctionEndDate={nft.auctionEndDate}
-                nftImg={nft.image.compressed}
-                title={nft.title}
-                edition={nft.edition}
-                price={nft.price}
-                auctionTime={nft.auctionTime}
-                userImg={nft.ownerId.profile}
-                username={nft.ownerId.username}
-              />
-            ))
-          ) : (
-            // this.renderTabPanel(NFTs)
-            <LoaderBX>
-              <img src={LoaderGif} alt="" />
-            </LoaderBX>
-          )}
-        </NFTfourbox>
-      </Gs.Container>
+
+      <NFTfourbox>
+        {userDraftNFT ? (
+          userDraftNFT.map((nft) => (
+            <NFTCard
+              nftSold={nft.nftSold}
+              nftId={nft.id}
+              name={nft.ownerId.name}
+              collectionId={nft.collectionId?._id}
+              auctionEndDate={nft.auctionEndDate}
+              nftImg={nft.image.compressed}
+              title={nft.title}
+              edition={nft.edition}
+              price={nft.price}
+              auctionTime={nft.auctionTime}
+              userImg={nft.ownerId.profile}
+              username={nft.ownerId.username}
+            />
+          ))
+        ) : (
+          // this.renderTabPanel(NFTs)
+          <LoaderBX>
+            <img src={LoaderGif} alt="" />
+          </LoaderBX>
+        )}
+      </NFTfourbox>
+
+      {userDraftNFT?.length === 0 ?
+        <CEmpty>
+          <h2 className="Bec">Your draft is empty</h2>
+          <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+          <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>Create</button>
+        </CEmpty>
+        : ``}
+
     </HomeNFTs>
   );
 }
@@ -163,6 +172,31 @@ const HomeNFTs = styled.div`
         background: url(${HeartIcon}) no-repeat;
       }
     }
+  }
+`;
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

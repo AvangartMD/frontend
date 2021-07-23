@@ -114,12 +114,6 @@ function Footer(props) {
                 <AvBTN01 onClick={() => toggle()}>
                   <FormattedMessage id="Login" defaultMessage="Login" />
                 </AvBTN01>
-                {/* <AvBTN01 className='createButton'>
-                  <Link to="/user/nftminting">
-                    <FormattedMessage id="Create" defaultMessage="Create" />
-                  </Link>
-                </AvBTN01> */}
-                {/* <AvBTN01>Waitlist</AvBTN01> */}
                
               </>
             ) : userDetails && userDetails.status === true ? (
@@ -142,13 +136,7 @@ function Footer(props) {
           </FooterSbx01>
         </FooterBottom>
       </FooterMBX>
-      <Collapse
-        isOpen={isOpen4}
-        className={"app__collapse " + (isOpen4 ? "collapse-active" : "")}
-      >
-        <Login toggle={toggle} isFooter={true} footerToggleVal={isOpen4} />
-        {/* <BecomeCreator toggle={this.toggle} /> */}
-      </Collapse>
+      {isOpen4?<Login toggle={toggle} />:``}
     </>
   );
 }

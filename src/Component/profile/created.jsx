@@ -12,10 +12,12 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 
+import Media from '../../Theme/media-breackpoint';
+
 
 function Created(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
   const [tabPanel, setTaPanel] = useState("ALL");
 
@@ -25,7 +27,7 @@ function Created(props) {
 
   useEffect(() => {
     if (tabPanel !== 'ALL') props.getNFTs(params.id ? params.id : null, tabPanel);
-    else props.getNFTs(params.id ? params.id : null); 
+    else props.getNFTs(params.id ? params.id : null);
   }, [tabPanel]);
 
   useEffect(() => {
@@ -39,74 +41,82 @@ function Created(props) {
       <FilterMBX>
         <FilterLbx>
           <button
-                className={tabPanel === "ALL" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("ALL");
-                }}
-              >
-                All
+            className={tabPanel === "ALL" ? "active" : ""}
+            id="all"
+            onClick={() => {
+              setTaPanel("ALL");
+            }}
+          >
+            All
           </button>
-          
+
           <button
-                className={tabPanel === "SOLD" ? "active" : ""}
-                id="sold"
-                onClick={() => {
-                  setTaPanel("SOLD");
-                }}
-              >
-                Sold
+            className={tabPanel === "SOLD" ? "active" : ""}
+            id="sold"
+            onClick={() => {
+              setTaPanel("SOLD");
+            }}
+          >
+            Sold
           </button>
-          
+
           <button
-                className={tabPanel === "AUCTION" ? "active" : ""}
-                id="liveauction"
-                onClick={() => {
-                  setTaPanel("AUCTION");
-                }}
-              >
-                Live auction
+            className={tabPanel === "AUCTION" ? "active" : ""}
+            id="liveauction"
+            onClick={() => {
+              setTaPanel("AUCTION");
+            }}
+          >
+            Live auction
           </button>
-          
+
           <button
-              className={tabPanel === "BUY" ? "active" : ""}
-              id="buynow"
-              onClick={() => {
-                setTaPanel("BUY");
-              }}
-            >
-              Buy now
+            className={tabPanel === "BUY" ? "active" : ""}
+            id="buynow"
+            onClick={() => {
+              setTaPanel("BUY");
+            }}
+          >
+            Buy now
           </button>
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
-        <Gs.Container>
-          <NFTfourbox>
-            {NFTs ? (
-              NFTs.map((nft, key) => (
-                <NFTCard
-                  key={key}
-                  nftSold={nft.nftSold}
-                  name={nft.ownerId.name}
-                  nftId={nft.id}
-                  collectionId={nft.collectionId?._id}
-                  auctionEndDate={nft.auctionEndDate}
-                  nftImg={nft.image.compressed}
-                  title={nft.title}
-                  edition={nft.edition}
-                  price={nft.price}
-                  auctionTime={nft.auctionTime}
-                  userImg={nft.ownerId.profile}
-                  username={nft.ownerId.username}
-                />
-              ))
-            ) : (
-              <LoaderBX>
-                <img src={LoaderGif} alt="" />
-              </LoaderBX>
-            )}
-          </NFTfourbox>
-        </Gs.Container>
+
+        <NFTfourbox>
+          {NFTs ? (
+            NFTs.map((nft, key) => (
+              <NFTCard
+                key={key}
+                nftSold={nft.nftSold}
+                name={nft.ownerId.name}
+                nftId={nft.id}
+                collectionId={nft.collectionId?._id}
+                auctionEndDate={nft.auctionEndDate}
+                nftImg={nft.image.compressed}
+                title={nft.title}
+                edition={nft.edition}
+                price={nft.price}
+                auctionTime={nft.auctionTime}
+                userImg={nft.ownerId.profile}
+                username={nft.ownerId.username}
+              />
+            ))
+          ) : (
+            <LoaderBX>
+              <img src={LoaderGif} alt="" />
+            </LoaderBX>
+          )}
+        </NFTfourbox>
+
+        {NFTs?.length === 0 && tabPanel === 'ALL' ?
+          <CEmpty>
+            <h2 className="Bec">Your artwork is empty</h2>
+            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>Create</button>
+          </CEmpty>
+          : ``}
+
       </HomeNFTs>
     </>
   );
@@ -241,9 +251,13 @@ const FilterMBX = styled(FlexDiv)`
 `;
 
 const FilterLbx = styled(FlexDiv)`
-  width: 45%;
+  width: 100%;
   justify-content: flex-start;
-
+  ${Media.sm}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -253,7 +267,9 @@ const FilterLbx = styled(FlexDiv)`
     border-radius: 15px;
     background-color: #eef2f7;
     margin-right: 8px;
-
+    ${Media.sm}{
+      white-space: pre;
+    }
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -263,6 +279,32 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+`;
+
+const CEmpty = styled.div`
+  text-align:center; margin-bottom:120px;
+  h2{ 
+    font-size:22px;
+    letter-spacing:-0.55px;
+    color:#000;
+    margin:0px 0px 10px;
+    font-weight:600;
+  }
+  p{ 
+    font-size:16px;
+    letter-spacing:-0.8px;
+    color:#000;
+    margin:0px 0px 22px;
+  }
+  button{
+    font-size:14px;
+    letter-spacing:-0.5px;
+    color:#000;
+    padding:13px 44px;
+    border-radius:15px;
+    border:1px solid #000;
+    :hover{background-color:#000; color:#fff;}
   }
 `;
 

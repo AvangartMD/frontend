@@ -10,7 +10,9 @@ function Magnifypopup({ toggle, imageURL }) {
         <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
-        <img src={imageURL} alt="" />
+        <div className="Mouter">
+          <img src={imageURL} alt="" />
+        </div>
       </WhiteWrap>
     </>
   );
@@ -32,6 +34,11 @@ const WhiteWrap = styled(FlexDiv)`
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 1011;
   backdrop-filter: blur(2px);
+  .Mouter
+  {
+    max-width:600px;
+    margin:0px 15px;
+  }
 `;
 
 const CloseBTND2 = styled(FlexDiv)`

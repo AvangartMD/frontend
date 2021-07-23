@@ -3,23 +3,33 @@ import { useState } from "react";
 import styled from "styled-components";
 import { actions } from "../../actions";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
-import { services } from "../../services";
 import { connect } from "react-redux";
 import { useEffect } from "react";
+import { services } from "../../services";
 import Media from "./../../Theme/media-breackpoint";
+import { capitalizeFirstLetter } from "../../helper/functions";
 
-import Sport from "../../Assets/images/icon-set-sport.svg";
-import Celebrity from "../../Assets/images/icon-set-celebrity.svg";
 
 function CreateCollection(props) {
+
+  let myFormRef; // collection form refrensh
   const [collectionAdded, setCollectionAdded] = useState(false);
+  const [loading, setLoader] = useState(false);
+  const [params, setParams] = useState({ name: null, description: null, logo: null, category: [] })
+  const [error, setError] = useState({ name: false, description: false, logo: false, category: false })
   const msg1 = {
     0: "Collection Added!",
     1: "You can select your newly created collection.",
   };
   const [msg, setMsg] = useState(msg1);
-
   // const msg2 ={0:"Addition Failed!", 1:}
+
+  useEffect(() => {
+    const { categoryList } = props;
+    if (!categoryList) props.getCategoryList(); // get the category list
+  }, [])
+
+
   useEffect(() => {
     if (props.newCollection && props.newCollection.status) {
       props.getCollectionList();
@@ -31,21 +41,67 @@ function CreateCollection(props) {
     } else {
       setCollectionAdded(false);
     }
+    clearData();
   }, [props.newCollection]);
+
+  const checkErrors = () => {
+    let haveError = true;
+    let errors = { name: false, description: false, logo: false, category: false }
+    if (!params.name) { errors.name = true; haveError = false }
+    if (!params.description) { errors.description = true; haveError = false }
+    if (!params.logo) { errors.logo = true; haveError = false }
+    if (params.category.length === 0) { errors.category = true; haveError = false }
+    if (params.category.length > 2) { errors.category = true; haveError = false }
+    setError(errors)
+    return haveError
+  }
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    const logoLink = await services.uploadFileOnBucket(
-      e.target.file.files[0],
-      "collctionLogos"
-    );
-    const obj = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      logo: logoLink,
-    };
-    if (obj.name) props.createCollection(obj);
+    const checked = checkErrors();
+    if (checked) {
+      setLoader(true); // start loader
+      const logoLink = await services.uploadFileOnBucket(
+        e.target.logo.files[0],
+        "collctionLogos"
+      )
+      const obj = {
+        name: params.name,
+        description: params.description,
+        logo: logoLink,
+        category: params.category
+      }
+      props.createCollection(obj); // create collection
+    }
   };
+
+  const clearData = () => {
+    myFormRef.reset(); // clear the form
+    setLoader(false); // stop loader
+    setParams({ name: null, description: null, logo: null, category: [] }); // clear the params
+    setError({ name: false, description: false, logo: false, category: false }); // clear the error
+  }
+
+  const formChange = (e) => {
+    const colObj = params;
+    const { name, value } = e.target;
+    if (name === "category") {
+      const category = colObj.category;
+      const exists = category.includes(value);
+      if (exists) {
+        const index = category.indexOf(value);
+        if (index > -1) {
+          category.splice(index, 1);
+        }
+      } else {
+        category.push(e.target.value);
+      }
+      setParams({ ...params, category: category })
+    } else {
+      setParams({ ...params, [name]: value })
+    }
+  }
+
   return (
     <>
       <BlackWrap>
@@ -55,14 +111,8 @@ function CreateCollection(props) {
               {" "}
               <WGTitle>{msg[0]}</WGTitle>
               <WGdescText>{msg[1]}</WGdescText>
-              {/* <WGdescText>
-              Cras sit amet augue consectetur, sodales quam a, congue lacus.
-            </WGdescText> */}
               <WGBtn
-                onClick={() => {
-                  // setCollectionAdded(false);
-                  props.toggle(2);
-                }}
+                onClick={() => { setCollectionAdded(false); props.toggle(2); }}
               >
                 OK
               </WGBtn>
@@ -70,10 +120,18 @@ function CreateCollection(props) {
           </>
         ) : (
           <WhiteBX01>
-            <form onSubmit={(e) => onFormSubmit(e)}>
+            <form onSubmit={(e) => onFormSubmit(e)}
+              onChange={(e) => formChange(e)}
+              ref={(e) => myFormRef = e}
+            >
               <>
 
-                <CloseBTN className="ani-1" onClick={() => props.toggle(2)}>
+                <CloseBTN className="ani-1" onClick={(e) => {
+                  e.preventDefault();
+                  clearData();
+                  props.toggle(2);
+                }}
+                >
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
                 <CCTitle>Create Collection</CCTitle>
@@ -85,6 +143,7 @@ function CreateCollection(props) {
                   <input
                     type="text"
                     name="name"
+                    className={error.name ? `error` : ``}
                     placeholder="Type something…"
                   />
                 </NFTForm>
@@ -92,37 +151,31 @@ function CreateCollection(props) {
                   <div className="label-line">
                     <label>About Collection</label>
                   </div>
-                  <textarea name="description" defaultValue="Type something…"></textarea>
+                  <textarea name="description" className={error.description ? `error` : ``}>
+                    Type something…
+                  </textarea>
                 </NFTForm>
                 <NFTForm>
                   <div className="label-line">
                     <label>Category</label>
-                    <p>
+                    <p className={error.category ? `error` : ``}>
                       Choose category for listing your NFT. You can choose
                       up to 2.
                     </p>
                   </div>
                   <CustomCheckbox1>
-                    <label className="checkbox-container">
-                      <img src={Celebrity} alt="" />
-                      Celebrity
-                      <input
-                        type="checkbox"
-                        name="category"
-                        value="celebrity"
-                      />
-                      <span className="checkmark"></span>
-                    </label>
-                    <label className="checkbox-container">
-                      <img src={Sport} alt="" />
-                      Sport
-                      <input
-                        type="checkbox"
-                        name="category"
-                        value="sport"
-                      />
-                      <span className="checkmark"></span>
-                    </label>
+                    {props.categoryList?.map((category, key) => (
+                      <label className="checkbox-container" key={key}>
+                        <img src={category.image} alt="" />
+                        {capitalizeFirstLetter(category.categoryName)}
+                        <input
+                          type="checkbox"
+                          name="category"
+                          value={category._id}
+                        />
+                        <span className="checkmark"></span>
+                      </label>
+                    ))}
                   </CustomCheckbox1>
                 </NFTForm>
                 <NFTForm>
@@ -135,16 +188,17 @@ function CreateCollection(props) {
                       </p>
                     </FlexDiv>
                   </div>
-                  <FileuploadBox>
+                  <FileuploadBox className={error.logo ? `error` : ``} >
                     <label className="custom-file-upload">
-                      <input type="file" name="file" />
+                      <input type="file" name="logo"
+                        accept="image/png, image/gif, image/jpeg"
+                      />
                       Choose
                     </label>
-                    <input type="file" placeholder="Choose" />
                   </FileuploadBox>
                 </NFTForm>
-                <CreateItemButton>
-                  <button type="submit">Create Item</button>
+                <CreateItemButton >
+                  <button type="submit" disabled={loading ? true : false} >{loading ? `loading..` : `Create`}</button>
                 </CreateItemButton>
 
               </>
@@ -315,6 +369,9 @@ const NFTForm = styled.div`
       letter-spacing: -0.7px;
       font-weight: light;
       margin: 0px;
+      &.error {
+        color: #e21d1d;
+      }
     }
   }
   input {
@@ -332,6 +389,9 @@ const NFTForm = styled.div`
       color: #000;
       opacity: 20%;
     }
+    &.error {
+      border: 1px solid #e21d1d;
+    }
   }
   textarea {
     width: 100%;
@@ -346,6 +406,9 @@ const NFTForm = styled.div`
     color: #000000;
     letter-spacing: -0.8px;
     margin: 0px 0px 20px;
+    &.error {
+      border: 1px solid #e21d1d;
+    }
   }
   .errorinput {
     position: relative;
@@ -387,6 +450,9 @@ const FileuploadBox = styled(FlexDiv)`
       color: #fff;
     }
   }
+  &.error {
+    border: 1px solid #e21d1d;
+  }
 `;
 
 const CreateItemButton = styled.div`
@@ -415,8 +481,8 @@ const CustomCheckbox1 = styled(FlexDiv)`
     align-items: center;
     position: relative;
     height: 54px;
-    width: calc(130px - 5px);
-    margin-right: 10px;
+    width: calc(50% - 5px);
+    margin:0px 5px 5px 0px;
     cursor: pointer;
     padding-left: 15px;
     line-height: 54px;
@@ -428,9 +494,9 @@ const CustomCheckbox1 = styled(FlexDiv)`
       margin-right: 5px;
       width:25px;
     }
-    ${Media.lg} {
-      width: calc(130px - 5px);
-      margin: 0px 10px 10px 0px;
+    :last-child
+    {
+      margin-right:0px;
     }
     ${Media.sm} {
       width: 100%;
@@ -459,15 +525,18 @@ const CustomCheckbox1 = styled(FlexDiv)`
   }
 `;
 
+
 const mapDipatchToProps = (dispatch) => {
   return {
     createCollection: (obj) => dispatch(actions.createCollection(obj)),
     getCollectionList: () => dispatch(actions.getCollectionList()),
+    getCategoryList: () => dispatch(actions.getCategoryList()),
   };
 };
 const mapStateToProps = (state) => {
   return {
     newCollection: state.fetchNewCollection,
+    categoryList: state.fetchCategoryList,
   };
 };
 export default connect(mapStateToProps, mapDipatchToProps)(CreateCollection);

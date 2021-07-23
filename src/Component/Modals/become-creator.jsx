@@ -121,7 +121,7 @@ class BecomeCreator extends Component {
     const { isFooter, isProfile, isHeader } = this.props;
     return (
       <>
-        <AvBTN02 className={isHeader?`colorBTN`:isProfile?`ani-1 borderBTN`:``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02>
+        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : ``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -492,8 +492,8 @@ const WhiteBX02 = styled.div`
   background-color: #fff;
   border-radius: 30px;
   display: flex;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.sm}{
+    display:block;
   }
 `;
 
@@ -504,6 +504,12 @@ const BACLeft = styled.div`
   width: 100%;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+  ${Media.sm}{
+    max-width: 100%;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 0px;
+    padding:60px 25px 40px;
+  }
 `;
 
 const BACLtitle = styled.div`
@@ -512,6 +518,9 @@ const BACLtitle = styled.div`
   letter-spacing: -0.55px;
   margin: 0px 0px 15px;
   font-weight: bold;
+  ${Media.sm}{
+    font-size:24px;
+  }
 `;
 
 const BACLdesc = styled.div`
@@ -538,6 +547,9 @@ const BACRight = styled.div`
   padding: 60px 50px;
   width: 100%;
   position: relative;
+  ${Media.sm}{
+    padding: 40px 25px;
+  }
 `;
 
 const NFTForm = styled.div`
@@ -628,6 +640,11 @@ const CreateItemButton = styled.div`
       color: #fff;
       border: none;
     }
+  }
+  ${Media.sm}{
+    position:initial;
+    margin: 20px auto 0px;
+    text-align: right;
   }
 `;
 

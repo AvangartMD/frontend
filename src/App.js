@@ -7,8 +7,7 @@ import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { theme } from './Theme/theme';
 import Header from './Component/header';
 import Footer from './Component/footer';
-import MarketPlace from './Pages/marketplace';
-import Media from './Theme/media-breackpoint';
+import LoaderGif from './Assets/images/loading.gif';
 
 import AuthLayout from './layouts/auth.layout';
 import UserLayout from './layouts/user.layout';
@@ -30,6 +29,11 @@ const DMainContainer = styled(FlexDiv)`
   align-content: flex-start;
   flex-direction: column;
 `;
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 50px auto;
+`;
+
 
 function App() {
   const [isDark, setDarkTheme] = useState(true);
@@ -53,9 +57,9 @@ function App() {
                 <Header loggedIn={loggedIn} />
                 <Suspense
                   fallback={
-                    <div className='loader-outer'>
-                      <div className='loader'></div>
-                    </div>
+                    <LoaderBX>
+                      <img src={LoaderGif} alt='' />
+                    </LoaderBX>
                   }
                 >
                   <Switch>

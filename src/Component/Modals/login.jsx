@@ -17,58 +17,58 @@ import { web3 } from "../../web3";
 import { actions } from "../../actions";
 
 function Login(props) {
+
   const [loader, setLoader] = useState(false);
-  // const [isClicked, setIsclicked] = useState(false);
   const [error, setError] = useState({ isError: false, msg: "" });
   const {
     web3Data,
-    getUserDetails,
     generateNonce,
     enableMetamask,
     authLogin,
     toggle,
     nonce,
     authData,
-    isFooter,
-    closePopUp,
-    footerToggleVal,
   } = props;
+
   useEffect(() => {
-    if (web3Data.accounts[0] && !isFooter) {
-      if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
-        localStorage.setItem("userAddress", "");
-      else if (localStorage.getItem("avangartAuthToken")) getUserDetails();
+    if (web3Data.accounts[0]) {
+      setLoader(true);
+      if (web3Data.accounts[0] && !nonce)
+        signatureRequest(undefined, true);
     }
   }, [web3Data.accounts[0]]);
+
   useEffect(() => {
-    if (nonce && !isFooter) signatureRequest(nonce);
+    if (nonce && web3Data.accounts[0]) signatureRequest(nonce);
   }, [nonce]);
+
   useEffect(() => {
-    if (authData?.status === 401 && !isFooter) {
+    if (authData?.status === 401) {
+      setLoader(false);
       setError({ isError: true, msg: authData.data.message });
-    } else if (authData && !isFooter) {
-      closePopUp();
+    } else if (authData) {
+      refreshStates();
     }
   }, [authData]);
-  const connectToWallet = (isWalletConnect) => {
-    // setIsclicked(true);
+
+  const connectToWallet = () => {
+    setLoader(true);
     if (web3Data.accounts[0]) {
       checkAuthentication(web3Data);
     } else {
       enableMetamask();
     }
-    setLoader(true);
   };
+
   const checkAuthentication = (web3Data) => {
     if (
       !localStorage.getItem("avangartAuthToken") ||
       web3Data.accounts[0] !== localStorage.getItem("userAddress")
     )
       signatureRequest(undefined, true);
-    else getUserDetails();
   };
+
   const signatureRequest = async (nonce, stepOne) => {
-    // const { web3Data } = this.state;
     if (stepOne) {
       generateNonce(web3Data.accounts[0]);
     } else {
@@ -78,14 +78,18 @@ function Login(props) {
           web3Data.accounts[0]
         );
         authLogin(nonce, signature);
+        refreshStates();
       } catch (error) {
+        setLoader(false);
         setError({ isError: true, msg: error.message });
       }
     }
   };
+
   const refreshStates = () => {
     setError({ isError: false, msg: "" });
     setLoader(false);
+    toggle(4);
   };
 
   return (
@@ -95,7 +99,6 @@ function Login(props) {
           <CloseBTN
             className="ani-1"
             onClick={() => {
-              toggle(4);
               refreshStates();
             }}
           >
@@ -146,11 +149,6 @@ function Login(props) {
     </>
   );
 }
-
-const toggle = (index) => {
-  let collapse = "isOpen" + index;
-  this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-};
 
 const FlexDiv = styled.div`
   display: flex;

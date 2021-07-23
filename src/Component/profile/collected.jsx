@@ -12,23 +12,16 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import { actions } from "../../actions";
 import NFTCard from "../Cards/nftCard";
 import BecomeCreator from "../../Component/Modals/become-creator";
-
+import Media from '../../Theme/media-breackpoint';
 
 function Collected(props) {
 
-  let { NFTs, categories } = props;
+  let { NFTs } = props;
   const params = useParams();
-  const [tabPanel, setTaPanel] = useState("All");
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
   }, [NFTs]);
-
-  useEffect(() => {
-    if (!categories) props.getCategories();
-  }, [categories]);
-
-  useEffect(() => { }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
@@ -36,79 +29,51 @@ function Collected(props) {
     };
   }, [])
 
+
   return (
     <>
-      <FilterMBX>
-        <FilterLbx>
-          {categories && NFTs ?
-            NFTs.length > 0 && categories.length > 0 ? <>
-              <button
-                className={tabPanel === "All" ? "active" : ""}
-                id="all"
-                onClick={() => {
-                  setTaPanel("All");
-                }}
-              >
-                All
-              </button>
-              {categories.map((category) => {
-                return (
-                  <button
-                    className={tabPanel === category.id ? "active" : ""}
-                    onClick={() => {
-                      setTaPanel(category.id);
-                    }}
-                  >
-                    {category.categoryName}
-                  </button>
-                );
-              })}
-            </>
-              : ``
-            : ``}
-        </FilterLbx>
-      </FilterMBX>
       <HomeNFTs>
-        <Gs.Container>
-          <NFTfourbox>
-            {NFTs ? (
-              NFTs.map((nft) => (
-                <NFTCard
-                  nftSold={nft.nftSold}
-                  name={nft.ownerId.name}
-                  nftId={nft.id}
-                  collectionId={nft.collectionId?._id}
-                  auctionEndDate={nft.auctionEndDate}
-                  nftImg={nft.image.compressed}
-                  title={nft.title}
-                  edition={nft.edition}
-                  price={nft.price}
-                  auctionTime={nft.auctionTime}
-                  userImg={nft.ownerId.profile}
-                  username={nft.ownerId.username}
-                />
-              ))
-            ) : (
-              <LoaderBX>
-                <img src={LoaderGif} alt="" />
-              </LoaderBX>
-            )}
-          </NFTfourbox>
 
-          {NFTs && categories && !params.id && props.role !== 'creator'?
-            NFTs.length === 0 ? <>
-              <CEmpty>
-                <h2 className="Bec">Become a Creator</h2>
-                <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-                <div className="BecBTN">
-                  <BecomeCreator isProfile={true} />
-                </div>
-              </CEmpty>
-            </>
-              : ``
-            : ``}
+        <NFTfourbox>
+          {NFTs ? (
+            NFTs.map((nft) => (
+              <NFTCard
+                nftSold={nft.nftSold}
+                name={nft.ownerId.name}
+                nftId={nft.id}
+                collectionId={nft.collectionId?._id}
+                auctionEndDate={nft.auctionEndDate}
+                nftImg={nft.image.compressed}
+                title={nft.title}
+                edition={nft.edition}
+                price={nft.price}
+                auctionTime={nft.auctionTime}
+                userImg={nft.ownerId.profile}
+                username={nft.ownerId.username}
+              />
+            ))
+          ) : (
+            <LoaderBX>
+              <img src={LoaderGif} alt="" />
+            </LoaderBX>
+          )}
+        </NFTfourbox>
 
-        </Gs.Container>
+        {NFTs && !params.id && NFTs.length === 0 ?
+          props.role !== 'creator' ?
+            <CEmpty>
+              <h2 className="Bec">Become a Creator</h2>
+              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              <div className="BecBTN">
+                <BecomeCreator isProfile={true} />
+              </div>
+            </CEmpty>
+            : <CEmpty>
+              <h2 className="Bec">Your collected is empty</h2>
+              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            </CEmpty>
+          : ``}
+
       </HomeNFTs>
     </>
   );
@@ -243,9 +208,13 @@ const FilterMBX = styled(FlexDiv)`
 `;
 
 const FilterLbx = styled(FlexDiv)`
-  width: 45%;
+  width: 100%;
   justify-content: flex-start;
-
+  ${Media.sm}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -255,7 +224,9 @@ const FilterLbx = styled(FlexDiv)`
     border-radius: 15px;
     background-color: #eef2f7;
     margin-right: 8px;
-
+    ${Media.sm}{
+      white-space: pre;
+    }
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -296,14 +267,12 @@ const CEmpty = styled.div`
 
 const mapDipatchToProps = (dispatch) => {
   return {
-    getCategories: () => dispatch(actions.fetchCategories()),
     getNFTs: (id) => dispatch(actions.getCollectedNFT(id)),
     clearNFTs: () => dispatch({ type: 'FETCHED_COLLECTED_NFT', data: null }),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    categories: state.fetchCategory,
     NFTs: state.fetchCollectedNFT,
   };
 };

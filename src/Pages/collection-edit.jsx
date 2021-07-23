@@ -228,10 +228,10 @@ class CollectionEdit extends Component {
                                 <p>
                                   0 <span>of {nft.edition ? nft.edition : 0}</span>
                                 </p>
-                                <p>
+                                {/* <p>
                                   See the collection
                                   <i className='fas fa-angle-right'></i>
-                                </p>
+                                </p> */}
                               </CollectionBar>
                               <Edition className='edition2'>
                                 <div className='ed-box'>
@@ -289,8 +289,14 @@ const FlexDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  &.JCFS{justify-content:flex-start;}
-  &.AIFS{align-items:flex-start;}
+  &.JCFS{justify-content:flex-start;
+    ${Media.xs}{
+      justify-content:center;
+      text-align:center;
+      display:block;
+    } 
+  }
+  &.AIFS{align-items:flex-start; }
 `;
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
@@ -305,6 +311,9 @@ const CollectionContainer = styled(FlexDiv)`
   {
     width:100%;
   }
+  ${Media.sm}{
+    margin:40px auto 100px;
+  }
 `;
 
 const CreatorInfo = styled(FlexDiv)`
@@ -313,7 +322,11 @@ const CreatorInfo = styled(FlexDiv)`
   padding:20px;
   border-radius:20px;
   width:100%;
-  margin:0px 0px 60px;
+  margin:0px 15px 60px;
+  ${Media.xs}{
+    padding:15px 14px;
+    margin:0px 10px 40px;
+  }
 `;
 
 const CreatorILeft = styled(FlexDiv)`
@@ -328,16 +341,31 @@ const CreatorILeft = styled(FlexDiv)`
       height: 100%;
       object-fit: cover;
     }
+    ${Media.sm}{
+      width: 72px;
+      height: 72px;
+    }
   }
+  ${Media.sm}{
+    justify-content:flex-start;
+  }
+  
   .CNbox
   {
     margin-left:30px;
+    ${Media.sm}{
+      margin-left:10px;
+    }
     .title{
       font-size:22px;
       letter-spacing:-1.1px;
       color:#000;
       font-weight:700;
       margin:0px 0px 5px;
+      ${Media.sm}{
+       font-size:18px;
+       margin:0px 0px 2px;
+      }
     }
     .by{
       font-size:16px;
@@ -345,12 +373,19 @@ const CreatorILeft = styled(FlexDiv)`
       color:#000;
       font-weight:600;
       margin:0px;
+      ${Media.sm}{
+        font-size:12px;
+      }
     }
   }
 `;
 
 const CreatorIRight = styled(FlexDiv)`
   justify-content: space-between;
+  ${Media.sm}{
+    justify-content: flex-start;
+    margin-left:82px;
+  }
   .ed-box {
     p {
       color: rgb(0 0 0 /30%);
@@ -358,6 +393,13 @@ const CreatorIRight = styled(FlexDiv)`
       letter-spacing: -0.8px;
       font-weight: 600;
       margin: 0px 30px 3px 0px;
+      ${Media.sm}{
+        margin: 0px 20px 3px 0px;
+        font-size:13px;
+      }
+      ${Media.xs}{
+        margin: 0px 10px 3px 0px;
+      }
     }
     h3 {
       color: #000;
@@ -365,6 +407,9 @@ const CreatorIRight = styled(FlexDiv)`
       letter-spacing: -0.98px;
       font-weight: 700;
       margin: 0px;
+      ${Media.sm}{
+        font-size:20px;
+      }
     }
     button {
       font-size: 14px;
@@ -378,6 +423,9 @@ const CreatorIRight = styled(FlexDiv)`
       :hover {
         background-color: #000;
         color: #fff;
+      }
+      ${Media.sm}{
+        padding: 9px 15px;
       }
     }
   }
@@ -507,6 +555,12 @@ const UserImgName = styled(FlexDiv)`
 Gs.W25V2 = styled(Gs.W25V2)`
   ${NFTfourbox}.cdetail & {
     width: 33.33%;
+    ${Media.sm}{
+      width:50%;
+    }
+    ${Media.xs}{
+      width:100%;
+    }
   }
 `;
 
@@ -530,7 +584,8 @@ const CardTitle = styled.div`
 
 const Colleditform = styled.div`
   width:100%;
-  margin:0px 0px 30px 10px;
+  margin:0px 15px 30px;
+  max-width: -webkit-fill-available;
   label{
     display:block;
     color: #8e9194;
@@ -573,10 +628,16 @@ const Colleditform = styled.div`
       height: 100%;
       object-fit: cover;
     }
+    ${Media.xs}{
+      margin:0 auto;
+    } 
   }
   .label-line
   {
     margin-left:30px;
+    ${Media.xs}{
+      margin:10px 0px 0px 0px;
+    }
     p{
       font-size:14px;
       color:#8e9194;
@@ -607,6 +668,9 @@ const FileuploadBox = styled.div`
     :hover {
       background-color: #000;
       color: #fff;
+    }
+    ${Media.xs}{
+      margin:0 auto;
     }
   }
 `;

@@ -122,33 +122,37 @@ class Collection extends Component {
             </FilterRbx>
           </FilterMBX>
           <CollectionBoxes>
-            {collections ? (
-              <InfiniteScroll
-                dataLength={pagination.totalRecords}
-                next={this.fetchMore}
-                hasMore={page < pagination.totalPages}
-                loader={
-                  <LoaderBX>
-                    {' '}
-                    <img src={LoaderGif} alt='' />{' '}
-                  </LoaderBX>
-                }
-              // endMessage={<p>You have seen it all.!</p>}
-              >
-                <CollectionBoxesInner>
+            {collections ?
+              collections.length === 0 ?
+                <NoDataFound>
+                  No Collection Found
+                </NoDataFound>
+              :
+                <InfiniteScroll
+                  dataLength={pagination.totalRecords}
+                  next={this.fetchMore}
+                  hasMore={page < pagination.totalPages}
+                  loader={
+                    <LoaderBX>
+                      {' '}
+                      <img src={LoaderGif} alt='' />{' '}
+                    </LoaderBX>
+                  }
+                // endMessage={<p>You have seen it all.!</p>}
+                >
+                  <CollectionBoxesInner>
 
-                  {collections.map((collection) => (
-                    <CollectionCard
-                      id={collection.id}
-                      collImg={collection.logo}
-                      collName={collection.name}
-                      creatorName={collection.ownerId?.username}
-                    />
-                  ))}
-                </CollectionBoxesInner>
-
-              </InfiniteScroll>
-            ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+                    {collections.map((collection) => (
+                      <CollectionCard
+                        id={collection.id}
+                        collImg={collection.logo}
+                        collName={collection.name}
+                        creatorName={collection.ownerId?.username}
+                      />
+                    ))}
+                  </CollectionBoxesInner>
+                </InfiniteScroll>
+            : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
           </CollectionBoxes>
         </Gs.Container>
       </Gs.MainSection >
@@ -169,6 +173,14 @@ const FlexDiv = styled.div`
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
+`;
+
+const NoDataFound = styled(FlexDiv)`
+  width: 100%;
+  text-align:center;
+  font-size:16px;
+  color:#000;
+  margin:100px 0px;
 `;
 
 const FilterMBX = styled(FlexDiv)`
