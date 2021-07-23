@@ -19,6 +19,7 @@ function NftOwnerActions(props) {
     isApprovedForAll,
     changeOwnerActionName,
     orderNonce,
+    checkUserApproval,
   } = props;
   const succesMsg = {
     burnTokenEdition: "Burn Succesfull",
@@ -34,24 +35,22 @@ function NftOwnerActions(props) {
 
   const handleAction = async (forApproval) => {
     const { escrowContractAddres } = getContractAddresses();
-    // let params = [+tokenID, +edition];
-    // if (reciever){
-    //   params = [web3Data.accounts[0], reciever, +tokenID, +edition, "0111001"];
-    // }
     let params;
     if (ownerActionName === "burnTokenEdition") params = [+tokenID, +edition];
     else if (ownerActionName === "transfer")
       params = [web3Data.accounts[0], reciever, +tokenID, +edition, ""];
     else if (ownerActionName === "setApprovalForAll")
       params = [escrowContractAddres, true];
-    else if (ownerActionName === "cancelSaleOrder")
+    else if (
+      ownerActionName === "cancelSaleOrder" &&
+      ownerActionName === "claimBack"
+    )
       params = [+orderNonce, +edition];
     else return;
     let contractInstance = !isApprovedForAll
       ? nftContractContractInstance
       : escrowContractInstance;
     setNFTStatus("initiate");
-    // console.log(params);
     await contractInstance.methods[ownerActionName](...params)
       .send({
         from: web3Data.accounts[0],
@@ -61,9 +60,9 @@ function NftOwnerActions(props) {
       })
       .on("receipt", (receipt) => {
         if (forApproval) {
-          setApproved(true);
-          setNFTStatus("");
-        } else setNFTStatus("complete");
+          checkUserApproval(web3Data);
+        }
+        setNFTStatus("complete");
       })
       .on("error", (error) => {
         setNFTStatus("error");
@@ -105,8 +104,12 @@ function NftOwnerActions(props) {
                       Burn
                     </button>
                   </NFTcartButtons>
+                </>
+              )}
 
-                  {/* <PBtitle className="AStitle">Burned</PBtitle>
+              {ownerActionName === "claimBack" && (
+                <>
+                  <PBtitle className="AStitle">Are you sure?</PBtitle>
                   <PBDesc className="ASDesc">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec ut sapien faucibus, ornare arcu et, bibendum risus.
@@ -114,8 +117,11 @@ function NftOwnerActions(props) {
                     cursus.
                   </PBDesc>
                   <NFTcartButtons>
-                    <button className="ani-1 bordered bor-large">OK</button>
-                  </NFTcartButtons> */}
+                    <button className="ani-1 bordered">Claim Back</button>
+                    <button className="ani-1" onClick={() => handleAction()}>
+                      Burn
+                    </button>
+                  </NFTcartButtons>
                 </>
               )}
               {
@@ -152,7 +158,7 @@ function NftOwnerActions(props) {
               }
               {
                 // {/* Transfer NFT popup */}
-                ownerActionName === "setApprovalForAll" && !approved && (
+                ownerActionName === "setApprovalForAll" && (
                   <>
                     <PBtitle className="TN-title"> Approve Transfer</PBtitle>
                     <PBDesc className="mb-20">
@@ -165,7 +171,7 @@ function NftOwnerActions(props) {
                     <NFTcartButtons>
                       <button
                         className="ani-1 bor-large"
-                        onClick={() => handleAction(false)}
+                        onClick={() => handleAction()}
                       >
                         Approve
                       </button>
@@ -186,14 +192,14 @@ function NftOwnerActions(props) {
                   <NFTcartButtons>
                     <button
                       className="ani-1 bor-large"
-                      onClick={() => handleAction(true)}
+                      onClick={() => handleAction()}
                     >
                       Cancel
                     </button>
                   </NFTcartButtons>
                 </>
               )}
-              {approved && (
+              {/* {approved && (
                 <>
                   <WGTitle>Approved !!</WGTitle>
                   <WGdescText>
@@ -214,7 +220,7 @@ function NftOwnerActions(props) {
                     Go to transfer
                   </WGBtn>
                 </>
-              )}
+              )} */}
               {confirm && (
                 <>
                   <PBtitle className="AStitle">Confirm</PBtitle>
