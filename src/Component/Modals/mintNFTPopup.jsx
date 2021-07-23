@@ -70,7 +70,7 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
 
           {mintNFTStatus === "complete" && (
             <>
-              <OnbTitle01 className="v2">Transaction in progress</OnbTitle01>
+              <OnbTitle01 className="v2">Minting Complete</OnbTitle01>
             </>
           )}
 
@@ -116,8 +116,8 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 const CloseBTN = styled.button`
@@ -131,7 +131,7 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
