@@ -21,6 +21,7 @@ import { web3 } from "../web3";
 import BecomeCreator from "./Modals/become-creator";
 import Notifications from "../Component/header/notification";
 import { FaBars } from 'react-icons/fa';
+import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 
 class Header extends Component {
   constructor(props) {
@@ -145,8 +146,7 @@ class Header extends Component {
             <HeadSbx01>
               <MobileMenu>
                 <NotificationBX onClick={() => this.toggle(3)}>
-
-                  <button className="active">
+                  <button className="">
                     <img src={NotifiIcon} alt="" />
                     <span className="RedDot"></span>
                   </button>
@@ -164,11 +164,46 @@ class Header extends Component {
 
                   </Collapse>
                 </NotificationBX>
-                <Bars />
+                <Bars onClick={() => this.toggle(11)} />
               </MobileMenu>
               <MobileSidebar>
-                jsafgajfgajsf
+
+                <Collapse
+                  isOpen={this.state.isOpen11}
+                  className={
+                    "app__collapse " + (this.state.isOpen11 ? "collapse-active" : "")
+                  }
+                >
+                  <CloseBTN
+                    className="ani-1" onClick={() => this.toggle(11)}>
+                    <img src={CloseBTN01} alt="" />
+                  </CloseBTN>
+                  <MobInner>
+                    <NavLink to="/marketplace" exact activeClassName="active">
+                      <FormattedMessage
+                        id="Marketplace"
+                        defaultMessage="Marketplace"
+                      />
+                    </NavLink>
+                    <NavLink to="/collections">
+                      <FormattedMessage id="Collections" defaultMessage="Collections" />
+                    </NavLink>
+                    <NavLink to="/creators" exact activeClassName="active">
+                      <FormattedMessage id="Creators" defaultMessage="Creators" />
+                    </NavLink>
+                    <NavLink to="/how-to-use" exact activeClassName="active">
+                      <FormattedMessage
+                        id="How_to_use?"
+                        defaultMessage="How to use?"
+                      />
+                      <NavLink to="/">
+                        <FormattedMessage id="More" defaultMessage="More" />
+                      </NavLink>
+                    </NavLink>
+                  </MobInner>
+                </Collapse>
               </MobileSidebar>
+
               <nav className="desktop-menu">
                 <NavLink to="/marketplace" exact activeClassName="active">
                   <FormattedMessage
@@ -312,6 +347,23 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 
+const CloseBTN = styled.button`
+  width: 20px;
+  height: 20px;
+  // position: absolute;
+  // right: 20px;
+  // top: 27px;
+  padding: 0;
+  margin: 0px;
+  :hover {
+    transform: rotate(90deg);
+  }
+  ${Media.xs} {
+    right: 15px;
+    top: 15px;
+  }
+`;
+
 const MobileMenu = styled(FlexDiv)`
   display:none;
   ${Media.md}{
@@ -327,14 +379,20 @@ const Bars = styled(FaBars)`
   margin-left:10px;
 `;
 
-const MobileSidebar = styled(FlexDiv)`
+const MobileSidebar = styled.div`
   background-color:#fff;
+  width:100%;
+  position:absolute;
+  top:80px;
+  left:0px;
   display:none;
   ${Media.md}{
     display:block;
-    position:absolute;
-    top:80px;
   }
+`;
+
+const MobInner = styled.div`
+  width:100%;
 `;
 
 const HeadMBX = styled(FlexDiv)`
