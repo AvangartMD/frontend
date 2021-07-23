@@ -515,7 +515,8 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
-                  selectedNFTDetails.isOpenForSale ? (
+                  selectedNFTDetails.isOpenForSale &&
+                  selectedNFTDetails.secondHand ? (
                     <button
                       className="bordered"
                       onClick={() => {
