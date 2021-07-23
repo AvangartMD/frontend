@@ -216,7 +216,12 @@ class MarketPlace extends Component {
         </FilterMBX>
 
         <HomeNFTs>
-          {NFTs ? (
+            {NFTs ?
+              NFTs.length === 0 ?
+                <NoDataFound>
+                  No NFT Found
+                </NoDataFound>
+              :
               <InfiniteScroll className="IScroll"
                 dataLength={pagination.totalRecords}
                 next={this.fetchMore}
@@ -228,7 +233,7 @@ class MarketPlace extends Component {
                   </LoaderBX>
                 }
                 // endMessage={<p>You have seen it all.!</p>}
-            >
+              >
              
                 <NFTfourbox>
                   {NFTs.map((nft, key) => (
@@ -251,7 +256,7 @@ class MarketPlace extends Component {
                 </NFTfourbox>
               
               </InfiniteScroll>
-            ) : (
+            : (
               <LoaderBX>
                 {' '}
                 <img src={LoaderGif} alt='' />{' '}
@@ -525,6 +530,13 @@ const DDContainer = styled(FlexDiv)`
   .md-checkbox:hover {
     background-color: #d9f5f5;
   }
+`;
+const NoDataFound = styled(FlexDiv)`
+  width: 100%;
+  text-align:center;
+  font-size:16px;
+  color:#000;
+  margin:100px 0px;
 `;
 
 const mapDipatchToProps = (dispatch) => {

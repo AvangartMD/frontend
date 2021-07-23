@@ -122,37 +122,38 @@ class Collection extends Component {
             </FilterRbx>
           </FilterMBX>
           <CollectionBoxes>
-            {collections ? (
-              <InfiniteScroll
-                dataLength={pagination.totalRecords}
-                next={this.fetchMore}
-                hasMore={page < pagination.totalPages}
-                loader={
-                  <LoaderBX>
-                    {' '}
-                    <img src={LoaderGif} alt='' />{' '}
-                  </LoaderBX>
-                }
-              // endMessage={<p>You have seen it all.!</p>}
-              >
-                <CollectionBoxesInner>
+            {collections ?
+              collections.length === 0 ?
+                <NoDataFound>
+                  No Collection Found
+                </NoDataFound>
+              :
+                <InfiniteScroll
+                  dataLength={pagination.totalRecords}
+                  next={this.fetchMore}
+                  hasMore={page < pagination.totalPages}
+                  loader={
+                    <LoaderBX>
+                      {' '}
+                      <img src={LoaderGif} alt='' />{' '}
+                    </LoaderBX>
+                  }
+                // endMessage={<p>You have seen it all.!</p>}
+                >
+                  <CollectionBoxesInner>
 
-                  {collections.map((collection) => (
-                    <CollectionCard
-                      id={collection.id}
-                      collImg={collection.logo}
-                      collName={collection.name}
-                      creatorName={collection.ownerId?.username}
-                    />
-                  ))}
-                </CollectionBoxesInner>
-
-              </InfiniteScroll>
-            ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+                    {collections.map((collection) => (
+                      <CollectionCard
+                        id={collection.id}
+                        collImg={collection.logo}
+                        collName={collection.name}
+                        creatorName={collection.ownerId?.username}
+                      />
+                    ))}
+                  </CollectionBoxesInner>
+                </InfiniteScroll>
+            : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
           </CollectionBoxes>
-          <NoDataFound>
-            No Collection Found
-          </NoDataFound>
         </Gs.Container>
       </Gs.MainSection >
     );
