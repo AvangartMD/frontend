@@ -120,6 +120,11 @@ class Creators extends Component {
 
 
                     {creators ?
+                        creators.length === 0 ?
+                        <NoDataFound>
+                            No NFT Found
+                        </NoDataFound>
+                        :
                         <InfiniteScroll className="IScroll"
                             dataLength={pagination.totalRecords}
                             next={this.fetchMore}
@@ -261,6 +266,15 @@ const DDBTN01 = styled.button`
 
     :hover{ background-color:#D9F5F5;}
 `
+
+const NoDataFound = styled(FlexDiv)`
+  width: 100%;
+  text-align:center;
+  font-size:16px;
+  color:#000;
+  margin:100px 0px;
+`;
+
 
 const mapDipatchToProps = (dispatch) => {
     return {
