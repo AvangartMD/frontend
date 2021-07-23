@@ -46,22 +46,21 @@ class Header extends Component {
     if (web3Data !== prevState.web3Data) return { web3Data: web3Data };
   }
   async componentDidUpdate(prevProps, prevState) {
-    let { web3Data, nonce, authData } = this.props;
+  let { web3Data, authData } = this.props;
 
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
+      if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
+        localStorage.setItem("userAddress", "");
+      else if (localStorage.getItem("avangartAuthToken")) this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
-          // this.checkAuthentication(web3Data);
         }
       });
     }
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data });
     }
-    // if (nonce !== prevProps.nonce) {
-    //   // this.signatureRequest(nonce);
-    // }
     if (authData !== prevProps.authData) {
       if (authData) {
         this.setState({ userDetails: authData.data });
@@ -77,9 +76,6 @@ class Header extends Component {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
-          // this.checkAuthentication(web3Data);
-
-          // else this.props.authenticateUser();
         }
       });
     }
@@ -88,7 +84,6 @@ class Header extends Component {
     const accountBalance = Number(
       web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
     ).toLocaleString(undefined, 2);
-    // function _compactAddress(address) {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
@@ -98,38 +93,6 @@ class Header extends Component {
 
     this.setState({ accountBalance, compactUserAddress });
   }
-  // checkAuthentication(web3Data) {
-  //   if (
-  //     !localStorage.getItem("avangartAuthToken") ||
-  //     web3Data.accounts[0] !== localStorage.getItem("userAddress")
-  //   )
-  //     this.signatureRequest(undefined, true);
-  //   else this.props.getUserDetails();
-  // }
-  // async signatureRequest(nonce, stepOne) {
-  //   const { web3Data } = this.state;
-  //   if (stepOne) {
-  //     this.props.generateNonce(web3Data.accounts[0]);
-  //   } else {
-  //     try {
-  //       const signature = await web3.eth.personal.sign(
-  //         web3.utils.utf8ToHex(nonce),
-  //         web3Data.accounts[0]
-  //       );
-  //       this.props.authLogin(nonce, signature);
-  //     } catch (error) {
-  //       this.setState({ error: { isError: true, msg: error.message } });
-  //     }
-  //   }
-  // }
-
-  // connectToWallet = (isWalletConnect) => {
-  //   this.props.enableMetamask();
-  //   this.setState({ loader: true });
-  // };
-  // refreshStates = () => {
-  //   this.setState({ error: { isError: false, msg: "" }, loader: false });
-  // };
 
   checkRole = (user) => {
     if (user.role.roleName === "COLLECTOR") {
@@ -148,24 +111,25 @@ class Header extends Component {
   };
 
   disconnect = () => {
+    const { web3Data } = this.props;
     localStorage.clear();
     this.props.authLogout();
-    this.props.web3Logout();
+    this.props.web3Logout(web3Data.accounts);
     this.props.history.push("/");
   };
-  closePopUp = () => {
-    this.setState({ isOpen4: false });
+
+  toggle = (index) => {
+    let collapse = "isOpen" + index;
+    this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
+
   render() {
     const {
       web3Data,
-      loader,
-      error,
       userDetails,
       accountBalance,
       compactUserAddress,
     } = this.state;
-    const { authData } = this.props;
     return (
       <>
         <HeadMBX>
@@ -328,22 +292,7 @@ class Header extends Component {
           </HeadMBX02>
         </HeadMBX>
 
-        <Collapse
-          isOpen={this.state.isOpen4}
-          className={
-            "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-          }
-        >
-          <Login
-            toggle={this.toggle}
-            closePopUp={this.closePopUp}
-          // connectToWallet={this.connectToWallet}
-          // loader={loader}
-          // error={error}
-          // refreshStates={this.refreshStates}
-          />
-          {/* <BecomeCreator toggle={this.toggle} /> */}
-        </Collapse>
+        {this.state.isOpen4?<Login toggle={this.toggle}/>:``}
       </>
     );
   }
@@ -668,10 +617,10 @@ const mapDipatchToProps = (dispatch) => {
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
     authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
-    web3Logout: () =>
+    web3Logout: (accounts) =>
       dispatch({
         type: "FETCH_WEB3_DATA",
-        data: { isLoggedIn: false, accounts: [] },
+        data: { isLoggedIn: false, accounts: accounts },
       }),
   };
 };
