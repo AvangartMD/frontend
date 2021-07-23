@@ -372,7 +372,7 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       isApprovedForAll,
     } = this.state;
-    const { NFTDetails, likesCount, isLiked, authData } = this.props;
+    const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
     return (
       <>
         <Helmet>
@@ -518,7 +518,7 @@ class NftDetail extends React.Component {
                       Cancel Sale Order
                     </button>
                   ) : null}
-                  {NFTDetails?.status === "NOT_MINTED" ? (
+                  {NFTDetails?.status === "NOT_MINTED" && web3Data.isLoggedIn ? (
                     <button
                       onClick={() =>
                         this.props.history.push(
@@ -632,18 +632,8 @@ class NftDetail extends React.Component {
               setEditionnumber={this.setEditionnumber}
             />
           </Collapse>
-          <Collapse
-            isOpen={this.state.isOpen4}
-            className={
-              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-            }
-          >
-            <Login
-              toggle={this.toggle}
-              closePopUp={this.closePopUp}
-              isFooter={true}
-            />
-          </Collapse>
+
+          {this.state.isOpen4? <Login toggle={this.toggle} /> :``}
         </Gs.MainSection>
       </>
     );
