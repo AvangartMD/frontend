@@ -17,7 +17,7 @@ export function fetchNFTContractInstance(state = null, action) {
 
 export function fetchWeb3Data(
   state = {
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem("avangartAuthToken")?true:false,
     accounts: [],
   },
   action
