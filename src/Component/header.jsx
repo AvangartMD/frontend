@@ -20,6 +20,7 @@ import Login from "./Modals/login";
 import { web3 } from "../web3";
 import BecomeCreator from "./Modals/become-creator";
 import Notifications from "../Component/header/notification";
+import { FaBars } from 'react-icons/fa';
 
 class Header extends Component {
   constructor(props) {
@@ -169,7 +170,7 @@ class Header extends Component {
       <>
         <HeadMBX>
           <HeadMBX02>
-            <HeadSbx01>
+            <HeadSbx01 className="mobile-logo">
               <Logo>
                 <Link to="/">
                   <img src={LogoImg} alt="" />
@@ -178,7 +179,30 @@ class Header extends Component {
             </HeadSbx01>
 
             <HeadSbx01>
-              <nav>
+              <MobileMenu>
+                <NotificationBX onClick={() => this.toggle(3)}>
+
+                  <button className="active">
+                    <img src={NotifiIcon} alt="" />
+                    <span className="RedDot"></span>
+                  </button>
+
+                  <Collapse
+                    isOpen={this.state.isOpen3}
+                    className={
+                      "app__collapse collapse-css-transition  " +
+                      (this.state.isOpen3 ? "collapse-active" : "")
+                    }
+                  >
+                    <DDContainer className="ver3">
+                      <Notifications />
+                    </DDContainer>
+
+                  </Collapse>
+                </NotificationBX>
+                <Bars />
+              </MobileMenu>
+              <nav className="desktop-menu">
                 <NavLink to="/marketplace" exact activeClassName="active">
                   <FormattedMessage
                     id="Marketplace"
@@ -199,20 +223,21 @@ class Header extends Component {
 
             {/* without Login  */}
             {!web3Data.isLoggedIn ? (
-              <HeadSbx01>
+              <HeadSbx01 className="desktop-menu">
                 <AvBTN01 onClick={() => this.toggle(4)}>
                   <FormattedMessage id="Login" defaultMessage="Login" />
                 </AvBTN01>
                 <Language header={true} />
               </HeadSbx01>
             ) : (
-              <HeadSbx01>
+              <HeadSbx01 className="desktop-menu">
                 {userDetails ? this.checkRole(userDetails) : ""}
 
                 <NotificationBX onClick={() => this.toggle(3)}>
-                  <span className="RedDot"></span>
-                  <button>
+
+                  <button className="active">
                     <img src={NotifiIcon} alt="" />
+                    <span className="RedDot"></span>
                   </button>
 
                   <Collapse
@@ -222,9 +247,9 @@ class Header extends Component {
                       (this.state.isOpen3 ? "collapse-active" : "")
                     }
                   >
-                      <DDContainer className="ver3">
-                        <Notifications />
-                      </DDContainer>
+                    <DDContainer className="ver3">
+                      <Notifications />
+                    </DDContainer>
 
                   </Collapse>
                 </NotificationBX>
@@ -335,20 +360,55 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 
+const MobileMenu = styled(FlexDiv)`
+  display:none;
+  ${Media.md}{
+    display:flex;
+    position:absolute;
+    right:15px;
+  }
+`;
+
+const Bars = styled(FaBars)`
+  color:#000;
+  font-size:20px;
+  margin-left:10px;
+`;
+
+
 const HeadMBX = styled(FlexDiv)`
   width: 100%;
   min-height: 100px;
   position: absolute;
   z-index: 100;
+  ${Media.md}{
+    min-height: 80px;
+  }
 `;
 const HeadMBX02 = styled(FlexDiv)`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
+  ${Media.lg}{
+    margin: 0 15px;
+    justify-content:flex-start;
+  }
 `;
 const HeadSbx01 = styled(FlexDiv)`
   width: 33.33%;
   justify-content: flex-start;
+  &.mobile-logo
+  {
+    ${Media.md}{
+      width:auto;
+    } 
+  }
+  &.desktop-menu,.desktop-menu
+  {
+    ${Media.md}{
+      display:none;
+    } 
+  }
   &:nth-child(2) {
     justify-content: center;
     & nav:hover {
@@ -364,6 +424,10 @@ const HeadSbx01 = styled(FlexDiv)`
       padding: 0 20px;
       line-height: 25px;
       position: relative;
+      ${Media.lg}{
+        font-size:15px;
+        padding: 0 15px;
+      }
       :hover,
       &.active {
         :after {
@@ -447,22 +511,25 @@ const NotificationBX = styled(FlexDiv)`
     align-items: center;
     justify-content: center;
     border: 1px solid #eef2f7;
+    background-color:#ffffff;
     border-radius: 15px;
-    :hover {
+    &.active,:hover {
       border: 1px solid #d6dde5;
       -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
+      span.RedDot {display:block;}
     }
-  }
-  span.RedDot {
-    width: 12px;
-    height: 12px;
-    border-radius: 8px;
-    display: block;
-    position: absolute;
-    right: -2px;
-    top: -2px;
-    background-color: #ff2a44;
+    span.RedDot {
+      width: 12px;
+      height: 12px;
+      border-radius: 8px;
+      display: block;
+      position: absolute;
+      right: -2px;
+      top: -2px;
+      background-color: #ff2a44;
+      display:none;
+    }
   }
 `;
 const AccountBX = styled(FlexDiv)`

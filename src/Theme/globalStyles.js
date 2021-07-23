@@ -26,6 +26,9 @@ button{  background:transparent; outline:none; border:0;}
 Gs.MainSection = styled.div`
   margin: 100px auto 0 auto;
   width: 100%;
+  ${Media.md}{
+    margin: 80px auto 0 auto;
+  }
 `;
 Gs.Container = styled.div`
   margin: 0 auto;
