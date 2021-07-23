@@ -46,7 +46,7 @@ class Header extends Component {
     if (web3Data !== prevState.web3Data) return { web3Data: web3Data };
   }
   async componentDidUpdate(prevProps, prevState) {
-  let { web3Data, authData } = this.props;
+    let { web3Data, authData } = this.props;
 
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
       if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
@@ -166,6 +166,9 @@ class Header extends Component {
                 </NotificationBX>
                 <Bars />
               </MobileMenu>
+              <MobileSidebar>
+                jsafgajfgajsf
+              </MobileSidebar>
               <nav className="desktop-menu">
                 <NavLink to="/marketplace" exact activeClassName="active">
                   <FormattedMessage
@@ -292,7 +295,7 @@ class Header extends Component {
           </HeadMBX02>
         </HeadMBX>
 
-        {this.state.isOpen4?<Login toggle={this.toggle}/>:``}
+        {this.state.isOpen4 ? <Login toggle={this.toggle} /> : ``}
       </>
     );
   }
@@ -324,6 +327,15 @@ const Bars = styled(FaBars)`
   margin-left:10px;
 `;
 
+const MobileSidebar = styled(FlexDiv)`
+  background-color:#fff;
+  display:none;
+  ${Media.md}{
+    display:block;
+    position:absolute;
+    top:80px;
+  }
+`;
 
 const HeadMBX = styled(FlexDiv)`
   width: 100%;

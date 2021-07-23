@@ -150,6 +150,9 @@ class Collection extends Component {
               </InfiniteScroll>
             ) : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
           </CollectionBoxes>
+          <NoDataFound>
+            No Collection Found
+          </NoDataFound>
         </Gs.Container>
       </Gs.MainSection >
     );
@@ -169,6 +172,14 @@ const FlexDiv = styled.div`
 const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
+`;
+
+const NoDataFound = styled(FlexDiv)`
+  width: 100%;
+  text-align:center;
+  font-size:16px;
+  color:#000;
+  margin:100px 0px;
 `;
 
 const FilterMBX = styled(FlexDiv)`
