@@ -86,6 +86,18 @@ const saleMethods = {
     bidDesc: "Current offer",
     open: 1,
   },
+  burn: {
+    name: "burnTokenEdition",
+    btnName: "Accept Offer",
+    bidDesc: "Current offer",
+    open: 1,
+  },
+  transfer: {
+    name: "transfer",
+    btnName: "Accept Offer",
+    bidDesc: "Current offer",
+    open: 1,
+  },
 };
 class NftDetail extends React.Component {
   constructor(props) {
@@ -144,7 +156,6 @@ class NftDetail extends React.Component {
     const isApprovedForAll = await nftContractContractInstance.methods
       .isApprovedForAll(web3Data.accounts[0], escrowContractAddres)
       .call();
-    console.log(isA);
     this.setState({ isApprovedForAll });
   };
   setNFTBuyMethod = (
@@ -515,7 +526,7 @@ class NftDetail extends React.Component {
                     <button
                       className="bordered"
                       onClick={() => {
-                        this.setOwnerActions("cancelSaleOrder");
+                        this.setOwnerActions(saleMethods.cancelSaleOrder);
                       }}
                     >
                       Cancel Sale Order
@@ -538,14 +549,16 @@ class NftDetail extends React.Component {
                       <button
                         className="bordered"
                         onClick={() => {
-                          this.setOwnerActions("burnTokenEdition");
+                          this.setOwnerActions(saleMethods.burn);
                         }}
                       >
                         Burn
                       </button>
                       <button
                         className="bordered"
-                        onClick={() => this.setOwnerActions("transfer")}
+                        onClick={() =>
+                          this.setOwnerActions(saleMethods.transfer)
+                        }
                       >
                         Transfer
                       </button>
