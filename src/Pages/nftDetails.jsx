@@ -111,7 +111,7 @@ class NftDetail extends React.Component {
         bidder: "0x0000000000000000000000000000000000000000",
       },
       ownerActionName: "",
-      currentEdition: 1,
+      currentEdition: 0,
       saleMethod: { name: "placeBid", btnName: "Place a bid" },
       showTimer: false,
       loading: false,
@@ -251,7 +251,8 @@ class NftDetail extends React.Component {
     var lowest = Number.POSITIVE_INFINITY;
     let index = 0;
     var tmp;
-    if (editions.length == edition) return this.setEditionnumber(1);
+    if (editions.length == edition || editions.length == 0)
+      return this.setEditionnumber(1);
     if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
       return this.setEditionnumber(1);
     for (var i = editions.length - 1; i >= 0; i--) {
