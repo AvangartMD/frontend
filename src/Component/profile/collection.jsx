@@ -18,12 +18,14 @@ function Collection(props) {
 
   useEffect(() => {
     if (!collections) props.getCollections(params.id ? params.id : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collections]);
 
   useEffect(() => {
     return function cleanup() {
       props.clearCollections(); // clear the collection data
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
