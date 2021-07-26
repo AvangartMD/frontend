@@ -182,9 +182,8 @@ class BecomeCreator extends Component {
                         Explain Yourself<sup>*</sup>
                       </label>
                     </div>
-                    <textarea name="bio">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Quisque ornare augue non finibus commodo.
+                    <textarea name="bio" defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Quisque ornare augue non finibus commodo.">
                     </textarea>
                   </NFTForm>
                   <CreateItemButton>

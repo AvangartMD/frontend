@@ -32,32 +32,38 @@ function PABpopup(props) {
   const [accountBalance, setAccountBalance] = useState({ bnb: 0, usd: 0 });
   const [error, setError] = useState({ isError: false, msg: "" });
 
-  useEffect(async () => {
-    const string =
-      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
-    await fetch(string)
-      .then((resp) => resp.json())
-      .then(async (data) => {
-        setBnbUSDPrice(data.binancecoin.usd);
-      });
-  }, []);
-  useEffect(async () => {
-    if (web3Data.accounts[0] && bnbUSDPrice) {
-      const bnbBalance = Number(
-        web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
-      );
-      setAccountBalance({
-        bnb: bnbBalance,
-        usd: bnbUSDPrice * bnbBalance,
-      });
+  useEffect(() => {
+    async function fetchData() {
+      const string =
+        "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+      await fetch(string)
+        .then((resp) => resp.json())
+        .then(async (data) => {
+          setBnbUSDPrice(data.binancecoin.usd);
+        });
     }
-  }, [web3Data.accounts[0], bnbUSDPrice]);
+    fetchData();
+  }, []);
+  useEffect(() => {
+    async function setAccount(){
+      if (web3Data.accounts[0] && bnbUSDPrice) {
+        const bnbBalance = Number(
+          web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
+        );
+        setAccountBalance({
+          bnb: bnbBalance,
+          usd: bnbUSDPrice * bnbBalance,
+        });
+      }
+    }
+    setAccount();
+  }, [web3Data.accounts, bnbUSDPrice]);
 
   const placeBid = async () => {
     // console.log("the val", bnbVal);
     const val = method === "buyNow" ? price.toString() : bnbVal;
     const sendObj = { from: web3Data.accounts[0] };
-    if (method != "claimAfterAuction") {
+    if (method !== "claimAfterAuction") {
       if (!val) return;
       sendObj.value = web3.utils.toWei(val);
     }

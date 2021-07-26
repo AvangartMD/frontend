@@ -153,7 +153,6 @@ class NftDetail extends React.Component {
     saleState,
     price
   ) => {
-    console.log(saleState);
     const { NFTDetails, web3Data } = this.props;
     const isAuction = secondHand
       ? false
@@ -288,7 +287,7 @@ class NftDetail extends React.Component {
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
         price:
-          soldEdition.saleType.type == "OFFER"
+          soldEdition.saleType.type === "OFFER"
             ? soldEdition.saleType.price
             : soldEdition.price,
         saleState: soldEdition.saleType.type,
@@ -379,7 +378,6 @@ class NftDetail extends React.Component {
       isApprovedForAll,
     } = this.state;
     const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
-    console.log(selectedNFTDetails);
     return (
       <>
         <Helmet>
@@ -394,7 +392,7 @@ class NftDetail extends React.Component {
             <NFTDleft>
               <NFTDleftcontainer>
                 <NFTDleftImg>
-                  <Link onClick={() => this.toggle(6)}>
+                  <Link to="#" onClick={() => this.toggle(6)}>
                     <img src={NFTDetails?.image.compressed} alt="" />
                   </Link>
                 </NFTDleftImg>
@@ -460,7 +458,7 @@ class NftDetail extends React.Component {
                         <p className="gray-t">of {NFTDetails?.edition}</p>
                       </div>
                     </div>
-                    <Link onClick={() => this.toggle(10)}>Select edition</Link>
+                    <Link to="#" onClick={() => this.toggle(10)}>Select edition</Link>
                   </div>
                   <div className="ed-box">
                     <div className="ed-left">

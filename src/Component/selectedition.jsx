@@ -139,7 +139,7 @@ function SelectEdition(props) {
                         type="checkbox"
                         id="vehicle1"
                         name="vehicle1"
-                        checked={filter.includes('AUCTION') ? true : false}
+                        defaultChecked={filter.includes('AUCTION') ? true : false}
                         onClick={(e) => {
                           setFilter('AUCTION', e);
                         }}
@@ -151,7 +151,7 @@ function SelectEdition(props) {
                         type="checkbox"
                         id="vehicle2"
                         name="vehicle1"
-                        checked={filter.includes('OFFER') ? true : false}
+                        defaultChecked={filter.includes('OFFER') ? true : false}
                         onClick={(e) => {
                           setFilter('OFFER', e);
                         }}
@@ -167,7 +167,7 @@ function SelectEdition(props) {
                           type="checkbox"
                           id="vehicle3"
                           name="vehicle1"
-                          checked={filter.includes('BUY') ? true : false}
+                          defaultChecked={filter.includes('BUY') ? true : false}
                           onClick={(e) => {
                             setFilter('BUY', e);
                           }}
@@ -179,7 +179,7 @@ function SelectEdition(props) {
                           type="checkbox"
                           id="vehicle4"
                           name="vehicle1"
-                          checked={filter.includes('SOLD') ? true : false}
+                          defaultChecked={filter.includes('SOLD') ? true : false}
                           onClick={(e) => {
                             setFilter('SOLD', e);
                           }}
@@ -200,15 +200,17 @@ function SelectEdition(props) {
             <EditionTable>
               <table>
                 <thead>
-                  <th>EDITION</th>
-                  <th>OWNER<span className="mobile-block">/PRICE</span></th>
-                  <th className="text-center desktop-block">PRICE</th>
-                  <th></th>
+                  <tr>
+                    <th>EDITION</th>
+                    <th>OWNER<span className="mobile-block">/PRICE</span></th>
+                    <th className="text-center desktop-block">PRICE</th>
+                    <th></th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {editions.map((edition) => {
+                  {editions.map((edition, key) => {
                     return (
-                      <tr>
+                      <tr key={key}>
                         <td>{edition.number}</td>
                         <td>
                           <FlexDiv className="JCFS">

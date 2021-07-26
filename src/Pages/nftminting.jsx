@@ -7,7 +7,6 @@ import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
-import NFTModal from "../Component/nftpopups";
 // import CreateCollection from "../Component/Modals/createCollection";
 
 import NFT2 from "../Assets/images/nft2.jpg";

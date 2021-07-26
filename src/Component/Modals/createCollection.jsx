@@ -151,8 +151,7 @@ function CreateCollection(props) {
                   <div className="label-line">
                     <label>About Collection</label>
                   </div>
-                  <textarea name="description" className={error.description ? `error` : ``}>
-                    Type something…
+                  <textarea name="description" className={error.description ? `error` : ``} defaultValue="Type something…">
                   </textarea>
                 </NFTForm>
                 <NFTForm>
