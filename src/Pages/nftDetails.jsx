@@ -290,7 +290,9 @@ class NftDetail extends React.Component {
         isOpenForSale: soldEdition.isOpenForSale,
         price:
           soldEdition.saleType.type === "OFFER"
-            ? soldEdition.saleType.price
+            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+              ? +web3.utils.fromWei(bidDetails.bidValue)
+              : soldEdition.saleType.price
             : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: true,
