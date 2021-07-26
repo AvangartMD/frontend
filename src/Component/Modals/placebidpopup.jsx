@@ -59,12 +59,12 @@ function PABpopup(props) {
     const sendObj = { from: web3Data.accounts[0] };
     if (method != "claimAfterAuction") {
       if (!val) return;
-      sendObj.value = web3.utils.toWei(val, "ether");
+      sendObj.value = web3.utils.toWei(val);
     }
 
     if (!error.isError) {
       setTxnStatus("initiate");
-      await escrowContractInstance.methods[method](+nonce, currentEdition)
+      await escrowContractInstance.methods[method](+nonce, +currentEdition)
         .send(sendObj)
         .on("transactionHash", (hash) => {
           setTxnStatus("progress");
@@ -423,9 +423,9 @@ const NFTcartButtons = styled.div`
     font-size: 14px;
     letter-spacing: -0.5px;
     margin: 0px 5px 5px;
-    ${Media.sm}{
+    ${Media.sm} {
       width: 110px;
-    } 
+    }
     :hover {
       background-image: linear-gradient(90deg, #d121d6, #febf11);
       box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);

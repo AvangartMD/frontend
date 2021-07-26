@@ -77,7 +77,6 @@ class BecomeCreator extends Component {
           throw new Error(response.statusText);
         }
         if (response.status === 200) {
-          this.props.getUserDetails(); //update the user details 
           this.setState({
             isOpen1: false,
             isOpen2: false,
@@ -385,7 +384,11 @@ class BecomeCreator extends Component {
                 <TokenBox>
                   <WGTitle>We got your Submission!</WGTitle>
                   <p>Profile status will be updated once admin approves the request</p>
-                  <button onClick={() => this.toggle(4)}>Ok</button>
+                  <button onClick={() => {
+                    this.props.getUserDetails(); //update the user details  
+                    this.toggle(4)
+                  }
+                  }>Ok</button>
                 </TokenBox>
               </WhiteBX01>
             </BlackWrap>

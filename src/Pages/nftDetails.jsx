@@ -280,7 +280,6 @@ class NftDetail extends React.Component {
     // if (false) {
     //   const oderDetails = await escrowContractInstance.methods.order(1).call();
     // }
-    console.log(soldEdition?.ownerId.id, authData, authData?.data?.id);
     let selectedNFTDetails;
 
     if (soldEdition)
@@ -303,9 +302,16 @@ class NftDetail extends React.Component {
         isOpenForSale: true,
         price:
           NFTDetails.saleState === "AUCTION"
-            ? web3.utils.fromWei(bidDetails.bidValue)
+            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+              ? +web3.utils.fromWei(bidDetails.bidValue)
+              : NFTDetails.price
             : NFTDetails.price,
-        saleState: NFTDetails.saleState,
+        saleState:
+          NFTDetails.saleState === "AUCTION"
+            ? NFTDetails.auctionEndDate > new Date().getTime() / 1000
+              ? "AUCTION"
+              : "BUY"
+            : "BUY",
         secondHand: false,
         orderNonce: NFTDetails.nonce,
       };
@@ -317,7 +323,7 @@ class NftDetail extends React.Component {
       },
       selectedNFTDetails,
     });
-    // console.log(selectedNFTDetails);
+    console.log(selectedNFTDetails);
     this.setNFTBuyMethod(
       bidDetails,
       selectedNFTDetails.isOwner,
@@ -372,7 +378,8 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       isApprovedForAll,
     } = this.state;
-    const { NFTDetails, likesCount, isLiked, authData } = this.props;
+    const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
+    console.log(selectedNFTDetails);
     return (
       <>
         <Helmet>
@@ -508,7 +515,8 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
-                  selectedNFTDetails.isOpenForSale ? (
+                  selectedNFTDetails.isOpenForSale &&
+                  selectedNFTDetails.secondHand ? (
                     <button
                       className="bordered"
                       onClick={() => {
@@ -518,7 +526,8 @@ class NftDetail extends React.Component {
                       Cancel Sale Order
                     </button>
                   ) : null}
-                  {NFTDetails?.status === "NOT_MINTED" ? (
+                  {NFTDetails?.status === "NOT_MINTED" &&
+                  web3Data.isLoggedIn ? (
                     <button
                       onClick={() =>
                         this.props.history.push(
@@ -601,7 +610,7 @@ class NftDetail extends React.Component {
             <PABpopup
               toggle={this.toggle}
               method={saleMethod.name}
-              nonce={selectedNFTDetails?.nonce}
+              nonce={selectedNFTDetails?.orderNonce}
               price={selectedNFTDetails?.price}
               currentBidValue={bidDetails.currentBidValue}
               currentEdition={this.state.currentEdition}
@@ -632,18 +641,8 @@ class NftDetail extends React.Component {
               setEditionnumber={this.setEditionnumber}
             />
           </Collapse>
-          <Collapse
-            isOpen={this.state.isOpen4}
-            className={
-              "app__collapse " + (this.state.isOpen4 ? "collapse-active" : "")
-            }
-          >
-            <Login
-              toggle={this.toggle}
-              closePopUp={this.closePopUp}
-              isFooter={true}
-            />
-          </Collapse>
+
+          {this.state.isOpen4 ? <Login toggle={this.toggle} /> : ``}
         </Gs.MainSection>
       </>
     );
