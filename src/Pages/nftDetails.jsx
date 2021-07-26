@@ -65,7 +65,7 @@ const saleMethods = {
   noButton: {
     name: "",
     btnName: null,
-    bidDesc: "",
+    bidDesc: "Resereved Price",
   },
   claimAfterAuction: {
     name: "claimAfterAuction",
@@ -75,9 +75,10 @@ const saleMethods = {
   },
   claimBack: {
     name: "claimBack",
-    btnName: "Claim",
+    btnName: "Claim Back",
     bidDesc: "Current bid",
     open: 1,
+    checkApproval: false,
   },
   acceptOffer: {
     name: "acceptOffer",
@@ -164,21 +165,10 @@ class NftDetail extends React.Component {
             this.setState({
               saleMethod: saleMethods.acceptOffer,
             });
-          }
-          // this.setState({
-          //   saleMethod: saleMethods.cancelSaleOrder,
-          // });else {
-          //   if(+bidDetails.bidValue > price){
-          //     this.setState({
-          //       saleMethod: saleMethods.acceptOffer ,
-          //     })
-          //   }else{
-          //     this.setState({
-          //       saleMethod: saleMethods.cancelSaleOrder,
-          //     })
-          //   }
-
-          // }
+          } else
+            this.setState({
+              saleMethod: saleMethods.noButton,
+            });
         } else {
           this.setState({
             saleMethod: saleMethods.putOnSale,
@@ -346,10 +336,15 @@ class NftDetail extends React.Component {
     this.setState({ ownerActionName: action });
   };
 
-  setOwnerActions = (action) => {
+  setOwnerActions = (saleMethod) => {
     const { isApprovedForAll } = this.state;
     this.setState(
-      { ownerActionName: isApprovedForAll ? action : "setApprovalForAll" },
+      {
+        ownerActionName:
+          saleMethod.checkApproval && !isApprovedForAll
+            ? "setApprovalForAll"
+            : saleMethod.name,
+      },
       () => this.toggle(1)
     );
   };
@@ -358,8 +353,7 @@ class NftDetail extends React.Component {
     const { authData } = this.props;
     const { saleMethod, isApprovedForAll } = this.state;
     if (authData) {
-      if (saleMethod.checkApproval && !isApprovedForAll)
-        return this.setOwnerActions(saleMethod.name);
+      if (saleMethod.open === 1) return this.setOwnerActions(saleMethod);
       this.toggle(saleMethod.open);
     } else {
       this.toggle(4); // open login pop up

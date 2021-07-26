@@ -35,21 +35,21 @@ function NftOwnerActions(props) {
 
   const handleAction = async (forApproval) => {
     const { escrowContractAddres } = getContractAddresses();
+    let contractInstance = escrowContractInstance;
+
     let params;
     if (ownerActionName === "burnTokenEdition") params = [+tokenID, +edition];
     else if (ownerActionName === "transfer")
       params = [web3Data.accounts[0], reciever, +tokenID, +edition, ""];
-    else if (ownerActionName === "setApprovalForAll")
+    else if (ownerActionName === "setApprovalForAll") {
       params = [escrowContractAddres, true];
-    else if (
-      ownerActionName === "cancelSaleOrder" &&
+      contractInstance = nftContractContractInstance;
+    } else if (
+      ownerActionName === "cancelSaleOrder" ||
       ownerActionName === "claimBack"
     )
       params = [+orderNonce, +edition];
     else return;
-    let contractInstance = !isApprovedForAll
-      ? nftContractContractInstance
-      : escrowContractInstance;
     setNFTStatus("initiate");
     await contractInstance.methods[ownerActionName](...params)
       .send({
@@ -117,9 +117,9 @@ function NftOwnerActions(props) {
                     cursus.
                   </PBDesc>
                   <NFTcartButtons>
-                    <button className="ani-1 bordered">Claim Back</button>
+                    <button className="ani-1 bordered">Cancel</button>
                     <button className="ani-1" onClick={() => handleAction()}>
-                      Burn
+                      Claim Back
                     </button>
                   </NFTcartButtons>
                 </>
@@ -200,28 +200,7 @@ function NftOwnerActions(props) {
                   </NFTcartButtons>
                 </>
               )}
-              {/* {approved && (
-                <>
-                  <WGTitle>Approved !!</WGTitle>
-                  <WGdescText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam nunc nulla, sollicitudin ac dignissim vitae, dapibus
-                    at enim.
-                  </WGdescText>
-                  <WGdescText>
-                    Cras sit amet augue consectetur, sodales quam a, congue
-                    lacus.
-                  </WGdescText>
-                  <WGBtn
-                    onClick={() => {
-                      setApproved(false);
-                      changeOwnerActionName("transfer");
-                    }}
-                  >
-                    Go to transfer
-                  </WGBtn>
-                </>
-              )} */}
+
               {confirm && (
                 <>
                   <PBtitle className="AStitle">Confirm</PBtitle>
