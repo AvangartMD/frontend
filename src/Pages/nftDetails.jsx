@@ -259,7 +259,7 @@ class NftDetail extends React.Component {
       if (editions[i].isOpenForSale) {
         tmp = editions[i].saleType.price;
         if (tmp < lowest) {
-          console.log(tmp, i);
+          // console.log(tmp, i);
           lowest = tmp;
           index = editions[i].edition;
         }
@@ -337,7 +337,7 @@ class NftDetail extends React.Component {
       },
       selectedNFTDetails,
     });
-    console.log(selectedNFTDetails);
+    // console.log(selectedNFTDetails);
     this.setNFTBuyMethod(
       bidDetails,
       selectedNFTDetails.isOwner,
