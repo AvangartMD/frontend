@@ -22,6 +22,8 @@ import BecomeCreator from "./Modals/become-creator";
 import Notifications from "../Component/header/notification";
 import { FaBars } from 'react-icons/fa';
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
+import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
+import IconMenuClose from "../Assets/images/icon-set-close.svg";
 
 class Header extends Component {
   constructor(props) {
@@ -164,11 +166,10 @@ class Header extends Component {
 
                   </Collapse>
                 </NotificationBX>
-                <Bars onClick={() => this.toggle(11)} />
+                <Bars onClick={() => this.toggle(11)} className={(this.state.isOpen11 ? "menu-active" : "")} />
               </MobileMenu>
               <MobileSidebar>
-
-                <Collapse
+                <Collapse id="mobile-block"
                   isOpen={this.state.isOpen11}
                   className={
                     "app__collapse " + (this.state.isOpen11 ? "collapse-active" : "")
@@ -186,7 +187,7 @@ class Header extends Component {
                           defaultMessage="Marketplace"
                         />
                       </NavLink>
-                      <NavLink to="/collections">
+                      <NavLink to="/collections" exact activeClassName="active">
                         <FormattedMessage id="Collections" defaultMessage="Collections" />
                       </NavLink>
                       <NavLink to="/creators" exact activeClassName="active">
@@ -198,11 +199,56 @@ class Header extends Component {
                           defaultMessage="How to use?"
                         />
                       </NavLink>
-                      <NavLink to="/">
+                      <NavLink to="/" exact activeClassName="active" onClick={() => this.toggle(12)}>
                         <FormattedMessage id="More" defaultMessage="More" />
                       </NavLink>
                     </div>
+                    <Collapse
+                      isOpen={this.state.isOpen12}
+                      className={
+                        "app__collapse " + (this.state.isOpen12 ? "collapse-active" : "")
+                      }
+                    >
+                      <Moremenu>
+                        <div className="more-parts">
+                          <NavLink to="blog-list">Avangart Blog</NavLink>
+                          <NavLink to="/faq">FAQ</NavLink>
+                          <NavLink to="">Support</NavLink>
+                        </div>
+                        <div className="more-parts">
+                          <NavLink to="/legal">
+                            <FormattedMessage
+                              id="Term_of_service"
+                              defaultMessage="Terms of Service"
+                            />
+                          </NavLink>
+                          <NavLink to="/legal">
+                            <FormattedMessage
+                              id="Privacy_policy"
+                              defaultMessage="Privacy Policy"
+                            />
+                          </NavLink>
+                          <NavLink to="/legal">
+                            <FormattedMessage
+                              id="Cookie_policy"
+                              defaultMessage="Cookie Policy"
+                            />
+                          </NavLink>
+                        </div>
+                      </Moremenu>
+                    </Collapse>
+
                     <Language header={true} />
+                    <div className="mobile-login-btn">
+                      <AvBTN01 onClick={() => this.toggle(4)}>
+                        <FormattedMessage id="Login" defaultMessage="Login" />
+                      </AvBTN01>
+                    </div>
+                    <FooterrightLinks>
+                      <Link to='/'>Instagram</Link>
+                      <Link to='/'>Twitter</Link>
+                      <Link to='/'>Discord</Link>
+                    </FooterrightLinks>
                   </MobInner>
                 </Collapse>
               </MobileSidebar>
@@ -383,6 +429,9 @@ const HeadSbx01 = styled(FlexDiv)`
       display:none;
     } 
   }
+  ${Media.lg}{
+    width:28.33%;
+  }
   &:nth-child(2) {
     justify-content: center;
     & nav:hover {
@@ -415,9 +464,15 @@ const HeadSbx01 = styled(FlexDiv)`
         }
       }
     }
+    ${Media.lg}{
+      width:33.33%;
+    }
   }
   &:nth-child(3) {
     justify-content: flex-end;
+    ${Media.lg}{
+      width:38.33%;
+    }
   }
 `;
 const Logo = styled(FlexDiv)``;
@@ -516,7 +571,9 @@ const AccountBX = styled(FlexDiv)`
   border-radius: 20px;
   z-index: 101;
   cursor: pointer;
-
+  ${Media.lg}{
+    padding: 8px 0px 8px 10px;
+  }
   &:hover {
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px #eef2f7;
@@ -658,10 +715,17 @@ const MobileMenu = styled(FlexDiv)`
   }
 `;
 
-const Bars = styled(FaBars)`
+const Bars = styled.div`
   color:#000;
   font-size:20px;
   margin-left:10px;
+  background:url(${IconMenuOpen}) no-repeat;
+  width:24px;
+  height:24px;
+  &.menu-active
+  {
+    background:url(${IconMenuClose}) no-repeat;
+  }
 `;
 
 const MobileSidebar = styled.div`
@@ -674,6 +738,10 @@ const MobileSidebar = styled.div`
   ${Media.md}{
     display:block;
   }
+  .collapse-active#mobile-block
+  {
+    height:auto !important;
+  }
 `;
 
 const MobInner = styled.div`
@@ -682,13 +750,68 @@ const MobInner = styled.div`
   .mobile-links
   {
     a{
+      width:max-content;
       display:block;
       font-size:18px;
       padding:0px 0px 22px !important;
       :after
       {
+        left:0px !important;
+        bottom:18px !important;
+        width:100%;
+        height:3px !important;
+      }
+    }
+    :hover {
+      a:not(:hover) {
+        opacity: 0.3;
+      }
+    }
+  }
+  .mobile-login-btn
+  {
+    margin-top:80px;
+    text-align:center;
+    button
+    {
+      padding: 12px 75px 15px;
+    }
+  }
+`;
+
+const FooterrightLinks = styled(FlexDiv)`
+  margin:50px 0px 30px;
+  a{
+    font-size:14px !important;
+    letter-spacing:-0.6px !important;
+    font-weight:500 !important;
+    :last-child
+    {
+      margin-right:0px;
+    }
+  }
+`;
+
+const Moremenu = styled(FlexDiv)`
+  .more-parts
+  {
+    width:50%;
+    a
+    {
+      font-size:14px;
+      letter-spacing:-0.62px;
+      font-weight:600;
+      display:block;
+      margin-bottom:15px;
+      :after
+      {
         display:none !important;
       }
+    }
+  }
+  :hover {
+    a:not(:hover) {
+      opacity: 0.3;
     }
   }
 `;
