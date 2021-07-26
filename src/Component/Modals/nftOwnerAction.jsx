@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import TxnStatus from "./txnStatus";
 import Media from "./../../Theme/media-breackpoint";
 import getContractAddresses from "../../contractData/contractAddress/addresses";
+import { web3 } from "../../web3";
 
 function NftOwnerActions(props) {
   const {
@@ -40,16 +41,24 @@ function NftOwnerActions(props) {
     let params;
     if (ownerActionName === "burnTokenEdition") params = [+tokenID, +edition];
     else if (ownerActionName === "transfer")
-      params = [web3Data.accounts[0], reciever, +tokenID, +edition, ""];
+      params = [
+        web3Data.accounts[0],
+        reciever,
+        +tokenID,
+        +edition,
+        web3.utils.sha3("0xea"),
+      ];
     else if (ownerActionName === "setApprovalForAll") {
       params = [escrowContractAddres, true];
       contractInstance = nftContractContractInstance;
     } else if (
       ownerActionName === "cancelSaleOrder" ||
-      ownerActionName === "claimBack"
+      ownerActionName === "claimBack" ||
+      ownerActionName === "acceptOffer"
     )
       params = [+orderNonce, +edition];
     else return;
+    console.log(params, ownerActionName);
     setNFTStatus("initiate");
     await contractInstance.methods[ownerActionName](...params)
       .send({
@@ -106,7 +115,6 @@ function NftOwnerActions(props) {
                   </NFTcartButtons>
                 </>
               )}
-
               {ownerActionName === "claimBack" && (
                 <>
                   <PBtitle className="AStitle">Are you sure?</PBtitle>
@@ -200,7 +208,26 @@ function NftOwnerActions(props) {
                   </NFTcartButtons>
                 </>
               )}
+              {ownerActionName === "acceptOffer" && (
+                <>
+                  <PBtitle className="TN-title"> Accept offer</PBtitle>
+                  <PBDesc className="mb-20">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
+                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
+                    cursus.
+                  </PBDesc>
 
+                  <NFTcartButtons>
+                    <button
+                      className="ani-1 bor-large"
+                      onClick={() => handleAction()}
+                    >
+                      Accept
+                    </button>
+                  </NFTcartButtons>
+                </>
+              )}
               {confirm && (
                 <>
                   <PBtitle className="AStitle">Confirm</PBtitle>
