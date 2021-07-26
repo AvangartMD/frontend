@@ -246,6 +246,8 @@ class NftDetail extends React.Component {
   };
 
   getEditionNumber = (NFTDetails) => {
+    const { editions, price, edition } = NFTDetails;
+
     return 1;
     // for (let i = 0; i < NFTDetails.editions.length; i++) {
     //   // console.log("1");
