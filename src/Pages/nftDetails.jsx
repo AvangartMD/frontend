@@ -122,7 +122,8 @@ class NftDetail extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { NFTDetails, isLiked, web3Data } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
-      if (NFTDetails.tokenId && NFTDetails.edition) this.fetchNFTDetails();
+      if (NFTDetails.tokenId && NFTDetails.edition)
+        this.getEditionNumber(NFTDetails);
     }
     if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
@@ -247,11 +248,23 @@ class NftDetail extends React.Component {
 
   getEditionNumber = (NFTDetails) => {
     const { editions, price, edition } = NFTDetails;
-
-    return 1;
-    // for (let i = 0; i < NFTDetails.editions.length; i++) {
-    //   // console.log("1");
-    // }
+    var lowest = Number.POSITIVE_INFINITY;
+    let index = 0;
+    var tmp;
+    if (editions.length == edition) return this.setEditionnumber(1);
+    if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
+      return this.setEditionnumber(1);
+    for (var i = editions.length - 1; i >= 0; i--) {
+      if (editions[i].isOpenForSale) {
+        tmp = editions[i].saleType.price;
+        if (tmp < lowest) {
+          console.log(tmp, i);
+          lowest = tmp;
+          index = editions[i].edition;
+        }
+      } else if (!index) index++;
+    }
+    this.setEditionnumber(index);
   };
   async fetchNFTDetails(_edition) {
     const { NFTDetails, authData, web3Data } = this.props;
@@ -259,14 +272,7 @@ class NftDetail extends React.Component {
 
     const tokenID = NFTDetails.tokenId;
     let newEdition = _edition;
-    if (!newEdition) {
-      newEdition =
-        NFTDetails.saleState === "BUY"
-          ? this.getEditionNumber(NFTDetails)
-          : NFTDetails.auctionEndDate <= new Date().getTime() / 1000
-          ? this.getEditionNumber(NFTDetails)
-          : 1;
-    }
+
     // const secondHand = await escrowContractInstance.methods
     //   .secondHand(+tokenID, newEdition)
     //   .call();
@@ -299,6 +305,7 @@ class NftDetail extends React.Component {
         saleState: soldEdition.saleType.type,
         secondHand: true,
         orderNonce: soldEdition.nonce,
+        isBurned: soldEdition.isBurned,
       };
     else
       selectedNFTDetails = {
@@ -319,6 +326,7 @@ class NftDetail extends React.Component {
             : "BUY",
         secondHand: false,
         orderNonce: NFTDetails.nonce,
+        isBurned: false,
       };
 
     this.setState({
@@ -529,7 +537,8 @@ class NftDetail extends React.Component {
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
                   selectedNFTDetails.isOpenForSale &&
-                  selectedNFTDetails.secondHand ? (
+                  selectedNFTDetails.secondHand &&
+                  !selectedNFTDetails.isBurned ? (
                     <button
                       className="bordered"
                       onClick={() => {
@@ -551,7 +560,8 @@ class NftDetail extends React.Component {
                       Edit{" "}
                     </button>
                   ) : selectedNFTDetails?.isOwner &&
-                    !selectedNFTDetails.isOpenForSale ? (
+                    !selectedNFTDetails.isOpenForSale &&
+                    !selectedNFTDetails.isBurned ? (
                     <>
                       <button
                         className="bordered"
