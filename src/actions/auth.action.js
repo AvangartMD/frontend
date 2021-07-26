@@ -16,6 +16,9 @@ export const authActions = {
   getTopNFT,
   getTopCollection,
   getProfileInfo,
+  getHallOfFrameArtist,
+  getHallOfFrameArtwork,
+  getHallOfFrameCollector,
 };
 
 function fetchedData(type, data) {
@@ -219,6 +222,45 @@ function getProfileInfo() {
     return response.then((promise) => {
       if (promise.data) {
         dispatch(fetchedData("FETCHED_PROFILE_INFO", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getHallOfFrameArtist() {
+  return (dispatch) => {
+    const response = services.get(`/hallOfFrame/list/artist`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_HALL_OF_FRAMES_ARTIST", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getHallOfFrameArtwork() {
+  return (dispatch) => {
+    const response = services.get(`/hallOfFrame/list/artwork`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_HALL_OF_FRAMES_ARTWORK", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+
+function getHallOfFrameCollector() {
+  return (dispatch) => {
+    const response = services.get(`/hallOfFrame/list/collector`);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("FETCHED_HALL_OF_FRAMES_COLLECTOR", promise.data.data));
       } else {
         // console.log("error");
       }

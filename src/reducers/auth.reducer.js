@@ -142,3 +142,30 @@ export function fetchProfileInfo(state = null, action) {
         return state;
     }
 }
+
+export function fetchHallOfFrameArtist(state = null, action) {
+  switch (action.type) {
+    case 'FETCHED_HALL_OF_FRAMES_ARTIST':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchHallOfFrameArtwork(state = null, action) {
+  switch (action.type) {
+    case 'FETCHED_HALL_OF_FRAMES_ARTWORK':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function fetchHallOfFrameCollector(state = null, action) {
+  switch (action.type) {
+    case 'FETCHED_HALL_OF_FRAMES_COLLECTOR':
+      return action.data;
+    default:
+      return state;
+  }
+}
