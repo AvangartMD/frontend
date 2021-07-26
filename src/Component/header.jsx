@@ -174,32 +174,35 @@ class Header extends Component {
                     "app__collapse " + (this.state.isOpen11 ? "collapse-active" : "")
                   }
                 >
-                  <CloseBTN
+                  {/* <CloseBTN
                     className="ani-1" onClick={() => this.toggle(11)}>
                     <img src={CloseBTN01} alt="" />
-                  </CloseBTN>
+                  </CloseBTN> */}
                   <MobInner>
-                    <NavLink to="/marketplace" exact activeClassName="active">
-                      <FormattedMessage
-                        id="Marketplace"
-                        defaultMessage="Marketplace"
-                      />
-                    </NavLink>
-                    <NavLink to="/collections">
-                      <FormattedMessage id="Collections" defaultMessage="Collections" />
-                    </NavLink>
-                    <NavLink to="/creators" exact activeClassName="active">
-                      <FormattedMessage id="Creators" defaultMessage="Creators" />
-                    </NavLink>
-                    <NavLink to="/how-to-use" exact activeClassName="active">
-                      <FormattedMessage
-                        id="How_to_use?"
-                        defaultMessage="How to use?"
-                      />
+                    <div className="mobile-links">
+                      <NavLink to="/marketplace" exact activeClassName="active">
+                        <FormattedMessage
+                          id="Marketplace"
+                          defaultMessage="Marketplace"
+                        />
+                      </NavLink>
+                      <NavLink to="/collections">
+                        <FormattedMessage id="Collections" defaultMessage="Collections" />
+                      </NavLink>
+                      <NavLink to="/creators" exact activeClassName="active">
+                        <FormattedMessage id="Creators" defaultMessage="Creators" />
+                      </NavLink>
+                      <NavLink to="/how-to-use" exact activeClassName="active">
+                        <FormattedMessage
+                          id="How_to_use?"
+                          defaultMessage="How to use?"
+                        />
+                      </NavLink>
                       <NavLink to="/">
                         <FormattedMessage id="More" defaultMessage="More" />
                       </NavLink>
-                    </NavLink>
+                    </div>
+                    <Language header={true} />
                   </MobInner>
                 </Collapse>
               </MobileSidebar>
@@ -347,54 +350,6 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const CloseBTN = styled.button`
-  width: 20px;
-  height: 20px;
-  // position: absolute;
-  // right: 20px;
-  // top: 27px;
-  padding: 0;
-  margin: 0px;
-  :hover {
-    transform: rotate(90deg);
-  }
-  ${Media.xs} {
-    right: 15px;
-    top: 15px;
-  }
-`;
-
-const MobileMenu = styled(FlexDiv)`
-  display:none;
-  ${Media.md}{
-    display:flex;
-    position:absolute;
-    right:15px;
-  }
-`;
-
-const Bars = styled(FaBars)`
-  color:#000;
-  font-size:20px;
-  margin-left:10px;
-`;
-
-const MobileSidebar = styled.div`
-  background-color:#fff;
-  width:100%;
-  position:absolute;
-  top:80px;
-  left:0px;
-  display:none;
-  ${Media.md}{
-    display:block;
-  }
-`;
-
-const MobInner = styled.div`
-  width:100%;
-`;
-
 const HeadMBX = styled(FlexDiv)`
   width: 100%;
   min-height: 100px;
@@ -435,7 +390,6 @@ const HeadSbx01 = styled(FlexDiv)`
         opacity: 0.3;
       }
     }
-
     a {
       color: #000;
       font-size: 16px;
@@ -677,6 +631,68 @@ const ABC = styled(FlexDiv)`
   align-items: flex-start;
   justify-content: flex-start;
 `;
+
+const CloseBTN = styled.button`
+  width: 20px;
+  height: 20px;
+  // position: absolute;
+  // right: 20px;
+  // top: 27px;
+  padding: 0;
+  margin: 0px;
+  :hover {
+    transform: rotate(90deg);
+  }
+  ${Media.xs} {
+    right: 15px;
+    top: 15px;
+  }
+`;
+
+const MobileMenu = styled(FlexDiv)`
+  display:none;
+  ${Media.md}{
+    display:flex;
+    position:absolute;
+    right:15px;
+  }
+`;
+
+const Bars = styled(FaBars)`
+  color:#000;
+  font-size:20px;
+  margin-left:10px;
+`;
+
+const MobileSidebar = styled.div`
+  background-color:#fff;
+  width:100%;
+  position:absolute;
+  top:80px;
+  left:0px;
+  display:none;
+  ${Media.md}{
+    display:block;
+  }
+`;
+
+const MobInner = styled.div`
+  width:100%;
+  padding:30px 25px;
+  .mobile-links
+  {
+    a{
+      display:block;
+      font-size:18px;
+      padding:0px 0px 22px !important;
+      :after
+      {
+        display:none !important;
+      }
+    }
+  }
+`;
+
 const mapDipatchToProps = (dispatch) => {
   return {
     getWeb3: () => dispatch(actions.getWeb3()),
