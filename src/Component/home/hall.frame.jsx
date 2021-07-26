@@ -3,6 +3,8 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 import styled from 'styled-components';
 import Media from "../../Theme/media-breackpoint";
 
@@ -11,11 +13,28 @@ import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
 import RoundIcon from '../../Assets/images/round-icon.svg';
 import Gs from '../../Theme/globalStyles';
+import LoaderGif from "../../Assets/images/loading.gif";
+
+import { actions } from '../../actions';
 
 
 class HallOfFrame extends Component {
 
+  componentDidMount() {
+    const { artists, artworks, collectors } = this.props
+    if (!artists) {
+      this.props.getHallOfFrameArtist(`artist`) // fetch hall of frame top artist
+    }
+    if (!artworks) {
+      this.props.getHallOfFrameArtwork(`artwork`) // fetch hall of frame top artwork
+    }
+    if (!collectors) {
+      this.props.getHallOfFrameCollector(`collector`) // fetch hall of frame top collector
+    }
+  }
+
   render() {
+    const { artists, artworks, collectors } = this.props
     return (
       <>
         <HomeNFTs>
@@ -23,6 +42,7 @@ class HallOfFrame extends Component {
             <div className='star-title'>
               <h3>Hall of Fame</h3>
             </div>
+
             <HomeTabs>
               <Tabs>
                 <TabList>
@@ -31,170 +51,74 @@ class HallOfFrame extends Component {
                   <Tab>Collector</Tab>
                   {/* <Tab>Our Picks</Tab> */}
                 </TabList>
+
                 <TabPanel>
                   <HomeTabDetail>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@skyistheanswer</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
+                    {!artists ? 
+                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
+                    : artists.map((artist, key) => {
+                    return <Gs.W20 key={key}>
+                        <Gs.TenpxGutter>
+                            <HallofFameBox>
+                                <div className='HOF-inner'>
+                                <img src={artist.profile} alt='' />
+                                <p className='user-name'>@{artist.username}</p>
+                                <p className='small'>Total Sale</p>
+                                <p className='price'>{artist.totalSale} BNB</p>
+                                </div>
+                            </HallofFameBox>
+                        </Gs.TenpxGutter>
                     </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@jimmy</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@ayeshachasm</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@danielstagner</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@wolfden</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
+                    }) }
                   </HomeTabDetail>
                 </TabPanel>
+
                 <TabPanel>
                   <HomeTabDetail>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <div className="img-outer">
-                              <img src={NFT2} alt='' />
+                  {!artworks ? 
+                    <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
+                  : artworks.map((artwork, key) => {
+                    return <Gs.W20 key={key}>
+                        <Gs.TenpxGutter>
+                            <HallofFameBox2>
+                            <div className='HOF-inner'>
+                                <div className="img-outer">
+                                <img src={artwork.image?.compressed} alt='' />
+                                </div>
+                                <p className='title'>
+                                {artwork.username}
+                                </p>
+                                <p className='small'>Sold for</p>
+                                <p className='price'>{artwork.totalSale} BNB</p>
                             </div>
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
+                            </HallofFameBox2>
+                        </Gs.TenpxGutter>
                     </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <div className="img-outer">
-                              <img src={NFT2} alt='' />
-                            </div>
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <div className="img-outer">
-                              <img src={NFT2} alt='' />
-                            </div>
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox2>
-                          <div className='HOF-inner'>
-                            <div className="img-outer">
-                              <img src={NFT2} alt='' />
-                            </div>
-                            <p className='title'>
-                              Artwork name / title dolor lorem ipsum sit
-                              adipiscing
-                            </p>
-                            <p className='small'>Sold for</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox2>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
+                  }) }
                   </HomeTabDetail>
                 </TabPanel>
+
                 <TabPanel>
                   <HomeTabDetail>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@skyistheanswer</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
+                  {!collectors ? 
+                    <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
+                  : collectors.map((collector, key) => {
+                    return <Gs.W20 key={key}>
+                        <Gs.TenpxGutter>
+                            <HallofFameBox>
+                                <div className='HOF-inner'>
+                                    <img src={collector.profile} alt='' />
+                                    <p className='user-name'>@{collector.username}</p>
+                                    <p className='small'>Total Sale</p>
+                                    <p className='price'>{collector.totalSale} BNB</p>
+                                </div>
+                            </HallofFameBox>
+                        </Gs.TenpxGutter>
                     </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@jimmy</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
+                  }) }
                   </HomeTabDetail>
                 </TabPanel>
+
                 {/* <TabPanel>
                   <HomeTabDetail>
                     <Gs.W20>
@@ -209,34 +133,11 @@ class HallOfFrame extends Component {
                         </HallofFameBox>
                       </Gs.TenpxGutter>
                     </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@jimmy</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
-                    <Gs.W20>
-                      <Gs.TenpxGutter>
-                        <HallofFameBox>
-                          <div className='HOF-inner'>
-                            <img src={NFT2} alt='' />
-                            <p className='user-name'>@ayeshachasm</p>
-                            <p className='small'>Total Sale</p>
-                            <p className='price'>0.00 BNB</p>
-                          </div>
-                        </HallofFameBox>
-                      </Gs.TenpxGutter>
-                    </Gs.W20>
                   </HomeTabDetail>
                 </TabPanel> */}
               </Tabs>
             </HomeTabs>
+
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -397,5 +298,25 @@ const HomeNFTs = styled.div`
     }
   }
 `;
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 50px auto;
+`;
 
-export default HallOfFrame;
+const mapDipatchToProps = (dispatch) => {
+  return {
+    getHallOfFrameArtist: () => dispatch(actions.getHallOfFrameArtist()),
+    getHallOfFrameArtwork: () => dispatch(actions.getHallOfFrameArtwork()),
+    getHallOfFrameCollector: () => dispatch(actions.getHallOfFrameCollector()),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    artists: state.fetchHallOfFrameArtist,
+    artworks: state.fetchHallOfFrameArtwork,
+    collectors: state.fetchHallOfFrameCollector,
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(HallOfFrame));
