@@ -152,6 +152,7 @@ const HomeBanner = styled.div`
     min-height: 20px;
     padding: 0px;
     border-radius: 0px;
+    z-index:1;
     :hover {
       background: transparent;
     }
