@@ -21,12 +21,14 @@ function Collected(props) {
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [NFTs]);
 
   useEffect(() => {
     return function cleanup() {
       props.clearNFTs(); // clear the NFT data
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 

@@ -14,6 +14,7 @@ function Drafts(props) {
   const { userDraftNFT } = props;
   useEffect(() => {
     if (!userDraftNFT) props.getUserDraftNFT();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDraftNFT]);
   return (
     <HomeNFTs>

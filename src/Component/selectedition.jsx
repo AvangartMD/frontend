@@ -44,6 +44,7 @@ function SelectEdition(props) {
       setEditions(saleEditions); // set the filtered editions
     }
     tabEditions(); // filter the tab editions
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab])
 
   useEffect(() => {
@@ -60,6 +61,7 @@ function SelectEdition(props) {
       setEditions(saleEditions); // set the filtered editions
     }
     filterEditions(); // filter the editons
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
   useEffect(() => {
@@ -98,6 +100,7 @@ function SelectEdition(props) {
       setEditions(editionsData); // set the editions
     };
     createEditionData(); // fetch the editions
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [NFTDetails, web3Data]);
 
   const toggle = (index) => {

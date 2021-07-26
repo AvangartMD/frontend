@@ -36,10 +36,12 @@ function Login(props) {
       if (web3Data.accounts[0] && !nonce)
         signatureRequest(undefined, true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Data.accounts[0]]);
 
   useEffect(() => {
     if (nonce && web3Data.accounts[0]) signatureRequest(nonce);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nonce]);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ function Login(props) {
     } else if (authData) {
       refreshStates();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authData]);
 
   const connectToWallet = () => {
