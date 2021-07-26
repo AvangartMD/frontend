@@ -144,6 +144,7 @@ class NftDetail extends React.Component {
     const isApprovedForAll = await nftContractContractInstance.methods
       .isApprovedForAll(web3Data.accounts[0], escrowContractAddres)
       .call();
+      console.log(isA)
     this.setState({ isApprovedForAll });
   };
   setNFTBuyMethod = (
@@ -353,7 +354,7 @@ class NftDetail extends React.Component {
     const { authData } = this.props;
     const { saleMethod, isApprovedForAll } = this.state;
     if (authData) {
-      if (saleMethod.open === 1) return this.setOwnerActions(saleMethod);
+      if (saleMethod.checkApproval && !isApprovedForAll) return this.setOwnerActions(saleMethod);
       this.toggle(saleMethod.open);
     } else {
       this.toggle(4); // open login pop up
