@@ -80,6 +80,7 @@ function SelectEdition(props) {
               isOpenForSale: soldEdition.isOpenForSale,
               saleState: soldEdition.saleType.type ? soldEdition.saleType.type : 'SOLD',
               price: soldEdition.price,
+              isBurned: soldEdition.isBurned,
             });
           } else {
             editionsData.push({
@@ -89,6 +90,7 @@ function SelectEdition(props) {
               isOpenForSale: true,
               saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION' : 'BUY' : 'BUY',
               price: NFTDetails.price,
+              isBurned: false,
             });
           }
         }
@@ -234,11 +236,12 @@ function SelectEdition(props) {
                         <td>
                           <CustomRadio1>
                             <label className="radio-container">
-                              Select
+                              {edition.isBurned?`Burned`:`Select`}
                               <input
                                 type="radio"
                                 name="category"
                                 value="art"
+                                disabled={edition.isBurned}
                                 onClick={() => {
                                   props.setEditionnumber(edition.number);
                                   props.toggle(10);
