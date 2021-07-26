@@ -358,7 +358,7 @@ class NftDetail extends React.Component {
           ? "setApprovalForAll"
           : saleMethod.name,
       },
-      () => this.toggle(1)
+      () => this.toggle(saleMethod.open)
     );
   };
 
@@ -366,7 +366,10 @@ class NftDetail extends React.Component {
     const { authData } = this.props;
     const { saleMethod, isApprovedForAll } = this.state;
     if (authData) {
-      if (saleMethod.checkApproval && !isApprovedForAll)
+      if (
+        (saleMethod.checkApproval && !isApprovedForAll) ||
+        saleMethod.open === 1
+      )
         return this.setOwnerActions(saleMethod);
       this.toggle(saleMethod.open);
     } else {
