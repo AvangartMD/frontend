@@ -86,6 +86,18 @@ const saleMethods = {
     bidDesc: "Current offer",
     open: 1,
   },
+  burn: {
+    name: "burnTokenEdition",
+    btnName: "Accept Offer",
+    bidDesc: "Current offer",
+    open: 1,
+  },
+  transfer: {
+    name: "transfer",
+    btnName: "Accept Offer",
+    bidDesc: "Current offer",
+    open: 1,
+  },
 };
 class NftDetail extends React.Component {
   constructor(props) {
@@ -99,7 +111,7 @@ class NftDetail extends React.Component {
         bidder: "0x0000000000000000000000000000000000000000",
       },
       ownerActionName: "",
-      currentEdition: 1,
+      currentEdition: 0,
       saleMethod: { name: "placeBid", btnName: "Place a bid" },
       showTimer: false,
       loading: false,
@@ -110,7 +122,8 @@ class NftDetail extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { NFTDetails, isLiked, web3Data } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
-      if (NFTDetails.tokenId && NFTDetails.edition) this.fetchNFTDetails();
+      if (NFTDetails.tokenId && NFTDetails.edition)
+        this.getEditionNumber(NFTDetails);
     }
     if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
@@ -234,10 +247,25 @@ class NftDetail extends React.Component {
   };
 
   getEditionNumber = (NFTDetails) => {
-    return 1;
-    // for (let i = 0; i < NFTDetails.editions.length; i++) {
-    //   // console.log("1");
-    // }
+    const { editions, price, edition } = NFTDetails;
+    var lowest = Number.POSITIVE_INFINITY;
+    let index = 0;
+    var tmp;
+    if (editions.length == edition || editions.length == 0)
+      return this.setEditionnumber(1);
+    if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
+      return this.setEditionnumber(1);
+    for (var i = editions.length - 1; i >= 0; i--) {
+      if (editions[i].isOpenForSale) {
+        tmp = editions[i].saleType.price;
+        if (tmp < lowest) {
+          // console.log(tmp, i);
+          lowest = tmp;
+          index = editions[i].edition;
+        }
+      } else if (!index) index++;
+    }
+    this.setEditionnumber(index);
   };
   async fetchNFTDetails(_edition) {
     const { NFTDetails, authData, web3Data } = this.props;
@@ -245,14 +273,7 @@ class NftDetail extends React.Component {
 
     const tokenID = NFTDetails.tokenId;
     let newEdition = _edition;
-    if (!newEdition) {
-      newEdition =
-        NFTDetails.saleState === "BUY"
-          ? this.getEditionNumber(NFTDetails)
-          : NFTDetails.auctionEndDate <= new Date().getTime() / 1000
-          ? this.getEditionNumber(NFTDetails)
-          : 1;
-    }
+
     // const secondHand = await escrowContractInstance.methods
     //   .secondHand(+tokenID, newEdition)
     //   .call();
@@ -278,11 +299,14 @@ class NftDetail extends React.Component {
         isOpenForSale: soldEdition.isOpenForSale,
         price:
           soldEdition.saleType.type === "OFFER"
-            ? soldEdition.saleType.price
+            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+              ? +web3.utils.fromWei(bidDetails.bidValue)
+              : soldEdition.saleType.price
             : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: true,
         orderNonce: soldEdition.nonce,
+        isBurned: soldEdition.isBurned,
       };
     else
       selectedNFTDetails = {
@@ -303,6 +327,7 @@ class NftDetail extends React.Component {
             : "BUY",
         secondHand: false,
         orderNonce: NFTDetails.nonce,
+        isBurned: false,
       };
 
     this.setState({
@@ -312,7 +337,7 @@ class NftDetail extends React.Component {
       },
       selectedNFTDetails,
     });
-    console.log(selectedNFTDetails);
+    // console.log(selectedNFTDetails);
     this.setNFTBuyMethod(
       bidDetails,
       selectedNFTDetails.isOwner,
@@ -340,12 +365,11 @@ class NftDetail extends React.Component {
     const { isApprovedForAll } = this.state;
     this.setState(
       {
-        ownerActionName:
-          saleMethod.checkApproval && !isApprovedForAll
-            ? "setApprovalForAll"
-            : saleMethod.name,
+        ownerActionName: !isApprovedForAll
+          ? "setApprovalForAll"
+          : saleMethod.name,
       },
-      () => this.toggle(1)
+      () => this.toggle(saleMethod.open)
     );
   };
 
@@ -353,7 +377,11 @@ class NftDetail extends React.Component {
     const { authData } = this.props;
     const { saleMethod, isApprovedForAll } = this.state;
     if (authData) {
-      if (saleMethod.open === 1) return this.setOwnerActions(saleMethod);
+      if (
+        (saleMethod.checkApproval && !isApprovedForAll) ||
+        saleMethod.open === 1
+      )
+        return this.setOwnerActions(saleMethod);
       this.toggle(saleMethod.open);
     } else {
       this.toggle(4); // open login pop up
@@ -452,7 +480,9 @@ class NftDetail extends React.Component {
                         <p className="gray-t">of {NFTDetails?.edition}</p>
                       </div>
                     </div>
-                    <Link to="#" onClick={() => this.toggle(10)}>Select edition</Link>
+                    <Link to="#" onClick={() => this.toggle(10)}>
+                      Select edition
+                    </Link>
                   </div>
                   <div className="ed-box">
                     <div className="ed-left">
@@ -508,11 +538,12 @@ class NftDetail extends React.Component {
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
                   selectedNFTDetails.isOpenForSale &&
-                  selectedNFTDetails.secondHand ? (
+                  selectedNFTDetails.secondHand &&
+                  !selectedNFTDetails.isBurned ? (
                     <button
                       className="bordered"
                       onClick={() => {
-                        this.setOwnerActions("cancelSaleOrder");
+                        this.setOwnerActions(saleMethods.cancelSaleOrder);
                       }}
                     >
                       Cancel Sale Order
@@ -530,19 +561,22 @@ class NftDetail extends React.Component {
                       Edit{" "}
                     </button>
                   ) : selectedNFTDetails?.isOwner &&
-                    !selectedNFTDetails.isOpenForSale ? (
+                    !selectedNFTDetails.isOpenForSale &&
+                    !selectedNFTDetails.isBurned ? (
                     <>
                       <button
                         className="bordered"
                         onClick={() => {
-                          this.setOwnerActions("burnTokenEdition");
+                          this.setOwnerActions(saleMethods.burn);
                         }}
                       >
                         Burn
                       </button>
                       <button
                         className="bordered"
-                        onClick={() => this.setOwnerActions("transfer")}
+                        onClick={() =>
+                          this.setOwnerActions(saleMethods.transfer)
+                        }
                       >
                         Transfer
                       </button>

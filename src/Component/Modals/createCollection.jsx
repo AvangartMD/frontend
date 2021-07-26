@@ -27,6 +27,7 @@ function CreateCollection(props) {
   useEffect(() => {
     const { categoryList } = props;
     if (!categoryList) props.getCategoryList(); // get the category list
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -42,6 +43,7 @@ function CreateCollection(props) {
       setCollectionAdded(false);
     }
     clearData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.newCollection]);
 
   const checkErrors = () => {

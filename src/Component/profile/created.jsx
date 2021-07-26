@@ -23,17 +23,20 @@ function Created(props) {
 
   useEffect(() => {
     if (!NFTs) props.getNFTs(params.id ? params.id : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [NFTs]);
 
   useEffect(() => {
     if (tabPanel !== 'ALL') props.getNFTs(params.id ? params.id : null, tabPanel);
     else props.getNFTs(params.id ? params.id : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabPanel]);
 
   useEffect(() => {
     return function cleanup() {
       props.clearNFTs(); // clear the NFT data
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
