@@ -144,7 +144,7 @@ class NftDetail extends React.Component {
     const isApprovedForAll = await nftContractContractInstance.methods
       .isApprovedForAll(web3Data.accounts[0], escrowContractAddres)
       .call();
-      console.log(isA)
+    console.log(isA);
     this.setState({ isApprovedForAll });
   };
   setNFTBuyMethod = (
@@ -341,10 +341,9 @@ class NftDetail extends React.Component {
     const { isApprovedForAll } = this.state;
     this.setState(
       {
-        ownerActionName:
-          saleMethod.checkApproval && !isApprovedForAll
-            ? "setApprovalForAll"
-            : saleMethod.name,
+        ownerActionName: !isApprovedForAll
+          ? "setApprovalForAll"
+          : saleMethod.name,
       },
       () => this.toggle(1)
     );
@@ -354,7 +353,8 @@ class NftDetail extends React.Component {
     const { authData } = this.props;
     const { saleMethod, isApprovedForAll } = this.state;
     if (authData) {
-      if (saleMethod.checkApproval && !isApprovedForAll) return this.setOwnerActions(saleMethod);
+      if (saleMethod.checkApproval && !isApprovedForAll)
+        return this.setOwnerActions(saleMethod);
       this.toggle(saleMethod.open);
     } else {
       this.toggle(4); // open login pop up
@@ -453,7 +453,9 @@ class NftDetail extends React.Component {
                         <p className="gray-t">of {NFTDetails?.edition}</p>
                       </div>
                     </div>
-                    <Link to="#" onClick={() => this.toggle(10)}>Select edition</Link>
+                    <Link to="#" onClick={() => this.toggle(10)}>
+                      Select edition
+                    </Link>
                   </div>
                   <div className="ed-box">
                     <div className="ed-left">
