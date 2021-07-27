@@ -889,6 +889,13 @@ const HomeTabs = styled.div`
       flex-wrap:initial;
     }
   }
+  .react-tabs__tab-panel--selected
+  {
+    margin:0px 20px;
+    ${Media.sm}{
+      margin:0px;
+    }
+  }
   .react-tabs__tab {
     bottom: 0px;
     padding: 6px 0px;

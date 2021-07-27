@@ -182,7 +182,7 @@ class CreatorProfile extends Component {
                           ""
                         )}
                       </UserSocilMBX>
-                      <UserDText02>
+                      <UserDText02 className="desktop-block">
                         Join{" "}
                         <span>
                           {profile
@@ -198,18 +198,44 @@ class CreatorProfile extends Component {
 
                   <ProSBX02>
                     <ProSBX03>
-                      <FollowerMBX>
-                        Created <span>{profile ? profile.nftCreated : "000"}</span>
-                      </FollowerMBX>
-                      <FollowerMBX>
-                        Followers{" "}
-                        <span>{profile ? profile.followersCount : "000"}</span>
-                      </FollowerMBX>
-                      <FollowerMBX>
-                        Following{" "}
-                        <span>{profile ? profile.followingCount : "000"}</span>
-                      </FollowerMBX>
-
+                      <div className="cff-section">
+                        <FollowerMBX>
+                          Created <span>{profile ? profile.nftCreated : "000"}</span>
+                        </FollowerMBX>
+                        <FollowerMBX>
+                          Followers{" "}
+                          <span>{profile ? profile.followersCount : "000"}</span>
+                        </FollowerMBX>
+                        <FollowerMBX>
+                          Following{" "}
+                          <span>{profile ? profile.followingCount : "000"}</span>
+                        </FollowerMBX>
+                      </div>
+                      <ProSBX04 className="mobile-block">
+                        <span>#000000</span>{" "}
+                        <p>{profile ? profile.walletAddress : "xyz...."}{" "}</p>
+                        <button
+                          title="Copied"
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              profile ? profile.walletAddress : "xyz...."
+                            );
+                          }}
+                        >
+                          <img src={CopyICO} alt="" />
+                        </button>
+                      </ProSBX04>
+                      <UserDText02 className="mobile-block">
+                        Join{" "}
+                        <span>
+                          {profile
+                            ? dateFormat(
+                              new Date(profile.createdAt).toString(),
+                              "dd mmmm yyyy"
+                            )
+                            : "join date"}
+                        </span>
+                      </UserDText02>
                       {id ? (
                         authData ?
                           web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
@@ -226,11 +252,12 @@ class CreatorProfile extends Component {
                           </button>
                         </EditPrBTN>
                       )}
+
                     </ProSBX03>
 
-                    <ProSBX04>
+                    <ProSBX04 className="desktop-block">
                       <span>#000000</span>{" "}
-                      {profile ? profile.walletAddress : "xyz...."}{" "}
+                      <p>{profile ? profile.walletAddress : "xyz...."}{" "}</p>
                       <button
                         title="Copied"
                         onClick={() => {
@@ -301,6 +328,12 @@ const ProMBannerBX = styled(FlexDiv)`
   background-size: cover;
   background-position: 50% 50%;
   position: relative;
+  ${Media.md}{
+    margin-bottom: 180px;
+  }
+  ${Media.sm}{
+    margin-bottom: 450px;
+  }
 `;
 const ProMBX01 = styled(FlexDiv)`
   width: 100%;
@@ -312,17 +345,44 @@ const ProMBX01 = styled(FlexDiv)`
   margin-bottom: -291px;
   box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
   align-items: stretch;
+  ${Media.lg}{
+    max-width:94%;
+  }
+  ${Media.md}{
+    padding: 20px;
+    min-height:200px;
+  }
+  ${Media.sm}{
+    margin-bottom: -500px;
+  }
 `;
 const ProSBX01 = styled(FlexDiv)`
   width: 50%;
   justify-content: flex-start;
   align-items: flex-start;
+  ${Media.lg}{
+    width: 40%;
+  }
+  ${Media.md}{
+    width: 44%;
+  }
+  ${Media.sm}{
+    width: 100%;
+    display:block;
+  }
 `;
 
 const UserImgBX = styled(FlexDiv)`
   width: 142px;
   justify-content: flex-start;
   position: relative;
+  ${Media.md}{
+    width:120px;
+  }
+  ${Media.sm}{
+    justify-content:center;
+    margin:0 auto;
+  }
 `;
 const UserImgSB = styled.div`
   width: 122px;
@@ -330,6 +390,14 @@ const UserImgSB = styled.div`
   border-radius: 62px;
   overflow: hidden;
   border: 1px solid #efecf0;
+  ${Media.md}{
+    width: 100px;
+    height: 100px;
+  }
+  ${Media.sm}{
+    width: 72px;
+    height: 72px;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -340,6 +408,12 @@ const UserDetailBX = styled(FlexDiv)`
   justify-content: flex-start;
   flex-direction: column;
   width: calc(100% - 142px);
+  ${Media.sm}{
+    justify-content: center;
+    display:block;
+    width:100%;
+    text-align:center;
+  }
 `;
 const UserDTitle01 = styled.div`
   font-size: 22px;
@@ -359,22 +433,44 @@ const UserDText01 = styled.div`
   font-size: 12px;
   font-weight: 500;
   color: #000000;
+  ${Media.xs}{
+    font-size: 10px;
+    line-height:14px;
+  }
 `;
 const UserDText02 = styled(UserDText01)`
   color: rgba(0, 0, 0, 0.3);
   width: 100%;
   margin-top: 30px;
-
   span {
     color: #000000;
     padding-left: 25px;
+    ${Media.sm}{
+      font-weight:normal;
+    }
+  }
+  ${Media.sm}{
+    font-size: 12px;
+  }
+  &.desktop-block
+  {
+    ${Media.sm} {
+      display:none;
+    }
+  }
+  &.mobile-block
+  {
+    display:none;
+    ${Media.sm} {
+      display:block;
+      margin:0 auto;
+    }
   }
 `;
 const UserSocilMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: flex-start;
   margin-top: 22px;
-
   button {
     display: block;
     width: 28px;
@@ -391,17 +487,67 @@ const UserSocilMBX = styled(FlexDiv)`
       object-fit: cover;
     }
   }
+  ${Media.sm}{
+    justify-content: center; 
+  }
 `;
 const ProSBX02 = styled(FlexDiv)`
   width: 50%;
   justify-content: flex-end;
   flex-direction: column;
   align-items: flex-end;
+  ${Media.lg}{
+    width: 60%;
+  }
+  ${Media.md}{
+    width: 56%;
+  }
+  ${Media.sm}{
+    width: 100%;
+  }
+  .cff-section
+  {
+    display:flex;
+    ${Media.sm}{
+      justify-content:center;
+      border:1px solid #dddddd;
+      border-radius:10px;
+      padding:15px;
+      max-width: 287px;
+      width:100%;
+      margin: 0 auto 20px;
+    }
+  }
 `;
 
 const ProSBX03 = styled(FlexDiv)`
   flex-direction: row;
   margin-bottom: auto;
+  ${Media.md}{
+    margin-top:15px;
+    width:-webkit-fill-available;
+    justify-content: flex-end;
+  }
+  ${Media.sm}{
+    display:block;
+    text-align:center;
+    margin-top:40px;
+  }
+  .mobile-block
+  {
+    display:none;
+    a{
+      display:block;
+      font-size:12px;
+      color:#000000;
+      line-height:20px;
+      margin:15px 0px 0px;
+      text-decoration:underline;
+    }
+    ${Media.sm}{
+      display:block;
+    }
+  }
 `;
 const FollowerMBX = styled(FlexDiv)`
   font-size: 16px;
@@ -415,6 +561,11 @@ const FollowerMBX = styled(FlexDiv)`
     color: #000;
     font-size: 22px;
     display: block;
+  }
+  ${Media.sm}{
+    font-size: 14px;
+    justify-content: center;
+    color:#8e9194;
   }
 `;
 const EditPrBTN = styled.div`
@@ -434,6 +585,14 @@ const EditPrBTN = styled.div`
     pointer-events: none;
     opacity:0.3;
   }
+  ${Media.md}{
+    margin:initial;
+  }
+  ${Media.sm}{
+    font-size:16px;
+    margin:40px auto 0px;
+    width:max-content;
+  }
 `;
 
 const ProSBX04 = styled(FlexDiv)`
@@ -446,7 +605,35 @@ const ProSBX04 = styled(FlexDiv)`
   font-size: 14px;
   color: #000;
   position: relative;
-
+  ${Media.md}{
+    padding: 6px 12px 6px 94px;
+  }
+  &.desktop-block
+  {
+    ${Media.sm} {
+      display:none;
+    }
+  }
+  &.mobile-block
+  {
+    display:none;
+    ${Media.sm} {
+      display:block;
+      width:max-content;
+      margin:0 auto 40px;
+    }
+  }
+  p{
+    margin:0px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  	width:142px;
+    ${Media.sm}{
+      width:125px;
+    }
+  }
   span {
     background-color: #f40058;
     position: absolute;
@@ -458,7 +645,6 @@ const ProSBX04 = styled(FlexDiv)`
     color: #fff;
     height: 38px;
   }
-
   button {
     padding: 0;
     margin: 0 0 0 8px;
@@ -528,6 +714,19 @@ const HomeTabs = styled.div`
   .react-tabs__tab-list {
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
+    ${Media.sm}{
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      flex-wrap:initial;
+    }
+  }
+  .react-tabs__tab-panel--selected
+  {
+    margin:0px 20px;
+    ${Media.sm}{
+      margin:0px;
+    }
   }
   .react-tabs__tab {
     bottom: 0px;
@@ -537,6 +736,15 @@ const HomeTabs = styled.div`
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.8px;
+    ${Media.sm}{
+      font-size: 16px;
+      margin:0px 30px 0px 0px;
+    }
+    :focus
+    {
+      box-shadow:none;
+      border:none;
+    }
   }
   .react-tabs__tab--selected {
     border: none;
@@ -592,7 +800,7 @@ const mapDipatchToProps = (dispatch) => {
     getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
     getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
     followToggler: (id) => dispatch(actions.followToggler(id)),
-    clearUserProfile: () => dispatch({ type: 'FETCHED_USER_PROFILE', data: null}),
+    clearUserProfile: () => dispatch({ type: 'FETCHED_USER_PROFILE', data: null }),
   };
 };
 const mapStateToProps = (state) => {
