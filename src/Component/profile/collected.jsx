@@ -207,6 +207,9 @@ const FilterMBX = styled(FlexDiv)`
   justify-content: space-between;
   max-width: 1080px;
   margin: 30px auto 0 auto;
+  ${Media.lg}{
+    max-width: 100%;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
