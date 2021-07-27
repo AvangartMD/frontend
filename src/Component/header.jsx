@@ -177,19 +177,19 @@ class Header extends Component {
                 >
                   <MobInner>
                     <div className="mobile-links">
-                      <NavLink to="/marketplace" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
+                      <NavLink to="/marketplace" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage
                           id="Marketplace"
                           defaultMessage="Marketplace"
                         />
                       </NavLink>
-                      <NavLink to="/collections" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
+                      <NavLink to="/collections" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage id="Collections" defaultMessage="Collections" />
                       </NavLink>
-                      <NavLink to="/creators" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
+                      <NavLink to="/creators" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage id="Creators" defaultMessage="Creators" />
                       </NavLink>
-                      <NavLink to="/how-to-use" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
+                      <NavLink to="/how-to-use" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage
                           id="How_to_use?"
                           defaultMessage="How to use?"
@@ -207,24 +207,24 @@ class Header extends Component {
                     >
                       <Moremenu>
                         <div className="more-parts">
-                          <NavLink to="blog-list" onClick={(e) => { this.toggle(12); this.toggle(11) }}>Avangart Blog</NavLink>
-                          <NavLink to="/faq" onClick={(e) => { this.toggle(12); this.toggle(11) }}>FAQ</NavLink>
-                          <NavLink to="" onClick={(e) => { this.toggle(12); this.toggle(11) }}>Support</NavLink>
+                          <NavLink to="blog-list" onClick={() => { this.toggle(12); this.toggle(11) }}>Avangart Blog</NavLink>
+                          <NavLink to="/faq" onClick={() => { this.toggle(12); this.toggle(11) }}>FAQ</NavLink>
+                          <NavLink to="" onClick={() => { this.toggle(12); this.toggle(11) }}>Support</NavLink>
                         </div>
                         <div className="more-parts">
-                          <NavLink to="/legal" onClick={(e) => { this.toggle(12); this.toggle(11) }}>
+                          <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
                               id="Term_of_service"
                               defaultMessage="Terms of Service"
                             />
                           </NavLink>
-                          <NavLink to="/legal" onClick={(e) => { this.toggle(12); this.toggle(11) }}>
+                          <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
                               id="Privacy_policy"
                               defaultMessage="Privacy Policy"
                             />
                           </NavLink>
-                          <NavLink to="/legal" onClick={(e) => { this.toggle(12); this.toggle(11) }}>
+                          <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
                               id="Cookie_policy"
                               defaultMessage="Cookie Policy"
