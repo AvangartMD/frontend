@@ -175,25 +175,21 @@ class Header extends Component {
                     "app__collapse " + (this.state.isOpen11 ? "collapse-active" : "")
                   }
                 >
-                  {/* <CloseBTN
-                    className="ani-1" onClick={() => this.toggle(11)}>
-                    <img src={CloseBTN01} alt="" />
-                  </CloseBTN> */}
                   <MobInner>
                     <div className="mobile-links">
-                      <NavLink to="/marketplace" exact activeClassName="active">
+                      <NavLink to="/marketplace" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
                         <FormattedMessage
                           id="Marketplace"
                           defaultMessage="Marketplace"
                         />
                       </NavLink>
-                      <NavLink to="/collections" exact activeClassName="active">
+                      <NavLink to="/collections" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
                         <FormattedMessage id="Collections" defaultMessage="Collections" />
                       </NavLink>
-                      <NavLink to="/creators" exact activeClassName="active">
+                      <NavLink to="/creators" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
                         <FormattedMessage id="Creators" defaultMessage="Creators" />
                       </NavLink>
-                      <NavLink to="/how-to-use" exact activeClassName="active">
+                      <NavLink to="/how-to-use" exact activeClassName="active" onClick={(e) => this.toggle(11)}>
                         <FormattedMessage
                           id="How_to_use?"
                           defaultMessage="How to use?"
@@ -211,24 +207,24 @@ class Header extends Component {
                     >
                       <Moremenu>
                         <div className="more-parts">
-                          <NavLink to="blog-list">Avangart Blog</NavLink>
-                          <NavLink to="/faq">FAQ</NavLink>
-                          <NavLink to="">Support</NavLink>
+                          <NavLink to="blog-list" onClick={(e) => { this.toggle(12); this.toggle(11) }}>Avangart Blog</NavLink>
+                          <NavLink to="/faq" onClick={(e) => { this.toggle(12); this.toggle(11) }}>FAQ</NavLink>
+                          <NavLink to="" onClick={(e) => { this.toggle(12); this.toggle(11) }}>Support</NavLink>
                         </div>
                         <div className="more-parts">
-                          <NavLink to="/legal">
+                          <NavLink to="/legal" onClick={(e) => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
                               id="Term_of_service"
                               defaultMessage="Terms of Service"
                             />
                           </NavLink>
-                          <NavLink to="/legal">
+                          <NavLink to="/legal" onClick={(e) => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
                               id="Privacy_policy"
                               defaultMessage="Privacy Policy"
                             />
                           </NavLink>
-                          <NavLink to="/legal">
+                          <NavLink to="/legal" onClick={(e) => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
                               id="Cookie_policy"
                               defaultMessage="Cookie Policy"
@@ -238,12 +234,28 @@ class Header extends Component {
                       </Moremenu>
                     </Collapse>
 
-                    <Language header={true} />
-                    <div className="mobile-login-btn">
-                      <AvBTN01 onClick={() => this.toggle(4)}>
-                        <FormattedMessage id="Login" defaultMessage="Login" />
-                      </AvBTN01>
-                    </div>
+                    {!web3Data.isLoggedIn ?
+                      <>
+                        <Language header={true} />
+                        <div className="mobile-login-btn">
+                          <AvBTN01 onClick={() => this.toggle(4)}>
+                            <FormattedMessage id="Login" defaultMessage="Login" />
+                          </AvBTN01>
+                        </div>
+                      </>
+                    : <>
+                        <Language header={true} />
+                        <div className="mobile-login-btn">
+                          {userDetails ? this.checkRole(userDetails) : ""}
+                          {/* <Link to="/user/nftminting">
+                            <AvBTN01>
+                              Create
+                            </AvBTN01>
+                          </Link> */}
+                        </div>
+                      </>
+                    }
+
                     <FooterrightLinks>
                       <Link to='/'>Instagram</Link>
                       <Link to='/'>Twitter</Link>
