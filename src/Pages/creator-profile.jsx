@@ -269,7 +269,7 @@ class CreatorProfile extends Component {
                         <TabList>
                           <Tab>Collected</Tab>
                           <Tab>Collections</Tab>
-                          <Tab>Linked</Tab>
+                          <Tab>Liked</Tab>
                         </TabList>
 
                         <TabPanel> <Collected /> </TabPanel>
