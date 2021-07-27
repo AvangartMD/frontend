@@ -8,7 +8,7 @@ import DDdownA from "../../Assets/images/dd-down-arrow.svg";
 import TxnStatus from "./txnStatus";
 import { getContractInstance } from "../../helper/functions";
 
-function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
+function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   const [isOpen2, setIsOpen2] = useState(false);
   const [price, setPrice] = useState("");
   const [txnStatus, setTxnStatus] = useState("");
@@ -29,6 +29,9 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data }) {
       })
       .on("receipt", (receipt) => {
         setTxnStatus("complete");
+				setTimeout(() => { // refresh the state 
+          nftDetails();
+        }, 10000);
       })
       .on("error", (error) => {
         setTxnStatus("error");

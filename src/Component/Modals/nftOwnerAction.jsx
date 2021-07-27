@@ -21,6 +21,7 @@ function NftOwnerActions(props) {
     changeOwnerActionName,
     orderNonce,
     checkUserApproval,
+    nftDetails,
   } = props;
   const succesMsg = {
     burnTokenEdition: 'Burn Succesfull',
@@ -72,6 +73,11 @@ function NftOwnerActions(props) {
           checkUserApproval(web3Data);
         }
         setNFTStatus('complete');
+
+        setTimeout(() => { // refresh the state 
+          if (ownerActionName === 'setApprovalForAll') checkUserApproval(web3Data);
+          else nftDetails();
+        }, 10000);
       })
       .on('error', (error) => {
         setNFTStatus('error');
