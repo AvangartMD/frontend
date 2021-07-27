@@ -159,6 +159,13 @@ class Profile extends Component {
     )
   }
 
+  disconnect = () => {
+    const { web3Data } = this.props;
+    localStorage.clear();
+    this.props.authLogout();
+    this.props.web3Logout(web3Data.accounts);
+  }
+
   render() {
     const { profile, profileInfo } = this.props;
     const { loading, profile_banner } = this.state;
@@ -383,7 +390,7 @@ class Profile extends Component {
                 <EditPrBTN onClick={() => this.props.history.push("/user/edit-profile")}>
                   Edit Profile
                 </EditPrBTN>
-                <div className="mobile-block"><Link to="/">Disconnect</Link></div>
+                <div className="mobile-block" onClick={() => this.disconnect()}><Link to="/">Disconnect</Link></div>
               </ProSBX03>
 
               <ProSBX04 className="desktop-block">
@@ -1078,11 +1085,18 @@ const mapDipatchToProps = (dispatch) => {
     getDashboard: () => dispatch(actions.fetchDashboardConfig()),
     setDashboard: (data) => dispatch({ type: 'FETCHED_DASHBOARD', data: data }),
     getProfileInfo: () => dispatch(actions.getProfileInfo()),
-    setProfileInfo: (data) => dispatch({ type: 'FETCHED_PROFILE_INFO', data: data })
+    setProfileInfo: (data) => dispatch({ type: 'FETCHED_PROFILE_INFO', data: data }),
+    authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
+    web3Logout: (accounts) =>
+      dispatch({
+        type: "FETCH_WEB3_DATA",
+        data: { isLoggedIn: false, accounts: accounts },
+      }),
   };
 };
 const mapStateToProps = (state) => {
   return {
+    web3Data: state.fetchWeb3Data,
     profile: state.fetchProfile,
     updated: state.updateProfile,
     dashboard: state.fetchDashboard,

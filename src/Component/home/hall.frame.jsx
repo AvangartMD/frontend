@@ -2,6 +2,7 @@ import 'react-multi-carousel/lib/styles.css';
 import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
+import { HashLink as Link } from "react-router-hash-link";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
@@ -56,20 +57,23 @@ class HallOfFrame extends Component {
                   <HomeTabDetail>
                     {!artists ? 
                       <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
-                    : artists.map((artist, key) => {
-                    return <Gs.W20 key={key}>
-                        <Gs.TenpxGutter>
-                            <HallofFameBox>
-                                <div className='HOF-inner'>
-                                <img src={artist.profile} alt='' />
-                                <p className='user-name'>@{artist.username}</p>
-                                <p className='small'>Total Sale</p>
-                                <p className='price'>{artist.totalSale} BNB</p>
-                                </div>
-                            </HallofFameBox>
-                        </Gs.TenpxGutter>
-                    </Gs.W20>
-                    }) }
+                    : artists.length > 1 ? artists.map((artist, key) => {
+                        return <Gs.W20 key={key}>
+                          <Link to={`/creator/${artist._id}`}>
+                            <Gs.TenpxGutter>
+                                <HallofFameBox>
+                                    <div className='HOF-inner'>
+                                    <img src={artist.profile} alt='' />
+                                    <p className='user-name'>@{artist.username}</p>
+                                    <p className='small'>Total Sale</p>
+                                    <p className='price'>{artist.totalSale} BNB</p>
+                                    </div>
+                                </HallofFameBox>
+                            </Gs.TenpxGutter>
+                          </Link>
+                        </Gs.W20>})
+                      : (`No Artist found`)
+                    }
                   </HomeTabDetail>
                 </TabPanel>
 
@@ -77,24 +81,27 @@ class HallOfFrame extends Component {
                   <HomeTabDetail>
                   {!artworks ? 
                     <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
-                  : artworks.map((artwork, key) => {
-                    return <Gs.W20 key={key}>
-                        <Gs.TenpxGutter>
-                            <HallofFameBox2>
-                            <div className='HOF-inner'>
-                                <div className="img-outer">
-                                <img src={artwork.image?.compressed} alt='' />
-                                </div>
-                                <p className='title'>
-                                {artwork.username}
-                                </p>
-                                <p className='small'>Sold for</p>
-                                <p className='price'>{artwork.totalSale} BNB</p>
-                            </div>
-                            </HallofFameBox2>
-                        </Gs.TenpxGutter>
-                    </Gs.W20>
-                  }) }
+                  : artworks.length > 1 ?  artworks.map((artwork, key) => {
+                      return <Gs.W20 key={key}>
+                        <Link to={`/nftDetails/${artwork._id}`}>
+                          <Gs.TenpxGutter>
+                              <HallofFameBox2>
+                              <div className='HOF-inner'>
+                                  <div className="img-outer">
+                                  <img src={artwork.image?.compressed} alt='' />
+                                  </div>
+                                  <p className='title'>
+                                  {artwork.username}
+                                  </p>
+                                  <p className='small'>Sold for</p>
+                                  <p className='price'>{artwork.totalSale} BNB</p>
+                              </div>
+                              </HallofFameBox2>
+                          </Gs.TenpxGutter>
+                        </Link>
+                      </Gs.W20>})
+                    : (`No Artwork found`)
+                  }
                   </HomeTabDetail>
                 </TabPanel>
 
@@ -102,20 +109,23 @@ class HallOfFrame extends Component {
                   <HomeTabDetail>
                   {!collectors ? 
                     <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
-                  : collectors.map((collector, key) => {
+                  : collectors.length > 1 ? collectors.map((collector, key) => {
                     return <Gs.W20 key={key}>
-                        <Gs.TenpxGutter>
-                            <HallofFameBox>
-                                <div className='HOF-inner'>
-                                    <img src={collector.profile} alt='' />
-                                    <p className='user-name'>@{collector.username}</p>
-                                    <p className='small'>Total Sale</p>
-                                    <p className='price'>{collector.totalSale} BNB</p>
-                                </div>
-                            </HallofFameBox>
-                        </Gs.TenpxGutter>
-                    </Gs.W20>
-                  }) }
+                        <Link to={`/creator/${collector._id}`}>
+                          <Gs.TenpxGutter>
+                              <HallofFameBox>
+                                  <div className='HOF-inner'>
+                                      <img src={collector.profile} alt='' />
+                                      <p className='user-name'>@{collector.username}</p>
+                                      <p className='small'>Total Sale</p>
+                                      <p className='price'>{collector.totalSale} BNB</p>
+                                  </div>
+                              </HallofFameBox>
+                          </Gs.TenpxGutter>
+                        </Link>
+                    </Gs.W20>})
+                    : (`No Collector found`)
+                  }
                   </HomeTabDetail>
                 </TabPanel>
 

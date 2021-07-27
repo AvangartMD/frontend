@@ -177,6 +177,11 @@ class Header extends Component {
                 >
                   <MobInner>
                     <div className="mobile-links">
+                      {web3Data.isLoggedIn ?
+                        <NavLink to="/user/profile" exact activeClassName="active" onClick={() => this.toggle(11)}>
+                          <FormattedMessage id="Profile" defaultMessage="Profile" />
+                        </NavLink>
+                        : ``}
                       <NavLink to="/marketplace" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage
                           id="Marketplace"
