@@ -248,7 +248,7 @@ class Header extends Component {
                           </AvBTN01>
                         </div>
                       </>
-                    : <>
+                      : <>
                         <Language header={true} />
                         <div className="mobile-login-btn">
                           {userDetails ? this.checkRole(userDetails) : ""}
@@ -260,7 +260,7 @@ class Header extends Component {
                         </div>
                       </>
                     }
-
+                    <Mobiledisconnect><Link to="/">Disconnect</Link></Mobiledisconnect>
                     <FooterrightLinks>
                       <Link to='/'>Instagram</Link>
                       <Link to='/'>Twitter</Link>
@@ -792,12 +792,17 @@ const MobInner = styled.div`
     button
     {
       padding: 12px 75px 15px;
+      font-size:18px;
+      text-transform:capitalize;
+    }
+    a{
+      :after{display:none !important;}
     }
   }
 `;
 
 const FooterrightLinks = styled(FlexDiv)`
-  margin:50px 0px 30px;
+  margin:30px 0px 40px;
   a{
     font-size:14px !important;
     letter-spacing:-0.6px !important;
@@ -805,6 +810,20 @@ const FooterrightLinks = styled(FlexDiv)`
     :last-child
     {
       margin-right:0px;
+    }
+  }
+`;
+
+const Mobiledisconnect = styled(FlexDiv)`
+  margin:15px 0px 0px;
+  a{
+    font-size:14px !important;
+    letter-spacing:-0.6px !important;
+    font-weight:500 !important;
+    text-decoration:underline;
+    :after
+    {
+      display:none !important;
     }
   }
 `;
