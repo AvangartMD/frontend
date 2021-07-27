@@ -55,77 +55,80 @@ class HallOfFrame extends Component {
 
                 <TabPanel>
                   <HomeTabDetail>
-                    {!artists ? 
-                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
-                    : artists.length > 1 ? artists.map((artist, key) => {
+                    {!artists ?
+                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>
+                      : artists.length > 1 ? artists.map((artist, key) => {
                         return <Gs.W20 key={key}>
                           <Link to={`/creator/${artist._id}`}>
                             <Gs.TenpxGutter>
-                                <HallofFameBox>
-                                    <div className='HOF-inner'>
-                                    <img src={artist.profile} alt='' />
-                                    <p className='user-name'>@{artist.username}</p>
-                                    <p className='small'>Total Sale</p>
-                                    <p className='price'>{artist.totalSale} BNB</p>
-                                    </div>
-                                </HallofFameBox>
+                              <HallofFameBox>
+                                <div className='HOF-inner'>
+                                  <img src={artist.profile} alt='' />
+                                  <p className='user-name'>@{artist.username}</p>
+                                  <p className='small'>Total Sale</p>
+                                  <p className='price'>{artist.totalSale} BNB</p>
+                                </div>
+                              </HallofFameBox>
                             </Gs.TenpxGutter>
                           </Link>
-                        </Gs.W20>})
-                      : (`No Artist found`)
+                        </Gs.W20>
+                      })
+                        : (<p className="no-found-data">No Artist found</p>)
                     }
                   </HomeTabDetail>
                 </TabPanel>
 
                 <TabPanel>
                   <HomeTabDetail>
-                  {!artworks ? 
-                    <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
-                  : artworks.length > 1 ?  artworks.map((artwork, key) => {
-                      return <Gs.W20 key={key}>
-                        <Link to={`/nftDetails/${artwork._id}`}>
-                          <Gs.TenpxGutter>
+                    {!artworks ?
+                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>
+                      : artworks.length > 1 ? artworks.map((artwork, key) => {
+                        return <Gs.W20 key={key}>
+                          <Link to={`/nftDetails/${artwork._id}`}>
+                            <Gs.TenpxGutter>
                               <HallofFameBox2>
-                              <div className='HOF-inner'>
+                                <div className='HOF-inner'>
                                   <div className="img-outer">
-                                  <img src={artwork.image?.compressed} alt='' />
+                                    <img src={artwork.image?.compressed} alt='' />
                                   </div>
                                   <p className='title'>
-                                  {artwork.username}
+                                    {artwork.username}
                                   </p>
                                   <p className='small'>Sold for</p>
                                   <p className='price'>{artwork.totalSale} BNB</p>
-                              </div>
+                                </div>
                               </HallofFameBox2>
-                          </Gs.TenpxGutter>
-                        </Link>
-                      </Gs.W20>})
-                    : (`No Artwork found`)
-                  }
+                            </Gs.TenpxGutter>
+                          </Link>
+                        </Gs.W20>
+                      })
+                        : (<p className="no-found-data">No Artwork found</p>)
+                    }
                   </HomeTabDetail>
                 </TabPanel>
 
                 <TabPanel>
                   <HomeTabDetail>
-                  {!collectors ? 
-                    <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX> 
-                  : collectors.length > 1 ? collectors.map((collector, key) => {
-                    return <Gs.W20 key={key}>
-                        <Link to={`/creator/${collector._id}`}>
-                          <Gs.TenpxGutter>
+                    {!collectors ?
+                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>
+                      : collectors.length > 1 ? collectors.map((collector, key) => {
+                        return <Gs.W20 key={key}>
+                          <Link to={`/creator/${collector._id}`}>
+                            <Gs.TenpxGutter>
                               <HallofFameBox>
-                                  <div className='HOF-inner'>
-                                      <img src={collector.profile} alt='' />
-                                      <p className='user-name'>@{collector.username}</p>
-                                      <p className='small'>Total Sale</p>
-                                      <p className='price'>{collector.totalSale} BNB</p>
-                                  </div>
+                                <div className='HOF-inner'>
+                                  <img src={collector.profile} alt='' />
+                                  <p className='user-name'>@{collector.username}</p>
+                                  <p className='small'>Total Sale</p>
+                                  <p className='price'>{collector.totalSale} BNB</p>
+                                </div>
                               </HallofFameBox>
-                          </Gs.TenpxGutter>
-                        </Link>
-                    </Gs.W20>})
-                    : (`No Collector found`)
-                  }
+                            </Gs.TenpxGutter>
+                          </Link>
+                        </Gs.W20>
+                      })
+                        : (<p className="no-found-data">No Collector found</p>)
+                    }
                   </HomeTabDetail>
                 </TabPanel>
 
@@ -195,6 +198,12 @@ const HomeTabs = styled.div`
 const HomeTabDetail = styled(FlexDiv)`
   margin: 0px -10px;
   justify-content: flex-start;
+  p.no-found-data
+  {
+    margin:0px;
+    width:100%;
+    text-align:center;
+  }
 `;
 
 const HallofFameBox = styled(FlexDiv)`
