@@ -252,15 +252,10 @@ class Header extends Component {
                         <Language header={true} />
                         <div className="mobile-login-btn">
                           {userDetails ? this.checkRole(userDetails) : ""}
-                          {/* <Link to="/user/nftminting">
-                            <AvBTN01>
-                              Create
-                            </AvBTN01>
-                          </Link> */}
                         </div>
+                        <Mobiledisconnect onClick={() => { this.disconnect(); this.toggle(11); }}>Disconnect</Mobiledisconnect>
                       </>
                     }
-                    <Mobiledisconnect><Link to="/">Disconnect</Link></Mobiledisconnect>
                     <FooterrightLinks>
                       <Link to='/'>Instagram</Link>
                       <Link to='/'>Twitter</Link>
@@ -387,6 +382,7 @@ class Header extends Component {
                             <img src={RightArrow} alt="" />
                           </span> */}
                         </button>
+                        
                       </DDBtnbar02>
                     </DDContainer>
                   </Collapse>
@@ -816,15 +812,13 @@ const FooterrightLinks = styled(FlexDiv)`
 
 const Mobiledisconnect = styled(FlexDiv)`
   margin:15px 0px 0px;
-  a{
-    font-size:14px !important;
-    letter-spacing:-0.6px !important;
-    font-weight:500 !important;
-    text-decoration:underline;
-    :after
-    {
-      display:none !important;
-    }
+  font-size:14px !important;
+  letter-spacing:-0.6px !important;
+  font-weight:500 !important;
+  text-decoration:underline;
+  :after
+  {
+    display:none !important;
   }
 `;
 
