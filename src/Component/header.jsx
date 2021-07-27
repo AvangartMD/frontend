@@ -147,25 +147,28 @@ class Header extends Component {
 
             <HeadSbx01>
               <MobileMenu>
-                <NotificationBX onClick={() => this.toggle(3)}>
-                  <button className="">
-                    <img src={NotifiIcon} alt="" />
-                    <span className="RedDot"></span>
-                  </button>
+                {web3Data.isLoggedIn ?
+                  <NotificationBX onClick={() => this.toggle(3)}>
+                    <button className="">
+                      <img src={NotifiIcon} alt="" />
+                      <span className="RedDot"></span>
+                    </button>
 
-                  <Collapse
-                    isOpen={this.state.isOpen3}
-                    className={
-                      "app__collapse collapse-css-transition  " +
-                      (this.state.isOpen3 ? "collapse-active" : "")
-                    }
-                  >
-                    <DDContainer className="ver3">
-                      <Notifications />
-                    </DDContainer>
+                    <Collapse
+                      isOpen={this.state.isOpen3}
+                      className={
+                        "app__collapse collapse-css-transition  " +
+                        (this.state.isOpen3 ? "collapse-active" : "")
+                      }
+                    >
+                      <DDContainer className="ver3">
+                        <Notifications />
+                      </DDContainer>
 
-                  </Collapse>
-                </NotificationBX>
+                    </Collapse>
+                  </NotificationBX>
+                : ``}
+                
                 <Bars onClick={() => this.toggle(11)} className={(this.state.isOpen11 ? "menu-active" : "")} />
               </MobileMenu>
               <MobileSidebar>
