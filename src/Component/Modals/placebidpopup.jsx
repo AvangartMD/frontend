@@ -23,6 +23,8 @@ function PABpopup(props) {
     toggle,
     method,
     currentEdition,
+    fetchNFTDetails,
+    nftDetails,
   } = props;
   const escrowContractInstance = getContractInstance(true);
   const [txnStatus, setTxnStatus] = useState("");
@@ -60,7 +62,6 @@ function PABpopup(props) {
   }, [web3Data.accounts, bnbUSDPrice]);
 
   const placeBid = async () => {
-    // console.log("the val", bnbVal);
     const val = method === "buyNow" ? price.toString() : bnbVal;
     const sendObj = { from: web3Data.accounts[0] };
     if (method !== "claimAfterAuction") {
@@ -77,6 +78,10 @@ function PABpopup(props) {
         })
         .on("receipt", (receipt) => {
           setTxnStatus("complete");
+          setTimeout(() => { // refresh the state 
+            if (method === 'placeBid') fetchNFTDetails(+currentEdition);
+            else nftDetails();
+          }, 10000);
         })
         .on("error", (error) => {
           setTxnStatus("complete");

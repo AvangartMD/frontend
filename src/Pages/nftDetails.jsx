@@ -387,6 +387,11 @@ class NftDetail extends React.Component {
       this.toggle(4); // open login pop up
     }
   };
+
+  getNFTDetails = () => {
+    this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the updated nft details
+  }
+
   render() {
     let id = this.props.match.params.id;
     const {
@@ -601,6 +606,7 @@ class NftDetail extends React.Component {
               changeOwnerActionName={this.changeOwnerActionName}
               orderNonce={selectedNFTDetails?.orderNonce}
               checkUserApproval={this.checkUserApproval}
+              nftDetails={this.getNFTDetails}
             />
           </Collapse>
           <Collapse
@@ -625,6 +631,7 @@ class NftDetail extends React.Component {
               tokenId={NFTDetails?.tokenId}
               editionNumber={this.state.currentEdition}
               web3Data={this.props.web3Data}
+              nftDetails={this.getNFTDetails}
             />
           </Collapse>
           <Collapse
@@ -640,6 +647,8 @@ class NftDetail extends React.Component {
               price={selectedNFTDetails?.price}
               currentBidValue={bidDetails.currentBidValue}
               currentEdition={this.state.currentEdition}
+              fetchNFTDetails={this.fetchNFTDetails}
+              nftDetails={this.getNFTDetails}
             />
           </Collapse>
           <Collapse
