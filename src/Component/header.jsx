@@ -792,6 +792,11 @@ const MobInner = styled.div`
     button
     {
       padding: 12px 75px 15px;
+      font-size:18px;
+      text-transform:capitalize;
+    }
+    a{
+      :after{display:none !important;}
     }
   }
 `;
