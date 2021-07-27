@@ -382,7 +382,7 @@ class Header extends Component {
                             <img src={RightArrow} alt="" />
                           </span> */}
                         </button>
-                        
+
                       </DDBtnbar02>
                     </DDContainer>
                   </Collapse>
@@ -551,13 +551,13 @@ const NotificationBX = styled(FlexDiv)`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #eef2f7;
-    background-color:#ffffff;
     border-radius: 15px;
     &.active,:hover {
       border: 1px solid #d6dde5;
       -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
+      border: 1px solid #eef2f7;
+      background-color:#ffffff;
       span.RedDot {display:block;}
     }
     span.RedDot {
@@ -585,7 +585,7 @@ const AccountBX = styled(FlexDiv)`
   z-index: 101;
   cursor: pointer;
   ${Media.lg}{
-    padding: 8px 0px 8px 10px;
+    padding: 8px 10px;
   }
   &:hover {
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
@@ -645,6 +645,17 @@ const DDContainer = styled(FlexDiv)`
     transform: translateX(-50%);
     top: calc(100% + 34px);
     padding: 0;
+    ${Media.md} {
+      transform:none;
+      left:auto;
+      right:-49px;
+      width:100vw;
+      top: calc(100% + 21px);
+      box-shadow:none;
+      border-radius:0px;
+      padding:30px 25px;
+      justify-content:flex-start;
+    }
   }
 `;
 const DDBtnbar01 = styled(FlexDiv)`
