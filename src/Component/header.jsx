@@ -82,6 +82,15 @@ class Header extends Component {
         }
       });
     }
+    window.ethereum.on("accountsChanged", accounts => { // metamask user address changed
+      if (!web3Data.accounts[0]) {
+        this.props.clearNonce()
+        this.props.authLogout()
+        this.props.web3Logout(accounts)
+        this.props.history.push("/")
+        this.setState({ isOpen4: true })
+      }
+    });
   }
   async fetchTokenBalance(web3Data) {
     const accountBalance = Number(
@@ -182,7 +191,7 @@ class Header extends Component {
                     <div className="mobile-links">
                       {web3Data.isLoggedIn ?
                         <NavLink to="/user/profile" exact activeClassName="active" onClick={() => this.toggle(11)}>
-                          <FormattedMessage id="Profile" defaultMessage="Profile" />
+                          Profile
                         </NavLink>
                         : ``}
                       <NavLink to="/marketplace" exact activeClassName="active" onClick={() => this.toggle(11)}>
@@ -204,7 +213,7 @@ class Header extends Component {
                         />
                       </NavLink>
                       <NavLink to="/" exact activeClassName="active" onClick={() => this.toggle(12)}>
-                        <FormattedMessage id="More" defaultMessage="More" />
+                        More
                       </NavLink>
                     </div>
                     <Collapse
@@ -865,6 +874,7 @@ const mapDipatchToProps = (dispatch) => {
     getWeb3: () => dispatch(actions.getWeb3()),
     enableMetamask: () => dispatch(actions.enableMetamask()),
     generateNonce: (address) => dispatch(actions.generateNonce(address)),
+    clearNonce: () => dispatch({ type: "GENERATE_NONCE", data: null }),
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),

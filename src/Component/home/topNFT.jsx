@@ -135,9 +135,10 @@ class TopNFT extends Component {
                   </NFTfirstbox>
 
                   <NFTfourbox className='homepage'>
-                    {(nfts.slice(1)).map((nft) => {
+                    {(nfts.slice(1)).map((nft, key) => {
                       return (
                         <NFTCard
+                          key={key}
                           nftSold={nft.nftSold}
                           name={nft.nftId.ownerId.name}
                           nftId={nft.nftId.id}
