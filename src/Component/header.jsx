@@ -82,15 +82,17 @@ class Header extends Component {
         }
       });
     }
-    window.ethereum.on("accountsChanged", accounts => { // metamask user address changed
-      if (!web3Data.accounts[0]) {
-        this.props.clearNonce()
-        this.props.authLogout()
-        this.props.web3Logout(accounts)
-        this.props.history.push("/")
-        this.setState({ isOpen4: true })
-      }
-    });
+    if (window.web3) {
+      window.ethereum.on("accountsChanged", accounts => { // metamask user address changed
+        if (!web3Data.accounts[0]) {
+          this.props.clearNonce()
+          this.props.authLogout()
+          this.props.web3Logout(accounts)
+          this.props.history.push("/")
+          this.setState({ isOpen4: true })
+        }
+      });
+    }
   }
   async fetchTokenBalance(web3Data) {
     const accountBalance = Number(
