@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { HashLink as Link } from "react-router-hash-link";
 import styled from 'styled-components';
 import { motion } from "framer-motion";
 
@@ -68,7 +69,7 @@ class Info extends Component {
     }
     return (
       <AdBanner2 key={index}>
-        <a target='_blank' rel="noopener noreferrer" href={info.url}>
+        <Link to={info.url}>
           <motion.img
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
@@ -79,8 +80,8 @@ class Info extends Component {
             className="desk-img"
           />
           <img src={MobileAd} className="mobile-img" alt="" />
-        </a>
-        <button className="ani-1" onClick={() => { window.open(info.button_url, "_blank") }}>{info.button_text}</button>
+        </Link>
+        <button className="ani-1" onClick={() => { window.open(info.button_url) }}>{info.button_text}</button>
       </AdBanner2>
     )
   }
