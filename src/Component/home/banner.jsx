@@ -5,6 +5,7 @@ import Carousel from 'react-multi-carousel';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { HashLink as Link } from "react-router-hash-link";
 import styled from 'styled-components';
 import { motion } from "framer-motion";
 import Media from "../../Theme/media-breackpoint";
@@ -95,7 +96,7 @@ class BannerTab extends Component {
     }
     return (
       <div className='item' key={index}>
-        <a target='_blank' rel="noopener noreferrer" href={banner.url}>
+        <Link to={banner.url}>
           <motion.img
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
@@ -104,7 +105,7 @@ class BannerTab extends Component {
             src={img}
             exit={{ opacity: 0 }}
           />
-        </a>
+        </Link>
       </div >
     )
   }
