@@ -81,7 +81,9 @@ class Info extends Component {
           />
           <img src={MobileAd} className="mobile-img" alt="" />
         </Link>
-        <button className="ani-1" onClick={() => { window.open(info.button_url) }}>{info.button_text}</button>
+        <Link to={info.button_url}>
+          <button className="ani-1">{info.button_text}</button>
+        </Link>
       </AdBanner2>
     )
   }

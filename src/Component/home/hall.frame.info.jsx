@@ -78,7 +78,9 @@ class HallOfFrameInfo extends Component {
             exit={{ opacity: 0 }}
           />
         </Link>
-        <button onClick={() => {window.open(info.button_url)}}>{info.button_text}</button>
+        <Link to={info.button_url}>
+          <button className="ani-1">{info.button_text}</button>
+        </Link>
       </AdBanner>
     )
   }
