@@ -123,7 +123,7 @@ class NftDetail extends React.Component {
     const { NFTDetails, isLiked, web3Data } = this.props;
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
-        this.getEditionNumber(NFTDetails);
+        this.getEditionNumber(NFTDetails, this.state.currentEdition);
     }
     if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
@@ -167,6 +167,7 @@ class NftDetail extends React.Component {
     saleState,
     price
   ) => {
+    console.log("thi is called");
     const { NFTDetails, web3Data } = this.props;
     const isAuction = secondHand
       ? false
@@ -244,9 +245,11 @@ class NftDetail extends React.Component {
         }
       }
     }
+    console.log("thi is called 2");
   };
 
-  getEditionNumber = (NFTDetails) => {
+  getEditionNumber = (NFTDetails, currentEdition) => {
+    if (currentEdition) return this.fetchNFTDetails(currentEdition);
     const { editions, price, edition } = NFTDetails;
     var lowest = Number.POSITIVE_INFINITY;
     let index = 0;
@@ -390,7 +393,7 @@ class NftDetail extends React.Component {
 
   getNFTDetails = () => {
     this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the updated nft details
-  }
+  };
 
   render() {
     let id = this.props.match.params.id;
@@ -404,6 +407,7 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       isApprovedForAll,
     } = this.state;
+    console.log("New sale method", saleMethod);
     const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
     return (
       <>
