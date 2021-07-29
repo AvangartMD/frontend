@@ -7,7 +7,8 @@ import Collapse from "@kunukn/react-collapse";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import WalletICO01 from "../../Assets/images/walletICO-01.png";
-import WalletICO02 from "../../Assets/images/walletICO-02.png";
+// import WalletICO02 from "../../Assets/images/walletICO-02.png";
+import WalletICO02 from "../../Assets/images/wallet-connect.svg";
 
 import LoaderGif from "../../Assets/images/loading.gif";
 import { useEffect } from "react";
@@ -128,7 +129,7 @@ function Login(props) {
                     <i>
                       <img src={WalletICO02} alt="" />
                     </i>
-                    TrustWallet
+                    WalletConnect
                   </button>
                 </OnBTNBar>
               </>
