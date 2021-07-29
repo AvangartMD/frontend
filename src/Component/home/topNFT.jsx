@@ -95,9 +95,14 @@ class TopNFT extends Component {
                 <h3>{nft.nftId.price} BNB</h3>
               </div>
               <div className='ed-box'>
-                <p>Ending in</p>
-                <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
-              </div>
+                {nft.nftId.auctionEndDate && nft.nftId.auctionEndDate > new Date().getTime() / 1000 ?
+                  <>
+                    <p>Ending in</p>
+                    <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
+                  </>
+                : nft.nftSold === nft.nftId.edition ?
+                    <button className="disabled" disabled>Sold Out</button> : <button>Buy now</button>}
+                </div>
             </Edition>
             <UserImgName>
               <img src={nft.nftId.ownerId.profile ? nft.nftId.ownerId.profile : UserImg} alt="" />
@@ -130,9 +135,10 @@ class TopNFT extends Component {
                   </NFTfirstbox>
 
                   <NFTfourbox className='homepage'>
-                    {(nfts.slice(1)).map((nft) => {
+                    {(nfts.slice(1)).map((nft, key) => {
                       return (
                         <NFTCard
+                          key={key}
                           nftSold={nft.nftSold}
                           name={nft.nftId.ownerId.name}
                           nftId={nft.nftId.id}
@@ -336,6 +342,21 @@ const Edition = styled(FlexDiv)`
         font-size: 10px;
         font-weight: 300;
         letter-spacing: -0.44px;
+      }
+    }
+    button {
+      font-size: 10px;
+      color: #000;
+      letter-spacing: -0.36px;
+      font-weight: 600;
+      line-height: normal;
+      padding: 10px 17px;
+      border-radius: 13px;
+      border: 1px solid #000000;
+      :hover {
+        background-color: #d121d6;
+        color: #fff;
+        border-color: #d121d6;
       }
     }
   }

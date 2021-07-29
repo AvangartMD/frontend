@@ -144,9 +144,7 @@ class Profile extends Component {
       img = profile.banner.en
     }
     return (
-      <a target='_blank' rel="noopener noreferrer"
-        href={profile.url}
-        key={index}>
+      <Link to={profile.url} key={index}>
         <motion.img
           initial={{ opacity: 0.2 }}
           animate={{ opacity: 1 }}
@@ -155,7 +153,7 @@ class Profile extends Component {
           src={img}
           exit={{ opacity: 0 }}
         />
-      </a>
+      </Link>
     )
   }
 

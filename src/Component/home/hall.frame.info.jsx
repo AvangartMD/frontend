@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
 import styled from 'styled-components';
 
@@ -67,7 +68,7 @@ class HallOfFrameInfo extends Component {
     }
     return (
       <AdBanner key={index}>
-        <a target='_blank' rel="noopener noreferrer" href={info.url}>
+        <Link to={info.url}>
           <motion.img
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
@@ -76,8 +77,10 @@ class HallOfFrameInfo extends Component {
             src={img}
             exit={{ opacity: 0 }}
           />
-        </a>
-        <button onClick={() => {window.open(info.button_url, "_blank")}}>{info.button_text}</button>
+        </Link>
+        <Link to={info.button_url}>
+          <button className="ani-1">{info.button_text}</button>
+        </Link>
       </AdBanner>
     )
   }
