@@ -414,6 +414,7 @@ const HeadMBX = styled(FlexDiv)`
   min-height: 100px;
   position: absolute;
   z-index: 100;
+  box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
   ${Media.md}{
     min-height: 80px;
   }

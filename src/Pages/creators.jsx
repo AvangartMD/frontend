@@ -121,36 +121,36 @@ class Creators extends Component {
 
                     {creators ?
                         creators.length === 0 ?
-                        <NoDataFound>
-                            No NFT Found
-                        </NoDataFound>
-                        :
-                        <InfiniteScroll className="IScroll"
-                            dataLength={pagination.totalRecords}
-                            next={this.fetchMore}
-                            hasMore={page < pagination.totalPages}
-                            loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
-                        // endMessage={<p>You have seen it all.!</p>}
-                        >
+                            <NoDataFound>
+                                No NFT Found
+                            </NoDataFound>
+                            :
+                            <InfiniteScroll className="IScroll"
+                                dataLength={pagination.totalRecords}
+                                next={this.fetchMore}
+                                hasMore={page < pagination.totalPages}
+                                loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
+                            // endMessage={<p>You have seen it all.!</p>}
+                            >
 
-                            <CreatorMBX>
-                                {creators.map((creator, key) => {
-                                    return <CreatorCard
-                                        key={key}
-                                        id={creator.id}
-                                        cover={creator.cover}
-                                        profile={creator.profile}
-                                        name={creator.name}
-                                        username={creator.username}
-                                        bio={creator.bio}
-                                        nftCreated={creator.nftCreated}
-                                        followersCount={creator.followersCount}
-                                        followingCount={creator.followingCount}
-                                    />
-                                })}
-                            </CreatorMBX>
+                                <CreatorMBX>
+                                    {creators.map((creator, key) => {
+                                        return <CreatorCard
+                                            key={key}
+                                            id={creator.id}
+                                            cover={creator.cover}
+                                            profile={creator.profile}
+                                            name={creator.name}
+                                            username={creator.username}
+                                            bio={creator.bio}
+                                            nftCreated={creator.nftCreated}
+                                            followersCount={creator.followersCount}
+                                            followingCount={creator.followingCount}
+                                        />
+                                    })}
+                                </CreatorMBX>
 
-                        </InfiniteScroll>
+                            </InfiniteScroll>
                         : <LoaderBX>
                             <img src={LoaderGif} alt="" />
                         </LoaderBX>}
@@ -171,7 +171,7 @@ const LoaderBX = styled(FlexDiv)`
   width:100%;  margin:50px auto;  
 `
 const FilterMBX = styled(FlexDiv)`
-  width:100%; justify-content:space-between; max-width:1080px; margin:30px auto 0 auto;
+  width:100%; justify-content:space-between; max-width:1080px; margin:60px auto 0 auto;
   ${Media.lg}{
     max-width:100%;
   }
