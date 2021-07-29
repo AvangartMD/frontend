@@ -32,7 +32,7 @@ function getWeb3(val) {
     return (dispatch) => {
       const response = services.getWeb3();
       response.then((promise) => {
-        if (promise.accounts[0]) {
+        if (promise?.accounts[0]) {
           dispatch(setDispatchData(promise, "FETCH_WEB3_DATA"));
         } else {
           // console.log('errorrrr in actions');
@@ -41,6 +41,18 @@ function getWeb3(val) {
     };
 }
 
+function enabledWalletConnect() {
+  return (dispatch) => {
+    const response = services.enabledWalletConnect();
+    response.then((promise) => {
+      if (promise) {
+        dispatch(setDispatchData(promise, "FETCH_WEB3_DATA"));
+      } else {
+        // console.log('error in actions');
+      }
+    });
+  };
+}
 function enableMetamask() {
   return (dispatch) => {
     const response = services.enableMetamask();
@@ -137,4 +149,5 @@ export const web3Actions = {
   enableMetamask,
   getUserBalances,
   getNFTContractInstance,
+  enabledWalletConnect,
 };

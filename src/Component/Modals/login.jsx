@@ -28,6 +28,7 @@ function Login(props) {
     toggle,
     nonce,
     authData,
+    enabledWalletConnect,
   } = props;
 
   useEffect(() => {
@@ -123,7 +124,7 @@ function Login(props) {
                     </i>
                     MetaMask
                   </button>
-                  <button>
+                  <button onClick={() => props.enabledWalletConnect()}>
                     <i>
                       <img src={WalletICO02} alt="" />
                     </i>
@@ -256,6 +257,7 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getWeb3: () => dispatch(actions.getWeb3()),
     enableMetamask: () => dispatch(actions.enableMetamask()),
+    enabledWalletConnect: () => dispatch(actions.enabledWalletConnect()),
     generateNonce: (address) => dispatch(actions.generateNonce(address)),
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),
