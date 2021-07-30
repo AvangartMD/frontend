@@ -17,7 +17,7 @@ import RightArrow from "../Assets/images/rightArrow.svg";
 import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import Language from "./lang.switch";
 import Login from "./Modals/login";
-import { web3 } from "../web3";
+import { web3, walletConnectProvider } from "../web3";
 import BecomeCreator from "./Modals/become-creator";
 import Notifications from "../Component/header/notification";
 import { FaBars } from 'react-icons/fa';
@@ -82,6 +82,7 @@ class Header extends Component {
         }
       });
     }
+    
     if (window.web3) {
       window.ethereum.on("accountsChanged", accounts => { // metamask user address changed
         if (!web3Data.accounts[0]) {
@@ -93,6 +94,15 @@ class Header extends Component {
         }
       });
     }
+    walletConnectProvider.on("accountsChanged", accounts => { // walletConnect user address changed
+      if (!web3Data.accounts[0]) {
+        this.props.clearNonce()
+        this.props.authLogout()
+        this.props.web3Logout(accounts)
+        this.props.history.push("/")
+        this.setState({ isOpen4: true })
+      }
+    });
   }
   async fetchTokenBalance(web3Data) {
     const accountBalance = Number(

@@ -7,7 +7,8 @@ import Collapse from "@kunukn/react-collapse";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import WalletICO01 from "../../Assets/images/walletICO-01.png";
-import WalletICO02 from "../../Assets/images/walletICO-02.png";
+// import WalletICO02 from "../../Assets/images/walletICO-02.png";
+import WalletICO02 from "../../Assets/images/wallet-connect.svg";
 
 import LoaderGif from "../../Assets/images/loading.gif";
 import { useEffect } from "react";
@@ -28,6 +29,7 @@ function Login(props) {
     toggle,
     nonce,
     authData,
+    enabledWalletConnect,
   } = props;
 
   useEffect(() => {
@@ -123,11 +125,11 @@ function Login(props) {
                     </i>
                     MetaMask
                   </button>
-                  <button>
+                  <button onClick={() => props.enabledWalletConnect()}>
                     <i>
                       <img src={WalletICO02} alt="" />
                     </i>
-                    TrustWallet
+                    WalletConnect
                   </button>
                 </OnBTNBar>
               </>
@@ -256,6 +258,7 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getWeb3: () => dispatch(actions.getWeb3()),
     enableMetamask: () => dispatch(actions.enableMetamask()),
+    enabledWalletConnect: () => dispatch(actions.enabledWalletConnect()),
     generateNonce: (address) => dispatch(actions.generateNonce(address)),
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),

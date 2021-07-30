@@ -1,4 +1,4 @@
-import { web3 } from "../web3";
+import { web3, walletConnectModalInit } from "../web3";
 
 async function getNetworkId() {
   try {
@@ -31,8 +31,25 @@ async function getWeb3(isAuthenticate) {
   }
 }
 
+async function enabledWalletConnect() {
+  try {
+    await walletConnectModalInit();
+    const resp = await getWeb3();
+    return resp;
+  } catch (error) {
+    if (error.code === -32002) {
+      return {
+        isLoggedIn: false,
+        accounts: [],
+      };
+    }
+    return {
+      isLoggedIn: false,
+      accounts: [],
+    };
+  }
+}
 async function enableMetamask() {
-  // let ethereum = window.ethereum;
   try {
     await window.ethereum.send("eth_requestAccounts");
     const resp = await getWeb3();
@@ -70,4 +87,5 @@ export const web3Services = {
   enableMetamask,
   getContractInstance,
   getWeb3,
+  enabledWalletConnect,
 };
