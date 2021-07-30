@@ -167,11 +167,11 @@ const HomeBanner = styled.div`
     color: transparent;
   }
   .react-multiple-carousel__arrow--left {
-    left: calc(42.8% + 1px);
+    left: calc(50% - 140px);
     bottom: 33px;
   }
   .react-multiple-carousel__arrow--right {
-    right: calc(42.8% + 1px);
+    right: calc(50% - 140px);
     bottom: 33px;
   }
   .react-multi-carousel-dot-list {
@@ -194,6 +194,9 @@ const HomeBanner = styled.div`
         position: absolute;
         left: 0px;
       }
+    }
+    ${Media.sm}{
+      width:300px;
     }
   }
 `;
