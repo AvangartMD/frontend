@@ -70,11 +70,19 @@ function Collected(props) {
                 <BecomeCreator isProfile={true} />
               </div>
             </CEmpty>
-            : <CEmpty>
+            : 
+            <CEmpty>
               <h2 className="Bec">Your collected is empty</h2>
               <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
             </CEmpty>
           : ``}
+        
+        {NFTs && params.id && NFTs.length === 0 ?
+          <CEmpty>
+            <h2 className="Bec">Your collected is empty</h2>
+            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+          </CEmpty>
+        : ``}
 
       </HomeNFTs>
     </>

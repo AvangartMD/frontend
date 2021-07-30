@@ -287,7 +287,7 @@ class CreatorProfile extends Component {
                         </TabList>
 
                         <TabPanel> <Created /> </TabPanel>
-                        <TabPanel> <Collected />  </TabPanel>
+                        <TabPanel> <Collected role='creator' />  </TabPanel>
                         <TabPanel> <Collection /> </TabPanel>
                         <TabPanel> <Liked /> </TabPanel>
                       </>
@@ -299,7 +299,7 @@ class CreatorProfile extends Component {
                           <Tab>Liked</Tab>
                         </TabList>
 
-                        <TabPanel> <Collected /> </TabPanel>
+                        <TabPanel> <Collected role='collector' /> </TabPanel>
                         <TabPanel> <Collection /> </TabPanel>
                         <TabPanel> <Liked /> </TabPanel>
                       </>
