@@ -128,7 +128,7 @@ class HallOfFrame extends Component {
                           </Link>
                         </Gs.W20>
                       })
-                        : (<p className="no-found-data">No Collectors found</p>)
+                        : (<p className="no-found-data">No <FormattedMessage id="collectors" defaultMessage="Collectors" /> found</p>)
                     }
                   </HomeTabDetail>
                 </TabPanel>

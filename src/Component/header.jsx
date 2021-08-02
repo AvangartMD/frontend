@@ -130,7 +130,9 @@ class Header extends Component {
         </Link>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
-      return <AvBTN02 className="colorBTN">Waitlist</AvBTN02>;
+      return <AvBTN02 className="colorBTN">
+        <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
+      </AvBTN02>;
     }
   };
 

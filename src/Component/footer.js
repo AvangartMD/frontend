@@ -34,7 +34,9 @@ function Footer(props) {
         </AvBTN01>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
-      return <AvBTN01>Waitlist</AvBTN01>;
+      return <AvBTN01>
+        <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
+      </AvBTN01>;
     }
   };
   const toggle = (index) => {

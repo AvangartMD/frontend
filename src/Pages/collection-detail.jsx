@@ -2,6 +2,7 @@ import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 
 import React, { Component } from "react";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { withRouter } from "react-router";
@@ -75,16 +76,22 @@ class CollectionDetail extends Component {
                 </CreatorILeft>
                 <CreatorIRight>
                   <div className='ed-box'>
-                    <p>Followers</p>
+                    <p>
+                      <FormattedMessage id="followers" defaultMessage="Followers" />
+                    </p>
                     <h3>{collection.ownerId?.followersCount}</h3>
                   </div>
                   <div className='ed-box'>
-                    <p>Following</p>
+                    <p>
+                      <FormattedMessage id="following" defaultMessage="Following" />
+                    </p>
                     <h3>{collection.ownerId?.followingCount}</h3>
                   </div>
                   <div className='ed-box'>
                     {authData ?
-                      web3Data.isLoggedIn && (authData.data.id !== collection.ownerId.id) ? <button className="ani-1" onClick={() => this.followToggler(collection.ownerId.id)}>{status.isFollowed ? 'Unfollow' : 'Follow'}</button> : ('')
+                      web3Data.isLoggedIn && (authData.data.id !== collection.ownerId.id) ? <button className="ani-1" onClick={() => this.followToggler(collection.ownerId.id)}>{status.isFollowed ?
+                        'Unfollow' :
+                        <FormattedMessage id="follow" defaultMessage="Follow" />}</button> : ('')
                       : ''}
                   </div>
                 </CreatorIRight>

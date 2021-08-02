@@ -29,6 +29,7 @@ import {
 import { LookoutMetrics } from "aws-sdk";
 import { web3 } from "../web3";
 import { actions } from "../actions";
+import { Context } from '../Component/wrapper';
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
@@ -352,6 +353,7 @@ class NFTPage extends Component {
     }
     const { categoryList, collectionList, error } = this.state;
     const nftObj = this.state.nftObj;
+    let context = this.context;
     return (
       <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
@@ -546,7 +548,7 @@ class NFTPage extends Component {
                           {categoryList?.map((category, key) => (
                             <label className="checkbox-container" key={key}>
                               <img src={category.image} alt="" />
-                              {capitalizeFirstLetter(category.categoryName)}
+                              {capitalizeFirstLetter(context.locale === 'tr'? category.categoryName.tu: category.categoryName.en)}
                               <input
                                 type="checkbox"
                                 name="category"

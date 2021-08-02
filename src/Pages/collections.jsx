@@ -7,6 +7,7 @@ import styled from "styled-components";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Gs from "../Theme/globalStyles";
 import { actions } from "../actions";
+import { Context } from '../Component/wrapper';
 import CollectionCard from "../Component/Cards/collectionCard";
 import LoaderGif from "../Assets/images/loading.gif";
 import SerICON from "../Assets/images/searchICO.svg";
@@ -16,6 +17,7 @@ import Media from '../Theme/media-breackpoint';
 
 class Collection extends Component {
 
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
@@ -77,6 +79,7 @@ class Collection extends Component {
     if (moreCollections) {
       collections = collections.concat(moreCollections);
     }
+    let context = this.context;
     return (
       <Gs.MainSection>
         <Gs.Container>
@@ -102,7 +105,7 @@ class Collection extends Component {
                         this.onCategoryChange(category.id);
                       }}
                     >
-                      {category.categoryName}
+                      {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
                     </button>
                   );
                 })

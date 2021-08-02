@@ -104,7 +104,7 @@ class Creators extends Component {
                             </button>
                             {categories ? categories.map((category, key) => {
                                 return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >
-                                    {context.locale === 'tr'? category.categoryName: category.categoryName}
+                                    {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
                                 </button>
                             }) : ''}
                         </FilterLbx>

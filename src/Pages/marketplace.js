@@ -131,7 +131,7 @@ class MarketPlace extends Component {
                         this.onCategoryChange(category.id);
                       }}
                     >
-                      {context.locale === 'tr'? category.categoryName: category.categoryName}
+                      {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
                     </button>
                   );
                 })
@@ -227,7 +227,7 @@ class MarketPlace extends Component {
             {NFTs ?
               NFTs.length === 0 ?
                 <NoDataFound>
-                  No NFT Found
+                  No <FormattedMessage id="nfts" defaultMessage="NFTs" /> Found
                 </NoDataFound>
               :
               <InfiniteScroll className="IScroll"

@@ -7,11 +7,13 @@ import { Link } from "react-router-dom";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 
 import { actions } from "../../actions";
+import { Context } from '../../Component/wrapper';
 import { services } from "../../services";
 import Media from "./../../Theme/media-breackpoint";
 import { formatWithCursor } from "prettier";
 
 class BecomeCreator extends Component {
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
@@ -119,6 +121,7 @@ class BecomeCreator extends Component {
       isOpen4,
     } = this.state;
     const { isFooter, isProfile, isHeader } = this.props;
+    let context = this.context;
     return (
       <>
         <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : ``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ?
@@ -264,7 +267,7 @@ class BecomeCreator extends Component {
                                   maxHeight: "32px",
                                 }}
                               />
-                              {category.categoryName}
+                              {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
                               <input
                                 type="checkbox"
                                 name="category"

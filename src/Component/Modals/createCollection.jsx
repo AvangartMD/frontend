@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { actions } from "../../actions";
@@ -6,6 +6,7 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { services } from "../../services";
+import { Context } from '../../Component/wrapper';
 import Media from "./../../Theme/media-breackpoint";
 import { capitalizeFirstLetter } from "../../helper/functions";
 
@@ -13,6 +14,7 @@ import { capitalizeFirstLetter } from "../../helper/functions";
 function CreateCollection(props) {
 
   let myFormRef; // collection form refrensh
+  const context = useContext(Context);
   const [collectionAdded, setCollectionAdded] = useState(false);
   const [loading, setLoader] = useState(false);
   const [params, setParams] = useState({ name: null, description: null, logo: null, category: [] })
@@ -168,7 +170,7 @@ function CreateCollection(props) {
                     {props.categoryList?.map((category, key) => (
                       <label className="checkbox-container" key={key}>
                         <img src={category.image} alt="" />
-                        {capitalizeFirstLetter(category.categoryName)}
+                        {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu:category.categoryName.en)}
                         <input
                           type="checkbox"
                           name="category"
