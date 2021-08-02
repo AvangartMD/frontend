@@ -1172,7 +1172,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
     position: relative;
     height: 54px;
     width: calc(170px - 5px);
-    margin-right: 10px;
+    margin:0px 10px 10px 0px;
     cursor: pointer;
     padding-left: 15px;
     line-height: 54px;

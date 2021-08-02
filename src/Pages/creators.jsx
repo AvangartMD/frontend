@@ -177,7 +177,13 @@ const FilterMBX = styled(FlexDiv)`
   }
 `
 const FilterLbx = styled(FlexDiv)`
- width:45%; justify-content:flex-start; 
+ width:45%; justify-content:flex-start;
+ ${Media.md}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+    padding:10px 0px;
+  } 
  button{display:inline-block;padding: 10px 25px; font-size:14px; font-weight:600; color:#000000; border-radius: 15px; background-color: #eef2f7; margin:0px 6px 0px 0px;  
   &.active{ background-color:#00babc; color:#fff; } 
   :hover{ background-color:#00babc; color:#fff; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); }

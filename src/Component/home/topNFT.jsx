@@ -100,9 +100,9 @@ class TopNFT extends Component {
                     <p>Ending in</p>
                     <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
                   </>
-                : nft.nftSold === nft.nftId.edition ?
+                  : nft.nftSold === nft.nftId.edition ?
                     <button className="disabled" disabled>Sold Out</button> : <button>Buy now</button>}
-                </div>
+              </div>
             </Edition>
             <UserImgName>
               <img src={nft.nftId.ownerId.profile ? nft.nftId.ownerId.profile : UserImg} alt="" />
@@ -124,43 +124,43 @@ class TopNFT extends Component {
       <>
         <HomeNFTs>
           <Gs.Container>
-              <div className='home-title'>
-                <h3>Top NFTs</h3>
-              </div>
+            <div className='home-title'>
+              <h3>Top NFTs</h3>
+            </div>
 
-              {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
-                <>
-                  <NFTfirstbox>
-                    {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount) : ''}
-                  </NFTfirstbox>
+            {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
+              <>
+                <NFTfirstbox>
+                  {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount) : ''}
+                </NFTfirstbox>
 
-                  <NFTfourbox className='homepage'>
-                    {(nfts.slice(1)).map((nft, key) => {
-                      return (
-                        <NFTCard
-                          key={key}
-                          nftSold={nft.nftSold}
-                          name={nft.nftId.ownerId.name}
-                          nftId={nft.nftId.id}
-                          collectionId={nft.nftId.collectionId?.id}
-                          auctionEndDate={nft.nftId.auctionEndDate}
-                          nftImg={nft.nftId.image.compressed}
-                          title={nft.nftId.title}
-                          edition={nft.nftId.edition}
-                          price={nft.nftId.price}
-                          auctionTime={nft.nftId.auctionTime}
-                          userImg={nft.nftId.ownerId.profile}
-                          username={nft.nftId.ownerId.username}
-                        />
-                      )
-                    })}
-                  </NFTfourbox>
-                
-                  {nfts.length > 4 ? 
-                    <ViewallButton>
-                      <button onClick={() => this.props.history.push("/marketplace")}
-                      >View all auctions</button>
-                    </ViewallButton>
+                <NFTfourbox className='homepage'>
+                  {(nfts.slice(1)).map((nft, key) => {
+                    return (
+                      <NFTCard
+                        key={key}
+                        nftSold={nft.nftSold}
+                        name={nft.nftId.ownerId.name}
+                        nftId={nft.nftId.id}
+                        collectionId={nft.nftId.collectionId?.id}
+                        auctionEndDate={nft.nftId.auctionEndDate}
+                        nftImg={nft.nftId.image.compressed}
+                        title={nft.nftId.title}
+                        edition={nft.nftId.edition}
+                        price={nft.nftId.price}
+                        auctionTime={nft.nftId.auctionTime}
+                        userImg={nft.nftId.ownerId.profile}
+                        username={nft.nftId.ownerId.username}
+                      />
+                    )
+                  })}
+                </NFTfourbox>
+
+                {nfts.length > 4 ?
+                  <ViewallButton>
+                    <button onClick={() => this.props.history.push("/marketplace")}
+                    >View all auctions</button>
+                  </ViewallButton>
                   : ``}
               </>}
           </Gs.Container>
@@ -232,7 +232,10 @@ const NFTfirstbox = styled(FlexDiv)`
   ${Media.md}{
     position:initial;
   }
-  
+  ${Media.xs}{
+    width:295px;
+    margin:0px auto 30px;
+  }
 `;
 const NFTfbleft = styled(FlexDiv)`
   background-color: #eef2f7;
@@ -379,6 +382,7 @@ const UserImgName = styled(FlexDiv)`
 
 const NFTfourbox = styled(FlexDiv)`
   justify-content:flex-start;
+  align-items:flex-start;
   flex-wrap: wrap;
   margin: 0px -10px 50px;
   .row {
@@ -402,6 +406,11 @@ const NFTfourbox = styled(FlexDiv)`
         font-weight: 600;
         line-height: normal;
         letter-spacing: -0.67px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
       }
       .edition2 {
         justify-content: flex-start;
@@ -472,7 +481,15 @@ Gs.W25V2 = styled(Gs.W25V2)`
       width:50%;
     }
     ${Media.xs}{
-      width:100%;
+      width:295px;
+    }
+  }
+`;
+
+Gs.TenpxGutter = styled(Gs.TenpxGutter)`
+  ${NFTfourbox}.homepage & {
+    ${Media.xs}{
+      margin:0px;
     }
   }
 `;

@@ -411,6 +411,12 @@ const FilterMBX = styled(FlexDiv)`
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
+  ${Media.md}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+    padding:10px 0px;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;

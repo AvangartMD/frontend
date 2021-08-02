@@ -278,6 +278,7 @@ const CollectionDesc = styled.div`
     font-weight: 700;
     margin: 0px 0px 10px;
     text-transform:capitalize;
+    line-height:normal;
   }
   p{
     color: #000;
@@ -321,7 +322,8 @@ Gs.W25V2 = styled(Gs.W25V2)`
       width:50%;
     }
     ${Media.xs}{
-      width:100%;
+      width:295px;
+      margin:0px auto 20px;
     }
   }
 `;

@@ -164,11 +164,12 @@ const CollectionSection = styled(FlexDiv)`
 Gs.W25 = styled(Gs.W25)`
   ${CollectionSection} & {
     ${Media.sm}{
-      width: 100%;
+      width: 180px;
       min-width:180px;
     }
     ${Media.xs}{
       min-width:145px;
+      width:145px;
     }
   }
 `;

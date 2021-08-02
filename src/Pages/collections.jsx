@@ -127,7 +127,7 @@ class Collection extends Component {
                 <NoDataFound>
                   No Collection Found
                 </NoDataFound>
-              :
+                :
                 <InfiniteScroll
                   dataLength={pagination.totalRecords}
                   next={this.fetchMore}
@@ -152,7 +152,7 @@ class Collection extends Component {
                     ))}
                   </CollectionBoxesInner>
                 </InfiniteScroll>
-            : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
+              : (<LoaderBX> {' '} <img src={LoaderGif} alt='' />{' '} </LoaderBX>)}
           </CollectionBoxes>
         </Gs.Container>
       </Gs.MainSection >
@@ -196,6 +196,12 @@ const FilterMBX = styled(FlexDiv)`
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
+  ${Media.md}{
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex-wrap:initial;
+    padding:10px 0px;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;

@@ -559,7 +559,7 @@ Gs.W25V2 = styled(Gs.W25V2)`
       width:50%;
     }
     ${Media.xs}{
-      width:100%;
+      width:295px;
     }
   }
 `;

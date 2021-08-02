@@ -546,9 +546,9 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
-                  selectedNFTDetails.isOpenForSale &&
-                  selectedNFTDetails.secondHand &&
-                  !selectedNFTDetails.isBurned ? (
+                    selectedNFTDetails.isOpenForSale &&
+                    selectedNFTDetails.secondHand &&
+                    !selectedNFTDetails.isBurned ? (
                     <button
                       className='bordered'
                       onClick={() => {
@@ -559,7 +559,7 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {NFTDetails?.status === 'NOT_MINTED' &&
-                  web3Data.isLoggedIn ? (
+                    web3Data.isLoggedIn ? (
                     <button
                       onClick={() =>
                         this.props.history.push(
@@ -719,8 +719,8 @@ const NFTDleft = styled(FlexDiv)`
 const NFTDleftcontainer = styled.div`
   width: 100%;
   max-width: 515px;
-  margin-left: auto;
-  padding: 70px 70px 70px 15px;
+  margin:0 auto;
+  padding: 15px;
   ${Media.md} {
     margin: 0 auto;
     padding: 70px 43px;

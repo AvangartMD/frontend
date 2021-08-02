@@ -81,7 +81,9 @@ const CreatSBX01 = styled(FlexDiv)`
         width:calc(50% - 20px);
     }
     ${Media.xs}{
-        width:calc(100% - 20px);
+        width:295px;
+      
+      margin:0px auto 20px;
     }
 `
 const ImgBannerBX = styled(FlexDiv)`
