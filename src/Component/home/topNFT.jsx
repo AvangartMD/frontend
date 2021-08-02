@@ -3,6 +3,7 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from "react-intl";
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from "framer-motion";
@@ -28,6 +29,7 @@ class TopNFT extends Component {
     super(props)
     this.state = {
       like_fetched: false,
+      loding: false,
     }
   }
 
@@ -45,7 +47,8 @@ class TopNFT extends Component {
     }
   }
 
-  renderedFirstElement = (nft, likesCount) => {
+  renderedFirstElement = (nft, likesCount, isLiked) => {
+    const { loading } = this.state
     return (
       <>
         <div className='w60'>
@@ -65,9 +68,15 @@ class TopNFT extends Component {
         <div className='w40'>
           <NFTfbright>
             <NFTLike>
-              {nft.isLiked ?
-                <img src={Redheart} alt='' />
-                : <img src={redheartBorder} alt='' />
+              {nft.isLiked || isLiked.isFollowed?
+                <img src={Redheart} alt='' disabled={loading} onDoubleClick={() => {
+                            this.props.likeToggler(nft.nftId.id);
+                            this.setState({ loading: true });
+                          }} />
+                : <img src={redheartBorder} alt='' disabled={loading} onDoubleClick={() => {
+                            this.props.likeToggler(nft.nftId.id);
+                            this.setState({ loading: true });
+                          }} />
               }
               <p>{likesCount.count}</p>
             </NFTLike>
@@ -91,7 +100,9 @@ class TopNFT extends Component {
                 </h3>
               </div>
               <div className='ed-box'>
-                <p>Current bid</p>
+                <p>{nft.nftId.auctionEndDate && nft.nftId.auctionEndDate > new Date().getTime() / 1000 ?
+                    `Current bid` :
+                  <>Reserve <FormattedMessage id="price" defaultMessage="Price" /></>}</p>
                 <h3>{nft.nftId.price} BNB</h3>
               </div>
               <div className='ed-box'>
@@ -115,7 +126,7 @@ class TopNFT extends Component {
   }
 
   render() {
-    const { nfts, likesCount } = this.props
+    const { nfts, likesCount, isLiked } = this.props
     const { like_fetched } = this.state
     if (nfts && !like_fetched && nfts[0]) {
       this.props.getLikesCount(nfts[0].nftId.id) // fetch the likes count for the first NFT
@@ -125,13 +136,13 @@ class TopNFT extends Component {
         <HomeNFTs>
           <Gs.Container>
               <div className='home-title'>
-                <h3>Top NFTs</h3>
+                <h3><FormattedMessage id="top_nfts" defaultMessage="Top NFTs" /></h3>
               </div>
 
               {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
                 <>
                   <NFTfirstbox>
-                    {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount) : ''}
+                    {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount, isLiked) : ''}
                   </NFTfirstbox>
 
                   <NFTfourbox className='homepage'>
@@ -159,7 +170,7 @@ class TopNFT extends Component {
                   {nfts.length > 4 ? 
                     <ViewallButton>
                       <button onClick={() => this.props.history.push("/marketplace")}
-                      >View all auctions</button>
+                      ><FormattedMessage id="view_all_nfts" defaultMessage="View all NFTs" /></button>
                     </ViewallButton>
                   : ``}
               </>}
@@ -479,6 +490,7 @@ Gs.W25V2 = styled(Gs.W25V2)`
 
 const mapDipatchToProps = (dispatch) => {
   return {
+    likeToggler: (id) => dispatch(actions.likeToggler(id)),
     getTopNFT: () => dispatch(actions.getTopNFT()),
     getLikesCount: (id) => dispatch(actions.getLikesCount(id)),
   }
@@ -487,7 +499,9 @@ const mapDipatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     nfts: state.fetchTopNFT,
+    isLiked: state.fetchIsLiked,
     likesCount: state.fetchLikesCount,
+    likeToggled: state.fetchLikeToggled,
   }
 }
 

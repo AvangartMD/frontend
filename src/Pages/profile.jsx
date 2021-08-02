@@ -1,6 +1,7 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -379,7 +380,7 @@ class Profile extends Component {
                   </span>
                 </UserDText02>
                 <EditPrBTN onClick={() => this.props.history.push("/user/edit-profile")}>
-                  Edit Profile
+                  <FormattedMessage id="edit_profile" defaultMessage="Edit Profile" />
                 </EditPrBTN>
               </ProSBX03>
 

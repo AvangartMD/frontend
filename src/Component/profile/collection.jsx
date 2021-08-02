@@ -1,5 +1,6 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import HeartIcon from "../../Assets/images/heart-icon.svg";
 import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
@@ -52,9 +53,11 @@ function Collection(props) {
         {collections ?
           collections.length === 0 ?
             <CEmpty>
-              <h2>Your collection is empty.</h2>
-              <p>Start building your collection<br /> by placing bids on artwork.</p>
-              {/* <button className="ani-1">Explore artworks</button> */}
+              <h2><FormattedMessage id="collection_empty" defaultMessage="Your collection is empty" /></h2>
+              <p><FormattedMessage id="start_collection_lable" defaultMessage="Start building your collection by placing bids on creations." /></p>
+              <button className="ani-1">
+                <FormattedMessage id="explore_creations" defaultMessage="Explore creations" />
+              </button>
             </CEmpty>
             : ``
           : ``}

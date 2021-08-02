@@ -72,12 +72,12 @@ function NftOwnerActions(props) {
         if (forApproval) {
           checkUserApproval(web3Data);
         }
-        setNFTStatus('complete');
 
         setTimeout(() => { // refresh the state 
           if (ownerActionName === 'setApprovalForAll') checkUserApproval(web3Data);
           else nftDetails();
-        }, 10000);
+          setNFTStatus('complete');
+        }, 5000);
       })
       .on('error', (error) => {
         setNFTStatus('error');

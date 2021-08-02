@@ -2,6 +2,7 @@ import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
@@ -183,7 +184,7 @@ class CreatorProfile extends Component {
                         )}
                       </UserSocilMBX>
                       <UserDText02 className="desktop-block">
-                        Join{" "}
+                        <FormattedMessage id="joined" defaultMessage="Joined" />
                         <span>
                           {profile
                             ? dateFormat(
@@ -226,7 +227,7 @@ class CreatorProfile extends Component {
                         </button>
                       </ProSBX04>
                       <UserDText02 className="mobile-block">
-                        Join{" "}
+                        <FormattedMessage id="join" defaultMessage="Joined" />
                         <span>
                           {profile
                             ? dateFormat(
@@ -240,7 +241,9 @@ class CreatorProfile extends Component {
                         authData ?
                           web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
                             <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
-                              {loading ? 'loading' : status.isFollowed ? 'Unfollow' : 'Follow'}
+                              {loading ? 'loading' : status.isFollowed ?
+                                'Unfollow' :
+                                <FormattedMessage id="follow" defaultMessage="Follow" />}
                             </EditPrBTN> : ('')
                           : ''
                       ) : (
@@ -248,7 +251,7 @@ class CreatorProfile extends Component {
                           <button
                             onClick={() => this.props.history.push("/user/edit-profile")}
                           >
-                            Edit Profile
+                            <FormattedMessage id="edit_profile" defaultMessage="Edit Profile" />
                           </button>
                         </EditPrBTN>
                       )}
@@ -280,10 +283,10 @@ class CreatorProfile extends Component {
                     {profile.role.roleName === 'CREATOR' ? (
                       <>
                         <TabList>
-                          <Tab>Created</Tab>
-                          <Tab>Collected</Tab>
-                          <Tab>Collections</Tab>
-                          <Tab>Liked</Tab>
+                          <Tab> <FormattedMessage id="created" defaultMessage="Created" /> </Tab>
+                          <Tab><FormattedMessage id="collected" defaultMessage="Collected" /> </Tab>
+                          <Tab><FormattedMessage id="collections" defaultMessage="Collections" /> </Tab>
+                          <Tab><FormattedMessage id="liked" defaultMessage="Liked" /> </Tab>
                         </TabList>
 
                         <TabPanel> <Created /> </TabPanel>

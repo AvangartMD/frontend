@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "./../../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 import Media from "./../../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 
@@ -114,9 +115,8 @@ function Login(props) {
               <>
                 <OnbTitle01>Connect your wallet</OnbTitle01>
                 <OnbText01>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  ut sapien faucibus, ornare arcu et, bibendum risus. Nam
-                  ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.
+                  <FormattedMessage id="connect_wallet" defaultMessage="By connecting your wallet, 
+                    you agree to our Terms of Service and our Privacy Policy." />
                 </OnbText01>
                 <OnBTNBar>
                   <button onClick={() => connectToWallet()}>
@@ -136,7 +136,7 @@ function Login(props) {
             ) : (
               <>
                 <OnbTitle01 className="v2">
-                  Please follow the instructions on your wallet
+                  <FormattedMessage id="follow_the_instructions" defaultMessage="Please follow the instructions on your wallet" />
                 </OnbTitle01>
                 <LoaderBX>
                   <img src={LoaderGif} alt="" />
@@ -145,7 +145,7 @@ function Login(props) {
             )
           ) : (
             <>
-              <OnbTitle01>Attention!</OnbTitle01>
+              <OnbTitle01><FormattedMessage id="attention" defaultMessage="Install Metamask" /></OnbTitle01>
               <OnbText01>{error.msg}</OnbText01>
             </>
           )}

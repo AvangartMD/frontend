@@ -3,6 +3,7 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from "react-intl";
 import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 import Collapse from '@kunukn/react-collapse';
@@ -20,9 +21,12 @@ import LoaderGif from '../Assets/images/loading.gif';
 import NFTCard from '../Component/Cards/nftCard';
 
 import { actions } from '../actions';
+import { Context } from '../Component/wrapper';
 import Media from "./../Theme/media-breackpoint";
 
 class MarketPlace extends Component {
+
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
@@ -101,6 +105,7 @@ class MarketPlace extends Component {
     if (moreNFTs) {
       NFTs = NFTs.concat(moreNFTs);
     }
+    let context = this.context;
     return (
       <Gs.MainSection>
         <Gs.Container>
@@ -113,7 +118,7 @@ class MarketPlace extends Component {
                 this.onCategoryChange('all');
               }}
             >
-              All
+              <FormattedMessage id="all" defaultMessage="All" />
             </button>
             {categories
               ? categories.map((category, key) => {
@@ -126,7 +131,7 @@ class MarketPlace extends Component {
                         this.onCategoryChange(category.id);
                       }}
                     >
-                      {category.categoryName}
+                      {context.locale === 'tr'? category.categoryName: category.categoryName}
                     </button>
                   );
                 })
@@ -134,11 +139,14 @@ class MarketPlace extends Component {
           </FilterLbx>
 
           <FilterRbx>
-            <FilterInputBX>
-              <input
-                placeholder='Search'
-                onKeyUp={(e) => this.onSearchKeyUp(e)}
-              ></input>
+              <FilterInputBX>
+                <FormattedMessage id="search" defaultMessage="Search">
+                {placeholder=>
+                  <input
+                    placeholder={placeholder}
+                    onKeyUp={(e) => this.onSearchKeyUp(e)}
+                  />}
+              </FormattedMessage>
               <SearchICO>
                 <img src={SerICON} alt='' />{' '}
               </SearchICO>
@@ -151,7 +159,7 @@ class MarketPlace extends Component {
               <FilterICO>
                 <img src={FiltICON} alt='' />
               </FilterICO>{' '}
-              Filter: <span>Live auction</span>
+              <FormattedMessage id="filter" defaultMessage="Filter" />
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
@@ -165,11 +173,11 @@ class MarketPlace extends Component {
                       type="checkbox"
                       id="vehicle1"
                       name="vehicle1"
-                      value="ALL"
+                      value="all"
                       defaultChecked={filter.includes('All')?true:false}
                       onChange={(e) => {this.setFilter('ALL', e)}}
                     />
-                    <label htmlFor="vehicle1">All</label>
+                    <label htmlFor="vehicle1"><FormattedMessage id="all" defaultMessage="All" /></label>
                   </div> */}
                   <div className='md-checkbox'>
                     <input
@@ -182,7 +190,7 @@ class MarketPlace extends Component {
                         this.setFilter('AUCTION', e);
                       }}
                     />
-                    <label htmlFor='vehicle2'>Live auction</label>
+                    <label htmlFor='vehicle2'><FormattedMessage id="live_acution" defaultMessage="Live auction" /></label>
                   </div>
                   <div className='md-checkbox'>
                     <input
@@ -194,7 +202,7 @@ class MarketPlace extends Component {
                         this.setFilter('BUYNOW', e);
                       }}
                     />
-                    <label htmlFor='vehicle3'>Buy now</label>
+                    <label htmlFor='vehicle3'><FormattedMessage id="buy_now" defaultMessage="Buy Now" /></label>
                   </div>
                   <div className='md-checkbox'>
                     <input
@@ -207,7 +215,7 @@ class MarketPlace extends Component {
                         this.setFilter('SOLD', e);
                       }}
                     />
-                    <label htmlFor='vehicle4'>Sold</label>
+                    <label htmlFor='vehicle4'><FormattedMessage id="sold" defaultMessage="Sold" /></label>
                   </div>
                 </DDContainer>
               </Collapse>

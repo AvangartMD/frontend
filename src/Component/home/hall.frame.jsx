@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import { HashLink as Link } from "react-router-hash-link";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { FormattedMessage } from "react-intl";
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 import styled from 'styled-components';
@@ -41,15 +42,15 @@ class HallOfFrame extends Component {
         <HomeNFTs>
           <Gs.Container>
             <div className='star-title'>
-              <h3>Hall of Fame</h3>
+              <h3><FormattedMessage id="hall_of_fame" defaultMessage="Hall of Fame" /></h3>
             </div>
 
             <HomeTabs>
               <Tabs>
                 <TabList>
-                  <Tab>Artist</Tab>
-                  <Tab>Artworks</Tab>
-                  <Tab>Collector</Tab>
+                  <Tab><FormattedMessage id="creators" defaultMessage="Creators" /></Tab>
+                  <Tab><FormattedMessage id="nfts" defaultMessage="NFTs" /></Tab>
+                  <Tab><FormattedMessage id="collectors" defaultMessage="Collectors" /></Tab>
                   {/* <Tab>Our Picks</Tab> */}
                 </TabList>
 
@@ -73,7 +74,7 @@ class HallOfFrame extends Component {
                           </Link>
                         </Gs.W20>
                       })
-                        : (<p className="no-found-data">No Artist found</p>)
+                        : (<p className="no-found-data">No Creators found</p>)
                     }
                   </HomeTabDetail>
                 </TabPanel>
@@ -102,7 +103,7 @@ class HallOfFrame extends Component {
                           </Link>
                         </Gs.W20>
                       })
-                        : (<p className="no-found-data">No Artwork found</p>)
+                        : (<p className="no-found-data">No NFTs found</p>)
                     }
                   </HomeTabDetail>
                 </TabPanel>
@@ -127,7 +128,7 @@ class HallOfFrame extends Component {
                           </Link>
                         </Gs.W20>
                       })
-                        : (<p className="no-found-data">No Collector found</p>)
+                        : (<p className="no-found-data">No Collectors found</p>)
                     }
                   </HomeTabDetail>
                 </TabPanel>

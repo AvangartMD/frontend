@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
+import { FormattedMessage } from "react-intl";
 
 import ProfielBack from "../../Assets/images/profile-back.jpg";
 import UserIcon from "../../Assets/images/user-img.jpg";
@@ -52,12 +53,12 @@ function CreatorCard({
                     </CretrText01>
 
                     <CretrInfoMBX>
-                        <CretrInfoSBX01>Created<span>{nftCreated}</span></CretrInfoSBX01>
-                        <CretrInfoSBX01>Followers<span>{followersCount}</span></CretrInfoSBX01>
-                        <CretrInfoSBX01>Following<span>{followingCount}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01> <FormattedMessage id="created" defaultMessage="Created" /> <span>{nftCreated}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01> <FormattedMessage id="followers" defaultMessage="Followers" /> <span>{followersCount}</span></CretrInfoSBX01>
+                        <CretrInfoSBX01> <FormattedMessage id="following" defaultMessage="Following" /> <span>{followingCount}</span></CretrInfoSBX01>
                     </CretrInfoMBX>
 
-                    <CretrBTN01>See artworks</CretrBTN01>
+                    <CretrBTN01><FormattedMessage id="see_creations" defaultMessage="See Creations" /></CretrBTN01>
 
                 </CreatSBX02>
             </Link>

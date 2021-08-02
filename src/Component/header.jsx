@@ -125,7 +125,7 @@ class Header extends Component {
       return (
         <Link to="/user/nftminting">
           <AvBTN02 className="colorBTN">
-            Create
+            <FormattedMessage id="create" defaultMessage="Create" />
           </AvBTN02>
         </Link>
       );
@@ -208,7 +208,7 @@ class Header extends Component {
                         : ``}
                       <NavLink to="/marketplace" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage
-                          id="Marketplace"
+                          id="marketplace"
                           defaultMessage="Marketplace"
                         />
                       </NavLink>
@@ -216,11 +216,11 @@ class Header extends Component {
                         <FormattedMessage id="Collections" defaultMessage="Collections" />
                       </NavLink>
                       <NavLink to="/creators" exact activeClassName="active" onClick={() => this.toggle(11)}>
-                        <FormattedMessage id="Creators" defaultMessage="Creators" />
+                        <FormattedMessage id="creators" defaultMessage="Creators" />
                       </NavLink>
                       <NavLink to="/how-to-use" exact activeClassName="active" onClick={() => this.toggle(11)}>
                         <FormattedMessage
-                          id="How_to_use?"
+                          id="how_to_use?"
                           defaultMessage="How to use?"
                         />
                       </NavLink>
@@ -243,19 +243,19 @@ class Header extends Component {
                         <div className="more-parts">
                           <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
-                              id="Term_of_service"
+                              id="term_of_service"
                               defaultMessage="Terms of Service"
                             />
                           </NavLink>
                           <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
-                              id="Privacy_policy"
+                              id="privacy_policy"
                               defaultMessage="Privacy Policy"
                             />
                           </NavLink>
                           <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
                             <FormattedMessage
-                              id="Cookie_policy"
+                              id="cookie_policy"
                               defaultMessage="Cookie Policy"
                             />
                           </NavLink>
@@ -268,7 +268,7 @@ class Header extends Component {
                         <Language header={true} />
                         <div className="mobile-login-btn">
                           <AvBTN01 onClick={() => this.toggle(4)}>
-                            <FormattedMessage id="Login" defaultMessage="Login" />
+                            <FormattedMessage id="login" defaultMessage="Login" />
                           </AvBTN01>
                         </div>
                       </>
@@ -292,16 +292,16 @@ class Header extends Component {
               <nav className="desktop-menu">
                 <NavLink to="/marketplace" exact activeClassName="active">
                   <FormattedMessage
-                    id="Marketplace"
+                    id="marketplace"
                     defaultMessage="Marketplace"
                   />
                 </NavLink>
                 <NavLink to="/creators" exact activeClassName="active">
-                  <FormattedMessage id="Creators" defaultMessage="Creators" />
+                  <FormattedMessage id="creators" defaultMessage="Creators" />
                 </NavLink>
                 <NavLink to="/how-to-use" exact activeClassName="active">
                   <FormattedMessage
-                    id="How_to_use?"
+                    id="how_to_use?"
                     defaultMessage="How to use?"
                   />
                 </NavLink>
@@ -312,7 +312,7 @@ class Header extends Component {
             {!web3Data.isLoggedIn ? (
               <HeadSbx01 className="desktop-menu">
                 <AvBTN01 onClick={() => this.toggle(4)}>
-                  <FormattedMessage id="Login" defaultMessage="Login" />
+                  <FormattedMessage id="login" defaultMessage="Login" />
                 </AvBTN01>
                 <Language header={true} />
               </HeadSbx01>
