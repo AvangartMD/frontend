@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import { HashLink as Link } from "react-router-hash-link";
 import { withRouter } from "react-router";
 import Sticky from "react-sticky-el";
@@ -174,14 +175,14 @@ class ProfileEdit extends Component {
                         to="#accountSettings"
                         smooth={true}
                       >
-                        Account Settings
+                        Account Setting
                       </Link>
                       <Link
                         className={pointSelect("biography")}
                         to="#biography"
                         smooth={true}
                       >
-                        Biography
+                        <FormattedMessage id="about_you" defaultMessage="About You" />
                       </Link>
                       <Link
                         className={pointSelect("verifyProfile")}
@@ -203,7 +204,7 @@ class ProfileEdit extends Component {
                   <BackBTN01
                     onClick={() => this.props.history.push("/user/profile")}
                   >
-                    Back to Profile
+                    <FormattedMessage id="back_to_profile" defaultMessage="Back to Profile" />
                   </BackBTN01>
                 </Sticky>
               </Gs.W200px>
@@ -227,14 +228,16 @@ class ProfileEdit extends Component {
                     >
                       <div id="accountSettings">
                         <NFTtitle>
-                          <h4>Account Settings</h4>
+                          <h4>
+                            <FormattedMessage id="account_settings" defaultMessage="Account Setting" />
+                          </h4>
                           <p className="mb-30">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <FormattedMessage id="edit_profile_form_lable" defaultMessage="People visiting your profile will see the following info" />
                           </p>
                         </NFTtitle>
                         <NFTForm>
                           <div className="label-line">
-                            <label>Name</label>
+                            <label><FormattedMessage id="form_name" defaultMessage="Name" /></label>
                           </div>
                           <input
                             type="text"
@@ -253,7 +256,7 @@ class ProfileEdit extends Component {
                         </NFTForm>
                         <NFTForm>
                           <div className="label-line">
-                            <label>Username</label>
+                            <label><FormattedMessage id="form_username" defaultMessage="Username" /></label>
                           </div>
                           <div className="iLeft">
                             <i>@</i>
@@ -289,11 +292,10 @@ class ProfileEdit extends Component {
                         </NFTForm>
                         <NFTForm>
                           <div className="label-line">
-                            <label>Email</label>
+                            <label><FormattedMessage id="email" defaultMessage="Email" /></label>
                             <FlexDiv className="JCSB">
                               <p>
-                                Phasellus at dui imperdiet, eleifend lacus
-                                gravida, accumsan arcu.{" "}
+                                <FormattedMessage id="form_email_lable" defaultMessage="Your e-mail adress will not be shown on your profile" />
                               </p>
                             </FlexDiv>
                           </div>
@@ -316,9 +318,11 @@ class ProfileEdit extends Component {
 
                       <div id="biography">
                         <NFTtitle>
-                          <h4 className="mt-30">Biography</h4>
+                          <h4 className="mt-30">
+                            <FormattedMessage id="about_you" defaultMessage="About You" />
+                          </h4>
                           <p className="mb-30">
-                            Write a little bit about yourself
+                            <FormattedMessage id="form_about_you_lable" defaultMessage="Write a little bit about yourself" />
                           </p>
                         </NFTtitle>
                         <NFTForm>
@@ -339,9 +343,11 @@ class ProfileEdit extends Component {
                       </div>
                       <div id="verifyProfile">
                         <NFTtitle>
-                          <h4 className="mt-30">Verify Profile</h4>
+                          <h4 className="mt-30">
+                            <FormattedMessage id="verify_profile" defaultMessage="Verify your profile" />
+                          </h4>
                           <p className="mb-30">
-                            Show us how authentic your profile
+                            <FormattedMessage id="verify_profile_label" defaultMessage="Show us how authentic your profile is" />
                           </p>
                         </NFTtitle>
                         <NFTForm>
@@ -349,7 +355,7 @@ class ProfileEdit extends Component {
                             <label className="checkbox-container">
                               {" "}
                               <img src={CICON01} alt="" />
-                              Verify via Twitter
+                              <FormattedMessage id="verify_twitter" defaultMessage="Verify via Twitter" />
                               <button
                                 type="checkbox"
                                 name="category"
@@ -360,7 +366,7 @@ class ProfileEdit extends Component {
                             <label className="checkbox-container">
                               {" "}
                               <img src={CICON02} alt="" />
-                              Verify via Instagram
+                              <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
                               <button
                                 type="checkbox"
                                 name="category"
@@ -373,16 +379,19 @@ class ProfileEdit extends Component {
                       </div>
                       <div id="socialLink">
                         <NFTtitle>
-                          <h4 className="mt-30">Social Links</h4>
+                          <h4 className="mt-30">
+                            <FormattedMessage id="social_links" defaultMessage="Socila Links" />
+                          </h4>
                           <p className="mb-30">
-                            Add your social media links for people who want you
-                            know more
+                            <FormattedMessage id="social_links_label" defaultMessage="Add your social media links for people to follow" />
                           </p>
                         </NFTtitle>
 
                         <NFTForm>
                           <div className="label-line">
-                            <label>Website</label>
+                            <label>
+                              <FormattedMessage id="website" defaultMessage="Website" />
+                            </label>
                           </div>
                           <div className="iLeft">
                             <i>
@@ -463,7 +472,9 @@ class ProfileEdit extends Component {
                         </NFTForm>
                         <NFTForm>
                           <div className="label-line">
-                            <label>Youtube</label>
+                            <label>
+                              <FormattedMessage id="youtube" defaultMessage="YouTube" />
+                            </label>
                           </div>
                           <div className="iLeft">
                             <i>
@@ -517,7 +528,9 @@ class ProfileEdit extends Component {
                         </NFTForm>
                       </div>
                       <CreateItemButton>
-                        <button type="submit" disabled={!formChange ? true : false}>Update</button>
+                        <button type="submit" disabled={!formChange ? true : false}>
+                          <FormattedMessage id="profile_update_button_label" defaultMessage="Save Changes" />
+                        </button>
                       </CreateItemButton>
                     </form>
                   </NFTMiddle>

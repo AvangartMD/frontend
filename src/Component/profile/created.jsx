@@ -1,6 +1,7 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 
@@ -50,7 +51,7 @@ function Created(props) {
               setTaPanel("ALL");
             }}
           >
-            All
+            <FormattedMessage id="all" defaultMessage="All" />
           </button>
 
           <button
@@ -60,7 +61,7 @@ function Created(props) {
               setTaPanel("SOLD");
             }}
           >
-            Sold
+            <FormattedMessage id="sold" defaultMessage="Sold" />
           </button>
 
           <button
@@ -70,7 +71,7 @@ function Created(props) {
               setTaPanel("AUCTION");
             }}
           >
-            Live auction
+            <FormattedMessage id="live_acution" defaultMessage="Live auction" />
           </button>
 
           <button
@@ -80,7 +81,7 @@ function Created(props) {
               setTaPanel("BUY");
             }}
           >
-            Buy now
+            <FormattedMessage id="buy_now" defaultMessage="Buy now" />
           </button>
         </FilterLbx>
       </FilterMBX>
@@ -114,9 +115,11 @@ function Created(props) {
 
         {NFTs?.length === 0 && tabPanel === 'ALL' ?
           <CEmpty>
-            <h2 className="Bec">Your artwork is empty</h2>
+            <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
             <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-            <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>Create</button>
+            <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>
+              <FormattedMessage id="create" defaultMessage="Create" />
+            </button>
           </CEmpty>
           : ``}
 

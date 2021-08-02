@@ -77,11 +77,12 @@ function PABpopup(props) {
           setTxnStatus("progress");
         })
         .on("receipt", (receipt) => {
-          setTxnStatus("complete");
+          // setTxnStatus("complete");
           setTimeout(() => { // refresh the state 
             if (method === 'placeBid') fetchNFTDetails(+currentEdition);
             else nftDetails();
-          }, 10000);
+            setTxnStatus("complete");
+          }, 5000);
         })
         .on("error", (error) => {
           setTxnStatus("complete");

@@ -1,5 +1,6 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -62,7 +63,7 @@ function Liked(props) {
 
         {NFTs?.length === 0 ?
           <CEmpty>
-            <h2 className="Bec">Your Liked is empty</h2>
+            <h2 className="Bec">Your <FormattedMessage id="liked" defaultMessage="Liked" /> is empty</h2>
             <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
           </CEmpty>
           : ``}

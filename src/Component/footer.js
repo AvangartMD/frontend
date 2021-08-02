@@ -29,12 +29,14 @@ function Footer(props) {
       return (
         <AvBTN01 className='createButton'>
           <Link to="/user/nftminting">
-            Create
+            <FormattedMessage id="create" defaultMessage="Create" />
           </Link>
         </AvBTN01>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
-      return <AvBTN01>Waitlist</AvBTN01>;
+      return <AvBTN01>
+        <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
+      </AvBTN01>;
     }
   };
   const toggle = (index) => {
@@ -54,23 +56,23 @@ function Footer(props) {
             </p>
 
             <button onClick={() => props.history.push("/about")}>
-              <FormattedMessage id="Learn_more" defaultMessage="Learn More" />
+              <FormattedMessage id="learn_more" defaultMessage="Learn More" />
             </button>
           </FooterSSbx01>
           <FooterSSbx02>
             <NavLink to="/marketplace">
-              <FormattedMessage id="Marketplace" defaultMessage="Marketplace" />
+              <FormattedMessage id="marketplace" defaultMessage="Marketplace" />
             </NavLink>
             <NavLink to="/collections">
-              <FormattedMessage id="Collections" defaultMessage="Collections" />
+              <FormattedMessage id="collections" defaultMessage="Collections" />
             </NavLink>
             <NavLink to="/creators">
-              <FormattedMessage id="Creators" defaultMessage="Creators" />
+              <FormattedMessage id="creators" defaultMessage="Creators" />
             </NavLink>
             {!web3Data.isLoggedIn ?
               <NavLink to="">
                 <FormattedMessage
-                  id="Become_a_creator"
+                  id="become_a_creator"
                   defaultMessage="Become a Creator"
                 />
                 </NavLink>
@@ -79,19 +81,19 @@ function Footer(props) {
           <FooterSSbx02>
             <NavLink to="/legal">
               <FormattedMessage
-                id="Term_of_service"
+                id="term_of_service"
                 defaultMessage="Terms of Service"
               />
             </NavLink>
             <NavLink to="/legal">
               <FormattedMessage
-                id="Privacy_policy"
+                id="privacy_policy"
                 defaultMessage="Privacy Policy"
               />
             </NavLink>
             <NavLink to="/legal">
               <FormattedMessage
-                id="Cookie_policy"
+                id="cookie_policy"
                 defaultMessage="Cookie Policy"
               />
             </NavLink>
@@ -100,19 +102,31 @@ function Footer(props) {
             <NavLink to="">Instagram</NavLink>
             <NavLink to="">Twitter</NavLink>
             <NavLink to="">Discord</NavLink>
-            <NavLink to="blog-list">Blog</NavLink>
+            <NavLink to="blog-list"><FormattedMessage
+                id="blog"
+                defaultMessage="Blog"
+              /></NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="/how-to-use">How to use?</NavLink>
-            <NavLink to="/faq">FAQ</NavLink>
-            <NavLink to="">Support</NavLink>
+            <NavLink to="/how-to-use"><FormattedMessage
+                id="how_to_use?"
+                defaultMessage="How to use"
+              /></NavLink>
+            <NavLink to="/faq"><FormattedMessage
+                id="faq"
+                defaultMessage="FAQ"
+              /></NavLink>
+            <NavLink to=""><FormattedMessage
+                id="support"
+                defaultMessage="Support"
+              /></NavLink>
           </FooterSSbx02>
 
           <FooterSSbx03>
             {!web3Data.isLoggedIn ? (
               <>
                 <AvBTN01 onClick={() => toggle()}>
-                  <FormattedMessage id="Login" defaultMessage="Login" />
+                  <FormattedMessage id="login" defaultMessage="Login" />
                 </AvBTN01>
                
               </>

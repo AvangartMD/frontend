@@ -35,6 +35,7 @@ function fetchCategories() {
     const response = services.get(`/category/list`);
     const promise = await response;
     if (promise.data) {
+      console.log('result ? ', promise.data)
       dispatch(fetchedData("FETCHED_CATEGORIES", promise.data.data));
     } else {
       // console.log('error in fetchCategories actions');

@@ -2,12 +2,14 @@ import 'react-multi-carousel/lib/styles.css';
 import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { FormattedMessage } from "react-intl";
 import Gs from '../Theme/globalStyles';
 import { connect } from "react-redux";
 import Collapse from '@kunukn/react-collapse'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { actions } from "../actions";
+import { Context } from '../Component/wrapper';
 import CreatorCard from "../Component/Cards/creatorCard";
 
 import NftImg from '../Assets/images/nftBack.jpg';
@@ -21,6 +23,7 @@ import Media from "./../Theme/media-breackpoint";
 
 class Creators extends Component {
 
+    static contextType = Context;
     constructor(props) {
         super(props);
         this.state = {
@@ -90,14 +93,19 @@ class Creators extends Component {
         if (moreCreators) {
             creators = creators.concat(moreCreators)
         }
+        let context = this.context;
         return (
             <Gs.MainSection>
                 <Gs.Container>
                     <FilterMBX>
                         <FilterLbx>
-                            <button className={tabPanel === 'all' ? 'active' : ''} id='all' onClick={() => { this.onCategoryChange('all') }}>All</button>
+                            <button className={tabPanel === 'all' ? 'active' : ''} id='all' onClick={() => { this.onCategoryChange('all') }}>
+                                <FormattedMessage id="all" defaultMessage="All" />
+                            </button>
                             {categories ? categories.map((category, key) => {
-                                return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >{category.categoryName}</button>
+                                return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >
+                                    {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
+                                </button>
                             }) : ''}
                         </FilterLbx>
 
@@ -122,7 +130,7 @@ class Creators extends Component {
                     {creators ?
                         creators.length === 0 ?
                             <NoDataFound>
-                                No NFT Found
+                                No <FormattedMessage id="creators" defaultMessage="Creators" /> Found
                             </NoDataFound>
                             :
                             <InfiniteScroll className="IScroll"

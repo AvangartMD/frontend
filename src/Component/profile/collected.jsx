@@ -1,6 +1,7 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 
@@ -20,7 +21,7 @@ function Collected(props) {
   const params = useParams();
 
   useEffect(() => {
-    if (!NFTs) props.getNFTs(params.id ? params.id : null);
+    props.getNFTs(params.id ? params.id : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [NFTs]);
 
@@ -64,22 +65,24 @@ function Collected(props) {
         {NFTs && !params.id && NFTs.length === 0 ?
           props.role !== 'creator' ?
             <CEmpty>
-              <h2 className="Bec">Become a Creator</h2>
-              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              <h2 className="Bec">
+                <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
+              </h2>
+              <p className="Bec"><FormattedMessage id="become_creator_label" defaultMessage="Only approved creators can mint NFTs. Apply for becoming one." /></p>
               <div className="BecBTN">
                 <BecomeCreator isProfile={true} />
               </div>
             </CEmpty>
             : 
             <CEmpty>
-              <h2 className="Bec">Your collected is empty</h2>
+              <h2 className="Bec"> Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
               <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
             </CEmpty>
           : ``}
         
         {NFTs && params.id && NFTs.length === 0 ?
           <CEmpty>
-            <h2 className="Bec">Your collected is empty</h2>
+            <h2 className="Bec">Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
             <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
           </CEmpty>
         : ``}

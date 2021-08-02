@@ -3,6 +3,7 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from "react-intl";
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from "react-router";
@@ -54,7 +55,7 @@ class Collections extends Component {
         <HomeNFTs>
           <Gs.Container>
             <div className='heart-title'>
-              <h3>Collections</h3>
+              <h3><FormattedMessage id="collections" defaultMessage="Collections" /></h3>
             </div>
             <CollectionSection>
               {!collections ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
@@ -63,7 +64,7 @@ class Collections extends Component {
             <ViewallButton>
               <button
                 onClick={() => this.props.history.push("/collections")}
-              >View all collections</button>
+              ><FormattedMessage id="view_all_collections" defaultMessage="Collections" /></button>
             </ViewallButton>
           </Gs.Container>
         </HomeNFTs>

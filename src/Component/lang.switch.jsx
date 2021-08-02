@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { FormattedMessage } from "react-intl";
 import styled from 'styled-components';
 import Collapse from '@kunukn/react-collapse'
 
@@ -70,22 +71,26 @@ const Language = (props) => {
     return (
         <>
             {header ? <LanBTN>
-                <button className="Lang-text" onClick={() => { setToggle(toggle => !toggle) }}>LANG <i className="fas fa-chevron-down"></i></button>
+                <button className="Lang-text" onClick={() => { setToggle(toggle => !toggle) }}>
+                    <FormattedMessage id="language" defaultMessage="LANG" />
+                    <i className="fas fa-chevron-down"></i></button>
                 <Collapse isOpen={toggle} className={'app__collapse collapse-css-transition  ' + (toggle ? 'collapse-active' : '')}>
                     <DDContainer>
                         <DDBtnbar01>
-                            <button className={context.locale.includes('en') ? 'active' : ''} onClick={() => onClick('en')}>Eng</button>
-                            |  <button className={context.locale === 'tr' ? 'active' : ''} onClick={() => onClick('tr')}>Tr</button>
+                            <button className={context.locale.includes('en') ? 'active' : ''} onClick={() => onClick('en')}>ENG</button>
+                            |  <button className={context.locale === 'tr' ? 'active' : ''} onClick={() => onClick('tr')}>TU</button>
                         </DDBtnbar01>
                     </DDContainer>
                 </Collapse>
             </LanBTN> : <LanBTNF>
-                <button className="Lang-text" onClick={() => { setToggle(toggle => !toggle) }}>LANG <i className="fas fa-chevron-down"></i></button>
+                <button className="Lang-text" onClick={() => { setToggle(toggle => !toggle) }}>
+                    <FormattedMessage id="language" defaultMessage="LANG" />
+                    <i className="fas fa-chevron-down"></i></button>
                 <Collapse isOpen={toggle} className={'app__collapse collapse-css-transition  ' + (toggle ? 'collapse-active' : '')}>
                     <DDContainerF>
                         <DDBtnbar01F>
-                            <button className={context.locale.includes('en') ? 'active' : ''} onClick={() => onClick('en')}>Eng</button>
-                            |  <button className={context.locale === 'tr' ? 'active' : ''} onClick={() => onClick('tr')}>Tr</button>
+                            <button className={context.locale.includes('en') ? 'active' : ''} onClick={() => onClick('en')}>ENG</button>
+                            |  <button className={context.locale === 'tr' ? 'active' : ''} onClick={() => onClick('tr')}>TU</button>
                         </DDBtnbar01F>
                     </DDContainerF>
                 </Collapse>

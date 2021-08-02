@@ -3,6 +3,7 @@ import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router'
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 
@@ -140,11 +141,15 @@ class CollectionEdit extends Component {
               </CreatorILeft>
               <CreatorIRight>
                 <div className='ed-box'>
-                  <p>Followers</p>
+                  <p>
+                    <FormattedMessage id="followers" defaultMessage="Followers" />
+                  </p>
                   <h3>{collection.ownerId?.followersCount}</h3>
                 </div>
                 <div className='ed-box'>
-                  <p>Following</p>
+                  <p>
+                    <FormattedMessage id="following" defaultMessage="Following" />
+                  </p>
                   <h3>{collection.ownerId?.followingCount}</h3>
                 </div>
                 <div className='ed-box'>

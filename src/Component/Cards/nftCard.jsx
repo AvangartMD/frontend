@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
 
@@ -50,7 +51,7 @@ function NFTCard({
               {collectionId ? (
                 <p>
                   <Link to={`/collection-detail/${collectionId}`}>
-                    See the collection
+                    <FormattedMessage id="see_the_collections" defaultMessage="See the collection" />
                     <i className="fas fa-angle-right"></i>
                   </Link>
                 </p>
@@ -60,14 +61,16 @@ function NFTCard({
             </CollectionBar>
             <Edition className="edition2 JCSB">
               <div className="ed-box">
-                <p>Current bid</p>
+                  <p>{auctionEndDate && auctionEndDate > new Date().getTime() / 1000 ?
+                    <FormattedMessage id="current_bid" defaultMessage="Current bid" />:
+                    <>Reserve <FormattedMessage id="price" defaultMessage="Price" /></>}</p>
                 <h3>{price} BNB</h3>
               </div>
               <div className="ed-box">
                 {previewCard ? (
                   auctionEndDate ? (
                     <>
-                      <p>Ending in</p> <h3>{auctionEndDate}h 00m 00s</h3>
+                      <p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p> <h3>{auctionEndDate}h 00m 00s</h3>
                     </>
                   ) : (
                     <button>Buy now</button>
@@ -75,7 +78,7 @@ function NFTCard({
                 ) : auctionEndDate &&
                   auctionEndDate > new Date().getTime() / 1000 ? (
                   <>
-                    <p>Ending in</p>
+                    <p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p>
 
                     <h3>
                       <Timer timeLeft={auctionEndDate} onlyHours={true} />

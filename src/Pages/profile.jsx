@@ -1,6 +1,7 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -342,14 +343,15 @@ class Profile extends Component {
               <ProSBX03>
                 <div className="cff-section">
                   <FollowerMBX>
-                    Created <span>{profile ? profile.nftCreated : "000"}</span>
+                    <FormattedMessage id="created" defaultMessage="Created" />
+                    <span>{profile ? profile.nftCreated : "000"}</span>
                   </FollowerMBX>
                   <FollowerMBX>
-                    Followers{" "}
+                    <FormattedMessage id="followers" defaultMessage="Followers" />
                     <span>{profile ? profile.followersCount : "000"}</span>
                   </FollowerMBX>
                   <FollowerMBX>
-                    Following{" "}
+                    <FormattedMessage id="following" defaultMessage="Following" />
                     <span>{profile ? profile.followingCount : "000"}</span>
                   </FollowerMBX>
                 </div>
@@ -379,7 +381,7 @@ class Profile extends Component {
                   </span>
                 </UserDText02>
                 <EditPrBTN onClick={() => this.props.history.push("/user/edit-profile")}>
-                  Edit Profile
+                  <FormattedMessage id="edit_profile" defaultMessage="Edit Profile" />
                 </EditPrBTN>
               </ProSBX03>
 

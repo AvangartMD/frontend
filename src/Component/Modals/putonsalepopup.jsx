@@ -28,10 +28,10 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
         setTxnStatus("progress");
       })
       .on("receipt", (receipt) => {
-        setTxnStatus("complete");
 				setTimeout(() => { // refresh the state 
           nftDetails();
-        }, 10000);
+          setTxnStatus("complete");
+        }, 5000);
       })
       .on("error", (error) => {
         setTxnStatus("error");

@@ -7,10 +7,13 @@ import { Link } from "react-router-dom";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 
 import { actions } from "../../actions";
+import { Context } from '../../Component/wrapper';
 import { services } from "../../services";
 import Media from "./../../Theme/media-breackpoint";
+import { formatWithCursor } from "prettier";
 
 class BecomeCreator extends Component {
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
@@ -118,9 +121,15 @@ class BecomeCreator extends Component {
       isOpen4,
     } = this.state;
     const { isFooter, isProfile, isHeader } = this.props;
+    let context = this.context;
     return (
       <>
-        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : ``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ? `Become a Creator` : `Waiting`}</AvBTN02>
+        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : ``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ?
+          <>
+            {isProfile ? <FormattedMessage id="apply" defaultMessage="Apply" /> : <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />}
+          </>
+          :<FormattedMessage id="waitlist" defaultMessage="Waitlist" />
+        }</AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
@@ -136,10 +145,11 @@ class BecomeCreator extends Component {
                 </CloseBTN>
 
                 <BACLeft>
-                  <BACLtitle>Who are you?</BACLtitle>
+                  <BACLtitle>
+                    <FormattedMessage id="who_are_you?" defaultMessage="Who are you?" />
+                  </BACLtitle>
                   <BACLdesc>
-                    Lorem ipsum dolor sit amet, consect adipiscing elit. Quisque
-                    ornare augue non finibus commodo.
+                    <FormattedMessage id="who_are_you_label" defaultMessage="Tell us about yourself to join notable artists and creators" />
                   </BACLdesc>
                   <BACLlist>
                     <Link className="active" to="/">
@@ -153,7 +163,8 @@ class BecomeCreator extends Component {
                   <NFTForm>
                     <div className="label-line">
                       <label>
-                        Name<sup>*</sup>
+                        <FormattedMessage id="form_name" defaultMessage="Name" />
+                        <sup>*</sup>
                       </label>
                     </div>
                     <input
@@ -166,7 +177,8 @@ class BecomeCreator extends Component {
                   <NFTForm>
                     <div className="label-line">
                       <label>
-                        Email<sup>*</sup>
+                        <FormattedMessage id="form_email" defaultMessage="Email" />
+                        <sup>*</sup>
                       </label>
                     </div>
                     <input
@@ -179,7 +191,8 @@ class BecomeCreator extends Component {
                   <NFTForm>
                     <div className="label-line">
                       <label>
-                        Explain Yourself<sup>*</sup>
+                        <FormattedMessage id="tell_about_us" defaultMessage="Tell us about yourself" />
+                        <sup>*</sup>
                       </label>
                     </div>
                     <textarea name="bio" defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -193,7 +206,7 @@ class BecomeCreator extends Component {
                         this.setState({ isOpen2: true });
                       }}
                     >
-                      Next
+                      <FormattedMessage id="next" defaultMessage="Next" />
                     </button>
                   </CreateItemButton>
                 </BACRight>
@@ -217,10 +230,11 @@ class BecomeCreator extends Component {
                 </CloseBTN>
 
                 <BACLeft>
-                  <BACLtitle>What’s your style?</BACLtitle>
+                  <BACLtitle>
+                    <FormattedMessage id="whats_your_style?" defaultMessage="What's your style?" />
+                  </BACLtitle>
                   <BACLdesc>
-                    Lorem ipsum dolor sit amet, consect adipiscing elit. Quisque
-                    ornare augue non finibus commodo.
+                    <FormattedMessage id="whats_your_style_label" defaultMessage="Your profile will be displayed under selected NFT categories if your creator status is approved" />
                   </BACLdesc>
                   <BACLlist>
                     <Link to="/">01</Link>
@@ -233,8 +247,12 @@ class BecomeCreator extends Component {
                 <BACRight>
                   <NFTForm>
                     <div className="label-line">
-                      <label>NFT Category</label>
-                      <p>Phasellus at dui imperdiet, eleifend lacus gravida</p>
+                      <label>
+                        <FormattedMessage id="nft_category" defaultMessage="NFT Category" />
+                      </label>
+                      <p>
+                        <FormattedMessage id="nft_category_label" defaultMessage="You can choose two categories at most" />
+                      </p>
                     </div>
                     <CustomCheckbox1>
                       {categories
@@ -249,7 +267,7 @@ class BecomeCreator extends Component {
                                   maxHeight: "32px",
                                 }}
                               />
-                              {category.categoryName}
+                              {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
                               <input
                                 type="checkbox"
                                 name="category"
@@ -269,7 +287,7 @@ class BecomeCreator extends Component {
                         this.setState({ isOpen1: true, isOpen2: false });
                       }}
                     >
-                      Previous
+                      <FormattedMessage id="previous" defaultMessage="Previous" />
                     </button>
                     <button
                       type="button"
@@ -277,7 +295,7 @@ class BecomeCreator extends Component {
                         this.setState({ isOpen3: true });
                       }}
                     >
-                      Next
+                      <FormattedMessage id="next" defaultMessage="Next" />
                     </button>
                   </CreateItemButton>
                 </BACRight>
@@ -305,8 +323,7 @@ class BecomeCreator extends Component {
                 <BACLeft>
                   <BACLtitle>Promote yourself!</BACLtitle>
                   <BACLdesc>
-                    Lorem ipsum dolor sit amet, consect adipiscing elit. Quisque
-                    ornare augue non finibus commodo.
+                    <FormattedMessage id="promote_yourself_lable" defaultMessage="Let us know about your portfolio and social links, which will drastically increase your chance of becoming a creator." />
                   </BACLdesc>
                   <BACLlist>
                     <Link to="/">01</Link>
@@ -319,7 +336,9 @@ class BecomeCreator extends Component {
                 <BACRight>
                   <NFTForm>
                     <div className="label-line">
-                      <label>Portfolio website</label>
+                      <label>
+                        <FormattedMessage id="portfolio_website" defaultMessage="Portfolio website" />
+                      </label>
                     </div>
                     <input
                       type="text"
@@ -330,7 +349,9 @@ class BecomeCreator extends Component {
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
-                      <label>Instagram account</label>
+                      <label>
+                        <FormattedMessage id="instagram_account" defaultMessage="Instagram account" />
+                      </label>
                     </div>
                     <input
                       type="text"
@@ -341,7 +362,9 @@ class BecomeCreator extends Component {
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
-                      <label>Twitter account</label>
+                      <label>
+                        <FormattedMessage id="twitter_account" defaultMessage="Twitter account" />
+                      </label>
                     </div>
                     <input
                       type="text"
@@ -360,7 +383,7 @@ class BecomeCreator extends Component {
                       Previous
                     </button>
                     <button type="submit" disabled={loading}>
-                      {loading ? "loading.." : "Submit"}
+                      {loading ? "loading.." : <FormattedMessage id="submit" defaultMessage="Submit" />}
                     </button>
                   </CreateItemButton>
                 </BACRight>
@@ -381,13 +404,22 @@ class BecomeCreator extends Component {
                 </CloseBTN>
 
                 <TokenBox>
-                  <WGTitle>We got your Submission!</WGTitle>
-                  <p>Profile status will be updated once admin approves the request</p>
+                  <WGTitle>
+                    <FormattedMessage id="we_got_submission" defaultMessage="We got your Submission!" />
+                  </WGTitle>
+                  <p>
+                    <FormattedMessage id="submission_label_1" defaultMessage="Result of your application will be delivered over email. Applications are handled in badges, so it can take some time to go over yours. Thanks for your patience." />
+                  </p>
+                  <p>
+                    <FormattedMessage id="submission_label_2" defaultMessage="If you have a concern about your form being submitted correctly, you can contact us." />
+                  </p>
                   <button onClick={() => {
                     this.props.getUserDetails(); //update the user details  
                     this.toggle(4)
                   }
-                  }>Ok</button>
+                  }>
+                    <FormattedMessage id="ok" defaultMessage="OK" />
+                  </button>
                 </TokenBox>
               </WhiteBX01>
             </BlackWrap>
