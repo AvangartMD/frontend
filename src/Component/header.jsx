@@ -1,38 +1,39 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
-import Media from "../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
-import Connect from "./connect";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { actions } from "../actions";
-import LogoImg from "../Assets/images/logo.png";
-import NotifiIcon from "../Assets/images/notification.svg";
-import UserIcon from "../Assets/images/user-img.jpg";
-import RightArrow from "../Assets/images/rightArrow.svg";
-import DisconnectICO from "../Assets/images/icon-disconnect.svg";
-import Language from "./lang.switch";
-import Login from "./Modals/login";
-import { web3, walletConnectProvider } from "../web3";
-import BecomeCreator from "./Modals/become-creator";
-import Notifications from "../Component/header/notification";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { NavLink } from 'react-router-dom';
+import Media from '../Theme/media-breackpoint';
+import Collapse from '@kunukn/react-collapse';
+import Connect from './connect';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { actions } from '../actions';
+import LogoImg from '../Assets/images/logo.png';
+import NotifiIcon from '../Assets/images/notification.svg';
+import UserIcon from '../Assets/images/user-img.jpg';
+import RightArrow from '../Assets/images/rightArrow.svg';
+import DisconnectICO from '../Assets/images/icon-disconnect.svg';
+import Language from './lang.switch';
+import Login from './Modals/login';
+import { web3, walletConnectProvider } from '../web3';
+import BecomeCreator from './Modals/become-creator';
+import Notifications from '../Component/header/notification';
 import { FaBars } from 'react-icons/fa';
-import CloseBTN01 from "../Assets/images/closeBTN01.svg";
-import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
-import IconMenuClose from "../Assets/images/icon-set-close.svg";
-import LogoImgWhite from "../Assets/images/logo-white.png";
-import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
-import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
-import NotifiIconWhite from "../Assets/images/notification-white.svg";
-
+import CloseBTN01 from '../Assets/images/closeBTN01.svg';
+import IconMenuOpen from '../Assets/images/icon-set-menu.svg';
+import IconMenuClose from '../Assets/images/icon-set-close.svg';
+import LogoImgWhite from '../Assets/images/logo-white.png';
+import IconMenuOpenWhite from '../Assets/images/icon-set-menu-white.svg';
+import IconMenuCloseWhite from '../Assets/images/icon-set-close-white.svg';
+import NotifiIconWhite from '../Assets/images/notification-white.svg';
 
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.state = {
       isOpen1: false,
       isOpen2: false,
@@ -43,10 +44,10 @@ class Header extends Component {
         accounts: [],
       },
       loader: false,
-      error: { isError: false, msg: "" },
+      error: { isError: false, msg: '' },
       userDetails: null,
       accountBalance: 0,
-      compactUserAddress: "00000000000",
+      compactUserAddress: '00000000000',
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -57,9 +58,10 @@ class Header extends Component {
     let { web3Data, authData } = this.props;
 
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
-      if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
-        localStorage.setItem("userAddress", "");
-      else if (localStorage.getItem("avangartAuthToken")) this.props.getUserDetails();
+      if (web3Data.accounts[0] !== localStorage.getItem('userAddress'))
+        localStorage.setItem('userAddress', '');
+      else if (localStorage.getItem('avangartAuthToken'))
+        this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
           this.fetchTokenBalance(web3Data);
@@ -77,6 +79,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
     let { web3Data } = this.props;
     if (!web3Data.accounts[0]) {
       this.props.getWeb3();
@@ -89,25 +92,42 @@ class Header extends Component {
     }
 
     if (window.web3) {
-      window.ethereum.on("accountsChanged", accounts => { // metamask user address changed
+      window.ethereum.on('accountsChanged', (accounts) => {
+        // metamask user address changed
         if (!web3Data.accounts[0]) {
-          this.props.clearNonce()
-          this.props.authLogout()
-          this.props.web3Logout(accounts)
-          this.props.history.push("/")
-          this.setState({ isOpen4: true })
+          this.props.clearNonce();
+          this.props.authLogout();
+          this.props.web3Logout(accounts);
+          this.props.history.push('/');
+          this.setState({ isOpen4: true });
         }
       });
     }
-    walletConnectProvider.on("accountsChanged", accounts => { // walletConnect user address changed
+    walletConnectProvider.on('accountsChanged', (accounts) => {
+      // walletConnect user address changed
       if (!web3Data.accounts[0]) {
-        this.props.clearNonce()
-        this.props.authLogout()
-        this.props.web3Logout(accounts)
-        this.props.history.push("/")
-        this.setState({ isOpen4: true })
+        this.props.clearNonce();
+        this.props.authLogout();
+        this.props.web3Logout(accounts);
+        this.props.history.push('/');
+        this.setState({ isOpen4: true });
       }
     });
+  }
+
+  handleClickOutside(event) {
+    if (
+      this.wrapperRef &&
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(event.target)
+    ) {
+      if (this.state.isOpen3) {
+        this.setState({ isOpen3: false });
+      }
+      if (this.state.isOpen2) {
+        this.setState({ isOpen2: false });
+      }
+    }
   }
   async fetchTokenBalance(web3Data) {
     const accountBalance = Number(
@@ -116,28 +136,30 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-      "...." +
-      newAddress.substring(newAddress.length - 5, newAddress.length)
-      : "00000000000";
+        '....' +
+        newAddress.substring(newAddress.length - 5, newAddress.length)
+      : '00000000000';
 
     this.setState({ accountBalance, compactUserAddress });
   }
 
   checkRole = (user) => {
-    if (user.role.roleName === "COLLECTOR") {
+    if (user.role.roleName === 'COLLECTOR') {
       return <BecomeCreator isHeader={true} />;
-    } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
+    } else if (user.role.roleName === 'CREATOR' && user.status === 'APPROVED') {
       return (
-        <Link to="/user/nftminting">
-          <AvBTN02 className="colorBTN">
-            <FormattedMessage id="create" defaultMessage="Create" />
+        <Link to='/user/nftminting'>
+          <AvBTN02 className='colorBTN'>
+            <FormattedMessage id='create' defaultMessage='Create' />
           </AvBTN02>
         </Link>
       );
-    } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
-      return <AvBTN02 className="colorBTN">
-        <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
-      </AvBTN02>;
+    } else if (user.role.roleName === 'CREATOR' && user.status !== 'APPROVED') {
+      return (
+        <AvBTN02 className='colorBTN'>
+          <FormattedMessage id='waitlist' defaultMessage='Waitlist' />
+        </AvBTN02>
+      );
     }
   };
 
@@ -146,11 +168,11 @@ class Header extends Component {
     localStorage.clear();
     this.props.authLogout();
     this.props.web3Logout(web3Data.accounts);
-    this.props.history.push("/");
+    this.props.history.push('/');
   };
 
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
@@ -163,11 +185,11 @@ class Header extends Component {
     } = this.state;
     return (
       <>
-        <HeadMBX className="">
+        <HeadMBX className=''>
           <HeadMBX02>
-            <HeadSbx01 className="mobile-logo">
+            <HeadSbx01 className='mobile-logo'>
               <Logo>
-                <Link to="/" className="avangart-Logo">
+                <Link to='/' className='avangart-Logo'>
                   {/* <img src={LogoImg} alt="" /> */}
                 </Link>
               </Logo>
@@ -175,121 +197,222 @@ class Header extends Component {
 
             <HeadSbx01>
               <MobileMenu>
-                {web3Data.isLoggedIn ?
-                  <NotificationBX onClick={() => this.toggle(3)}>
-                    <button className="noti-button-outer">
+                {web3Data.isLoggedIn ? (
+                  <NotificationBX
+                    onClick={() => this.toggle(3)}
+                    ref={this.wrapperRef}
+                  >
+                    <button className='noti-button-outer'>
                       {/* <img src={NotifiIcon} alt="" /> */}
-                      <span className="Notifi-Icon"></span>
-                      <span className="RedDot"></span>
+                      <span className='Notifi-Icon'></span>
+                      <span className='RedDot'></span>
                     </button>
 
                     <Collapse
                       isOpen={this.state.isOpen3}
                       className={
-                        "app__collapse collapse-css-transition  " +
-                        (this.state.isOpen3 ? "collapse-active" : "")
+                        'app__collapse collapse-css-transition  ' +
+                        (this.state.isOpen3 ? 'collapse-active' : '')
                       }
                     >
-                      <DDContainer className="ver3">
+                      <DDContainer className='ver3'>
                         <Notifications />
                       </DDContainer>
-
                     </Collapse>
                   </NotificationBX>
-                  : ``}
+                ) : (
+                  ``
+                )}
 
-                <Bars onClick={() => this.toggle(11)} className={(this.state.isOpen11 ? "menu-active" : "menu-deactive")} />
+                <Bars
+                  onClick={() => this.toggle(11)}
+                  className={
+                    this.state.isOpen11 ? 'menu-active' : 'menu-deactive'
+                  }
+                />
               </MobileMenu>
               <MobileSidebar>
-                <Collapse id="mobile-block"
+                <Collapse
+                  id='mobile-block'
                   isOpen={this.state.isOpen11}
                   className={
-                    "app__collapse " + (this.state.isOpen11 ? "collapse-active" : "")
+                    'app__collapse ' +
+                    (this.state.isOpen11 ? 'collapse-active' : '')
                   }
                 >
                   <MobInner>
-                    <div className="mobile-links">
-                      {web3Data.isLoggedIn ?
-                        <NavLink to="/user/profile" exact activeClassName="active" onClick={() => this.toggle(11)}>
+                    <div className='mobile-links'>
+                      {web3Data.isLoggedIn ? (
+                        <NavLink
+                          to='/user/profile'
+                          exact
+                          activeClassName='active'
+                          onClick={() => this.toggle(11)}
+                        >
                           Profile
                         </NavLink>
-                        : ``}
-                      <NavLink to="/marketplace" exact activeClassName="active" onClick={() => this.toggle(11)}>
+                      ) : (
+                        ``
+                      )}
+                      <NavLink
+                        to='/marketplace'
+                        exact
+                        activeClassName='active'
+                        onClick={() => this.toggle(11)}
+                      >
                         <FormattedMessage
-                          id="marketplace"
-                          defaultMessage="Marketplace"
+                          id='marketplace'
+                          defaultMessage='Marketplace'
                         />
                       </NavLink>
-                      <NavLink to="/collections" exact activeClassName="active" onClick={() => this.toggle(11)}>
-                        <FormattedMessage id="Collections" defaultMessage="Collections" />
-                      </NavLink>
-                      <NavLink to="/creators" exact activeClassName="active" onClick={() => this.toggle(11)}>
-                        <FormattedMessage id="creators" defaultMessage="Creators" />
-                      </NavLink>
-                      <NavLink to="/how-to-use" exact activeClassName="active" onClick={() => this.toggle(11)}>
+                      <NavLink
+                        to='/collections'
+                        exact
+                        activeClassName='active'
+                        onClick={() => this.toggle(11)}
+                      >
                         <FormattedMessage
-                          id="how_to_use?"
-                          defaultMessage="How to use?"
+                          id='Collections'
+                          defaultMessage='Collections'
                         />
                       </NavLink>
-                      <NavLink to="/" exact activeClassName="active" onClick={() => this.toggle(12)}>
+                      <NavLink
+                        to='/creators'
+                        exact
+                        activeClassName='active'
+                        onClick={() => this.toggle(11)}
+                      >
+                        <FormattedMessage
+                          id='creators'
+                          defaultMessage='Creators'
+                        />
+                      </NavLink>
+                      <NavLink
+                        to='/how-to-use'
+                        exact
+                        activeClassName='active'
+                        onClick={() => this.toggle(11)}
+                      >
+                        <FormattedMessage
+                          id='how_to_use?'
+                          defaultMessage='How to use?'
+                        />
+                      </NavLink>
+                      <NavLink
+                        to='/'
+                        exact
+                        activeClassName='active'
+                        onClick={() => this.toggle(12)}
+                      >
                         More
                       </NavLink>
                     </div>
                     <Collapse
                       isOpen={this.state.isOpen12}
                       className={
-                        "app__collapse " + (this.state.isOpen12 ? "collapse-active" : "")
+                        'app__collapse ' +
+                        (this.state.isOpen12 ? 'collapse-active' : '')
                       }
                     >
                       <Moremenu>
-                        <div className="more-parts">
-                          <NavLink to="blog-list" onClick={() => { this.toggle(12); this.toggle(11) }}>Avangart Blog</NavLink>
-                          <NavLink to="/faq" onClick={() => { this.toggle(12); this.toggle(11) }}>FAQ</NavLink>
-                          <NavLink to="" onClick={() => { this.toggle(12); this.toggle(11) }}>Support</NavLink>
+                        <div className='more-parts'>
+                          <NavLink
+                            to='blog-list'
+                            onClick={() => {
+                              this.toggle(12);
+                              this.toggle(11);
+                            }}
+                          >
+                            Avangart Blog
+                          </NavLink>
+                          <NavLink
+                            to='/faq'
+                            onClick={() => {
+                              this.toggle(12);
+                              this.toggle(11);
+                            }}
+                          >
+                            FAQ
+                          </NavLink>
+                          <NavLink
+                            to=''
+                            onClick={() => {
+                              this.toggle(12);
+                              this.toggle(11);
+                            }}
+                          >
+                            Support
+                          </NavLink>
                         </div>
-                        <div className="more-parts">
-                          <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
+                        <div className='more-parts'>
+                          <NavLink
+                            to='/legal'
+                            onClick={() => {
+                              this.toggle(12);
+                              this.toggle(11);
+                            }}
+                          >
                             <FormattedMessage
-                              id="term_of_service"
-                              defaultMessage="Terms of Service"
+                              id='term_of_service'
+                              defaultMessage='Terms of Service'
                             />
                           </NavLink>
-                          <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
+                          <NavLink
+                            to='/legal'
+                            onClick={() => {
+                              this.toggle(12);
+                              this.toggle(11);
+                            }}
+                          >
                             <FormattedMessage
-                              id="privacy_policy"
-                              defaultMessage="Privacy Policy"
+                              id='privacy_policy'
+                              defaultMessage='Privacy Policy'
                             />
                           </NavLink>
-                          <NavLink to="/legal" onClick={() => { this.toggle(12); this.toggle(11) }}>
+                          <NavLink
+                            to='/legal'
+                            onClick={() => {
+                              this.toggle(12);
+                              this.toggle(11);
+                            }}
+                          >
                             <FormattedMessage
-                              id="cookie_policy"
-                              defaultMessage="Cookie Policy"
+                              id='cookie_policy'
+                              defaultMessage='Cookie Policy'
                             />
                           </NavLink>
                         </div>
                       </Moremenu>
                     </Collapse>
 
-                    {!web3Data.isLoggedIn ?
+                    {!web3Data.isLoggedIn ? (
                       <>
                         <Language header={true} />
-                        <div className="mobile-login-btn">
+                        <div className='mobile-login-btn'>
                           <AvBTN01 onClick={() => this.toggle(4)}>
-                            <FormattedMessage id="login" defaultMessage="Login" />
+                            <FormattedMessage
+                              id='login'
+                              defaultMessage='Login'
+                            />
                           </AvBTN01>
                         </div>
                       </>
-                      : <>
+                    ) : (
+                      <>
                         <Language header={true} />
-                        <div className="mobile-login-btn">
-
-                          {userDetails ? this.checkRole(userDetails) : ""}
-
+                        <div className='mobile-login-btn'>
+                          {userDetails ? this.checkRole(userDetails) : ''}
                         </div>
-                        <Mobiledisconnect onClick={() => { this.disconnect(); this.toggle(11); }}>Disconnect</Mobiledisconnect>
+                        <Mobiledisconnect
+                          onClick={() => {
+                            this.disconnect();
+                            this.toggle(11);
+                          }}
+                        >
+                          Disconnect
+                        </Mobiledisconnect>
                       </>
-                    }
+                    )}
                     <FooterrightLinks>
                       <Link to='/'>Instagram</Link>
                       <Link to='/'>Twitter</Link>
@@ -299,20 +422,20 @@ class Header extends Component {
                 </Collapse>
               </MobileSidebar>
 
-              <nav className="desktop-menu">
-                <NavLink to="/marketplace" exact activeClassName="active">
+              <nav className='desktop-menu'>
+                <NavLink to='/marketplace' exact activeClassName='active'>
                   <FormattedMessage
-                    id="marketplace"
-                    defaultMessage="Marketplace"
+                    id='marketplace'
+                    defaultMessage='Marketplace'
                   />
                 </NavLink>
-                <NavLink to="/creators" exact activeClassName="active">
-                  <FormattedMessage id="creators" defaultMessage="Creators" />
+                <NavLink to='/creators' exact activeClassName='active'>
+                  <FormattedMessage id='creators' defaultMessage='Creators' />
                 </NavLink>
-                <NavLink to="/how-to-use" exact activeClassName="active">
+                <NavLink to='/how-to-use' exact activeClassName='active'>
                   <FormattedMessage
-                    id="how_to_use?"
-                    defaultMessage="How to use?"
+                    id='how_to_use?'
+                    defaultMessage='How to use?'
                   />
                 </NavLink>
               </nav>
@@ -320,44 +443,45 @@ class Header extends Component {
 
             {/* without Login  */}
             {!web3Data.isLoggedIn ? (
-              <HeadSbx01 className="desktop-menu">
+              <HeadSbx01 className='desktop-menu'>
                 <AvBTN01 onClick={() => this.toggle(4)}>
-                  <FormattedMessage id="login" defaultMessage="Login" />
+                  <FormattedMessage id='login' defaultMessage='Login' />
                 </AvBTN01>
                 <Language header={true} />
               </HeadSbx01>
             ) : (
-              <HeadSbx01 className="desktop-menu">
-                {userDetails ? this.checkRole(userDetails) : ""}
+              <HeadSbx01 className='desktop-menu'>
+                {userDetails ? this.checkRole(userDetails) : ''}
 
-                <NotificationBX onClick={() => this.toggle(3)}>
-
-                  <button className="active noti-button-outer">
+                <NotificationBX
+                  onClick={() => this.toggle(3)}
+                  ref={this.wrapperRef}
+                >
+                  <button className='active noti-button-outer'>
                     {/* <img src={NotifiIcon} alt="" /> */}
-                    <span className="Notifi-Icon"></span>
-                    <span className="RedDot"></span>
+                    <span className='Notifi-Icon'></span>
+                    <span className='RedDot'></span>
                   </button>
 
                   <Collapse
                     isOpen={this.state.isOpen3}
                     className={
-                      "app__collapse collapse-css-transition  " +
-                      (this.state.isOpen3 ? "collapse-active" : "")
+                      'app__collapse collapse-css-transition  ' +
+                      (this.state.isOpen3 ? 'collapse-active' : '')
                     }
                   >
-                    <DDContainer className="ver3">
+                    <DDContainer className='ver3'>
                       <Notifications />
                     </DDContainer>
-
                   </Collapse>
                 </NotificationBX>
-                <AccountBX className="ph-bg" onClick={() => this.toggle(2)}>
+                <AccountBX className='ph-bg' onClick={() => this.toggle(2)}>
                   <span>
                     {accountBalance} BNB
                     <span>{compactUserAddress}</span>
-                  </span>{" "}
+                  </span>{' '}
                   <i>
-                    {" "}
+                    {' '}
                     <img
                       src={
                         userDetails
@@ -366,25 +490,26 @@ class Header extends Component {
                             : UserIcon
                           : UserIcon
                       }
-                      alt=""
+                      alt=''
                     />
                   </i>
                   <Collapse
                     isOpen={this.state.isOpen2}
                     className={
-                      "app__collapse collapse-css-transition  " +
-                      (this.state.isOpen2 ? "collapse-active" : "")
+                      'app__collapse collapse-css-transition  ' +
+                      (this.state.isOpen2 ? 'collapse-active' : '')
                     }
+                    ref={this.wrapperRef}
                   >
-                    <DDContainer className="ver2">
+                    <DDContainer className='ver2'>
                       <DDBtnbar02>
                         <button
                           onClick={() =>
-                            this.props.history.push("/user/profile")
+                            this.props.history.push('/user/profile')
                           }
                         >
                           <i>
-                            {" "}
+                            {' '}
                             <img
                               src={
                                 userDetails
@@ -393,13 +518,13 @@ class Header extends Component {
                                     : UserIcon
                                   : UserIcon
                               }
-                              alt=""
+                              alt=''
                             />
-                          </i>{" "}
-                          View your profile{" "}
+                          </i>{' '}
+                          View your profile{' '}
                           <span>
-                            {" "}
-                            <img src={RightArrow} alt="" />
+                            {' '}
+                            <img src={RightArrow} alt='' />
                           </span>
                         </button>
                         <button
@@ -408,16 +533,15 @@ class Header extends Component {
                           }}
                         >
                           <i>
-                            {" "}
-                            <img src={DisconnectICO} alt="" />
+                            {' '}
+                            <img src={DisconnectICO} alt='' />
                           </i>
-                          Disconnect{" "}
+                          Disconnect{' '}
                           {/* <span>
                             {" "}
                             <img src={RightArrow} alt="" />
                           </span> */}
                         </button>
-
                       </DDBtnbar02>
                     </DDContainer>
                   </Collapse>
@@ -433,7 +557,7 @@ class Header extends Component {
   }
 
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -450,62 +574,49 @@ const HeadMBX = styled(FlexDiv)`
   position: absolute;
   z-index: 100;
   box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
-  ${Media.md}{
+  ${Media.md} {
     min-height: 80px;
   }
-  &.gradient-header
-  { box-shadow:none;
-    .avangart-Logo
-    {
+  &.gradient-header {
+    box-shadow: none;
+    .avangart-Logo {
       background: url(${LogoImgWhite}) no-repeat;
     }
-    .desktop-menu a
-    {
-      color:#fff;
-      :hover
-      {
-        :after
-        {
-          background-color:#fff;
+    .desktop-menu a {
+      color: #fff;
+      :hover {
+        :after {
+          background-color: #fff;
         }
       }
-      .active
-      {
-        :after
-        {
-          background-color:#fff;
+      .active {
+        :after {
+          background-color: #fff;
         }
       }
     }
-    .ph-bg
-    {
-      background-color:transparent;
-      span
-      {
-        color:#fff;
-        span
-        {
-          color:rgb(255 255 255 / 30%);
+    .ph-bg {
+      background-color: transparent;
+      span {
+        color: #fff;
+        span {
+          color: rgb(255 255 255 / 30%);
         }
       }
     }
-    .menu-active
-    {
-      background:url(${IconMenuCloseWhite}) no-repeat;
+    .menu-active {
+      background: url(${IconMenuCloseWhite}) no-repeat;
     }
-    .menu-deactive
-    {
-      background:url(${IconMenuOpenWhite}) no-repeat;
+    .menu-deactive {
+      background: url(${IconMenuOpenWhite}) no-repeat;
     }
-    .noti-button-outer
-    {
-      ${Media.md}{
-        background-color:transparent;
+    .noti-button-outer {
+      ${Media.md} {
+        background-color: transparent;
       }
-      .Notifi-Icon
-      {
-        ${Media.md}{
-          background:url(${NotifiIconWhite}) no-repeat;
+      .Notifi-Icon {
+        ${Media.md} {
+          background: url(${NotifiIconWhite}) no-repeat;
         }
       }
     }
@@ -515,28 +626,27 @@ const HeadMBX02 = styled(FlexDiv)`
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  ${Media.lg}{
+  ${Media.lg} {
     margin: 0 15px;
-    justify-content:flex-start;
+    justify-content: flex-start;
   }
 `;
 const HeadSbx01 = styled(FlexDiv)`
   width: 33.33%;
   justify-content: flex-start;
-  &.mobile-logo
-  {
-    ${Media.md}{
-      width:auto;
-    } 
+  &.mobile-logo {
+    ${Media.md} {
+      width: auto;
+    }
   }
-  &.desktop-menu,.desktop-menu
-  {
-    ${Media.md}{
-      display:none;
-    } 
+  &.desktop-menu,
+  .desktop-menu {
+    ${Media.md} {
+      display: none;
+    }
   }
-  ${Media.lg}{
-    width:28.33%;
+  ${Media.lg} {
+    width: 28.33%;
   }
   &:nth-child(2) {
     justify-content: center;
@@ -552,14 +662,14 @@ const HeadSbx01 = styled(FlexDiv)`
       padding: 0 20px;
       line-height: 25px;
       position: relative;
-      ${Media.lg}{
-        font-size:15px;
+      ${Media.lg} {
+        font-size: 15px;
         padding: 0 15px;
       }
       :hover,
       &.active {
         :after {
-          content: "";
+          content: '';
           left: 20px;
           right: 20px;
           height: 2px;
@@ -570,24 +680,23 @@ const HeadSbx01 = styled(FlexDiv)`
         }
       }
     }
-    ${Media.lg}{
-      width:33.33%;
+    ${Media.lg} {
+      width: 33.33%;
     }
   }
   &:nth-child(3) {
     justify-content: flex-end;
-    ${Media.lg}{
-      width:38.33%;
+    ${Media.lg} {
+      width: 38.33%;
     }
   }
 `;
 const Logo = styled(FlexDiv)`
-  .avangart-Logo
-  {
+  .avangart-Logo {
     background: url(${LogoImg}) no-repeat;
-    background-size:contain;
-    width:150px;
-    height:35px;
+    background-size: contain;
+    width: 150px;
+    height: 35px;
   }
 `;
 
@@ -646,11 +755,10 @@ const AvBTN02 = styled.button`
 const NotificationBX = styled(FlexDiv)`
   margin-left: 8px;
   position: relative;
-  .Notifi-Icon
-  {
-    background:url(${NotifiIcon}) no-repeat;
-    width:24px;
-    height:24px;
+  .Notifi-Icon {
+    background: url(${NotifiIcon}) no-repeat;
+    width: 24px;
+    height: 24px;
   }
   & > button {
     width: 38px;
@@ -659,13 +767,16 @@ const NotificationBX = styled(FlexDiv)`
     align-items: center;
     justify-content: center;
     border-radius: 15px;
-    &.active,:hover {
+    &.active,
+    :hover {
       border: 1px solid #d6dde5;
       -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
       border: 1px solid #eef2f7;
-      background-color:#ffffff;
-      span.RedDot {display:block;}
+      background-color: #ffffff;
+      span.RedDot {
+        display: block;
+      }
     }
     span.RedDot {
       width: 12px;
@@ -676,7 +787,7 @@ const NotificationBX = styled(FlexDiv)`
       right: -2px;
       top: -2px;
       background-color: #ff2a44;
-      display:none;
+      display: none;
     }
   }
 `;
@@ -691,7 +802,7 @@ const AccountBX = styled(FlexDiv)`
   border-radius: 20px;
   z-index: 101;
   cursor: pointer;
-  ${Media.lg}{
+  ${Media.lg} {
     padding: 8px 10px;
   }
   &:hover {
@@ -753,15 +864,15 @@ const DDContainer = styled(FlexDiv)`
     top: calc(100% + 34px);
     padding: 0;
     ${Media.md} {
-      transform:none;
-      left:auto;
-      right:-49px;
-      width:100vw;
+      transform: none;
+      left: auto;
+      right: -49px;
+      width: 100vw;
       top: calc(100% + 21px);
-      box-shadow:none;
-      border-radius:0px;
-      padding:30px 25px;
-      justify-content:flex-start;
+      box-shadow: none;
+      border-radius: 0px;
+      padding: 30px 25px;
+      justify-content: flex-start;
     }
   }
 `;
@@ -838,59 +949,55 @@ const CloseBTN = styled.button`
 `;
 
 const MobileMenu = styled(FlexDiv)`
-  display:none;
-  ${Media.md}{
-    display:flex;
-    position:absolute;
-    right:15px;
+  display: none;
+  ${Media.md} {
+    display: flex;
+    position: absolute;
+    right: 15px;
   }
 `;
 
 const Bars = styled.div`
-  color:#000;
-  font-size:20px;
-  margin-left:10px;
-  background:url(${IconMenuOpen}) no-repeat;
-  width:24px;
-  height:24px;
-  &.menu-active
-  {
-    background:url(${IconMenuClose}) no-repeat;
+  color: #000;
+  font-size: 20px;
+  margin-left: 10px;
+  background: url(${IconMenuOpen}) no-repeat;
+  width: 24px;
+  height: 24px;
+  &.menu-active {
+    background: url(${IconMenuClose}) no-repeat;
   }
 `;
 
 const MobileSidebar = styled.div`
-  background-color:#fff;
-  width:100%;
-  position:absolute;
-  top:80px;
-  left:0px;
-  display:none;
-  ${Media.md}{
-    display:block;
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  display: none;
+  ${Media.md} {
+    display: block;
   }
-  .collapse-active#mobile-block
-  {
-    height:auto !important;
+  .collapse-active#mobile-block {
+    height: auto !important;
   }
 `;
 
 const MobInner = styled.div`
-  width:100%;
-  padding:30px 25px;
-  .mobile-links
-  {
-    a{
-      width:max-content;
-      display:block;
-      font-size:18px;
-      padding:0px 0px 22px !important;
-      :after
-      {
-        left:0px !important;
-        bottom:18px !important;
-        width:100%;
-        height:3px !important;
+  width: 100%;
+  padding: 30px 25px;
+  .mobile-links {
+    a {
+      width: max-content;
+      display: block;
+      font-size: 18px;
+      padding: 0px 0px 22px !important;
+      :after {
+        left: 0px !important;
+        bottom: 18px !important;
+        width: 100%;
+        height: 3px !important;
       }
     }
     :hover {
@@ -899,63 +1006,58 @@ const MobInner = styled.div`
       }
     }
   }
-  .mobile-login-btn
-  {
-    margin-top:80px;
-    text-align:center;
-    button
-    {
+  .mobile-login-btn {
+    margin-top: 80px;
+    text-align: center;
+    button {
       // padding: 12px 75px 15px;
-      width:200px;
-      height:50px;
-      font-size:18px;
-      text-transform:capitalize;
+      width: 200px;
+      height: 50px;
+      font-size: 18px;
+      text-transform: capitalize;
     }
-    a{
-      :after{display:none !important;}
+    a {
+      :after {
+        display: none !important;
+      }
     }
   }
 `;
 
 const FooterrightLinks = styled(FlexDiv)`
-  margin:30px 0px 40px;
-  a{
-    font-size:14px !important;
-    letter-spacing:-0.6px !important;
-    font-weight:500 !important;
-    :last-child
-    {
-      margin-right:0px;
+  margin: 30px 0px 40px;
+  a {
+    font-size: 14px !important;
+    letter-spacing: -0.6px !important;
+    font-weight: 500 !important;
+    :last-child {
+      margin-right: 0px;
     }
   }
 `;
 
 const Mobiledisconnect = styled(FlexDiv)`
-  margin:15px 0px 0px;
-  font-size:14px !important;
-  letter-spacing:-0.6px !important;
-  font-weight:500 !important;
-  text-decoration:underline;
-  :after
-  {
-    display:none !important;
+  margin: 15px 0px 0px;
+  font-size: 14px !important;
+  letter-spacing: -0.6px !important;
+  font-weight: 500 !important;
+  text-decoration: underline;
+  :after {
+    display: none !important;
   }
 `;
 
 const Moremenu = styled(FlexDiv)`
-  .more-parts
-  {
-    width:50%;
-    a
-    {
-      font-size:14px;
-      letter-spacing:-0.62px;
-      font-weight:600;
-      display:block;
-      margin-bottom:15px;
-      :after
-      {
-        display:none !important;
+  .more-parts {
+    width: 50%;
+    a {
+      font-size: 14px;
+      letter-spacing: -0.62px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 15px;
+      :after {
+        display: none !important;
       }
     }
   }
@@ -971,15 +1073,15 @@ const mapDipatchToProps = (dispatch) => {
     getWeb3: () => dispatch(actions.getWeb3()),
     enableMetamask: () => dispatch(actions.enableMetamask()),
     generateNonce: (address) => dispatch(actions.generateNonce(address)),
-    clearNonce: () => dispatch({ type: "GENERATE_NONCE", data: null }),
+    clearNonce: () => dispatch({ type: 'GENERATE_NONCE', data: null }),
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
+    authLogout: () => dispatch({ type: 'AUTH_LOGIN', data: null }),
     web3Logout: (accounts) =>
       dispatch({
-        type: "FETCH_WEB3_DATA",
+        type: 'FETCH_WEB3_DATA',
         data: { isLoggedIn: false, accounts: accounts },
       }),
   };
