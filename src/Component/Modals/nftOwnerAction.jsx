@@ -545,7 +545,7 @@ const SkyWalletAddress = styled.div`
   letter-spacing: -0.8px;
   font-weight: 600;
   color: #000;
-  margin: 0 auto 40px;
+  margin: 0 auto 10px;
   width: auto;
 `;
 const WGTitle = styled.div`

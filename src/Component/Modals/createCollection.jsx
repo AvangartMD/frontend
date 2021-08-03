@@ -170,7 +170,7 @@ function CreateCollection(props) {
                     {props.categoryList?.map((category, key) => (
                       <label className="checkbox-container" key={key}>
                         <img src={category.image} alt="" />
-                        {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu:category.categoryName.en)}
+                        {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en)}
                         <input
                           type="checkbox"
                           name="category"
@@ -248,6 +248,13 @@ const WhiteBX01 = styled(FlexDiv)`
   }
   form{
     width:100%;
+    ${Media.md}{
+      height:500px;
+      overflow-y:scroll;
+    }
+    ${Media.sm}{
+      height:400px;
+    }
   }
 `;
 const CloseBTN = styled.button`

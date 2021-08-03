@@ -315,6 +315,7 @@ const NFTLike = styled(FlexDiv)`
   top: 20px;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
   border-radius: 30px;
+  cursor:pointer;
   p {
     color: #ff2a44;
     font-size: 12px;

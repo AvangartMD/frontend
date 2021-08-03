@@ -720,7 +720,7 @@ const NFTDleftcontainer = styled.div`
   width: 100%;
   max-width: 515px;
   margin:0 auto;
-  padding: 15px;
+  padding: 15px 50px;
   ${Media.md} {
     margin: 0 auto;
     padding: 70px 43px;
@@ -796,6 +796,7 @@ const NFTLike = styled(FlexDiv)`
   height: 34px;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
   border-radius: 30px;
+  cursor:pointer;
   p {
     color: #ff2a44;
     font-size: 12px;
@@ -924,6 +925,7 @@ const Edition = styled(FlexDiv)`
       font-size: 12px;
       letter-spacing: -0.6px;
       font-weight: 600;
+      line-height:13px;
     }
     h3 {
       color: #000;
@@ -991,6 +993,13 @@ const NFTcartButtons = styled.div`
     font-size: 14px;
     letter-spacing: -0.5px;
     margin: 0px 10px 10px 0px;
+    ${Media.xs} {
+      display:block;
+      margin: 0px auto 10px;
+      width:200px;
+      height:44px;
+      padding:0px;
+    }
     :hover {
       background-image: linear-gradient(90deg, #d121d6, #febf11);
       box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 20%);
