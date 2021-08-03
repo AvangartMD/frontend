@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { FormattedMessage } from "react-intl";
 import { withRouter } from 'react-router';
 import Magnifypopup from '../Component/Modals/magnifyPopup';
 import POSpopup from '../Component/Modals/putonsalepopup';
@@ -28,7 +29,7 @@ const saleMethods = {
   sold: {
     name: null,
     btnName: 'Sold out',
-    bidDesc: 'Sold for',
+    bidDesc: <FormattedMessage id="sold_out" defaultMessage="Sold out" />,
     disable: true,
   },
   buyNow: {
@@ -39,7 +40,7 @@ const saleMethods = {
   },
   placeABid: {
     name: 'placeBid',
-    btnName: 'Place a bid',
+    btnName: <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />,
     bidDesc: 'Current bid',
     open: 8,
   },
@@ -51,7 +52,7 @@ const saleMethods = {
   },
   putOnSale: {
     name: null,
-    btnName: 'Put on sale',
+    btnName: <FormattedMessage id="put_on_sale" defaultMessage="Put on Sale" />,
     bidDesc: 'Purchased at',
     open: 7,
     checkApproval: true,
@@ -82,19 +83,19 @@ const saleMethods = {
   },
   acceptOffer: {
     name: 'acceptOffer',
-    btnName: 'Accept Offer',
+    btnName: <FormattedMessage id="accpet_offer" defaultMessage="Accept Offer" />,
     bidDesc: 'Current offer',
     open: 1,
   },
   burn: {
     name: 'burnTokenEdition',
-    btnName: 'Accept Offer',
+    btnName: <FormattedMessage id="accept_offer" defaultMessage="Accept Offer" />,
     bidDesc: 'Current offer',
     open: 1,
   },
   transfer: {
     name: 'transfer',
-    btnName: 'Accept Offer',
+    btnName: <FormattedMessage id="accept_offer" defaultMessage="Accept Offer" />,
     bidDesc: 'Current offer',
     open: 1,
   },
@@ -112,7 +113,7 @@ class NftDetail extends React.Component {
       },
       ownerActionName: '',
       currentEdition: 0,
-      saleMethod: { name: 'placeBid', btnName: 'Place a bid' },
+      saleMethod: { name: 'placeBid', btnName: <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />, },
       showTimer: false,
       loading: false,
       selectedNFTDetails: null,
@@ -217,7 +218,7 @@ class NftDetail extends React.Component {
       if (isOwner) {
         const method = saleMethods.noButton;
         method.bidDesc =
-          saleState === 'BUY' ? 'Resereved Price' : 'Current offer';
+          saleState === 'BUY' ? 'Reserved Price' : 'Current offer';
         return this.setState({
           saleMethod: method,
         });
@@ -478,19 +479,23 @@ class NftDetail extends React.Component {
                       ? `@${NFTDetails.ownerId.username}`
                       : NFTDetails?.ownerId.name}
                   </UserImgName>
-                  <button onClick={() => this.toggle(9)}>History</button>
+                  <button onClick={() => this.toggle(9)}>
+                    <FormattedMessage id="history" defaultMessage="History" />
+                  </button>
                 </Historysection>
                 <Edition>
                   <div className='ed-box'>
                     <div className='ed-left'>
-                      <p>Edition</p>
+                      <p>
+                        <FormattedMessage id="edition" defaultMessage="Edition" />
+                      </p>
                       <div className='ed-left-inner'>
                         <h3>{this.state.currentEdition}</h3>
                         <p className='gray-t'>of {NFTDetails?.edition}</p>
                       </div>
                     </div>
                     <Link to='#' onClick={() => this.toggle(10)}>
-                      Select edition
+                      <FormattedMessage id="select_edition" defaultMessage="Select edition" />
                     </Link>
                   </div>
                   <div className='ed-box'>
@@ -507,13 +512,14 @@ class NftDetail extends React.Component {
                       </div>
                     </div>
                     <p className='royalty'>
-                      A 10% royalty goes to the <br></br>creator for future
-                      resale
+                      <FormattedMessage id="nft_price_lable" defaultMessage="A 10% royalty goes to the <br></br>creator for future resale" />
                     </p>
                   </div>
                   {showTimer && (
                     <div className='ed-box ed-mb-block'>
-                      <p>Ending in</p>
+                      <p>
+                        <FormattedMessage id="ending" defaultMessage="Ending in" />,
+                      </p>
                       <FlexDiv className='JCFS'>
                         <Timer
                           timeLeft={NFTDetails?.auctionEndDate}
@@ -525,7 +531,9 @@ class NftDetail extends React.Component {
                   )}
                   {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
                     <div className='ed-box ed-mb-block'>
-                      <p>Unlockable content message</p>
+                      <p>
+                        <FormattedMessage id="unlock_content_label" defaultMessage="Unlockable content message" />
+                      </p>
                       <SkyNoteBox>
                         <p className='note-text'>{NFTDetails?.digitalKey}</p>
                       </SkyNoteBox>
@@ -587,7 +595,7 @@ class NftDetail extends React.Component {
                           this.setOwnerActions(saleMethods.transfer)
                         }
                       >
-                        Transfer
+                        <FormattedMessage id="transfer" defaultMessage="Transfer" />
                       </button>
                     </>
                   ) : null}

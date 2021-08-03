@@ -1,5 +1,6 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import HeartIcon from "../../Assets/images/heart-icon.svg";
 import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
@@ -49,7 +50,9 @@ function Drafts(props) {
         <CEmpty>
           <h2 className="Bec">Your draft is empty</h2>
           <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-          <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>Create</button>
+          <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>
+            <FormattedMessage id="create" defaultMessage="Create" />
+          </button>
         </CEmpty>
         : ``}
 

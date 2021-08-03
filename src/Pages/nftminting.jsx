@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 // import { Link } from 'react-router-dom';
 import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
@@ -442,7 +443,9 @@ class NFTPage extends Component {
                     >
                       <NFTForm>
                         <div className="label-line">
-                          <label>Title</label>
+                          <label>
+                            <FormattedMessage id="title" defaultMessage="Title" />
+                          </label>
                         </div>
                         <input
                           type="text"
@@ -453,8 +456,8 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className="label-line">
-                          <label>Description</label>
-                          <span>optional</span>
+                          <label><FormattedMessage id="description" defaultMessage="Description" /></label>
+                          <span><FormattedMessage id="optional" defaultMessage="optional" /></span>
                         </div>
                         <input
                           type="text"
@@ -465,7 +468,9 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className="label-line">
-                          <label>Upload File</label>
+                          <label>
+                            <FormattedMessage id="upload_file" defaultMessage="Upload File" />
+                          </label>
                           <FlexDiv className="JCSB">
                             <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
                             <p>
@@ -476,7 +481,7 @@ class NFTPage extends Component {
                         <FileuploadBox>
                           <label className="custom-file-upload">
                             <input type="file" name="nftFile" />
-                            Choose
+                            <FormattedMessage id="choose" defaultMessage="Choose" />
                           </label>
                           <input type="file" placeholder="Choose" />
                         </FileuploadBox>
@@ -484,8 +489,7 @@ class NFTPage extends Component {
                       <NFTtitle id="creator">
                         <h4 className="mt-30">Co-Creator</h4>
                         <p className="mb-30">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
+                          <FormattedMessage id="co_creator_label" defaultMessage="You can share the revenue streams from the NFT with a collaborator" />
                         </p>
                       </NFTtitle>
                       <NFTForm>
@@ -515,8 +519,7 @@ class NFTPage extends Component {
                         <div className="label-line">
                           <label>Percentage</label>
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
+                            <FormattedMessage id="percentage_label" defaultMessage="Please enter the percentage of sales revenue that should go to the co-creator." />
                           </p>
                         </div>
                         <div className="iRight">
@@ -617,7 +620,9 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTForm>
                         <div className="label-line">
-                          <label>Sale State</label>
+                          <label>
+                            <FormattedMessage id="sale_status" defaultMessage="Sale Status" />
+                          </label>
                         </div>
                         <CustomRadio1>
                           <label className="radio-container">
@@ -685,10 +690,9 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className="label-line">
-                          <label>Edition</label>
+                          <label><FormattedMessage id="edition" defaultMessage="EDITION" /></label>
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
+                            <FormattedMessage id="edition_label" defaultMessage="Currently creators can mint up to 500 editions of an NFT." />
                           </p>
                         </div>
                         <input
@@ -700,7 +704,7 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className="label-line">
-                          <label>Price</label>
+                          <label><FormattedMessage id="price" defaultMessage="Price" /></label>
                         </div>
                         <input
                           type="text"
@@ -729,16 +733,17 @@ class NFTPage extends Component {
                         </AccountBX>
                       </NFTForm>
                       <NFTtitle id="unlockable">
-                        <h4 className="mt-30">Unlockable Content</h4>
+                        <h4 className="mt-30"><FormattedMessage id="unlock_content_label" defaultMessage="Unlockable content message" /></h4>
                         <p className="mb-30">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit.
+                          <FormattedMessage id="content_label" defaultMessage="Your text below will be shared with the buyer of the NFT only." />
                         </p>
                       </NFTtitle>
                       <NFTForm>
                         <div className="label-line">
                           <label>
-                            Digital key, code to redeem or link to file
+                            <FormattedMessage id="key_label" defaultMessage="You can use this area for private messages, promo codes, links, etc." />
                           </label>
                         </div>
                         <input
@@ -783,8 +788,12 @@ class NFTPage extends Component {
                   <Sticky topOffset={30}>
                     <NFTRight>
                       <NFTtitle>
-                        <h4>Preview</h4>
-                        <p>Your NFT look like that on Marketplace</p>
+                        <h4>
+                          <FormattedMessage id="preview" defaultMessage="Preview" />
+                        </h4>
+                        <p>
+                          <FormattedMessage id="preview_label" defaultMessage="Your NFT look like that on Marketplace" />
+                        </p>
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
                         <NFTCard

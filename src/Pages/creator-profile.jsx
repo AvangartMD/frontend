@@ -243,7 +243,7 @@ class CreatorProfile extends Component {
                           web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
                             <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
                               {loading ? 'loading' : status.isFollowed ?
-                                'Unfollow' :
+                                <FormattedMessage id="unfollow" defaultMessage="Unfollow" /> :
                                 <FormattedMessage id="follow" defaultMessage="Follow" />}
                             </EditPrBTN> : ('')
                           : ''

@@ -63,7 +63,7 @@ function NFTCard({
               <div className="ed-box">
                   <p>{auctionEndDate && auctionEndDate > new Date().getTime() / 1000 ?
                     <FormattedMessage id="current_bid" defaultMessage="Current bid" />:
-                    <>Reserve <FormattedMessage id="price" defaultMessage="Price" /></>}</p>
+                    <FormattedMessage id="price" defaultMessage="Price" />}</p>
                 <h3>{price} BNB</h3>
               </div>
               <div className="ed-box">
@@ -73,7 +73,9 @@ function NFTCard({
                       <p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p> <h3>{auctionEndDate}h 00m 00s</h3>
                     </>
                   ) : (
-                    <button>Buy now</button>
+                    <button>
+                      <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+                    </button>
                   )
                 ) : auctionEndDate &&
                   auctionEndDate > new Date().getTime() / 1000 ? (
@@ -84,8 +86,12 @@ function NFTCard({
                       <Timer timeLeft={auctionEndDate} onlyHours={true} />
                     </h3>
                   </>
-                ) : nftSold === edition ? (<button className="disabled" disabled>Sold Out</button>) : (
-                  <button>Buy now</button>
+                    ) : nftSold === edition ? (<button className="disabled" disabled>
+                          <FormattedMessage id="sold_out" defaultMessage="Sold out" />
+                  </button>) : (
+                  <button>
+                    <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+                  </button>
                 )}
               </div>
             </Edition>

@@ -163,7 +163,9 @@ class CollectionEdit extends Component {
               onSubmit={(e) => this.formSubmit(e)}
             >
               <Colleditform>
-                <label>Collection Name</label>
+                <label>
+                  <FormattedMessage id="collection_name" defaultMessage="Collection Name" />
+                </label>
                 <input type="text" name="name"
                   placeholder="Collection Name Here"
                   required defaultValue={collection.name}
@@ -175,7 +177,9 @@ class CollectionEdit extends Component {
               </Colleditform>
 
               <Colleditform>
-                <label>About Collection</label>
+                <label>
+                  <FormattedMessage id="about_collection" defaultMessage="About Collection" />
+                </label>
                 <textarea
                   type="textarea"
                   required
@@ -190,7 +194,9 @@ class CollectionEdit extends Component {
               </Colleditform>
 
               <Colleditform>
-                <label>Collection Cover Image</label>
+                <label>
+                  <FormattedMessage id="collection_cover_image" defaultMessage="Collection Cover Image" />
+                </label>
                 <FlexDiv className="JCFS AIFS">
                   <div className="CIbox">
                     <img src={logo ? logo : collection.logo} alt="" name="logo" />
@@ -203,7 +209,7 @@ class CollectionEdit extends Component {
                     <FileuploadBox>
                       <label className="custom-file-upload">
                         <input type="file" name="logo" />
-                        Change
+                        <FormattedMessage id="change" defaultMessage="Change" />
                       </label>
                       <input type="file" placeholder="Choose" />
                     </FileuploadBox>
@@ -242,13 +248,17 @@ class CollectionEdit extends Component {
                                 <div className='ed-box'>
                                   {nft.auctionEndDate ? (
                                     <>
-                                      <p>Ending in</p>
+                                      <p>
+                                        <FormattedMessage id="ending_in" defaultMessage="Ending in" />
+                                      </p>
                                       <h3>
                                         <Timer timeLeft={nft.auctionEndDate} onlyHours={true} />
                                       </h3>
                                     </>
                                   ) : (
-                                    <button>Buy now</button>
+                                      <button>
+                                        <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+                                    </button>
                                   )}
                                 </div>
                               </Edition>
@@ -270,7 +280,9 @@ class CollectionEdit extends Component {
               </NFTfourbox>
 
               <EditCollection>
-                <button type="submit" className="ani-1" disabled={!formChange ? true : false}>Save changes</button>
+                <button type="submit" className="ani-1" disabled={!formChange ? true : false}>
+                  <FormattedMessage id="save_changes" defaultMessage="Save changes" />
+                </button>
               </EditCollection>
             </form>
           </CollectionContainer>
