@@ -56,9 +56,9 @@ function Collection(props) {
               <h2><FormattedMessage id="collection_empty" defaultMessage="Your collection is empty" /></h2>
               <p><FormattedMessage id="start_collection_lable" defaultMessage="Start building your collection by placing bids on creations."
                 values={{ br: <br/> }} /></p>
-              <button className="ani-1">
+              {/* <button className="ani-1">
                 <FormattedMessage id="explore_creations" defaultMessage="Explore creations" />
-              </button>
+              </button> */}
             </CEmpty>
             : ``
           : ``}

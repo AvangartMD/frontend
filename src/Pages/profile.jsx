@@ -440,11 +440,11 @@ class Profile extends Component {
                     <Tab>Drafts</Tab>
                   </TabList>
 
-                  <TabPanel> <Created /> </TabPanel>
+                  <TabPanel> <Created status={profile.status === 'APPROVED' ? true : false}/> </TabPanel>
                   <TabPanel> <Collected role='creator' />  </TabPanel>
                   <TabPanel> <Collection /> </TabPanel>
                   <TabPanel> <Liked /> </TabPanel>
-                  <TabPanel> <Drafts /> </TabPanel>
+                  <TabPanel> <Drafts status={profile.status === 'APPROVED' ? true : false}/> </TabPanel>
                 </>
               ) : (
                 <>

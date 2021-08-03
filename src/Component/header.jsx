@@ -145,7 +145,7 @@ class Header extends Component {
 
   checkRole = (user) => {
     if (user.role.roleName === 'COLLECTOR') {
-      return <BecomeCreator isHeader={true} />;
+      return <BecomeCreator />;
     } else if (user.role.roleName === 'CREATOR' && user.status === 'APPROVED') {
       return (
         <Link to='/user/nftminting'>
@@ -156,7 +156,7 @@ class Header extends Component {
       );
     } else if (user.role.roleName === 'CREATOR' && user.status !== 'APPROVED') {
       return (
-        <AvBTN02 className='colorBTN'>
+        <AvBTN02 className='grayBTN'>
           <FormattedMessage id='waitlist' defaultMessage='Waitlist' />
         </AvBTN02>
       );

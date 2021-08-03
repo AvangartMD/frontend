@@ -120,17 +120,19 @@ class BecomeCreator extends Component {
       becomeCreator,
       isOpen4,
     } = this.state;
-    const { isFooter, isProfile, isHeader } = this.props;
-    console.log('isProfile', isProfile)
+    const { isProfile, isFooter } = this.props;
     let context = this.context;
     return (
       <>
-        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : `grayBTN`} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ?
-          <>
-            {isProfile ? <FormattedMessage id="apply" defaultMessage="Apply" /> : <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />}
-          </>
-          : <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
-        }</AvBTN02>
+
+        <AvBTN02 className={becomeCreator ? isFooter?``:`grayBTN` : isProfile ? `ani-1 borderBTN` : ``}
+          onClick={(e) => this.clickHandler(e)}>
+          {!becomeCreator ?
+            isProfile ?
+              <FormattedMessage id="apply" defaultMessage="Apply" />
+            :<FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
+          : <FormattedMessage id="waitlist" defaultMessage="Waitlist" />}
+        </AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (

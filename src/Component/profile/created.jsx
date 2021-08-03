@@ -1,6 +1,7 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { withRouter } from "react-router";
 import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -117,9 +118,11 @@ function Created(props) {
           <CEmpty>
             <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
             <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-            <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>
-              <FormattedMessage id="create" defaultMessage="Create" />
-            </button>
+            {props.status ?
+              <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
+                <FormattedMessage id="create" defaultMessage="Create" />
+              </button>
+            : ``}
           </CEmpty>
           : ``}
 
@@ -329,4 +332,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Created);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Created));
