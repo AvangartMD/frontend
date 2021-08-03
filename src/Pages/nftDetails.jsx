@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import Magnifypopup from '../Component/Modals/magnifyPopup';
 import POSpopup from '../Component/Modals/putonsalepopup';
@@ -29,7 +29,7 @@ const saleMethods = {
   sold: {
     name: null,
     btnName: 'Sold out',
-    bidDesc: <FormattedMessage id="sold_out" defaultMessage="Sold out" />,
+    bidDesc: <FormattedMessage id='sold_out' defaultMessage='Sold out' />,
     disable: true,
   },
   buyNow: {
@@ -40,7 +40,7 @@ const saleMethods = {
   },
   placeABid: {
     name: 'placeBid',
-    btnName: <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />,
+    btnName: <FormattedMessage id='place_a_bid' defaultMessage='Place a bid' />,
     bidDesc: 'Current bid',
     open: 8,
   },
@@ -52,7 +52,7 @@ const saleMethods = {
   },
   putOnSale: {
     name: null,
-    btnName: <FormattedMessage id="put_on_sale" defaultMessage="Put on Sale" />,
+    btnName: <FormattedMessage id='put_on_sale' defaultMessage='Put on Sale' />,
     bidDesc: 'Purchased at',
     open: 7,
     checkApproval: true,
@@ -83,19 +83,25 @@ const saleMethods = {
   },
   acceptOffer: {
     name: 'acceptOffer',
-    btnName: <FormattedMessage id="accpet_offer" defaultMessage="Accept Offer" />,
+    btnName: (
+      <FormattedMessage id='accpet_offer' defaultMessage='Accept Offer' />
+    ),
     bidDesc: 'Current offer',
     open: 1,
   },
   burn: {
     name: 'burnTokenEdition',
-    btnName: <FormattedMessage id="accept_offer" defaultMessage="Accept Offer" />,
+    btnName: (
+      <FormattedMessage id='accept_offer' defaultMessage='Accept Offer' />
+    ),
     bidDesc: 'Current offer',
     open: 1,
   },
   transfer: {
     name: 'transfer',
-    btnName: <FormattedMessage id="accept_offer" defaultMessage="Accept Offer" />,
+    btnName: (
+      <FormattedMessage id='accept_offer' defaultMessage='Accept Offer' />
+    ),
     bidDesc: 'Current offer',
     open: 1,
   },
@@ -113,7 +119,12 @@ class NftDetail extends React.Component {
       },
       ownerActionName: '',
       currentEdition: 0,
-      saleMethod: { name: 'placeBid', btnName: <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />, },
+      saleMethod: {
+        name: 'placeBid',
+        btnName: (
+          <FormattedMessage id='place_a_bid' defaultMessage='Place a bid' />
+        ),
+      },
       showTimer: false,
       loading: false,
       selectedNFTDetails: null,
@@ -417,6 +428,20 @@ class NftDetail extends React.Component {
           <meta property='og:title' content={NFTDetails?.title} />
           <meta property='og:image' content={NFTDetails?.image.compressed} />
           <meta property='og:description' content={NFTDetails?.description} />
+          <title>{NFTDetails?.title}</title>
+          <meta name='description' content={'NFT DETAILS'} />
+          {/* OpenGraph tags */}
+          <meta name='og:url' content={window.location.href} />
+          <meta name='og:title' content={NFTDetails?.title} />
+          <meta name='og:description' content={'NFT DETAILS'} />
+          <meta name='og:image' content={NFTDetails?.image.compressed} />
+          <meta name='og:type' content='website' />
+          {/* <meta name="fb:app_id" content={facebook.appId} /> */}
+          {/* Twitter Card tags */}
+          <meta name='twitter:title' content={'NFT'} />
+          <meta name='twitter:description' content={'NFT DETAILS'} />
+          <meta name='twitter:image' content={NFTDetails?.image.compressed} />
+          <meta name='twitter:card' content='summary' />
         </Helmet>
 
         <Gs.MainSection>
@@ -480,14 +505,17 @@ class NftDetail extends React.Component {
                       : NFTDetails?.ownerId.name}
                   </UserImgName>
                   <button onClick={() => this.toggle(9)}>
-                    <FormattedMessage id="history" defaultMessage="History" />
+                    <FormattedMessage id='history' defaultMessage='History' />
                   </button>
                 </Historysection>
                 <Edition>
                   <div className='ed-box'>
                     <div className='ed-left'>
                       <p>
-                        <FormattedMessage id="edition" defaultMessage="Edition" />
+                        <FormattedMessage
+                          id='edition'
+                          defaultMessage='Edition'
+                        />
                       </p>
                       <div className='ed-left-inner'>
                         <h3>{this.state.currentEdition}</h3>
@@ -495,7 +523,10 @@ class NftDetail extends React.Component {
                       </div>
                     </div>
                     <Link to='#' onClick={() => this.toggle(10)}>
-                      <FormattedMessage id="select_edition" defaultMessage="Select edition" />
+                      <FormattedMessage
+                        id='select_edition'
+                        defaultMessage='Select edition'
+                      />
                     </Link>
                   </div>
                   <div className='ed-box'>
@@ -512,13 +543,20 @@ class NftDetail extends React.Component {
                       </div>
                     </div>
                     <p className='royalty'>
-                      <FormattedMessage id="nft_price_lable" defaultMessage="A 10% royalty goes to the <br></br>creator for future resale" />
+                      <FormattedMessage
+                        id='nft_price_lable'
+                        defaultMessage='A 10% royalty goes to the <br></br>creator for future resale'
+                      />
                     </p>
                   </div>
                   {showTimer && (
                     <div className='ed-box ed-mb-block'>
                       <p>
-                        <FormattedMessage id="ending" defaultMessage="Ending in" />,
+                        <FormattedMessage
+                          id='ending'
+                          defaultMessage='Ending in'
+                        />
+                        ,
                       </p>
                       <FlexDiv className='JCFS'>
                         <Timer
@@ -532,7 +570,10 @@ class NftDetail extends React.Component {
                   {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
                     <div className='ed-box ed-mb-block'>
                       <p>
-                        <FormattedMessage id="unlock_content_label" defaultMessage="Unlockable content message" />
+                        <FormattedMessage
+                          id='unlock_content_label'
+                          defaultMessage='Unlockable content message'
+                        />
                       </p>
                       <SkyNoteBox>
                         <p className='note-text'>{NFTDetails?.digitalKey}</p>
@@ -554,9 +595,9 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.isOpenForSale &&
-                    selectedNFTDetails.secondHand &&
-                    !selectedNFTDetails.isBurned ? (
+                  selectedNFTDetails.isOpenForSale &&
+                  selectedNFTDetails.secondHand &&
+                  !selectedNFTDetails.isBurned ? (
                     <button
                       className='bordered'
                       onClick={() => {
@@ -567,7 +608,7 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {NFTDetails?.status === 'NOT_MINTED' &&
-                    web3Data.isLoggedIn ? (
+                  web3Data.isLoggedIn ? (
                     <button
                       onClick={() =>
                         this.props.history.push(
@@ -595,7 +636,10 @@ class NftDetail extends React.Component {
                           this.setOwnerActions(saleMethods.transfer)
                         }
                       >
-                        <FormattedMessage id="transfer" defaultMessage="Transfer" />
+                        <FormattedMessage
+                          id='transfer'
+                          defaultMessage='Transfer'
+                        />
                       </button>
                     </>
                   ) : null}
@@ -727,7 +771,7 @@ const NFTDleft = styled(FlexDiv)`
 const NFTDleftcontainer = styled.div`
   width: 100%;
   max-width: 515px;
-  margin:0 auto;
+  margin: 0 auto;
   padding: 15px;
   ${Media.md} {
     margin: 0 auto;
