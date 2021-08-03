@@ -13,10 +13,12 @@ import Gs from '../../Theme/globalStyles';
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
 import RoundIcon from '../../Assets/images/round-icon.svg';
+import MobileAd from '../../Assets/images/mobile-adbanner.jpg';
 
 import { actions } from '../../actions';
 import { Context } from '../wrapper';
 import { expiryTime } from '../../config';
+import Media from "../../Theme/media-breackpoint";
 
 
 
@@ -45,7 +47,7 @@ class HallOfFrameInfo extends Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     const { infos, cookies } = this.props;
     if (infos && !cookies.get('hallFrameInfo')) {
       this.setCookie(infos) // set hall frame info in cookie
@@ -54,10 +56,10 @@ class HallOfFrameInfo extends Component {
 
   setCookie = (infos) => {
     const { cookies } = this.props;
-    const expire = new Date(Date.now()+(expiryTime*60*60*1000)) // cookie will expire after 12 hours
+    const expire = new Date(Date.now() + (expiryTime * 60 * 60 * 1000)) // cookie will expire after 12 hours
     cookies.set('hallFrameInfo', infos, { path: '/', expires: expire });
   }
-  
+
   renderedInfo(info, index) {
     let context = this.context;
     let img = ''
@@ -76,7 +78,9 @@ class HallOfFrameInfo extends Component {
             key={img}
             src={img}
             exit={{ opacity: 0 }}
+            className="desk-img"
           />
+          <img src={MobileAd} className="mobile-img" alt="" />
         </Link>
         <Link to={info.button_url}>
           <button className="ani-1">{info.button_text}</button>
@@ -87,12 +91,12 @@ class HallOfFrameInfo extends Component {
 
   render() {
     return (
-        <HomeNFTs>
-          <Gs.Container>
-            {this.props.infos?
-            this.props.infos.map((info, index) => { return this.renderedInfo(info, index);})
-              : 'loading..'}
-          </Gs.Container>
+      <HomeNFTs>
+        <Gs.Container>
+          {this.props.infos ?
+            this.props.infos.map((info, index) => { return this.renderedInfo(info, index); })
+            : 'loading..'}
+        </Gs.Container>
       </HomeNFTs>
     );
   }
@@ -175,8 +179,28 @@ const AdBanner = styled.div`
   margin: 120px 0px;
   height:406px;
   position:relative;
+  ${Media.sm}{
+    height:400px;
+  }
   a{
-    img{width: 100%; height: 100%; object-fit: cover; border-radius:20px;}
+    img{width: 100%; height: 100%; object-fit: cover; border-radius:20px;
+      ${Media.sm}{
+        object-fit:cover;
+      }
+      &.desk-img
+      {
+        ${Media.sm}{
+          display:none;
+        }
+      }
+      &.mobile-img
+      {
+        display:none;
+        ${Media.sm}{
+          display:block;
+        }
+      }
+    }
   }
   button {
     position:absolute;
@@ -194,13 +218,16 @@ const AdBanner = styled.div`
       background-color: #d121d6;
       box-shadow: 2px 5px 10px 0px rgb(0 0 0 / 30%);
     }
+    ${Media.sm}{
+      bottom:70px;
+    }
   }
 `;
 
 const mapDipatchToProps = (dispatch) => {
   return {
     getInfo: () => dispatch(actions.fetcHallFrameInfo()),
-    setInfos: (data) => dispatch({type: 'FETCHED_HALL_FRAME_INFO', data: data})
+    setInfos: (data) => dispatch({ type: 'FETCHED_HALL_FRAME_INFO', data: data })
   }
 }
 
