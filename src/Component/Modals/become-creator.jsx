@@ -121,14 +121,15 @@ class BecomeCreator extends Component {
       isOpen4,
     } = this.state;
     const { isFooter, isProfile, isHeader } = this.props;
+    console.log('isProfile', isProfile)
     let context = this.context;
     return (
       <>
-        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : ``} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ?
+        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : `grayBTN`} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ?
           <>
             {isProfile ? <FormattedMessage id="apply" defaultMessage="Apply" /> : <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />}
           </>
-          :<FormattedMessage id="waitlist" defaultMessage="Waitlist" />
+          : <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
         }</AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
@@ -267,7 +268,7 @@ class BecomeCreator extends Component {
                                   maxHeight: "32px",
                                 }}
                               />
-                              {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
+                              {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
                               <input
                                 type="checkbox"
                                 name="category"
@@ -464,8 +465,8 @@ const WhiteBX01 = styled(FlexDiv)`
   }
 `;
 const CloseBTN = styled.button`
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
   position: absolute;
   right: 20px;
   top: 27px;
@@ -475,6 +476,7 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
+ 
   ${Media.xs}{
     right: 15px;
     top: 15px;
@@ -538,6 +540,9 @@ const BACLeft = styled.div`
   width: 100%;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+  ${Media.md}{
+    text-align:left;
+  }
   ${Media.sm}{
     max-width: 100%;
     border-top-right-radius: 30px;
@@ -562,17 +567,23 @@ const BACLdesc = styled.div`
   font-size: 16px;
   letter-spacing: -0.8px;
   margin: 0px 0px 30px;
+  ${Media.sm}{
+    font-size: 14px;
+  }
 `;
 
 const BACLlist = styled.div`
   a {
-    color: rgb(0 0 0 / 20%);
-    font-size: 12px;
+    color: rgb(0 0 0 / 20%) !important;
+    font-size: 12px !important;
     font-weight: bold;
-    letter-spacing: -0.6px;
-    margin: 0px 20px 0px 0px;
+    letter-spacing: -0.6px !important;
+    margin: 0px 20px 0px 0px !important;
     &.active {
-      color: rgb(0 0 0 / 100%);
+      color: rgb(0 0 0 / 100%) !important;
+    }
+    ${Media.md}{
+     padding:0px !important;
     }
   }
 `;
@@ -581,6 +592,9 @@ const BACRight = styled.div`
   padding: 60px 50px;
   width: 100%;
   position: relative;
+  ${Media.md}{
+    text-align:left;
+  }
   ${Media.sm}{
     padding: 40px 25px;
   }
@@ -663,8 +677,8 @@ const CreateItemButton = styled.div`
     font-size: 14px;
     color: #000;
     letter-spacing: -0.5px;
-    width: 100px;
-    height: 44px;
+    width: 100px !important;
+    height: 44px !important;
     margin: 0px 0px 0px 5px;
     cursor: pointer;
     border-radius: 15px;
@@ -788,6 +802,7 @@ const OnbTitle01 = styled.div`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
+  line-height:normal;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;

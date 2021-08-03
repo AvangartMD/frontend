@@ -890,7 +890,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
         align-items: center;
         position: relative;
         height: 54px;
-        width: calc(250px - 5px);
+        width: calc(257px - 5px);
         margin-right: 10px;
         cursor: pointer;
         padding-left: 15px;

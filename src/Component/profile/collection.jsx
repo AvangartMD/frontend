@@ -77,32 +77,32 @@ const NFTfourbox = styled(FlexDiv)`
       flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
       .row{margin:0px -10px;}
       img.main{width:100%; border-top-left-radius:10px; border-top-right-radius:10px;}
-      .NFT-home-box{border - radius:10px; border:1px solid #dddddd;
-      :hover{box - shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
+      .NFT-home-box{border-radius:10px; border:1px solid #dddddd;
+      :hover{box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
       .NFT-home-box-inner{padding:20px 15px;
       h4{margin:0px 0px 10px; font-size:18px; color:#000000; font-weight:600; line-height:normal; letter-spacing:-0.67px;}
       .edition2
       {
-        justify - content:flex-start; padding:10px 15px; margin-bottom:20px;
+        justify-content:flex-start; padding:10px 15px; margin-bottom:20px;
       .ed-box{
-        margin - right:20px;
-      p{font - size:10px; letter-spacing:-0.5px; margin:0px;}
-      h3{font - size:16px; letter-spacing:-0.71px;}
-      button{font - size:10px; color:#000; letter-spacing:-0.36px; font-weight:600; line-height:normal; padding:10px 17px; border-radius:13px; border:1px solid #000000;
-      :hover{background - color:#d121d6; color:#fff; border-color:#d121d6;}
+        margin-right:20px;
+      p{font-size:10px; letter-spacing:-0.5px; margin:0px;}
+      h3{font-size:16px; letter-spacing:-0.71px;}
+      button{font-size:10px; color:#000; letter-spacing:-0.36px; font-weight:600; line-height:normal; padding:10px 17px; border-radius:13px; border:1px solid #000000;
+      :hover{background-color:#d121d6; color:#fff; border-color:#d121d6;}
                 }
               }
             }
-      .JCSB{justify - content:space-between;
-      .ed-box{margin - right:0px;}
+      .JCSB{justify-content:space-between;
+      .ed-box{margin-right:0px;}
             }
           }
         }
       }
       .JCSB {
-        justify - content: space-between;
+        justify-content: space-between;
       .ed-box {
-        margin - right: 0px;
+        margin-right: 0px;
         }
       }
     }
@@ -118,7 +118,7 @@ const HomeNFTs = styled.div`
       width: 100%;
       margin-top: 40px;
       .home-title {
-        border - bottom: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
       text-align: left;
       margin-bottom: 30px;
       h3 {
@@ -141,7 +141,7 @@ const HomeNFTs = styled.div`
     }
   }
       .star-title {
-        text - align: left;
+        text-align: left;
       margin-bottom: 18px;
       h3 {
         color: #000000;
@@ -163,7 +163,7 @@ const HomeNFTs = styled.div`
     }
   }
       .heart-title {
-        border - bottom: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
       text-align: left;
       margin-bottom: 30px;
       h3 {
@@ -190,26 +190,26 @@ const HomeNFTs = styled.div`
 const CEmpty = styled.div`
       text-align:center; margin-bottom:120px;
       h2{
-        font - size:22px;
+        font-size:22px;
       letter-spacing:-0.55px;
       color:#000;
       margin:0px 0px 10px;
       font-weight:600;
   }
       p{
-        font - size:16px;
+        font-size:16px;
       letter-spacing:-0.8px;
       color:#000;
       margin:0px 0px 22px;
   }
       button{
-        font - size:14px;
+        font-size:14px;
       letter-spacing:-0.5px;
       color:#000;
       padding:13px 44px;
       border-radius:15px;
       border:1px solid #000;
-      :hover{background - color:#000; color:#fff;}
+      :hover{background-color:#000; color:#fff;}
   }
       `;
 

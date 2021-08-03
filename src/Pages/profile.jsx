@@ -861,14 +861,25 @@ const ImgUplBTN = styled(FlexDiv)`
   }
 `;
 
-const ADBannerMBX = styled(FlexDiv)`
+const ADBannerMBX = styled.div`
   width: 100%;
-  margin: 0 0 50px 0;
+  height:100%;
+  max-width:-webkit-fill-available;
+  margin: 0 15px 50px 15px;
   border-radius: 10px;
   overflow: hidden;
   img {
     max-width: 100%;
-    height: auto;
+    width: 100%;
+    height:100%;
+    object-fit:cover;
+    border-radius: 10px;
+  }
+  ${Media.md}{
+    margin:50px 15px;
+  }
+  ${Media.sm}{
+    margin:0px 0px 40px;
   }
 `;
 

@@ -24,6 +24,11 @@ import { FaBars } from 'react-icons/fa';
 import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
 import IconMenuClose from "../Assets/images/icon-set-close.svg";
+import LogoImgWhite from "../Assets/images/logo-white.png";
+import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
+import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
+import NotifiIconWhite from "../Assets/images/notification-white.svg";
+
 
 class Header extends Component {
   constructor(props) {
@@ -82,7 +87,7 @@ class Header extends Component {
         }
       });
     }
-    
+
     if (window.web3) {
       window.ethereum.on("accountsChanged", accounts => { // metamask user address changed
         if (!web3Data.accounts[0]) {
@@ -158,12 +163,12 @@ class Header extends Component {
     } = this.state;
     return (
       <>
-        <HeadMBX>
+        <HeadMBX className="">
           <HeadMBX02>
             <HeadSbx01 className="mobile-logo">
               <Logo>
-                <Link to="/">
-                  <img src={LogoImg} alt="" />
+                <Link to="/" className="avangart-Logo">
+                  {/* <img src={LogoImg} alt="" /> */}
                 </Link>
               </Logo>
             </HeadSbx01>
@@ -172,8 +177,9 @@ class Header extends Component {
               <MobileMenu>
                 {web3Data.isLoggedIn ?
                   <NotificationBX onClick={() => this.toggle(3)}>
-                    <button className="">
-                      <img src={NotifiIcon} alt="" />
+                    <button className="noti-button-outer">
+                      {/* <img src={NotifiIcon} alt="" /> */}
+                      <span className="Notifi-Icon"></span>
                       <span className="RedDot"></span>
                     </button>
 
@@ -190,9 +196,9 @@ class Header extends Component {
 
                     </Collapse>
                   </NotificationBX>
-                : ``}
-                
-                <Bars onClick={() => this.toggle(11)} className={(this.state.isOpen11 ? "menu-active" : "")} />
+                  : ``}
+
+                <Bars onClick={() => this.toggle(11)} className={(this.state.isOpen11 ? "menu-active" : "menu-deactive")} />
               </MobileMenu>
               <MobileSidebar>
                 <Collapse id="mobile-block"
@@ -277,7 +283,9 @@ class Header extends Component {
                       : <>
                         <Language header={true} />
                         <div className="mobile-login-btn">
+
                           {userDetails ? this.checkRole(userDetails) : ""}
+
                         </div>
                         <Mobiledisconnect onClick={() => { this.disconnect(); this.toggle(11); }}>Disconnect</Mobiledisconnect>
                       </>
@@ -324,8 +332,9 @@ class Header extends Component {
 
                 <NotificationBX onClick={() => this.toggle(3)}>
 
-                  <button className="active">
-                    <img src={NotifiIcon} alt="" />
+                  <button className="active noti-button-outer">
+                    {/* <img src={NotifiIcon} alt="" /> */}
+                    <span className="Notifi-Icon"></span>
                     <span className="RedDot"></span>
                   </button>
 
@@ -342,7 +351,7 @@ class Header extends Component {
 
                   </Collapse>
                 </NotificationBX>
-                <AccountBX onClick={() => this.toggle(2)}>
+                <AccountBX className="ph-bg" onClick={() => this.toggle(2)}>
                   <span>
                     {accountBalance} BNB
                     <span>{compactUserAddress}</span>
@@ -444,6 +453,63 @@ const HeadMBX = styled(FlexDiv)`
   ${Media.md}{
     min-height: 80px;
   }
+  &.gradient-header
+  { box-shadow:none;
+    .avangart-Logo
+    {
+      background: url(${LogoImgWhite}) no-repeat;
+    }
+    .desktop-menu a
+    {
+      color:#fff;
+      :hover
+      {
+        :after
+        {
+          background-color:#fff;
+        }
+      }
+      .active
+      {
+        :after
+        {
+          background-color:#fff;
+        }
+      }
+    }
+    .ph-bg
+    {
+      background-color:transparent;
+      span
+      {
+        color:#fff;
+        span
+        {
+          color:rgb(255 255 255 / 30%);
+        }
+      }
+    }
+    .menu-active
+    {
+      background:url(${IconMenuCloseWhite}) no-repeat;
+    }
+    .menu-deactive
+    {
+      background:url(${IconMenuOpenWhite}) no-repeat;
+    }
+    .noti-button-outer
+    {
+      ${Media.md}{
+        background-color:transparent;
+      }
+      .Notifi-Icon
+      {
+        ${Media.md}{
+          background:url(${NotifiIconWhite}) no-repeat;
+        }
+      }
+    }
+  }
 `;
 const HeadMBX02 = styled(FlexDiv)`
   width: 100%;
@@ -515,7 +581,15 @@ const HeadSbx01 = styled(FlexDiv)`
     }
   }
 `;
-const Logo = styled(FlexDiv)``;
+const Logo = styled(FlexDiv)`
+  .avangart-Logo
+  {
+    background: url(${LogoImg}) no-repeat;
+    background-size:contain;
+    width:150px;
+    height:35px;
+  }
+`;
 
 const AvBTN01 = styled.button`
   padding: 9px 40px;
@@ -572,6 +646,12 @@ const AvBTN02 = styled.button`
 const NotificationBX = styled(FlexDiv)`
   margin-left: 8px;
   position: relative;
+  .Notifi-Icon
+  {
+    background:url(${NotifiIcon}) no-repeat;
+    width:24px;
+    height:24px;
+  }
   & > button {
     width: 38px;
     height: 38px;
@@ -825,7 +905,9 @@ const MobInner = styled.div`
     text-align:center;
     button
     {
-      padding: 12px 75px 15px;
+      // padding: 12px 75px 15px;
+      width:200px;
+      height:50px;
       font-size:18px;
       text-transform:capitalize;
     }

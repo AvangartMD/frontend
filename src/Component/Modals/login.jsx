@@ -178,7 +178,7 @@ const OnBTNBar = styled(FlexDiv)`
     i {
       width: 32px;
       height: 32px;
-      display: block;
+      display: flex;
       margin-right: 12px;
       margin-left: 4px;
     }
