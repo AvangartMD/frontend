@@ -90,7 +90,7 @@ class CollectionDetail extends Component {
                   <div className='ed-box'>
                     {authData ?
                       web3Data.isLoggedIn && (authData.data.id !== collection.ownerId.id) ? <button className="ani-1" onClick={() => this.followToggler(collection.ownerId.id)}>{status.isFollowed ?
-                        'Unfollow' :
+                        <FormattedMessage id="unfollow" defaultMessage="Unfollow" /> :
                         <FormattedMessage id="follow" defaultMessage="Follow" />}</button> : ('')
                       : ''}
                   </div>

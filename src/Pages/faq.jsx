@@ -2,6 +2,7 @@ import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
@@ -32,7 +33,9 @@ class Faq extends Component {
           <Faqtitle>
             <h2>Frequently Asked Questions</h2>
             <FilterLbx>
-              <button className="active" id="all">All</button>
+              <button className="active" id="all">
+                <FormattedMessage id="all" defaultMessage="All" />
+              </button>
               <button className="">Getting Started</button>
               <button className="">Wallet Usage</button>
               <button className="">Buying NFTs</button>

@@ -68,7 +68,10 @@ function Collected(props) {
               <h2 className="Bec">
                 <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
               </h2>
-              <p className="Bec"><FormattedMessage id="become_creator_label" defaultMessage="Only approved creators can mint NFTs. Apply for becoming one." /></p>
+              <p className="Bec">
+                <FormattedMessage id="become_creator_label" defaultMessage="Only approved creators can mint NFTs. Apply for becoming one."
+                values={{ br: <br/>}}
+                /></p>
               <div className="BecBTN">
                 <BecomeCreator isProfile={true} />
               </div>

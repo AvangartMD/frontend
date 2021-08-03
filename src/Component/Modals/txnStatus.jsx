@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import LoaderGif from "../../Assets/images/loading.gif";
 // import { actions } from "../../actions";
 import Media from '../../Theme/media-breackpoint';
@@ -11,7 +12,7 @@ function TxnStatus(props) {
       {status === "initiate" && (
         <>
           <OnbTitle01 className="v2">
-            Please follow the instructions on your wallet
+            <FormattedMessage id="follow_the_instructions" defaultMessage="Please follow the instructions on your wallet" />
           </OnbTitle01>
           <LoaderBX>
             <img src={LoaderGif} alt="" />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Scrollbars } from "react-custom-scrollbars";
 import Collapse from "@kunukn/react-collapse";
+import { FormattedMessage } from "react-intl";
 import Media from "../Theme/media-breackpoint";
 import styled from "styled-components";
 
@@ -116,12 +117,18 @@ function SelectEdition(props) {
             <img src={CloseBTN01} alt="" />
           </CloseBTN>
 
-          <Htitle>Select Edition</Htitle>
+          <Htitle>
+            <FormattedMessage id="select_edition" defaultMessage="Select Edition" />
+          </Htitle>
 
           <FilterMBX>
             <FilterLbx>
-              <button className={tab === 'All' ? `active` : ``} onClick={() => setTab('All')} >All</button>
-              <button className={tab === 'Sale' ? `active` : ``} onClick={() => setTab('Sale')} >For Sale</button>
+              <button className={tab === 'All' ? `active` : ``} onClick={() => setTab('All')} >
+                <FormattedMessage id="all" defaultMessage="All" />
+              </button>
+              <button className={tab === 'Sale' ? `active` : ``} onClick={() => setTab('Sale')} >
+                <FormattedMessage id="for_sale" defaultMessage="For Sale" />
+              </button>
             </FilterLbx>
             <FilterBAR
               onClick={() => toggle(1)}
@@ -149,7 +156,9 @@ function SelectEdition(props) {
                           setFilter('AUCTION', e);
                         }}
                       />
-                      <label htmlFor="vehicle1">Live auction</label>
+                      <label htmlFor="vehicle1">
+                        <FormattedMessage id="live_acution" defaultMessage="Live auction" />
+                      </label>
                     </div>
                     : <div className="md-checkbox">
                       <input
@@ -161,7 +170,9 @@ function SelectEdition(props) {
                           setFilter('OFFER', e);
                         }}
                       />
-                      <label htmlFor="vehicle2">Accept Offers</label>
+                      <label htmlFor="vehicle2">
+                        <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
+                      </label>
                     </div>
                   }
 
@@ -177,7 +188,9 @@ function SelectEdition(props) {
                             setFilter('BUY', e);
                           }}
                         />
-                        <label htmlFor="vehicle3">Buy now</label>
+                        <label htmlFor="vehicle3">
+                          <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+                        </label>
                       </div>
                       <div className="md-checkbox">
                         <input
@@ -206,9 +219,16 @@ function SelectEdition(props) {
               <table>
                 <thead>
                   <tr>
-                    <th>EDITION</th>
-                    <th>OWNER<span className="mobile-block">/PRICE</span></th>
-                    <th className="text-center desktop-block">PRICE</th>
+                    <th>
+                      <FormattedMessage id="edition" defaultMessage="EDITION" />
+                    </th>
+                    <th>
+                      <FormattedMessage id="owner" defaultMessage="OWNER" />
+                      {/* <span className="mobile-block">/PRICE</span> */}
+                    </th>
+                    <th className="text-center desktop-block">
+                      <FormattedMessage id="price" defaultMessage="PRICE" />
+                    </th>
                     <th></th>
                   </tr>
                 </thead>
@@ -239,7 +259,10 @@ function SelectEdition(props) {
                         <td>
                           <CustomRadio1>
                             <label className="radio-container">
-                              {edition.isBurned?`Burned`:`Select`}
+                              {edition.isBurned ? 
+                                <FormattedMessage id="burned" defaultMessage="Burned" />  :
+                                <FormattedMessage id="select" defaultMessage="Select" />
+                              }
                               <input
                                 type="radio"
                                 name="category"

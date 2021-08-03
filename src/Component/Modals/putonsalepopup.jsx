@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import styled from "styled-components";
 import Media from "../../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
+import { FormattedMessage } from "react-intl";
 import { web3 } from "../../web3";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import DDdownA from "../../Assets/images/dd-down-arrow.svg";
@@ -52,10 +53,12 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
 
           {!txnStatus ? (
             <>
-              <PBtitle className="TN-title">Put on Sale</PBtitle>
+              <PBtitle className="TN-title">
+                <FormattedMessage id="put_on_sale" defaultMessage="Put on Sale" />
+              </PBtitle>
               <CustomRadio1>
                 <label className="radio-container">
-                  Buy now
+                  <FormattedMessage id="buy_now" defaultMessage="Buy now" />
                   <input
                     type="radio"
                     name="category"
@@ -65,7 +68,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                   <span className="checkmark"></span>
                 </label>
                 <label className="radio-container">
-                  Accept offers
+                  <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
                   <input
                     type="radio"
                     name="category"
@@ -77,7 +80,9 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
               </CustomRadio1>
               <NFTForm className="Custom-piece">
                 <div className="label-line">
-                  <label>Enter price for one piece</label>
+                  <label>
+                    <FormattedMessage id="enter_price_lable" defaultMessage="Enter price" />
+                  </label>
                 </div>
                 <input
                   type="text"
@@ -113,7 +118,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                   className="ani-1 bor-large"
                   onClick={() => makeTransaction()}
                 >
-                  Place
+                  <FormattedMessage id="place" defaultMessage="Place" />
                 </button>
               </NFTcartButtons>
             </>

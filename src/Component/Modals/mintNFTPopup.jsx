@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
 import Media from "./../../Theme/media-breackpoint";
@@ -44,7 +45,7 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
           {mintNFTStatus === "initiate" && (
             <>
               <OnbTitle01 className="v2">
-                Please follow the instructions on your wallet
+                <FormattedMessage id="follow_the_instructions" defaultMessage="Please follow the instructions on your wallet" />
               </OnbTitle01>
               <LoaderBX>
                 <img src={LoaderGif} alt="" />

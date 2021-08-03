@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
 import dateFormat from "dateformat";
@@ -71,7 +72,9 @@ class Historypopup extends Component {
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
 
-                <Htitle>History</Htitle>
+                <Htitle>
+                  <FormattedMessage id="history" defaultMessage="History" />
+                </Htitle>
                 <CustomScrollbars
                   autoHide
                   autoHideTimeout={1000}
@@ -83,6 +86,7 @@ class Historypopup extends Component {
                   }}
                 >
                   {history.map((history, key) => {
+                    console.log('- history ? ', history)
                     return (
                       <HDsection key={key}>
                         <HDleft>
@@ -103,7 +107,7 @@ class Historypopup extends Component {
                           </p>
                           <HDmiddle className="mobile-block">
                             <p>
-                              by @
+                              <FormattedMessage id="history_by_label" defaultMessage="by" /> @
                               <b>{history ? history.ownerId?.username : ""}</b>
                             </p>
                           </HDmiddle>

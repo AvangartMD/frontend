@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
 import NFT2 from "../../Assets/images/nft2.jpg";
@@ -26,7 +27,9 @@ function collectionCard({
         </div>
         <div className="collbox-desc">
           <p className="coll-title">{collName ? collName : 'Collection Name'}</p>
-          <p className="creator-name">{creatorName ? creatorName : 'Creator Name'}</p>
+          <p className="creator-name">
+            by {creatorName ? creatorName : 'Creator Name'}
+          </p>
         </div>
       </Link>
     </OneCollBox>
