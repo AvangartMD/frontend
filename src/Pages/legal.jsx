@@ -2,6 +2,7 @@ import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 // import { Link } from 'react-router-dom';
@@ -39,19 +40,28 @@ class Legal extends Component {
                       to="#terms"
                       smooth={true}
                     >
-                      Terms of Service
+                      <FormattedMessage
+                          id="term_of_service"
+                          defaultMessage="Terms of Service"
+                        />
                     </Link>
                     <Link
                       to="#privacy"
                       smooth={true}
                     >
-                      Privacy Policy
+                      <FormattedMessage
+                        id="privacy_policy"
+                        defaultMessage="Privacy Policy"
+                      />
                     </Link>
                     <Link
                       to="#cookie"
                       smooth={true}
                     >
-                      Cookie Policy
+                      <FormattedMessage
+                        id="cookie_policy"
+                        defaultMessage="Cookie Policy"
+                      />
                     </Link>
                   </Scrollspy>
                 </NFTLeft>

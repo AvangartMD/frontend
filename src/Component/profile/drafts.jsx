@@ -1,5 +1,7 @@
 import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
+import { withRouter } from "react-router";
 import HeartIcon from "../../Assets/images/heart-icon.svg";
 import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
@@ -16,6 +18,7 @@ function Drafts(props) {
     if (!userDraftNFT) props.getUserDraftNFT();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDraftNFT]);
+  console.log('user status ? ', props)
   return (
     <HomeNFTs>
 
@@ -49,7 +52,11 @@ function Drafts(props) {
         <CEmpty>
           <h2 className="Bec">Your draft is empty</h2>
           <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-          <button className="ani-1" onClick={() => this.props.history.push("/user/nftminting")}>Create</button>
+          {props.status ?
+            <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
+              <FormattedMessage id="create" defaultMessage="Create" />
+            </button>
+          : ``}
         </CEmpty>
         : ``}
 
@@ -212,4 +219,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Drafts);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Drafts));

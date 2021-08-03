@@ -4,6 +4,7 @@ import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Gs from "../Theme/globalStyles";
 import { actions } from "../actions";
@@ -92,7 +93,7 @@ class Collection extends Component {
                   this.onCategoryChange('all');
                 }}
               >
-                All
+                <FormattedMessage id="all" defaultMessage="All" />
               </button>
               {categories
                 ? categories.map((category, key) => {
@@ -128,7 +129,7 @@ class Collection extends Component {
             {collections ?
               collections.length === 0 ?
                 <NoDataFound>
-                  No Collection Found
+                  No <FormattedMessage id="collections" defaultMessage="Collections" /> Found
                 </NoDataFound>
                 :
                 <InfiniteScroll

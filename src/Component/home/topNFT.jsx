@@ -93,7 +93,7 @@ class TopNFT extends Component {
               : ''}
             <Edition>
               <div className='ed-box'>
-                <p>Edition</p>
+                <p><FormattedMessage id="edition" defaultMessage="EDITION" /></p>
                 <h3>
                   {nft.nftId.edition}
                   {/* <span>of 2500</span> */}
@@ -101,18 +101,24 @@ class TopNFT extends Component {
               </div>
               <div className='ed-box'>
                 <p>{nft.nftId.auctionEndDate && nft.nftId.auctionEndDate > new Date().getTime() / 1000 ?
-                  `Current bid` :
-                  <>Reserve <FormattedMessage id="price" defaultMessage="Price" /></>}</p>
+                  <FormattedMessage id="current_bid" defaultMessage="Current bid" /> :
+                  <><FormattedMessage id="price" defaultMessage="Price" /></>}</p>
                 <h3>{nft.nftId.price} BNB</h3>
               </div>
               <div className='ed-box'>
                 {nft.nftId.auctionEndDate && nft.nftId.auctionEndDate > new Date().getTime() / 1000 ?
                   <>
-                    <p>Ending in</p>
+                    <p>
+                      <FormattedMessage id="ending_in" defaultMessage="Ending in" />
+                    </p>
                     <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
                   </>
                   : nft.nftSold === nft.nftId.edition ?
-                    <button className="disabled" disabled>Sold Out</button> : <button>Buy now</button>}
+                    <button className="disabled" disabled>
+                      <FormattedMessage id="sold_out" defaultMessage="Sold out" />
+                    </button> : <button>
+                      <FormattedMessage id="buy_now" defaultMessage="Buy now" />  
+                    </button>}
               </div>
             </Edition>
             <UserImgName>

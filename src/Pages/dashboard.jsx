@@ -342,7 +342,9 @@ class Dashboard extends Component {
                           <h3>0.00 BNB</h3>
                         </div>
                         <div className="ed-box">
-                          <button>Buy now</button>
+                          <button>
+                            <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+                          </button>
                         </div>
                       </Edition>
                       <UserImgName>

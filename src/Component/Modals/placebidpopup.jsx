@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import Gs from "../../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import Media from "../../Theme/media-breackpoint";
@@ -106,7 +107,7 @@ function PABpopup(props) {
     else if (+_bnbVal > accountBalance.bnb)
       setError({
         isError: true,
-        msg: "Input amount exceeded account balance",
+        msg: "Insufficient Balance",
       });
     else
       setError({
@@ -142,13 +143,15 @@ function PABpopup(props) {
               {method === "placeBid" ? (
                 <>
                   {" "}
-                  <PBtitle>Place a Bid</PBtitle>
+                  <PBtitle>
+                    <FormattedMessage id="place_a_bid" defaultMessage="Place a Bid" />
+                  </PBtitle>
                   <PBDesc>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    donec ut sapien faucibus.
+                    <FormattedMessage id="place_a_bid_label" />
                   </PBDesc>
                   <BalanceLine>
-                    <p className="balance">Your Balance :</p>
+                    <p className="balance">
+                      <FormattedMessage id="your_balance" defaultMessage="Your Balance" /> :</p>
                     <p className="price-state">
                       {accountBalance.bnb.toLocaleString(2)} BNB |{" "}
                       {accountBalance.usd.toLocaleString(2)} USD
@@ -181,18 +184,17 @@ function PABpopup(props) {
                   </HalfInputs>
                   <PBbutton>
                     <button className="ani-1" onClick={() => placeBid()}>
-                      Place
+                      <FormattedMessage id="place" defaultMessage="Place" />
                     </button>
                   </PBbutton>
                 </>
               ) : (
                 <>
-                  <PBtitle className="AStitle">Confirm</PBtitle>
-                  <PBDesc className="ASDesc mb-10">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                    cursus.
+                  <PBtitle className="AStitle">
+                    <FormattedMessage id="confirm" defaultMessage="Confirm" />
+                  </PBtitle>
+                    <PBDesc className="ASDesc mb-10">
+                      <FormattedMessage id="confirm_label"  />
                   </PBDesc>
                   {/* <SkyWalletAddress>{reciever}</SkyWalletAddress> */}
                   <NFTcartButtons>

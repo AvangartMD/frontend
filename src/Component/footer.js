@@ -27,14 +27,14 @@ function Footer(props) {
       return <BecomeCreator isFooter={true} />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
-        <AvBTN01 className='createButton'>
+      <AvBTN01 className='createButton'>
           <Link to="/user/nftminting">
             <FormattedMessage id="create" defaultMessage="Create" />
           </Link>
         </AvBTN01>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
-      return <AvBTN01>
+      return <AvBTN01 className='createButton'>
         <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
       </AvBTN01>;
     }

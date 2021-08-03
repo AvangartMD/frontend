@@ -326,7 +326,7 @@ class Profile extends Component {
                   )}
                 </UserSocilMBX>
                 <UserDText02 className="desktop-block">
-                  Join{" "}
+                  <FormattedMessage id="joined" defaultMessage="Joined" />
                   <span>
                     {profile
                       ? dateFormat(
@@ -370,7 +370,7 @@ class Profile extends Component {
                   </button>
                 </ProSBX04>
                 <UserDText02 className="mobile-block">
-                  Join{" "}
+                  <FormattedMessage id="joined" defaultMessage="Joined" />
                   <span>
                     {profile
                       ? dateFormat(
@@ -433,18 +433,18 @@ class Profile extends Component {
               {profile?.role.roleName === 'CREATOR' ? (
                 <>
                   <TabList>
-                    <Tab>Created</Tab>
+                    <Tab><FormattedMessage id="created" defaultMessage="Created" /></Tab>
                     <Tab>Collected</Tab>
                     <Tab>Collections</Tab>
                     <Tab>Liked</Tab>
                     <Tab>Drafts</Tab>
                   </TabList>
 
-                  <TabPanel> <Created /> </TabPanel>
+                  <TabPanel> <Created status={profile.status === 'APPROVED' ? true : false}/> </TabPanel>
                   <TabPanel> <Collected role='creator' />  </TabPanel>
                   <TabPanel> <Collection /> </TabPanel>
                   <TabPanel> <Liked /> </TabPanel>
-                  <TabPanel> <Drafts /> </TabPanel>
+                  <TabPanel> <Drafts status={profile.status === 'APPROVED' ? true : false}/> </TabPanel>
                 </>
               ) : (
                 <>

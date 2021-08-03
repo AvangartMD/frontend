@@ -5,6 +5,7 @@ import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
 import { getContractInstance } from '../../helper/functions';
 import { actions } from '../../actions';
 import { connect } from 'react-redux';
+import { FormattedMessage } from "react-intl";
 import TxnStatus from './txnStatus';
 import Media from './../../Theme/media-breackpoint';
 import getContractAddresses from '../../contractData/contractAddress/addresses';
@@ -106,24 +107,27 @@ function NftOwnerActions(props) {
             <>
               {ownerActionName === 'burnTokenEdition' && (
                 <>
-                  <PBtitle className='AStitle'>Are you sure?</PBtitle>
+                  <PBtitle className='AStitle'>
+                    <FormattedMessage id="are_you_sure?" />
+                  </PBtitle>
                   <PBDesc className='ASDesc'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                    cursus.
+                    <FormattedMessage id="burn_label" />
                   </PBDesc>
                   <NFTcartButtons>
-                    <button className='ani-1 bordered'>Cancel</button>
+                    <button className='ani-1 bordered'>
+                      <FormattedMessage id="cancel"  defaultMessage="Cancel" />
+                    </button>
                     <button className='ani-1' onClick={() => handleAction()}>
-                      Burn
+                      <FormattedMessage id="burn"  defaultMessage="Burn" />
                     </button>
                   </NFTcartButtons>
                 </>
               )}
               {ownerActionName === 'claimBack' && (
                 <>
-                  <PBtitle className='AStitle'>Are you sure?</PBtitle>
+                  <PBtitle className='AStitle'>
+                    <FormattedMessage id="are_you_sure?" />
+                  </PBtitle>
                   <PBDesc className='ASDesc'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec ut sapien faucibus, ornare arcu et, bibendum risus.
@@ -131,7 +135,9 @@ function NftOwnerActions(props) {
                     cursus.
                   </PBDesc>
                   <NFTcartButtons>
-                    <button className='ani-1 bordered'>Cancel</button>
+                    <button className='ani-1 bordered'>
+                      <FormattedMessage id="cancel"  defaultMessage="Cancel" />
+                    </button>
                     <button className='ani-1' onClick={() => handleAction()}>
                       Claim Back
                     </button>
@@ -142,16 +148,17 @@ function NftOwnerActions(props) {
                 // {/* Transfer NFT popup */}
                 ownerActionName === 'transfer' && !confirm && (
                   <>
-                    <PBtitle className='TN-title'>Transfer NFT</PBtitle>
+                    <PBtitle className='TN-title'>
+                      <FormattedMessage id="transfer_nft" />
+                    </PBtitle>
                     <PBDesc className='mb-20'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                      Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                      cursus.
+                      <FormattedMessage id="transfer_nft_label" />
                     </PBDesc>
                     <NFTForm>
                       <div className='label-line'>
-                        <label>Wallet Address</label>
+                        <label>
+                          <FormattedMessage id="wallet_address" />
+                        </label>
                       </div>
                       <input
                         type='text'
@@ -165,7 +172,7 @@ function NftOwnerActions(props) {
                         className='ani-1 bor-large'
                         onClick={() => setConfirm(true)}
                       >
-                        Transfer
+                        <FormattedMessage id="transfer" defaultMessage="Transfer" />
                       </button>
                     </NFTcartButtons>
                   </>
@@ -216,7 +223,9 @@ function NftOwnerActions(props) {
               )}
               {ownerActionName === 'acceptOffer' && (
                 <>
-                  <PBtitle className='TN-title'> Accept offer</PBtitle>
+                  <PBtitle className='TN-title'>
+                    <FormattedMessage id="accept_offers" defaultMessage="Accept offer" />
+                  </PBtitle>
                   <PBDesc className='mb-20'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec ut sapien faucibus, ornare arcu et, bibendum risus.
@@ -252,7 +261,8 @@ function NftOwnerActions(props) {
                       Cancel
                     </button>
                     <button className='ani-1' onClick={() => handleAction()}>
-                      Transfer
+
+                      <FormattedMessage id="transfer" defaultMessage="Transfer" />
                     </button>
                   </NFTcartButtons>
                 </>
