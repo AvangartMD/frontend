@@ -116,7 +116,7 @@ const LoaderBX = styled(FlexDiv)`
   margin: 50px auto;
 `;
 const HUtopButtons = styled(FlexDiv)`
-  margin:60px 0px 20px;
+  margin:60px 0px 30px;
   justify-content:flex-start;
   button{
     padding:10px 60px;
@@ -134,6 +134,7 @@ const HUtopButtons = styled(FlexDiv)`
     ${Media.sm} {
       padding:10px 40px;
       margin:0px 5px 5px 0px;
+      width: calc(50% - 5px);
     }
     ${Media.xs} {
       padding:10px 30px;

@@ -1,27 +1,53 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Collapse from "@kunukn/react-collapse";
 
 import { Context } from "./wrapper";
 import Media from "../Theme/media-breackpoint";
+import { connect } from "react-redux";
+import { actions } from "../actions";
 
 const Language = (props) => {
   const context = useContext(Context);
+  const wrapperRef = useRef(null);
   const [toggle, setToggle] = useState(false);
   const header = props.header;
+
   useEffect(() => {
-    context.selectLanguage(
-      localStorage.getItem("avangartLanguage")
-        ? localStorage.getItem("avangartLanguage")
-        : "en"
-    );
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (
+        wrapperRef &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target)
+      ) {
+        if (toggle) setToggle(false);
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef, toggle]);
+  useEffect(() => {
+    let lng = localStorage.getItem("avangartLanguage")
+      ? localStorage.getItem("avangartLanguage")
+      : "en";
+    context.selectLanguage(lng);
+    props.setLanguage(lng);
   }, []);
 
-  const onClick = (props) => {
+  const onClick = (lng) => {
     setToggle((toggle) => !toggle);
-    context.selectLanguage(props);
-    localStorage.setItem("avangartLanguage", props);
+    context.selectLanguage(lng);
+    localStorage.setItem("avangartLanguage", lng);
+    props.setLanguage(lng);
   };
 
   const FlexDiv = styled.div`
@@ -168,7 +194,7 @@ const Language = (props) => {
   return (
     <>
       {header ? (
-        <LanBTN>
+        <LanBTN ref={wrapperRef}>
           <button
             className="Lang-text"
             onClick={() => {
@@ -205,7 +231,7 @@ const Language = (props) => {
           </Collapse>
         </LanBTN>
       ) : (
-        <LanBTNF>
+        <LanBTNF ref={wrapperRef}>
           <button
             className="Lang-text"
             onClick={() => {
@@ -246,4 +272,10 @@ const Language = (props) => {
   );
 };
 
-export default Language;
+const mapDipatchToProps = (dispatch) => {
+  return {
+    setLanguage: (lng) => dispatch(actions.setLanguage(lng)),
+  };
+};
+
+export default connect(null, mapDipatchToProps)(Language);

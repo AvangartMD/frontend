@@ -75,7 +75,7 @@ const NotificationSBX01 = styled(FlexDiv)`
       background-color: #d9f5f5;
     }
     ${Media.md} {
-      padding:0px;
+      padding:20px 25px;
     }
   }
 `;
@@ -85,10 +85,11 @@ const Notificationtitle = styled.div`
   color:#000000;
   letter-spacing:-1.07px;
   font-weight:600;
-  margin:0px 0px 20px;
+  margin:20px 0px 20px;
   display:none;
   ${Media.md} {
     display:block;
+    padding: 0px 25px;
   }
 `;
 

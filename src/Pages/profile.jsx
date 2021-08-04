@@ -6,8 +6,8 @@ import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { connect } from "react-redux";
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from "prop-types";
+import { withCookies, Cookies } from "react-cookie";
 import { withRouter } from "react-router";
 import dateFormat from "dateformat";
 import { motion } from "framer-motion";
@@ -28,8 +28,8 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 
 import { actions } from "../actions";
 import { services } from "../services";
-import { Context } from '../Component/wrapper';
-import { expiryTime } from '../config';
+import { Context } from "../Component/wrapper";
+import { expiryTime } from "../config";
 import { compressImage } from "../helper/functions";
 
 import Created from "../Component/profile/created";
@@ -37,15 +37,14 @@ import Collected from "../Component/profile/collected";
 import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 import Drafts from "../Component/profile/drafts";
-import Media from '../Theme/media-breackpoint';
+import Media from "../Theme/media-breackpoint";
 import { Link, useParams } from "react-router-dom";
 
 class Profile extends Component {
-
   static contextType = Context;
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  }
+    cookies: instanceOf(Cookies).isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -58,24 +57,27 @@ class Profile extends Component {
       profile: { file: null, url: null },
       cover: { file: null, url: null },
       profile_banner: false,
-      dashboard: cookies.get('dashboard') || null,
-      profileInfo: cookies.get('profileInfo') || null,
+      dashboard: cookies.get("dashboard") || null,
+      profileInfo: cookies.get("profileInfo") || null,
     };
   }
 
   async componentDidMount() {
     const { dashboard, profileInfo, cookies } = this.props;
     if (!this.state.dashboard && !dashboard) {
-      this.props.getDashboard() // fetch dashboard config
+      this.props.getDashboard(); // fetch dashboard config
     } else {
-      this.props.setDashboard(cookies.get('dashboard'))
-      const isActive = cookies.get('dashboard').filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
-      this.setState({ profile_banner: isActive })
+      this.props.setDashboard(cookies.get("dashboard"));
+      const isActive = cookies
+        .get("dashboard")
+        .filter((dash) => dash.name === "Profile Info")
+        .map((data) => data.isActive)[0];
+      this.setState({ profile_banner: isActive });
     }
     if (!this.state.profileInfo && !profileInfo) {
-      this.props.getProfileInfo() // fetch profile info list
+      this.props.getProfileInfo(); // fetch profile info list
     } else {
-      this.props.setProfileInfo(cookies.get('profileInfo'))
+      this.props.setProfileInfo(cookies.get("profileInfo"));
     }
     this.props.getProfile(); // fetch profile
   }
@@ -88,21 +90,23 @@ class Profile extends Component {
     if (authData !== prevProps.authData) {
       this.profileUpdated(updated); // profile updated
     }
-    if (dashboard && !cookies.get('dashboard')) {
-      this.setCookie('dashboard', dashboard) // set dashboard data in cookie
-      const isActive = dashboard.filter(dash => dash.name === "Profile Info").map(data => data.isActive)[0]
-      this.setState({ profile_banner: isActive })
+    if (dashboard && !cookies.get("dashboard")) {
+      this.setCookie("dashboard", dashboard); // set dashboard data in cookie
+      const isActive = dashboard
+        .filter((dash) => dash.name === "Profile Info")
+        .map((data) => data.isActive)[0];
+      this.setState({ profile_banner: isActive });
     }
-    if (profileInfo && !cookies.get('profileInfo')) {
-      this.setCookie('profileInfo', profileInfo) // set profile info in cookie
+    if (profileInfo && !cookies.get("profileInfo")) {
+      this.setCookie("profileInfo", profileInfo); // set profile info in cookie
     }
   }
 
   setCookie = (name, dashboard) => {
     const { cookies } = this.props;
-    const expire = new Date(Date.now() + (expiryTime * 60 * 60 * 1000)) // cookie will expire after 12 hours
-    cookies.set(name, dashboard, { path: '/', expires: expire });
-  }
+    const expire = new Date(Date.now() + expiryTime * 60 * 60 * 1000); // cookie will expire after 12 hours
+    cookies.set(name, dashboard, { path: "/", expires: expire });
+  };
 
   profileFileChange = async () => {
     this.setState({ loading: true }); // start the loader
@@ -138,11 +142,11 @@ class Profile extends Component {
 
   renderedProfileInfo(profile, index) {
     let context = this.context;
-    let img = ''
-    if (context.locale === 'tr') {
-      img = profile.banner.tu
+    let img = "";
+    if (context.locale === "tr") {
+      img = profile.banner.tu;
     } else {
-      img = profile.banner.en
+      img = profile.banner.en;
     }
     return (
       <Link to={profile.url} key={index}>
@@ -155,24 +159,35 @@ class Profile extends Component {
           exit={{ opacity: 0 }}
         />
       </Link>
-    )
+    );
   }
 
   render() {
     const { profile, profileInfo } = this.props;
     const { loading, profile_banner } = this.state;
+    function _compactAddress(address) {
+      const newAddress = address;
+      if (address) {
+        return (
+          newAddress.substring(0, 5) +
+          "...." +
+          newAddress.substring(newAddress.length - 10, newAddress.length)
+        );
+      }
+    }
     return (
       <>
         <ProMBannerBX
           style={{
-            backgroundImage: `url(${this.state.cover.url
-              ? this.state.cover.url
-              : profile
+            backgroundImage: `url(${
+              this.state.cover.url
+                ? this.state.cover.url
+                : profile
                 ? profile.cover
                   ? profile.cover
                   : ProfielBack
                 : ProfielBack
-              })`,
+            })`,
           }}
         >
           <ProMBX01>
@@ -241,8 +256,19 @@ class Profile extends Component {
 
               <UserDetailBX>
                 <UserDTitle01>
-                  {profile ? profile.name ? profile.name : "User Name" : "User Name"}
-                  <span>@{profile ? profile.username ? profile.username : "username" : "username"}</span>
+                  {profile
+                    ? profile.name
+                      ? profile.name
+                      : "User Name"
+                    : "User Name"}
+                  <span>
+                    @
+                    {profile
+                      ? profile.username
+                        ? profile.username
+                        : "username"
+                      : "username"}
+                  </span>
                 </UserDTitle01>
                 <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
                 <UserSocilMBX>
@@ -330,9 +356,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                        new Date(profile.createdAt).toString(),
-                        "dd mmmm yyyy"
-                      )
+                          new Date(profile.createdAt).toString(),
+                          "dd mmmm yyyy"
+                        )
                       : "join date"}
                   </span>
                 </UserDText02>
@@ -347,11 +373,17 @@ class Profile extends Component {
                     <span>{profile ? profile.nftCreated : "000"}</span>
                   </FollowerMBX>
                   <FollowerMBX>
-                    <FormattedMessage id="followers" defaultMessage="Followers" />
+                    <FormattedMessage
+                      id="followers"
+                      defaultMessage="Followers"
+                    />
                     <span>{profile ? profile.followersCount : "000"}</span>
                   </FollowerMBX>
                   <FollowerMBX>
-                    <FormattedMessage id="following" defaultMessage="Following" />
+                    <FormattedMessage
+                      id="following"
+                      defaultMessage="Following"
+                    />
                     <span>{profile ? profile.followingCount : "000"}</span>
                   </FollowerMBX>
                 </div>
@@ -374,20 +406,27 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                        new Date(profile.createdAt).toString(),
-                        "dd mmmm yyyy"
-                      )
+                          new Date(profile.createdAt).toString(),
+                          "dd mmmm yyyy"
+                        )
                       : "join date"}
                   </span>
                 </UserDText02>
-                <EditPrBTN onClick={() => this.props.history.push("/user/edit-profile")}>
-                  <FormattedMessage id="edit_profile" defaultMessage="Edit Profile" />
+                <EditPrBTN
+                  onClick={() => this.props.history.push("/user/edit-profile")}
+                >
+                  <FormattedMessage
+                    id="edit_profile"
+                    defaultMessage="Edit Profile"
+                  />
                 </EditPrBTN>
               </ProSBX03>
 
               <ProSBX04 className="desktop-block">
                 <span>#000000</span>{" "}
-                <p>{profile ? profile.walletAddress : "xyz...."}</p>
+                <p>
+                  {profile ? _compactAddress(profile.walletAddress) : "xyz...."}
+                </p>
                 <button
                   title="Copied"
                   onClick={() => {
@@ -422,29 +461,51 @@ class Profile extends Component {
           )}
 
           <ADBannerMBX>
-            {profile_banner && profileInfo ?
-              profileInfo.map((info, key) => this.renderedProfileInfo(info, key))
+            {profile_banner && profileInfo
+              ? profileInfo.map((info, key) =>
+                  this.renderedProfileInfo(info, key)
+                )
               : ``}
           </ADBannerMBX>
 
           <HomeTabs>
             <Tabs>
-
-              {profile?.role.roleName === 'CREATOR' ? (
+              {profile?.role.roleName === "CREATOR" ? (
                 <>
                   <TabList>
-                    <Tab><FormattedMessage id="created" defaultMessage="Created" /></Tab>
+                    <Tab>
+                      <FormattedMessage id="created" defaultMessage="Created" />
+                    </Tab>
                     <Tab>Collected</Tab>
                     <Tab>Collections</Tab>
                     <Tab>Liked</Tab>
                     <Tab>Drafts</Tab>
                   </TabList>
 
-                  <TabPanel> <Created /> </TabPanel>
-                  <TabPanel> <Collected role='creator' />  </TabPanel>
-                  <TabPanel> <Collection /> </TabPanel>
-                  <TabPanel> <Liked /> </TabPanel>
-                  <TabPanel> <Drafts /> </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Created
+                      status={profile.status === "APPROVED" ? true : false}
+                    />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Collected role="creator" />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Collection />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Liked />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Drafts
+                      status={profile.status === "APPROVED" ? true : false}
+                    />{" "}
+                  </TabPanel>
                 </>
               ) : (
                 <>
@@ -455,13 +516,24 @@ class Profile extends Component {
                     <Tab>Drafts</Tab>
                   </TabList>
 
-                  <TabPanel> <Collected role='collector' /> </TabPanel>
-                  <TabPanel> <Collection /> </TabPanel>
-                  <TabPanel> <Liked /> </TabPanel>
-                  <TabPanel> <Drafts /> </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Collected role="collector" />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Collection />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Liked />{" "}
+                  </TabPanel>
+                  <TabPanel>
+                    {" "}
+                    <Drafts />{" "}
+                  </TabPanel>
                 </>
               )}
-
             </Tabs>
           </HomeTabs>
         </Gs.Container>
@@ -488,10 +560,10 @@ const ProMBannerBX = styled(FlexDiv)`
   background-size: cover;
   background-position: 50% 50%;
   position: relative;
-  ${Media.md}{
+  ${Media.md} {
     margin-bottom: 180px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     margin-bottom: 450px;
   }
 `;
@@ -505,14 +577,14 @@ const ProMBX01 = styled(FlexDiv)`
   margin-bottom: -291px;
   box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
   align-items: stretch;
-  ${Media.lg}{
-    max-width:94%;
+  ${Media.lg} {
+    max-width: 94%;
   }
-  ${Media.md}{
+  ${Media.md} {
     padding: 20px;
-    min-height:200px;
+    min-height: 200px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     margin-bottom: -500px;
   }
 `;
@@ -520,15 +592,15 @@ const ProSBX01 = styled(FlexDiv)`
   width: 50%;
   justify-content: flex-start;
   align-items: flex-start;
-  ${Media.lg}{
+  ${Media.lg} {
     width: 40%;
   }
-  ${Media.md}{
+  ${Media.md} {
     width: 44%;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     width: 100%;
-    display:block;
+    display: block;
   }
 `;
 
@@ -536,12 +608,12 @@ const UserImgBX = styled(FlexDiv)`
   width: 142px;
   justify-content: flex-start;
   position: relative;
-  ${Media.md}{
-    width:120px;
+  ${Media.md} {
+    width: 120px;
   }
-  ${Media.sm}{
-    justify-content:center;
-    margin:0 auto;
+  ${Media.sm} {
+    justify-content: center;
+    margin: 0 auto;
   }
 `;
 
@@ -551,11 +623,11 @@ const UserImgSB = styled.div`
   border-radius: 62px;
   overflow: hidden;
   border: 1px solid #efecf0;
-  ${Media.md}{
+  ${Media.md} {
     width: 100px;
     height: 100px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     width: 72px;
     height: 72px;
   }
@@ -569,11 +641,11 @@ const UserDetailBX = styled(FlexDiv)`
   justify-content: flex-start;
   flex-direction: column;
   width: calc(100% - 142px);
-  ${Media.sm}{
+  ${Media.sm} {
     justify-content: center;
-    display:block;
-    width:100%;
-    text-align:center;
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 `;
 const UserDTitle01 = styled.div`
@@ -594,9 +666,9 @@ const UserDText01 = styled.div`
   font-size: 12px;
   font-weight: 500;
   color: #000000;
-  ${Media.xs}{
+  ${Media.xs} {
     font-size: 10px;
-    line-height:14px;
+    line-height: 14px;
   }
 `;
 const UserDText02 = styled(UserDText01)`
@@ -606,25 +678,23 @@ const UserDText02 = styled(UserDText01)`
   span {
     color: #000000;
     padding-left: 25px;
-    ${Media.sm}{
-      font-weight:normal;
+    ${Media.sm} {
+      font-weight: normal;
     }
   }
-  ${Media.sm}{
+  ${Media.sm} {
     font-size: 12px;
   }
-  &.desktop-block
-  {
+  &.desktop-block {
     ${Media.sm} {
-      display:none;
+      display: none;
     }
   }
-  &.mobile-block
-  {
-    display:none;
+  &.mobile-block {
+    display: none;
     ${Media.sm} {
-      display:block;
-      margin:0 auto;
+      display: block;
+      margin: 0 auto;
     }
   }
 `;
@@ -648,8 +718,8 @@ const UserSocilMBX = styled(FlexDiv)`
       object-fit: cover;
     }
   }
-  ${Media.sm}{
-    justify-content: center; 
+  ${Media.sm} {
+    justify-content: center;
   }
 `;
 const ProSBX02 = styled(FlexDiv)`
@@ -657,25 +727,24 @@ const ProSBX02 = styled(FlexDiv)`
   justify-content: flex-end;
   flex-direction: column;
   align-items: flex-end;
-  ${Media.lg}{
+  ${Media.lg} {
     width: 60%;
   }
-  ${Media.md}{
+  ${Media.md} {
     width: 56%;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     width: 100%;
   }
-  .cff-section
-  {
-    display:flex;
-    ${Media.sm}{
-      justify-content:center;
-      border:1px solid #dddddd;
-      border-radius:10px;
-      padding:15px;
+  .cff-section {
+    display: flex;
+    ${Media.sm} {
+      justify-content: center;
+      border: 1px solid #dddddd;
+      border-radius: 10px;
+      padding: 15px;
       max-width: 287px;
-      width:100%;
+      width: 100%;
       margin: 0 auto 20px;
     }
   }
@@ -684,29 +753,28 @@ const ProSBX02 = styled(FlexDiv)`
 const ProSBX03 = styled(FlexDiv)`
   flex-direction: row;
   margin-bottom: auto;
-  ${Media.md}{
-    margin-top:15px;
-    width:-webkit-fill-available;
+  ${Media.md} {
+    margin-top: 15px;
+    width: -webkit-fill-available;
     justify-content: flex-end;
   }
-  ${Media.sm}{
-    display:block;
-    text-align:center;
-    margin-top:40px;
+  ${Media.sm} {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
   }
-  .mobile-block
-  {
-    display:none;
-    a{
-      display:block;
-      font-size:12px;
-      color:#000000;
-      line-height:20px;
-      margin:15px 0px 0px;
-      text-decoration:underline;
+  .mobile-block {
+    display: none;
+    a {
+      display: block;
+      font-size: 12px;
+      color: #000000;
+      line-height: 20px;
+      margin: 15px 0px 0px;
+      text-decoration: underline;
     }
-    ${Media.sm}{
-      display:block;
+    ${Media.sm} {
+      display: block;
     }
   }
 `;
@@ -723,10 +791,10 @@ const FollowerMBX = styled(FlexDiv)`
     font-size: 22px;
     display: block;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     font-size: 14px;
     justify-content: center;
-    color:#8e9194;
+    color: #8e9194;
   }
 `;
 const EditPrBTN = styled.button`
@@ -742,12 +810,12 @@ const EditPrBTN = styled.button`
     color: #fff;
     border: 1px solid #f40058;
   }
-  ${Media.md}{
-    margin:initial;
+  ${Media.md} {
+    margin: initial;
   }
-  ${Media.sm}{
-    font-size:16px;
-    margin-top:40px;
+  ${Media.sm} {
+    font-size: 16px;
+    margin-top: 40px;
   }
 `;
 
@@ -761,33 +829,31 @@ const ProSBX04 = styled(FlexDiv)`
   font-size: 14px;
   color: #000;
   position: relative;
-  ${Media.md}{
+  ${Media.md} {
     padding: 6px 12px 6px 94px;
   }
-  &.desktop-block
-  {
+  &.desktop-block {
     ${Media.sm} {
-      display:none;
+      display: none;
     }
   }
-  &.mobile-block
-  {
-    display:none;
+  &.mobile-block {
+    display: none;
     ${Media.sm} {
-      display:block;
-      width:max-content;
-      margin:0 auto 40px;
+      display: block;
+      width: max-content;
+      margin: 0 auto 40px;
     }
   }
-  p{
-    margin:0px;
+  p {
+    margin: 0px;
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
     white-space: nowrap;
-  	width:142px;
-    ${Media.sm}{
-      width:125px;
+    width: 142px;
+    ${Media.sm} {
+      width: 125px;
     }
   }
   span {
@@ -863,23 +929,23 @@ const ImgUplBTN = styled(FlexDiv)`
 
 const ADBannerMBX = styled.div`
   width: 100%;
-  height:100%;
-  max-width:-webkit-fill-available;
+  height: 100%;
+  max-width: -webkit-fill-available;
   margin: 0 15px 50px 15px;
   border-radius: 10px;
   overflow: hidden;
   img {
     max-width: 100%;
     width: 100%;
-    height:100%;
-    object-fit:cover;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
   }
-  ${Media.md}{
-    margin:50px 15px;
+  ${Media.md} {
+    margin: 50px 15px;
   }
-  ${Media.sm}{
-    margin:0px 0px 40px;
+  ${Media.sm} {
+    margin: 0px 0px 40px;
   }
 `;
 
@@ -893,18 +959,17 @@ const HomeTabs = styled.div`
   .react-tabs__tab-list {
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
-    ${Media.sm}{
-      display:flex;
-      overflow-x:auto;
-      overflow-y:hidden;
-      flex-wrap:initial;
+    ${Media.sm} {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: initial;
     }
   }
-  .react-tabs__tab-panel--selected
-  {
-    margin:0px 20px;
-    ${Media.sm}{
-      margin:0px;
+  .react-tabs__tab-panel--selected {
+    margin: 0px 20px;
+    ${Media.sm} {
+      margin: 0px;
     }
   }
   .react-tabs__tab {
@@ -915,14 +980,13 @@ const HomeTabs = styled.div`
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.8px;
-    ${Media.sm}{
+    ${Media.sm} {
       font-size: 16px;
-      margin:0px 30px 0px 0px;
+      margin: 0px 30px 0px 0px;
     }
-    :focus
-    {
-      box-shadow:none;
-      border:none;
+    :focus {
+      box-shadow: none;
+      border: none;
     }
   }
   .react-tabs__tab--selected {
@@ -1081,8 +1145,8 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 
@@ -1093,9 +1157,10 @@ const mapDipatchToProps = (dispatch) => {
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
     getProfileBanner: () => dispatch(actions.getProfileBanner()),
     getDashboard: () => dispatch(actions.fetchDashboardConfig()),
-    setDashboard: (data) => dispatch({ type: 'FETCHED_DASHBOARD', data: data }),
+    setDashboard: (data) => dispatch({ type: "FETCHED_DASHBOARD", data: data }),
     getProfileInfo: () => dispatch(actions.getProfileInfo()),
-    setProfileInfo: (data) => dispatch({ type: 'FETCHED_PROFILE_INFO', data: data }),
+    setProfileInfo: (data) =>
+      dispatch({ type: "FETCHED_PROFILE_INFO", data: data }),
   };
 };
 const mapStateToProps = (state) => {
@@ -1109,4 +1174,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withCookies(withRouter(connect(mapStateToProps, mapDipatchToProps)(Profile)));
+export default withCookies(
+  withRouter(connect(mapStateToProps, mapDipatchToProps)(Profile))
+);

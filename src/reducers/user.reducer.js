@@ -144,3 +144,11 @@ export function fetchProfileBanner(state = null, action) {
       return state;
   }
 }
+export function fetchLanguage(state = "en", action) {
+  switch (action.type) {
+    case "SET_LANGUAGE":
+      return action.data;
+    default:
+      return state;
+  }
+}

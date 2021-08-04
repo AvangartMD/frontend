@@ -106,7 +106,7 @@ class Collection extends Component {
                         this.onCategoryChange(category.id);
                       }}
                     >
-                      {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
+                      {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
                     </button>
                   );
                 })
@@ -191,7 +191,7 @@ const FilterMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: space-between;
   max-width: 1080px;
-  margin: 30px auto 0 auto;
+  margin: 50px auto 0 auto;
   ${Media.lg}{
     max-width:100%;
   }
@@ -328,6 +328,7 @@ const OneCollBox = styled.div`
       letter-spacing:-0.75px;
       font-weight:700;
       margin:0px 0px 2px;
+      text-transform:capitalize;
     }
     .creator-name
     {
