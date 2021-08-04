@@ -159,11 +159,12 @@ class NftDetail extends React.Component {
       this.props.getIsLiked(this.props.match.params.id);
     }
     const string =
-      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry";
     await fetch(string)
       .then((resp) => resp.json())
       .then(async (data) => {
-        this.setState({ bnbUSDPrice: data.binancecoin.usd });
+        console.log("price", data.binancecoin);
+        this.setState({ bnbUSDPrice: data.binancecoin });
       });
   }
   checkUserApproval = async (web3Data) => {
@@ -425,6 +426,10 @@ class NftDetail extends React.Component {
     } = this.state;
     // console.log("New sale method", saleMethod);
     const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
+    let currentCurrenctyPrice =
+      localStorage.getItem("avangartLanguage") === "en"
+        ? bnbUSDPrice.usd
+        : bnbUSDPrice.try;
     return (
       <>
         <Helmet>
@@ -525,8 +530,15 @@ class NftDetail extends React.Component {
                       <div className="ed-left-inner">
                         <h3>{selectedNFTDetails?.price} BNB</h3>
                         <p className="gray-t">
+                          {/* {
+                            <FormattedMessage id="currency" values={{}} defaultMessage="en">
+                              {(lang) => {
+                                return console.log("updated lang ? ", lang);
+                              }}
+                            </FormattedMessage>
+                          } */}
                           {(
-                            selectedNFTDetails?.price * bnbUSDPrice
+                            selectedNFTDetails?.price * currentCurrenctyPrice
                           ).toLocaleString(2)}
                           USD
                         </p>

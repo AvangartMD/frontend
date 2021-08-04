@@ -110,7 +110,7 @@
   "nft_price_lable": "kinci el satışlardan elde edilen gelirin %10'u telif olarak üretici ile paylaşılacaktır.",
   "place_a_bid": "Teklif ver",
   "history_lable": "Nft minted user",
-  "history_by_label": "",
+  "history_by_label": "by",
   "for_sale": "Satışta Olanlar",
   "owner": "Sahibi",
   "select": "Seç",
@@ -139,5 +139,6 @@
   "change": "Dosya Seç",
   "save_changes": "Değişiklikleri kaydet",
   "faq_label": "Sıkça Sorularn Sorular",
-  "unlock_content_label": "Hediye içerik mesajı"
+  "unlock_content_label": "Hediye içerik mesajı",
+  "currency": "try"
 }
