@@ -89,10 +89,13 @@ class BannerTab extends Component {
   renderedBanner(banner, index) {
     let context = this.context;
     let img = ''
+    let mob_img = ''
     if (context.locale === 'tr') {
       img = banner.banner.tu
+      mob_img = banner.mobile.tu
     } else {
       img = banner.banner.en
+      mob_img = banner.mobile.en
     }
     return (
       <div className='item' key={index}>
@@ -106,7 +109,7 @@ class BannerTab extends Component {
             exit={{ opacity: 0 }}
             className="desktop-img"
           />
-          <img src="" className="mobile-img" alt="" />
+          <img src={mob_img} className="mobile-img" alt="" />
         </Link>
       </div >
     )
