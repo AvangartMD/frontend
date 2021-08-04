@@ -137,6 +137,7 @@ class NftDetail extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     const { NFTDetails, isLiked, web3Data } = this.props;
+    console.log("this", this.props);
     if (NFTDetails !== prevProps.NFTDetails) {
       if (NFTDetails.tokenId && NFTDetails.edition)
         this.getEditionNumber(NFTDetails, this.state.currentEdition);
@@ -159,11 +160,12 @@ class NftDetail extends React.Component {
       this.props.getIsLiked(this.props.match.params.id);
     }
     const string =
-      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry";
     await fetch(string)
       .then((resp) => resp.json())
       .then(async (data) => {
-        this.setState({ bnbUSDPrice: data.binancecoin.usd });
+        console.log("price", data.binancecoin);
+        this.setState({ bnbUSDPrice: data.binancecoin });
       });
   }
   checkUserApproval = async (web3Data) => {
@@ -425,6 +427,8 @@ class NftDetail extends React.Component {
     } = this.state;
     // console.log("New sale method", saleMethod);
     const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
+    let currentCurrenctyPrice =
+      this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
     return (
       <>
         <Helmet>
@@ -459,13 +463,19 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike className={loading ? `disabled` : ``}
+                    <NFTLike
+                      className={
+                        loading || !web3Data?.isLoggedIn ? `disabled` : ``
+                      }
                       onDoubleClick={() => {
                         this.props.likeToggler(id);
                         this.setState({ loading: true });
                       }}
                     >
-                      <img src={isLiked.isFollowed ? Redheart : redheartBorder} alt="" />
+                      <img
+                        src={isLiked.isFollowed ? Redheart : redheartBorder}
+                        alt=""
+                      />
                       <p>{likesCount.count}</p>
                     </NFTLike>
                   </NFTtopbarright>
@@ -509,12 +519,21 @@ class NftDetail extends React.Component {
                     <div className="ed-left">
                       <p>{saleMethod.bidDesc}</p>
                       <div className="ed-left-inner">
-                        <h3>{selectedNFTDetails?.price} BNB</h3>
+                        <h3>
+                          {(+selectedNFTDetails?.price).toLocaleString(4)} BNB
+                        </h3>
                         <p className="gray-t">
+                          {/* {
+                            <FormattedMessage id="currency" values={{}} defaultMessage="en">
+                              {(lang) => {
+                                return console.log("updated lang ? ", lang);
+                              }}
+                            </FormattedMessage>
+                          } */}
                           {(
-                            selectedNFTDetails?.price * bnbUSDPrice
-                          ).toLocaleString(2)}
-                          USD
+                            selectedNFTDetails?.price * currentCurrenctyPrice
+                          ).toLocaleString(undefined, 2)}{" "}
+                          <FormattedMessage id="currency" defaultMessage="en" />
                         </p>
                       </div>
                     </div>
@@ -747,7 +766,7 @@ const NFTDleft = styled(FlexDiv)`
 const NFTDleftcontainer = styled.div`
   width: 100%;
   max-width: 515px;
-  margin:0 auto;
+  margin: 0 auto;
   padding: 15px 50px;
   ${Media.md} {
     margin: 0 auto;
@@ -824,7 +843,7 @@ const NFTLike = styled(FlexDiv)`
   height: 34px;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
   border-radius: 30px;
-  cursor:pointer;
+  cursor: pointer;
   p {
     color: #ff2a44;
     font-size: 12px;
@@ -953,7 +972,7 @@ const Edition = styled(FlexDiv)`
       font-size: 12px;
       letter-spacing: -0.6px;
       font-weight: 600;
-      line-height:13px;
+      line-height: 13px;
     }
     h3 {
       color: #000;
@@ -1023,11 +1042,11 @@ const NFTcartButtons = styled.div`
     letter-spacing: -0.5px;
     margin: 0px 10px 10px 0px;
     ${Media.xs} {
-      display:block;
+      display: block;
       margin: 0px auto 10px;
-      width:200px;
-      height:44px;
-      padding:0px;
+      width: 200px;
+      height: 44px;
+      padding: 0px;
     }
     :hover {
       background-image: linear-gradient(90deg, #d121d6, #febf11);
@@ -1068,6 +1087,7 @@ const mapStateToProps = (state) => {
     isLiked: state.fetchIsLiked,
     authData: state.fetchAuthData,
     web3Data: state.fetchWeb3Data,
+    lng: state.fetchLanguage,
   };
 };
 

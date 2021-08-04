@@ -177,11 +177,8 @@ function SelectEdition(props) {
                         type="checkbox"
                         id="vehicle1"
                         name="vehicle1"
-                        defaultChecked={filter.includes('AUCTION') ? true : false}
+                        checked={filter.includes('AUCTION') ? true : false}
                         onChange={(e) => changeHandler('AUCTION', e)}
-                      // onClick={(e) => {
-                      //   setFilter('AUCTION', e);
-                      // }}
                       />
                       <label htmlFor="vehicle1">
                         <FormattedMessage id="live_acution" defaultMessage="Live auction" />
@@ -192,11 +189,8 @@ function SelectEdition(props) {
                         type="checkbox"
                         id="vehicle2"
                         name="vehicle1"
-                        defaultChecked={filter.includes('OFFER') ? true : false}
+                        checked={filter.includes('OFFER') ? true : false}
                         onChange={(e) => changeHandler('OFFER', e)}
-                      // onClick={(e) => {
-                      //   setFilter('OFFER', e);
-                      // }}
                       />
                       <label htmlFor="vehicle2">
                         <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
@@ -211,11 +205,8 @@ function SelectEdition(props) {
                           type="checkbox"
                           id="vehicle3"
                           name="vehicle1"
-                          defaultChecked={filter.includes('BUY') ? true : false}
+                          checked={filter.includes('BUY') ? true : false}
                           onChange={(e) => changeHandler('BUY', e)}
-                        // onClick={(e) => {
-                        //   setFilter('BUY', e);
-                        // }}
                         />
                         <label htmlFor="vehicle3">
                           <FormattedMessage id="buy_now" defaultMessage="Buy now" />
@@ -226,11 +217,8 @@ function SelectEdition(props) {
                           type="checkbox"
                           id="vehicle4"
                           name="vehicle1"
-                          defaultChecked={filter.includes('SOLD') ? true : false}
+                          checked={filter.includes('SOLD') ? true : false}
                           onChange={(e) => changeHandler('SOLD', e)}
-                        // onClick={(e) => {
-                        //   setFilter('SOLD', e);
-                        // }}
                         />
                         <label htmlFor="vehicle4">Sold</label>
                       </div>
@@ -263,53 +251,56 @@ function SelectEdition(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {editions.map((edition, key) => {
-                    return (
-                      <tr key={key}>
-                        <td>{edition.number}</td>
-                        <td>
-                          <FlexDiv className="JCFS">
-                            <div className="table-Img">
-                              <img
-                                src={
-                                  edition.ownerId.profile
-                                    ? edition.ownerId.profile
-                                    : UserIcon
+                  {editions.length !== 0 ?
+                    editions.map((edition, key) => {
+                      return (
+                        <tr key={key}>
+                          <td>{edition.number}</td>
+                          <td>
+                            <FlexDiv className="JCFS">
+                              <div className="table-Img">
+                                <img
+                                  src={
+                                    edition.ownerId.profile
+                                      ? edition.ownerId.profile
+                                      : UserIcon
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <div className="eduerprice">
+                                {edition.ownerId.username ? `@${edition.ownerId.username}` : edition.ownerId.name}
+                                <div className="mobile-block">{edition.price} BNB</div>
+                              </div>
+                            </FlexDiv>
+                          </td>
+                          <td className="text-center desktop-block">{edition.price} BNB</td>
+                          <td>
+                            <CustomRadio1>
+                              <label className="radio-container">
+                                {edition.isBurned ?
+                                  <FormattedMessage id="burned" defaultMessage="Burned" /> :
+                                  <FormattedMessage id="select" defaultMessage="Select" />
                                 }
-                                alt=""
-                              />
-                            </div>
-                            <div className="eduerprice">
-                              {edition.ownerId.username ? `@${edition.ownerId.username}` : edition.ownerId.name}
-                              <div className="mobile-block">{edition.price} BNB</div>
-                            </div>
-                          </FlexDiv>
-                        </td>
-                        <td className="text-center desktop-block">{edition.price} BNB</td>
-                        <td>
-                          <CustomRadio1>
-                            <label className="radio-container">
-                              {edition.isBurned ?
-                                <FormattedMessage id="burned" defaultMessage="Burned" /> :
-                                <FormattedMessage id="select" defaultMessage="Select" />
-                              }
-                              <input
-                                type="radio"
-                                name="category"
-                                value="art"
-                                disabled={edition.isBurned}
-                                onClick={() => {
-                                  props.setEditionnumber(edition.number);
-                                  props.toggle(10);
-                                }}
-                              />
-                              <span className="checkmark"></span>
-                            </label>
-                          </CustomRadio1>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                                <input
+                                  type="radio"
+                                  name="category"
+                                  value="art"
+                                  disabled={edition.isBurned}
+                                  onClick={() => {
+                                    props.setEditionnumber(edition.number);
+                                    props.toggle(10);
+                                  }}
+                                />
+                                <span className="checkmark"></span>
+                              </label>
+                            </CustomRadio1>
+                          </td>
+                        </tr>
+                      )
+                    })
+                    : `No result found`
+                  }
                 </tbody>
               </table>
             </EditionTable>

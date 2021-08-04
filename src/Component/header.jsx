@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
-import Gs from '../Theme/globalStyles';
-import { NavLink } from 'react-router-dom';
-import Media from '../Theme/media-breackpoint';
-import Collapse from '@kunukn/react-collapse';
-import Connect from './connect';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { actions } from '../actions';
-import LogoImg from '../Assets/images/logo.png';
-import NotifiIcon from '../Assets/images/notification.svg';
-import UserIcon from '../Assets/images/user-img.jpg';
-import RightArrow from '../Assets/images/rightArrow.svg';
-import DisconnectICO from '../Assets/images/icon-disconnect.svg';
-import Language from './lang.switch';
-import Login from './Modals/login';
-import { web3, walletConnectProvider } from '../web3';
-import BecomeCreator from './Modals/become-creator';
-import Notifications from '../Component/header/notification';
-import { FaBars } from 'react-icons/fa';
-import CloseBTN01 from '../Assets/images/closeBTN01.svg';
-import IconMenuOpen from '../Assets/images/icon-set-menu.svg';
-import IconMenuClose from '../Assets/images/icon-set-close.svg';
-import LogoImgWhite from '../Assets/images/logo-white.png';
-import IconMenuOpenWhite from '../Assets/images/icon-set-menu-white.svg';
-import IconMenuCloseWhite from '../Assets/images/icon-set-close-white.svg';
-import NotifiIconWhite from '../Assets/images/notification-white.svg';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import styled from "styled-components";
+import Gs from "../Theme/globalStyles";
+import { NavLink } from "react-router-dom";
+import Media from "../Theme/media-breackpoint";
+import Collapse from "@kunukn/react-collapse";
+import Connect from "./connect";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { actions } from "../actions";
+import LogoImg from "../Assets/images/logo.png";
+import NotifiIcon from "../Assets/images/notification.svg";
+import UserIcon from "../Assets/images/user-img.jpg";
+import RightArrow from "../Assets/images/rightArrow.svg";
+import DisconnectICO from "../Assets/images/icon-disconnect.svg";
+import Language from "./lang.switch";
+import Login from "./Modals/login";
+import { web3, walletConnectProvider } from "../web3";
+import BecomeCreator from "./Modals/become-creator";
+import Notifications from "../Component/header/notification";
+import { FaBars } from "react-icons/fa";
+import CloseBTN01 from "../Assets/images/closeBTN01.svg";
+import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
+import IconMenuClose from "../Assets/images/icon-set-close.svg";
+import LogoImgWhite from "../Assets/images/logo-white.png";
+import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
+import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
+import NotifiIconWhite from "../Assets/images/notification-white.svg";
 import { Scrollbars } from "react-custom-scrollbars";
 
 function CustomScrollbars(props) {
@@ -63,10 +63,10 @@ class Header extends Component {
         accounts: [],
       },
       loader: false,
-      error: { isError: false, msg: '' },
+      error: { isError: false, msg: "" },
       userDetails: null,
       accountBalance: 0,
-      compactUserAddress: '00000000000',
+      compactUserAddress: "00000000000",
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -77,9 +77,9 @@ class Header extends Component {
     let { web3Data, authData } = this.props;
 
     if (web3Data.accounts[0] !== prevProps.web3Data.accounts[0]) {
-      if (web3Data.accounts[0] !== localStorage.getItem('userAddress'))
-        localStorage.setItem('userAddress', '');
-      else if (localStorage.getItem('avangartAuthToken'))
+      if (web3Data.accounts[0] !== localStorage.getItem("userAddress"))
+        localStorage.setItem("userAddress", "");
+      else if (localStorage.getItem("avangartAuthToken"))
         this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
@@ -98,7 +98,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener("mousedown", this.handleClickOutside);
     let { web3Data } = this.props;
     if (!web3Data.accounts[0]) {
       this.props.getWeb3();
@@ -111,24 +111,24 @@ class Header extends Component {
     }
 
     if (window.web3) {
-      window.ethereum.on('accountsChanged', (accounts) => {
+      window.ethereum.on("accountsChanged", (accounts) => {
         // metamask user address changed
         if (!web3Data.accounts[0]) {
           this.props.clearNonce();
           this.props.authLogout();
           this.props.web3Logout(accounts);
-          this.props.history.push('/');
+          this.props.history.push("/");
           this.setState({ isOpen4: true });
         }
       });
     }
-    walletConnectProvider.on('accountsChanged', (accounts) => {
+    walletConnectProvider.on("accountsChanged", (accounts) => {
       // walletConnect user address changed
       if (!web3Data.accounts[0]) {
         this.props.clearNonce();
         this.props.authLogout();
         this.props.web3Logout(accounts);
-        this.props.history.push('/');
+        this.props.history.push("/");
         this.setState({ isOpen4: true });
       }
     });
@@ -155,28 +155,28 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-      '....' +
-      newAddress.substring(newAddress.length - 5, newAddress.length)
-      : '00000000000';
+        "...." +
+        newAddress.substring(newAddress.length - 5, newAddress.length)
+      : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
   }
 
   checkRole = (user) => {
-    if (user.role.roleName === 'COLLECTOR') {
+    if (user.role.roleName === "COLLECTOR") {
       return <BecomeCreator />;
-    } else if (user.role.roleName === 'CREATOR' && user.status === 'APPROVED') {
+    } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
-        <Link to='/user/nftminting'>
-          <AvBTN02 className='colorBTN'>
-            <FormattedMessage id='create' defaultMessage='Create' />
+        <Link to="/user/nftminting">
+          <AvBTN02 className="colorBTN">
+            <FormattedMessage id="create" defaultMessage="Create" />
           </AvBTN02>
         </Link>
       );
-    } else if (user.role.roleName === 'CREATOR' && user.status !== 'APPROVED') {
+    } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
       return (
-        <AvBTN02 className='grayBTN'>
-          <FormattedMessage id='waitlist' defaultMessage='Waitlist' />
+        <AvBTN02 className="grayBTN">
+          <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
         </AvBTN02>
       );
     }
@@ -187,11 +187,11 @@ class Header extends Component {
     localStorage.clear();
     this.props.authLogout();
     this.props.web3Logout(web3Data.accounts);
-    this.props.history.push('/');
+    this.props.history.push("/");
   };
 
   toggle = (index) => {
-    let collapse = 'isOpen' + index;
+    let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
@@ -202,13 +202,16 @@ class Header extends Component {
       accountBalance,
       compactUserAddress,
     } = this.state;
+    const useGradient = this.props.location.pathname.includes("profile")
+      ? "gradient-header"
+      : null;
     return (
       <>
-        <HeadMBX className=''>
+        <HeadMBX className={useGradient}>
           <HeadMBX02>
-            <HeadSbx01 className='mobile-logo'>
+            <HeadSbx01 className="mobile-logo">
               <Logo>
-                <Link to='/' className='avangart-Logo'>
+                <Link to="/" className="avangart-Logo">
                   {/* <img src={LogoImg} alt="" /> */}
                 </Link>
               </Logo>
@@ -217,27 +220,29 @@ class Header extends Component {
             <HeadSbx01>
               <MobileMenu>
                 {web3Data.isLoggedIn ? (
-                  <NotificationBX
-                    onClick={() => this.toggle(3)}
-                  >
-                    <button className='noti-button-outer'>
+                  <NotificationBX onClick={() => this.toggle(3)}>
+                    <button className="noti-button-outer">
                       {/* <img src={NotifiIcon} alt="" /> */}
-                      <span className='Notifi-Icon'></span>
-                      <span className='RedDot'></span>
+                      <span className="Notifi-Icon"></span>
+                      <span className="RedDot"></span>
                     </button>
 
                     <Collapse
                       isOpen={this.state.isOpen3}
                       className={
-                        'app__collapse collapse-css-transition  ' +
-                        (this.state.isOpen3 ? 'collapse-active' : '')
+                        "app__collapse collapse-css-transition  " +
+                        (this.state.isOpen3 ? "collapse-active" : "")
                       }
                     >
-                      <DDContainer className='ver3'>
+                      <DDContainer className="ver3">
                         <CustomScrollbars
                           autoHide
                           autoHideTimeout={1000}
-                          style={{ width: "100%", height: "500px", position: "relative" }}
+                          style={{
+                            width: "100%",
+                            height: "500px",
+                            position: "relative",
+                          }}
                         >
                           <Notifications />
                         </CustomScrollbars>
@@ -251,26 +256,26 @@ class Header extends Component {
                 <Bars
                   onClick={() => this.toggle(11)}
                   className={
-                    this.state.isOpen11 ? 'menu-active' : 'menu-deactive'
+                    this.state.isOpen11 ? "menu-active" : "menu-deactive"
                   }
                 />
               </MobileMenu>
               <MobileSidebar>
                 <Collapse
-                  id='mobile-block'
+                  id="mobile-block"
                   isOpen={this.state.isOpen11}
                   className={
-                    'app__collapse ' +
-                    (this.state.isOpen11 ? 'collapse-active' : '')
+                    "app__collapse " +
+                    (this.state.isOpen11 ? "collapse-active" : "")
                   }
                 >
                   <MobInner>
-                    <div className='mobile-links'>
+                    <div className="mobile-links">
                       {web3Data.isLoggedIn ? (
                         <NavLink
-                          to='/user/profile'
+                          to="/user/profile"
                           exact
-                          activeClassName='active'
+                          activeClassName="active"
                           onClick={() => this.toggle(11)}
                         >
                           Profile
@@ -279,53 +284,53 @@ class Header extends Component {
                         ``
                       )}
                       <NavLink
-                        to='/marketplace'
+                        to="/marketplace"
                         exact
-                        activeClassName='active'
+                        activeClassName="active"
                         onClick={() => this.toggle(11)}
                       >
                         <FormattedMessage
-                          id='marketplace'
-                          defaultMessage='Marketplace'
+                          id="marketplace"
+                          defaultMessage="Marketplace"
                         />
                       </NavLink>
                       <NavLink
-                        to='/collections'
+                        to="/collections"
                         exact
-                        activeClassName='active'
+                        activeClassName="active"
                         onClick={() => this.toggle(11)}
                       >
                         <FormattedMessage
-                          id='Collections'
-                          defaultMessage='Collections'
+                          id="collections"
+                          defaultMessage="Collections"
                         />
                       </NavLink>
                       <NavLink
-                        to='/creators'
+                        to="/creators"
                         exact
-                        activeClassName='active'
+                        activeClassName="active"
                         onClick={() => this.toggle(11)}
                       >
                         <FormattedMessage
-                          id='creators'
-                          defaultMessage='Creators'
+                          id="creators"
+                          defaultMessage="Creators"
                         />
                       </NavLink>
                       <NavLink
-                        to='/how-to-use'
+                        to="/how-to-use"
                         exact
-                        activeClassName='active'
+                        activeClassName="active"
                         onClick={() => this.toggle(11)}
                       >
                         <FormattedMessage
-                          id='how_to_use?'
-                          defaultMessage='How to use?'
+                          id="how_to_use?"
+                          defaultMessage="How to use?"
                         />
                       </NavLink>
                       <NavLink
-                        to='/'
+                        to="/"
                         exact
-                        activeClassName='active'
+                        activeClassName="active"
                         onClick={() => this.toggle(12)}
                       >
                         More
@@ -334,14 +339,14 @@ class Header extends Component {
                     <Collapse
                       isOpen={this.state.isOpen12}
                       className={
-                        'app__collapse ' +
-                        (this.state.isOpen12 ? 'collapse-active' : '')
+                        "app__collapse " +
+                        (this.state.isOpen12 ? "collapse-active" : "")
                       }
                     >
                       <Moremenu>
-                        <div className='more-parts'>
+                        <div className="more-parts">
                           <NavLink
-                            to='blog-list'
+                            to="blog-list"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
@@ -350,7 +355,7 @@ class Header extends Component {
                             Avangart Blog
                           </NavLink>
                           <NavLink
-                            to='/faq'
+                            to="/faq"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
@@ -359,7 +364,7 @@ class Header extends Component {
                             FAQ
                           </NavLink>
                           <NavLink
-                            to=''
+                            to=""
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
@@ -368,41 +373,41 @@ class Header extends Component {
                             Support
                           </NavLink>
                         </div>
-                        <div className='more-parts'>
+                        <div className="more-parts">
                           <NavLink
-                            to='/legal'
+                            to="/legal"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
                             }}
                           >
                             <FormattedMessage
-                              id='term_of_service'
-                              defaultMessage='Terms of Service'
+                              id="term_of_service"
+                              defaultMessage="Terms of Service"
                             />
                           </NavLink>
                           <NavLink
-                            to='/legal'
+                            to="/legal"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
                             }}
                           >
                             <FormattedMessage
-                              id='privacy_policy'
-                              defaultMessage='Privacy Policy'
+                              id="privacy_policy"
+                              defaultMessage="Privacy Policy"
                             />
                           </NavLink>
                           <NavLink
-                            to='/legal'
+                            to="/legal"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
                             }}
                           >
                             <FormattedMessage
-                              id='cookie_policy'
-                              defaultMessage='Cookie Policy'
+                              id="cookie_policy"
+                              defaultMessage="Cookie Policy"
                             />
                           </NavLink>
                         </div>
@@ -412,11 +417,11 @@ class Header extends Component {
                     {!web3Data.isLoggedIn ? (
                       <>
                         <Language header={true} />
-                        <div className='mobile-login-btn'>
+                        <div className="mobile-login-btn">
                           <AvBTN01 onClick={() => this.toggle(4)}>
                             <FormattedMessage
-                              id='login'
-                              defaultMessage='Login'
+                              id="login"
+                              defaultMessage="Login"
                             />
                           </AvBTN01>
                         </div>
@@ -424,8 +429,8 @@ class Header extends Component {
                     ) : (
                       <>
                         <Language header={true} />
-                        <div className='mobile-login-btn'>
-                          {userDetails ? this.checkRole(userDetails) : ''}
+                        <div className="mobile-login-btn">
+                          {userDetails ? this.checkRole(userDetails) : ""}
                         </div>
                         <Mobiledisconnect
                           onClick={() => {
@@ -438,28 +443,28 @@ class Header extends Component {
                       </>
                     )}
                     <FooterrightLinks>
-                      <Link to='/'>Instagram</Link>
-                      <Link to='/'>Twitter</Link>
-                      <Link to='/'>Discord</Link>
+                      <Link to="/">Instagram</Link>
+                      <Link to="/">Twitter</Link>
+                      <Link to="/">Discord</Link>
                     </FooterrightLinks>
                   </MobInner>
                 </Collapse>
               </MobileSidebar>
 
-              <nav className='desktop-menu'>
-                <NavLink to='/marketplace' exact activeClassName='active'>
+              <nav className="desktop-menu">
+                <NavLink to="/marketplace" exact activeClassName="active">
                   <FormattedMessage
-                    id='marketplace'
-                    defaultMessage='Marketplace'
+                    id="marketplace"
+                    defaultMessage="Marketplace"
                   />
                 </NavLink>
-                <NavLink to='/creators' exact activeClassName='active'>
-                  <FormattedMessage id='creators' defaultMessage='Creators' />
+                <NavLink to="/creators" exact activeClassName="active">
+                  <FormattedMessage id="creators" defaultMessage="Creators" />
                 </NavLink>
-                <NavLink to='/how-to-use' exact activeClassName='active'>
+                <NavLink to="/how-to-use" exact activeClassName="active">
                   <FormattedMessage
-                    id='how_to_use?'
-                    defaultMessage='How to use?'
+                    id="how_to_use?"
+                    defaultMessage="How to use?"
                   />
                 </NavLink>
               </nav>
@@ -467,50 +472,52 @@ class Header extends Component {
 
             {/* without Login  */}
             {!web3Data.isLoggedIn ? (
-              <HeadSbx01 className='desktop-menu'>
+              <HeadSbx01 className="desktop-menu">
                 <AvBTN01 onClick={() => this.toggle(4)}>
-                  <FormattedMessage id='login' defaultMessage='Login' />
+                  <FormattedMessage id="login" defaultMessage="Login" />
                 </AvBTN01>
                 <Language header={true} />
               </HeadSbx01>
             ) : (
-              <HeadSbx01 className='desktop-menu' ref={this.wrapperRef}>
-                {userDetails ? this.checkRole(userDetails) : ''}
+              <HeadSbx01 className="desktop-menu" ref={this.wrapperRef}>
+                {userDetails ? this.checkRole(userDetails) : ""}
 
-                <NotificationBX
-                  onClick={() => this.toggle(3)}
-                >
-                  <button className='active noti-button-outer'>
+                <NotificationBX onClick={() => this.toggle(3)}>
+                  <button className="active noti-button-outer">
                     {/* <img src={NotifiIcon} alt="" /> */}
-                    <span className='Notifi-Icon'></span>
-                    <span className='RedDot'></span>
+                    <span className="Notifi-Icon"></span>
+                    <span className="RedDot"></span>
                   </button>
 
                   <Collapse
                     isOpen={this.state.isOpen3}
                     className={
-                      'app__collapse collapse-css-transition  ' +
-                      (this.state.isOpen3 ? 'collapse-active' : '')
+                      "app__collapse collapse-css-transition  " +
+                      (this.state.isOpen3 ? "collapse-active" : "")
                     }
                   >
-                    <DDContainer className='ver3'>
+                    <DDContainer className="ver3">
                       <CustomScrollbars
                         autoHide
                         autoHideTimeout={1000}
-                        style={{ width: "100%", height: "265px", position: "relative" }}
+                        style={{
+                          width: "100%",
+                          height: "265px",
+                          position: "relative",
+                        }}
                       >
                         <Notifications />
                       </CustomScrollbars>
                     </DDContainer>
                   </Collapse>
                 </NotificationBX>
-                <AccountBX className='ph-bg' onClick={() => this.toggle(2)}>
+                <AccountBX className="ph-bg" onClick={() => this.toggle(2)}>
                   <span>
                     {accountBalance} BNB
                     <span>{compactUserAddress}</span>
-                  </span>{' '}
+                  </span>{" "}
                   <i>
-                    {' '}
+                    {" "}
                     <img
                       src={
                         userDetails
@@ -519,26 +526,26 @@ class Header extends Component {
                             : UserIcon
                           : UserIcon
                       }
-                      alt=''
+                      alt=""
                     />
                   </i>
                   <Collapse
                     isOpen={this.state.isOpen2}
                     className={
-                      'app__collapse collapse-css-transition  ' +
-                      (this.state.isOpen2 ? 'collapse-active' : '')
+                      "app__collapse collapse-css-transition  " +
+                      (this.state.isOpen2 ? "collapse-active" : "")
                     }
                     ref={this.wrapperRef}
                   >
-                    <DDContainer className='ver2'>
+                    <DDContainer className="ver2">
                       <DDBtnbar02>
                         <button
                           onClick={() =>
-                            this.props.history.push('/user/profile')
+                            this.props.history.push("/user/profile")
                           }
                         >
                           <i>
-                            {' '}
+                            {" "}
                             <img
                               src={
                                 userDetails
@@ -547,13 +554,13 @@ class Header extends Component {
                                     : UserIcon
                                   : UserIcon
                               }
-                              alt=''
+                              alt=""
                             />
-                          </i>{' '}
-                          View your profile{' '}
+                          </i>{" "}
+                          View your profile{" "}
                           <span>
-                            {' '}
-                            <img src={RightArrow} alt='' />
+                            {" "}
+                            <img src={RightArrow} alt="" />
                           </span>
                         </button>
                         <button
@@ -562,10 +569,10 @@ class Header extends Component {
                           }}
                         >
                           <i>
-                            {' '}
-                            <img src={DisconnectICO} alt='' />
+                            {" "}
+                            <img src={DisconnectICO} alt="" />
                           </i>
-                          Disconnect{' '}
+                          Disconnect{" "}
                           {/* <span>
                             {" "}
                             <img src={RightArrow} alt="" />
@@ -586,7 +593,7 @@ class Header extends Component {
   }
 
   toggle = (index) => {
-    let collapse = 'isOpen' + index;
+    let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -698,7 +705,7 @@ const HeadSbx01 = styled(FlexDiv)`
       :hover,
       &.active {
         :after {
-          content: '';
+          content: "";
           left: 20px;
           right: 20px;
           height: 2px;
@@ -1101,15 +1108,15 @@ const mapDipatchToProps = (dispatch) => {
     getWeb3: () => dispatch(actions.getWeb3()),
     enableMetamask: () => dispatch(actions.enableMetamask()),
     generateNonce: (address) => dispatch(actions.generateNonce(address)),
-    clearNonce: () => dispatch({ type: 'GENERATE_NONCE', data: null }),
+    clearNonce: () => dispatch({ type: "GENERATE_NONCE", data: null }),
     authLogin: (nonce, signature) =>
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: 'AUTH_LOGIN', data: null }),
+    authLogout: () => dispatch({ type: "AUTH_LOGIN", data: null }),
     web3Logout: (accounts) =>
       dispatch({
-        type: 'FETCH_WEB3_DATA',
+        type: "FETCH_WEB3_DATA",
         data: { isLoggedIn: false, accounts: accounts },
       }),
   };
