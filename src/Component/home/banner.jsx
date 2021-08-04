@@ -89,10 +89,13 @@ class BannerTab extends Component {
   renderedBanner(banner, index) {
     let context = this.context;
     let img = ''
+    let mob_img = ''
     if (context.locale === 'tr') {
       img = banner.banner.tu
+      mob_img = banner.mobile.tu
     } else {
       img = banner.banner.en
+      mob_img = banner.mobile.en
     }
     return (
       <div className='item' key={index}>
@@ -104,7 +107,9 @@ class BannerTab extends Component {
             key={index}
             src={img}
             exit={{ opacity: 0 }}
+            className="desktop-img"
           />
+          <img src={mob_img} className="mobile-img" alt="" />
         </Link>
       </div >
     )
@@ -140,12 +145,31 @@ const FlexDiv = styled.div`
 `;
 
 const HomeBanner = styled.div`
-  max-height: 660px;
+  max-height: 700px;
   width: 100%;
+  overflow:hidden;
   .item {
     img {
       width: 100%;
+      height:100%;
+      object-fit:cover;
+      &.desktop-img
+      {
+        ${Media.xs}{
+          display:none;
+        }
+      }
+      &.mobile-img
+      { display:none;
+        ${Media.xs}{
+          display:block;
+        }
+      }
     }
+  }
+  .react-multi-carousel-track
+  {
+    max-height: 700px;
   }
   .react-multiple-carousel__arrow {
     background: transparent;
