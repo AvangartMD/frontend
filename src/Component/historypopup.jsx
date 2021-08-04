@@ -86,7 +86,6 @@ class Historypopup extends Component {
                   }}
                 >
                   {history.map((history, key) => {
-                    // console.log('- history ? ', history)
                     return (
                       <HDsection key={key}>
                         <HDleft>

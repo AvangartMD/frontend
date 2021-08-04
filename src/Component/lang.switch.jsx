@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { FormattedMessage } from "react-intl";
 import styled from 'styled-components';
 import Collapse from '@kunukn/react-collapse'
@@ -9,9 +9,28 @@ import Media from "../Theme/media-breackpoint";
 
 const Language = (props) => {
 
-    const context = useContext(Context);
+    const context = useContext(Context)
+    const wrapperRef = useRef(null)
     const [toggle, setToggle] = useState(false)
     const header = props.header
+
+    useEffect(() => {
+        /**
+         * Alert if clicked on outside of element
+         */
+        function handleClickOutside(event) {
+            if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                if (toggle) setToggle(false);
+            }
+        }
+
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef, toggle]);
 
     const onClick = (props) => {
         setToggle(toggle => !toggle);
@@ -70,7 +89,7 @@ const Language = (props) => {
 
     return (
         <>
-            {header ? <LanBTN>
+            {header ? <LanBTN ref={wrapperRef}>
                 <button className="Lang-text" onClick={() => { setToggle(toggle => !toggle) }}>
                     <FormattedMessage id="language" defaultMessage="LANG" />
                     <i className="fas fa-chevron-down"></i></button>
@@ -82,7 +101,7 @@ const Language = (props) => {
                         </DDBtnbar01>
                     </DDContainer>
                 </Collapse>
-            </LanBTN> : <LanBTNF>
+            </LanBTN> : <LanBTNF ref={wrapperRef}>
                 <button className="Lang-text" onClick={() => { setToggle(toggle => !toggle) }}>
                     <FormattedMessage id="language" defaultMessage="LANG" />
                     <i className="fas fa-chevron-down"></i></button>

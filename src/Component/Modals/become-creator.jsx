@@ -284,7 +284,9 @@ class BecomeCreator extends Component {
                       <p>
                         <FormattedMessage id="nft_category_label" defaultMessage="You can choose two categories at most" />
                       </p>
-                      <p className="error-text">Please select atleast one category</p>
+                      {errors.category ?
+                        <p className="error-text">Please select atleast one category</p>
+                      :``}
                     </div>
                     <CustomCheckbox1>
                       {categories

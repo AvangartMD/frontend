@@ -124,7 +124,12 @@ function Created(props) {
               </button>
             : ``}
           </CEmpty>
-          : ``}
+          :
+          <CEmpty>
+            <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
+            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+          </CEmpty>
+        }
 
       </HomeNFTs>
     </>
