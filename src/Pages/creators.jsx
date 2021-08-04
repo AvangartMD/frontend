@@ -26,6 +26,8 @@ class Creators extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
+        this.wrapperRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
         this.state = {
             isOpen1: false,
             tabPanel: 'all',
@@ -36,12 +38,25 @@ class Creators extends Component {
     }
 
     async componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
         const { creators, categories } = this.props;
         if (!creators) {
             this.props.getCreators() // fetch creators
         }
         if (!categories) {
             this.props.getCategories() // fetch categories
+        }
+    }
+
+    handleClickOutside(event) {
+        if (
+            this.wrapperRef &&
+            this.wrapperRef.current &&
+            !this.wrapperRef.current.contains(event.target)
+            ) {
+            if (this.state.isOpen1) {
+                this.setState({ isOpen1: false });
+            }
         }
     }
 
@@ -62,7 +77,7 @@ class Creators extends Component {
     setRank = (rank) => {
         this.clearPreviousCreators()
         this.setState({ page: 1 })
-        this.props.getCreators({ 'rank': rank }) // fetch rank creators
+        this.props.getCreators({ 'rank': rank, tabPanel: 'all', page: 1 }) // fetch rank creators
     }
 
     onCategoryChange = (category) => {
@@ -114,7 +129,11 @@ class Creators extends Component {
                                 <input placeholder='Search' onKeyUp={(e) => this.onSearchKeyUp(e)}></input>
                                 <SearchICO><img src={SerICON} alt="" /> </SearchICO>
                             </FilterInputBX>
-                            <FilterBAR onClick={() => this.toggle(1)} className={(this.state.isOpen1 ? 'active' : '')}>
+                            <FilterBAR
+                                onClick={() => this.toggle(1)}
+                                className={(this.state.isOpen1 ? 'active' : '')}
+                                ref={this.wrapperRef}
+                            >
                                 <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
                                 <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
                                     <DDContainer>

@@ -1,15 +1,15 @@
-import Gs from "../../Theme/globalStyles";
-import styled from "styled-components";
-import { FormattedMessage } from "react-intl";
-import { withRouter } from "react-router";
-import HeartIcon from "../../Assets/images/heart-icon.svg";
-import StarIcon from "../../Assets/images/star-icon.svg";
-import RoundIcon from "../../Assets/images/round-icon.svg";
-import LoaderGif from "../../Assets/images/loading.gif";
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { actions } from "../../actions";
-import NFTCard from "../Cards/nftCard";
+import Gs from '../../Theme/globalStyles';
+import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
+import HeartIcon from '../../Assets/images/heart-icon.svg';
+import StarIcon from '../../Assets/images/star-icon.svg';
+import RoundIcon from '../../Assets/images/round-icon.svg';
+import LoaderGif from '../../Assets/images/loading.gif';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { actions } from '../../actions';
+import NFTCard from '../Cards/nftCard';
 import Media from '../../Theme/media-breackpoint';
 
 function Drafts(props) {
@@ -18,10 +18,9 @@ function Drafts(props) {
     if (!userDraftNFT) props.getUserDraftNFT();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDraftNFT]);
-  console.log('user status ? ', props)
+  // console.log('user status ? ', props)
   return (
     <HomeNFTs>
-
       <NFTfourbox>
         {userDraftNFT ? (
           userDraftNFT.map((nft) => (
@@ -43,23 +42,33 @@ function Drafts(props) {
         ) : (
           // this.renderTabPanel(NFTs)
           <LoaderBX>
-            <img src={LoaderGif} alt="" />
+            <img src={LoaderGif} alt='' />
           </LoaderBX>
         )}
       </NFTfourbox>
 
-      {userDraftNFT?.length === 0 ?
+      {userDraftNFT?.length === 0 ? (
         <CEmpty>
-          <h2 className="Bec">Your draft is empty</h2>
-          <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-          {props.status ?
-            <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
-              <FormattedMessage id="create" defaultMessage="Create" />
+          <h2 className='Bec'>Your draft is empty</h2>
+          <p className='Bec'>
+            Lorem ipsum dolor sit amet,
+            <br />
+            consectetur adipiscing elit.
+          </p>
+          {props.status ? (
+            <button
+              className='ani-1'
+              onClick={() => props.history.push('/user/nftminting')}
+            >
+              <FormattedMessage id='create' defaultMessage='Create' />
             </button>
-          : ``}
+          ) : (
+            ``
+          )}
         </CEmpty>
-        : ``}
-
+      ) : (
+        ``
+      )}
     </HomeNFTs>
   );
 }
@@ -126,7 +135,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -148,7 +157,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -171,7 +180,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         top: 12px;
@@ -183,28 +192,32 @@ const HomeNFTs = styled.div`
   }
 `;
 const CEmpty = styled.div`
-  text-align:center; margin-bottom:120px;
-  h2{ 
-    font-size:22px;
-    letter-spacing:-0.55px;
-    color:#000;
-    margin:0px 0px 10px;
-    font-weight:600;
+  text-align: center;
+  margin-bottom: 120px;
+  h2 {
+    font-size: 22px;
+    letter-spacing: -0.55px;
+    color: #000;
+    margin: 0px 0px 10px;
+    font-weight: 600;
   }
-  p{ 
-    font-size:16px;
-    letter-spacing:-0.8px;
-    color:#000;
-    margin:0px 0px 22px;
+  p {
+    font-size: 16px;
+    letter-spacing: -0.8px;
+    color: #000;
+    margin: 0px 0px 22px;
   }
-  button{
-    font-size:14px;
-    letter-spacing:-0.5px;
-    color:#000;
-    padding:13px 44px;
-    border-radius:15px;
-    border:1px solid #000;
-    :hover{background-color:#000; color:#fff;}
+  button {
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    color: #000;
+    padding: 13px 44px;
+    border-radius: 15px;
+    border: 1px solid #000;
+    :hover {
+      background-color: #000;
+      color: #fff;
+    }
   }
 `;
 

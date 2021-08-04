@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Scrollbars } from "react-custom-scrollbars";
 import Collapse from "@kunukn/react-collapse";
 import { FormattedMessage } from "react-intl";
@@ -36,7 +36,31 @@ function SelectEdition(props) {
   const [editions, setEditions] = useState([]);
   const [filter, setFilter] = useState([]);
   const [tab, setTab] = useState("All");
+  const wrapperRef = useRef(null)
   const { NFTDetails, web3Data } = props;
+
+  const toggle = (index) => {
+    let tVal = filterPopup === index ? "" : index;
+    setFilterPopup(tVal);
+  };
+
+  useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+          if (filterPopup === 1) toggle(1)
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+          // Unbind the event listener on clean up
+          document.removeEventListener("mousedown", handleClickOutside);
+      };
+  }, [wrapperRef, filterPopup, toggle]);
 
   useEffect(() => {
     const tabEditions = () => {
@@ -59,6 +83,7 @@ function SelectEdition(props) {
         saleEditions = totalEditions.filter(edition => edition.saleState === 'SOLD').map(edition => edition)
       if (filter === 'OFFER')
         saleEditions = totalEditions.filter(edition => edition.saleState === 'OFFER').map(edition => edition)
+      if (filter.length === 0) saleEditions = totalEditions
       setEditions(saleEditions); // set the filtered editions
     }
     filterEditions(); // filter the editons
@@ -104,11 +129,12 @@ function SelectEdition(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [NFTDetails, web3Data]);
 
-  const toggle = (index) => {
-    let tVal = filterPopup === index ? "" : index;
-    setFilterPopup(tVal);
-  };
+  const changeHandler = (action, { target: { checked, value } }) => {
+    if (checked) setFilter(action)
+    else setFilter([])
+  }
 
+  console.log('- filter? ', filter)
   return (
     <>
       <BlackWrap>
@@ -132,6 +158,7 @@ function SelectEdition(props) {
             </FilterLbx>
             <FilterBAR
               onClick={() => toggle(1)}
+              ref={wrapperRef}
             >
               <FilterICO>
                 <img src={FiltICON} alt="" />
@@ -152,9 +179,10 @@ function SelectEdition(props) {
                         id="vehicle1"
                         name="vehicle1"
                         defaultChecked={filter.includes('AUCTION') ? true : false}
-                        onClick={(e) => {
-                          setFilter('AUCTION', e);
-                        }}
+                        onChange={(e) => changeHandler('AUCTION', e)}
+                        // onClick={(e) => {
+                        //   setFilter('AUCTION', e);
+                        // }}
                       />
                       <label htmlFor="vehicle1">
                         <FormattedMessage id="live_acution" defaultMessage="Live auction" />
@@ -166,9 +194,10 @@ function SelectEdition(props) {
                         id="vehicle2"
                         name="vehicle1"
                         defaultChecked={filter.includes('OFFER') ? true : false}
-                        onClick={(e) => {
-                          setFilter('OFFER', e);
-                        }}
+                        onChange={(e) => changeHandler('OFFER', e)}
+                        // onClick={(e) => {
+                        //   setFilter('OFFER', e);
+                        // }}
                       />
                       <label htmlFor="vehicle2">
                         <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
@@ -184,9 +213,10 @@ function SelectEdition(props) {
                           id="vehicle3"
                           name="vehicle1"
                           defaultChecked={filter.includes('BUY') ? true : false}
-                          onClick={(e) => {
-                            setFilter('BUY', e);
-                          }}
+                          onChange={(e) => changeHandler('BUY', e)}
+                          // onClick={(e) => {
+                          //   setFilter('BUY', e);
+                          // }}
                         />
                         <label htmlFor="vehicle3">
                           <FormattedMessage id="buy_now" defaultMessage="Buy now" />
@@ -198,9 +228,10 @@ function SelectEdition(props) {
                           id="vehicle4"
                           name="vehicle1"
                           defaultChecked={filter.includes('SOLD') ? true : false}
-                          onClick={(e) => {
-                            setFilter('SOLD', e);
-                          }}
+                          onChange={(e) => changeHandler('SOLD', e)}
+                          // onClick={(e) => {
+                          //   setFilter('SOLD', e);
+                          // }}
                         />
                         <label htmlFor="vehicle4">Sold</label>
                       </div>

@@ -29,6 +29,8 @@ class MarketPlace extends Component {
   static contextType = Context;
   constructor(props) {
     super(props);
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.state = {
       isOpen1: false,
       tabPanel: 'all',
@@ -39,12 +41,25 @@ class MarketPlace extends Component {
   }
 
   async componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
     const { categories, NFTs } = this.props;
     if (!NFTs) {
       this.props.getMarketPlaceNFT(); // fetch market place nft's
     }
     if (!categories) {
       this.props.getCategories(); // fetch categories
+    }
+  }
+
+  handleClickOutside(event) {
+    if (
+        this.wrapperRef &&
+        this.wrapperRef.current &&
+        !this.wrapperRef.current.contains(event.target)
+        ) {
+        if (this.state.isOpen1) {
+            this.setState({ isOpen1: false });
+        }
     }
   }
 
@@ -155,6 +170,7 @@ class MarketPlace extends Component {
             <FilterBAR
               onClick={() => this.toggle(1)}
               className={this.state.isOpen1 ? 'active' : ''}
+              ref={this.wrapperRef}
             >
               <FilterICO>
                 <img src={FiltICON} alt='' />

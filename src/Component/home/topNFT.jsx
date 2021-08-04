@@ -3,52 +3,49 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { motion } from "framer-motion";
-import { withRouter } from "react-router";
-import Media from "../../Theme/media-breackpoint";
+import { motion } from 'framer-motion';
+import { withRouter } from 'react-router';
+import Media from '../../Theme/media-breackpoint';
 
 import Redheart from '../../Assets/images/Redheart.svg';
 import UserImg from '../../Assets/images/user-img.jpg';
-import LoaderGif from "../../Assets/images/loading.gif";
+import LoaderGif from '../../Assets/images/loading.gif';
 import RoundIcon from '../../Assets/images/round-icon.svg';
-import redheartBorder from "../../Assets/images/redheartBorder.svg";
+import redheartBorder from '../../Assets/images/redheartBorder.svg';
 import Gs from '../../Theme/globalStyles';
 
 import { actions } from '../../actions';
-import Timer from "../timer";
+import Timer from '../timer';
 import NFTCard from '../../Component/Cards/nftCard';
 
-
-
 class TopNFT extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       like_fetched: false,
       loding: false,
-    }
+    };
   }
 
   componentDidMount() {
-    const { nfts } = this.props
+    const { nfts } = this.props;
     if (!nfts) {
-      this.props.getTopNFT() // fetch top nft list
+      this.props.getTopNFT(); // fetch top nft list
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { likesCount } = this.props
+    const { likesCount } = this.props;
     if (likesCount !== prevProps.likesCount) {
-      this.setState({ like_fetched: true })
+      this.setState({ like_fetched: true });
     }
   }
 
   renderedFirstElement = (nft, likesCount, isLiked) => {
-    const { loading } = this.state
+    const { loading } = this.state;
     return (
       <>
         <div className='w60'>
@@ -67,91 +64,136 @@ class TopNFT extends Component {
         </div>
         <div className='w40'>
           <NFTfbright>
-            <NFTLike className={loading ? `disabled` : ``}
+            <NFTLike
+              className={loading ? `disabled` : ``}
               onDoubleClick={() => {
-                  this.props.likeToggler(nft.nftId.id);
-                  this.setState({ loading: true });
-              }} >
-              <img src={nft.isLiked || isLiked.isFollowed ? Redheart:redheartBorder } alt='' />
+                this.props.likeToggler(nft.nftId.id);
+                this.setState({ loading: true });
+              }}
+            >
+              <img
+                src={
+                  nft.isLiked || isLiked.isFollowed ? Redheart : redheartBorder
+                }
+                alt=''
+              />
               <p>{likesCount.count}</p>
             </NFTLike>
-            <h3>
-              {nft.nftId.title}
-            </h3>
-            <p>
-              {nft.nftId.description}
-            </p>
-            {nft.nftId.collectionId?.id ?
+            <h3>{nft.nftId.title}</h3>
+            <p>{nft.nftId.description}</p>
+            {nft.nftId.collectionId?.id ? (
               <Link to={`collection-detail/${nft.nftId.collectionId.id}`}>
                 See the collection <i className='fas fa-angle-right'></i>
               </Link>
-              : ''}
+            ) : (
+              ''
+            )}
             <Edition>
               <div className='ed-box'>
-                <p><FormattedMessage id="edition" defaultMessage="EDITION" /></p>
+                <p>
+                  <FormattedMessage id='edition' defaultMessage='EDITION' />
+                </p>
                 <h3>
                   {nft.nftId.edition}
                   {/* <span>of 2500</span> */}
                 </h3>
               </div>
               <div className='ed-box'>
-                <p>{nft.nftId.auctionEndDate && nft.nftId.auctionEndDate > new Date().getTime() / 1000 ?
-                  <FormattedMessage id="current_bid" defaultMessage="Current bid" /> :
-                  <><FormattedMessage id="price" defaultMessage="Price" /></>}</p>
+                <p>
+                  {nft.nftId.auctionEndDate &&
+                  nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
+                    <FormattedMessage
+                      id='current_bid'
+                      defaultMessage='Current bid'
+                    />
+                  ) : (
+                    <>
+                      <FormattedMessage id='price' defaultMessage='Price' />
+                    </>
+                  )}
+                </p>
                 <h3>{nft.nftId.price} BNB</h3>
               </div>
               <div className='ed-box'>
-                {nft.nftId.auctionEndDate && nft.nftId.auctionEndDate > new Date().getTime() / 1000 ?
+                {nft.nftId.auctionEndDate &&
+                nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
                   <>
                     <p>
-                      <FormattedMessage id="ending_in" defaultMessage="Ending in" />
+                      <FormattedMessage
+                        id='ending_in'
+                        defaultMessage='Ending in'
+                      />
                     </p>
-                    <Timer timeLeft={nft.nftId.auctionEndDate} onlyHours={true} />
+                    <Timer
+                      timeLeft={nft.nftId.auctionEndDate}
+                      onlyHours={true}
+                    />
                   </>
-                  : nft.nftSold === nft.nftId.edition ?
-                    <button className="disabled" disabled>
-                      <FormattedMessage id="sold_out" defaultMessage="Sold out" />
-                    </button> : <button>
-                      <FormattedMessage id="buy_now" defaultMessage="Buy now" />  
-                    </button>}
+                ) : nft.nftSold === nft.nftId.edition ? (
+                  <button className='disabled' disabled>
+                    <FormattedMessage id='sold_out' defaultMessage='Sold out' />
+                  </button>
+                ) : (
+                  <button>
+                    <FormattedMessage id='buy_now' defaultMessage='Buy now' />
+                  </button>
+                )}
               </div>
             </Edition>
             <UserImgName>
-              <img src={nft.nftId.ownerId.profile ? nft.nftId.ownerId.profile : UserImg} alt="" />
-              {nft.nftId.ownerId.username ? `@${nft.nftId.ownerId.username}` : nft.nftId.ownerId.name}
+              <img
+                src={
+                  nft.nftId.ownerId.profile
+                    ? nft.nftId.ownerId.profile
+                    : UserImg
+                }
+                alt=''
+              />
+              {nft.nftId.ownerId.username
+                ? `@${nft.nftId.ownerId.username}`
+                : nft.nftId.ownerId.name}
             </UserImgName>
           </NFTfbright>
         </div>
       </>
-    )
-  }
+    );
+  };
 
   render() {
-    const { nfts, likesCount, isLiked } = this.props
-    const { like_fetched } = this.state
+    const { nfts, likesCount, isLiked } = this.props;
+    const { like_fetched } = this.state;
     if (nfts && !like_fetched && nfts[0]) {
-      this.props.getLikesCount(nfts[0].nftId.id) // fetch the likes count for the first NFT
+      this.props.getLikesCount(nfts[0].nftId.id); // fetch the likes count for the first NFT
     }
     return (
       <>
         <HomeNFTs>
           <Gs.Container>
             <div className='home-title'>
-              <h3><FormattedMessage id="top_nfts" defaultMessage="Top NFTs" /></h3>
+              <h3>
+                <FormattedMessage id='top_nfts' defaultMessage='Top NFTs' />
+              </h3>
             </div>
 
-            {!nfts ? (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>) :
+            {!nfts ? (
+              <LoaderBX>
+                {' '}
+                <img src={LoaderGif} alt='' />{' '}
+              </LoaderBX>
+            ) : (
               <>
                 <NFTfirstbox>
-                  {nfts[0] ? this.renderedFirstElement(nfts[0], likesCount, isLiked) : ''}
+                  {nfts[0]
+                    ? this.renderedFirstElement(nfts[0], likesCount, isLiked)
+                    : ''}
                 </NFTfirstbox>
 
                 <NFTfourbox className='homepage'>
-                  {(nfts.slice(1)).map((nft, key) => {
+                  {nfts.slice(1).map((nft, key) => {
                     return (
                       <NFTCard
                         key={key}
-                        nftSold={nft.nftSold}
+                        nftSold={nft.nftId.nftSold}
                         name={nft.nftId.ownerId.name}
                         nftId={nft.nftId.id}
                         collectionId={nft.nftId.collectionId?.id}
@@ -164,17 +206,26 @@ class TopNFT extends Component {
                         userImg={nft.nftId.ownerId.profile}
                         username={nft.nftId.ownerId.username}
                       />
-                    )
+                    );
                   })}
                 </NFTfourbox>
 
-                {nfts.length > 4 ?
+                {nfts.length > 4 ? (
                   <ViewallButton>
-                    <button onClick={() => this.props.history.push("/marketplace")}
-                    ><FormattedMessage id="view_all_nfts" defaultMessage="View all NFTs" /></button>
+                    <button
+                      onClick={() => this.props.history.push('/marketplace')}
+                    >
+                      <FormattedMessage
+                        id='view_all_nfts'
+                        defaultMessage='View all NFTs'
+                      />
+                    </button>
                   </ViewallButton>
-                  : ``}
-              </>}
+                ) : (
+                  ``
+                )}
+              </>
+            )}
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -219,7 +270,8 @@ const HomeNFTs = styled.div`
         background: url(${RoundIcon}) no-repeat;
       }
     }
-  }${Media.md}{
+  }
+  ${Media.md} {
     margin-top: 100px;
   }
 `;
@@ -231,22 +283,22 @@ const NFTfirstbox = styled(FlexDiv)`
   margin-bottom: 30px;
   .w60 {
     width: 60%;
-    ${Media.md}{
-      width:100%;
+    ${Media.md} {
+      width: 100%;
     }
   }
   .w40 {
     width: 40%;
-    ${Media.md}{
-      width:100%;
+    ${Media.md} {
+      width: 100%;
     }
   }
-  ${Media.md}{
-    position:initial;
+  ${Media.md} {
+    position: initial;
   }
-  ${Media.xs}{
-    width:295px;
-    margin:0px auto 30px;
+  ${Media.xs} {
+    width: 295px;
+    margin: 0px auto 30px;
   }
 `;
 const NFTfbleft = styled(FlexDiv)`
@@ -256,26 +308,26 @@ const NFTfbleft = styled(FlexDiv)`
   border-bottom-left-radius: 10px;
   img {
     box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
-    ${Media.sm}{
+    ${Media.sm} {
       box-shadow: 0px 5px 10px 1px rgb(0 0 0 /30%);
     }
   }
-  ${Media.md}{
+  ${Media.md} {
     border-bottom-left-radius: 0px;
     border-top-right-radius: 10px;
   }
-  ${Media.sm}{
-    padding:40px 30px;
+  ${Media.sm} {
+    padding: 40px 30px;
   }
-  ${Media.xs}{
-    padding:30px 20px;
+  ${Media.xs} {
+    padding: 30px 20px;
   }
 `;
 const NFTfbright = styled.div`
   padding: 20px 50px;
-  ${Media.md}{
-    position:relative;
-    padding:20px 15px;
+  ${Media.md} {
+    position: relative;
+    padding: 20px 15px;
   }
   h3 {
     color: #000000;
@@ -303,7 +355,7 @@ const NFTfbright = styled.div`
       color: #555;
       text-decoration: underline;
     }
-    ${Media.md}{
+    ${Media.md} {
       margin: 0px 0px 20px;
     }
   }
@@ -316,7 +368,7 @@ const NFTLike = styled(FlexDiv)`
   top: 20px;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
   border-radius: 30px;
-  cursor:pointer;
+  cursor: pointer;
   &.disabled {
     pointer-events: none;
     opacity: 0.5;
@@ -341,7 +393,7 @@ const Edition = styled(FlexDiv)`
   border-radius: 10px;
   padding: 16px 20px;
   margin: 0px 0px 40px;
-  ${Media.md}{
+  ${Media.md} {
     margin: 0px 0px 20px;
   }
   .ed-box {
@@ -398,8 +450,8 @@ const UserImgName = styled(FlexDiv)`
 `;
 
 const NFTfourbox = styled(FlexDiv)`
-  justify-content:flex-start;
-  align-items:flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin: 0px -10px 50px;
   .row {
@@ -414,8 +466,11 @@ const NFTfourbox = styled(FlexDiv)`
     border-radius: 10px;
     border: 1px solid #dddddd;
     .NFT-home-box-inner {
-      :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
-      padding: 20px 15px; border-radius:10px;
+      :hover {
+        box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+      }
+      padding: 20px 15px;
+      border-radius: 10px;
       h4 {
         margin: 0px 0px 10px;
         font-size: 18px;
@@ -487,26 +542,26 @@ const ViewallButton = styled.div`
       color: #fff;
     }
   }
-  ${Media.md}{
+  ${Media.md} {
     margin-bottom: 100px;
   }
 `;
 
 Gs.W25V2 = styled(Gs.W25V2)`
   ${NFTfourbox}.homepage & {
-    ${Media.md}{
-      width:50%;
+    ${Media.md} {
+      width: 50%;
     }
-    ${Media.xs}{
-      width:295px;
+    ${Media.xs} {
+      width: 295px;
     }
   }
 `;
 
 Gs.TenpxGutter = styled(Gs.TenpxGutter)`
   ${NFTfourbox}.homepage & {
-    ${Media.xs}{
-      margin:0px;
+    ${Media.xs} {
+      margin: 0px;
     }
   }
 `;
@@ -516,8 +571,8 @@ const mapDipatchToProps = (dispatch) => {
     likeToggler: (id) => dispatch(actions.likeToggler(id)),
     getTopNFT: () => dispatch(actions.getTopNFT()),
     getLikesCount: (id) => dispatch(actions.getLikesCount(id)),
-  }
-}
+  };
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -525,7 +580,7 @@ const mapStateToProps = (state) => {
     isLiked: state.fetchIsLiked,
     likesCount: state.fetchLikesCount,
     likeToggled: state.fetchLikeToggled,
-  }
-}
+  };
+};
 
 export default withRouter(connect(mapStateToProps, mapDipatchToProps)(TopNFT));
