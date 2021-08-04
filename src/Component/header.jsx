@@ -200,7 +200,6 @@ class Header extends Component {
                 {web3Data.isLoggedIn ? (
                   <NotificationBX
                     onClick={() => this.toggle(3)}
-                    ref={this.wrapperRef}
                   >
                     <button className='noti-button-outer'>
                       {/* <img src={NotifiIcon} alt="" /> */}
@@ -450,12 +449,11 @@ class Header extends Component {
                 <Language header={true} />
               </HeadSbx01>
             ) : (
-              <HeadSbx01 className='desktop-menu'>
+              <HeadSbx01 className='desktop-menu' ref={this.wrapperRef}>
                 {userDetails ? this.checkRole(userDetails) : ''}
 
                 <NotificationBX
                   onClick={() => this.toggle(3)}
-                  ref={this.wrapperRef}
                 >
                   <button className='active noti-button-outer'>
                     {/* <img src={NotifiIcon} alt="" /> */}
