@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Gs from '../Theme/globalStyles';
 import { Link, useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import Magnifypopup from '../Component/Modals/magnifyPopup';
@@ -423,27 +423,43 @@ class NftDetail extends React.Component {
     const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
     return (
       <>
-        <Helmet>
-          <meta property='og:url' content={window.location.href} />
-          <meta property='og:title' content={NFTDetails?.title} />
-          <meta property='og:image' content={NFTDetails?.image.compressed} />
-          <meta property='og:description' content={NFTDetails?.description} />
-          <title>{NFTDetails?.title}</title>
-          <meta name='description' content={'NFT DETAILS'} />
-          {/* OpenGraph tags */}
-          <meta name='og:url' content={window.location.href} />
-          <meta name='og:title' content={NFTDetails?.title} />
-          <meta name='og:description' content={'NFT DETAILS'} />
-          <meta name='og:image' content={NFTDetails?.image.compressed} />
-          <meta name='og:type' content='website' />
-          {/* <meta name="fb:app_id" content={facebook.appId} /> */}
-          {/* Twitter Card tags */}
-          <meta name='twitter:title' content={'NFT'} />
-          <meta name='twitter:description' content={'NFT DETAILS'} />
-          <meta name='twitter:image' content={NFTDetails?.image.compressed} />
-          <meta name='twitter:card' content='summary' />
-        </Helmet>
-
+        <HelmetProvider>
+          <Helmet>
+            <meta property='og:url' content={window.location.href} />
+            <meta property='og:title' content={NFTDetails?.title} />
+            <meta
+              property='og:image'
+              content={
+                'https://avangrat-development.s3.eu-central-1.amazonaws.com/compressedNft/compressed-nft-minting.jpg'
+              }
+            />
+            <meta property='og:description' content={NFTDetails?.description} />
+            <title>{NFTDetails?.title}</title>
+            <meta name='description' content={'NFT DETAILS'} />
+            {/* OpenGraph tags */}
+            <meta name='og:url' content={window.location.href} />
+            <meta name='og:title' content={NFTDetails?.title} />
+            <meta name='og:description' content={'NFT DETAILS'} />
+            <meta
+              name='og:image'
+              content={
+                'https://avangrat-development.s3.eu-central-1.amazonaws.com/compressedNft/compressed-nft-minting.jpg'
+              }
+            />
+            <meta name='og:type' content='website' />
+            {/* <meta name="fb:app_id" content={facebook.appId} /> */}
+            {/* Twitter Card tags */}
+            <meta name='twitter:title' content={'NFT'} />
+            <meta name='twitter:description' content={'NFT DETAILS'} />
+            <meta
+              name='twitter:image'
+              content={
+                'https://avangrat-development.s3.eu-central-1.amazonaws.com/compressedNft/compressed-nft-minting.jpg'
+              }
+            />
+            <meta name='twitter:card' content='summary' />
+          </Helmet>
+        </HelmetProvider>
         <Gs.MainSection>
           <NFTdetailSection>
             <NFTDleft>

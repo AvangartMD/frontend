@@ -1,16 +1,16 @@
-import styled from "styled-components";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 
-import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
+import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
 
-import { actions } from "../../actions";
+import { actions } from '../../actions';
 import { Context } from '../../Component/wrapper';
-import { services } from "../../services";
-import Media from "./../../Theme/media-breackpoint";
-import { formatWithCursor } from "prettier";
+import { services } from '../../services';
+import Media from './../../Theme/media-breackpoint';
+import { formatWithCursor } from 'prettier';
 
 class BecomeCreator extends Component {
   static contextType = Context;
@@ -36,7 +36,7 @@ class BecomeCreator extends Component {
   onFormChange = (event) => {
     this.setState({
       [event.target.name]:
-        event.target.name === "category"
+        event.target.name === 'category'
           ? this.state.category
             ? [...this.state.category, event.target.value]
             : [event.target.value]
@@ -91,7 +91,7 @@ class BecomeCreator extends Component {
       .catch((e) => {
         if (e.response) {
           if (e.response.status === 401 || e.response.status === 403) {
-            localStorage.removeItem("avangartAuthToken");
+            localStorage.removeItem('avangartAuthToken');
           }
           // other error code (404, 500, etc): no need to log out
         }
@@ -99,7 +99,7 @@ class BecomeCreator extends Component {
   };
 
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
@@ -108,7 +108,7 @@ class BecomeCreator extends Component {
     if (!this.state.becomeCreator) {
       this.setState({ isOpen1: true });
     }
-  }
+  };
 
   render() {
     const { categories } = this.props;
@@ -121,196 +121,244 @@ class BecomeCreator extends Component {
       isOpen4,
     } = this.state;
     const { isFooter, isProfile, isHeader } = this.props;
-    console.log('isProfile', isProfile)
+    // console.log('isProfile', isProfile)
     let context = this.context;
     return (
       <>
-        <AvBTN02 className={isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : `grayBTN`} onClick={(e) => this.clickHandler(e)}>{!becomeCreator ?
-          <>
-            {isProfile ? <FormattedMessage id="apply" defaultMessage="Apply" /> : <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />}
-          </>
-          : <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
-        }</AvBTN02>
+        <AvBTN02
+          className={
+            isHeader ? `colorBTN` : isProfile ? `ani-1 borderBTN` : `grayBTN`
+          }
+          onClick={(e) => this.clickHandler(e)}
+        >
+          {!becomeCreator ? (
+            <>
+              {isProfile ? (
+                <FormattedMessage id='apply' defaultMessage='Apply' />
+              ) : (
+                <FormattedMessage
+                  id='become_a_creator'
+                  defaultMessage='Become a Creator'
+                />
+              )}
+            </>
+          ) : (
+            <FormattedMessage id='waitlist' defaultMessage='Waitlist' />
+          )}
+        </AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
           {isOpen1 ? (
             <BlackWrap>
               <WhiteBX02>
                 <CloseBTN
-                  className="ani-1"
+                  className='ani-1'
                   onClick={() => {
                     this.setState({ isOpen1: false });
                   }}
                 >
-                  <img src={CloseBTN01} alt="" />
+                  <img src={CloseBTN01} alt='' />
                 </CloseBTN>
 
                 <BACLeft>
                   <BACLtitle>
-                    <FormattedMessage id="who_are_you?" defaultMessage="Who are you?" />
+                    <FormattedMessage
+                      id='who_are_you?'
+                      defaultMessage='Who are you?'
+                    />
                   </BACLtitle>
                   <BACLdesc>
-                    <FormattedMessage id="who_are_you_label" defaultMessage="Tell us about yourself to join notable artists and creators" />
+                    <FormattedMessage
+                      id='who_are_you_label'
+                      defaultMessage='Tell us about yourself to join notable artists and creators'
+                    />
                   </BACLdesc>
                   <BACLlist>
-                    <Link className="active" to="/">
+                    <Link className='active' to='/'>
                       01
                     </Link>
-                    <Link to="/">02</Link>
-                    <Link to="/">03</Link>
+                    <Link to='/'>02</Link>
+                    <Link to='/'>03</Link>
                   </BACLlist>
                 </BACLeft>
                 <BACRight>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="form_name" defaultMessage="Name" />
+                        <FormattedMessage
+                          id='form_name'
+                          defaultMessage='Name'
+                        />
                         <sup>*</sup>
                       </label>
                     </div>
                     <input
-                      type="text"
-                      placeholder="Type name…"
-                      name="name"
+                      type='text'
+                      placeholder='Type name…'
+                      name='name'
                       required
                     />
                   </NFTForm>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="form_email" defaultMessage="Email" />
+                        <FormattedMessage
+                          id='form_email'
+                          defaultMessage='Email'
+                        />
                         <sup>*</sup>
                       </label>
                     </div>
                     <input
-                      type="text"
-                      placeholder="Type email…"
-                      name="email"
+                      type='text'
+                      placeholder='Type email…'
+                      name='email'
                       required
                     />
                   </NFTForm>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="tell_about_us" defaultMessage="Tell us about yourself" />
+                        <FormattedMessage
+                          id='tell_about_us'
+                          defaultMessage='Tell us about yourself'
+                        />
                         <sup>*</sup>
                       </label>
                     </div>
-                    <textarea name="bio" defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Quisque ornare augue non finibus commodo.">
-                    </textarea>
+                    <textarea
+                      name='bio'
+                      defaultValue='Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Quisque ornare augue non finibus commodo.'
+                    ></textarea>
                   </NFTForm>
                   <CreateItemButton>
                     <button
-                      type="button"
+                      type='button'
                       onClick={() => {
                         this.setState({ isOpen2: true });
                       }}
                     >
-                      <FormattedMessage id="next" defaultMessage="Next" />
+                      <FormattedMessage id='next' defaultMessage='Next' />
                     </button>
                   </CreateItemButton>
                 </BACRight>
               </WhiteBX02>
             </BlackWrap>
           ) : (
-            ""
+            ''
           )}
-
 
           {isOpen2 ? (
             <BlackWrap>
               <WhiteBX02>
                 <CloseBTN
-                  className="ani-1"
+                  className='ani-1'
                   onClick={() => {
                     this.setState({ isOpen2: false, isOpen1: false });
                   }}
                 >
-                  <img src={CloseBTN01} alt="" />
+                  <img src={CloseBTN01} alt='' />
                 </CloseBTN>
 
                 <BACLeft>
                   <BACLtitle>
-                    <FormattedMessage id="whats_your_style?" defaultMessage="What's your style?" />
+                    <FormattedMessage
+                      id='whats_your_style?'
+                      defaultMessage="What's your style?"
+                    />
                   </BACLtitle>
                   <BACLdesc>
-                    <FormattedMessage id="whats_your_style_label" defaultMessage="Your profile will be displayed under selected NFT categories if your creator status is approved" />
+                    <FormattedMessage
+                      id='whats_your_style_label'
+                      defaultMessage='Your profile will be displayed under selected NFT categories if your creator status is approved'
+                    />
                   </BACLdesc>
                   <BACLlist>
-                    <Link to="/">01</Link>
-                    <Link className="active" to="/">
+                    <Link to='/'>01</Link>
+                    <Link className='active' to='/'>
                       02
                     </Link>
-                    <Link to="/">03</Link>
+                    <Link to='/'>03</Link>
                   </BACLlist>
                 </BACLeft>
                 <BACRight>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="nft_category" defaultMessage="NFT Category" />
+                        <FormattedMessage
+                          id='nft_category'
+                          defaultMessage='NFT Category'
+                        />
                       </label>
                       <p>
-                        <FormattedMessage id="nft_category_label" defaultMessage="You can choose two categories at most" />
+                        <FormattedMessage
+                          id='nft_category_label'
+                          defaultMessage='You can choose two categories at most'
+                        />
                       </p>
                     </div>
                     <CustomCheckbox1>
                       {categories
                         ? categories.map((category, index) => {
-                          return (
-                            <label className="checkbox-container">
-                              <img
-                                src={category.image}
-                                alt=""
-                                style={{
-                                  maxWidth: "32px",
-                                  maxHeight: "32px",
-                                }}
-                              />
-                              {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value={category.id}
-                              />
-                              <span className="checkmark"></span>
-                            </label>
-                          );
-                        })
-                        : ""}
+                            return (
+                              <label className='checkbox-container'>
+                                <img
+                                  src={category.image}
+                                  alt=''
+                                  style={{
+                                    maxWidth: '32px',
+                                    maxHeight: '32px',
+                                  }}
+                                />
+                                {context.locale === 'tr'
+                                  ? category.categoryName.tu
+                                  : category.categoryName.en}
+                                <input
+                                  type='checkbox'
+                                  name='category'
+                                  value={category.id}
+                                />
+                                <span className='checkmark'></span>
+                              </label>
+                            );
+                          })
+                        : ''}
                     </CustomCheckbox1>
                   </NFTForm>
                   <CreateItemButton>
                     <button
-                      type="button"
+                      type='button'
                       onClick={() => {
                         this.setState({ isOpen1: true, isOpen2: false });
                       }}
                     >
-                      <FormattedMessage id="previous" defaultMessage="Previous" />
+                      <FormattedMessage
+                        id='previous'
+                        defaultMessage='Previous'
+                      />
                     </button>
                     <button
-                      type="button"
+                      type='button'
                       onClick={() => {
                         this.setState({ isOpen3: true });
                       }}
                     >
-                      <FormattedMessage id="next" defaultMessage="Next" />
+                      <FormattedMessage id='next' defaultMessage='Next' />
                     </button>
                   </CreateItemButton>
                 </BACRight>
               </WhiteBX02>
             </BlackWrap>
           ) : (
-            ""
+            ''
           )}
 
           {isOpen3 ? (
             <BlackWrap>
               <WhiteBX02>
                 <CloseBTN
-                  className="ani-1"
+                  className='ani-1'
                   onClick={() => {
                     this.setState({
                       isOpen3: false,
@@ -319,79 +367,95 @@ class BecomeCreator extends Component {
                     });
                   }}
                 >
-                  <img src={CloseBTN01} alt="" />
+                  <img src={CloseBTN01} alt='' />
                 </CloseBTN>
                 <BACLeft>
                   <BACLtitle>Promote yourself!</BACLtitle>
                   <BACLdesc>
-                    <FormattedMessage id="promote_yourself_lable" defaultMessage="Let us know about your portfolio and social links, which will drastically increase your chance of becoming a creator." />
+                    <FormattedMessage
+                      id='promote_yourself_lable'
+                      defaultMessage='Let us know about your portfolio and social links, which will drastically increase your chance of becoming a creator.'
+                    />
                   </BACLdesc>
                   <BACLlist>
-                    <Link to="/">01</Link>
-                    <Link to="/">02</Link>
-                    <Link className="active" to="/">
+                    <Link to='/'>01</Link>
+                    <Link to='/'>02</Link>
+                    <Link className='active' to='/'>
                       03
                     </Link>
                   </BACLlist>
                 </BACLeft>
                 <BACRight>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="portfolio_website" defaultMessage="Portfolio website" />
+                        <FormattedMessage
+                          id='portfolio_website'
+                          defaultMessage='Portfolio website'
+                        />
                       </label>
                     </div>
                     <input
-                      type="text"
-                      placeholder="Type your id…"
-                      name="website"
+                      type='text'
+                      placeholder='Type your id…'
+                      name='website'
                       required
                     />
                   </NFTForm>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="instagram_account" defaultMessage="Instagram account" />
+                        <FormattedMessage
+                          id='instagram_account'
+                          defaultMessage='Instagram account'
+                        />
                       </label>
                     </div>
                     <input
-                      type="text"
-                      placeholder="Type your id…"
-                      name="instagram"
+                      type='text'
+                      placeholder='Type your id…'
+                      name='instagram'
                       required
                     />
                   </NFTForm>
                   <NFTForm>
-                    <div className="label-line">
+                    <div className='label-line'>
                       <label>
-                        <FormattedMessage id="twitter_account" defaultMessage="Twitter account" />
+                        <FormattedMessage
+                          id='twitter_account'
+                          defaultMessage='Twitter account'
+                        />
                       </label>
                     </div>
                     <input
-                      type="text"
-                      placeholder="Type your id…"
-                      name="twitter"
+                      type='text'
+                      placeholder='Type your id…'
+                      name='twitter'
                       required
                     />
                   </NFTForm>
                   <CreateItemButton>
                     <button
-                      type="button"
+                      type='button'
                       onClick={() => {
                         this.setState({ isOpen2: true, isOpen3: false });
                       }}
                     >
                       Previous
                     </button>
-                    <button type="submit" disabled={loading}>
-                      {loading ? "loading.." : <FormattedMessage id="submit" defaultMessage="Submit" />}
+                    <button type='submit' disabled={loading}>
+                      {loading ? (
+                        'loading..'
+                      ) : (
+                        <FormattedMessage id='submit' defaultMessage='Submit' />
+                      )}
                     </button>
                   </CreateItemButton>
                 </BACRight>
               </WhiteBX02>
             </BlackWrap>
           ) : (
-            ""
+            ''
           )}
         </form>
 
@@ -399,34 +463,44 @@ class BecomeCreator extends Component {
           <>
             <BlackWrap>
               <WhiteBX01>
-                <CloseBTN className="ani-1" onClick={() => this.toggle(4)}>
-                  {" "}
-                  <img src={CloseBTN01} alt="" />{" "}
+                <CloseBTN className='ani-1' onClick={() => this.toggle(4)}>
+                  {' '}
+                  <img src={CloseBTN01} alt='' />{' '}
                 </CloseBTN>
 
                 <TokenBox>
                   <WGTitle>
-                    <FormattedMessage id="we_got_submission" defaultMessage="We got your Submission!" />
+                    <FormattedMessage
+                      id='we_got_submission'
+                      defaultMessage='We got your Submission!'
+                    />
                   </WGTitle>
                   <p>
-                    <FormattedMessage id="submission_label_1" defaultMessage="Result of your application will be delivered over email. Applications are handled in badges, so it can take some time to go over yours. Thanks for your patience." />
+                    <FormattedMessage
+                      id='submission_label_1'
+                      defaultMessage='Result of your application will be delivered over email. Applications are handled in badges, so it can take some time to go over yours. Thanks for your patience.'
+                    />
                   </p>
                   <p>
-                    <FormattedMessage id="submission_label_2" defaultMessage="If you have a concern about your form being submitted correctly, you can contact us." />
+                    <FormattedMessage
+                      id='submission_label_2'
+                      defaultMessage='If you have a concern about your form being submitted correctly, you can contact us.'
+                    />
                   </p>
-                  <button onClick={() => {
-                    this.props.getUserDetails(); //update the user details  
-                    this.toggle(4)
-                  }
-                  }>
-                    <FormattedMessage id="ok" defaultMessage="OK" />
+                  <button
+                    onClick={() => {
+                      this.props.getUserDetails(); //update the user details
+                      this.toggle(4);
+                    }}
+                  >
+                    <FormattedMessage id='ok' defaultMessage='OK' />
                   </button>
                 </TokenBox>
               </WhiteBX01>
             </BlackWrap>
           </>
         ) : (
-          ""
+          ''
         )}
       </>
     );
@@ -460,8 +534,8 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 const CloseBTN = styled.button`
@@ -476,8 +550,8 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
- 
-  ${Media.xs}{
+
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
@@ -528,8 +602,8 @@ const WhiteBX02 = styled.div`
   background-color: #fff;
   border-radius: 30px;
   display: flex;
-  ${Media.sm}{
-    display:block;
+  ${Media.sm} {
+    display: block;
   }
 `;
 
@@ -540,14 +614,14 @@ const BACLeft = styled.div`
   width: 100%;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  ${Media.md}{
-    text-align:left;
+  ${Media.md} {
+    text-align: left;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     max-width: 100%;
     border-top-right-radius: 30px;
     border-bottom-left-radius: 0px;
-    padding:60px 25px 40px;
+    padding: 60px 25px 40px;
   }
 `;
 
@@ -557,8 +631,8 @@ const BACLtitle = styled.div`
   letter-spacing: -0.55px;
   margin: 0px 0px 15px;
   font-weight: bold;
-  ${Media.sm}{
-    font-size:24px;
+  ${Media.sm} {
+    font-size: 24px;
   }
 `;
 
@@ -567,7 +641,7 @@ const BACLdesc = styled.div`
   font-size: 16px;
   letter-spacing: -0.8px;
   margin: 0px 0px 30px;
-  ${Media.sm}{
+  ${Media.sm} {
     font-size: 14px;
   }
 `;
@@ -582,8 +656,8 @@ const BACLlist = styled.div`
     &.active {
       color: rgb(0 0 0 / 100%) !important;
     }
-    ${Media.md}{
-     padding:0px !important;
+    ${Media.md} {
+      padding: 0px !important;
     }
   }
 `;
@@ -592,10 +666,10 @@ const BACRight = styled.div`
   padding: 60px 50px;
   width: 100%;
   position: relative;
-  ${Media.md}{
-    text-align:left;
+  ${Media.md} {
+    text-align: left;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     padding: 40px 25px;
   }
 `;
@@ -689,8 +763,8 @@ const CreateItemButton = styled.div`
       border: none;
     }
   }
-  ${Media.sm}{
-    position:initial;
+  ${Media.sm} {
+    position: initial;
     margin: 20px auto 0px;
     text-align: right;
   }
@@ -745,7 +819,7 @@ const AvBTN02 = styled.button`
   color: #fff;
   background-color: #000;
   border-radius: 15px;
-  ${Media.xs}{
+  ${Media.xs} {
     padding: 9px 15px;
   }
   :hover {
@@ -770,16 +844,17 @@ const AvBTN02 = styled.button`
       filter: brightness(0.9);
     }
   }
-  &.borderBTN{
-    padding:13px 44px;
+  &.borderBTN {
+    padding: 13px 44px;
     font-size: 14px;
-    color:#000;
-    background-color:#fff;
-    border:1px solid #000;
-    letter-spacing:-0.5px;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+    letter-spacing: -0.5px;
     border-radius: 15px;
     :hover {
-      background-color:#000; color:#fff;
+      background-color: #000;
+      color: #fff;
       -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
     }
@@ -802,7 +877,7 @@ const OnbTitle01 = styled.div`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
-  line-height:normal;
+  line-height: normal;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;

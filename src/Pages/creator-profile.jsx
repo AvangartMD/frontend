@@ -1,44 +1,42 @@
-import "react-multi-carousel/lib/styles.css";
-import "react-tabs/style/react-tabs.css";
-import React, { Component } from "react";
-import styled from "styled-components";
-import { FormattedMessage } from "react-intl";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { connect } from "react-redux";
-import { Helmet } from "react-helmet";
-import dateFormat from "dateformat";
+import 'react-multi-carousel/lib/styles.css';
+import 'react-tabs/style/react-tabs.css';
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { connect } from 'react-redux';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import dateFormat from 'dateformat';
 
-import Gs from "../Theme/globalStyles";
-import LoaderGif from "../Assets/images/loading.gif";
-import UserIcon from "../Assets/images/user-img.jpg";
-import ProfielBack from "../Assets/images/profile-back.jpg";
-import CopyICO from "../Assets/images/icon-copy.svg";
-import PlusICO from "../Assets/images/icon-plus.svg";
+import Gs from '../Theme/globalStyles';
+import LoaderGif from '../Assets/images/loading.gif';
+import UserIcon from '../Assets/images/user-img.jpg';
+import ProfielBack from '../Assets/images/profile-back.jpg';
+import CopyICO from '../Assets/images/icon-copy.svg';
+import PlusICO from '../Assets/images/icon-plus.svg';
 
-import SocialICO01 from "../Assets/images/social-icon01.svg";
-import SocialICO03 from "../Assets/images/social-icon03.svg";
-import SocialICO04 from "../Assets/images/social-icon04.svg";
-import SocialICO05 from "../Assets/images/social-icon05.svg";
-import SocialICO06 from "../Assets/images/social-icon06.svg";
+import SocialICO01 from '../Assets/images/social-icon01.svg';
+import SocialICO03 from '../Assets/images/social-icon03.svg';
+import SocialICO04 from '../Assets/images/social-icon04.svg';
+import SocialICO05 from '../Assets/images/social-icon05.svg';
+import SocialICO06 from '../Assets/images/social-icon06.svg';
 
-import { actions } from "../actions";
+import { actions } from '../actions';
 
-import Created from "../Component/profile/created";
-import Collected from "../Component/profile/collected";
-import Collection from "../Component/profile/collection";
-import Liked from "../Component/profile/liked";
+import Created from '../Component/profile/created';
+import Collected from '../Component/profile/collected';
+import Collection from '../Component/profile/collection';
+import Liked from '../Component/profile/liked';
 
 import Media from '../Theme/media-breackpoint';
 
-
 class CreatorProfile extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.id,
       loading: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -56,264 +54,358 @@ class CreatorProfile extends Component {
     const { status } = this.props;
     const { id } = this.state;
     if (status !== prevProps.status) {
-      this.setState({ loading: false }) // stop loader
+      this.setState({ loading: false }); // stop loader
       this.props.getUserProfile(id); // fetch user profile by id
     }
   }
 
   followToggler = (id) => {
-    this.setState({ loading: true }) // start loader
+    this.setState({ loading: true }); // start loader
     this.props.followToggler(id); // follow toggle api called
-  }
-
-
+  };
 
   render() {
     const { profile, status, web3Data, authData } = this.props;
     const { id, loading } = this.state;
     return (
       <>
-        {profile ?
-          (
-            <>
+        {profile ? (
+          <>
+            <HelmetProvider>
               <Helmet>
-                <meta property="og:url" content={window.location.href} />
-                <meta property="og:title" content={profile?.name} />
-                <meta property="og:image" content={profile.profile ? profile.profile : UserIcon} />
-                <meta property="og:description" content={profile?.bio} />
+                <meta property='og:url' content={window.location.href} />
+                <meta property='og:title' content={profile?.name} />
+                <meta
+                  property='og:image'
+                  content={profile.profile ? profile.profile : UserIcon}
+                />
+                <meta property='og:description' content={profile?.bio} />
               </Helmet>
+            </HelmetProvider>
 
-              <ProMBannerBX
-                style={{
-                  backgroundImage: `url(${profile.cover ? profile.cover : ProfielBack
-                    })`,
-                }}
-              >
-                <ProMBX01>
-                  <ProSBX01>
-                    <UserImgBX>
-                      <UserImgSB>
-                        <img src={profile.profile ? profile.profile : UserIcon} alt="" />
-                      </UserImgSB>
-                    </UserImgBX>
+            <ProMBannerBX
+              style={{
+                backgroundImage: `url(${
+                  profile.cover ? profile.cover : ProfielBack
+                })`,
+              }}
+            >
+              <ProMBX01>
+                <ProSBX01>
+                  <UserImgBX>
+                    <UserImgSB>
+                      <img
+                        src={profile.profile ? profile.profile : UserIcon}
+                        alt=''
+                      />
+                    </UserImgSB>
+                  </UserImgBX>
 
-                    <UserDetailBX>
-                      <UserDTitle01>
-                        {profile ? profile.name : "User Name"}
-                        <span>@{profile ? profile.username : "username"}</span>
-                      </UserDTitle01>
-                      <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
-                      <UserSocilMBX>
-                        {profile ? (
-                          profile.portfolio?.website?.url ? (
-                            <button
-                              onClick={() => {
-                                window.open(profile.portfolio.website.url, "_blank");
-                              }}
-                            >
-                              <img src={SocialICO01} alt="" />
-                            </button>
-                          ) : (
-                            ""
-                          )
-                        ) : (
-                          ""
-                        )}
-                        {profile ? (
-                          profile.portfolio?.facebook?.url ? (
-                            <button
-                              onClick={() => {
-                                window.open(profile.portfolio.facebook.url, "_blank");
-                              }}
-                            >
-                              <img src={SocialICO03} alt="" />
-                            </button>
-                          ) : (
-                            ""
-                          )
-                        ) : (
-                          ""
-                        )}
-                        {profile ? (
-                          profile.portfolio?.twitter?.url ? (
-                            <button
-                              onClick={() => {
-                                window.open(profile.portfolio.twitter.url, "_blank");
-                              }}
-                            >
-                              <img src={SocialICO04} alt="" />
-                            </button>
-                          ) : (
-                            ""
-                          )
-                        ) : (
-                          ""
-                        )}
-                        {profile ? (
-                          profile.portfolio?.youtube?.url ? (
-                            <button
-                              onClick={() => {
-                                window.open(profile.portfolio.youtube.url, "_blank");
-                              }}
-                            >
-                              <img src={SocialICO05} alt="" />
-                            </button>
-                          ) : (
-                            ""
-                          )
-                        ) : (
-                          ""
-                        )}
-                        {profile ? (
-                          profile.portfolio?.instagarm?.url ? (
-                            <button
-                              onClick={() => {
-                                window.open(
-                                  profile.portfolio.instagarm.url,
-                                  "_blank"
-                                );
-                              }}
-                            >
-                              <img src={SocialICO06} alt="" />
-                            </button>
-                          ) : (
-                            ""
-                          )
-                        ) : (
-                          ""
-                        )}
-                      </UserSocilMBX>
-                      <UserDText02 className="desktop-block">
-                        <FormattedMessage id="joined" defaultMessage="Joined" />
-                        <span>
-                          {profile
-                            ? dateFormat(
-                              new Date(profile.createdAt).toString(),
-                              "dd mmmm yyyy"
-                            )
-                            : "join date"}
-                        </span>
-                      </UserDText02>
-                    </UserDetailBX>
-                  </ProSBX01>
-
-                  <ProSBX02>
-                    <ProSBX03>
-                      <div className="cff-section">
-                        <FollowerMBX>
-                          <FormattedMessage id="created" defaultMessage="Created" />
-                          <span>{profile ? profile.nftCreated : "000"}</span>
-                        </FollowerMBX>
-                        <FollowerMBX>
-                          <FormattedMessage id="followers" defaultMessage="Followers" />
-                          <span>{profile ? profile.followersCount : "000"}</span>
-                        </FollowerMBX>
-                        <FollowerMBX>
-                          <FormattedMessage id="following" defaultMessage="Following" />
-                          <span>{profile ? profile.followingCount : "000"}</span>
-                        </FollowerMBX>
-                      </div>
-                      <ProSBX04 className="mobile-block">
-                        <span>#000000</span>{" "}
-                        <p>{profile ? profile.walletAddress : "xyz...."}{" "}</p>
-                        <button
-                          title="Copied"
-                          onClick={() => {
-                            navigator.clipboard.writeText(
-                              profile ? profile.walletAddress : "xyz...."
-                            );
-                          }}
-                        >
-                          <img src={CopyICO} alt="" />
-                        </button>
-                      </ProSBX04>
-                      <UserDText02 className="mobile-block">
-                        <FormattedMessage id="join" defaultMessage="Joined" />
-                        <span>
-                          {profile
-                            ? dateFormat(
-                              new Date(profile.createdAt).toString(),
-                              "dd mmmm yyyy"
-                            )
-                            : "join date"}
-                        </span>
-                      </UserDText02>
-                      {id ? (
-                        authData ?
-                          web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
-                            <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
-                              {loading ? 'loading' : status.isFollowed ?
-                                <FormattedMessage id="unfollow" defaultMessage="Unfollow" /> :
-                                <FormattedMessage id="follow" defaultMessage="Follow" />}
-                            </EditPrBTN> : ('')
-                          : ''
-                      ) : (
-                        <EditPrBTN>
+                  <UserDetailBX>
+                    <UserDTitle01>
+                      {profile ? profile.name : 'User Name'}
+                      <span>@{profile ? profile.username : 'username'}</span>
+                    </UserDTitle01>
+                    <UserDText01>
+                      {profile ? profile.bio : 'user bio'}
+                    </UserDText01>
+                    <UserSocilMBX>
+                      {profile ? (
+                        profile.portfolio?.website?.url ? (
                           <button
-                            onClick={() => this.props.history.push("/user/edit-profile")}
+                            onClick={() => {
+                              window.open(
+                                profile.portfolio.website.url,
+                                '_blank'
+                              );
+                            }}
                           >
-                            <FormattedMessage id="edit_profile" defaultMessage="Edit Profile" />
+                            <img src={SocialICO01} alt='' />
                           </button>
-                        </EditPrBTN>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
                       )}
+                      {profile ? (
+                        profile.portfolio?.facebook?.url ? (
+                          <button
+                            onClick={() => {
+                              window.open(
+                                profile.portfolio.facebook.url,
+                                '_blank'
+                              );
+                            }}
+                          >
+                            <img src={SocialICO03} alt='' />
+                          </button>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
+                      )}
+                      {profile ? (
+                        profile.portfolio?.twitter?.url ? (
+                          <button
+                            onClick={() => {
+                              window.open(
+                                profile.portfolio.twitter.url,
+                                '_blank'
+                              );
+                            }}
+                          >
+                            <img src={SocialICO04} alt='' />
+                          </button>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
+                      )}
+                      {profile ? (
+                        profile.portfolio?.youtube?.url ? (
+                          <button
+                            onClick={() => {
+                              window.open(
+                                profile.portfolio.youtube.url,
+                                '_blank'
+                              );
+                            }}
+                          >
+                            <img src={SocialICO05} alt='' />
+                          </button>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
+                      )}
+                      {profile ? (
+                        profile.portfolio?.instagarm?.url ? (
+                          <button
+                            onClick={() => {
+                              window.open(
+                                profile.portfolio.instagarm.url,
+                                '_blank'
+                              );
+                            }}
+                          >
+                            <img src={SocialICO06} alt='' />
+                          </button>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
+                      )}
+                    </UserSocilMBX>
+                    <UserDText02 className='desktop-block'>
+                      <FormattedMessage id='joined' defaultMessage='Joined' />
+                      <span>
+                        {profile
+                          ? dateFormat(
+                              new Date(profile.createdAt).toString(),
+                              'dd mmmm yyyy'
+                            )
+                          : 'join date'}
+                      </span>
+                    </UserDText02>
+                  </UserDetailBX>
+                </ProSBX01>
 
-                    </ProSBX03>
-
-                    <ProSBX04 className="desktop-block">
-                      <span>#000000</span>{" "}
-                      <p>{profile ? profile.walletAddress : "xyz...."}{" "}</p>
+                <ProSBX02>
+                  <ProSBX03>
+                    <div className='cff-section'>
+                      <FollowerMBX>
+                        <FormattedMessage
+                          id='created'
+                          defaultMessage='Created'
+                        />
+                        <span>{profile ? profile.nftCreated : '000'}</span>
+                      </FollowerMBX>
+                      <FollowerMBX>
+                        <FormattedMessage
+                          id='followers'
+                          defaultMessage='Followers'
+                        />
+                        <span>{profile ? profile.followersCount : '000'}</span>
+                      </FollowerMBX>
+                      <FollowerMBX>
+                        <FormattedMessage
+                          id='following'
+                          defaultMessage='Following'
+                        />
+                        <span>{profile ? profile.followingCount : '000'}</span>
+                      </FollowerMBX>
+                    </div>
+                    <ProSBX04 className='mobile-block'>
+                      <span>#000000</span>{' '}
+                      <p>{profile ? profile.walletAddress : 'xyz....'} </p>
                       <button
-                        title="Copied"
+                        title='Copied'
                         onClick={() => {
                           navigator.clipboard.writeText(
-                            profile ? profile.walletAddress : "xyz...."
+                            profile ? profile.walletAddress : 'xyz....'
                           );
                         }}
                       >
-                        <img src={CopyICO} alt="" />
+                        <img src={CopyICO} alt='' />
                       </button>
                     </ProSBX04>
-                  </ProSBX02>
-                </ProMBX01>
-              </ProMBannerBX>
-
-              <Gs.Container>
-
-                <HomeTabs>
-                  <Tabs>
-                    {profile.role.roleName === 'CREATOR' ? (
-                      <>
-                        <TabList>
-                          <Tab> <FormattedMessage id="created" defaultMessage="Created" /> </Tab>
-                          <Tab><FormattedMessage id="collected" defaultMessage="Collected" /> </Tab>
-                          <Tab><FormattedMessage id="collections" defaultMessage="Collections" /> </Tab>
-                          <Tab><FormattedMessage id="liked" defaultMessage="Liked" /> </Tab>
-                        </TabList>
-
-                        <TabPanel> <Created /> </TabPanel>
-                        <TabPanel> <Collected role='creator' />  </TabPanel>
-                        <TabPanel> <Collection /> </TabPanel>
-                        <TabPanel> <Liked /> </TabPanel>
-                      </>
+                    <UserDText02 className='mobile-block'>
+                      <FormattedMessage id='join' defaultMessage='Joined' />
+                      <span>
+                        {profile
+                          ? dateFormat(
+                              new Date(profile.createdAt).toString(),
+                              'dd mmmm yyyy'
+                            )
+                          : 'join date'}
+                      </span>
+                    </UserDText02>
+                    {id ? (
+                      authData ? (
+                        web3Data.isLoggedIn &&
+                        authData.data.id !== profile.id ? (
+                          <EditPrBTN
+                            className={loading ? `disabled` : ``}
+                            onClick={() => this.followToggler(profile.id)}
+                          >
+                            {loading ? (
+                              'loading'
+                            ) : status.isFollowed ? (
+                              <FormattedMessage
+                                id='unfollow'
+                                defaultMessage='Unfollow'
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id='follow'
+                                defaultMessage='Follow'
+                              />
+                            )}
+                          </EditPrBTN>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
+                      )
                     ) : (
-                      <>
-                        <TabList>
-                          <Tab>Collected</Tab>
-                          <Tab>Collections</Tab>
-                          <Tab>Liked</Tab>
-                        </TabList>
-
-                        <TabPanel> <Collected role='collector' /> </TabPanel>
-                        <TabPanel> <Collection /> </TabPanel>
-                        <TabPanel> <Liked /> </TabPanel>
-                      </>
+                      <EditPrBTN>
+                        <button
+                          onClick={() =>
+                            this.props.history.push('/user/edit-profile')
+                          }
+                        >
+                          <FormattedMessage
+                            id='edit_profile'
+                            defaultMessage='Edit Profile'
+                          />
+                        </button>
+                      </EditPrBTN>
                     )}
+                  </ProSBX03>
 
-                  </Tabs>
-                </HomeTabs>
-              </Gs.Container>
-            </>
-          ) : <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
+                  <ProSBX04 className='desktop-block'>
+                    <span>#000000</span>{' '}
+                    <p>{profile ? profile.walletAddress : 'xyz....'} </p>
+                    <button
+                      title='Copied'
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          profile ? profile.walletAddress : 'xyz....'
+                        );
+                      }}
+                    >
+                      <img src={CopyICO} alt='' />
+                    </button>
+                  </ProSBX04>
+                </ProSBX02>
+              </ProMBX01>
+            </ProMBannerBX>
+
+            <Gs.Container>
+              <HomeTabs>
+                <Tabs>
+                  {profile.role.roleName === 'CREATOR' ? (
+                    <>
+                      <TabList>
+                        <Tab>
+                          {' '}
+                          <FormattedMessage
+                            id='created'
+                            defaultMessage='Created'
+                          />{' '}
+                        </Tab>
+                        <Tab>
+                          <FormattedMessage
+                            id='collected'
+                            defaultMessage='Collected'
+                          />{' '}
+                        </Tab>
+                        <Tab>
+                          <FormattedMessage
+                            id='collections'
+                            defaultMessage='Collections'
+                          />{' '}
+                        </Tab>
+                        <Tab>
+                          <FormattedMessage id='liked' defaultMessage='Liked' />{' '}
+                        </Tab>
+                      </TabList>
+
+                      <TabPanel>
+                        {' '}
+                        <Created />{' '}
+                      </TabPanel>
+                      <TabPanel>
+                        {' '}
+                        <Collected role='creator' />{' '}
+                      </TabPanel>
+                      <TabPanel>
+                        {' '}
+                        <Collection />{' '}
+                      </TabPanel>
+                      <TabPanel>
+                        {' '}
+                        <Liked />{' '}
+                      </TabPanel>
+                    </>
+                  ) : (
+                    <>
+                      <TabList>
+                        <Tab>Collected</Tab>
+                        <Tab>Collections</Tab>
+                        <Tab>Liked</Tab>
+                      </TabList>
+
+                      <TabPanel>
+                        {' '}
+                        <Collected role='collector' />{' '}
+                      </TabPanel>
+                      <TabPanel>
+                        {' '}
+                        <Collection />{' '}
+                      </TabPanel>
+                      <TabPanel>
+                        {' '}
+                        <Liked />{' '}
+                      </TabPanel>
+                    </>
+                  )}
+                </Tabs>
+              </HomeTabs>
+            </Gs.Container>
+          </>
+        ) : (
+          <LoaderBX>
+            {' '}
+            <img src={LoaderGif} alt='' />{' '}
+          </LoaderBX>
+        )}
       </>
     );
   }
@@ -332,10 +424,10 @@ const ProMBannerBX = styled(FlexDiv)`
   background-size: cover;
   background-position: 50% 50%;
   position: relative;
-  ${Media.md}{
+  ${Media.md} {
     margin-bottom: 180px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     margin-bottom: 450px;
   }
 `;
@@ -349,14 +441,14 @@ const ProMBX01 = styled(FlexDiv)`
   margin-bottom: -291px;
   box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
   align-items: stretch;
-  ${Media.lg}{
-    max-width:94%;
+  ${Media.lg} {
+    max-width: 94%;
   }
-  ${Media.md}{
+  ${Media.md} {
     padding: 20px;
-    min-height:200px;
+    min-height: 200px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     margin-bottom: -500px;
   }
 `;
@@ -364,15 +456,15 @@ const ProSBX01 = styled(FlexDiv)`
   width: 50%;
   justify-content: flex-start;
   align-items: flex-start;
-  ${Media.lg}{
+  ${Media.lg} {
     width: 40%;
   }
-  ${Media.md}{
+  ${Media.md} {
     width: 44%;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     width: 100%;
-    display:block;
+    display: block;
   }
 `;
 
@@ -380,12 +472,12 @@ const UserImgBX = styled(FlexDiv)`
   width: 142px;
   justify-content: flex-start;
   position: relative;
-  ${Media.md}{
-    width:120px;
+  ${Media.md} {
+    width: 120px;
   }
-  ${Media.sm}{
-    justify-content:center;
-    margin:0 auto;
+  ${Media.sm} {
+    justify-content: center;
+    margin: 0 auto;
   }
 `;
 const UserImgSB = styled.div`
@@ -394,11 +486,11 @@ const UserImgSB = styled.div`
   border-radius: 62px;
   overflow: hidden;
   border: 1px solid #efecf0;
-  ${Media.md}{
+  ${Media.md} {
     width: 100px;
     height: 100px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     width: 72px;
     height: 72px;
   }
@@ -412,11 +504,11 @@ const UserDetailBX = styled(FlexDiv)`
   justify-content: flex-start;
   flex-direction: column;
   width: calc(100% - 142px);
-  ${Media.sm}{
+  ${Media.sm} {
     justify-content: center;
-    display:block;
-    width:100%;
-    text-align:center;
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 `;
 const UserDTitle01 = styled.div`
@@ -437,9 +529,9 @@ const UserDText01 = styled.div`
   font-size: 12px;
   font-weight: 500;
   color: #000000;
-  ${Media.xs}{
+  ${Media.xs} {
     font-size: 10px;
-    line-height:14px;
+    line-height: 14px;
   }
 `;
 const UserDText02 = styled(UserDText01)`
@@ -449,25 +541,23 @@ const UserDText02 = styled(UserDText01)`
   span {
     color: #000000;
     padding-left: 25px;
-    ${Media.sm}{
-      font-weight:normal;
+    ${Media.sm} {
+      font-weight: normal;
     }
   }
-  ${Media.sm}{
+  ${Media.sm} {
     font-size: 12px;
   }
-  &.desktop-block
-  {
+  &.desktop-block {
     ${Media.sm} {
-      display:none;
+      display: none;
     }
   }
-  &.mobile-block
-  {
-    display:none;
+  &.mobile-block {
+    display: none;
     ${Media.sm} {
-      display:block;
-      margin:0 auto;
+      display: block;
+      margin: 0 auto;
     }
   }
 `;
@@ -491,8 +581,8 @@ const UserSocilMBX = styled(FlexDiv)`
       object-fit: cover;
     }
   }
-  ${Media.sm}{
-    justify-content: center; 
+  ${Media.sm} {
+    justify-content: center;
   }
 `;
 const ProSBX02 = styled(FlexDiv)`
@@ -500,25 +590,24 @@ const ProSBX02 = styled(FlexDiv)`
   justify-content: flex-end;
   flex-direction: column;
   align-items: flex-end;
-  ${Media.lg}{
+  ${Media.lg} {
     width: 60%;
   }
-  ${Media.md}{
+  ${Media.md} {
     width: 56%;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     width: 100%;
   }
-  .cff-section
-  {
-    display:flex;
-    ${Media.sm}{
-      justify-content:center;
-      border:1px solid #dddddd;
-      border-radius:10px;
-      padding:15px;
+  .cff-section {
+    display: flex;
+    ${Media.sm} {
+      justify-content: center;
+      border: 1px solid #dddddd;
+      border-radius: 10px;
+      padding: 15px;
       max-width: 287px;
-      width:100%;
+      width: 100%;
       margin: 0 auto 20px;
     }
   }
@@ -527,29 +616,28 @@ const ProSBX02 = styled(FlexDiv)`
 const ProSBX03 = styled(FlexDiv)`
   flex-direction: row;
   margin-bottom: auto;
-  ${Media.md}{
-    margin-top:15px;
-    width:-webkit-fill-available;
+  ${Media.md} {
+    margin-top: 15px;
+    width: -webkit-fill-available;
     justify-content: flex-end;
   }
-  ${Media.sm}{
-    display:block;
-    text-align:center;
-    margin-top:40px;
+  ${Media.sm} {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
   }
-  .mobile-block
-  {
-    display:none;
-    a{
-      display:block;
-      font-size:12px;
-      color:#000000;
-      line-height:20px;
-      margin:15px 0px 0px;
-      text-decoration:underline;
+  .mobile-block {
+    display: none;
+    a {
+      display: block;
+      font-size: 12px;
+      color: #000000;
+      line-height: 20px;
+      margin: 15px 0px 0px;
+      text-decoration: underline;
     }
-    ${Media.sm}{
-      display:block;
+    ${Media.sm} {
+      display: block;
     }
   }
 `;
@@ -566,10 +654,10 @@ const FollowerMBX = styled(FlexDiv)`
     font-size: 22px;
     display: block;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     font-size: 14px;
     justify-content: center;
-    color:#8e9194;
+    color: #8e9194;
   }
 `;
 const EditPrBTN = styled.div`
@@ -585,17 +673,17 @@ const EditPrBTN = styled.div`
     color: #fff;
     border: 1px solid #f40058;
   }
-  &.disabled{
+  &.disabled {
     pointer-events: none;
-    opacity:0.3;
+    opacity: 0.3;
   }
-  ${Media.md}{
-    margin:initial;
+  ${Media.md} {
+    margin: initial;
   }
-  ${Media.sm}{
-    font-size:16px;
-    margin:40px auto 0px;
-    width:max-content;
+  ${Media.sm} {
+    font-size: 16px;
+    margin: 40px auto 0px;
+    width: max-content;
   }
 `;
 
@@ -609,33 +697,31 @@ const ProSBX04 = styled(FlexDiv)`
   font-size: 14px;
   color: #000;
   position: relative;
-  ${Media.md}{
+  ${Media.md} {
     padding: 6px 12px 6px 94px;
   }
-  &.desktop-block
-  {
+  &.desktop-block {
     ${Media.sm} {
-      display:none;
+      display: none;
     }
   }
-  &.mobile-block
-  {
-    display:none;
+  &.mobile-block {
+    display: none;
     ${Media.sm} {
-      display:block;
-      width:max-content;
-      margin:0 auto 40px;
+      display: block;
+      width: max-content;
+      margin: 0 auto 40px;
     }
   }
-  p{
-    margin:0px;
+  p {
+    margin: 0px;
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
     white-space: nowrap;
-  	width:142px;
-    ${Media.sm}{
-      width:125px;
+    width: 142px;
+    ${Media.sm} {
+      width: 125px;
     }
   }
   span {
@@ -718,18 +804,17 @@ const HomeTabs = styled.div`
   .react-tabs__tab-list {
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
-    ${Media.sm}{
-      display:flex;
-      overflow-x:auto;
-      overflow-y:hidden;
-      flex-wrap:initial;
+    ${Media.sm} {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: initial;
     }
   }
-  .react-tabs__tab-panel--selected
-  {
-    margin:0px 20px;
-    ${Media.sm}{
-      margin:0px;
+  .react-tabs__tab-panel--selected {
+    margin: 0px 20px;
+    ${Media.sm} {
+      margin: 0px;
     }
   }
   .react-tabs__tab {
@@ -740,14 +825,13 @@ const HomeTabs = styled.div`
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.8px;
-    ${Media.sm}{
+    ${Media.sm} {
       font-size: 16px;
-      margin:0px 30px 0px 0px;
+      margin: 0px 30px 0px 0px;
     }
-    :focus
-    {
-      box-shadow:none;
-      border:none;
+    :focus {
+      box-shadow: none;
+      border: none;
     }
   }
   .react-tabs__tab--selected {
@@ -793,18 +877,18 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
-
 
 const mapDipatchToProps = (dispatch) => {
   return {
     getUserProfile: (id) => dispatch(actions.getUserProfile(id)),
     getIsFollow: (id) => dispatch(actions.getIsFollow(id)),
     followToggler: (id) => dispatch(actions.followToggler(id)),
-    clearUserProfile: () => dispatch({ type: 'FETCHED_USER_PROFILE', data: null }),
+    clearUserProfile: () =>
+      dispatch({ type: 'FETCHED_USER_PROFILE', data: null }),
   };
 };
 const mapStateToProps = (state) => {
