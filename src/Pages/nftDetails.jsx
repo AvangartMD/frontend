@@ -459,27 +459,13 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike className={loading ? `disabled` : ``}>
-                      {isLiked.isFollowed ? (
-                        <img
-                          src={Redheart}
-                          alt=""
-                          onDoubleClick={() => {
-                            this.props.likeToggler(id);
-                            this.setState({ loading: true });
-                          }}
-                        />
-                      ) : (
-                        <img
-                          src={redheartBorder}
-                          alt=""
-                          onDoubleClick={() => {
-                            this.props.likeToggler(id);
-                            this.setState({ loading: true });
-                          }}
-                        />
-                      )}
-
+                    <NFTLike className={loading ? `disabled` : ``}
+                        onDoubleClick={() => {
+                          this.props.likeToggler(id);
+                          this.setState({ loading: true });
+                      }}
+                    >
+                      <img src={isLiked.isFollowed ?Redheart:redheartBorder} alt="" />
                       <p>{likesCount.count}</p>
                     </NFTLike>
                   </NFTtopbarright>
