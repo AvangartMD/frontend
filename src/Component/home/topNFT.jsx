@@ -65,7 +65,7 @@ class TopNFT extends Component {
         <div className='w40'>
           <NFTfbright>
             <NFTLike
-              className={loading ? `disabled` : ``}
+              className={loading || !this.props.web3Data?.isLoggedIn? `disabled` : ``}
               onDoubleClick={() => {
                 this.props.likeToggler(nft.nftId.id);
                 this.setState({ loading: true });
@@ -583,6 +583,7 @@ const mapStateToProps = (state) => {
     isLiked: state.fetchIsLiked,
     likesCount: state.fetchLikesCount,
     likeToggled: state.fetchLikeToggled,
+    web3Data: state.fetchWeb3Data,
   };
 };
 

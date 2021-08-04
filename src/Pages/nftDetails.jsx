@@ -459,7 +459,7 @@ class NftDetail extends React.Component {
                         <img src={Lock} alt="" />
                       </NFTLock>
                     )}
-                    <NFTLike className={loading ? `disabled` : ``}
+                    <NFTLike className={loading || !web3Data?.isLoggedIn? `disabled` : ``}
                         onDoubleClick={() => {
                           this.props.likeToggler(id);
                           this.setState({ loading: true });
