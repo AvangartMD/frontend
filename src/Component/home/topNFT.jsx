@@ -67,17 +67,12 @@ class TopNFT extends Component {
         </div>
         <div className='w40'>
           <NFTfbright>
-            <NFTLike>
-              {nft.isLiked || isLiked.isFollowed ?
-                <img src={Redheart} alt='' disabled={loading} onDoubleClick={() => {
+            <NFTLike className={loading ? `disabled` : ``}
+              onDoubleClick={() => {
                   this.props.likeToggler(nft.nftId.id);
                   this.setState({ loading: true });
-                }} />
-                : <img src={redheartBorder} alt='' disabled={loading} onDoubleClick={() => {
-                  this.props.likeToggler(nft.nftId.id);
-                  this.setState({ loading: true });
-                }} />
-              }
+              }} >
+              <img src={nft.isLiked || isLiked.isFollowed ? Redheart:redheartBorder } alt='' />
               <p>{likesCount.count}</p>
             </NFTLike>
             <h3>
@@ -322,6 +317,10 @@ const NFTLike = styled(FlexDiv)`
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
   border-radius: 30px;
   cursor:pointer;
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
   p {
     color: #ff2a44;
     font-size: 12px;
