@@ -136,8 +136,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-        '....' +
-        newAddress.substring(newAddress.length - 5, newAddress.length)
+      '....' +
+      newAddress.substring(newAddress.length - 5, newAddress.length)
       : '00000000000';
 
     this.setState({ accountBalance, compactUserAddress });
@@ -871,7 +871,6 @@ const DDContainer = styled(FlexDiv)`
       top: calc(100% + 21px);
       box-shadow: none;
       border-radius: 0px;
-      padding: 30px 25px;
       justify-content: flex-start;
     }
   }
