@@ -10,7 +10,7 @@ import { actions } from "../../actions";
 import { Context } from '../../Component/wrapper';
 import { services } from "../../services";
 import Media from "./../../Theme/media-breackpoint";
-import { formatWithCursor } from "prettier";
+
 
 class BecomeCreator extends Component {
   static contextType = Context;
@@ -22,7 +22,9 @@ class BecomeCreator extends Component {
       isOpen3: false,
       isOpen4: false,
       loading: false,
+      category: [],
       becomeCreator: false,
+      errors: {name: false, email: false, bio: false, category: false},
     };
   }
 
@@ -34,15 +36,11 @@ class BecomeCreator extends Component {
   }
 
   onFormChange = (event) => {
-    this.setState({
-      [event.target.name]:
-        event.target.name === "category"
-          ? this.state.category
-            ? [...this.state.category, event.target.value]
-            : [event.target.value]
-          : event.target.value,
-    });
-  };
+    if (event.target.name === "category") {
+      if (event.target.checked) this.setState({ category: [...this.state.category, event.target.value] })
+      else this.setState({ category: this.state.category.filter( id => id !== event.target.value ) })
+    } else this.setState({ [event.target.name]: event.target.value })
+  }
 
   onFormSubmit = async (e) => {
     e.preventDefault();
@@ -85,6 +83,8 @@ class BecomeCreator extends Component {
             isOpen2: false,
             isOpen3: false,
             becomeCreator: true,
+            errors: { name: false, email: false, bio: false },
+            category: [],
           });
         }
       })
@@ -110,6 +110,29 @@ class BecomeCreator extends Component {
     }
   }
 
+  nextButtonHandler = (type) => {
+    let {
+      name,
+      email,
+      bio,
+      category,
+    } = this.state
+
+    if (type) {
+      let errors = {...this.state.errors, name: false, email: false, bio: false}
+      if (!name) errors.name = true
+      if (!email) errors.email = true
+      if (!bio) errors.bio = true
+      if (!errors.name && !errors.email && !errors.bio) this.setState({ isOpen2: true })
+      this.setState({ errors: errors })
+    } else {
+      let errors = {...this.state.errors, category: false}
+      if (category.length === 0) errors.category = true
+      if (category.length !== 0) this.setState({ isOpen3: true })
+      this.setState({ errors: errors })
+    }
+  }
+
   render() {
     const { categories } = this.props;
     const {
@@ -119,6 +142,7 @@ class BecomeCreator extends Component {
       loading,
       becomeCreator,
       isOpen4,
+      errors,
     } = this.state;
     const { isProfile, isFooter } = this.props;
     let context = this.context;
@@ -171,10 +195,11 @@ class BecomeCreator extends Component {
                       </label>
                     </div>
                     <input
+                      className={errors.name?`error`:``}
                       type="text"
                       placeholder="Type name…"
                       name="name"
-                      required
+                      // required
                     />
                   </NFTForm>
                   <NFTForm>
@@ -185,10 +210,11 @@ class BecomeCreator extends Component {
                       </label>
                     </div>
                     <input
+                      className={errors.email?`error`:``}
                       type="text"
                       placeholder="Type email…"
                       name="email"
-                      required
+                      // required
                     />
                   </NFTForm>
                   <NFTForm>
@@ -198,15 +224,17 @@ class BecomeCreator extends Component {
                         <sup>*</sup>
                       </label>
                     </div>
-                    <textarea name="bio" defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Quisque ornare augue non finibus commodo.">
+                    <textarea
+                      placeholder="Type about youself…"
+                      className={errors.bio ? `error` : ``}
+                      name="bio">
                     </textarea>
                   </NFTForm>
                   <CreateItemButton>
                     <button
                       type="button"
                       onClick={() => {
-                        this.setState({ isOpen2: true });
+                        this.nextButtonHandler(true)
                       }}
                     >
                       <FormattedMessage id="next" defaultMessage="Next" />
@@ -295,7 +323,7 @@ class BecomeCreator extends Component {
                     <button
                       type="button"
                       onClick={() => {
-                        this.setState({ isOpen3: true });
+                        this.nextButtonHandler(false)
                       }}
                     >
                       <FormattedMessage id="next" defaultMessage="Next" />
@@ -347,7 +375,6 @@ class BecomeCreator extends Component {
                       type="text"
                       placeholder="Type your id…"
                       name="website"
-                      required
                     />
                   </NFTForm>
                   <NFTForm>
@@ -360,7 +387,6 @@ class BecomeCreator extends Component {
                       type="text"
                       placeholder="Type your id…"
                       name="instagram"
-                      required
                     />
                   </NFTForm>
                   <NFTForm>
@@ -373,7 +399,6 @@ class BecomeCreator extends Component {
                       type="text"
                       placeholder="Type your id…"
                       name="twitter"
-                      required
                     />
                   </NFTForm>
                   <CreateItemButton>
@@ -636,6 +661,9 @@ const NFTForm = styled.div`
       color: #000;
       opacity: 20%;
     }
+  }
+  .error {
+    border: 1px solid #ff2a44;
   }
   textarea {
     width: 100%;
