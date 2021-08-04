@@ -24,7 +24,7 @@ class BecomeCreator extends Component {
       loading: false,
       category: [],
       becomeCreator: false,
-      errors: {name: false, email: false, bio: false, category: false},
+      errors: { name: false, email: false, bio: false, category: false },
     };
   }
 
@@ -38,7 +38,7 @@ class BecomeCreator extends Component {
   onFormChange = (event) => {
     if (event.target.name === "category") {
       if (event.target.checked) this.setState({ category: [...this.state.category, event.target.value] })
-      else this.setState({ category: this.state.category.filter( id => id !== event.target.value ) })
+      else this.setState({ category: this.state.category.filter(id => id !== event.target.value) })
     } else this.setState({ [event.target.name]: event.target.value })
   }
 
@@ -119,14 +119,14 @@ class BecomeCreator extends Component {
     } = this.state
 
     if (type) {
-      let errors = {...this.state.errors, name: false, email: false, bio: false}
+      let errors = { ...this.state.errors, name: false, email: false, bio: false }
       if (!name) errors.name = true
       if (!email) errors.email = true
       if (!bio) errors.bio = true
       if (!errors.name && !errors.email && !errors.bio) this.setState({ isOpen2: true })
       this.setState({ errors: errors })
     } else {
-      let errors = {...this.state.errors, category: false}
+      let errors = { ...this.state.errors, category: false }
       if (category.length === 0) errors.category = true
       if (category.length !== 0) this.setState({ isOpen3: true })
       this.setState({ errors: errors })
@@ -149,13 +149,13 @@ class BecomeCreator extends Component {
     return (
       <>
 
-        <AvBTN02 className={becomeCreator ? isFooter?``:`grayBTN` : isProfile ? `ani-1 borderBTN` : ``}
+        <AvBTN02 className={becomeCreator ? isFooter ? `` : `grayBTN` : isProfile ? `ani-1 borderBTN` : ``}
           onClick={(e) => this.clickHandler(e)}>
           {!becomeCreator ?
             isProfile ?
               <FormattedMessage id="apply" defaultMessage="Apply" />
-            :<FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
-          : <FormattedMessage id="waitlist" defaultMessage="Waitlist" />}
+              : <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
+            : <FormattedMessage id="waitlist" defaultMessage="Waitlist" />}
         </AvBTN02>
 
         <form onChange={this.onFormChange} onSubmit={this.onFormSubmit}>
@@ -195,11 +195,11 @@ class BecomeCreator extends Component {
                       </label>
                     </div>
                     <input
-                      className={errors.name?`error`:``}
+                      className={errors.name ? `error` : ``}
                       type="text"
                       placeholder="Type name…"
                       name="name"
-                      // required
+                    // required
                     />
                   </NFTForm>
                   <NFTForm>
@@ -210,11 +210,11 @@ class BecomeCreator extends Component {
                       </label>
                     </div>
                     <input
-                      className={errors.email?`error`:``}
+                      className={errors.email ? `error` : ``}
                       type="text"
                       placeholder="Type email…"
                       name="email"
-                      // required
+                    // required
                     />
                   </NFTForm>
                   <NFTForm>
@@ -284,6 +284,7 @@ class BecomeCreator extends Component {
                       <p>
                         <FormattedMessage id="nft_category_label" defaultMessage="You can choose two categories at most" />
                       </p>
+                      <p className="error-text">Please select atleast one category</p>
                     </div>
                     <CustomCheckbox1>
                       {categories
@@ -644,6 +645,12 @@ const NFTForm = styled.div`
       font-size: 12px;
       letter-spacing: -0.4px;
       font-weight: 300;
+      margin: 0px;
+    }
+    p.error-text {
+      color: #ff2a44;
+      font-size: 12px;
+      font-weight: 500;
       margin: 0px;
     }
   }
