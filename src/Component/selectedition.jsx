@@ -45,21 +45,21 @@ function SelectEdition(props) {
   };
 
   useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-          if (filterPopup === 1) toggle(1)
-        }
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        if (filterPopup === 1) toggle(1)
       }
+    }
 
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-          // Unbind the event listener on clean up
-          document.removeEventListener("mousedown", handleClickOutside);
-      };
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [wrapperRef, filterPopup, toggle]);
 
   useEffect(() => {
@@ -179,9 +179,9 @@ function SelectEdition(props) {
                         name="vehicle1"
                         defaultChecked={filter.includes('AUCTION') ? true : false}
                         onChange={(e) => changeHandler('AUCTION', e)}
-                        // onClick={(e) => {
-                        //   setFilter('AUCTION', e);
-                        // }}
+                      // onClick={(e) => {
+                      //   setFilter('AUCTION', e);
+                      // }}
                       />
                       <label htmlFor="vehicle1">
                         <FormattedMessage id="live_acution" defaultMessage="Live auction" />
@@ -194,9 +194,9 @@ function SelectEdition(props) {
                         name="vehicle1"
                         defaultChecked={filter.includes('OFFER') ? true : false}
                         onChange={(e) => changeHandler('OFFER', e)}
-                        // onClick={(e) => {
-                        //   setFilter('OFFER', e);
-                        // }}
+                      // onClick={(e) => {
+                      //   setFilter('OFFER', e);
+                      // }}
                       />
                       <label htmlFor="vehicle2">
                         <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
@@ -213,9 +213,9 @@ function SelectEdition(props) {
                           name="vehicle1"
                           defaultChecked={filter.includes('BUY') ? true : false}
                           onChange={(e) => changeHandler('BUY', e)}
-                          // onClick={(e) => {
-                          //   setFilter('BUY', e);
-                          // }}
+                        // onClick={(e) => {
+                        //   setFilter('BUY', e);
+                        // }}
                         />
                         <label htmlFor="vehicle3">
                           <FormattedMessage id="buy_now" defaultMessage="Buy now" />
@@ -228,9 +228,9 @@ function SelectEdition(props) {
                           name="vehicle1"
                           defaultChecked={filter.includes('SOLD') ? true : false}
                           onChange={(e) => changeHandler('SOLD', e)}
-                          // onClick={(e) => {
-                          //   setFilter('SOLD', e);
-                          // }}
+                        // onClick={(e) => {
+                        //   setFilter('SOLD', e);
+                        // }}
                         />
                         <label htmlFor="vehicle4">Sold</label>
                       </div>
@@ -289,8 +289,8 @@ function SelectEdition(props) {
                         <td>
                           <CustomRadio1>
                             <label className="radio-container">
-                              {edition.isBurned ? 
-                                <FormattedMessage id="burned" defaultMessage="Burned" />  :
+                              {edition.isBurned ?
+                                <FormattedMessage id="burned" defaultMessage="Burned" /> :
                                 <FormattedMessage id="select" defaultMessage="Select" />
                               }
                               <input

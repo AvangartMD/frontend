@@ -174,6 +174,7 @@ const HomeNFTs = styled.div`
 const AdBanner2 = styled.div`
   height:540px;
   width:100%;
+  overflow:hidden;
   position:relative;
   ${Media.md}{
     height:auto;

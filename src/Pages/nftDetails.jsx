@@ -460,12 +460,12 @@ class NftDetail extends React.Component {
                       </NFTLock>
                     )}
                     <NFTLike className={loading ? `disabled` : ``}
-                        onDoubleClick={() => {
-                          this.props.likeToggler(id);
-                          this.setState({ loading: true });
+                      onDoubleClick={() => {
+                        this.props.likeToggler(id);
+                        this.setState({ loading: true });
                       }}
                     >
-                      <img src={isLiked.isFollowed ?Redheart:redheartBorder} alt="" />
+                      <img src={isLiked.isFollowed ? Redheart : redheartBorder} alt="" />
                       <p>{likesCount.count}</p>
                     </NFTLike>
                   </NFTtopbarright>
@@ -521,7 +521,7 @@ class NftDetail extends React.Component {
                     <p className="royalty">
                       <FormattedMessage
                         id="nft_price_lable"
-                        defaultMessage="A 10% royalty goes to the <br></br>creator for future resale"
+                        defaultMessage="A 10% royalty goes to the creator for future resale"
                       />
                     </p>
                   </div>
@@ -975,6 +975,7 @@ const Edition = styled(FlexDiv)`
       letter-spacing: -0.6px;
       margin: 0px;
       line-height: normal;
+      width:120px;
     }
     .time-block {
       margin-right: 20px;
