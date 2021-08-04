@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 import { actions } from "../../actions";
 import LoaderGif from '../../Assets/images/loading.gif';
@@ -33,7 +34,9 @@ class Notifications extends Component {
 
             <Notificationtitle>Notifications</Notificationtitle>
             {notifications.map((notification) => {
-              return <button key={notification.id}>
+              return <button
+                    key={notification.id}
+                    onClick={() => this.props.history.push(notification.route?notification.route:'/')}>
                 {notification.text}
               </button>
             })}
@@ -118,4 +121,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(Notifications);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Notifications));
