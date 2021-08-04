@@ -296,7 +296,7 @@ class Header extends Component {
                         onClick={() => this.toggle(11)}
                       >
                         <FormattedMessage
-                          id='Collections'
+                          id='collections'
                           defaultMessage='Collections'
                         />
                       </NavLink>
