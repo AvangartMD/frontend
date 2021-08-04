@@ -52,9 +52,11 @@ import {
   fetchNFTEditionHistory,
   fetchNotifications,
   fetchProfileBanner,
+  fetchLanguage,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
+  fetchLanguage,
   fetchIsLiked,
   fetchLikesCount,
   fetchSingleNFTDetails,
