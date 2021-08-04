@@ -28,6 +28,25 @@ import LogoImgWhite from '../Assets/images/logo-white.png';
 import IconMenuOpenWhite from '../Assets/images/icon-set-menu-white.svg';
 import IconMenuCloseWhite from '../Assets/images/icon-set-close-white.svg';
 import NotifiIconWhite from '../Assets/images/notification-white.svg';
+import { Scrollbars } from "react-custom-scrollbars";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="notification-view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 class Header extends Component {
   constructor(props) {
@@ -216,7 +235,13 @@ class Header extends Component {
                       }
                     >
                       <DDContainer className='ver3'>
-                        <Notifications />
+                        <CustomScrollbars
+                          autoHide
+                          autoHideTimeout={1000}
+                          style={{ width: "100%", height: "500px", position: "relative" }}
+                        >
+                          <Notifications />
+                        </CustomScrollbars>
                       </DDContainer>
                     </Collapse>
                   </NotificationBX>
@@ -471,7 +496,13 @@ class Header extends Component {
                     }
                   >
                     <DDContainer className='ver3'>
-                      <Notifications />
+                      <CustomScrollbars
+                        autoHide
+                        autoHideTimeout={1000}
+                        style={{ width: "100%", height: "265px", position: "relative" }}
+                      >
+                        <Notifications />
+                      </CustomScrollbars>
                     </DDContainer>
                   </Collapse>
                 </NotificationBX>

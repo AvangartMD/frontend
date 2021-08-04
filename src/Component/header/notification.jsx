@@ -9,6 +9,8 @@ import { actions } from "../../actions";
 import LoaderGif from '../../Assets/images/loading.gif';
 import Media from "../../Theme/media-breackpoint";
 
+
+
 class Notifications extends Component {
 
   constructor(props) {
@@ -26,14 +28,18 @@ class Notifications extends Component {
     return (
       <>
         {notifications ?
+
           <NotificationSBX01>
+
             <Notificationtitle>Notifications</Notificationtitle>
             {notifications.map((notification) => {
               return <button key={notification.id}>
                 {notification.text}
               </button>
             })}
+
           </NotificationSBX01>
+
           : <LoaderBX>
             <img src={LoaderGif} alt="" />
           </LoaderBX>}
@@ -54,6 +60,7 @@ const LoaderBX = styled(FlexDiv)`
 const NotificationSBX01 = styled(FlexDiv)`
   align-items: flex-start;
   justify-content: flex-start;
+ 
   button {
     width: 100%;
     height: auto;
@@ -64,6 +71,12 @@ const NotificationSBX01 = styled(FlexDiv)`
     text-align: left;
     padding: 15px;
     border-bottom: 1px solid #eef2f7;
+    :last-child
+    {
+      ${Media.md} {
+        padding-bottom:40px;
+      }
+    }
     span {
       font-size: 10px;
       font-weight: 400;
@@ -75,7 +88,7 @@ const NotificationSBX01 = styled(FlexDiv)`
       background-color: #d9f5f5;
     }
     ${Media.md} {
-      padding:20px 25px;
+      padding:20px 35px 20px 25px;
     }
   }
 `;

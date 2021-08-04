@@ -315,6 +315,9 @@ const HomeNFTs = styled.div`
         height: 12px;
         background: url(${StarIcon}) no-repeat;
       }
+      ${Media.sm} {
+        font-size: 24px;
+      }
     }
   }
 `;

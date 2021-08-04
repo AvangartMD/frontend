@@ -104,6 +104,9 @@ const HomeNFTs = styled.div`
         height: 11px;
         background: url(${HeartIcon}) no-repeat;
       }
+      ${Media.sm} {
+        font-size: 24px;
+      }
     }
   }
   ${Media.md}{
