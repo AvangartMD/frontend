@@ -50,10 +50,7 @@ function SelectEdition(props) {
        */
       function handleClickOutside(event) {
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-          if (filterPopup === 1) {
-            console.log('--------- ', filterPopup)
-            toggle(1)
-          }
+          if (filterPopup === 1) toggle(1)
         }
       }
 
