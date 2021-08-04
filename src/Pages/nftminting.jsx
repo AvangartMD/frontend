@@ -42,6 +42,8 @@ import Scrollspy from "react-scrollspy";
 class NFTPage extends Component {
   constructor(props) {
     super(props);
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.state = {
       web3Data: {
         isLoggedIn: false,
@@ -139,6 +141,7 @@ class NFTPage extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
     let {
       web3Data,
       categoryList,
@@ -160,6 +163,18 @@ class NFTPage extends Component {
           //somethng
         }
       });
+    }
+  }
+
+  handleClickOutside(event) {
+    if (
+      this.wrapperRef &&
+      this.wrapperRef.current &&
+      !this.wrapperRef.current.contains(event.target)
+    ) {
+      if (this.state.isOpen1) {
+        this.setState({ isOpen1: false });
+      }
     }
   }
 
@@ -712,7 +727,7 @@ class NFTPage extends Component {
                           name="price"
                           value={nftObj.price}
                         />
-                        <AccountBX onClick={() => this.toggle(1)}>
+                        <AccountBX onClick={() => this.toggle(1)} ref={this.wrapperRef}>
                           <span>
                             BNB <img src={DDdownA} alt="" />
                           </span>

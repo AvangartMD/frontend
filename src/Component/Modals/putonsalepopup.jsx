@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Media from "../../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
@@ -10,6 +10,8 @@ import TxnStatus from "./txnStatus";
 import { getContractInstance } from "../../helper/functions";
 
 function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
+
+  const wrapperRef = useRef(null)
   const [isOpen2, setIsOpen2] = useState(false);
   const [price, setPrice] = useState("");
   const [txnStatus, setTxnStatus] = useState("");
@@ -38,6 +40,25 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
         setTxnStatus("error");
       });
   };
+
+  useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+          if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+              if (isOpen2) setIsOpen2(false);
+          }
+      }
+
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+          // Unbind the event listener on clean up
+          document.removeEventListener("mousedown", handleClickOutside);
+      };
+  }, [wrapperRef, setIsOpen2, isOpen2]);
+  
   const refreshStates = () => {
     setPrice("");
     setTxnStatus("");
@@ -93,7 +114,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                       setPrice(e.target.value);
                   }}
                 />
-                <AccountBX onClick={() => setIsOpen2(!isOpen2)}>
+                <AccountBX onClick={() => setIsOpen2(!isOpen2)} ref={wrapperRef}>
                   <span>
                     BNB <img src={DDdownA} alt="" />
                   </span>

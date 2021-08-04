@@ -134,7 +134,6 @@ function SelectEdition(props) {
     else setFilter([])
   }
 
-  console.log('- filter? ', filter)
   return (
     <>
       <BlackWrap>
