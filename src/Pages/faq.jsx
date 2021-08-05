@@ -243,19 +243,47 @@ const FilterLbx = styled(FlexDiv)`
 `;
 
 const FaqAccordian = styled.div`
-  .Collapsible{margin:0px 0px 40px; }
-  .Collapsible__trigger{font-size:20px; letter-spacing:-0.89px; font-weight:bold; color:#000; line-height:normal; border-bottom:1px solid #ddd; cursor:pointer; padding:0px 17px 13px 0px; display:block; position:relative;
-    :after{content:''; width:14px; height:14px; position:absolute; right:0px; top:5px; background:url(${Blackcross}); background-size:contain;}
+  .Collapsible
+  {
+    margin:0px 0px 40px; 
+  }
+  .Collapsible__trigger
+  { 
+    font-size:20px; 
+    letter-spacing:-0.89px; 
+    font-weight:bold; 
+    color:#000; 
+    line-height:normal; 
+    border-bottom:1px solid #ddd; 
+    cursor:pointer; 
+    padding:0px 17px 13px 0px; 
+    display:block; 
+    position:relative;
+    :after
+    {
+      content:''; 
+      width:14px; 
+      height:14px; 
+      position:absolute; 
+      right:0px; 
+      top:5px; 
+      background:url(${Blackcross}); 
+      background-size:contain;
+    }
     ${Media.sm}{
       font-size:16px; letter-spacing:-0.71px;
     }
     &.is-open{
-      color:#00babc; border-bottom:1px solid #00babc;
-      :after{ width:17px; height:17px; background:url(${Bluecross}); background-size:contain;}
+      color:#00babc; border-bottom:none;
+      :after{ width:17px; height:17px; background:url(${Bluecross}); background-size:contain; }
+      + .Collapsible__contentOuter
+        {
+          border-bottom:1px solid #00babc;
+        }
       } 
+      
     }
   }
-  
   .Collapsible__contentInner{
     p{font-size:16px; color:#000; letter-spacing:-0.8px; line-height:normal;
       ${Media.sm}{
