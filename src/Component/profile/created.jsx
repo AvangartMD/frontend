@@ -117,18 +117,14 @@ function Created(props) {
         {NFTs?.length === 0 && tabPanel === 'ALL' ?
           <CEmpty>
             <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
-            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+            <p className="Bec">Lorem ipsum dolor sit assssmet,<br />consectetur adipiscing elit.</p>
             {props.status ?
               <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
                 <FormattedMessage id="create" defaultMessage="Create" />
               </button>
             : ``}
           </CEmpty>
-          :
-          <CEmpty>
-            <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
-            <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
-          </CEmpty>
+          : ``
         }
 
       </HomeNFTs>
