@@ -145,9 +145,12 @@ const FlexDiv = styled.div`
 `;
 
 const HomeBanner = styled.div`
-  max-height: 700px;
+  max-height: 660px;
   width: 100%;
   overflow:hidden;
+  ${Media.xs}{
+    max-height: 550px;
+  }
   .item {
     img {
       width: 100%;
@@ -169,7 +172,10 @@ const HomeBanner = styled.div`
   }
   .react-multi-carousel-track
   {
-    max-height: 700px;
+    max-height: 660px;
+    ${Media.xs}{
+      max-height: 550px;
+    }
   }
   .react-multiple-carousel__arrow {
     background: transparent;
