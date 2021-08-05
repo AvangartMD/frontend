@@ -22,7 +22,7 @@
     {
         "category": 1,
         "question": "Avangart'ı kullanmak için neye ihtiyacım var?",
-        "answer": "Avangart mobil ve masaüstü cihazlardan erişilebilen bir web servisi sunmaktadır. Servisten faydalanmak için kullanacağınız kripto cüzdana ait browser eklentisini veya uygulamayı indirmeniz yeterli olacaktır. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz.",
+        "answer": "Avangart mobil ve masaüstü cihazlardan erişilebilen bir web servisi sunmaktadır. Servisten faydalanmak için kullanacağınız kripto cüzdana ait browser eklentisini veya uygulamayı indirmeniz yeterli olacaktır. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
     },
     {
         "category": 1,
@@ -47,7 +47,7 @@
     {
         "category": 2,
         "question": "Kripto cüzdanımda bahsedilen \"seed phrase\" ne demektir?",
-        "answer": "Kripto cüzdanınızın giriş bilgilerini kaybetmeniz durumunda seed phrase, veya anahtar cümle, hesabınızı kurtarmak için kullanılan bir yedekleme mekanizmasıdır. Cüzdan sağlayıcı tarafından sağlanan seed phrase'inizi güvenli bir yerde saklamak hesabınızı kurtarmak için kritik olacaktır. Aksi taktirde, giriş bilgilerinizi unutmanız durumunda, NFT'lerinizi kaybetme riski ile karşı karşıya kalabilirsiniz.",
+        "answer": "Kripto cüzdanınızın giriş bilgilerini kaybetmeniz durumunda seed phrase, veya anahtar cümle, hesabınızı kurtarmak için kullanılan bir yedekleme mekanizmasıdır. Cüzdan sağlayıcı tarafından sağlanan seed phrase'inizi güvenli bir yerde saklamak hesabınızı kurtarmak için kritik olacaktır. Aksi taktirde, giriş bilgilerinizi unutmanız durumunda, NFT'lerinizi kaybetme riski ile karşı karşıya kalabilirsiniz."
     },
     {
         "category": 2,
@@ -87,7 +87,7 @@
     {
         "category": 3,
         "question": "NFT alırken hangi ödeme yöntemlerini kullanabilirim?",
-        "answer": "Şu an Avangart'ta NFT almak için yalnızca kripto paralar ile ödeme yapabilirsiniz. Avangart ekibi kullanıcı deneyimini iyileştirmek adına alternatif ödeme yöntemleri üzerine çalışmaktadır.",
+        "answer": "Şu an Avangart'ta NFT almak için yalnızca kripto paralar ile ödeme yapabilirsiniz. Avangart ekibi kullanıcı deneyimini iyileştirmek adına alternatif ödeme yöntemleri üzerine çalışmaktadır."
     },
     {
         "category": 3,
@@ -102,13 +102,12 @@
     {
         "category": 3,
         "question": "NFT'lerimi nerede görebilirim?",
-        "answer": "Satın aldığınız NFT'leri profil sayfanızda altında bir arada görüntüleyebilirsiniz.",
-        "undefined": "  "
+        "answer": "Satın aldığınız NFT'leri profil sayfanızda altında bir arada görüntüleyebilirsiniz."
     },
     {
         "category": 3,
         "question": "Satın aldığım NFT'leri tekrar satışa çıkarabilir miyim?",
-        "answer": "Satın aldığınız NFT'leri \"Hemen Al\" olarak belirli bir fiyatla veya \"Tekliflere Açık\" olarak fiyatsız bir şekilde tekrar satışa sunabilirsiniz. \"Müzayede\" özelliği şu an yalnızca ilk el satışlarda üreticilerin kullanımına açıktır. ",
+        "answer": "Satın aldığınız NFT'leri \"Hemen Al\" olarak belirli bir fiyatla veya \"Tekliflere Açık\" olarak fiyatsız bir şekilde tekrar satışa sunabilirsiniz. \"Müzayede\" özelliği şu an yalnızca ilk el satışlarda üreticilerin kullanımına açıktır. "
     },
     {
         "category": 3,
