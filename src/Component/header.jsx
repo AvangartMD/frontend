@@ -83,7 +83,7 @@ class Header extends Component {
         this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          // this.checkLoggedIn()
+          this.checkMetamaskLock() // check metamaks is logged in 
           this.fetchTokenBalance(web3Data);
         }
       });
@@ -99,12 +99,12 @@ class Header extends Component {
     
   }
 
-  checkLoggedIn = () => {
-    setInterval(() => {
+  checkMetamaskLock = () => {
+    const checker = setInterval(() => {
       web3.eth.getAccounts().then((resp) => {
         if (!resp[0]) {
-          console.log('lock metatas disconnect')
-          this.disconnect();
+          this.disconnect(); // metaMask is locked disconnect the user
+          clearInterval(checker);
         }
       });
     }, 1000);
