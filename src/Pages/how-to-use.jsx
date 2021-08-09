@@ -29,66 +29,68 @@ class HowToUse extends Component {
     return (
       <Gs.MainSection>
         <Gs.Container>
-          <HUtopButtons>
+          {/* <HUtopButtons>
             <button className="active">For Creators</button>
             <button>For Collectors</button>
-          </HUtopButtons>
-          <HowtoRow>
-            <Howtoleft>
-              <h3>Suspendisse aliquam nisl neque?</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-              <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
-            </Howtoleft>
-            <Howtoright>
-              <img src={NFT2} alt="" />
-              <div className="overlay">
-                <p>Video Name</p>
-                <Link to='/'><img src={Cshape} alt="" /></Link>
-              </div>
-            </Howtoright>
-          </HowtoRow>
-          <HowtoRow>
-            <Howtoleft>
-              <h3>Suspendisse aliquam nisl neque?</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-              <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
-            </Howtoleft>
-            <Howtoright>
-              <img src={NFT2} alt="" />
-              <div className="overlay">
-                <p>Video Name</p>
-                <Link to='/'><img src={Cshape} alt="" /></Link>
-              </div>
-            </Howtoright>
-          </HowtoRow>
-          <HowtoRow>
-            <Howtoleft>
-              <h3>Suspendisse aliquam nisl neque?</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-              <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
-            </Howtoleft>
-            <Howtoright>
-              <img src={NFT2} alt="" />
-              <div className="overlay">
-                <p>Video Name</p>
-                <Link to='/'><img src={Cshape} alt="" /></Link>
-              </div>
-            </Howtoright>
-          </HowtoRow>
-          <HowtoRow>
-            <Howtoleft>
-              <h3>Suspendisse aliquam nisl neque?</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-              <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
-            </Howtoleft>
-            <Howtoright>
-              <img src={NFT2} alt="" />
-              <div className="overlay">
-                <p>Video Name</p>
-                <Link to='/'><img src={Cshape} alt="" /></Link>
-              </div>
-            </Howtoright>
-          </HowtoRow>
+          </HUtopButtons> */}
+          <HowToMain>
+            <HowtoRow>
+              <Howtoleft>
+                <h3>Suspendisse aliquam nisl neque?</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
+                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+              </Howtoleft>
+              <Howtoright>
+                <img src={NFT2} alt="" />
+                <div className="overlay">
+                  <p>Video Name</p>
+                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                </div>
+              </Howtoright>
+            </HowtoRow>
+            <HowtoRow>
+              <Howtoleft>
+                <h3>Suspendisse aliquam nisl neque?</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
+                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+              </Howtoleft>
+              <Howtoright>
+                <img src={NFT2} alt="" />
+                <div className="overlay">
+                  <p>Video Name</p>
+                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                </div>
+              </Howtoright>
+            </HowtoRow>
+            <HowtoRow>
+              <Howtoleft>
+                <h3>Suspendisse aliquam nisl neque?</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
+                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+              </Howtoleft>
+              <Howtoright>
+                <img src={NFT2} alt="" />
+                <div className="overlay">
+                  <p>Video Name</p>
+                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                </div>
+              </Howtoright>
+            </HowtoRow>
+            <HowtoRow>
+              <Howtoleft>
+                <h3>Suspendisse aliquam nisl neque?</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
+                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+              </Howtoleft>
+              <Howtoright>
+                <img src={NFT2} alt="" />
+                <div className="overlay">
+                  <p>Video Name</p>
+                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                </div>
+              </Howtoright>
+            </HowtoRow>
+          </HowToMain>
           <HUbottombuttons>
             <button
               onClick={() => this.props.history.push("/faq")}
@@ -115,6 +117,11 @@ const LoaderBX = styled(FlexDiv)`
   width: 100%;
   margin: 50px auto;
 `;
+
+const HowToMain = styled.div`
+  margin-top:60px;
+`;
+
 const HUtopButtons = styled(FlexDiv)`
   margin:60px 0px 30px;
   justify-content:flex-start;
@@ -178,7 +185,7 @@ const Howtoleft = styled.div`
   max-width:785px;
   width:100%;
   h3{
-    font-size:24px; letter-spacing:-1.07px; font-weight:bold; color:#000; margin:0px 0px 20px;
+    font-size:24px; letter-spacing:-1.07px; font-weight:bold; color:#000; margin:0px 0px 20px; line-height:normal;
   }
   p{
     font-size:16px; line-height:24px; letter-spacing:-0.8px; color:#000; margin:0px 0px 30px;

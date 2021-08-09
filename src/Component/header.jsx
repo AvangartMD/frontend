@@ -83,6 +83,7 @@ class Header extends Component {
         this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
+          this.checkMetamaskLock() // check metamaks is logged in 
           this.fetchTokenBalance(web3Data);
         }
       });
@@ -95,6 +96,18 @@ class Header extends Component {
         this.setState({ userDetails: authData.data });
       }
     }
+    
+  }
+
+  checkMetamaskLock = () => {
+    const checker = setInterval(() => {
+      web3.eth.getAccounts().then((resp) => {
+        if (!resp[0]) {
+          this.disconnect(); // metaMask is locked disconnect the user
+          clearInterval(checker);
+        }
+      });
+    }, 1000);
   }
 
   componentDidMount() {
@@ -113,22 +126,20 @@ class Header extends Component {
     if (window.web3) {
       window.ethereum.on("accountsChanged", (accounts) => {
         // metamask user address changed
-        if (!web3Data.accounts[0]) {
+        if (accounts.length > 0 && this.state.web3Data.isLoggedIn && (accounts[0] !== this.state.web3Data.accounts[0])) {
           this.props.clearNonce();
           this.props.authLogout();
           this.props.web3Logout(accounts);
-          this.props.history.push("/");
           this.setState({ isOpen4: true });
         }
       });
     }
     walletConnectProvider.on("accountsChanged", (accounts) => {
       // walletConnect user address changed
-      if (!web3Data.accounts[0]) {
+      if (accounts.length > 0 && this.state.web3Data.isLoggedIn && (accounts[0] !== this.state.web3Data.accounts[0])) {
         this.props.clearNonce();
         this.props.authLogout();
         this.props.web3Logout(accounts);
-        this.props.history.push("/");
         this.setState({ isOpen4: true });
       }
     });
@@ -155,8 +166,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-        "...." +
-        newAddress.substring(newAddress.length - 5, newAddress.length)
+      "...." +
+      newAddress.substring(newAddress.length - 5, newAddress.length)
       : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
@@ -183,10 +194,10 @@ class Header extends Component {
   };
 
   disconnect = () => {
-    const { web3Data } = this.props;
     localStorage.clear();
+    this.props.clearNonce();
     this.props.authLogout();
-    this.props.web3Logout(web3Data.accounts);
+    this.props.web3Logout([]);
     this.props.history.push("/");
   };
 
@@ -473,7 +484,7 @@ class Header extends Component {
             {/* without Login  */}
             {!web3Data.isLoggedIn ? (
               <HeadSbx01 className="desktop-menu">
-                <AvBTN01 onClick={() => this.toggle(4)}>
+                <AvBTN01 onClick={() => this.setState({ isOpen4: true })}>
                   <FormattedMessage id="login" defaultMessage="Login" />
                 </AvBTN01>
                 <Language header={true} />

@@ -45,21 +45,21 @@ function SelectEdition(props) {
   };
 
   useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-          if (filterPopup === 1) toggle(1)
-        }
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        if (filterPopup === 1) toggle(1)
       }
+    }
 
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-          // Unbind the event listener on clean up
-          document.removeEventListener("mousedown", handleClickOutside);
-      };
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [wrapperRef, filterPopup, toggle]);
 
   useEffect(() => {
@@ -278,8 +278,8 @@ function SelectEdition(props) {
                           <td>
                             <CustomRadio1>
                               <label className="radio-container">
-                                {edition.isBurned ? 
-                                  <FormattedMessage id="burned" defaultMessage="Burned" />  :
+                                {edition.isBurned ?
+                                  <FormattedMessage id="burned" defaultMessage="Burned" /> :
                                   <FormattedMessage id="select" defaultMessage="Select" />
                                 }
                                 <input

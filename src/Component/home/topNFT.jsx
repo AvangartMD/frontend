@@ -65,7 +65,7 @@ class TopNFT extends Component {
         <div className='w40'>
           <NFTfbright>
             <NFTLike
-              className={loading || !this.props.web3Data?.isLoggedIn? `disabled` : ``}
+              className={loading || !this.props.web3Data?.isLoggedIn ? `disabled` : ``}
               onDoubleClick={() => {
                 this.props.likeToggler(nft.nftId.id);
                 this.setState({ loading: true });
@@ -275,7 +275,7 @@ const HomeNFTs = styled.div`
     }
   }
   ${Media.md} {
-    margin-top: 100px;
+    margin-top: 60px;
   }
 `;
 
