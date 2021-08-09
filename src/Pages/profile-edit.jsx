@@ -380,29 +380,29 @@ class ProfileEdit extends Component {
                               />
                               <span className="checkmark v2"></span>
                             </label>
-
-                            <InstagramLogin
-                              cssClass='background: none;'
-                              clientId={client_id}
-                              buttonText="Login"
-                              redirectUri={redirect_url}
-                              scope={['user_profile']}
-                              onSuccess={this.onInstagramSuccess}
-                              onFailure={this.onInstagramFailure}
-                            >
-                              <label className="checkbox-container">
-                                <img src={CICON02} alt="" />
-                                <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
-                                <input
-                                  type="checkbox"
-                                  checked={profile?.portfolio.instagarm.isVerified}
-                                  name=""
-                                  value="intagram"
-                                />
-                                <span className="checkmark v2"></span>
-                              </label>
-                            </InstagramLogin>
-
+                            <label className="checkbox-container">
+                              <InstagramLogin
+                                cssClass='background: none;'
+                                clientId={client_id}
+                                buttonText="Login"
+                                redirectUri={redirect_url}
+                                scope={['user_profile']}
+                                onSuccess={this.onInstagramSuccess}
+                                onFailure={this.onInstagramFailure}
+                              >
+                                
+                                  <img src={CICON02} alt="" />
+                                  <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
+                                  <input
+                                    type="checkbox"
+                                    checked={profile?.portfolio.instagarm.isVerified}
+                                    name=""
+                                    value="intagram"
+                                  />
+                                  <span className="checkmark v2"></span>
+                                
+                              </InstagramLogin>
+                            </label>
                           </CustomCheckbox1>
                         </NFTForm>
                       </div>
@@ -912,24 +912,38 @@ const CustomRadio1 = styled(FlexDiv)`
         `;
 
 const CustomCheckbox1 = styled(FlexDiv)`
-        justify-content: flex-start;
-        margin-bottom: 30px;
-        .checkbox-container {
-          display: flex;
-        align-items: center;
-        position: relative;
-        height: 54px;
-        width: calc(257px - 5px);
-        margin-right: 10px;
-        cursor: pointer;
-        padding-left: 15px;
-        line-height: 54px;
-        font-weight: 700;
-        font-size: 18px;
-        letter-spacing: -0.9px;
-        color: #000;
-        img {
-          margin-right: 5px;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  .checkbox-container
+  {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 54px;
+    width: calc(257px - 5px);
+    margin-right: 10px;
+    cursor: pointer;
+    padding-left: 15px;
+    line-height: 54px;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.9px;
+    color: #000;
+    button
+    {
+      display: flex;
+      align-items: center;
+      justify-content:flex-start;
+      padding:0px;
+      letter-spacing: -0.9px;
+      font-weight: 700;
+      :hover
+      {
+        background-color:transparent !important;
+      }
+    }
+    img {
+      margin-right: 5px;
     }
     ${Media.lg}{
       margin:0px 10px 10px 0px;
