@@ -32,17 +32,20 @@ function PABpopup(props) {
   const [bnbVal, setBnbVal] = useState("");
   const [usdVal, setUsdVal] = useState("");
   const [bnbUSDPrice, setBnbUSDPrice] = useState();
+  const [bnbTRYPrice, setBnbTRYPrice]= useState();
+  const [tryVal, setTryVal ] = useState("");
   const [accountBalance, setAccountBalance] = useState({ bnb: 0, usd: 0 });
   const [error, setError] = useState({ isError: false, msg: "" });
 
   useEffect(() => {
     async function fetchData() {
       const string =
-        "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
+      'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry';
       await fetch(string)
         .then((resp) => resp.json())
         .then(async (data) => {
           setBnbUSDPrice(data.binancecoin.usd);
+          setBnbTRYPrice(data.binancecoin.try);
         });
     }
     fetchData();
@@ -56,6 +59,7 @@ function PABpopup(props) {
         setAccountBalance({
           bnb: bnbBalance,
           usd: bnbUSDPrice * bnbBalance,
+          try: bnbTRYPrice * bnbBalance
         });
       }
     }
@@ -92,8 +96,11 @@ function PABpopup(props) {
   };
   const onValEnter = (e, inUSD) => {
     const val = e.target.value;
-    const _bnbVal = inUSD ? val / bnbUSDPrice : val;
+    const currentCurrency = props.lng === 'en' ?bnbUSDPrice:bnbTRYPrice;
+    console.log(currentCurrency);
+    const _bnbVal = inUSD ? (val /currentCurrency ).toString() : val;
     const _usdval = inUSD ? val : val * bnbUSDPrice;
+    const _tryVal = inUSD ? val : val * bnbTRYPrice;
     if (+_bnbVal <= currentBidValue)
       setError({
         isError: true,
@@ -117,12 +124,15 @@ function PABpopup(props) {
 
     setBnbVal(_bnbVal);
     setUsdVal(_usdval);
+    setTryVal(_tryVal);
   };
   const refreshStates = () => {
     setBnbVal("");
     setUsdVal("");
+    setTryVal("");
     setTxnStatus("");
   };
+
   return (
     <>
       <BlackWrap>
@@ -154,7 +164,7 @@ function PABpopup(props) {
                       <FormattedMessage id="your_balance" defaultMessage="Your Balance" /> :</p>
                     <p className="price-state">
                       {accountBalance.bnb.toLocaleString(2)} BNB |{" "}
-                      {accountBalance.usd.toLocaleString(2)} USD
+                      {accountBalance.usd.toLocaleString(2)} <FormattedMessage id='currency' defaultMessage='en' />
                     </p>
                   </BalanceLine>
                   <HalfInputs className={error.isError ? "errorinput" : null}>
@@ -173,10 +183,10 @@ function PABpopup(props) {
                         className="BL-straight"
                         type="text"
                         placeholder="0.00"
-                        value={usdVal}
+                        value={props.lng === 'en' ? usdVal:tryVal}
                         onChange={(e) => onValEnter(e, true)}
                       />
-                      <p>USD</p>
+                      <p><FormattedMessage id='currency' defaultMessage='en' /> </p> 
                     </HIBox>
                     {error.isError ? (
                       <p className="error">{error.msg}</p>
@@ -552,6 +562,7 @@ const mapDipatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     web3Data: state.fetchWeb3Data,
+    lng: state.fetchLanguage,
   };
 };
 

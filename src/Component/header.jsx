@@ -213,9 +213,9 @@ class Header extends Component {
       accountBalance,
       compactUserAddress,
     } = this.state;
-    const useGradient = this.props.location.pathname.includes("profile")
-      ? "gradient-header"
-      : null;
+    const value = this.props.location.pathname;
+    const parts = value.split('/');
+    const useGradient = parts[1] === "creator" || parts[2] === "profile"?"gradient-header": null;
     return (
       <>
         <HeadMBX className={useGradient}>

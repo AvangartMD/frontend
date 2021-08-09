@@ -133,15 +133,16 @@ class NftDetail extends React.Component {
       loading: false,
       selectedNFTDetails: null,
       isApprovedForAll: false,
+      NFTDetails:null
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const { NFTDetails, isLiked, web3Data } = this.props;
+    const {  isLiked, web3Data } = this.props;
     // console.log("this", this.props);
-    if (NFTDetails !== prevProps.NFTDetails) {
-      if (NFTDetails.tokenId && NFTDetails.edition)
-        this.getEditionNumber(NFTDetails, this.state.currentEdition);
-    }
+    // if (NFTDetails !== prevProps.NFTDetails) {
+    //   if (NFTDetails.tokenId && NFTDetails.edition)
+    //     this.getEditionNumber(NFTDetails, this.state.currentEdition);
+    // }
     if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
     }
@@ -155,7 +156,9 @@ class NftDetail extends React.Component {
 
   async componentDidMount() {
     if (this.props.match.params.id) {
-      this.props.getSingleNFTDetails(this.props.match.params.id);
+      // this.props.getSingleNFTDetails(this.props.match.params.id);
+     const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
+     if(NFTDetails){this.setState({NFTDetails},()=>this.getEditionNumber(NFTDetails, this.state.currentEdition))}
       this.props.getLikesCount(this.props.match.params.id);
       this.props.getIsLiked(this.props.match.params.id);
     }
@@ -186,7 +189,8 @@ class NftDetail extends React.Component {
     price
   ) => {
     // console.log("thi is called");
-    const { NFTDetails, web3Data } = this.props;
+    const { web3Data } = this.props;
+    const NFTDetails = this.state.NFTDetails
     const isAuction = secondHand
       ? false
       : NFTDetails.auctionEndDate > new Date().getTime() / 1000;
@@ -289,7 +293,8 @@ class NftDetail extends React.Component {
     this.setEditionnumber(index);
   };
   async fetchNFTDetails(_edition) {
-    const { NFTDetails, authData, web3Data } = this.props;
+    const {  authData, web3Data } = this.props;
+    const NFTDetails = this.state.NFTDetails
     const escrowContractInstance = getContractInstance(true);
 
     const tokenID = NFTDetails.tokenId;
@@ -409,9 +414,9 @@ class NftDetail extends React.Component {
     }
   };
 
-  getNFTDetails = () => {
-    this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the updated nft details
-  };
+  getNFTDetails = async() => {
+    const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
+    if(NFTDetails){this.setState({NFTDetails},()=>this.getEditionNumber(NFTDetails, this.state.currentEdition))}  };
 
   render() {
     let id = this.props.match.params.id;
@@ -423,10 +428,11 @@ class NftDetail extends React.Component {
       saleMethod,
       showTimer,
       selectedNFTDetails,
+      NFTDetails,
       isApprovedForAll,
     } = this.state;
     // console.log("New sale method", saleMethod);
-    const { NFTDetails, likesCount, isLiked, authData, web3Data } = this.props;
+    const {  likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === 'en' ? bnbUSDPrice.usd : bnbUSDPrice.try;
     return (
@@ -1074,7 +1080,7 @@ const NFTcartButtons = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     likeToggler: (id) => dispatch(actions.likeToggler(id)),
-    getSingleNFTDetails: (id) => dispatch(actions.getSingleNFTDetails(id)),
+    // getSingleNFTDetails: (id) => dispatch(actions.getSingleNFTDetails(id)),
     getLikesCount: (id) => dispatch(actions.getLikesCount(id)),
     getIsLiked: (id) => dispatch(actions.getIsLiked(id)),
   };

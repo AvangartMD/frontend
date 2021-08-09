@@ -150,18 +150,25 @@ function getUserDraftNFT() {
   };
 }
 
-function getSingleNFTDetails(id) {
-  return async (dispatch) => {
-    const response = services.get(`nft/single/${id}`, true);
-    response.then((promise) => {
-      if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_SINGLE_NFT_DETAILS", promise.data.data));
+async function getSingleNFTDetails(id) {
+  console.log("called",id)
+  // return async (dispatch) => {
+    const response = await services.get(`nft/single/${id}`, true);
+    console.log("called",response)
+
+    // return promise.data.data;
+    // response.then((promise) => {
+      if (response.status === 200) {
+        console.log("called",response.data.data)
+        return response.data.data;
       } else {
+        console.log("called",response)
+        return null;
         // console.log("error");
       }
-    });
+    // });
   };
-}
+// }
 
 function getLikesCount(id) {
   return async (dispatch) => {
