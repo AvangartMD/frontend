@@ -21,7 +21,9 @@ function TxnStatus(props) {
       )}
       {status === "progress" && (
         <>
-          <OnbTitle01 className="v2">Transaction in progress</OnbTitle01>
+          <OnbTitle01 className="v2">
+            <FormattedMessage id="transaction_in_progress" defaultMessage="Transaction in progress" />
+          </OnbTitle01>
           <LoaderBX>
             <img src={LoaderGif} alt="" />
           </LoaderBX>
@@ -29,7 +31,9 @@ function TxnStatus(props) {
       )}
       {status === "progress1" && (
         <>
-          <OnbTitle01 className="v2">Submission in progress</OnbTitle01>
+          <OnbTitle01 className="v2">
+            <FormattedMessage id="submission_in_progress" defaultMessage="Submission in progress" />
+          </OnbTitle01>
           <LoaderBX>
             <img src={LoaderGif} alt="" />
           </LoaderBX>
@@ -58,7 +62,10 @@ function TxnStatus(props) {
       )}
       {status === "error" && (
         <>
-          <WGTitle>Transaction failed !!!</WGTitle>
+          <WGTitle>
+            <FormattedMessage id="transaction_failed" defaultMessage="Transaction failed" />
+            !!!
+          </WGTitle>
           <WGdescText>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
             nunc nulla, sollicitudin ac dignissim vitae, dapibus at enim.

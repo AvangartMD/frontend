@@ -152,3 +152,12 @@ export function fetchLanguage(state = "en", action) {
       return state;
   }
 }
+
+export function verified_by_instagram(state = null, action) {
+  switch (action.type) {
+    case "VERIFIED_BY_INSTAGRAM":
+      return action.data;
+    default:
+      return state;
+  }
+}

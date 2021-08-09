@@ -53,6 +53,7 @@ import {
   fetchNotifications,
   fetchProfileBanner,
   fetchLanguage,
+  verified_by_instagram,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -103,6 +104,7 @@ const rootReducer = combineReducers({
   fetchHallOfFrameCollector,
   fetchHallOfFrameArtwork,
   fetchHallOfFrameArtist,
+  verified_by_instagram,
 });
 
 export default rootReducer;

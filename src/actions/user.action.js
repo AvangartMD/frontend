@@ -22,6 +22,7 @@ export const userActions = {
   getNotifications,
   getProfileBanner,
   setLanguage,
+  sendInstagramCode,
 };
 
 function fetchedData(type, data) {
@@ -332,5 +333,17 @@ function setLanguage(lng) {
     //   // console.log("error");
     // }
     // });
+  };
+}
+function sendInstagramCode(code) {
+  return (dispatch) => {
+    const response = services.post(`/user/validateInstagram`, { 'code': code });
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("VERIFIED_BY_INSTAGRAM", promise.status));
+      } else {
+        // console.log("error");
+      }
+    });
   };
 }

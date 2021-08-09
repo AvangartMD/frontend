@@ -107,7 +107,9 @@ class CollectionEdit extends Component {
     return (
       <Gs.MainSection>
 
-        {updated ? <SuccessPopup message="Collection details are updated sucessfully." url={`/collection-detail/${id}`} /> : ("")}
+        {updated ? <SuccessPopup
+          message={<FormattedMessage id="collection_success" />}
+          url={`/collection-detail/${id}`} /> : ("")}
 
         {loading ? (
           <>

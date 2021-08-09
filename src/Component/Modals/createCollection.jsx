@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 import { actions } from "../../actions";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import { connect } from "react-redux";
@@ -20,8 +21,8 @@ function CreateCollection(props) {
   const [params, setParams] = useState({ name: null, description: null, logo: null, category: [] })
   const [error, setError] = useState({ name: false, description: false, logo: false, category: false })
   const msg1 = {
-    0: "Collection Added!",
-    1: "You can select your newly created collection.",
+    0: <FormattedMessage id="collection_added" />,
+    1: <FormattedMessage id="collection_added_detail" />,
   };
   const [msg, setMsg] = useState(msg1);
   // const msg2 ={0:"Addition Failed!", 1:}
@@ -40,7 +41,7 @@ function CreateCollection(props) {
       setMsg(msg1);
     } else if (props.newCollection && !props.newCollection.status) {
       setCollectionAdded(true);
-      setMsg({ 0: "Addition Failed!", 1: props.newCollection.message });
+      setMsg({ 0: <FormattedMessage id="collection_failed" />, 1: props.newCollection.message });
     } else {
       setCollectionAdded(false);
     }

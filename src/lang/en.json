@@ -140,5 +140,19 @@
   "faq_label": "Frequently Asked Questions",
   "unlock_content_label": "Unlockable content message",
   "transfer": "Transfer",
-  "currency": "USD"
+  "currency": "USD",
+  "collection_success": "Collection details are updated sucessfully",
+  "collection_added": "Collection Added!",
+  "collection_added_detail": "You can select your newly created collection",
+  "collection_failed": "Addition Failed!",
+  "profile_updated": "Your profile details are updated sucessfully",
+  "footer_text": "A highly curated NFT marketplace that brings together top creators from different categories. NFTs from people you know and love.",
+  "transaction_in_progress": "Transaction in progress",
+  "submission_in_progress": "Submission in progress",
+  "transaction_complete": "Transaction Complete",
+  "burn_success": "Burn Succesfull",
+  "transfer_success": "Transfer Succesfull",
+  "minting_complete": "Minting Complete",
+  "nft_can_not_update": "NFT Can Not Update",
+  "transaction_failed": "Transaction failed"
 }

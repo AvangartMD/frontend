@@ -25,8 +25,8 @@ function NftOwnerActions(props) {
     nftDetails,
   } = props;
   const succesMsg = {
-    burnTokenEdition: 'Burn Succesfull',
-    transfer: 'Transfer Succesfull',
+    burnTokenEdition: <FormattedMessage id="burn_success" defaultMessage="Burn Successfull" />,
+    transfer: <FormattedMessage id="transfer_success" defaultMessage="Transfer Successfull" />,
   };
   const escrowContractInstance = getContractInstance(true);
   const nftContractContractInstance = getContractInstance();
@@ -245,12 +245,11 @@ function NftOwnerActions(props) {
               )}
               {confirm && (
                 <>
-                  <PBtitle className='AStitle'>Confirm</PBtitle>
+                  <PBtitle className='AStitle'>
+                    <FormattedMessage id="confirm" defaultMessage="Confirm" />
+                  </PBtitle>
                   <PBDesc className='ASDesc mb-10'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                    cursus.
+                    <FormattedMessage id="confirm_label" />
                   </PBDesc>
                   <SkyWalletAddress>{reciever}</SkyWalletAddress>
                   <NFTcartButtons>

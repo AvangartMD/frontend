@@ -15,3 +15,9 @@ export const awsBucket = 'avangrat-development';
 
 // set expiry time for the localstorage data
 export const expiryTime = 43200000; // 12 hours into miliseconds
+
+
+// Instragram config 
+export const client_id = '4418122684888051';
+// export const redirect_url = 'https://avangrat.52.28.101.213.nip.io/user/edit-profile';
+export const redirect_url = 'https://f20a909fd8cc.ngrok.io/user/edit-profile/';

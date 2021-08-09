@@ -16,7 +16,9 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
           </CloseBTN>
           {mintNFTStatus === "" && (
             <>
-              <WGTitle>We got your submission!</WGTitle>
+              <WGTitle>
+                <FormattedMessage id="we_got_submission" defaultMessage="We got your Submission!" />
+              </WGTitle>
               <FTTitle>Follow these steps</FTTitle>
               <TokenBox>
                 <TokenLeft>
@@ -54,7 +56,9 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
           )}
           {mintNFTStatus === "progress" && (
             <>
-              <OnbTitle01 className="v2">Transaction in progress</OnbTitle01>
+              <OnbTitle01 className="v2">
+                <FormattedMessage id="transaction_in_progress" defaultMessage="Transaction in progress" />
+              </OnbTitle01>
               <LoaderBX>
                 <img src={LoaderGif} alt="" />
               </LoaderBX>
@@ -62,7 +66,9 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
           )}
           {mintNFTStatus === "progress1" && (
             <>
-              <OnbTitle01 className="v2">Submission in progress</OnbTitle01>
+              <OnbTitle01 className="v2">
+                <FormattedMessage id="submission_in_progress" defaultMessage="Submission in progress" />
+              </OnbTitle01>
               <LoaderBX>
                 <img src={LoaderGif} alt="" />
               </LoaderBX>
@@ -71,14 +77,20 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
 
           {mintNFTStatus === "complete" && (
             <>
-              <OnbTitle01 className="v2">Minting Complete</OnbTitle01>
+              <OnbTitle01 className="v2">
+                <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
+              </OnbTitle01>
             </>
           )}
 
           {mintNFTStatus === "error" && (
             <>
-              <OnbTitle01>Attention!</OnbTitle01>
-              <OnbText01>NFT Can Not Update</OnbText01>
+              <OnbTitle01>
+                <FormattedMessage id="attention" defaultMessage="Attention!" />
+              </OnbTitle01>
+              <OnbText01>
+                <FormattedMessage id="nft_can_not_update" defaultMessage="NFT Can Not Update" />
+              </OnbText01>
             </>
           )}
         </WhiteBX01>

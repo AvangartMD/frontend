@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import InstagramLogin from 'react-instagram-login';
 import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
@@ -18,6 +19,7 @@ import LoaderGif from "../Assets/images/loading.gif";
 import SuccessPopup from "../Component/Modals/sucessPopup";
 
 import { actions } from "../actions";
+import { client_id, redirect_url } from '../config';
 import Media from '../Theme/media-breackpoint';
 import Scrollspy from 'react-scrollspy';
 
@@ -43,12 +45,15 @@ class ProfileEdit extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { profile, updated, error } = this.props;
+    let { profile, updated, error, verified_by_insta } = this.props;
     if (profile !== prevProps.profile) {
       this.setState({ userObj: profile }); // store props into state
     }
     if (updated !== prevProps.updated) {
       this.profileUpdated(updated); // profile updated
+    }
+    if (verified_by_insta !== prevProps.verified_by_insta) {
+      this.profileUpdated(updated); // verified by instagram
     }
     if (error !== prevProps.error) {
       if (error) {
@@ -130,6 +135,16 @@ class ProfileEdit extends Component {
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
+  onInstagramSuccess = (code) => {
+    console.log('onInstagramSuccess code ? ', code)
+    this.props.sendInstaCode(code)
+    this.setState({ loading: true })
+  }
+
+  onInstagramFailure = (params) => {
+    console.log('onInstagramFailure ? ', params)
+  }
+
 
   render() {
     const { profile } = this.props;
@@ -140,7 +155,7 @@ class ProfileEdit extends Component {
       if (hash === curr) return "active";
       else return "inactive";
     }
-
+    console.log('--? ', profile)
     return (
       <Gs.MainSection>
 
@@ -161,7 +176,9 @@ class ProfileEdit extends Component {
           ""
         )}
 
-        {updated ? <SuccessPopup message="Your profile details are updated sucessfully." url="/user/profile" /> : ("")}
+        {updated ? <SuccessPopup
+          message={<FormattedMessage id="profile_updated" />}
+          url="/user/profile" /> : ("")}
 
         <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
@@ -353,27 +370,39 @@ class ProfileEdit extends Component {
                         <NFTForm>
                           <CustomCheckbox1>
                             <label className="checkbox-container">
-                              {" "}
                               <img src={CICON01} alt="" />
                               <FormattedMessage id="verify_twitter" defaultMessage="Verify via Twitter" />
-                              <button
+                              <input
+                                checked={profile?.portfolio.twitter.isVerified}
                                 type="checkbox"
-                                name="category"
-                                value="aa"
+                                name=""
+                                value="twitter"
                               />
                               <span className="checkmark v2"></span>
                             </label>
-                            <label className="checkbox-container">
-                              {" "}
-                              <img src={CICON02} alt="" />
-                              <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
-                              <button
-                                type="checkbox"
-                                name="category"
-                                value="celebrity"
-                              />
-                              <span className="checkmark v2"></span>
-                            </label>
+
+                            <InstagramLogin
+                              cssClass='background: none;'
+                              clientId={client_id}
+                              buttonText="Login"
+                              redirectUri={redirect_url}
+                              scope={['user_profile']}
+                              onSuccess={this.onInstagramSuccess}
+                              onFailure={this.onInstagramFailure}
+                            >
+                              <label className="checkbox-container">
+                                <img src={CICON02} alt="" />
+                                <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
+                                <input
+                                  type="checkbox"
+                                  checked={profile?.portfolio.instagarm.isVerified}
+                                  name=""
+                                  value="intagram"
+                                />
+                                <span className="checkmark v2"></span>
+                              </label>
+                            </InstagramLogin>
+
                           </CustomCheckbox1>
                         </NFTForm>
                       </div>
@@ -1154,6 +1183,7 @@ const mapDipatchToProps = (dispatch) => {
     getProfile: () => dispatch(actions.getProfile()),
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
     clearErrors: () => dispatch({ type: 'API_FAILED', data: null }),
+    sendInstaCode: (code) => dispatch(actions.sendInstagramCode(code)),
   };
 };
 const mapStateToProps = (state) => {
@@ -1161,6 +1191,7 @@ const mapStateToProps = (state) => {
     profile: state.fetchProfile,
     updated: state.updateProfile,
     error: state.fetchResponseFailed,
+    verified_by_insta: state.verified_by_instagram,
   };
 };
 

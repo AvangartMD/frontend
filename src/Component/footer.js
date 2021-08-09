@@ -50,9 +50,7 @@ function Footer(props) {
           <FooterSSbx01>
             <img src={LogoImg} alt="" />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque mollis urna ac ante tempor rutrum. Morbi in fringilla
-              nisi.
+              <FormattedMessage id="footer_text" />
             </p>
 
             <button onClick={() => props.history.push("/about")}>
