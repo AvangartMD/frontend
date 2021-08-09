@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { connect } from 'react-redux';
-import dateFormat from 'dateformat';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import { Scrollbars } from "react-custom-scrollbars";
+import { connect } from "react-redux";
+import dateFormat from "dateformat";
 
-import { actions } from '../actions';
-import CloseBTN01 from '../Assets/images/closeBTN01.svg';
-import LoaderGif from '../Assets/images/loading.gif';
+import { actions } from "../actions";
+import CloseBTN01 from "../Assets/images/closeBTN01.svg";
+import LoaderGif from "../Assets/images/loading.gif";
 
-import Media from '../Theme/media-breackpoint';
+import Media from "../Theme/media-breackpoint";
 
 class CustomScrollbars extends Component {
   render() {
     return (
       <Scrollbars
         renderTrackVertical={(props) => (
-          <div {...props} className='track-vertical' />
+          <div {...props} className="track-vertical" />
         )}
         renderThumbVertical={(props) => (
-          <div {...props} className='thumb-vertical' />
+          <div {...props} className="thumb-vertical" />
         )}
-        renderView={(props) => <div {...props} className='view' />}
+        renderView={(props) => <div {...props} className="view" />}
         autoHide
         style={this.props.style}
       >
@@ -48,12 +48,16 @@ class Historypopup extends Component {
     this.props.getHistory(nftId, edition); // get NFT edition history
 
     const string =
-      'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd';
+      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd";
     await fetch(string)
       .then((resp) => resp.json())
       .then(async (data) => {
         this.setState({ bnbUSDPrice: data.binancecoin.usd });
       });
+  }
+  async componentDidUpdate(prevProps, prevState) {
+    const { nftId, edition } = this.props;
+    if (edition !== prevState.edition) this.props.getHistory(nftId, edition);
   }
 
   render() {
@@ -66,23 +70,23 @@ class Historypopup extends Component {
             {history ? (
               <>
                 <CloseBTN
-                  className='ani-1'
+                  className="ani-1"
                   onClick={() => this.props.toggle(9)}
                 >
-                  <img src={CloseBTN01} alt='' />
+                  <img src={CloseBTN01} alt="" />
                 </CloseBTN>
 
                 <Htitle>
-                  <FormattedMessage id='history' defaultMessage='History' />
+                  <FormattedMessage id="history" defaultMessage="History" />
                 </Htitle>
                 <CustomScrollbars
                   autoHide
                   autoHideTimeout={1000}
                   style={{
-                    width: '100%',
-                    height: '400px',
-                    position: 'relative',
-                    className: 'HCscroll',
+                    width: "100%",
+                    height: "400px",
+                    position: "relative",
+                    className: "HCscroll",
                   }}
                 >
                   {history.map((history, key) => {
@@ -92,51 +96,51 @@ class Historypopup extends Component {
                           <h3>
                             {history
                               ? history.text
-                              : 'Lorem ipsum dolor sit amet'}
+                              : "Lorem ipsum dolor sit amet"}
                           </h3>
-                          <p className='desktop-block'>
+                          <p className="desktop-block">
                             {history
                               ? history.createdAt
                                 ? dateFormat(
                                     new Date(history.createdAt).toString(),
-                                    'dd mmmm yyyy'
+                                    "dd mmmm yyyy"
                                   )
-                                : 'Transaction Date Here'
-                              : 'Transaction Date Here'}
+                                : "Transaction Date Here"
+                              : "Transaction Date Here"}
                           </p>
-                          <HDmiddle className='mobile-block'>
+                          <HDmiddle className="mobile-block">
                             <p>
                               <FormattedMessage
-                                id='history_by_label'
-                                defaultMessage='by'
-                              />{' '}
-                              @<b>{history ? history.ownerId?.username : ''}</b>
+                                id="history_by_label"
+                                defaultMessage="by"
+                              />{" "}
+                              @<b>{history ? history.ownerId?.username : ""}</b>
                             </p>
                           </HDmiddle>
-                          <p className='mobile-block'>
+                          <p className="mobile-block">
                             {history
                               ? history.createdAt
                                 ? dateFormat(
                                     new Date(history.createdAt).toString(),
-                                    'dd mmmm yyyy'
+                                    "dd mmmm yyyy"
                                   )
-                                : 'Transaction Date Here'
-                              : 'Transaction Date Here'}
+                                : "Transaction Date Here"
+                              : "Transaction Date Here"}
                           </p>
                         </HDleft>
-                        <HDmiddle className='desktop-block'>
+                        <HDmiddle className="desktop-block">
                           <p>
                             by @
-                            <b>{history ? history.ownerId?.username : ''}</b>
+                            <b>{history ? history.ownerId?.username : ""}</b>
                           </p>
                         </HDmiddle>
                         <HDright>
                           <HDrightbox>
-                            <h3>{history ? history.buyPrice : '0.00'} BNB</h3>
+                            <h3>{history ? history.buyPrice : "0.00"} BNB</h3>
                             <p>
                               {(history?.buyPrice * bnbUSDPrice).toLocaleString(
                                 2
-                              )}{' '}
+                              )}{" "}
                               USD
                             </p>
                           </HDrightbox>
@@ -148,11 +152,11 @@ class Historypopup extends Component {
               </>
             ) : (
               <>
-                <OnbTitle01 className='v2'>
+                <OnbTitle01 className="v2">
                   Please wait history is fetching
                 </OnbTitle01>
                 <LoaderBX>
-                  <img src={LoaderGif} alt='' />
+                  <img src={LoaderGif} alt="" />
                 </LoaderBX>
               </>
             )}
@@ -163,7 +167,7 @@ class Historypopup extends Component {
   }
 
   toggle = (index) => {
-    let collapse = 'isOpen' + index;
+    let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
