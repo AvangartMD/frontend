@@ -161,3 +161,21 @@ export function verified_by_instagram(state = null, action) {
       return state;
   }
 }
+
+export function fetch_twitter_access_token(state = null, action) {
+  switch (action.type) {
+    case "TWITTER_ACCESS_TOKEN":
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function verified_by_twitter(state = null, action) {
+  switch (action.type) {
+    case "VERIFIED_BY_TWITTER":
+      return action.data;
+    default:
+      return state;
+  }
+}

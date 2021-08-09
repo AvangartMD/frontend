@@ -54,6 +54,8 @@ import {
   fetchProfileBanner,
   fetchLanguage,
   verified_by_instagram,
+  fetch_twitter_access_token,
+  verified_by_twitter,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -105,6 +107,8 @@ const rootReducer = combineReducers({
   fetchHallOfFrameArtwork,
   fetchHallOfFrameArtist,
   verified_by_instagram,
+  fetch_twitter_access_token,
+  verified_by_twitter,
 });
 
 export default rootReducer;

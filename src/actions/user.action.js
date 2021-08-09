@@ -23,6 +23,8 @@ export const userActions = {
   getProfileBanner,
   setLanguage,
   sendInstagramCode,
+  getTwitterAccessToken,
+  verifyByTwitter,
 };
 
 function fetchedData(type, data) {
@@ -341,6 +343,30 @@ function sendInstagramCode(code) {
     return response.then((promise) => {
       if (promise.data) {
         dispatch(fetchedData("VERIFIED_BY_INSTAGRAM", promise.status));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+function getTwitterAccessToken() {
+  return (dispatch) => {
+    const response = services.get(`/user/twitter/access_token`, true);
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("TWITTER_ACCESS_TOKEN", promise.data.data));
+      } else {
+        // console.log("error");
+      }
+    });
+  };
+}
+function verifyByTwitter(oauth_token, oauth_verifier) {
+  return (dispatch) => {
+    const response = services.post(`/user/validateTwitter`, { 'oauth_verifier': oauth_verifier, 'oauth_token': oauth_token });
+    return response.then((promise) => {
+      if (promise.data) {
+        dispatch(fetchedData("VERIFIED_BY_TWITTER", promise.status));
       } else {
         // console.log("error");
       }

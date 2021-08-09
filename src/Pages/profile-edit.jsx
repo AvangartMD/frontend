@@ -32,6 +32,7 @@ class ProfileEdit extends Component {
       updated: false,
       userObj: null,
       formChange: false,
+      oauth_token: null,
     };
   }
 
@@ -42,10 +43,14 @@ class ProfileEdit extends Component {
     } else {
       this.setState({ userObj: profile });
     }
+    let Query = new URLSearchParams(this.props.location.search)
+    if (Query.get("oauth_token") && Query.get("oauth_verifier")) {
+      this.props.verifyByTwitter(Query.get("oauth_token"), Query.get("oauth_verifier")); // verify via twitter
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let { profile, updated, error, verified_by_insta } = this.props;
+    let { profile, updated, error, verified_by_insta, access_token, verified_by_twitter } = this.props;
     if (profile !== prevProps.profile) {
       this.setState({ userObj: profile }); // store props into state
     }
@@ -54,6 +59,13 @@ class ProfileEdit extends Component {
     }
     if (verified_by_insta !== prevProps.verified_by_insta) {
       this.profileUpdated(updated); // verified by instagram
+    }
+    if (verified_by_twitter !== prevProps.verified_by_twitter) {
+      this.profileUpdated(updated); // verified by twitter
+    }
+    if (access_token !== prevProps.access_token) {
+      console.log('access_token ? ', access_token)
+      window.open(access_token.redirect_uri, "_self")
     }
     if (error !== prevProps.error) {
       if (error) {
@@ -136,7 +148,6 @@ class ProfileEdit extends Component {
   };
 
   onInstagramSuccess = (code) => {
-    console.log('onInstagramSuccess code ? ', code)
     this.props.sendInstaCode(code)
     this.setState({ loading: true })
   }
@@ -155,7 +166,7 @@ class ProfileEdit extends Component {
       if (hash === curr) return "active";
       else return "inactive";
     }
-    console.log('--? ', profile)
+
     return (
       <Gs.MainSection>
 
@@ -373,6 +384,12 @@ class ProfileEdit extends Component {
                               <img src={CICON01} alt="" />
                               <FormattedMessage id="verify_twitter" defaultMessage="Verify via Twitter" />
                               <input
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    this.setState({ loading: true })
+                                    this.props.getTwitterAccessToken();
+                                  }
+                                }}
                                 checked={profile?.portfolio.twitter.isVerified}
                                 type="checkbox"
                                 name=""
@@ -381,16 +398,16 @@ class ProfileEdit extends Component {
                               <span className="checkmark v2"></span>
                             </label>
                             <label className="checkbox-container">
-                              <InstagramLogin
-                                cssClass='background: none;'
-                                clientId={client_id}
-                                buttonText="Login"
-                                redirectUri={redirect_url}
-                                scope={['user_profile']}
-                                onSuccess={this.onInstagramSuccess}
-                                onFailure={this.onInstagramFailure}
-                              >
-                                
+                              {!profile?.portfolio.instagarm.isVerified ?
+                                <InstagramLogin
+                                  cssClass='background: none;'
+                                  clientId={client_id}
+                                  buttonText="Login"
+                                  redirectUri={redirect_url}
+                                  scope={['user_profile']}
+                                  onSuccess={this.onInstagramSuccess}
+                                  onFailure={this.onInstagramFailure}
+                                >
                                   <img src={CICON02} alt="" />
                                   <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
                                   <input
@@ -400,8 +417,19 @@ class ProfileEdit extends Component {
                                     value="intagram"
                                   />
                                   <span className="checkmark v2"></span>
-                                
-                              </InstagramLogin>
+                                </InstagramLogin>
+                                : <>
+                                    <img src={CICON02} alt="" />
+                                    <FormattedMessage id="verify_instagram" defaultMessage="Verify via Instagram" />
+                                    <input
+                                      type="checkbox"
+                                      checked={profile?.portfolio.instagarm.isVerified}
+                                      name=""
+                                      value="intagram"
+                                    />
+                                    <span className="checkmark v2"></span>
+                                  </>
+                              }
                             </label>
                           </CustomCheckbox1>
                         </NFTForm>
@@ -1198,6 +1226,8 @@ const mapDipatchToProps = (dispatch) => {
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
     clearErrors: () => dispatch({ type: 'API_FAILED', data: null }),
     sendInstaCode: (code) => dispatch(actions.sendInstagramCode(code)),
+    getTwitterAccessToken: () => dispatch(actions.getTwitterAccessToken()),
+    verifyByTwitter: (token, verifier) => dispatch(actions.verifyByTwitter(token, verifier)),
   };
 };
 const mapStateToProps = (state) => {
@@ -1206,6 +1236,8 @@ const mapStateToProps = (state) => {
     updated: state.updateProfile,
     error: state.fetchResponseFailed,
     verified_by_insta: state.verified_by_instagram,
+    access_token: state.fetch_twitter_access_token,
+    verified_by_twitter: state.verified_by_twitter,
   };
 };
 
