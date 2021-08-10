@@ -35,6 +35,7 @@ function getWeb3(val) {
         if (promise?.accounts[0]) {
           dispatch(setDispatchData(promise, "FETCH_WEB3_DATA"));
         } else {
+          localStorage.clear();
           // console.log('errorrrr in actions');
         }
       });
