@@ -433,7 +433,7 @@ class ProfileEdit extends Component {
                           />
                         </NFTForm>
                       </div>
-                      <div id='verifyProfile'>
+                      {/* <div id='verifyProfile'>
                         <NFTtitle>
                           <h4 className='mt-30'>
                             <FormattedMessage
@@ -457,12 +457,12 @@ class ProfileEdit extends Component {
                                 defaultMessage='Verify via Twitter'
                               />
                               <input
-                                // onChange={(e) => {
-                                //   if (e.target.checked) {
-                                //     this.setState({ loading: true });
-                                //     this.props.getTwitterAccessToken();
-                                //   }
-                                // }}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    this.setState({ loading: true });
+                                    this.props.getTwitterAccessToken();
+                                  }
+                                }}
                                 checked={profile?.portfolio.twitter.isVerified}
                                 type='checkbox'
                                 name=''
@@ -471,7 +471,7 @@ class ProfileEdit extends Component {
                               <span className='checkmark v2'></span>
                             </label>
                             <label className='checkbox-container'>
-                              {/* {!profile?.portfolio.instagarm.isVerified ? (
+                              {!profile?.portfolio.instagarm.isVerified ? (
                                 <InstagramLogin
                                   cssClass='background: none;'
                                   clientId={client_id}
@@ -513,26 +513,11 @@ class ProfileEdit extends Component {
                                   />
                                   <span className='checkmark v2'></span>
                                 </>
-                              )} */}
-
-                              <img src={CICON02} alt='' />
-                              <FormattedMessage
-                                id='verify_instagram'
-                                defaultMessage='Verify via Instagram'
-                              />
-                              <input
-                                type='checkbox'
-                                checked={
-                                  profile?.portfolio.instagarm.isVerified
-                                }
-                                name=''
-                                value='intagram'
-                              />
-                              <span className='checkmark v2'></span>
+                              )}
                             </label>
                           </CustomCheckbox1>
                         </NFTForm>
-                      </div>
+                      </div> */}
                       <div id='socialLink'>
                         <NFTtitle>
                           <h4 className='mt-30'>
