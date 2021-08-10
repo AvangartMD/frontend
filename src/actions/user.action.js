@@ -1,4 +1,4 @@
-import { services } from "../services";
+import { services } from '../services';
 
 export const userActions = {
   fetchCategories,
@@ -39,7 +39,7 @@ function fetchCategories() {
     const response = services.get(`/category/list`);
     const promise = await response;
     if (promise.data) {
-      dispatch(fetchedData("FETCHED_CATEGORIES", promise.data.data));
+      dispatch(fetchedData('FETCHED_CATEGORIES', promise.data.data));
     } else {
       // console.log('error in fetchCategories actions');
     }
@@ -51,7 +51,7 @@ function getProfile(userId) {
     const response = services.get(`user/userDetails?userId=${userId}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PROFILE", promise.data.data));
+        dispatch(fetchedData('FETCHED_PROFILE', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -65,14 +65,14 @@ function updateUserDetails(params) {
       const response = services.put(`user/update`, params);
       response.then((promise) => {
         if (promise.status === 200) {
-          dispatch(fetchedData("PROFILE_UPDATED", promise.data.data));
+          dispatch(fetchedData('PROFILE_UPDATED', promise.data.data));
         } else {
           // console.log("error");
         }
       });
       response.then((data) => {
         if (data.response) {
-          dispatch(fetchedData("API_FAILED", data.response.data.message));
+          dispatch(fetchedData('API_FAILED', data.response.data.message));
         }
       });
     } catch (error) {
@@ -91,7 +91,7 @@ function getUserNFT(id, filter) {
     );
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_USER_NFT", promise.data.data));
+        dispatch(fetchedData('FETCHED_USER_NFT', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -101,12 +101,12 @@ function getUserNFT(id, filter) {
 function createCollection(data) {
   let params = JSON.stringify(data);
   return async (dispatch) => {
-    const response = services.post("nft/addCollection", params);
+    const response = services.post('nft/addCollection', params);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("CREATE_COLLECTION", promise.data));
+        dispatch(fetchedData('CREATE_COLLECTION', promise.data));
       } else {
-        dispatch(fetchedData("CREATE_COLLECTION", promise.response.data));
+        dispatch(fetchedData('CREATE_COLLECTION', promise.response.data));
       }
     });
   };
@@ -117,8 +117,8 @@ function getCreators(params = {}) {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_CREATORS", promise.data.data));
+        dispatch(fetchedData('FETCHED_PAGINATION', promise.data.pagination));
+        dispatch(fetchedData('FETCHED_CREATORS', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -131,8 +131,8 @@ function getMoreCreators(params = {}) {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
-        dispatch(fetchedData("FETCHED_MORE_CREATORS", promise.data.data));
+        dispatch(fetchedData('FETCHED_PAGINATION', promise.data.pagination));
+        dispatch(fetchedData('FETCHED_MORE_CREATORS', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -145,7 +145,7 @@ function getUserDraftNFT() {
     const response = services.get(`nft/listNftByUser?filter=draft`, true);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_USER_DRAFT_NFT", promise.data.data));
+        dispatch(fetchedData('FETCHED_USER_DRAFT_NFT', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -154,23 +154,23 @@ function getUserDraftNFT() {
 }
 
 async function getSingleNFTDetails(id) {
-  console.log("called",id)
+  // console.log('called', id);
   // return async (dispatch) => {
-    const response = await services.get(`nft/single/${id}`, true);
-    console.log("called",response)
+  const response = await services.get(`nft/single/${id}`, true);
+  // console.log("called",response)
 
-    // return promise.data.data;
-    // response.then((promise) => {
-      if (response.status === 200) {
-        console.log("called",response.data.data)
-        return response.data.data;
-      } else {
-        console.log("called",response)
-        return null;
-        // console.log("error");
-      }
-    // });
-  };
+  // return promise.data.data;
+  // response.then((promise) => {
+  if (response.status === 200) {
+    // console.log("called",response.data.data)
+    return response.data.data;
+  } else {
+    // console.log("called",response)
+    return null;
+    // console.log("error");
+  }
+  // });
+}
 // }
 
 function getLikesCount(id) {
@@ -178,7 +178,7 @@ function getLikesCount(id) {
     const response = services.get(`like/getLikesCount/${id}`);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_LIKES_COUNT", promise.data.data));
+        dispatch(fetchedData('FETCHED_LIKES_COUNT', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -204,7 +204,7 @@ function getIsLiked(id) {
     const response = services.get(`like/isLiked/${id}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_IS_LIKED", promise.data.data));
+        dispatch(fetchedData('FETCHED_IS_LIKED', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -217,7 +217,7 @@ function getIsFollow(id) {
     const response = services.get(`follow/checkIsFollowed/${id}`, true);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_IS_FOLLOW", promise.data.data));
+        dispatch(fetchedData('FETCHED_IS_FOLLOW', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -246,7 +246,7 @@ function getLikedNFT(id) {
     );
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_LIKED_NFT", promise.data.data));
+        dispatch(fetchedData('FETCHED_LIKED_NFT', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -262,7 +262,7 @@ function getCollectedNFT(id) {
     );
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_COLLECTED_NFT", promise.data.data));
+        dispatch(fetchedData('FETCHED_COLLECTED_NFT', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -278,7 +278,7 @@ function getCollectionNFT(id) {
     );
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_COLLECTION_NFT", promise.data.data));
+        dispatch(fetchedData('FETCHED_COLLECTION_NFT', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -291,7 +291,7 @@ function getEditionHistory(nftId, edition) {
     const response = services.get(`nft/history/${nftId}/${edition}`);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_NFT_EDITION_HISTORY", promise.data.data));
+        dispatch(fetchedData('FETCHED_NFT_EDITION_HISTORY', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -304,7 +304,7 @@ function getNotifications() {
     const response = services.get(`notification/list`, true);
     response.then((promise) => {
       if (promise.status === 200) {
-        dispatch(fetchedData("FETCHED_NOTIFICATIONS", promise.data.data));
+        dispatch(fetchedData('FETCHED_NOTIFICATIONS', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -317,7 +317,7 @@ function getProfileBanner() {
     const response = services.get(`/admin/profile-info/list`);
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("FETCHED_PROFILE_BANNERS", promise.data.data));
+        dispatch(fetchedData('FETCHED_PROFILE_BANNERS', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -330,7 +330,7 @@ function setLanguage(lng) {
     // const response = services.get(`/admin/profile-info/list`);
     // return response.then((promise) => {
     //   if (promise.data) {
-    dispatch(fetchedData("SET_LANGUAGE", lng));
+    dispatch(fetchedData('SET_LANGUAGE', lng));
     // } else {
     //   // console.log("error");
     // }
@@ -339,10 +339,10 @@ function setLanguage(lng) {
 }
 function sendInstagramCode(code) {
   return (dispatch) => {
-    const response = services.post(`/user/validateInstagram`, { 'code': code });
+    const response = services.post(`/user/validateInstagram`, { code: code });
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("VERIFIED_BY_INSTAGRAM", promise.status));
+        dispatch(fetchedData('VERIFIED_BY_INSTAGRAM', promise.status));
       } else {
         // console.log("error");
       }
@@ -354,7 +354,7 @@ function getTwitterAccessToken() {
     const response = services.get(`/user/twitter/access_token`, true);
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("TWITTER_ACCESS_TOKEN", promise.data.data));
+        dispatch(fetchedData('TWITTER_ACCESS_TOKEN', promise.data.data));
       } else {
         // console.log("error");
       }
@@ -363,10 +363,13 @@ function getTwitterAccessToken() {
 }
 function verifyByTwitter(oauth_token, oauth_verifier) {
   return (dispatch) => {
-    const response = services.post(`/user/validateTwitter`, { 'oauth_verifier': oauth_verifier, 'oauth_token': oauth_token });
+    const response = services.post(`/user/validateTwitter`, {
+      oauth_verifier: oauth_verifier,
+      oauth_token: oauth_token,
+    });
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("VERIFIED_BY_TWITTER", promise.status));
+        dispatch(fetchedData('VERIFIED_BY_TWITTER', promise.status));
       } else {
         // console.log("error");
       }

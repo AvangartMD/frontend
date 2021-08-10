@@ -1,19 +1,19 @@
-import React, { Component, useState } from "react";
-import styled from "styled-components";
-import { FormattedMessage } from "react-intl";
-import Gs from "../../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
-import Media from "../../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
-import { Link } from "react-router-dom";
+import React, { Component, useState } from 'react';
+import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
+import Gs from '../../Theme/globalStyles';
+import { NavLink } from 'react-router-dom';
+import Media from '../../Theme/media-breackpoint';
+import Collapse from '@kunukn/react-collapse';
+import { Link } from 'react-router-dom';
 
-import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
-import { getContractInstance } from "../../helper/functions";
-import { actions } from "../../actions";
-import { connect } from "react-redux";
-import { useEffect } from "react";
-import { web3 } from "../../web3";
-import TxnStatus from "./txnStatus";
+import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
+import { getContractInstance } from '../../helper/functions';
+import { actions } from '../../actions';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { web3 } from '../../web3';
+import TxnStatus from './txnStatus';
 
 function PABpopup(props) {
   const {
@@ -28,19 +28,19 @@ function PABpopup(props) {
     nftDetails,
   } = props;
   const escrowContractInstance = getContractInstance(true);
-  const [txnStatus, setTxnStatus] = useState("");
-  const [bnbVal, setBnbVal] = useState("");
-  const [usdVal, setUsdVal] = useState("");
+  const [txnStatus, setTxnStatus] = useState('');
+  const [bnbVal, setBnbVal] = useState('');
+  const [usdVal, setUsdVal] = useState('');
   const [bnbUSDPrice, setBnbUSDPrice] = useState();
-  const [bnbTRYPrice, setBnbTRYPrice]= useState();
-  const [tryVal, setTryVal ] = useState("");
+  const [bnbTRYPrice, setBnbTRYPrice] = useState();
+  const [tryVal, setTryVal] = useState('');
   const [accountBalance, setAccountBalance] = useState({ bnb: 0, usd: 0 });
-  const [error, setError] = useState({ isError: false, msg: "" });
+  const [error, setError] = useState({ isError: false, msg: '' });
 
   useEffect(() => {
     async function fetchData() {
       const string =
-      'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry';
+        'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry';
       await fetch(string)
         .then((resp) => resp.json())
         .then(async (data) => {
@@ -51,7 +51,7 @@ function PABpopup(props) {
     fetchData();
   }, []);
   useEffect(() => {
-    async function setAccount(){
+    async function setAccount() {
       if (web3Data.accounts[0] && bnbUSDPrice) {
         const bnbBalance = Number(
           web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
@@ -59,7 +59,7 @@ function PABpopup(props) {
         setAccountBalance({
           bnb: bnbBalance,
           usd: bnbUSDPrice * bnbBalance,
-          try: bnbTRYPrice * bnbBalance
+          try: bnbTRYPrice * bnbBalance,
         });
       }
     }
@@ -67,38 +67,39 @@ function PABpopup(props) {
   }, [web3Data.accounts, bnbUSDPrice]);
 
   const placeBid = async () => {
-    const val = method === "buyNow" ? price.toString() : bnbVal;
+    const val = method === 'buyNow' ? price.toString() : bnbVal;
     const sendObj = { from: web3Data.accounts[0] };
-    if (method !== "claimAfterAuction") {
+    if (method !== 'claimAfterAuction') {
       if (!val) return;
       sendObj.value = web3.utils.toWei(val);
     }
 
     if (!error.isError) {
-      setTxnStatus("initiate");
+      setTxnStatus('initiate');
       await escrowContractInstance.methods[method](+nonce, +currentEdition)
         .send(sendObj)
-        .on("transactionHash", (hash) => {
-          setTxnStatus("progress");
+        .on('transactionHash', (hash) => {
+          setTxnStatus('progress');
         })
-        .on("receipt", (receipt) => {
+        .on('receipt', (receipt) => {
           // setTxnStatus("complete");
-          setTimeout(() => { // refresh the state 
+          setTimeout(() => {
+            // refresh the state
             if (method === 'placeBid') fetchNFTDetails(+currentEdition);
             else nftDetails();
-            setTxnStatus("complete");
+            setTxnStatus('complete');
           }, 5000);
         })
-        .on("error", (error) => {
-          setTxnStatus("complete");
+        .on('error', (error) => {
+          setTxnStatus('complete');
         });
     }
   };
   const onValEnter = (e, inUSD) => {
     const val = e.target.value;
-    const currentCurrency = props.lng === 'en' ?bnbUSDPrice:bnbTRYPrice;
-    console.log(currentCurrency);
-    const _bnbVal = inUSD ? (val /currentCurrency ).toString() : val;
+    const currentCurrency = props.lng === 'en' ? bnbUSDPrice : bnbTRYPrice;
+    // console.log(currentCurrency);
+    const _bnbVal = inUSD ? (val / currentCurrency).toString() : val;
     const _usdval = inUSD ? val : val * bnbUSDPrice;
     const _tryVal = inUSD ? val : val * bnbTRYPrice;
     if (+_bnbVal <= currentBidValue)
@@ -114,12 +115,12 @@ function PABpopup(props) {
     else if (+_bnbVal > accountBalance.bnb)
       setError({
         isError: true,
-        msg: "Insufficient Balance",
+        msg: 'Insufficient Balance',
       });
     else
       setError({
         isError: false,
-        msg: "",
+        msg: '',
       });
 
     setBnbVal(_bnbVal);
@@ -127,10 +128,10 @@ function PABpopup(props) {
     setTryVal(_tryVal);
   };
   const refreshStates = () => {
-    setBnbVal("");
-    setUsdVal("");
-    setTryVal("");
-    setTxnStatus("");
+    setBnbVal('');
+    setUsdVal('');
+    setTryVal('');
+    setTxnStatus('');
   };
 
   return (
@@ -138,41 +139,50 @@ function PABpopup(props) {
       <BlackWrap>
         <WhiteBX01>
           <CloseBTN
-            className="ani-1"
+            className='ani-1'
             onClick={() => {
               toggle(8);
               refreshStates();
             }}
           >
-            <img src={CloseBTN01} alt="" />
+            <img src={CloseBTN01} alt='' />
           </CloseBTN>
 
           {/* place a bid and make an offer popup */}
           {!txnStatus ? (
             <>
-              {method === "placeBid" ? (
+              {method === 'placeBid' ? (
                 <>
-                  {" "}
+                  {' '}
                   <PBtitle>
-                    <FormattedMessage id="place_a_bid" defaultMessage="Place a Bid" />
+                    <FormattedMessage
+                      id='place_a_bid'
+                      defaultMessage='Place a Bid'
+                    />
                   </PBtitle>
                   <PBDesc>
-                    <FormattedMessage id="place_a_bid_label" />
+                    <FormattedMessage id='place_a_bid_label' />
                   </PBDesc>
                   <BalanceLine>
-                    <p className="balance">
-                      <FormattedMessage id="your_balance" defaultMessage="Your Balance" /> :</p>
-                    <p className="price-state">
-                      {accountBalance.bnb.toLocaleString(2)} BNB |{" "}
-                      {accountBalance.usd.toLocaleString(2)} <FormattedMessage id='currency' defaultMessage='en' />
+                    <p className='balance'>
+                      <FormattedMessage
+                        id='your_balance'
+                        defaultMessage='Your Balance'
+                      />{' '}
+                      :
+                    </p>
+                    <p className='price-state'>
+                      {accountBalance.bnb.toLocaleString(2)} BNB |{' '}
+                      {accountBalance.usd.toLocaleString(2)}{' '}
+                      <FormattedMessage id='currency' defaultMessage='en' />
                     </p>
                   </BalanceLine>
-                  <HalfInputs className={error.isError ? "errorinput" : null}>
+                  <HalfInputs className={error.isError ? 'errorinput' : null}>
                     <HIBox>
                       <input
-                        className="BR-straight"
-                        type="text"
-                        placeholder="0.00"
+                        className='BR-straight'
+                        type='text'
+                        placeholder='0.00'
                         value={bnbVal}
                         onChange={(e) => onValEnter(e)}
                       />
@@ -180,42 +190,44 @@ function PABpopup(props) {
                     </HIBox>
                     <HIBox>
                       <input
-                        className="BL-straight"
-                        type="text"
-                        placeholder="0.00"
-                        value={props.lng === 'en' ? usdVal:tryVal}
+                        className='BL-straight'
+                        type='text'
+                        placeholder='0.00'
+                        value={props.lng === 'en' ? usdVal : tryVal}
                         onChange={(e) => onValEnter(e, true)}
                       />
-                      <p><FormattedMessage id='currency' defaultMessage='en' /> </p> 
+                      <p>
+                        <FormattedMessage id='currency' defaultMessage='en' />{' '}
+                      </p>
                     </HIBox>
                     {error.isError ? (
-                      <p className="error">{error.msg}</p>
+                      <p className='error'>{error.msg}</p>
                     ) : null}
                   </HalfInputs>
                   <PBbutton>
-                    <button className="ani-1" onClick={() => placeBid()}>
-                      <FormattedMessage id="place" defaultMessage="Place" />
+                    <button className='ani-1' onClick={() => placeBid()}>
+                      <FormattedMessage id='place' defaultMessage='Place' />
                     </button>
                   </PBbutton>
                 </>
               ) : (
                 <>
-                  <PBtitle className="AStitle">
-                    <FormattedMessage id="confirm" defaultMessage="Confirm" />
+                  <PBtitle className='AStitle'>
+                    <FormattedMessage id='confirm' defaultMessage='Confirm' />
                   </PBtitle>
-                    <PBDesc className="ASDesc mb-10">
-                      <FormattedMessage id="confirm_label"  />
+                  <PBDesc className='ASDesc mb-10'>
+                    <FormattedMessage id='confirm_label' />
                   </PBDesc>
                   {/* <SkyWalletAddress>{reciever}</SkyWalletAddress> */}
                   <NFTcartButtons>
                     <button
-                      className="ani-1 bordered"
+                      className='ani-1 bordered'
                       onClick={() => toggle(8)}
                     >
                       Cancel
                     </button>
-                    <button className="ani-1" onClick={() => placeBid()}>
-                      {method === "buyNow" ? "Buy" : "Claim"}
+                    <button className='ani-1' onClick={() => placeBid()}>
+                      {method === 'buyNow' ? 'Buy' : 'Claim'}
                     </button>
                   </NFTcartButtons>
                 </>
@@ -236,7 +248,7 @@ function PABpopup(props) {
 }
 
 const toggle = (index) => {
-  let collapse = "isOpen" + index;
+  let collapse = 'isOpen' + index;
   this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
 };
 // }
