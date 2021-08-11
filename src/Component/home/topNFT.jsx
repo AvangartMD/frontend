@@ -320,8 +320,15 @@ const NFTfbleft = styled(FlexDiv)`
   border-bottom-left-radius: 10px;
   img {
     box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
+    max-width:300px;
     ${Media.sm} {
       box-shadow: 0px 5px 10px 1px rgb(0 0 0 /30%);
+    }
+    &.horizontal-tnimg{
+      max-width:500px;
+    }
+    &.vertical-tnimg{
+      max-width:288px;
     }
   }
   ${Media.md} {

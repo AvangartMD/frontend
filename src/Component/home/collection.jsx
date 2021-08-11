@@ -31,7 +31,7 @@ class Collections extends Component {
     return (
       <Gs.W25 key={collection.collectionId.id}>
         <Gs.TenpxGutter>
-          <Link to={`/collection-detail/${collection.collectionId.id}`}>
+          <Link className="home-collection-box" to={`/collection-detail/${collection.collectionId.id}`}>
             <div className="img-outer">
               <motion.img
                 initial={{ opacity: 0.2 }}
@@ -144,6 +144,10 @@ const ViewallButton = styled.div`
 const CollectionSection = styled(FlexDiv)`
   justify-content:flex-start;
   margin: 0px -10px 50px;
+  .home-collection-box{
+    position:relative;
+    display:block;
+  }
   .img-outer
   {
     width:100%;
@@ -161,6 +165,47 @@ const CollectionSection = styled(FlexDiv)`
       height:100%;
       object-fit:cover;
       border: 1px solid #dddddd;
+    }
+  }
+  .collbox-desc
+  {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:rgb(0 0 0 / 70%);
+    border-radius:10px;
+    padding:20px 10px 0px 20px;
+    opacity:0;
+    ${Media.xs}{
+      padding:10px 10px 0px 10px;
+    }
+    :hover
+    {
+      opacity:1;
+    }
+    .coll-title
+    {
+      font-size:20px;
+      color:#fff;
+      letter-spacing:-0.75px;
+      font-weight:700;
+      margin:0px 0px 2px;
+      ${Media.xs}{
+        font-size:14px;
+      }
+    }
+    .creator-name
+    {
+      font-size:16px;
+      color:rgb(255 255 255 / 50%);
+      letter-spacing:-0.8px;
+      font-weight:600;
+      margin:0px;
+      ${Media.xs}{
+        font-size:12px;
+      }
     }
   }
   ${Media.sm}{
