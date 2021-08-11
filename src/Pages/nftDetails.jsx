@@ -116,6 +116,7 @@ class NftDetail extends React.Component {
     this.state = {
       isOpen1: false,
       isOpen4: false,
+      isOpen9: false,
       bnbUSDPrice: 0,
       bidDetails: {
         currentBidValue: '0',
@@ -708,18 +709,19 @@ class NftDetail extends React.Component {
               nftDetails={this.getNFTDetails}
             />
           </Collapse>
-          <Collapse
-            isOpen={this.state.isOpen9}
-            className={
-              'app__collapse ' + (this.state.isOpen9 ? 'collapse-active' : '')
-            }
-          >
-            <Historypopup
-              toggle={this.toggle}
-              edition={currentEdition}
-              nftId={id}
-            />
-          </Collapse>
+          {this.state.isOpen9 ?
+            <Collapse
+              isOpen={this.state.isOpen9}
+              className={
+                'app__collapse ' + (this.state.isOpen9 ? 'collapse-active' : '')
+              }
+            >
+              <Historypopup
+                toggle={this.toggle}
+                edition={currentEdition}
+                nftId={id}
+              />
+            </Collapse> : ``}
           <Collapse
             isOpen={this.state.isOpen10}
             className={

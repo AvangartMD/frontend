@@ -40,7 +40,7 @@ class TopNFT extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { likesCount } = this.props;
     if (likesCount !== prevProps.likesCount) {
-      this.setState({ like_fetched: true });
+      this.setState({ like_fetched: true, loading: false });
     }
   }
 
@@ -73,7 +73,7 @@ class TopNFT extends Component {
             >
               <img
                 src={
-                  nft.isLiked || isLiked.isFollowed ? Redheart : redheartBorder
+                  isLiked.isFollowed ? Redheart : redheartBorder
                 }
                 alt=''
               />
@@ -134,7 +134,7 @@ class TopNFT extends Component {
                     <FormattedMessage id='sold_out' defaultMessage='Sold out' />
                   </button>
                 ) : (
-                  <button>
+                  <button onClick={() => this.props.history.push(`/nftDetails/${nft.nftId.id}`)}>
                     <FormattedMessage id='buy_now' defaultMessage='Buy now' />
                   </button>
                 )}
@@ -181,7 +181,7 @@ class TopNFT extends Component {
                 <img src={LoaderGif} alt='' />{' '}
               </LoaderBX>
             ) : (
-              <>
+                <>
                 <NFTfirstbox>
                   {nfts[0]
                     ? this.renderedFirstElement(nfts[0], likesCount, isLiked)
