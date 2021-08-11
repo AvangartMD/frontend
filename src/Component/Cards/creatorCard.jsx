@@ -103,8 +103,17 @@ const CretrTitle01 = styled.div`
     span{ display:block; text-align:center; font-size:12px; } 
 `
 const CretrText01 = styled.div`
-    font-size:10px; text-align:center; line-height:1.6; margin:10px 0 0 0; min-height:52px; color:#000;
-
+    font-size:10px; 
+    text-align:center; 
+    line-height:1.6; 
+    margin:10px 0 0 0; 
+    min-height:52px; 
+    color:#000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 `
 const CretrInfoMBX = styled(FlexDiv)`
     width:100%; padding:12px; margin:32px 0 18px 0; border:1px solid #dddddd; border-radius: 10px;
