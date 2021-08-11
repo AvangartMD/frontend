@@ -566,7 +566,7 @@ class NFTPage extends Component {
                           {categoryList?.map((category, key) => (
                             <label className="checkbox-container" key={key}>
                               <img src={category.image} alt="" />
-                              {capitalizeFirstLetter(context.locale === 'tr'? category.categoryName.tu: category.categoryName.en)}
+                              {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en)}
                               <input
                                 type="checkbox"
                                 name="category"
@@ -979,6 +979,12 @@ const NFTfourbox = styled(FlexDiv)`
         font-weight: 600;
         line-height: normal;
         letter-spacing: -0.67px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        min-height:44px;
       }
     }
   }

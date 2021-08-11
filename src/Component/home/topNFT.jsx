@@ -181,7 +181,7 @@ class TopNFT extends Component {
                 <img src={LoaderGif} alt='' />{' '}
               </LoaderBX>
             ) : (
-                <>
+              <>
                 <NFTfirstbox>
                   {nfts[0]
                     ? this.renderedFirstElement(nfts[0], likesCount, isLiked)
@@ -486,6 +486,7 @@ const NFTfourbox = styled(FlexDiv)`
         -webkit-line-clamp: 2;
         display: -webkit-box;
         -webkit-box-orient: vertical;
+        min-height:44px;
       }
       .edition2 {
         justify-content: flex-start;

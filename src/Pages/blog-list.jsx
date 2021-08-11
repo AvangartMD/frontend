@@ -479,6 +479,12 @@ const NFTfourbox = styled(FlexDiv)`
           font-weight: 600;
           line-height: normal;
           letter-spacing: -0.67px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 2;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          min-height:44px;
         }
         p{
           margin: 0px 0px 20px;
@@ -486,8 +492,14 @@ const NFTfourbox = styled(FlexDiv)`
           color: #000000;
           line-height: 16px;
           letter-spacing: -0.3px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 3;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          min-height:48px;
           &.date{
-            font-weight:600; color:#8e9194; margin:0px;
+            font-weight:600; color:#8e9194; margin:0px; min-height:auto;
           }
         }
       }

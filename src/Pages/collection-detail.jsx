@@ -317,6 +317,12 @@ const NFTfourbox = styled(FlexDiv)`
         font-weight: 600;
         line-height: normal;
         letter-spacing: -0.67px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        min-height:44px;
       }
     }
   }
