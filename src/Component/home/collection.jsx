@@ -42,6 +42,12 @@ class Collections extends Component {
                 exit={{ opacity: 0 }}
               />
             </div>
+            <div className="collbox-desc">
+              <p className="coll-title">Title</p>
+              <p className="creator-name">
+                by User Name
+              </p>
+            </div>
           </Link>
         </Gs.TenpxGutter>
       </Gs.W25>
@@ -163,6 +169,7 @@ const CollectionSection = styled(FlexDiv)`
     justify-content:flex-start;
     margin:0px 0px 50px;
   }
+  
 `;
 
 Gs.W25 = styled(Gs.W25)`
