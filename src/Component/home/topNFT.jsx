@@ -324,11 +324,20 @@ const NFTfbleft = styled(FlexDiv)`
     ${Media.sm} {
       box-shadow: 0px 5px 10px 1px rgb(0 0 0 /30%);
     }
+    ${Media.xs} {
+      max-width: -webkit-fill-available;
+    }
     &.horizontal-tnimg{
       max-width:500px;
+      ${Media.xs} {
+        max-width: -webkit-fill-available;
+      }
     }
     &.vertical-tnimg{
       max-width:288px;
+      ${Media.xs} {
+        max-width: -webkit-fill-available;
+      }
     }
   }
   ${Media.md} {
