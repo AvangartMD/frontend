@@ -27,7 +27,7 @@ class TopNFT extends Component {
     this.state = {
       like_fetched: false,
       loding: false,
-      imageClass: 'image-classes-one',
+      imageClass: '',
     };
   }
 
@@ -61,9 +61,11 @@ class TopNFT extends Component {
                 src={nft.nftId.image.compressed}
                 exit={{ opacity: 0 }}
                 onLoad={(image) => {
-                  console.log('- width ? ', image.target.width)
-                  console.log('- height ? ', image.target.height)
-                  // this.setState({ imageClass: '' })
+                  if (image.target.width > image.target.height) {
+                    this.setState({ imageClass: 'horizontal-tnimg' })
+                  } else if (image.target.height > image.target.width) {
+                    this.setState({ imageClass: 'vertical-tnimg' })
+                  }
                 }}
               />
             </NFTfbleft>
