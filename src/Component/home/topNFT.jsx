@@ -27,6 +27,7 @@ class TopNFT extends Component {
     this.state = {
       like_fetched: false,
       loding: false,
+      imageClass: 'image-classes-one',
     };
   }
 
@@ -52,12 +53,18 @@ class TopNFT extends Component {
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
               <motion.img
+                className={this.state.imageClass}
                 initial={{ opacity: 0.2 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
                 key={nft.nftId.image.compressed}
                 src={nft.nftId.image.compressed}
                 exit={{ opacity: 0 }}
+                onLoad={(image) => {
+                  console.log('- width ? ', image.target.width)
+                  console.log('- height ? ', image.target.height)
+                  // this.setState({ imageClass: '' })
+                }}
               />
             </NFTfbleft>
           </Link>
