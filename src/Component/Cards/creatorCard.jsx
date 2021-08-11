@@ -107,7 +107,7 @@ const CretrText01 = styled.div`
     text-align:center; 
     line-height:1.6; 
     margin:10px 0 0 0; 
-    min-height:52px; 
+    min-height:48px; 
     color:#000;
     overflow: hidden;
     text-overflow: ellipsis;
