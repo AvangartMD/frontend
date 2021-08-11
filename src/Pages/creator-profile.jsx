@@ -71,6 +71,8 @@ class CreatorProfile extends Component {
   render() {
     const { profile, status, web3Data, authData } = this.props;
     const { id, loading } = this.state;
+    console.log('--- ? ', authData?.data.id)
+    console.log('--- ? ', profile?.id)
     return (
       <>
         {profile ?
@@ -238,24 +240,25 @@ class CreatorProfile extends Component {
                             : "join date"}
                         </span>
                       </UserDText02>
-                      {id ? (
-                        authData ?
-                          web3Data.isLoggedIn && (authData.data.id !== profile.id) ?
-                            <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
-                              {loading ? 'loading' : status.isFollowed ?
-                                <FormattedMessage id="unfollow" defaultMessage="Unfollow" /> :
-                                <FormattedMessage id="follow" defaultMessage="Follow" />}
-                            </EditPrBTN> : ('')
-                          : ''
-                      ) : (
-                        <EditPrBTN>
-                          <button
-                            onClick={() => this.props.history.push("/user/edit-profile")}
-                          >
-                            <FormattedMessage id="edit_profile" defaultMessage="Edit Profile" />
-                          </button>
+                      
+                      {web3Data.isLoggedIn && (authData?.data.id !== profile?.id) ?
+                        <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
+                          {loading ? 'loading' : status.isFollowed ?
+                            <FormattedMessage id="unfollow" defaultMessage="Unfollow" /> :
+                            <FormattedMessage id="follow" defaultMessage="Follow" />}
                         </EditPrBTN>
-                      )}
+                      : ``}
+                      
+                      {web3Data.isLoggedIn && (authData?.data.id === profile?.id) ?
+                        <EditPrBTN
+                          onClick={() => this.props.history.push("/user/edit-profile")}
+                        >
+                          <FormattedMessage
+                            id="edit_profile"
+                            defaultMessage="Edit Profile"
+                          />
+                        </EditPrBTN>
+                      : ``}
 
                     </ProSBX03>
 
