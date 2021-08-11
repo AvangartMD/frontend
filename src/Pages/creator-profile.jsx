@@ -71,8 +71,6 @@ class CreatorProfile extends Component {
   render() {
     const { profile, status, web3Data, authData } = this.props;
     const { id, loading } = this.state;
-    console.log('--- ? ', authData?.data.id)
-    console.log('--- ? ', profile?.id)
     return (
       <>
         {profile ?
