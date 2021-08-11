@@ -62,7 +62,12 @@ function Login(props) {
     if (web3Data.accounts[0]) {
       checkAuthentication(web3Data);
     } else {
-      enableMetamask();
+      if (typeof window.web3 !== "undefined") {
+        enableMetamask();
+      } else {
+        setLoader(false);
+        setError({ isError: true, msg: "Please download metamask first.!" });
+      }
     }
   };
 
