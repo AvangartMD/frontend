@@ -150,8 +150,9 @@ function Login(props) {
             )
           ) : (
             <>
-              <OnbTitle01><FormattedMessage id="attention" defaultMessage="Install Metamask" /></OnbTitle01>
-              <OnbText01>{error.msg}</OnbText01>
+              <OnbTitle01 className="v2"><FormattedMessage id="attention" defaultMessage="Install MetaMask." /></OnbTitle01>
+              <OnbText01 className="text-center">{error.msg}</OnbText01>
+              <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>
             </>
           )}
         </WhiteBX01>
@@ -216,7 +217,30 @@ const OnbText01 = styled.div`
   font-weight: 400;
   color: #000;
   letter-spacing: -0.5px;
+  &.text-center{
+    text-align:center;
+    width:100%;
+    margin:20px 0px 40px;
+  }
 `;
+
+const InstallBtn = styled.button`
+  background-color: #000000;
+  border:1px solid #000;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  border-radius: 15px;
+  margin: 0 auto;
+  padding: 17px 15px;
+  width: 100%;
+  :hover{
+    background-color:#fff;
+    color:#000;
+  }
+`;
+
 const BlackWrap = styled(FlexDiv)`
   position: fixed;
   left: 0;
