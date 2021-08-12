@@ -474,7 +474,7 @@ class NftDetail extends React.Component {
                       className={
                         loading || !web3Data?.isLoggedIn ? `disabled` : ``
                       }
-                      onDoubleClick={() => {
+                      onClick={() => {
                         this.props.likeToggler(id);
                         this.setState({ loading: true });
                       }}

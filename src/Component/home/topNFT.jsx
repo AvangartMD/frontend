@@ -75,7 +75,7 @@ class TopNFT extends Component {
           <NFTfbright>
             <NFTLike
               className={loading || !this.props.web3Data?.isLoggedIn ? `disabled` : ``}
-              onDoubleClick={() => {
+              onClick={() => {
                 this.props.likeToggler(nft.nftId.id);
                 this.setState({ loading: true });
               }}
