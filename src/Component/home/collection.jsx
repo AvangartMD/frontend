@@ -43,9 +43,9 @@ class Collections extends Component {
               />
             </div>
             <div className="collbox-desc">
-              <p className="coll-title">Title</p>
+              <p className="coll-title">{ collection.collectionId.name }</p>
               <p className="creator-name">
-                by User Name
+                by { collection.collectionId.ownerId.username }
               </p>
             </div>
           </Link>
