@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Gs from "./../../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -120,8 +121,18 @@ function Login(props) {
               <>
                 <OnbTitle01>Connect your wallet</OnbTitle01>
                 <OnbText01>
-                  <FormattedMessage id="connect_wallet" defaultMessage="By connecting your wallet, 
-                    you agree to our Terms of Service and our Privacy Policy." />
+                  <FormattedMessage id="connect_wallet"
+                    defaultMessage="By connecting your wallet,
+                      you agree to our {termLink} and our {privacyLink}."
+                    values={{
+                      termLink: <NavLink to="/legal">
+                        <FormattedMessage id="term_of_service" defaultMessage="Term of Service" />
+                      </NavLink>,
+                      privacyLink: <NavLink to="/legal">
+                        <FormattedMessage id="privacy_policy" defaultMessage="Privacy Policy" />
+                      </NavLink>
+                    }}
+                  />
                 </OnbText01>
                 <OnBTNBar>
                   <button onClick={() => connectToWallet()}>
@@ -151,8 +162,10 @@ function Login(props) {
           ) : (
             <>
               <OnbTitle01 className="v2"><FormattedMessage id="attention" defaultMessage="Install MetaMask." /></OnbTitle01>
-              <OnbText01 className="text-center">{error.msg}</OnbText01>
-              <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>
+                <OnbText01 className="text-center">{error.msg}</OnbText01>
+                {error.msg === 'Please download metamask first.!' ?
+                  <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>
+                : ``}
             </>
           )}
         </WhiteBX01>
