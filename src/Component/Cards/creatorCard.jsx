@@ -99,7 +99,7 @@ const UserImg = styled(FlexDiv)`
     img{ width:100%; height:100%; object-fit: cover;}
 `
 const CretrTitle01 = styled.div`
-    display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; 
+    display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; text-align:center;
     span{ display:block; text-align:center; font-size:12px; } 
 `
 const CretrText01 = styled.div`
