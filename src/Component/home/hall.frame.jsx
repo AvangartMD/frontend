@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import Media from "../../Theme/media-breackpoint";
 
 import NFT2 from '../../Assets/images/nft2.jpg';
+import UserIcon from "../../Assets/images/user-img.jpg";
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import StarIcon from '../../Assets/images/star-icon.svg';
 import RoundIcon from '../../Assets/images/round-icon.svg';
@@ -64,7 +65,7 @@ class HallOfFrame extends Component {
                             <Gs.TenpxGutter>
                               <HallofFameBox>
                                 <div className='HOF-inner'>
-                                  <img src={artist.profile} alt='' />
+                                  <img src={artist.profile ? artist.profile : UserIcon } alt='' />
                                   <p className='user-name'>@{artist.username}</p>
                                   <p className='small'>Total Sale</p>
                                   <p className='price'>{artist.totalSale} BNB</p>
@@ -118,7 +119,7 @@ class HallOfFrame extends Component {
                             <Gs.TenpxGutter>
                               <HallofFameBox>
                                 <div className='HOF-inner'>
-                                  <img src={collector.profile} alt='' />
+                                  <img src={collector.profile ? collector.profile : UserIcon} alt='' />
                                   <p className='user-name'>@{collector.username}</p>
                                   <p className='small'>Total Sale</p>
                                   <p className='price'>{collector.totalSale} BNB</p>
