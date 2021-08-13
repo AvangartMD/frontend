@@ -53,7 +53,7 @@ class Creators extends Component {
             this.wrapperRef &&
             this.wrapperRef.current &&
             !this.wrapperRef.current.contains(event.target)
-            ) {
+        ) {
             if (this.state.isOpen1) {
                 this.setState({ isOpen1: false });
             }
@@ -119,7 +119,7 @@ class Creators extends Component {
                             </button>
                             {categories ? categories.map((category, key) => {
                                 return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >
-                                    {context.locale === 'tr'? category.categoryName.tu: category.categoryName.en}
+                                    {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
                                 </button>
                             }) : ''}
                         </FilterLbx>
@@ -276,7 +276,7 @@ const UserImg = styled(FlexDiv)`
     img{ width:100%; height:100%; object-fit: cover;}
 `
 const CretrTitle01 = styled.div`
-    display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; 
+    display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; text-align:center; 
     span{ display:block; text-align:center; font-size:12px; } 
 `
 const CretrText01 = styled.div`
