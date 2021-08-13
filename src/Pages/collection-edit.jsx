@@ -206,7 +206,7 @@ class CollectionEdit extends Component {
                   <div className="label-line">
                     <p>Upload PNG, GIF, WEBP</p>
                     <p>
-                      <b>Max 30 mb.</b>
+                      {/* <b>Max 30 mb.</b> */}
                     </p>
                     <FileuploadBox>
                       <label className="custom-file-upload">
