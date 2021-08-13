@@ -134,11 +134,11 @@ class NftDetail extends React.Component {
       loading: false,
       selectedNFTDetails: null,
       isApprovedForAll: false,
-      NFTDetails:null
+      NFTDetails: null
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const {  isLiked, web3Data } = this.props;
+    const { isLiked, web3Data } = this.props;
     // console.log("this", this.props);
     // if (NFTDetails !== prevProps.NFTDetails) {
     //   if (NFTDetails.tokenId && NFTDetails.edition)
@@ -158,8 +158,8 @@ class NftDetail extends React.Component {
   async componentDidMount() {
     if (this.props.match.params.id) {
       // this.props.getSingleNFTDetails(this.props.match.params.id);
-     const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
-     if(NFTDetails){this.setState({NFTDetails},()=>this.getEditionNumber(NFTDetails, this.state.currentEdition))}
+      const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
+      if (NFTDetails) { this.setState({ NFTDetails }, () => this.getEditionNumber(NFTDetails, this.state.currentEdition)) }
       this.props.getLikesCount(this.props.match.params.id);
       this.props.getIsLiked(this.props.match.params.id);
     }
@@ -294,7 +294,7 @@ class NftDetail extends React.Component {
     this.setEditionnumber(index);
   };
   async fetchNFTDetails(_edition) {
-    const {  authData, web3Data } = this.props;
+    const { authData, web3Data } = this.props;
     const NFTDetails = this.state.NFTDetails
     const escrowContractInstance = getContractInstance(true);
 
@@ -415,9 +415,10 @@ class NftDetail extends React.Component {
     }
   };
 
-  getNFTDetails = async() => {
+  getNFTDetails = async () => {
     const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
-    if(NFTDetails){this.setState({NFTDetails},()=>this.getEditionNumber(NFTDetails, this.state.currentEdition))}  };
+    if (NFTDetails) { this.setState({ NFTDetails }, () => this.getEditionNumber(NFTDetails, this.state.currentEdition)) }
+  };
 
   render() {
     let id = this.props.match.params.id;
@@ -433,7 +434,7 @@ class NftDetail extends React.Component {
       isApprovedForAll,
     } = this.state;
     // console.log("New sale method", saleMethod);
-    const {  likesCount, isLiked, authData, web3Data } = this.props;
+    const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === 'en' ? bnbUSDPrice.usd : bnbUSDPrice.try;
     return (
@@ -492,10 +493,12 @@ class NftDetail extends React.Component {
                 )}
                 <Historysection>
                   <UserImgName>
-                    <img src={NFTDetails?.ownerId.profile} alt='' />
-                    {NFTDetails?.ownerId.username
-                      ? `@${NFTDetails.ownerId.username}`
-                      : NFTDetails?.ownerId.name}
+                    <Link to={`/creator/${NFTDetails?.ownerId.id}`}>
+                      <img src={NFTDetails?.ownerId.profile} alt='' />
+                      {NFTDetails?.ownerId.username
+                        ? `@${NFTDetails.ownerId.username}`
+                        : NFTDetails?.ownerId.name}
+                    </Link>
                   </UserImgName>
                   <button onClick={() => this.toggle(9)}>
                     <FormattedMessage id='history' defaultMessage='History' />
@@ -597,9 +600,9 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
-                  selectedNFTDetails.isOpenForSale &&
-                  selectedNFTDetails.secondHand &&
-                  !selectedNFTDetails.isBurned ? (
+                    selectedNFTDetails.isOpenForSale &&
+                    selectedNFTDetails.secondHand &&
+                    !selectedNFTDetails.isBurned ? (
                     <button
                       className='bordered'
                       onClick={() => {
@@ -610,7 +613,7 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {NFTDetails?.status === 'NOT_MINTED' &&
-                  web3Data.isLoggedIn ? (
+                    web3Data.isLoggedIn ? (
                     <button
                       onClick={() =>
                         this.props.history.push(
@@ -871,17 +874,21 @@ const NFTLike = styled(FlexDiv)`
 `;
 
 const UserImgName = styled(FlexDiv)`
-  justify-content: flex-start;
-  color: #000;
-  font-size: 14px;
-  letter-spacing: -0.7px;
-  font-weight: 600;
-  margin: 0px;
-  img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 32px;
-    height: 32px;
+  a{
+    display:flex;
+    align-items:center;
+    justify-content: flex-start;
+    color: #000;
+    font-size: 14px;
+    letter-spacing: -0.7px;
+    font-weight: 600;
+    margin: 0px;
+    img {
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 32px;
+      height: 32px;
+    }
   }
 `;
 

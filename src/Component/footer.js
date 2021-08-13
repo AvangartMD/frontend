@@ -69,14 +69,14 @@ function Footer(props) {
             <NavLink to="/creators">
               <FormattedMessage id="creators" defaultMessage="Creators" />
             </NavLink>
-            {!web3Data.isLoggedIn ?
+            {/* {!web3Data.isLoggedIn ?
               <NavLink to="">
                 <FormattedMessage
                   id="become_a_creator"
                   defaultMessage="Become a Creator"
                 />
                 </NavLink>
-            : ``}
+            : ``} */}
           </FooterSSbx02>
           <FooterSSbx02>
             <NavLink to="/legal">
