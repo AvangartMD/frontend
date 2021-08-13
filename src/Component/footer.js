@@ -48,7 +48,9 @@ function Footer(props) {
       <FooterMBX>
         <FooterSbx01>
           <FooterSSbx01>
-            <img src={LogoImg} alt="" />
+            <Link to="/">
+              <img src={LogoImg} alt="" />
+            </Link>
             <p>
               <FormattedMessage id="footer_text" />
             </p>
