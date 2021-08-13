@@ -21,7 +21,7 @@
   "blog": "Blog",
   "faq": "FAQ",
   "support": "Support",
-  "connect_wallet": "By connecting your wallet, you agree to our Terms of Service and our Privacy Policy.",
+  "connect_wallet": "By connecting your wallet, you agree to our {termLink} and our {privacyLink}.",
   "attention": "Install MetaMask.",
   "follow_the_instructions": "Please follow the instructions on your wallet",
   "create": "Create",
