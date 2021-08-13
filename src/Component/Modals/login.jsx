@@ -125,12 +125,12 @@ function Login(props) {
                     defaultMessage="By connecting your wallet,
                       you agree to our {termLink} and our {privacyLink}."
                     values={{
-                      termLink: <Link to="/legal">
+                      termLink: <NavLink to="/legal">
                         <FormattedMessage id="term_of_service" defaultMessage="Term of Service" />
-                      </Link>,
-                      privacyLink: <Link to="/legal">
+                      </NavLink>,
+                      privacyLink: <NavLink to="/legal">
                         <FormattedMessage id="privacy_policy" defaultMessage="Privacy Policy" />
-                      </Link>
+                      </NavLink>
                     }}
                   />
                 </OnbText01>
