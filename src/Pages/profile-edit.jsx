@@ -238,13 +238,13 @@ class ProfileEdit extends Component {
                           defaultMessage='About You'
                         />
                       </Link>
-                      <Link
+                      {/* <Link
                         className={pointSelect('verifyProfile')}
                         to='#verifyProfile'
                         smooth={true}
                       >
                         Verify Profile
-                      </Link>
+                      </Link> */}
                       <Link
                         className={pointSelect('socialLink')}
                         to='#socialLink'
