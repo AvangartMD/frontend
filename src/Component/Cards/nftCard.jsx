@@ -9,6 +9,7 @@ import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
 
 function NFTCard({
+  edit=false,
   nftSold,
   name,
   nftId,
@@ -26,7 +27,7 @@ function NFTCard({
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
-        <Link to={`/nftDetails/${nftId}`}>
+        <Link to={edit?`/user/nftEdit/${nftId}`:`/nftDetails/${nftId}`}>
         <div className="NFT-home-box">
             <NFTImgBX>
               <motion.img

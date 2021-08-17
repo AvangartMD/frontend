@@ -140,7 +140,7 @@ class NFTPage extends Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
     let {
       web3Data,
@@ -148,8 +148,11 @@ class NFTPage extends Component {
       collectionList,
       nftContractInstance,
     } = this.props;
-    if (this.props.match.params.id)
-      this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the single nft details
+    if (this.props.match.params.id) {
+      // this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the single nft details
+      const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
+      if (NFTDetails) { this.setState({ nftObj: NFTDetails }) }
+    }
     if (!nftContractInstance) this.props.getNFTContractInstance();
     if (!categoryList) this.props.getCategoryList();
     else this.setState({ categoryList });
