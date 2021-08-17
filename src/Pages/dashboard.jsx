@@ -909,8 +909,14 @@ const NFTfourbox = styled(FlexDiv)`
         font-size: 18px;
         color: #000000;
         font-weight: 600;
-        line-height: normal;
+        line-height: 22px;
         letter-spacing: -0.67px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        min-height:44px;
       }
       .edition2 {
         justify-content: flex-start;

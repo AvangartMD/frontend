@@ -477,7 +477,7 @@ const NFTfourbox = styled(FlexDiv)`
           font-size: 18px;
           color: #000000;
           font-weight: 600;
-          line-height: normal;
+          line-height: 22px;
           letter-spacing: -0.67px;
           overflow: hidden;
           text-overflow: ellipsis;

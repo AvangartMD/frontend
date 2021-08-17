@@ -88,7 +88,7 @@ const NFTfourbox = styled(FlexDiv)`
         .NFT-home-box{ border-radius:10px; border:1px solid #dddddd; 
           :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);} 
           .NFT-home-box-inner{ padding:20px 15px;
-            h4{margin:0px 0px 10px; font-size:18px; color:#000000; font-weight:600; line-height:normal; letter-spacing:-0.67px;
+            h4{margin:0px 0px 10px; font-size:18px; color:#000000; font-weight:600; line-height:22px; letter-spacing:-0.67px;
               overflow: hidden;
               text-overflow: ellipsis;
               -webkit-line-clamp: 2;
