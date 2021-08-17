@@ -238,15 +238,15 @@ class CreatorProfile extends Component {
                             : "join date"}
                         </span>
                       </UserDText02>
-                      
+
                       {web3Data.isLoggedIn && (authData?.data.id !== profile?.id) ?
                         <EditPrBTN className={loading ? `disabled` : ``} onClick={() => this.followToggler(profile.id)}>
                           {loading ? 'loading' : status.isFollowed ?
                             <FormattedMessage id="unfollow" defaultMessage="Unfollow" /> :
                             <FormattedMessage id="follow" defaultMessage="Follow" />}
                         </EditPrBTN>
-                      : ``}
-                      
+                        : ``}
+
                       {web3Data.isLoggedIn && (authData?.data.id === profile?.id) ?
                         <EditPrBTN
                           onClick={() => this.props.history.push("/user/edit-profile")}
@@ -256,7 +256,7 @@ class CreatorProfile extends Component {
                             defaultMessage="Edit Profile"
                           />
                         </EditPrBTN>
-                      : ``}
+                        : ``}
 
                     </ProSBX03>
 
@@ -438,6 +438,7 @@ const UserDText01 = styled.div`
   font-size: 12px;
   font-weight: 500;
   color: #000000;
+  width:100%;
   ${Media.xs}{
     font-size: 10px;
     line-height:14px;

@@ -179,15 +179,14 @@ class Profile extends Component {
       <>
         <ProMBannerBX
           style={{
-            backgroundImage: `url(${
-              this.state.cover.url
-                ? this.state.cover.url
-                : profile
+            backgroundImage: `url(${this.state.cover.url
+              ? this.state.cover.url
+              : profile
                 ? profile.cover
                   ? profile.cover
                   : ProfielBack
                 : ProfielBack
-            })`,
+              })`,
           }}
         >
           <ProMBX01>
@@ -356,9 +355,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                          new Date(profile.createdAt).toString(),
-                          "dd mmmm yyyy"
-                        )
+                        new Date(profile.createdAt).toString(),
+                        "dd mmmm yyyy"
+                      )
                       : "join date"}
                   </span>
                 </UserDText02>
@@ -406,9 +405,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                          new Date(profile.createdAt).toString(),
-                          "dd mmmm yyyy"
-                        )
+                        new Date(profile.createdAt).toString(),
+                        "dd mmmm yyyy"
+                      )
                       : "join date"}
                   </span>
                 </UserDText02>
@@ -463,8 +462,8 @@ class Profile extends Component {
           <ADBannerMBX>
             {profile_banner && profileInfo
               ? profileInfo.map((info, key) =>
-                  this.renderedProfileInfo(info, key)
-                )
+                this.renderedProfileInfo(info, key)
+              )
               : ``}
           </ADBannerMBX>
 
@@ -666,6 +665,7 @@ const UserDText01 = styled.div`
   font-size: 12px;
   font-weight: 500;
   color: #000000;
+  width:100%;
   ${Media.xs} {
     font-size: 10px;
     line-height: 14px;
