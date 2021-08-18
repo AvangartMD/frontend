@@ -101,6 +101,7 @@
   "key_label": "You can use this area for private messages, promo codes, links, etc.",
   "put_on_sale": "Put on Sale",
   "accept_offers": "Accept offers",
+  "accept_offers_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "enter_price_lable": "Enter price",
   "place": "Place",
   "history": "History",
@@ -122,11 +123,13 @@
   "purchased_at": "Purchased at",
   "current_offer": "Current Offer",
   "cancel_sale_order": "Cancel Sale Order",
+  "cancel_sale_order_lable": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "claim_back": "Claim Back",
   "claim": "Claim",
   "cancel": "Cancel",
   "burn_lable": "Burning your NFT means that it will be irreversibly destroyed.",
   "are_you_sure?": "Are you sure?",
+  "are_you_sure_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "transfer_nft": "Transfer NFT",
   "transfer_nft_label": "You can transfer or gift your NFTs to your friends for free.",
   "wallet_address": "Wallet Address",
@@ -175,5 +178,7 @@
   "how_to_use_text05_3": "For 'buy now' NFTs, you can directly pay the amount. And lastly, for 'available for offer' status, you can make an offer to the seller. Please remember that your offer amount will be blocked from your balance until your bid is approved or rejected. The blockage will take at most 24 hours.",
   "how_to_use_lable_06": "Selling on second-hand market",
   "how_to_use_text06_1": "As you are the true owners of your NFTs, you can put them on sale in the second-hand market. To sell your NFTs, you can either set a fixed price or start accepting offers from potential sellers. In this scenario, you can accept or reject the requests within 24 hours. Submissions that are not responded to within that time frame will automatically be rejected. Currently, the live auction option is not available for second-hand sales. ",
-  "how_to_use_text06_2": "You can also transfer or gift your NFTs to other users."
+  "how_to_use_text06_2": "You can also transfer or gift your NFTs to other users.",
+  "approve_first_time": "Approve Transfer",
+  "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus."
 }

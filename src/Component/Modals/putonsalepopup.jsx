@@ -19,6 +19,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   const escrowContractInstance = getContractInstance(true);
   const makeTransaction = async () => {
     if (!method) return;
+    if (!price) return;
     setTxnStatus("initiate");
     if (!price) return;
     await escrowContractInstance.methods[method](

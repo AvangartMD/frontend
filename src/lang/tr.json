@@ -102,6 +102,7 @@
   "key_label": "You can use this area for private messages, promo codes, links, etc.",
   "put_on_sale": "Satışa sun",
   "accept_offers": "ekliflere açık",
+  "accept_offers_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "enter_price_lable": "Fiyat girin",
   "place": "Onayla",
   "history": "Geçmiş",
@@ -123,11 +124,13 @@
   "purchased_at": " Satın Alındı",
   "current_offer": "Current Offer",
   "cancel_sale_order": "Cancel Sale Order",
+  "cancel_sale_order_lable": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "claim_back": "Claim Back",
   "claim": "Claim",
   "cancel": "İptal et",
   "burn_lable": "NFT'yi 'burn' etmek eseri sonsuna kadar geri dönülemez bir şekilde yok etmek anlamına gelecektır.",
   "are_you_sure?": "Emin misiniz?",
+  "are_you_sure_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "transfer_nft": "NFT'yi Gönder",
   "transfer_nft_label": "NFT'lerinizi istediğiniz hesaba gönderebilir veya hediye edebilirsiniz.",
   "wallet_address": "Cüzdan Adresi",
@@ -175,5 +178,7 @@
   "how_to_use_text05_3": "“Hemen al” statüsündeki NFT’ler için satıcı tarafından belirlenen miktarı girerek satın alma işlemini gerçekleştirebilirsiniz. Ve son olarak “tekliflere açık” şeklinde satışa sunulan NFT’lerde satıcıya belirlediğiniz miktar ile teklifte bulunabilirsiniz. Açık arttırmaya benzer şekilde önerdiğiniz miktar cüzdanınızda olmalıdır ve teklif süresinde bu miktar bloke edilir. Teklifiniz 24 saat içinde olumlu veya olumsuz bir şekilde sonuçlandırılacaktır.",
   "how_to_use_lable_06": "İkinci el piyasada NFT satmak",
   "how_to_use_text06_1": "Satın aldığınız NFT’leri ikinci el piyasada satışa çıkarabilirsiniz. İkinci el piyasasında satışlar “hemen al” veya “tekliflere açık” şeklinde iki statüde gerçekleşir. “Hemen al” opsiyonunu seçmeniz durumunda NFT’nizi belirlenen fiyattan satışa çıkarabilirsiniz. Eğer aklınızda net bir fiyat yoksa “tekliflere açık” opsiyonunu seçerek gelen teklifleri değerlendirebilirsiniz. Gelen teklifler cevaplanmadığı takdirde 24 saat içinde otomatik olarak reddedilir. Şu an için ikinci el satışlarda açık arttırma opsiyonu bulunmamaktadır.",
-  "how_to_use_text06_2": "Ayrıca satın aldığınız NFT’leri ücretsiz olarak istediğiniz hesaplara transfer veya hediye edebilirsiniz."
+  "how_to_use_text06_2": "Ayrıca satın aldığınız NFT’leri ücretsiz olarak istediğiniz hesaplara transfer veya hediye edebilirsiniz.",
+  "approve_first_time": "Approve Transfer",
+  "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus."
 }

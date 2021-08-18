@@ -129,10 +129,7 @@ function NftOwnerActions(props) {
                     <FormattedMessage id="are_you_sure?" />
                   </PBtitle>
                   <PBDesc className='ASDesc'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                    cursus.
+                    <FormattedMessage id="are_you_sure_label" />
                   </PBDesc>
                   <NFTcartButtons>
                     <button className='ani-1 bordered'>
@@ -182,12 +179,11 @@ function NftOwnerActions(props) {
                 // {/* Transfer NFT popup */}
                 ownerActionName === 'setApprovalForAll' && (
                   <>
-                    <PBtitle className='TN-title'> Approve Transfer</PBtitle>
+                    <PBtitle className='TN-title'>
+                      <FormattedMessage id="approve_first_time" defaultMessage="Approve Transfer" />
+                    </PBtitle>
                     <PBDesc className='mb-20'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                      Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                      cursus.
+                      <FormattedMessage id="approve_first_time_label" />
                     </PBDesc>
 
                     <NFTcartButtons>
@@ -203,12 +199,11 @@ function NftOwnerActions(props) {
               }
               {ownerActionName === 'cancelSaleOrder' && (
                 <>
-                  <PBtitle className='TN-title'> Cancel Sale Order</PBtitle>
+                  <PBtitle className='TN-title'>
+                    <FormattedMessage id="cancel_sale_order" defaultMessage="Cancel Sale Order" />
+                  </PBtitle>
                   <PBDesc className='mb-20'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                    cursus.
+                    <FormattedMessage id="cancel_sale_order_label" />
                   </PBDesc>
 
                   <NFTcartButtons>
@@ -227,10 +222,7 @@ function NftOwnerActions(props) {
                     <FormattedMessage id="accept_offers" defaultMessage="Accept offer" />
                   </PBtitle>
                   <PBDesc className='mb-20'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec ut sapien faucibus, ornare arcu et, bibendum risus.
-                    Nam ultricies urna sed lectus pulvinar, at iaculis ipsum
-                    cursus.
+                    <FormattedMessage id="accept_offers_label" />
                   </PBDesc>
 
                   <NFTcartButtons>
