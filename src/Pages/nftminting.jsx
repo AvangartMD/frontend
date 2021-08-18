@@ -271,8 +271,9 @@ class NFTPage extends Component {
       nftFile,
       description,
     } = this.state.nftObj;
+    window.scrollTo(0, 0);
     if (!title) this.setError("Please enter the Title", true);
-    if (!description) this.setError("Please enter the description", true);
+    // if (!description) this.setError("Please enter the description", true);
     else if (!nftFile && !this.props.match.params.id)
       this.setError("Please select your file", true);
     else if (this.state.suggestionVAl.length && !percentShare)
@@ -282,8 +283,8 @@ class NFTPage extends Component {
         "Please select atleast 1 category.You can choose up to 2.",
         true
       );
-    else if (category.length >= 3)
-      this.setError("You can choose up to 2 category.", true);
+    // else if (category.length >= 3)
+    //   this.setError("You can choose up to 2 category.", true);
     else if (!saleState) this.setError("Please select sale state.", true);
     else if (saleState === "AUCTION" && !+auctionTime)
       this.setError("Please select the auction time.", true);
@@ -467,7 +468,7 @@ class NFTPage extends Component {
                     <NFTtitle id="itemDecription">
                       <h4>Item Description</h4>
                       <p className="mb-30">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Please let us know about your creation.
                       </p>
                     </NFTtitle>
                     <form
@@ -507,7 +508,7 @@ class NFTPage extends Component {
                           <FlexDiv className="JCSB">
                             <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
                             <p>
-                              <b>Max 30 mb.</b>
+                              {/* <b>Max 30 mb.</b> */}
                             </p>
                           </FlexDiv>
                         </div>
@@ -572,16 +573,14 @@ class NFTPage extends Component {
                       <NFTtitle id="collection">
                         <h4 className="mt-30">Category & Collection</h4>
                         <p className="mb-30">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
+                          Please choose the category and collection of your creation.
                         </p>
                       </NFTtitle>
                       <NFTForm>
                         <div className="label-line">
                           <label>Category</label>
                           <p>
-                            Choose category for listing your NFT. You can choose
-                            up to 2.
+                            Choose category for listing your NFT.
                           </p>
                         </div>
                         <CustomCheckbox1>
@@ -688,43 +687,45 @@ class NFTPage extends Component {
                           </label>
                         </CustomRadio1>
                       </NFTForm>
-                      <NFTForm>
-                        <div className="label-line">
-                          <label>Auction Time</label>
-                        </div>
-                        <CustomRadio1>
-                          <label className="radio-container">
-                            12 hours
-                            <input
-                              type="radio"
-                              name="auctionTime"
-                              value="12"
-                              checked={nftObj.auctionTime === "12"}
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                          <label className="radio-container">
-                            24 hours
-                            <input
-                              type="radio"
-                              name="auctionTime"
-                              value="24"
-                              checked={nftObj.auctionTime === "24"}
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                          <label className="radio-container">
-                            48 hours
-                            <input
-                              type="radio"
-                              name="auctionTime"
-                              value="48"
-                              checked={nftObj.auctionTime === "48"}
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </CustomRadio1>
-                      </NFTForm>
+                      {nftObj?.saleState !== `BUY` ?
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Auction Time</label>
+                          </div>
+                          <CustomRadio1>
+                            <label className="radio-container">
+                              12 hours
+                              <input
+                                type="radio"
+                                name="auctionTime"
+                                value="12"
+                                checked={nftObj.auctionTime === "12"}
+                              />
+                              <span className="checkmark"></span>
+                            </label>
+                            <label className="radio-container">
+                              24 hours
+                              <input
+                                type="radio"
+                                name="auctionTime"
+                                value="24"
+                                checked={nftObj.auctionTime === "24"}
+                              />
+                              <span className="checkmark"></span>
+                            </label>
+                            <label className="radio-container">
+                              48 hours
+                              <input
+                                type="radio"
+                                name="auctionTime"
+                                value="48"
+                                checked={nftObj.auctionTime === "48"}
+                              />
+                              <span className="checkmark"></span>
+                            </label>
+                          </CustomRadio1>
+                        </NFTForm>
+                      : ``}
                       <NFTForm>
                         <div className="label-line">
                           <label><FormattedMessage id="edition" defaultMessage="EDITION" /></label>
@@ -772,8 +773,6 @@ class NFTPage extends Component {
                       <NFTtitle id="unlockable">
                         <h4 className="mt-30"><FormattedMessage id="unlock_content_label" defaultMessage="Unlockable content message" /></h4>
                         <p className="mb-30">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
                           <FormattedMessage id="content_label" defaultMessage="Your text below will be shared with the buyer of the NFT only." />
                         </p>
                       </NFTtitle>

@@ -181,7 +181,7 @@ class TopNFT extends Component {
                   </>
                 ) : nft.nftSold === nft.nftId.edition ? (
                   <button className='disabled' disabled>
-                    <FormattedMessage id='sold_out' defaultMessage='Sold out' />
+                    <FormattedMessage id='sold' defaultMessage='Sold' />
                   </button>
                 ) : (
                   <button onClick={() => this.props.history.push(`/nftDetails/${nft.nftId.id}`)}>
@@ -221,7 +221,7 @@ class TopNFT extends Component {
           <Gs.Container>
             <div className='home-title'>
               <h3>
-                <FormattedMessage id='top_nfts' defaultMessage='Top NFTs' />
+                <FormattedMessage id='top_nfts' defaultMessage='Top Creations' />
               </h3>
             </div>
 

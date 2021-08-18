@@ -31,14 +31,14 @@ import Media from '../Theme/media-breackpoint';
 const saleMethods = {
   sold: {
     name: null,
-    btnName: 'Sold out',
-    bidDesc: <FormattedMessage id='sold_out' defaultMessage='Sold out' />,
+    btnName: 'Sold',
+    bidDesc: <FormattedMessage id='sold' defaultMessage='Sold' />,
     disable: true,
   },
   buyNow: {
     name: 'buyNow',
-    btnName: <FormattedMessage id='buy_now' defaultMessage='Sold out' />,
-    bidDesc: 'Reserved price',
+    btnName: <FormattedMessage id='buy_now' defaultMessage='Buy Now' />,
+    bidDesc: 'Price',
     open: 8,
   },
   placeABid: {
@@ -244,7 +244,7 @@ class NftDetail extends React.Component {
       if (isOwner) {
         const method = saleMethods.noButton;
         method.bidDesc =
-          saleState === 'BUY' ? 'Reserved Price' : 'Current offer';
+          saleState === 'BUY' ? 'Price' : 'Current offer';
         return this.setState({
           saleMethod: method,
         });
@@ -458,7 +458,7 @@ class NftDetail extends React.Component {
                 <NFTDleftImg>
                   {ext === `image` ?
                     <Link to='#' onClick={() => this.toggle(6)}>
-                      <img src={NFTDetails?.image.compressed} alt='' /> </Link>: ``}
+                      <img src={NFTDetails?.image.original} alt='' /> </Link>: ``}
                     {ext === 'audio' ?
                       <ReactAudioPlayer
                             src={NFTDetails?.image.compressed}

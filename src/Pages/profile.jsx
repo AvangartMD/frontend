@@ -485,19 +485,20 @@ class Profile extends Component {
                     {" "}
                     <Created
                       status={profile.status === "APPROVED" ? true : false}
+                      profile={true}
                     />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Collected role="creator" />{" "}
+                    <Collected role="creator" profile={true} />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Collection />{" "}
+                    <Collection profile={true} />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Liked />{" "}
+                    <Liked profile={true} />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}
@@ -517,15 +518,15 @@ class Profile extends Component {
 
                   <TabPanel>
                     {" "}
-                    <Collected role="collector" />{" "}
+                    <Collected role="collector" profile={true} />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Collection />{" "}
+                    <Collection profile={true} />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Liked />{" "}
+                    <Liked profile={true} />{" "}
                   </TabPanel>
                   <TabPanel>
                     {" "}

@@ -26,6 +26,7 @@ class Faq extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { lang } = this.props;
     this.setState({ list: lang === 'en' ? faq_en.data:faq_tr.data })
   }

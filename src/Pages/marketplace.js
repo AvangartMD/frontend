@@ -41,6 +41,7 @@ class MarketPlace extends Component {
   }
 
   async componentDidMount() {
+    window.scrollTo(0, 0);
     document.addEventListener('mousedown', this.handleClickOutside);
     const { categories, NFTs } = this.props;
     if (!NFTs) {

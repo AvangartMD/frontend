@@ -38,6 +38,7 @@ class Creators extends Component {
     }
 
     async componentDidMount() {
+        window.scrollTo(0, 0);
         document.addEventListener('mousedown', this.handleClickOutside);
         const { creators, categories } = this.props;
         if (!creators) {
@@ -137,7 +138,7 @@ class Creators extends Component {
                                 <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
                                 <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
                                     <DDContainer>
-                                        <DDBTN01 onClick={() => { this.setRank('name') }}>by Name</DDBTN01>
+                                        <DDBTN01 onClick={() => { this.setRank('name') }}>by Username</DDBTN01>
                                         <DDBTN01 onClick={() => { this.setRank('follower') }}>by Follower</DDBTN01>
                                     </DDContainer>
                                 </Collapse>
