@@ -29,6 +29,7 @@ import {
   compressImage,
   capitalizeFirstLetter,
   getContractInstance,
+  getFileType,
 } from "../helper/functions";
 import { LookoutMetrics } from "aws-sdk";
 import { web3 } from "../web3";
@@ -135,26 +136,28 @@ class NFTPage extends Component {
       if (NFTDetails) {
         // this.setState({ NFTDetails: NFTDetails })
         this.setState({
-        nftObj: {
-          ...this.state.nftObj,
-          id: NFTDetails.id,
-          title: NFTDetails.title,
-          description: NFTDetails.description,
-          coCreatorUserName: NFTDetails.coCreator?.userId?.id,
-          percentShare: NFTDetails.coCreator?.percentage? NFTDetails.coCreator.percentage: 0,
-          category: NFTDetails.category
-            ? NFTDetails.category.filter((cat) => cat).map((catt) => catt.id)
-            : [],
-          collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : "",
-          saleState: `${NFTDetails.saleState}`,
-          auctionTime: `${NFTDetails.auctionTime}`,
-          edition: `${NFTDetails.edition}`,
-          price: `${NFTDetails.price}`,
-          digitalKey: NFTDetails.unlockContent ? NFTDetails.digitalKey : "",
-          imgSrc: NFTDetails.image.compressed,
-          image: NFTDetails.image,
-        },
-      });
+          nftObj: {
+            ...this.state.nftObj,
+            id: NFTDetails.id,
+            title: NFTDetails.title,
+            description: NFTDetails.description,
+            coCreatorUserName: NFTDetails.coCreator?.userId?.id,
+            percentShare: NFTDetails.coCreator?.percentage? NFTDetails.coCreator.percentage: 0,
+            category: NFTDetails.category
+              ? NFTDetails.category.filter((cat) => cat).map((catt) => catt.id)
+              : [],
+            collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : "",
+            saleState: `${NFTDetails.saleState}`,
+            auctionTime: `${NFTDetails.auctionTime}`,
+            edition: `${NFTDetails.edition}`,
+            price: `${NFTDetails.price}`,
+            digitalKey: NFTDetails.unlockContent ? NFTDetails.digitalKey : "",
+            imgSrc: NFTDetails.image.compressed,
+            image: NFTDetails.image,
+          },
+        });
+        let fileType = getFileType(NFTDetails.image.compressed);
+        this.setState({ fileType: fileType })
       }
     }
     if (!nftContractInstance) this.props.getNFTContractInstance();
@@ -384,6 +387,7 @@ class NFTPage extends Component {
     const { categoryList, collectionList, error,fileType } = this.state;
     const nftObj = this.state.nftObj;
     let context = this.context;
+    console.log('- file Type ? ', fileType)
     return (
       <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
