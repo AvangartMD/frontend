@@ -518,12 +518,12 @@ class NftDetail extends React.Component {
                         <p className='gray-t'>of {NFTDetails?.edition}</p>
                       </div>
                     </div>
-                    <Link to='#' onClick={() => this.toggle(10)}>
+                    <button to='#' onClick={() => this.toggle(10)}>
                       <FormattedMessage
                         id='select_edition'
                         defaultMessage='Select edition'
                       />
-                    </Link>
+                    </button>
                   </div>
                   <div className='ed-box'>
                     <div className='ed-left'>
@@ -982,12 +982,13 @@ const Edition = styled(FlexDiv)`
         margin: 0px 0px 5px;
       }
     }
-    a {
+    a,button {
       color: #0066ff;
       font-size: 12px;
       letter-spacing: -0.6px;
       font-weight: 600;
       line-height: 13px;
+      padding:0px;
     }
     h3 {
       color: #000;
