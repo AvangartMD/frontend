@@ -44,7 +44,7 @@ function TxnStatus(props) {
         <>
           <WGTitle>{msg}</WGTitle>
           <WGdescText>
-            <FormattedMessage id="transfer_success" defaultMessage="Transaction is successful" />
+            <FormattedMessage id="transaction_success" defaultMessage="Transaction is successful" />
           </WGdescText>
           {/* <WGdescText>
             Cras sit amet augue consectetur, sodales quam a, congue lacus.
