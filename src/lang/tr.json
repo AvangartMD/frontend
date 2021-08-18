@@ -155,6 +155,7 @@
   "transaction_in_progress": "Transaction in progress",
   "submission_in_progress": "Başvurunuz işleme alınmıştır",
   "transaction_complete": "Işlem tamamlandı",
+  "transaction_success" : "Işlem başarılı",
   "burn_success": "Başarılı Yakma",
   "transfer_success": "Başarılı Aktarım",
   "minting_complete": "Darphane Tamamlandı",
