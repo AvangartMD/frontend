@@ -291,10 +291,10 @@ class CreatorProfile extends Component {
                           <Tab><FormattedMessage id="liked" defaultMessage="Liked" /> </Tab>
                         </TabList>
 
-                        <TabPanel> <Created /> </TabPanel>
-                        <TabPanel> <Collected role='creator' />  </TabPanel>
-                        <TabPanel> <Collection /> </TabPanel>
-                        <TabPanel> <Liked /> </TabPanel>
+                        <TabPanel> <Created profile={false} /> </TabPanel>
+                        <TabPanel> <Collected role='creator' profile={false} />  </TabPanel>
+                        <TabPanel> <Collection profile={false} /> </TabPanel>
+                        <TabPanel> <Liked profile={false} /> </TabPanel>
                       </>
                     ) : (
                       <>
@@ -304,9 +304,9 @@ class CreatorProfile extends Component {
                           <Tab>Liked</Tab>
                         </TabList>
 
-                        <TabPanel> <Collected role='collector' /> </TabPanel>
-                        <TabPanel> <Collection /> </TabPanel>
-                        <TabPanel> <Liked /> </TabPanel>
+                        <TabPanel> <Collected role='collector' profile={false} /> </TabPanel>
+                        <TabPanel> <Collection profile={false} /> </TabPanel>
+                        <TabPanel> <Liked profile={false} /> </TabPanel>
                       </>
                     )}
 

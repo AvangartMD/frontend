@@ -215,8 +215,11 @@ function PABpopup(props) {
                   <PBtitle className='AStitle'>
                     <FormattedMessage id='confirm' defaultMessage='Confirm' />
                   </PBtitle>
-                  <PBDesc className='ASDesc mb-10'>
-                    <FormattedMessage id='confirm_label' />
+                    <PBDesc className='ASDesc mb-10'>
+                      {method === 'buyNow' ? 
+                        <FormattedMessage id='confirm_label_buy' />
+                        :
+                      <FormattedMessage id='confirm_label_claim' />}
                   </PBDesc>
                   {/* <SkyWalletAddress>{reciever}</SkyWalletAddress> */}
                   <NFTcartButtons>

@@ -52,14 +52,19 @@ function Collection(props) {
 
         {collections ?
           collections.length === 0 ?
-            <CEmpty>
-              <h2><FormattedMessage id="collection_empty" defaultMessage="Your collection is empty" /></h2>
-              <p><FormattedMessage id="start_collection_lable" defaultMessage="Start building your collection by placing bids on creations."
-                values={{ br: <br /> }} /></p>
-              {/* <button className="ani-1">
-                <FormattedMessage id="explore_creations" defaultMessage="Explore creations" />
-              </button> */}
-            </CEmpty>
+            props.profile ? 
+              <CEmpty>
+                <h2>Your <FormattedMessage id="collection_empty" defaultMessage="collection is empty" /></h2>
+                <p><FormattedMessage id="start_collection_lable" defaultMessage="Start building your collection by placing bids on creations."
+                  values={{ br: <br /> }} /></p>
+                {/* <button className="ani-1">
+                  <FormattedMessage id="explore_creations" defaultMessage="Explore creations" />
+                </button> */}
+              </CEmpty>
+              :
+              <CEmpty>
+                <h2><FormattedMessage id="collection_empty" defaultMessage="collection is empty" /></h2>
+              </CEmpty>
             : ``
           : ``}
       </HomeNFTs>

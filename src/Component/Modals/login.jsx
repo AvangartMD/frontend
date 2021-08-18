@@ -85,12 +85,14 @@ function Login(props) {
       generateNonce(web3Data.accounts[0]);
     } else {
       try {
-        const signature = await web3.eth.personal.sign(
-          web3.utils.utf8ToHex(nonce),
-          web3Data.accounts[0]
-        );
-        authLogin(nonce, signature);
-        refreshStates();
+        if (!web3Data.isLoggedIn) {
+          const signature = await web3.eth.personal.sign(
+            web3.utils.utf8ToHex(nonce),
+            web3Data.accounts[0]
+          );
+          authLogin(nonce, signature);
+          refreshStates();
+        }
       } catch (error) {
         setLoader(false);
         setError({ isError: true, msg: error.message });
@@ -99,6 +101,7 @@ function Login(props) {
   };
 
   const refreshStates = () => {
+    localStorage.clear();
     setError({ isError: false, msg: "" });
     setLoader(false);
     toggle(4);
