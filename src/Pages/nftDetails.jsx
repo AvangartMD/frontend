@@ -5,6 +5,8 @@ import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
+import ReactAudioPlayer from 'react-audio-player';
+import ReactPlayer from 'react-player';
 import Magnifypopup from '../Component/Modals/magnifyPopup';
 import POSpopup from '../Component/Modals/putonsalepopup';
 import PABpopup from '../Component/Modals/placebidpopup';
@@ -14,13 +16,14 @@ import Collapse from '@kunukn/react-collapse';
 import { web3 } from '../web3';
 import NftdLimg from '../Assets/images/nftcard1.jpg';
 import Redheart from '../Assets/images/Redheart.svg';
+import VideoCover from '../Assets/images/video-cover.jpg';
 import Lock from '../Assets/images/icon-set-lock.svg';
 import UserImg from '../Assets/images/user-img.jpg';
 import redheartBorder from '../Assets/images/redheartBorder.svg';
 import { actions } from '../actions';
 import { connect } from 'react-redux';
 import Timer from '../Component/timer';
-import { getContractInstance } from '../helper/functions';
+import { getContractInstance, getFileType } from '../helper/functions';
 import NftOwnerActions from '../Component/Modals/nftOwnerAction';
 import Login from '../Component/Modals/login';
 import getContractAddresses from '../contractData/contractAddress/addresses';
@@ -134,7 +137,8 @@ class NftDetail extends React.Component {
       loading: false,
       selectedNFTDetails: null,
       isApprovedForAll: false,
-      NFTDetails: null
+      NFTDetails: null,
+      ext: null,
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -159,7 +163,7 @@ class NftDetail extends React.Component {
     if (this.props.match.params.id) {
       // this.props.getSingleNFTDetails(this.props.match.params.id);
       const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
-      if (NFTDetails) { this.setState({ NFTDetails }, () => this.getEditionNumber(NFTDetails, this.state.currentEdition)) }
+      if (NFTDetails) { this.setState({ NFTDetails, ext: getFileType(NFTDetails.image.compressed) }, () => this.getEditionNumber(NFTDetails, this.state.currentEdition)) }
       this.props.getLikesCount(this.props.match.params.id);
       this.props.getIsLiked(this.props.match.params.id);
     }
@@ -432,6 +436,7 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       NFTDetails,
       isApprovedForAll,
+      ext,
     } = this.state;
     // console.log("New sale method", saleMethod);
     const { likesCount, isLiked, authData, web3Data } = this.props;
@@ -451,9 +456,25 @@ class NftDetail extends React.Component {
             <NFTDleft>
               <NFTDleftcontainer>
                 <NFTDleftImg>
-                  <Link to='#' onClick={() => this.toggle(6)}>
-                    <img src={NFTDetails?.image.compressed} alt='' />
-                  </Link>
+                  {ext === `image` ?
+                    <Link to='#' onClick={() => this.toggle(6)}>
+                      <img src={NFTDetails?.image.compressed} alt='' /> </Link>: ``}
+                    {ext === 'audio' ?
+                      <ReactAudioPlayer
+                            src={NFTDetails?.image.compressed}
+                          // autoPlay
+                          controls />
+                      : ``}
+                    {ext === 'video' ?
+                    <ReactPlayer
+                          width='100%'
+                          controls={true}
+                          url={NFTDetails?.image.compressed}
+                          playing={true}
+                          playIcon={<></>}
+                          light={VideoCover} // video cover photo
+                      />
+                      : ``}
                 </NFTDleftImg>
               </NFTDleftcontainer>
             </NFTDleft>

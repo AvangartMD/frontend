@@ -5,8 +5,12 @@ import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
 
 import UserImg from "../../Assets/images/user-img.jpg";
+import AudioCover from "../../Assets/images/audio-square.jpg";
+import VideoCover from "../../Assets/images/video-square.jpg";
+
 import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
+import { getFileType } from "../../helper/functions";
 
 function NFTCard({
   edit=false,
@@ -24,20 +28,43 @@ function NFTCard({
   username,
   previewCard,
 }) {
+
+  const ext = getFileType(nftImg);
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
         <Link to={edit?`/user/nftEdit/${nftId}`:`/nftDetails/${nftId}`}>
         <div className="NFT-home-box">
             <NFTImgBX>
-              <motion.img
-                initial={{ opacity: 0.2 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                key={nftImg}
-                src={nftImg}
-                exit={{ opacity: 0 }}
-              />
+              {ext === `image` ?
+                <motion.img
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={nftImg}
+                  src={nftImg}
+                  exit={{ opacity: 0 }}
+                /> : ``}
+              {ext === 'audio' ?
+                <motion.img
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={AudioCover}
+                  src={AudioCover}
+                  exit={{ opacity: 0 }}
+                />
+                : ``}
+              {ext === 'video' ?
+                <motion.img
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={VideoCover}
+                  src={VideoCover}
+                  exit={{ opacity: 0 }}
+                />
+                : ``}
             </NFTImgBX>
           <div className="NFT-home-box-inner">
             <h4>

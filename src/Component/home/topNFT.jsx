@@ -15,10 +15,13 @@ import UserImg from '../../Assets/images/user-img.jpg';
 import LoaderGif from '../../Assets/images/loading.gif';
 import RoundIcon from '../../Assets/images/round-icon.svg';
 import redheartBorder from '../../Assets/images/redheartBorder.svg';
+import AudioCover from "../../Assets/images/audio-square.jpg";
+import VideoCover from "../../Assets/images/video-square.jpg";
 import Gs from '../../Theme/globalStyles';
 
 import { actions } from '../../actions';
 import Timer from '../timer';
+import { getFileType } from "../../helper/functions";
 import NFTCard from '../../Component/Cards/nftCard';
 
 class TopNFT extends Component {
@@ -47,27 +50,65 @@ class TopNFT extends Component {
 
   renderedFirstElement = (nft, likesCount, isLiked) => {
     const { loading } = this.state;
+    const ext = getFileType(nft.nftId.image.compressed);
     return (
       <>
         <div className='w60'>
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
-              <motion.img
-                className={this.state.imageClass}
-                initial={{ opacity: 0.2 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                key={nft.nftId.image.compressed}
-                src={nft.nftId.image.compressed}
-                exit={{ opacity: 0 }}
-                onLoad={(image) => {
-                  if (image.target.width > image.target.height) {
-                    this.setState({ imageClass: 'horizontal-tnimg' })
-                  } else if (image.target.height > image.target.width) {
-                    this.setState({ imageClass: 'vertical-tnimg' })
-                  }
-                }}
-              />
+              {ext === `image` ?
+                <motion.img
+                  className={this.state.imageClass}
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={nft.nftId.image.compressed}
+                  src={nft.nftId.image.compressed}
+                  exit={{ opacity: 0 }}
+                  onLoad={(image) => {
+                    if (image.target.width > image.target.height) {
+                      this.setState({ imageClass: 'horizontal-tnimg' })
+                    } else if (image.target.height > image.target.width) {
+                      this.setState({ imageClass: 'vertical-tnimg' })
+                    }
+                  }}
+                /> : ``}
+              {ext === 'audio' ?
+                <motion.img
+                  className={this.state.imageClass}
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={AudioCover}
+                  src={AudioCover}
+                  exit={{ opacity: 0 }}
+                  onLoad={(image) => {
+                    if (image.target.width > image.target.height) {
+                      this.setState({ imageClass: 'horizontal-tnimg' })
+                    } else if (image.target.height > image.target.width) {
+                      this.setState({ imageClass: 'vertical-tnimg' })
+                    }
+                  }}
+                />
+                : ``}
+              {ext === 'video' ?
+                <motion.img
+                  className={this.state.imageClass}
+                  initial={{ opacity: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  key={VideoCover}
+                  src={VideoCover}
+                  exit={{ opacity: 0 }}
+                  onLoad={(image) => {
+                    if (image.target.width > image.target.height) {
+                      this.setState({ imageClass: 'horizontal-tnimg' })
+                    } else if (image.target.height > image.target.width) {
+                      this.setState({ imageClass: 'vertical-tnimg' })
+                    }
+                  }}
+                />
+                : ``}
             </NFTfbleft>
           </Link>
         </div>

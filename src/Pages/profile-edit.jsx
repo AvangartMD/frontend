@@ -216,7 +216,7 @@ class ProfileEdit extends Component {
                       items={[
                         'accountSettings',
                         'biography',
-                        'verifyProfile',
+                        // 'verifyProfile',
                         'socialLink',
                       ]}
                       currentClassName='active'
