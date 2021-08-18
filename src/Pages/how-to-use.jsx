@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
 import { Link } from "react-router-dom";
 import Collapse from "@kunukn/react-collapse";
+import { FormattedMessage } from "react-intl";
 import Media from '../Theme/media-breackpoint';
 
 
@@ -40,9 +41,9 @@ class HowToUse extends Component {
           <HowToMain>
             <HowtoRow>
               <Howtoleft>
-                <h3>Suspendisse aliquam nisl neque?</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+                <h3><FormattedMessage id="how_to_use_lable_01" /></h3>
+                <p><FormattedMessage id="how_to_use_text01_1" /></p>
+                <p><FormattedMessage id="how_to_use_text01_2" /></p>
               </Howtoleft>
               <Howtoright>
                 <img src={NFT2} alt="" />
@@ -54,9 +55,9 @@ class HowToUse extends Component {
             </HowtoRow>
             <HowtoRow>
               <Howtoleft>
-                <h3>Suspendisse aliquam nisl neque?</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+                <h3><FormattedMessage id="how_to_use_lable_02" /></h3>
+                <p><FormattedMessage id="how_to_use_text02_1" /></p>
+                <p><FormattedMessage id="how_to_use_text02_2" /></p>
               </Howtoleft>
               <Howtoright>
                 <img src={NFT2} alt="" />
@@ -68,9 +69,9 @@ class HowToUse extends Component {
             </HowtoRow>
             <HowtoRow>
               <Howtoleft>
-                <h3>Suspendisse aliquam nisl neque?</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+                <h3><FormattedMessage id="how_to_use_lable_03" /></h3>
+                <p><FormattedMessage id="how_to_use_text03_1" /></p>
+                <p><FormattedMessage id="how_to_use_text03_2" /></p>
               </Howtoleft>
               <Howtoright>
                 <img src={NFT2} alt="" />
@@ -82,9 +83,9 @@ class HowToUse extends Component {
             </HowtoRow>
             <HowtoRow>
               <Howtoleft>
-                <h3>Suspendisse aliquam nisl neque?</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit.</p>
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. </p>
+                <h3><FormattedMessage id="how_to_use_lable_04" /></h3>
+                <p><FormattedMessage id="how_to_use_text04_1" /></p>
+                <p><FormattedMessage id="how_to_use_text04_2" /></p>
               </Howtoleft>
               <Howtoright>
                 <img src={NFT2} alt="" />
@@ -94,7 +95,36 @@ class HowToUse extends Component {
                 </div>
               </Howtoright>
             </HowtoRow>
-          </HowToMain>
+            <HowtoRow>
+            <Howtoleft>
+              <h3><FormattedMessage id="how_to_use_lable_05" /></h3>
+              <p><FormattedMessage id="how_to_use_text05_1" /></p>
+              <p><FormattedMessage id="how_to_use_text05_2" /></p>
+              <p><FormattedMessage id="how_to_use_text05_3" /></p>
+            </Howtoleft>
+            <Howtoright>
+              <img src={NFT2} alt="" />
+              <div className="overlay">
+                <p>Video Name</p>
+                <Link to='/'><img src={Cshape} alt="" /></Link>
+              </div>
+            </Howtoright>
+          </HowtoRow>
+          <HowtoRow>
+            <Howtoleft>
+              <h3><FormattedMessage id="how_to_use_lable_06" /></h3>
+              <p><FormattedMessage id="how_to_use_text06_1" /></p>
+              <p><FormattedMessage id="how_to_use_text06_2" /></p>
+            </Howtoleft>
+            <Howtoright>
+              <img src={NFT2} alt="" />
+              <div className="overlay">
+                <p>Video Name</p>
+                <Link to='/'><img src={Cshape} alt="" /></Link>
+              </div>
+            </Howtoright>
+          </HowtoRow>
+        </HowToMain>
           <HUbottombuttons>
             <button
               onClick={() => this.props.history.push("/faq")}

@@ -44,12 +44,11 @@ function TxnStatus(props) {
         <>
           <WGTitle>{msg}</WGTitle>
           <WGdescText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            nunc nulla, sollicitudin ac dignissim vitae, dapibus at enim.
+            <FormattedMessage id="transfer_success" defaultMessage="Transaction is successful" />
           </WGdescText>
-          <WGdescText>
+          {/* <WGdescText>
             Cras sit amet augue consectetur, sodales quam a, congue lacus.
-          </WGdescText>
+          </WGdescText> */}
           <WGBtn
             onClick={() => {
               toggle(toggleIndex);
@@ -62,17 +61,17 @@ function TxnStatus(props) {
       )}
       {status === "error" && (
         <>
-          <WGTitle>
-            <FormattedMessage id="transaction_failed" defaultMessage="Transaction failed" />
-            !!!
-          </WGTitle>
+          <WGTitle>{msg}</WGTitle>
           <WGdescText>
+            <FormattedMessage id="transaction_failed" defaultMessage="Transaction failed" />
+          </WGdescText>
+          {/* <WGdescText>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
             nunc nulla, sollicitudin ac dignissim vitae, dapibus at enim.
           </WGdescText>
           <WGdescText>
             Cras sit amet augue consectetur, sodales quam a, congue lacus.
-          </WGdescText>
+          </WGdescText> */}
           <WGBtn
             onClick={() => {
               toggle(toggleIndex);

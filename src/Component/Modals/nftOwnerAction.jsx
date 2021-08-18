@@ -249,7 +249,7 @@ function NftOwnerActions(props) {
                     <FormattedMessage id="confirm" defaultMessage="Confirm" />
                   </PBtitle>
                   <PBDesc className='ASDesc mb-10'>
-                    <FormattedMessage id="confirm_label" />
+                    <FormattedMessage id="confirm_label_transfer" />
                   </PBDesc>
                   <SkyWalletAddress>{reciever}</SkyWalletAddress>
                   <NFTcartButtons>

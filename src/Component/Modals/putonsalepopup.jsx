@@ -147,7 +147,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
             <TxnStatus
               status={txnStatus}
               toggle={toggle}
-              toggleIndex={7}
+                toggleIndex={7}
               refreshStates={refreshStates}
             />
           )}

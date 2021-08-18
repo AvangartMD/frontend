@@ -280,7 +280,7 @@ class NFTPage extends Component {
       this.setError("Please set the percent share of your Co-creator", true);
     else if (!category.length)
       this.setError(
-        "Please select atleast 1 category.You can choose up to 2.",
+        "Please select atleast 1 category.",
         true
       );
     // else if (category.length >= 3)
@@ -289,7 +289,7 @@ class NFTPage extends Component {
     else if (saleState === "AUCTION" && !+auctionTime)
       this.setError("Please select the auction time.", true);
     else if (!edition || (+edition < 0 || +edition) > 20)
-      this.setError("Edition ranges between 1 to 20", true);
+      this.setError("Edition ranges between 1 to 500", true);
     else if (!+price) this.setError("Please enter the price", true);
     else {
       this.setError("", false);
@@ -388,7 +388,6 @@ class NFTPage extends Component {
     const { categoryList, collectionList, error,fileType } = this.state;
     const nftObj = this.state.nftObj;
     let context = this.context;
-    console.log('- file Type ? ', fileType)
     return (
       <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
