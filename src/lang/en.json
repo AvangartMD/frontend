@@ -181,5 +181,6 @@
   "how_to_use_text06_1": "As you are the true owners of your NFTs, you can put them on sale in the second-hand market. To sell your NFTs, you can either set a fixed price or start accepting offers from potential sellers. In this scenario, you can accept or reject the requests within 24 hours. Submissions that are not responded to within that time frame will automatically be rejected. Currently, the live auction option is not available for second-hand sales. ",
   "how_to_use_text06_2": "You can also transfer or gift your NFTs to other users.",
   "approve_first_time": "Approve Transfer",
-  "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus."
+  "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
+  "enter_minimum_price_lable": "Enter mnimum price"
 }

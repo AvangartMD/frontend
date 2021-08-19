@@ -10,8 +10,7 @@ import TxnStatus from "./txnStatus";
 import { getContractInstance } from "../../helper/functions";
 
 function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
-
-  const wrapperRef = useRef(null)
+  const wrapperRef = useRef(null);
   const [isOpen2, setIsOpen2] = useState(false);
   const [price, setPrice] = useState("");
   const [txnStatus, setTxnStatus] = useState("");
@@ -19,9 +18,9 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   const escrowContractInstance = getContractInstance(true);
   const makeTransaction = async () => {
     if (!method) return;
-    if (!price) return;
+    if (!+price) return;
+    console.log(method, price);
     setTxnStatus("initiate");
-    if (!price) return;
     await escrowContractInstance.methods[method](
       +tokenId,
       editionNumber,
@@ -32,7 +31,8 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
         setTxnStatus("progress");
       })
       .on("receipt", (receipt) => {
-				setTimeout(() => { // refresh the state 
+        setTimeout(() => {
+          // refresh the state
           nftDetails();
           setTxnStatus("complete");
         }, 5000);
@@ -43,23 +43,27 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   };
 
   useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-          if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-              if (isOpen2) setIsOpen2(false);
-          }
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (
+        wrapperRef &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target)
+      ) {
+        if (isOpen2) setIsOpen2(false);
       }
+    }
 
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-          // Unbind the event listener on clean up
-          document.removeEventListener("mousedown", handleClickOutside);
-      };
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [wrapperRef, setIsOpen2, isOpen2]);
-  
+
   const refreshStates = () => {
     setPrice("");
     setTxnStatus("");
@@ -76,7 +80,10 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
           {!txnStatus ? (
             <>
               <PBtitle className="TN-title">
-                <FormattedMessage id="put_on_sale" defaultMessage="Put on Sale" />
+                <FormattedMessage
+                  id="put_on_sale"
+                  defaultMessage="Put on Sale"
+                />
               </PBtitle>
               <CustomRadio1>
                 <label className="radio-container">
@@ -90,7 +97,10 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                   <span className="checkmark"></span>
                 </label>
                 <label className="radio-container">
-                  <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
+                  <FormattedMessage
+                    id="accept_offers"
+                    defaultMessage="Accept offers"
+                  />
                   <input
                     type="radio"
                     name="category"
@@ -103,7 +113,17 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
               <NFTForm className="Custom-piece">
                 <div className="label-line">
                   <label>
-                    <FormattedMessage id="enter_price_lable" defaultMessage="Enter price" />
+                    {method === "requestOffer" ? (
+                      <FormattedMessage
+                        id="enter_minimum_price_lable"
+                        defaultMessage="Enter minimum price"
+                      />
+                    ) : (
+                      <FormattedMessage
+                        id="enter_price_lable"
+                        defaultMessage="Enter price"
+                      />
+                    )}
                   </label>
                 </div>
                 <input
@@ -115,7 +135,10 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                       setPrice(e.target.value);
                   }}
                 />
-                <AccountBX onClick={() => setIsOpen2(!isOpen2)} ref={wrapperRef}>
+                <AccountBX
+                  onClick={() => setIsOpen2(!isOpen2)}
+                  ref={wrapperRef}
+                >
                   <span>
                     BNB <img src={DDdownA} alt="" />
                   </span>
@@ -148,7 +171,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
             <TxnStatus
               status={txnStatus}
               toggle={toggle}
-                toggleIndex={7}
+              toggleIndex={7}
               refreshStates={refreshStates}
             />
           )}
@@ -350,7 +373,7 @@ const NFTForm = styled.div`
 const CustomRadio1 = styled(FlexDiv)`
   justify-content: flex-start;
   margin-bottom: 20px;
-  width:100%;
+  width: 100%;
   .radio-container {
     display: flex;
     align-items: center;
@@ -368,9 +391,8 @@ const CustomRadio1 = styled(FlexDiv)`
     img {
       margin-right: 5px;
     }
-    :last-child
-    {
-      margin-right:0px;
+    :last-child {
+      margin-right: 0px;
     }
   }
   .radio-container input {

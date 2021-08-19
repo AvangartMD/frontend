@@ -155,7 +155,7 @@
   "transaction_in_progress": "Transaction in progress",
   "submission_in_progress": "Başvurunuz işleme alınmıştır",
   "transaction_complete": "Işlem tamamlandı",
-  "transaction_success" : "Işlem başarılı",
+  "transaction_success": "Işlem başarılı",
   "burn_success": "Başarılı Yakma",
   "transfer_success": "Başarılı Aktarım",
   "minting_complete": "Darphane Tamamlandı",
@@ -181,5 +181,6 @@
   "how_to_use_text06_1": "Satın aldığınız NFT’leri ikinci el piyasada satışa çıkarabilirsiniz. İkinci el piyasasında satışlar “hemen al” veya “tekliflere açık” şeklinde iki statüde gerçekleşir. “Hemen al” opsiyonunu seçmeniz durumunda NFT’nizi belirlenen fiyattan satışa çıkarabilirsiniz. Eğer aklınızda net bir fiyat yoksa “tekliflere açık” opsiyonunu seçerek gelen teklifleri değerlendirebilirsiniz. Gelen teklifler cevaplanmadığı takdirde 24 saat içinde otomatik olarak reddedilir. Şu an için ikinci el satışlarda açık arttırma opsiyonu bulunmamaktadır.",
   "how_to_use_text06_2": "Ayrıca satın aldığınız NFT’leri ücretsiz olarak istediğiniz hesaplara transfer veya hediye edebilirsiniz.",
   "approve_first_time": "Approve Transfer",
-  "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus."
+  "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
+  "enter_minimum_price_lable": "Enter mnimum price"
 }
