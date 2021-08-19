@@ -85,12 +85,59 @@ function Login(props) {
       generateNonce(web3Data.accounts[0]);
     } else {
       try {
-        const signature = await web3.eth.personal.sign(
-          web3.utils.utf8ToHex(nonce),
-          web3Data.accounts[0]
-        );
-        authLogin(nonce, signature);
-        refreshStates();
+        if (!web3Data.isLoggedIn) {
+
+          const chainId = web3.eth.net.getId().then((chainId) => { return chainId });
+
+          if (chainId !== 97) {
+            // MetaMask injects the global API into window.ethereum
+            try {
+              // check if the chain to connect to is installed
+              const changeRequest = await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x61' }], // chainId must be in hexadecimal numbers
+              });
+              const signature = await web3.eth.personal.sign(
+                web3.utils.utf8ToHex(nonce),
+                web3Data.accounts[0]
+              );
+              authLogin(nonce, signature);
+              refreshStates();
+            } catch (error) {
+              console.log('error ')
+              // This error code indicates that the chain has not been added to MetaMask
+              // if it is not, then install it into the user MetaMask
+              if (error.code === 4902) {
+                try {
+                  await window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [
+                      {
+                        chainId: '0x61',
+                        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                      },
+                    ],
+                  });
+                } catch (addError) {
+                  console.error(addError);
+                }
+              }
+
+              if (error.code === 4001) {
+                setLoader(false);
+                setError({ isError: true, msg: error.message });
+              }
+              console.error(error);
+            }
+          } else {
+            const signature = await web3.eth.personal.sign(
+              web3.utils.utf8ToHex(nonce),
+              web3Data.accounts[0]
+            );
+            authLogin(nonce, signature);
+            refreshStates();
+          }
+        }
       } catch (error) {
         setLoader(false);
         setError({ isError: true, msg: error.message });
@@ -99,6 +146,7 @@ function Login(props) {
   };
 
   const refreshStates = () => {
+    localStorage.clear();
     setError({ isError: false, msg: "" });
     setLoader(false);
     toggle(4);
@@ -161,7 +209,7 @@ function Login(props) {
             )
           ) : (
             <>
-              <OnbTitle01 className="v2"><FormattedMessage id="attention" defaultMessage="Install MetaMask." /></OnbTitle01>
+              <OnbTitle01 className="v2"><FormattedMessage id="attention" defaultMessage="Attention.!" /></OnbTitle01>
                 <OnbText01 className="text-center">{error.msg}</OnbText01>
                 {error.msg === 'Please download metamask first.!' ?
                   <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>

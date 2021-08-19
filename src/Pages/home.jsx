@@ -30,6 +30,7 @@ class Home extends React.Component {
     }
 
     async componentDidMount() {
+        window.scrollTo(0, 0);
         const { dashboard, cookies } = this.props;
         if (!this.state.dashboard && !dashboard) {
             this.props.getDashboard() // fetch dashboard config

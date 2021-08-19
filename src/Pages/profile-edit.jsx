@@ -226,7 +226,7 @@ class ProfileEdit extends Component {
                         to='#accountSettings'
                         smooth={true}
                       >
-                        Account Setting
+                        Account Settings
                       </Link>
                       <Link
                         className={pointSelect('biography')}
@@ -289,7 +289,7 @@ class ProfileEdit extends Component {
                           <h4>
                             <FormattedMessage
                               id='account_settings'
-                              defaultMessage='Account Setting'
+                              defaultMessage='Account Settings'
                             />
                           </h4>
                           <p className='mb-30'>
@@ -523,7 +523,7 @@ class ProfileEdit extends Component {
                           <h4 className='mt-30'>
                             <FormattedMessage
                               id='social_links'
-                              defaultMessage='Socila Links'
+                              defaultMessage='Social Links'
                             />
                           </h4>
                           <p className='mb-30'>
@@ -587,6 +587,33 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.portfolio?.instagarm
                                     ? profile.portfolio.instagarm.url
+                                    : ''
+                                  : ''
+                              }
+                            />
+                          </div>
+                        </NFTForm>
+                        <NFTForm>
+                          <div className='label-line'>
+                            <label>Twitter</label>
+                          </div>
+                          <div className='iLeft'>
+                            <i>
+                              <img src={CICON01} alt='' />
+                            </i>
+                            <input
+                              type='url'
+                              name='twitter'
+                              placeholder='Type something…'
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.twitter
+                                    ? profile.portfolio.twitter.url
                                     : ''
                                   : ''
                               }

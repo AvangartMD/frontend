@@ -43,9 +43,9 @@ class Collections extends Component {
               />
             </div>
             <div className="collbox-desc">
-              <p className="coll-title">{ collection.collectionId.name }</p>
+              <p className="coll-title">{collection.collectionId.name}</p>
               <p className="creator-name">
-                by { collection.collectionId.ownerId.username }
+                by {collection.collectionId.ownerId.username}
               </p>
             </div>
           </Link>
@@ -232,6 +232,7 @@ Gs.W25 = styled(Gs.W25)`
 
 Gs.TenpxGutter = styled(Gs.TenpxGutter)`
   ${CollectionSection} & {
+    margin:0px 10px 20px;
     ${Media.xs}{
      margin:0px 5px;
     }

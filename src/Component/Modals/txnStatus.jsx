@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
 import LoaderGif from "../../Assets/images/loading.gif";
 // import { actions } from "../../actions";
-import Media from '../../Theme/media-breackpoint';
+import Media from "../../Theme/media-breackpoint";
 
 function TxnStatus(props) {
   const { status, msg, toggleIndex, toggle, refreshStates } = props;
@@ -12,7 +12,10 @@ function TxnStatus(props) {
       {status === "initiate" && (
         <>
           <OnbTitle01 className="v2">
-            <FormattedMessage id="follow_the_instructions" defaultMessage="Please follow the instructions on your wallet" />
+            <FormattedMessage
+              id="follow_the_instructions"
+              defaultMessage="Please follow the instructions on your wallet"
+            />
           </OnbTitle01>
           <LoaderBX>
             <img src={LoaderGif} alt="" />
@@ -22,7 +25,10 @@ function TxnStatus(props) {
       {status === "progress" && (
         <>
           <OnbTitle01 className="v2">
-            <FormattedMessage id="transaction_in_progress" defaultMessage="Transaction in progress" />
+            <FormattedMessage
+              id="transaction_in_progress"
+              defaultMessage="Transaction in progress"
+            />
           </OnbTitle01>
           <LoaderBX>
             <img src={LoaderGif} alt="" />
@@ -32,7 +38,10 @@ function TxnStatus(props) {
       {status === "progress1" && (
         <>
           <OnbTitle01 className="v2">
-            <FormattedMessage id="submission_in_progress" defaultMessage="Submission in progress" />
+            <FormattedMessage
+              id="submission_in_progress"
+              defaultMessage="Submission in progress"
+            />
           </OnbTitle01>
           <LoaderBX>
             <img src={LoaderGif} alt="" />
@@ -42,14 +51,14 @@ function TxnStatus(props) {
 
       {status === "complete" && (
         <>
-          <WGTitle>{msg}</WGTitle>
-          <WGdescText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            nunc nulla, sollicitudin ac dignissim vitae, dapibus at enim.
-          </WGdescText>
-          <WGdescText>
-            Cras sit amet augue consectetur, sodales quam a, congue lacus.
-          </WGdescText>
+          <WGTitle>
+            {" "}
+            <FormattedMessage
+              id="transaction_success"
+              defaultMessage="Transaction is successful"
+            />
+          </WGTitle>
+
           <WGBtn
             onClick={() => {
               toggle(toggleIndex);
@@ -63,16 +72,12 @@ function TxnStatus(props) {
       {status === "error" && (
         <>
           <WGTitle>
-            <FormattedMessage id="transaction_failed" defaultMessage="Transaction failed" />
-            !!!
+            <FormattedMessage
+              id="transaction_failed"
+              defaultMessage="Transaction failed"
+            />
           </WGTitle>
-          <WGdescText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            nunc nulla, sollicitudin ac dignissim vitae, dapibus at enim.
-          </WGdescText>
-          <WGdescText>
-            Cras sit amet augue consectetur, sodales quam a, congue lacus.
-          </WGdescText>
+          <WGdescText></WGdescText>
           <WGBtn
             onClick={() => {
               toggle(toggleIndex);
@@ -165,8 +170,8 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
 `;
 const CloseBTN = styled.button`
@@ -180,7 +185,7 @@ const CloseBTN = styled.button`
   :hover {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }

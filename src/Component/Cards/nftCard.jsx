@@ -74,7 +74,8 @@ function NFTCard({
             </h4>
             <CollectionBar>
               <p>
-                {nftSold} <span>of {edition ? edition : 0}</span>
+                {edition ? edition : 0} Editions
+                {/* {nftSold} <span>of {edition ? edition : 0}</span> */}
               </p>
               {collectionId ? (
                 <p>
@@ -115,7 +116,7 @@ function NFTCard({
                     </h3>
                   </>
                     ) : nftSold === edition ? (<button className="disabled" disabled>
-                          <FormattedMessage id="sold_out" defaultMessage="Sold out" />
+                          <FormattedMessage id="sold" defaultMessage="Sold" />
                   </button>) : (
                   <button>
                     <FormattedMessage id="buy_now" defaultMessage="Buy now" />

@@ -30,6 +30,7 @@ class Collection extends Component {
   }
 
   async componentDidMount() {
+    window.scrollTo(0, 0);
     const { categories, collections } = this.props;
     if (!collections) {
       this.props.getCollections() // fetch collections
