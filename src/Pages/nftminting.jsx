@@ -812,7 +812,7 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm> */}
                       <CreateItemButton>
-                        <button type="submit" className="all-field-required">
+                        <button type="submit" className={error.isError?``:`all-field-required`}>
                           {nftObj?.id ? `Update` : `Create`} Item
                         </button>
                       </CreateItemButton>
