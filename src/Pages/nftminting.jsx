@@ -142,7 +142,7 @@ class NFTPage extends Component {
             title: NFTDetails.title,
             description: NFTDetails.description,
             coCreatorUserName: NFTDetails.coCreator?.userId?.id,
-            percentShare: NFTDetails.coCreator?.percentage? NFTDetails.coCreator.percentage: 0,
+            percentShare: NFTDetails.coCreator?.percentage ? NFTDetails.coCreator.percentage : 0,
             category: NFTDetails.category
               ? NFTDetails.category.filter((cat) => cat).map((catt) => catt.id)
               : [],
@@ -385,7 +385,7 @@ class NFTPage extends Component {
       if (hash === curr) return "active";
       else return "inactive";
     }
-    const { categoryList, collectionList, error,fileType } = this.state;
+    const { categoryList, collectionList, error, fileType } = this.state;
     const nftObj = this.state.nftObj;
     let context = this.context;
     return (
@@ -724,7 +724,7 @@ class NFTPage extends Component {
                             </label>
                           </CustomRadio1>
                         </NFTForm>
-                      : ``}
+                        : ``}
                       <NFTForm>
                         <div className="label-line">
                           <label><FormattedMessage id="edition" defaultMessage="EDITION" /></label>
@@ -812,7 +812,7 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm> */}
                       <CreateItemButton>
-                        <button type="submit">
+                        <button type="submit" className="all-field-required">
                           {nftObj?.id ? `Update` : `Create`} Item
                         </button>
                       </CreateItemButton>
@@ -845,20 +845,20 @@ class NFTPage extends Component {
                                     src={nftObj.imgSrc}
                                     exit={{ opacity: 0 }}
                                   /> : ``}
-                                {fileType === 'audio' ? 
+                                {fileType === 'audio' ?
                                   <ReactAudioPlayer
                                     src={nftObj.imgSrc}
                                     autoPlay
                                     controls /> : ``}
-                                {fileType === 'video' ? 
+                                {fileType === 'video' ?
                                   <ReactPlayer
-                                      controls={true}
-                                      url={nftObj.imgSrc}
-                                      playing={true}
-                                  />: ``}
+                                    controls={true}
+                                    url={nftObj.imgSrc}
+                                    playing={true}
+                                  /> : ``}
                               </NFTImgBX>
                               <div className="NFT-home-box-inner">
-                                 <h4>
+                                <h4>
                                   {nftObj.title
                                     ? nftObj.title
                                     : "Artwork name / title dolor lorem ipsum sit adipiscing"}
@@ -882,17 +882,17 @@ class NFTPage extends Component {
                                   <div className="ed-box">
                                     <p>{nftObj.saleState === "BUY" ? null : nftObj.auctionTime
                                       && nftObj.saleState === "BUY" ? null : nftObj.auctionTime > new Date().getTime() / 1000 ?
-                                      <FormattedMessage id="current_bid" defaultMessage="Current bid" />:
+                                      <FormattedMessage id="current_bid" defaultMessage="Current bid" /> :
                                       <FormattedMessage id="price" defaultMessage="Price" />}</p>
-                                  <h3>{nftObj.price} BNB</h3>
+                                    <h3>{nftObj.price} BNB</h3>
                                   </div>
                                   <div className="ed-box">
                                     {
                                       (nftObj.saleState === "BUY" ? null : nftObj.auctionTime) ?
                                         <><p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p> <h3>{nftObj.saleState === "BUY" ? null : nftObj.auctionTime}h 00m 00s</h3></>
-                                      : <><button><FormattedMessage id="buy_now" defaultMessage="Buy now" /> </button></>
+                                        : <><button><FormattedMessage id="buy_now" defaultMessage="Buy now" /> </button></>
                                     }
-                                   </div>
+                                  </div>
                                 </Edition>
                                 <UserImgName>
                                   <img src={this.props.authData?.data.profile ? this.props.authData?.data.profile : UserImg} alt="" />
@@ -932,7 +932,7 @@ class NFTPage extends Component {
             mintNFTStatus={this.state.mintNFTStatus}
           />
         </Collapse>
-      </Gs.MainSection>
+      </Gs.MainSection >
     );
   }
   toggle = (index) => {
@@ -1206,6 +1206,9 @@ const CreateItemButton = styled.div`
     border-radius: 15px;
     background-color: rgb(0 0 0 / 30%);
     :hover {
+      background-color: #000;
+    }
+    &.all-field-required{
       background-color: #000;
     }
   }
