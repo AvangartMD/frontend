@@ -452,7 +452,7 @@ class NFTPage extends Component {
                   </NFTLeft>
                 </Sticky>
               </Gs.W200px>
-              <Gs.W880px className="displayflex">
+              <Gs.W880px className="displayflex block">
                 {error.isError && !error.isCocreatorError && (
                   <Gs.W605px>
                     <NFTMiddle>
@@ -820,7 +820,7 @@ class NFTPage extends Component {
                   </NFTMiddle>
                 </Gs.W605px>
                 <Gs.W275px>
-                  <Sticky topOffset={30}>
+                  <Sticky topOffset={30} boundaryElement=".block" hideOnBoundaryHit={true}>
                     <NFTRight>
                       <NFTtitle>
                         <h4>
