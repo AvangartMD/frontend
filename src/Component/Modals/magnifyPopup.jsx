@@ -10,7 +10,7 @@ function Magnifypopup({ toggle, imageURL }) {
         <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
-        <div className="Mouter">
+        <div className="vs-box hr-box">
           <img src={imageURL} alt="" />
         </div>
       </WhiteWrap>
@@ -34,10 +34,17 @@ const WhiteWrap = styled(FlexDiv)`
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 1011;
   backdrop-filter: blur(2px);
-  .Mouter
-  {
-    max-width:600px;
-    margin:0px 15px;
+  .vs-box{
+    height: min(100vw - 50px, 100vh - 50px);
+    width: min(100vw - 50px, 100vh - 50px);
+    max-height: calc(100vh - 32px);
+    max-width: calc(100% - 32px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    &.hr-box{
+      width: min(100vw - 50px);
+    }
   }
 `;
 
@@ -57,7 +64,7 @@ const CloseBTND2 = styled(FlexDiv)`
   :hover img {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
