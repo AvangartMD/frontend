@@ -221,7 +221,7 @@ class NFTPage extends Component {
         this.setState({ mintNFTStatus: "complete" });
       })
       .on("error", (error) => {
-        this.setState({ mintNFTStatus: "complete" });
+        this.setState({ mintNFTStatus: "error" });
       });
   };
 
@@ -254,8 +254,8 @@ class NFTPage extends Component {
       if (!fileType.search("video")) this.setState({ fileType: "video" });
       if (!fileType.search("audio")) this.setState({ fileType: "audio" });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
-      console.log(fileType, fileType.search("image"));
-      if (e.target.files[0].size > 3145728) {
+      console.log(fileType, !fileType.search("image"));
+      if (e.target.files[0].size > 3145728 && !fileType.search("image")) {
         nftObj.compressionRequired = true;
       }
     } else {

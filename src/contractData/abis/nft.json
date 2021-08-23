@@ -257,7 +257,11 @@
         "name": "_coCreatorPercent",
         "type": "uint256"
       },
-      { "internalType": "enum v2.Type", "name": "_saleType", "type": "uint8" },
+      {
+        "internalType": "enum Token.Type",
+        "name": "_saleType",
+        "type": "uint8"
+      },
       { "internalType": "uint256", "name": "_timeline", "type": "uint256" },
       { "internalType": "uint256", "name": "_pricePerNFT", "type": "uint256" },
       {

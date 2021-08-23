@@ -575,7 +575,7 @@ class ProfileEdit extends Component {
                               <img src={CICON01} alt="" />
                             </i>
                             <input
-                              type="url"
+                              type="text"
                               name="twitter"
                               placeholder="Type something…"
                               onKeyPress={(e) => {
@@ -602,7 +602,7 @@ class ProfileEdit extends Component {
                               <img src={CICON02} alt="" />
                             </i>
                             <input
-                              type="url"
+                              type="text"
                               name="instagarm"
                               placeholder="Type something…"
                               onKeyPress={(e) => {

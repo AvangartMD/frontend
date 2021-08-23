@@ -578,9 +578,9 @@ class NftDetail extends React.Component {
                       url={NFTDetails?.image.compressed}
                       playing={false}
                       playIcon={<></>}
-                      light={
-                        "https://avangrat-development.s3.eu-central-1.amazonaws.com/nft/MidoriyaIzuku.jpg"
-                      }
+                      // light={
+                      //   ""
+                      // }
                     />
                   ) : (
                     ``
