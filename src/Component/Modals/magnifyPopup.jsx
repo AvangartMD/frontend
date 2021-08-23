@@ -4,20 +4,20 @@ import CloseBTN02 from "../../Assets/images/icon-set-exit.svg";
 import Media from "../../Theme/media-breackpoint";
 
 function Magnifypopup({ toggle, imageURL }) {
-  const [hrClass, sethrClass] = useState("horizontal-tnimg");
+  const [hrClass, sethrClass] = useState("");
   return (
     <>
       <WhiteWrap>
         <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
-        <div className="Mouter">
+        <div className={`vs-box hr-box ${hrClass}`}>
           <img
             src={imageURL}
             alt=""
             onLoad={(image) => {
               if (image.target.width > image.target.height) {
-                sethrClass("horizontal-tnimg");
+                sethrClass("hr-box");
               }
               //  else if (image.target.height > image.target.width) {
               //   this.setState({ imageClass: "vertical-tnimg" });
@@ -46,9 +46,17 @@ const WhiteWrap = styled(FlexDiv)`
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 1011;
   backdrop-filter: blur(2px);
-  .Mouter {
-    max-width: 600px;
-    margin: 0px 15px;
+  .vs-box {
+    height: min(100vw - 50px, 100vh - 50px);
+    width: min(100vw - 50px, 100vh - 50px);
+    max-height: calc(100vh - 32px);
+    max-width: calc(100% - 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.hr-box {
+      width: min(100vw - 50px);
+    }
   }
 `;
 
