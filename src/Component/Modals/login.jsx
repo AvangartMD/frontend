@@ -1,28 +1,27 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Gs from "./../../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
-import Media from "./../../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Gs from './../../Theme/globalStyles';
+import { NavLink } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+import Media from './../../Theme/media-breackpoint';
+import Collapse from '@kunukn/react-collapse';
 
-import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
-import WalletICO01 from "../../Assets/images/walletICO-01.png";
+import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
+import WalletICO01 from '../../Assets/images/walletICO-01.png';
 // import WalletICO02 from "../../Assets/images/walletICO-02.png";
-import WalletICO02 from "../../Assets/images/wallet-connect.svg";
+import WalletICO02 from '../../Assets/images/wallet-connect.svg';
 
-import LoaderGif from "../../Assets/images/loading.gif";
-import { useEffect } from "react";
-import { useState } from "react";
-import { connect } from "react-redux";
-import { web3 } from "../../web3";
-import { actions } from "../../actions";
+import LoaderGif from '../../Assets/images/loading.gif';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { web3 } from '../../web3';
+import { actions } from '../../actions';
 
 function Login(props) {
-
   const [loader, setLoader] = useState(false);
-  const [error, setError] = useState({ isError: false, msg: "" });
+  const [error, setError] = useState({ isError: false, msg: '' });
   const {
     web3Data,
     generateNonce,
@@ -37,8 +36,7 @@ function Login(props) {
   useEffect(() => {
     if (web3Data.accounts[0]) {
       setLoader(true);
-      if (web3Data.accounts[0] && !nonce)
-        signatureRequest(undefined, true);
+      if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Data.accounts[0]]);
@@ -63,19 +61,19 @@ function Login(props) {
     if (web3Data.accounts[0]) {
       checkAuthentication(web3Data);
     } else {
-      if (typeof window.web3 !== "undefined") {
+      if (typeof window.web3 !== 'undefined') {
         enableMetamask();
       } else {
         setLoader(false);
-        setError({ isError: true, msg: "Please download metamask first.!" });
+        setError({ isError: true, msg: 'Please download metamask first.!' });
       }
     }
   };
 
   const checkAuthentication = (web3Data) => {
     if (
-      !localStorage.getItem("avangartAuthToken") ||
-      web3Data.accounts[0] !== localStorage.getItem("userAddress")
+      !localStorage.getItem('avangartAuthToken') ||
+      web3Data.accounts[0] !== localStorage.getItem('userAddress')
     )
       signatureRequest(undefined, true);
   };
@@ -86,8 +84,9 @@ function Login(props) {
     } else {
       try {
         if (!web3Data.isLoggedIn) {
-
-          const chainId = web3.eth.net.getId().then((chainId) => { return chainId });
+          const chainId = web3.eth.net.getId().then((chainId) => {
+            return chainId;
+          });
 
           if (chainId !== 97) {
             // MetaMask injects the global API into window.ethereum
@@ -104,7 +103,7 @@ function Login(props) {
               authLogin(nonce, signature);
               refreshStates();
             } catch (error) {
-              console.log('error ')
+              // console.log('error ')
               // This error code indicates that the chain has not been added to MetaMask
               // if it is not, then install it into the user MetaMask
               if (error.code === 4902) {
@@ -114,12 +113,13 @@ function Login(props) {
                     params: [
                       {
                         chainId: '0x61',
-                        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                        rpcUrl:
+                          'https://data-seed-prebsc-1-s1.binance.org:8545/',
                       },
                     ],
                   });
                 } catch (addError) {
-                  console.error(addError);
+                  // console.error(addError);
                 }
               }
 
@@ -127,7 +127,7 @@ function Login(props) {
                 setLoader(false);
                 setError({ isError: true, msg: error.message });
               }
-              console.error(error);
+              // console.error(error);
             }
           } else {
             const signature = await web3.eth.personal.sign(
@@ -147,7 +147,7 @@ function Login(props) {
 
   const refreshStates = () => {
     localStorage.clear();
-    setError({ isError: false, msg: "" });
+    setError({ isError: false, msg: '' });
     setLoader(false);
     toggle(4);
   };
@@ -157,41 +157,52 @@ function Login(props) {
       <BlackWrap>
         <WhiteBX01>
           <CloseBTN
-            className="ani-1"
+            className='ani-1'
             onClick={() => {
               refreshStates();
             }}
           >
-            <img src={CloseBTN01} alt="" />
+            <img src={CloseBTN01} alt='' />
           </CloseBTN>
           {!error.isError ? (
             !loader ? (
               <>
                 <OnbTitle01>Connect your wallet</OnbTitle01>
                 <OnbText01>
-                  <FormattedMessage id="connect_wallet"
-                    defaultMessage="By connecting your wallet,
-                      you agree to our {termLink} and our {privacyLink}."
+                  <FormattedMessage
+                    id='connect_wallet'
+                    defaultMessage='By connecting your wallet,
+                      you agree to our {termLink} and our {privacyLink}.'
                     values={{
-                      termLink: <NavLink to="/legal">
-                        <FormattedMessage id="term_of_service" defaultMessage="Term of Service" />
-                      </NavLink>,
-                      privacyLink: <NavLink to="/legal">
-                        <FormattedMessage id="privacy_policy" defaultMessage="Privacy Policy" />
-                      </NavLink>
+                      termLink: (
+                        <NavLink to='/legal'>
+                          <FormattedMessage
+                            id='term_of_service'
+                            defaultMessage='Term of Service'
+                          />
+                        </NavLink>
+                      ),
+                      privacyLink: (
+                        <NavLink to='/legal'>
+                          <FormattedMessage
+                            id='privacy_policy'
+                            defaultMessage='Privacy Policy'
+                          />
+                        </NavLink>
+                      ),
                     }}
                   />
                 </OnbText01>
                 <OnBTNBar>
                   <button onClick={() => connectToWallet()}>
                     <i>
-                      <img src={WalletICO01} alt="" />
+                      <img src={WalletICO01} alt='' />
                     </i>
                     MetaMask
                   </button>
                   <button onClick={() => props.enabledWalletConnect()}>
                     <i>
-                      <img src={WalletICO02} alt="" />
+                      <img src={WalletICO02} alt='' />
                     </i>
                     WalletConnect
                   </button>
@@ -199,21 +210,33 @@ function Login(props) {
               </>
             ) : (
               <>
-                <OnbTitle01 className="v2">
-                  <FormattedMessage id="follow_the_instructions" defaultMessage="Please follow the instructions on your wallet" />
+                <OnbTitle01 className='v2'>
+                  <FormattedMessage
+                    id='follow_the_instructions'
+                    defaultMessage='Please follow the instructions on your wallet'
+                  />
                 </OnbTitle01>
                 <LoaderBX>
-                  <img src={LoaderGif} alt="" />
+                  <img src={LoaderGif} alt='' />
                 </LoaderBX>
               </>
             )
           ) : (
             <>
-              <OnbTitle01 className="v2"><FormattedMessage id="attention" defaultMessage="Attention.!" /></OnbTitle01>
-              <OnbText01 className="text-center">{error.msg}</OnbText01>
-              {error.msg === 'Please download metamask first.!' ?
-                <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>
-                : ``}
+              <OnbTitle01 className='v2'>
+                <FormattedMessage id='attention' defaultMessage='Attention.!' />
+              </OnbTitle01>
+              <OnbText01 className='text-center'>{error.msg}</OnbText01>
+              {error.msg === 'Please download metamask first.!' ? (
+                <InstallBtn
+                  className='ani-1'
+                  onClick={() => window.open('https://metamask.io/', '_blank')}
+                >
+                  Go to MetaMask's website
+                </InstallBtn>
+              ) : (
+                ``
+              )}
             </>
           )}
         </WhiteBX01>
@@ -278,19 +301,19 @@ const OnbText01 = styled.div`
   font-weight: 400;
   color: #000;
   letter-spacing: -0.5px;
-  &.text-center{
-    text-align:center;
-    width:100%;
-    margin:20px 0px 40px;
+  &.text-center {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0px 40px;
   }
-  a{
-    color:#d121d6;
+  a {
+    color: #d121d6;
   }
 `;
 
 const InstallBtn = styled.button`
   background-color: #000000;
-  border:1px solid #000;
+  border: 1px solid #000;
   color: #fff;
   font-size: 16px;
   letter-spacing: -0.5px;
@@ -299,9 +322,9 @@ const InstallBtn = styled.button`
   margin: 0 auto;
   padding: 17px 15px;
   width: 100%;
-  :hover{
-    background-color:#fff;
-    color:#000;
+  :hover {
+    background-color: #fff;
+    color: #000;
   }
 `;
 
@@ -357,10 +380,10 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    authLogout: () => dispatch({ type: 'AUTH_LOGOUT', data: null }),
     web3Logout: () =>
       dispatch({
-        type: "FETCH_WEB3_DATA",
+        type: 'FETCH_WEB3_DATA',
         data: { isLoggedIn: false, accounts: [] },
       }),
   };
