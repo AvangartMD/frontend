@@ -58,8 +58,8 @@ const WhiteWrap = styled(FlexDiv)`
   backdrop-filter: blur(2px);
   .Mouter
   {
-    max-width:600px;
-    margin:0px 15px;
+    // max-width:600px;
+    margin:15px;
   }
 `;
 

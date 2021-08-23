@@ -210,9 +210,9 @@ function Login(props) {
           ) : (
             <>
               <OnbTitle01 className="v2"><FormattedMessage id="attention" defaultMessage="Attention.!" /></OnbTitle01>
-                <OnbText01 className="text-center">{error.msg}</OnbText01>
-                {error.msg === 'Please download metamask first.!' ?
-                  <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>
+              <OnbText01 className="text-center">{error.msg}</OnbText01>
+              {error.msg === 'Please download metamask first.!' ?
+                <InstallBtn className="ani-1" onClick={() => window.open("https://metamask.io/", "_blank")}>Go to MetaMask's website</InstallBtn>
                 : ``}
             </>
           )}
@@ -282,6 +282,9 @@ const OnbText01 = styled.div`
     text-align:center;
     width:100%;
     margin:20px 0px 40px;
+  }
+  a{
+    color:#d121d6;
   }
 `;
 

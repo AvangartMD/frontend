@@ -113,31 +113,34 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                 </label>
               </CustomRadio1>
               <NFTForm className="Custom-piece">
-                <div className="label-line">
-                  <label>
-                    {method === "requestOffer" ? (
-                      <FormattedMessage
-                        id="enter_minimum_price_lable"
-                        defaultMessage="Enter minimum price"
-                      />
-                    ) : (
-                      <FormattedMessage
-                        id="enter_price_lable"
-                        defaultMessage="Enter price"
-                      />
-                    )}
-                  </label>
+                <div className="errorinput">
+                  <div className="label-line">
+                    <label>
+                      {method === "requestOffer" ? (
+                        <FormattedMessage
+                          id="enter_minimum_price_lable"
+                          defaultMessage="Enter minimum price"
+                        />
+                      ) : (
+                        <FormattedMessage
+                          id="enter_price_lable"
+                          defaultMessage="Enter price"
+                        />
+                      )}
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="0.00"
+                    className={error === "priceError" ? `error` : ``}
+                    name="price"
+                    onChange={(e) => {
+                      if (!isNaN(Number(e.target.value)))
+                        setPrice(e.target.value);
+                    }}
+                  />
+                  <p className="error bottom-text">Please add valid number</p>
                 </div>
-                <input
-                  type="text"
-                  placeholder="0.00"
-                  className={error === "priceError" ? `error` : ``}
-                  name="price"
-                  onChange={(e) => {
-                    if (!isNaN(Number(e.target.value)))
-                      setPrice(e.target.value);
-                  }}
-                />
                 <AccountBX
                   onClick={() => setIsOpen2(!isOpen2)}
                   ref={wrapperRef}
@@ -359,6 +362,7 @@ const NFTForm = styled.div`
     position: relative;
     input {
       border-color: #ff2a44;
+      margin-bottom:5px;
     }
     p.error {
       color: #ff2a44;
@@ -369,6 +373,11 @@ const NFTForm = styled.div`
       position: absolute;
       top: 18px;
       right: 15px;
+      &.bottom-text
+      {
+        position:initial;
+        margin-bottom:30px;
+      }
     }
   }
 `;
