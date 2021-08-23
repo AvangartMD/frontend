@@ -17,6 +17,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   const [method, setMethod] = useState("");
   const [error, setError] = useState("");
   const escrowContractInstance = getContractInstance(true);
+  const [currencyUsed, setCurrencyUsed] = useState("BNB");
   const makeTransaction = async () => {
     if (!method) return;
     if (!+price) return setError("priceError");
@@ -91,6 +92,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                 <label className="radio-container">
                   <FormattedMessage id="buy_now" defaultMessage="Buy now" />
                   <input
+                    className={error === "priceError" ? `error` : ``}
                     type="radio"
                     name="category"
                     value="buy now"
@@ -113,37 +115,43 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                 </label>
               </CustomRadio1>
               <NFTForm className="Custom-piece">
-                <div className="label-line">
-                  <label>
-                    {method === "requestOffer" ? (
-                      <FormattedMessage
-                        id="enter_minimum_price_lable"
-                        defaultMessage="Enter minimum price"
-                      />
-                    ) : (
-                      <FormattedMessage
-                        id="enter_price_lable"
-                        defaultMessage="Enter price"
-                      />
-                    )}
-                  </label>
+                <div className={error === "priceError" ? "errorinput" : ""}>
+                  <div className="label-line">
+                    <label>
+                      {method === "requestOffer" ? (
+                        <FormattedMessage
+                          id="enter_minimum_price_lable"
+                          defaultMessage="Enter minimum price"
+                        />
+                      ) : (
+                        <FormattedMessage
+                          id="enter_price_lable"
+                          defaultMessage="Enter price"
+                        />
+                      )}
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="0.00"
+                    name="price"
+                    onChange={(e) => {
+                      if (!isNaN(Number(e.target.value)))
+                        setPrice(e.target.value);
+                    }}
+                  />
+                  {error === "priceError" ? (
+                    <p className="error bottom-text">Please add valid number</p>
+                  ) : (
+                    ""
+                  )}
                 </div>
-                <input
-                  type="text"
-                  placeholder="0.00"
-                  className={error === "priceError" ? `error` : ``}
-                  name="price"
-                  onChange={(e) => {
-                    if (!isNaN(Number(e.target.value)))
-                      setPrice(e.target.value);
-                  }}
-                />
                 <AccountBX
                   onClick={() => setIsOpen2(!isOpen2)}
                   ref={wrapperRef}
                 >
                   <span>
-                    BNB <img src={DDdownA} alt="" />
+                    {currencyUsed} <img src={DDdownA} alt="" />
                   </span>
                   <Collapse
                     isOpen={isOpen2}
@@ -154,8 +162,15 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                   >
                     <DDContainer className="ver2">
                       <DDBtnbar02>
-                        <button>ETH</button>
-                        <button>BTC</button>
+                        <button
+                          onClick={() =>
+                            setCurrencyUsed(
+                              currencyUsed === "BNB" ? "TR" : "BNB"
+                            )
+                          }
+                        >
+                          {currencyUsed === "BNB" ? "TR" : "BNB"}
+                        </button>
                       </DDBtnbar02>
                     </DDContainer>
                   </Collapse>
@@ -359,6 +374,7 @@ const NFTForm = styled.div`
     position: relative;
     input {
       border-color: #ff2a44;
+      margin-bottom: 5px;
     }
     p.error {
       color: #ff2a44;
@@ -369,6 +385,10 @@ const NFTForm = styled.div`
       position: absolute;
       top: 18px;
       right: 15px;
+      &.bottom-text {
+        position: initial;
+        margin-bottom: 30px;
+      }
     }
   }
 `;
