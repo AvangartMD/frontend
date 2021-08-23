@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 // import { Link } from 'react-router-dom';
 import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
-import ReactAudioPlayer from 'react-audio-player';
-import ReactPlayer from 'react-player';
+import ReactAudioPlayer from "react-audio-player";
+import ReactPlayer from "react-player";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
 // import CreateCollection from "../Component/Modals/createCollection";
@@ -34,7 +34,7 @@ import {
 import { LookoutMetrics } from "aws-sdk";
 import { web3 } from "../web3";
 import { actions } from "../actions";
-import { Context } from '../Component/wrapper';
+import { Context } from "../Component/wrapper";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
@@ -73,7 +73,7 @@ class NFTPage extends Component {
         collectionList: [],
       },
       suggestionVAl: [],
-      fileType: 'image',
+      fileType: "image",
       error: { isError: false, msg: "", isCocreatorError: false },
       mintNFTStatus: "",
     };
@@ -123,7 +123,7 @@ class NFTPage extends Component {
   }
 
   async componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener("mousedown", this.handleClickOutside);
     let {
       web3Data,
       categoryList,
@@ -132,7 +132,9 @@ class NFTPage extends Component {
     } = this.props;
     if (this.props.match.params.id) {
       // this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the single nft details
-      const NFTDetails = await actions.getSingleNFTDetails(this.props.match.params.id)
+      const NFTDetails = await actions.getSingleNFTDetails(
+        this.props.match.params.id
+      );
       if (NFTDetails) {
         // this.setState({ NFTDetails: NFTDetails })
         this.setState({
@@ -142,11 +144,15 @@ class NFTPage extends Component {
             title: NFTDetails.title,
             description: NFTDetails.description,
             coCreatorUserName: NFTDetails.coCreator?.userId?.id,
-            percentShare: NFTDetails.coCreator?.percentage ? NFTDetails.coCreator.percentage : 0,
+            percentShare: NFTDetails.coCreator?.percentage
+              ? NFTDetails.coCreator.percentage
+              : 0,
             category: NFTDetails.category
               ? NFTDetails.category.filter((cat) => cat).map((catt) => catt.id)
               : [],
-            collection: NFTDetails.collectionId ? NFTDetails.collectionId.id : "",
+            collection: NFTDetails.collectionId
+              ? NFTDetails.collectionId.id
+              : "",
             saleState: `${NFTDetails.saleState}`,
             auctionTime: `${NFTDetails.auctionTime}`,
             edition: `${NFTDetails.edition}`,
@@ -157,7 +163,7 @@ class NFTPage extends Component {
           },
         });
         let fileType = getFileType(NFTDetails.image.compressed);
-        this.setState({ fileType: fileType })
+        this.setState({ fileType: fileType });
       }
     }
     if (!nftContractInstance) this.props.getNFTContractInstance();
@@ -244,12 +250,9 @@ class NFTPage extends Component {
     } else if (e.target.name === "nftFile") {
       nftObj[e.target.name] = e.target.files[0];
       let fileType = e.target.files[0].type;
-      if (!fileType.search('image'))
-        this.setState({ fileType: 'image' })
-      if (!fileType.search('video'))
-        this.setState({ fileType: 'video' })
-      if (!fileType.search('audio'))
-        this.setState({ fileType: 'audio' })
+      if (!fileType.search("image")) this.setState({ fileType: "image" });
+      if (!fileType.search("video")) this.setState({ fileType: "video" });
+      if (!fileType.search("audio")) this.setState({ fileType: "audio" });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
       if (e.target.files[0].size > 3145728) {
         nftObj.compressionRequired = true;
@@ -279,10 +282,7 @@ class NFTPage extends Component {
     else if (this.state.suggestionVAl.length && !percentShare)
       this.setError("Please set the percent share of your Co-creator", true);
     else if (!category.length)
-      this.setError(
-        "Please select atleast 1 category.",
-        true
-      );
+      this.setError("Please select atleast 1 category.", true);
     // else if (category.length >= 3)
     //   this.setError("You can choose up to 2 category.", true);
     else if (!saleState) this.setError("Please select sale state.", true);
@@ -477,7 +477,10 @@ class NFTPage extends Component {
                       <NFTForm>
                         <div className="label-line">
                           <label>
-                            <FormattedMessage id="title" defaultMessage="Title" />
+                            <FormattedMessage
+                              id="title"
+                              defaultMessage="Title"
+                            />
                           </label>
                         </div>
                         <input
@@ -489,8 +492,13 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className="label-line">
-                          <label><FormattedMessage id="description" defaultMessage="Description" /></label>
-                          <span><FormattedMessage id="optional" defaultMessage="optional" /></span>
+                          <label>
+                            <FormattedMessage
+                              id="description"
+                              defaultMessage="Description"
+                            />
+                          </label>
+                          {/* <span><FormattedMessage id="optional" defaultMessage="optional" /></span> */}
                         </div>
                         <input
                           type="text"
@@ -502,23 +510,31 @@ class NFTPage extends Component {
                       <NFTForm>
                         <div className="label-line">
                           <label>
-                            <FormattedMessage id="upload_file" defaultMessage="Upload File" />
+                            <FormattedMessage
+                              id="upload_file"
+                              defaultMessage="Upload File"
+                            />
                           </label>
                           <FlexDiv className="JCSB">
                             <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
-                            <p>
-                              {/* <b>Max 30 mb.</b> */}
-                            </p>
+                            <p>{/* <b>Max 30 mb.</b> */}</p>
                           </FlexDiv>
                         </div>
                         <FileuploadBox>
                           <label className="custom-file-upload">
-                            <input type="file" name="nftFile"
+                            <input
+                              type="file"
+                              name="nftFile"
                               accept="video/*, image/*, audio/*"
                             />
-                            <FormattedMessage id="choose" defaultMessage="Choose" />
+                            <FormattedMessage
+                              id="choose"
+                              defaultMessage="Choose"
+                            />
                           </label>
-                          <input type="file" placeholder="Choose"
+                          <input
+                            type="file"
+                            placeholder="Choose"
                             accept="video/*, image/*, audio/*"
                           />
                         </FileuploadBox>
@@ -526,7 +542,10 @@ class NFTPage extends Component {
                       <NFTtitle id="creator">
                         <h4 className="mt-30">Co-Creator</h4>
                         <p className="mb-30">
-                          <FormattedMessage id="co_creator_label" defaultMessage="You can share the revenue streams from the NFT with a collaborator" />
+                          <FormattedMessage
+                            id="co_creator_label"
+                            defaultMessage="You can share the revenue streams from the NFT with a collaborator"
+                          />
                         </p>
                       </NFTtitle>
                       <NFTForm>
@@ -534,10 +553,11 @@ class NFTPage extends Component {
                           <label>Co-Creator Username</label>
                         </div>
                         <div
-                          className={`iLeft ${error.isError &&
+                          className={`iLeft ${
+                            error.isError &&
                             error.isCocreatorError &&
                             "errorinput"
-                            }`}
+                          }`}
                         >
                           <i>@</i>
                           <Autosuggestion
@@ -556,7 +576,10 @@ class NFTPage extends Component {
                         <div className="label-line">
                           <label>Percentage</label>
                           <p>
-                            <FormattedMessage id="percentage_label" defaultMessage="Please enter the percentage of sales revenue that should go to the co-creator." />
+                            <FormattedMessage
+                              id="percentage_label"
+                              defaultMessage="Please enter the percentage of sales revenue that should go to the co-creator."
+                            />
                           </p>
                         </div>
                         <div className="iRight">
@@ -572,21 +595,24 @@ class NFTPage extends Component {
                       <NFTtitle id="collection">
                         <h4 className="mt-30">Category & Collection</h4>
                         <p className="mb-30">
-                          Please choose the category and collection of your creation.
+                          Please choose the category and collection of your
+                          creation.
                         </p>
                       </NFTtitle>
                       <NFTForm>
                         <div className="label-line">
                           <label>Category</label>
-                          <p>
-                            Choose category for listing your NFT.
-                          </p>
+                          <p>Choose category for listing your NFT.</p>
                         </div>
                         <CustomCheckbox1>
                           {categoryList?.map((category, key) => (
                             <label className="checkbox-container" key={key}>
                               <img src={category.image} alt="" />
-                              {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en)}
+                              {capitalizeFirstLetter(
+                                context.locale === "tr"
+                                  ? category.categoryName.tu
+                                  : category.categoryName.en
+                              )}
                               <input
                                 type="checkbox"
                                 name="category"
@@ -656,7 +682,10 @@ class NFTPage extends Component {
                       <NFTForm>
                         <div className="label-line">
                           <label>
-                            <FormattedMessage id="sale_status" defaultMessage="Sale Status" />
+                            <FormattedMessage
+                              id="sale_status"
+                              defaultMessage="Sale Status"
+                            />
                           </label>
                         </div>
                         <CustomRadio1>
@@ -686,7 +715,7 @@ class NFTPage extends Component {
                           </label>
                         </CustomRadio1>
                       </NFTForm>
-                      {nftObj?.saleState !== `BUY` ?
+                      {nftObj?.saleState !== `BUY` ? (
                         <NFTForm>
                           <div className="label-line">
                             <label>Auction Time</label>
@@ -724,12 +753,22 @@ class NFTPage extends Component {
                             </label>
                           </CustomRadio1>
                         </NFTForm>
-                        : ``}
+                      ) : (
+                        ``
+                      )}
                       <NFTForm>
                         <div className="label-line">
-                          <label><FormattedMessage id="edition" defaultMessage="EDITION" /></label>
+                          <label>
+                            <FormattedMessage
+                              id="edition"
+                              defaultMessage="EDITION"
+                            />
+                          </label>
                           <p>
-                            <FormattedMessage id="edition_label" defaultMessage="Currently creators can mint up to 500 editions of an NFT." />
+                            <FormattedMessage
+                              id="edition_label"
+                              defaultMessage="Currently creators can mint up to 500 editions of an NFT."
+                            />
                           </p>
                         </div>
                         <input
@@ -741,7 +780,12 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className="label-line">
-                          <label><FormattedMessage id="price" defaultMessage="Price" /></label>
+                          <label>
+                            <FormattedMessage
+                              id="price"
+                              defaultMessage="Price"
+                            />
+                          </label>
                         </div>
                         <input
                           type="text"
@@ -749,7 +793,10 @@ class NFTPage extends Component {
                           name="price"
                           value={nftObj.price}
                         />
-                        <AccountBX onClick={() => this.toggle(1)} ref={this.wrapperRef}>
+                        <AccountBX
+                          onClick={() => this.toggle(1)}
+                          ref={this.wrapperRef}
+                        >
                           <span>
                             BNB <img src={DDdownA} alt="" />
                           </span>
@@ -770,15 +817,26 @@ class NFTPage extends Component {
                         </AccountBX>
                       </NFTForm>
                       <NFTtitle id="unlockable">
-                        <h4 className="mt-30"><FormattedMessage id="unlock_content_label" defaultMessage="Unlockable content message" /></h4>
+                        <h4 className="mt-30">
+                          <FormattedMessage
+                            id="unlock_content_label"
+                            defaultMessage="Unlockable content message"
+                          />
+                        </h4>
                         <p className="mb-30">
-                          <FormattedMessage id="content_label" defaultMessage="Your text below will be shared with the buyer of the NFT only." />
+                          <FormattedMessage
+                            id="content_label"
+                            defaultMessage="Your text below will be shared with the buyer of the NFT only."
+                          />
                         </p>
                       </NFTtitle>
                       <NFTForm>
                         <div className="label-line">
                           <label>
-                            <FormattedMessage id="key_label" defaultMessage="You can use this area for private messages, promo codes, links, etc." />
+                            <FormattedMessage
+                              id="key_label"
+                              defaultMessage="You can use this area for private messages, promo codes, links, etc."
+                            />
                           </label>
                         </div>
                         <input
@@ -812,7 +870,10 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm> */}
                       <CreateItemButton>
-                        <button type="submit" className={error.isError?``:`all-field-required`}>
+                        <button
+                          type="submit"
+                          className={error.isError ? `` : `all-field-required`}
+                        >
                           {nftObj?.id ? `Update` : `Create`} Item
                         </button>
                       </CreateItemButton>
@@ -820,23 +881,32 @@ class NFTPage extends Component {
                   </NFTMiddle>
                 </Gs.W605px>
                 <Gs.W275px>
-                  <Sticky topOffset={30} boundaryElement=".block" hideOnBoundaryHit={true}>
+                  <Sticky
+                    topOffset={30}
+                    boundaryElement=".block"
+                    hideOnBoundaryHit={true}
+                  >
                     <NFTRight>
                       <NFTtitle>
                         <h4>
-                          <FormattedMessage id="preview" defaultMessage="Preview" />
+                          <FormattedMessage
+                            id="preview"
+                            defaultMessage="Preview"
+                          />
                         </h4>
                         <p>
-                          <FormattedMessage id="preview_label" defaultMessage="Your NFT look like that on Marketplace" />
+                          <FormattedMessage
+                            id="preview_label"
+                            defaultMessage="Your NFT look like that on Marketplace"
+                          />
                         </p>
                       </NFTtitle>
                       <NFTfourbox className="nftnift">
-
                         <Gs.W25V2>
                           <Gs.TenpxGutter>
                             <div className="NFT-home-box">
                               <NFTImgBX>
-                                {fileType === 'image' ?
+                                {fileType === "image" ? (
                                   <motion.img
                                     initial={{ opacity: 0.2 }}
                                     animate={{ opacity: 1 }}
@@ -844,18 +914,28 @@ class NFTPage extends Component {
                                     key={nftObj.imgSrc}
                                     src={nftObj.imgSrc}
                                     exit={{ opacity: 0 }}
-                                  /> : ``}
-                                {fileType === 'audio' ?
+                                  />
+                                ) : (
+                                  ``
+                                )}
+                                {fileType === "audio" ? (
                                   <ReactAudioPlayer
                                     src={nftObj.imgSrc}
                                     autoPlay
-                                    controls /> : ``}
-                                {fileType === 'video' ?
+                                    controls
+                                  />
+                                ) : (
+                                  ``
+                                )}
+                                {fileType === "video" ? (
                                   <ReactPlayer
                                     controls={true}
                                     url={nftObj.imgSrc}
                                     playing={true}
-                                  /> : ``}
+                                  />
+                                ) : (
+                                  ``
+                                )}
                               </NFTImgBX>
                               <div className="NFT-home-box-inner">
                                 <h4>
@@ -865,12 +945,20 @@ class NFTPage extends Component {
                                 </h4>
                                 <CollectionBar>
                                   <p>
-                                    {0} <span>of {nftObj.edition ? nftObj.edition : 0}</span>
+                                    {0}{" "}
+                                    <span>
+                                      of {nftObj.edition ? nftObj.edition : 0}
+                                    </span>
                                   </p>
                                   {nftObj.collectionId?._id ? (
                                     <p>
-                                      <Link to={`/collection-detail/${nftObj.collectionId?._id}`}>
-                                        <FormattedMessage id="see_the_collections" defaultMessage="See the collection" />
+                                      <Link
+                                        to={`/collection-detail/${nftObj.collectionId?._id}`}
+                                      >
+                                        <FormattedMessage
+                                          id="see_the_collections"
+                                          defaultMessage="See the collection"
+                                        />
                                         <i className="fas fa-angle-right"></i>
                                       </Link>
                                     </p>
@@ -880,29 +968,74 @@ class NFTPage extends Component {
                                 </CollectionBar>
                                 <Edition className="edition2 JCSB">
                                   <div className="ed-box">
-                                    <p>{nftObj.saleState === "BUY" ? null : nftObj.auctionTime
-                                      && nftObj.saleState === "BUY" ? null : nftObj.auctionTime > new Date().getTime() / 1000 ?
-                                      <FormattedMessage id="current_bid" defaultMessage="Current bid" /> :
-                                      <FormattedMessage id="price" defaultMessage="Price" />}</p>
+                                    <p>
+                                      {nftObj.saleState ===
+                                      "BUY" ? null : nftObj.auctionTime &&
+                                        nftObj.saleState ===
+                                          "BUY" ? null : nftObj.auctionTime >
+                                        new Date().getTime() / 1000 ? (
+                                        <FormattedMessage
+                                          id="current_bid"
+                                          defaultMessage="Current bid"
+                                        />
+                                      ) : (
+                                        <FormattedMessage
+                                          id="price"
+                                          defaultMessage="Price"
+                                        />
+                                      )}
+                                    </p>
                                     <h3>{nftObj.price} BNB</h3>
                                   </div>
                                   <div className="ed-box">
-                                    {
-                                      (nftObj.saleState === "BUY" ? null : nftObj.auctionTime) ?
-                                        <><p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p> <h3>{nftObj.saleState === "BUY" ? null : nftObj.auctionTime}h 00m 00s</h3></>
-                                        : <><button><FormattedMessage id="buy_now" defaultMessage="Buy now" /> </button></>
-                                    }
+                                    {(
+                                      nftObj.saleState === "BUY"
+                                        ? null
+                                        : nftObj.auctionTime
+                                    ) ? (
+                                      <>
+                                        <p>
+                                          <FormattedMessage
+                                            id="ending_in"
+                                            defaultMessage="Ending in"
+                                          />
+                                        </p>{" "}
+                                        <h3>
+                                          {nftObj.saleState === "BUY"
+                                            ? null
+                                            : nftObj.auctionTime}
+                                          h 00m 00s
+                                        </h3>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <button>
+                                          <FormattedMessage
+                                            id="buy_now"
+                                            defaultMessage="Buy now"
+                                          />{" "}
+                                        </button>
+                                      </>
+                                    )}
                                   </div>
                                 </Edition>
                                 <UserImgName>
-                                  <img src={this.props.authData?.data.profile ? this.props.authData?.data.profile : UserImg} alt="" />
-                                  {this.props.authData?.data.username ? `@${this.props.authData?.data.username}` : this.props.authData?.data.name}
+                                  <img
+                                    src={
+                                      this.props.authData?.data.profile
+                                        ? this.props.authData?.data.profile
+                                        : UserImg
+                                    }
+                                    alt=""
+                                  />
+                                  {this.props.authData?.data.username
+                                    ? `@${this.props.authData?.data.username}`
+                                    : this.props.authData?.data.name}
                                 </UserImgName>
                               </div>
                             </div>
                           </Gs.TenpxGutter>
                         </Gs.W25V2>
-
                       </NFTfourbox>
                     </NFTRight>
                   </Sticky>
@@ -932,7 +1065,7 @@ class NFTPage extends Component {
             mintNFTStatus={this.state.mintNFTStatus}
           />
         </Collapse>
-      </Gs.MainSection >
+      </Gs.MainSection>
     );
   }
   toggle = (index) => {
@@ -1054,7 +1187,7 @@ const NFTfourbox = styled(FlexDiv)`
         -webkit-line-clamp: 2;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        min-height:44px;
+        min-height: 44px;
       }
     }
   }
@@ -1208,7 +1341,7 @@ const CreateItemButton = styled.div`
     :hover {
       background-color: #000;
     }
-    &.all-field-required{
+    &.all-field-required {
       background-color: #000;
     }
   }
@@ -1277,7 +1410,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
     position: relative;
     height: 54px;
     width: calc(170px - 5px);
-    margin:0px 10px 10px 0px;
+    margin: 0px 10px 10px 0px;
     cursor: pointer;
     padding-left: 15px;
     line-height: 54px;
@@ -1345,8 +1478,8 @@ const CollectionSelect = styled(FlexDiv)`
       background-color: #000;
       color: #fff;
     }
-    ${Media.lg}{
-      padding:16px 10px;
+    ${Media.lg} {
+      padding: 16px 10px;
     }
     ${Media.md} {
       padding: 16px 10px;

@@ -15,10 +15,12 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   const [price, setPrice] = useState("");
   const [txnStatus, setTxnStatus] = useState("");
   const [method, setMethod] = useState("");
+  const [error, setError] = useState("");
   const escrowContractInstance = getContractInstance(true);
   const makeTransaction = async () => {
     if (!method) return;
-    if (!+price) return;
+    if (!+price) return setError("priceError");
+    setError("");
     console.log(method, price);
     setTxnStatus("initiate");
     await escrowContractInstance.methods[method](
@@ -129,6 +131,7 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                 <input
                   type="text"
                   placeholder="0.00"
+                  className={error === "priceError" ? `error` : ``}
                   name="price"
                   onChange={(e) => {
                     if (!isNaN(Number(e.target.value)))

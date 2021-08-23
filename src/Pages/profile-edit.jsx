@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import InstagramLogin from 'react-instagram-login';
-import Gs from '../Theme/globalStyles';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { HashLink as Link } from 'react-router-hash-link';
-import { withRouter } from 'react-router';
-import Sticky from 'react-sticky-el';
+import React, { Component } from "react";
+import styled from "styled-components";
+import InstagramLogin from "react-instagram-login";
+import Gs from "../Theme/globalStyles";
+import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
+import { HashLink as Link } from "react-router-hash-link";
+import { withRouter } from "react-router";
+import Sticky from "react-sticky-el";
 
-import DDdownA from '../Assets/images/dd-down-arrow.svg';
-import CICON01 from '../Assets/images/peSocICO-01.svg';
-import CICON02 from '../Assets/images/peSocICO-02.svg';
-import CICON03 from '../Assets/images/peSocICO-03.svg';
-import CICON04 from '../Assets/images/peSocICO-04.svg';
-import CICON05 from '../Assets/images/peSocICO-05.svg';
-import CICON06 from '../Assets/images/peSocICO-06.svg';
-import LoaderGif from '../Assets/images/loading.gif';
-import SuccessPopup from '../Component/Modals/sucessPopup';
+import DDdownA from "../Assets/images/dd-down-arrow.svg";
+import CICON01 from "../Assets/images/peSocICO-01.svg";
+import CICON02 from "../Assets/images/peSocICO-02.svg";
+import CICON03 from "../Assets/images/peSocICO-03.svg";
+import CICON04 from "../Assets/images/peSocICO-04.svg";
+import CICON05 from "../Assets/images/peSocICO-05.svg";
+import CICON06 from "../Assets/images/peSocICO-06.svg";
+import LoaderGif from "../Assets/images/loading.gif";
+import SuccessPopup from "../Component/Modals/sucessPopup";
 
-import { actions } from '../actions';
-import { client_id, redirect_url } from '../config';
-import Media from '../Theme/media-breackpoint';
-import Scrollspy from 'react-scrollspy';
+import { actions } from "../actions";
+import { client_id, redirect_url } from "../config";
+import Media from "../Theme/media-breackpoint";
+import Scrollspy from "react-scrollspy";
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -44,10 +44,10 @@ class ProfileEdit extends Component {
       this.setState({ userObj: profile });
     }
     let Query = new URLSearchParams(this.props.location.search);
-    if (Query.get('oauth_token') && Query.get('oauth_verifier')) {
+    if (Query.get("oauth_token") && Query.get("oauth_verifier")) {
       this.props.verifyByTwitter(
-        Query.get('oauth_token'),
-        Query.get('oauth_verifier')
+        Query.get("oauth_token"),
+        Query.get("oauth_verifier")
       ); // verify via twitter
     }
   }
@@ -75,7 +75,7 @@ class ProfileEdit extends Component {
     }
     if (access_token !== prevProps.access_token) {
       // console.log('access_token ? ', access_token)
-      window.open(access_token.redirect_uri, '_self');
+      window.open(access_token.redirect_uri, "_self");
     }
     if (error !== prevProps.error) {
       if (error) {
@@ -88,16 +88,16 @@ class ProfileEdit extends Component {
   formChange = (e) => {
     const { userObj, formChange } = this.state;
     if (
-      e.target.name === 'website' ||
-      e.target.name === 'instagarm' ||
-      e.target.name === 'facebook' ||
-      e.target.name === 'github' ||
-      e.target.name === 'twitter' ||
-      e.target.name === 'discord' ||
-      e.target.name === 'youtube' ||
-      e.target.name === 'twitch' ||
-      e.target.name === 'tiktok' ||
-      e.target.name === 'snapchat'
+      e.target.name === "website" ||
+      e.target.name === "instagarm" ||
+      e.target.name === "facebook" ||
+      e.target.name === "github" ||
+      e.target.name === "twitter" ||
+      e.target.name === "discord" ||
+      e.target.name === "youtube" ||
+      e.target.name === "twitch" ||
+      e.target.name === "tiktok" ||
+      e.target.name === "snapchat"
     ) {
       if (userObj.portfolio) {
         this.setState({
@@ -155,7 +155,7 @@ class ProfileEdit extends Component {
   };
 
   toggle = (index) => {
-    let collapse = 'isOpen' + index;
+    let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 
@@ -174,8 +174,8 @@ class ProfileEdit extends Component {
 
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
-      if (hash === curr) return 'active';
-      else return 'inactive';
+      if (hash === curr) return "active";
+      else return "inactive";
     }
 
     return (
@@ -184,29 +184,29 @@ class ProfileEdit extends Component {
           <>
             <BlackWrap>
               <WhiteBX01>
-                <OnbTitle01 className='v2'>
+                <OnbTitle01 className="v2">
                   Please wait profile is updating
                 </OnbTitle01>
                 <LoaderBX>
-                  <img src={LoaderGif} alt='' />
+                  <img src={LoaderGif} alt="" />
                 </LoaderBX>
               </WhiteBX01>
             </BlackWrap>
           </>
         ) : (
-          ''
+          ""
         )}
 
         {updated ? (
           <SuccessPopup
-            message={<FormattedMessage id='profile_updated' />}
-            url='/user/profile'
+            message={<FormattedMessage id="profile_updated" />}
+            url="/user/profile"
           />
         ) : (
-          ''
+          ""
         )}
 
-        <div style={{ minHeight: '100vh', width: '100%' }}>
+        <div style={{ minHeight: "100vh", width: "100%" }}>
           <Gs.Container>
             <NFTminting>
               <Gs.W200px>
@@ -214,28 +214,28 @@ class ProfileEdit extends Component {
                   <NFTLeft>
                     <Scrollspy
                       items={[
-                        'accountSettings',
-                        'biography',
+                        "accountSettings",
+                        "biography",
                         // 'verifyProfile',
-                        'socialLink',
+                        "socialLink",
                       ]}
-                      currentClassName='active'
+                      currentClassName="active"
                     >
                       <Link
-                        className={pointSelect('accountSettings')}
-                        to='#accountSettings'
+                        className={pointSelect("accountSettings")}
+                        to="#accountSettings"
                         smooth={true}
                       >
                         Account Settings
                       </Link>
                       <Link
-                        className={pointSelect('biography')}
-                        to='#biography'
+                        className={pointSelect("biography")}
+                        to="#biography"
                         smooth={true}
                       >
                         <FormattedMessage
-                          id='about_you'
-                          defaultMessage='About You'
+                          id="about_you"
+                          defaultMessage="About You"
                         />
                       </Link>
                       {/* <Link
@@ -246,8 +246,8 @@ class ProfileEdit extends Component {
                         Verify Profile
                       </Link> */}
                       <Link
-                        className={pointSelect('socialLink')}
-                        to='#socialLink'
+                        className={pointSelect("socialLink")}
+                        to="#socialLink"
                         smooth={true}
                       >
                         Social Links
@@ -256,16 +256,16 @@ class ProfileEdit extends Component {
                   </NFTLeft>
 
                   <BackBTN01
-                    onClick={() => this.props.history.push('/user/profile')}
+                    onClick={() => this.props.history.push("/user/profile")}
                   >
                     <FormattedMessage
-                      id='back_to_profile'
-                      defaultMessage='Back to Profile'
+                      id="back_to_profile"
+                      defaultMessage="Back to Profile"
                     />
                   </BackBTN01>
                 </Sticky>
               </Gs.W200px>
-              <Gs.W880px className='displayflex'>
+              <Gs.W880px className="displayflex">
                 {errors ? (
                   <Gs.W605px>
                     <NFTMiddle>
@@ -284,63 +284,63 @@ class ProfileEdit extends Component {
                       onChange={(e) => this.formChange(e)}
                       onSubmit={(e) => this.formSubmit(e)}
                     >
-                      <div id='accountSettings'>
+                      <div id="accountSettings">
                         <NFTtitle>
                           <h4>
                             <FormattedMessage
-                              id='account_settings'
-                              defaultMessage='Account Settings'
+                              id="account_settings"
+                              defaultMessage="Account Settings"
                             />
                           </h4>
-                          <p className='mb-30'>
+                          <p className="mb-30">
                             <FormattedMessage
-                              id='edit_profile_form_lable'
-                              defaultMessage='People visiting your profile will see the following info'
+                              id="edit_profile_form_lable"
+                              defaultMessage="People visiting your profile will see the following info"
                             />
                           </p>
                         </NFTtitle>
                         <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>
                               <FormattedMessage
-                                id='form_name'
-                                defaultMessage='Name'
+                                id="form_name"
+                                defaultMessage="Name"
                               />
                             </label>
                           </div>
                           <input
-                            type='text'
+                            type="text"
                             required
-                            name='name'
-                            placeholder='Type something…'
+                            name="name"
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
-                              if (e.key === 'Enter') {
+                              if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
                             defaultValue={
-                              profile ? (profile.name ? profile.name : '') : ''
+                              profile ? (profile.name ? profile.name : "") : ""
                             }
                           />
                         </NFTForm>
                         <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>
                               <FormattedMessage
-                                id='form_username'
-                                defaultMessage='Username'
+                                id="form_username"
+                                defaultMessage="Username"
                               />
                             </label>
                           </div>
-                          <div className='iLeft'>
+                          <div className="iLeft">
                             <i>@</i>
                             <input
-                              type='text'
+                              type="text"
                               required
-                              name='username'
-                              placeholder='Type something…'
+                              name="username"
+                              placeholder="Type something…"
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   e.preventDefault();
                                 }
                               }}
@@ -348,8 +348,8 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.username
                                     ? profile.username
-                                    : ''
-                                  : ''
+                                    : ""
+                                  : ""
                               }
                             />
                           </div>
@@ -365,29 +365,29 @@ class ProfileEdit extends Component {
                                                 </div>  */}
                         </NFTForm>
                         <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>
                               <FormattedMessage
-                                id='email'
-                                defaultMessage='Email'
+                                id="email"
+                                defaultMessage="Email"
                               />
                             </label>
-                            <FlexDiv className='JCSB'>
+                            <FlexDiv className="JCSB">
                               <p>
                                 <FormattedMessage
-                                  id='form_email_lable'
-                                  defaultMessage='Your e-mail adress will not be shown on your profile'
+                                  id="form_email_lable"
+                                  defaultMessage="Your e-mail adress will not be shown on your profile"
                                 />
                               </p>
                             </FlexDiv>
                           </div>
                           <input
-                            type='text'
-                            name='email'
+                            type="text"
+                            name="email"
                             required
-                            placeholder='Type something…'
+                            placeholder="Type something…"
                             onKeyPress={(e) => {
-                              if (e.key === 'Enter') {
+                              if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
@@ -395,40 +395,40 @@ class ProfileEdit extends Component {
                               profile
                                 ? profile.email
                                   ? profile.email
-                                  : ''
-                                : ''
+                                  : ""
+                                : ""
                             }
                           />
                         </NFTForm>
                       </div>
 
-                      <div id='biography'>
+                      <div id="biography">
                         <NFTtitle>
-                          <h4 className='mt-30'>
+                          <h4 className="mt-30">
                             <FormattedMessage
-                              id='about_you'
-                              defaultMessage='About You'
+                              id="about_you"
+                              defaultMessage="About You"
                             />
                           </h4>
-                          <p className='mb-30'>
+                          <p className="mb-30">
                             <FormattedMessage
-                              id='form_about_you_lable'
-                              defaultMessage='Write a little bit about yourself'
+                              id="form_about_you_lable"
+                              defaultMessage="Write a little bit about yourself"
                             />
                           </p>
                         </NFTtitle>
                         <NFTForm>
                           <textarea
-                            type='textarea'
-                            name='bio'
-                            placeholder='0'
+                            type="textarea"
+                            name="bio"
+                            placeholder="0"
                             onKeyPress={(e) => {
-                              if (e.key === 'Enter') {
+                              if (e.key === "Enter") {
                                 e.preventDefault();
                               }
                             }}
                             defaultValue={
-                              profile ? (profile.bio ? profile.bio : '') : ''
+                              profile ? (profile.bio ? profile.bio : "") : ""
                             }
                           />
                         </NFTForm>
@@ -518,41 +518,41 @@ class ProfileEdit extends Component {
                           </CustomCheckbox1>
                         </NFTForm>
                       </div> */}
-                      <div id='socialLink'>
+                      <div id="socialLink">
                         <NFTtitle>
-                          <h4 className='mt-30'>
+                          <h4 className="mt-30">
                             <FormattedMessage
-                              id='social_links'
-                              defaultMessage='Social Links'
+                              id="social_links"
+                              defaultMessage="Social Links"
                             />
                           </h4>
-                          <p className='mb-30'>
+                          <p className="mb-30">
                             <FormattedMessage
-                              id='social_links_label'
-                              defaultMessage='Add your social media links for people to follow'
+                              id="social_links_label"
+                              defaultMessage="Add your social media links for people to follow"
                             />
                           </p>
                         </NFTtitle>
 
                         <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>
                               <FormattedMessage
-                                id='website'
-                                defaultMessage='Website'
+                                id="website"
+                                defaultMessage="Website"
                               />
                             </label>
                           </div>
-                          <div className='iLeft'>
+                          <div className="iLeft">
                             <i>
-                              <img src={CICON03} alt='' />
+                              <img src={CICON03} alt="" />
                             </i>
                             <input
-                              type='url'
-                              name='website'
-                              placeholder='Type something…'
+                              type="url"
+                              name="website"
+                              placeholder="Type something…"
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   e.preventDefault();
                                 }
                               }}
@@ -560,53 +560,26 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.portfolio?.website
                                     ? profile.portfolio.website.url
-                                    : ''
-                                  : ''
+                                    : ""
+                                  : ""
                               }
                             />
                           </div>
                         </NFTForm>
                         <NFTForm>
-                          <div className='label-line'>
-                            <label>Instagram</label>
-                          </div>
-                          <div className='iLeft'>
-                            <i>
-                              <img src={CICON02} alt='' />
-                            </i>
-                            <input
-                              type='url'
-                              name='instagarm'
-                              placeholder='Type something…'
-                              onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.instagarm
-                                    ? profile.portfolio.instagarm.url
-                                    : ''
-                                  : ''
-                              }
-                            />
-                          </div>
-                        </NFTForm>
-                        <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>Twitter</label>
                           </div>
-                          <div className='iLeft'>
+                          <div className="iLeft">
                             <i>
-                              <img src={CICON01} alt='' />
+                              <img src={CICON01} alt="" />
                             </i>
                             <input
-                              type='url'
-                              name='twitter'
-                              placeholder='Type something…'
+                              type="url"
+                              name="twitter"
+                              placeholder="Type something…"
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   e.preventDefault();
                                 }
                               }}
@@ -614,26 +587,54 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.portfolio?.twitter
                                     ? profile.portfolio.twitter.url
-                                    : ''
-                                  : ''
+                                    : ""
+                                  : ""
                               }
                             />
                           </div>
                         </NFTForm>
                         <NFTForm>
-                          <div className='label-line'>
-                            <label>Discord</label>
+                          <div className="label-line">
+                            <label>Instagram</label>
                           </div>
-                          <div className='iLeft'>
+                          <div className="iLeft">
                             <i>
-                              <img src={CICON04} alt='' />
+                              <img src={CICON02} alt="" />
                             </i>
                             <input
-                              type='url'
-                              name='discord'
-                              placeholder='Type something…'
+                              type="url"
+                              name="instagarm"
+                              placeholder="Type something…"
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                }
+                              }}
+                              defaultValue={
+                                profile
+                                  ? profile.portfolio?.instagarm
+                                    ? profile.portfolio.instagarm.url
+                                    : ""
+                                  : ""
+                              }
+                            />
+                          </div>
+                        </NFTForm>
+
+                        <NFTForm>
+                          <div className="label-line">
+                            <label>Discord</label>
+                          </div>
+                          <div className="iLeft">
+                            <i>
+                              <img src={CICON04} alt="" />
+                            </i>
+                            <input
+                              type="url"
+                              name="discord"
+                              placeholder="Type something…"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter") {
                                   e.preventDefault();
                                 }
                               }}
@@ -641,31 +642,31 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.portfolio?.discord
                                     ? profile.portfolio.discord.url
-                                    : ''
-                                  : ''
+                                    : ""
+                                  : ""
                               }
                             />
                           </div>
                         </NFTForm>
                         <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>
                               <FormattedMessage
-                                id='youtube'
-                                defaultMessage='YouTube'
+                                id="youtube"
+                                defaultMessage="YouTube"
                               />
                             </label>
                           </div>
-                          <div className='iLeft'>
+                          <div className="iLeft">
                             <i>
-                              <img src={CICON05} alt='' />
+                              <img src={CICON05} alt="" />
                             </i>
                             <input
-                              type='url'
-                              name='youtube'
-                              placeholder='Type something…'
+                              type="url"
+                              name="youtube"
+                              placeholder="Type something…"
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   e.preventDefault();
                                 }
                               }}
@@ -673,26 +674,26 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.portfolio?.youtube
                                     ? profile.portfolio.youtube.url
-                                    : ''
-                                  : ''
+                                    : ""
+                                  : ""
                               }
                             />
                           </div>
                         </NFTForm>
                         <NFTForm>
-                          <div className='label-line'>
+                          <div className="label-line">
                             <label>Facebook</label>
                           </div>
-                          <div className='iLeft'>
+                          <div className="iLeft">
                             <i>
-                              <img src={CICON06} alt='' />
+                              <img src={CICON06} alt="" />
                             </i>
                             <input
-                              type='url'
-                              name='facebook'
-                              placeholder='Type something…'
+                              type="url"
+                              name="facebook"
+                              placeholder="Type something…"
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   e.preventDefault();
                                 }
                               }}
@@ -700,8 +701,8 @@ class ProfileEdit extends Component {
                                 profile
                                   ? profile.portfolio?.facebook
                                     ? profile.portfolio.facebook.url
-                                    : ''
-                                  : ''
+                                    : ""
+                                  : ""
                               }
                             />
                           </div>
@@ -709,12 +710,12 @@ class ProfileEdit extends Component {
                       </div>
                       <CreateItemButton>
                         <button
-                          type='submit'
+                          type="submit"
                           disabled={!formChange ? true : false}
                         >
                           <FormattedMessage
-                            id='profile_update_button_label'
-                            defaultMessage='Save Changes'
+                            id="profile_update_button_label"
+                            defaultMessage="Save Changes"
                           />
                         </button>
                       </CreateItemButton>
@@ -843,7 +844,7 @@ const NFTfourbox = styled(FlexDiv)`
         -webkit-line-clamp: 2;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        min-height:44px;
+        min-height: 44px;
       }
     }
   }
@@ -1354,7 +1355,7 @@ const mapDipatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(actions.getProfile()),
     setProfile: (params) => dispatch(actions.updateUserDetails(params)),
-    clearErrors: () => dispatch({ type: 'API_FAILED', data: null }),
+    clearErrors: () => dispatch({ type: "API_FAILED", data: null }),
     sendInstaCode: (code) => dispatch(actions.sendInstagramCode(code)),
     getTwitterAccessToken: () => dispatch(actions.getTwitterAccessToken()),
     verifyByTwitter: (token, verifier) =>

@@ -28,7 +28,7 @@ import NftOwnerActions from "../Component/Modals/nftOwnerAction";
 import Login from "../Component/Modals/login";
 import getContractAddresses from "../contractData/contractAddress/addresses";
 import Media from "../Theme/media-breackpoint";
-import VideoThumbnail from "react-video-thumbnail";
+// import VideoThumbnail from "react-video-thumbnail";
 const saleMethods = {
   sold: {
     name: null,

@@ -6,14 +6,13 @@ import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { actions } from "../../actions";
 import CollectionCard from "../Cards/collectionCard";
-import Media from '../../Theme/media-breackpoint';
+import Media from "../../Theme/media-breackpoint";
 
 function Collection(props) {
-
   let { collections } = props;
   const params = useParams();
 
@@ -27,7 +26,7 @@ function Collection(props) {
       props.clearCollections(); // clear the collection data
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <>
@@ -50,34 +49,55 @@ function Collection(props) {
           )}
         </NFTfourbox>
 
-        {collections ?
-          collections.length === 0 ?
-            props.profile ? 
+        {collections ? (
+          collections.length === 0 ? (
+            props.profile ? (
               <CEmpty>
-                <h2>Your <FormattedMessage id="collection_empty" defaultMessage="collection is empty" /></h2>
-                <p><FormattedMessage id="start_collection_lable" defaultMessage="Start building your collection by placing bids on creations."
-                  values={{ br: <br /> }} /></p>
+                <h2>
+                  Your{" "}
+                  <FormattedMessage
+                    id="collection_empty"
+                    defaultMessage="collection is empty"
+                  />
+                </h2>
+                <p>
+                  <FormattedMessage
+                    id="start_collection_lable"
+                    defaultMessage="Start building your collection by placing bids on creations."
+                    values={{ br: <br /> }}
+                  />
+                </p>
                 {/* <button className="ani-1">
                   <FormattedMessage id="explore_creations" defaultMessage="Explore creations" />
                 </button> */}
               </CEmpty>
-              :
+            ) : (
               <CEmpty>
-                <h2><FormattedMessage id="collection_empty" defaultMessage="collection is empty" /></h2>
+                <h2>
+                  <FormattedMessage
+                    id="collection_empty"
+                    defaultMessage="Collection is empty"
+                  />
+                </h2>
               </CEmpty>
-            : ``
-          : ``}
+            )
+          ) : (
+            ``
+          )
+        ) : (
+          ``
+        )}
       </HomeNFTs>
     </>
   );
 }
 
 const FlexDiv = styled.div`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      `;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
 
 const NFTfourbox = styled(FlexDiv)`
       flex-wrap:wrap; margin:0px -10px 50px; justify-content:flex-start;
@@ -123,19 +143,19 @@ const NFTfourbox = styled(FlexDiv)`
       `;
 
 const LoaderBX = styled(FlexDiv)`
-      width: 100%;
-      margin: 50px auto;
-      `;
+  width: 100%;
+  margin: 50px auto;
+`;
 
 const HomeNFTs = styled.div`
-      width: 100%;
-      margin-top: 40px;
-      .home-title {
-        border-bottom: 1px solid #dddddd;
-      text-align: left;
-      margin-bottom: 30px;
-      h3 {
-        color: #000000;
+  width: 100%;
+  margin-top: 40px;
+  .home-title {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    margin-bottom: 30px;
+    h3 {
+      color: #000000;
       font-size: 32px;
       position: relative;
       line-height: 32px;
@@ -144,20 +164,20 @@ const HomeNFTs = styled.div`
       letter-spacing: -1px;
       :before {
         content: "";
-      position: absolute;
-      left: 0px;
-      top: 12px;
-      width: 10px;
-      height: 10px;
-      background: url(${RoundIcon}) no-repeat;
+        position: absolute;
+        left: 0px;
+        top: 12px;
+        width: 10px;
+        height: 10px;
+        background: url(${RoundIcon}) no-repeat;
       }
     }
   }
-      .star-title {
-        text-align: left;
-      margin-bottom: 18px;
-      h3 {
-        color: #000000;
+  .star-title {
+    text-align: left;
+    margin-bottom: 18px;
+    h3 {
+      color: #000000;
       font-size: 32px;
       position: relative;
       line-height: 32px;
@@ -166,21 +186,21 @@ const HomeNFTs = styled.div`
       letter-spacing: -1px;
       :before {
         content: "";
-      position: absolute;
-      left: 0px;
-      top: 12px;
-      width: 12px;
-      height: 12px;
-      background: url(${StarIcon}) no-repeat;
+        position: absolute;
+        left: 0px;
+        top: 12px;
+        width: 12px;
+        height: 12px;
+        background: url(${StarIcon}) no-repeat;
       }
     }
   }
-      .heart-title {
-        border-bottom: 1px solid #dddddd;
-      text-align: left;
-      margin-bottom: 30px;
-      h3 {
-        color: #000000;
+  .heart-title {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    margin-bottom: 30px;
+    h3 {
+      color: #000000;
       font-size: 32px;
       position: relative;
       line-height: 32px;
@@ -189,47 +209,52 @@ const HomeNFTs = styled.div`
       letter-spacing: -1px;
       :before {
         content: "";
-      position: absolute;
-      left: 0px;
-      top: 12px;
-      width: 12px;
-      height: 11px;
-      background: url(${HeartIcon}) no-repeat;
+        position: absolute;
+        left: 0px;
+        top: 12px;
+        width: 12px;
+        height: 11px;
+        background: url(${HeartIcon}) no-repeat;
       }
     }
   }
-      `;
+`;
 
 const CEmpty = styled.div`
-      text-align:center; margin-bottom:120px;
-      h2{
-        font-size:22px;
-      letter-spacing:-0.55px;
-      color:#000;
-      margin:0px 0px 10px;
-      font-weight:600;
+  text-align: center;
+  margin-bottom: 120px;
+  h2 {
+    font-size: 22px;
+    letter-spacing: -0.55px;
+    color: #000;
+    margin: 0px 0px 10px;
+    font-weight: 600;
   }
-      p{
-        font-size:16px;
-      letter-spacing:-0.8px;
-      color:#000;
-      margin:0px 0px 22px;
+  p {
+    font-size: 16px;
+    letter-spacing: -0.8px;
+    color: #000;
+    margin: 0px 0px 22px;
   }
-      button{
-        font-size:14px;
-      letter-spacing:-0.5px;
-      color:#000;
-      padding:13px 44px;
-      border-radius:15px;
-      border:1px solid #000;
-      :hover{background-color:#000; color:#fff;}
+  button {
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    color: #000;
+    padding: 13px 44px;
+    border-radius: 15px;
+    border: 1px solid #000;
+    :hover {
+      background-color: #000;
+      color: #fff;
+    }
   }
-      `;
+`;
 
 const mapDipatchToProps = (dispatch) => {
   return {
     getCollections: (id) => dispatch(actions.getCollectionNFT(id)),
-    clearCollections: () => dispatch({ type: 'FETCHED_COLLECTION_NFT', data: null }),
+    clearCollections: () =>
+      dispatch({ type: "FETCHED_COLLECTION_NFT", data: null }),
   };
 };
 const mapStateToProps = (state) => {
