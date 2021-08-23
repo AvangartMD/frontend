@@ -7,7 +7,7 @@ import Collapse from "@kunukn/react-collapse";
 import { Link } from "react-router-dom";
 
 import CloseBTN02 from "../Assets/images/icon-set-exit.svg";
-import LargeImg from '../Assets/images/nftcard1-big.jpg';
+import LargeImg from "../Assets/images/nftcard1-big.jpg";
 
 class Magnifypopup extends Component {
   constructor(props) {
@@ -20,16 +20,14 @@ class Magnifypopup extends Component {
   render() {
     return (
       <>
-
         <WhiteWrap>
           <CloseBTND2 className="ani-1" onClick={() => this.props.toggle(6)}>
             <img src={CloseBTN02} alt="" />
           </CloseBTND2>
           <div className="Mouter">
-            <img src={LargeImg} alt="" />
+            <img src={props.imageURL} alt="" />
           </div>
         </WhiteWrap>
-
       </>
     );
   }
@@ -56,35 +54,32 @@ const WhiteWrap = styled(FlexDiv)`
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 1011;
   backdrop-filter: blur(2px);
-  .Mouter
-  {
-    max-width:600px;
-    margin:0px 15px;
+  .Mouter {
+    max-width: 600px;
+    margin: 0px 15px;
   }
 `;
 
 const CloseBTND2 = styled(FlexDiv)`
-  width:34px;
-  height:34px;
-  border-radius:50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
-  background-color:#fff;
+  background-color: #fff;
   position: absolute;
   right: 30px;
   top: 30px;
   padding: 0;
   margin: 0px;
-  cursor:pointer;
+  cursor: pointer;
   z-index: 9;
-  :hover img{
+  :hover img {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
 `;
 
 export default Magnifypopup;
-
-

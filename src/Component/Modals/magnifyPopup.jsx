@@ -34,10 +34,9 @@ const WhiteWrap = styled(FlexDiv)`
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 1011;
   backdrop-filter: blur(2px);
-  .Mouter
-  {
-    max-width:600px;
-    margin:0px 15px;
+  .Mouter {
+    max-width: 600px;
+    margin: 0px 15px;
   }
 `;
 
@@ -57,7 +56,7 @@ const CloseBTND2 = styled(FlexDiv)`
   :hover img {
     transform: rotate(90deg);
   }
-  ${Media.xs}{
+  ${Media.xs} {
     right: 15px;
     top: 15px;
   }
