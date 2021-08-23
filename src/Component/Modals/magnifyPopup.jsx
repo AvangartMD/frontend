@@ -11,7 +11,7 @@ function Magnifypopup({ toggle, imageURL }) {
         <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
-        <div className={`vs-box hr-box ${hrClass}`}>
+        <div className={`vs-box  ${hrClass}`}>
           <img
             src={imageURL}
             alt=""
