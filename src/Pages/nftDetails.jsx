@@ -121,7 +121,7 @@ class NftDetail extends React.Component {
       isOpen1: false,
       isOpen4: false,
       isOpen9: false,
-      bnbUSDPrice: 0,
+      bnbUSDPrice: {},
       bidDetails: {
         currentBidValue: "0",
         bidder: "0x0000000000000000000000000000000000000000",
@@ -828,6 +828,7 @@ class NftDetail extends React.Component {
               editionNumber={this.state.currentEdition}
               web3Data={this.props.web3Data}
               nftDetails={this.getNFTDetails}
+              bnbUSDPrice={bnbUSDPrice}
             />
           </Collapse>
           <Collapse

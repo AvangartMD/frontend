@@ -9,7 +9,14 @@ import DDdownA from "../../Assets/images/dd-down-arrow.svg";
 import TxnStatus from "./txnStatus";
 import { getContractInstance } from "../../helper/functions";
 
-function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
+function POSpopup({
+  toggle,
+  tokenId,
+  editionNumber,
+  web3Data,
+  nftDetails,
+  bnbUSDPrice,
+}) {
   const wrapperRef = useRef(null);
   const [isOpen2, setIsOpen2] = useState(false);
   const [price, setPrice] = useState("");
@@ -21,13 +28,19 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
   const makeTransaction = async () => {
     if (!method) return;
     if (!+price) return setError("priceError");
+    let newPrice = price;
+    if (currencyUsed === "TR") newPrice = (+price / bnbUSDPrice.try).toString();
+
+    if (currencyUsed === "USD")
+      newPrice = (+price / bnbUSDPrice.usd).toString();
+
     setError("");
     console.log(method, price);
     setTxnStatus("initiate");
     await escrowContractInstance.methods[method](
       +tokenId,
       editionNumber,
-      web3.utils.toWei(price, "ether")
+      web3.utils.toWei(newPrice, "ether")
     )
       .send({ from: web3Data.accounts[0] })
       .on("transactionHash", (hash) => {
@@ -162,14 +175,18 @@ function POSpopup({ toggle, tokenId, editionNumber, web3Data, nftDetails }) {
                   >
                     <DDContainer className="ver2">
                       <DDBtnbar02>
-                        <button
-                          onClick={() =>
-                            setCurrencyUsed(
-                              currencyUsed === "BNB" ? "TR" : "BNB"
-                            )
-                          }
-                        >
-                          {currencyUsed === "BNB" ? "TR" : "BNB"}
+                        <button onClick={() => setCurrencyUsed("BNB")}>
+                          BNB
+                        </button>
+                      </DDBtnbar02>
+                      <DDBtnbar02>
+                        <button onClick={() => setCurrencyUsed("TR")}>
+                          TR
+                        </button>
+                      </DDBtnbar02>
+                      <DDBtnbar02>
+                        <button onClick={() => setCurrencyUsed("USD")}>
+                          USD
                         </button>
                       </DDBtnbar02>
                     </DDContainer>
