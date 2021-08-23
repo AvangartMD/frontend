@@ -254,6 +254,7 @@ class NFTPage extends Component {
       if (!fileType.search("video")) this.setState({ fileType: "video" });
       if (!fileType.search("audio")) this.setState({ fileType: "audio" });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
+      console.log(fileType, fileType.search("image"));
       if (e.target.files[0].size > 3145728) {
         nftObj.compressionRequired = true;
       }
@@ -288,7 +289,7 @@ class NFTPage extends Component {
     else if (!saleState) this.setError("Please select sale state.", true);
     else if (saleState === "AUCTION" && !+auctionTime)
       this.setError("Please select the auction time.", true);
-    else if (!edition || (+edition < 0 || +edition) > 20)
+    else if (!edition || (+edition < 0 || +edition) > 500)
       this.setError("Edition ranges between 1 to 500", true);
     else if (!+price) this.setError("Please enter the price", true);
     else {

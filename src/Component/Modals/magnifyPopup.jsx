@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled from "styled-components";
 import CloseBTN02 from "../../Assets/images/icon-set-exit.svg";
 import Media from "../../Theme/media-breackpoint";
 
 function Magnifypopup({ toggle, imageURL }) {
+  const [hrClass, sethrClass] = useState("horizontal-tnimg");
   return (
     <>
       <WhiteWrap>
@@ -11,7 +12,18 @@ function Magnifypopup({ toggle, imageURL }) {
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
         <div className="Mouter">
-          <img src={imageURL} alt="" />
+          <img
+            src={imageURL}
+            alt=""
+            onLoad={(image) => {
+              if (image.target.width > image.target.height) {
+                sethrClass("horizontal-tnimg");
+              }
+              //  else if (image.target.height > image.target.width) {
+              //   this.setState({ imageClass: "vertical-tnimg" });
+              // }
+            }}
+          />
         </div>
       </WhiteWrap>
     </>
