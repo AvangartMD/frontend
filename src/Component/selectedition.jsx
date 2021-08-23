@@ -10,7 +10,6 @@ import FiltICON from "../Assets/images/filterICO.svg";
 import UserIcon from "../Assets/images/userIcon.png";
 import { web3 } from "../web3";
 
-
 function CustomScrollbars(props) {
   return (
     <Scrollbars
@@ -30,13 +29,12 @@ function CustomScrollbars(props) {
 }
 
 function SelectEdition(props) {
-
   const [totalEditions, setTotalEditions] = useState([]);
   const [filterPopup, setFilterPopup] = useState([]);
   const [editions, setEditions] = useState([]);
   const [filter, setFilter] = useState([]);
   const [tab, setTab] = useState("All");
-  const wrapperRef = useRef(null)
+  const wrapperRef = useRef(null);
   const { NFTDetails, web3Data } = props;
 
   const toggle = (index) => {
@@ -49,8 +47,12 @@ function SelectEdition(props) {
      * Alert if clicked on outside of element
      */
     function handleClickOutside(event) {
-      if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        if (filterPopup === 1) toggle(1)
+      if (
+        wrapperRef &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target)
+      ) {
+        if (filterPopup === 1) toggle(1);
       }
     }
 
@@ -64,31 +66,40 @@ function SelectEdition(props) {
 
   useEffect(() => {
     const tabEditions = () => {
-      let saleEditions = totalEditions.filter(edition => tab === 'Sale' ? edition.isOpenForSale : edition)
-        .map(edition => edition)
+      let saleEditions = totalEditions
+        .filter((edition) => (tab === "Sale" ? edition.isOpenForSale : edition))
+        .map((edition) => edition);
       setEditions(saleEditions); // set the filtered editions
-    }
+    };
     tabEditions(); // filter the tab editions
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab])
+  }, [tab]);
 
   useEffect(() => {
     const filterEditions = () => {
       let saleEditions = [];
-      if (filter === 'AUCTION')
-        saleEditions = totalEditions.filter(edition => edition.saleState === 'AUCTION').map(edition => edition)
-      if (filter === 'BUY')
-        saleEditions = totalEditions.filter(edition => edition.saleState === 'BUY').map(edition => edition)
-      if (filter === 'SOLD')
-        saleEditions = totalEditions.filter(edition => edition.saleState === 'SOLD').map(edition => edition)
-      if (filter === 'OFFER')
-        saleEditions = totalEditions.filter(edition => edition.saleState === 'OFFER').map(edition => edition)
-      if (filter.length === 0) saleEditions = totalEditions
+      if (filter === "AUCTION")
+        saleEditions = totalEditions
+          .filter((edition) => edition.saleState === "AUCTION")
+          .map((edition) => edition);
+      if (filter === "BUY")
+        saleEditions = totalEditions
+          .filter((edition) => edition.saleState === "BUY")
+          .map((edition) => edition);
+      if (filter === "SOLD")
+        saleEditions = totalEditions
+          .filter((edition) => edition.saleState === "SOLD")
+          .map((edition) => edition);
+      if (filter === "OFFER")
+        saleEditions = totalEditions
+          .filter((edition) => edition.saleState === "OFFER")
+          .map((edition) => edition);
+      if (filter.length === 0) saleEditions = totalEditions;
       setEditions(saleEditions); // set the filtered editions
-    }
+    };
     filterEditions(); // filter the editons
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter])
+  }, [filter]);
 
   useEffect(() => {
     const createEditionData = () => {
@@ -106,7 +117,9 @@ function SelectEdition(props) {
                 web3.utils.toChecksumAddress(soldEdition.walletAddress),
               ownerId: soldEdition.ownerId,
               isOpenForSale: soldEdition.isOpenForSale,
-              saleState: soldEdition.saleType.type ? soldEdition.saleType.type : 'SOLD',
+              saleState: soldEdition.saleType.type
+                ? soldEdition.saleType.type
+                : "SOLD",
               price: soldEdition.price,
               isBurned: soldEdition.isBurned,
             });
@@ -116,7 +129,12 @@ function SelectEdition(props) {
               isOwner: NFTDetails?.ownerId.id === props.authData?.data?.id,
               ownerId: NFTDetails?.ownerId,
               isOpenForSale: true,
-              saleState: NFTDetails?.saleState === "AUCTION" ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? 'AUCTION' : 'BUY' : 'BUY',
+              saleState:
+                NFTDetails?.saleState === "AUCTION"
+                  ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000
+                    ? "AUCTION"
+                    : "BUY"
+                  : "BUY",
               price: NFTDetails.price,
               isBurned: false,
             });
@@ -130,9 +148,9 @@ function SelectEdition(props) {
   }, [NFTDetails, web3Data]);
 
   const changeHandler = (action, { target: { checked, value } }) => {
-    if (checked) setFilter(action)
-    else setFilter([])
-  }
+    if (checked) setFilter(action);
+    else setFilter([]);
+  };
 
   return (
     <>
@@ -143,22 +161,28 @@ function SelectEdition(props) {
           </CloseBTN>
 
           <Htitle>
-            <FormattedMessage id="select_edition" defaultMessage="Select Edition" />
+            <FormattedMessage
+              id="select_edition"
+              defaultMessage="Select Edition"
+            />
           </Htitle>
 
           <FilterMBX>
             <FilterLbx>
-              <button className={tab === 'All' ? `active` : ``} onClick={() => setTab('All')} >
+              <button
+                className={tab === "All" ? `active` : ``}
+                onClick={() => setTab("All")}
+              >
                 <FormattedMessage id="all" defaultMessage="All" />
               </button>
-              <button className={tab === 'Sale' ? `active` : ``} onClick={() => setTab('Sale')} >
+              <button
+                className={tab === "Sale" ? `active` : ``}
+                onClick={() => setTab("Sale")}
+              >
                 <FormattedMessage id="for_sale" defaultMessage="For Sale" />
               </button>
             </FilterLbx>
-            <FilterBAR
-              onClick={() => toggle(1)}
-              ref={wrapperRef}
-            >
+            <FilterBAR onClick={() => toggle(1)} ref={wrapperRef}>
               <FilterICO>
                 <img src={FiltICON} alt="" />
               </FilterICO>
@@ -171,45 +195,57 @@ function SelectEdition(props) {
                 }
               >
                 <DDContainer>
-                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ?
+                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? (
                     <div className="md-checkbox">
                       <input
                         type="checkbox"
                         id="vehicle1"
                         name="vehicle1"
-                        checked={filter.includes('AUCTION') ? true : false}
-                        onChange={(e) => changeHandler('AUCTION', e)}
+                        checked={filter.includes("AUCTION") ? true : false}
+                        onChange={(e) => changeHandler("AUCTION", e)}
                       />
                       <label htmlFor="vehicle1">
-                        <FormattedMessage id="live_acution" defaultMessage="Live auction" />
+                        <FormattedMessage
+                          id="live_acution"
+                          defaultMessage="Live auction"
+                        />
                       </label>
                     </div>
-                    : <div className="md-checkbox">
+                  ) : (
+                    <div className="md-checkbox">
                       <input
                         type="checkbox"
                         id="vehicle2"
                         name="vehicle1"
-                        checked={filter.includes('OFFER') ? true : false}
-                        onChange={(e) => changeHandler('OFFER', e)}
+                        checked={filter.includes("OFFER") ? true : false}
+                        onChange={(e) => changeHandler("OFFER", e)}
                       />
                       <label htmlFor="vehicle2">
-                        <FormattedMessage id="accept_offers" defaultMessage="Accept offers" />
+                        <FormattedMessage
+                          id="accept_offers"
+                          defaultMessage="Accept offers"
+                        />
                       </label>
                     </div>
-                  }
+                  )}
 
-                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? `` :
+                  {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? (
+                    ``
+                  ) : (
                     <>
                       <div className="md-checkbox">
                         <input
                           type="checkbox"
                           id="vehicle3"
                           name="vehicle1"
-                          checked={filter.includes('BUY') ? true : false}
-                          onChange={(e) => changeHandler('BUY', e)}
+                          checked={filter.includes("BUY") ? true : false}
+                          onChange={(e) => changeHandler("BUY", e)}
                         />
                         <label htmlFor="vehicle3">
-                          <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+                          <FormattedMessage
+                            id="buy_now"
+                            defaultMessage="Buy now"
+                          />
                         </label>
                       </div>
                       <div className="md-checkbox">
@@ -217,13 +253,13 @@ function SelectEdition(props) {
                           type="checkbox"
                           id="vehicle4"
                           name="vehicle1"
-                          checked={filter.includes('SOLD') ? true : false}
-                          onChange={(e) => changeHandler('SOLD', e)}
+                          checked={filter.includes("SOLD") ? true : false}
+                          onChange={(e) => changeHandler("SOLD", e)}
                         />
                         <label htmlFor="vehicle4">Sold</label>
                       </div>
                     </>
-                  }
+                  )}
                 </DDContainer>
               </Collapse>
             </FilterBAR>
@@ -251,63 +287,84 @@ function SelectEdition(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {editions.length !== 0 ?
-                    editions.map((edition, key) => {
-                      return (
-                        <tr key={key}>
-                          <td>{edition.number}</td>
-                          <td>
-                            <FlexDiv className="JCFS">
-                              <div className="table-Img">
-                                <img
-                                  src={
-                                    edition.ownerId.profile
-                                      ? edition.ownerId.profile
-                                      : UserIcon
-                                  }
-                                  alt=""
-                                />
-                              </div>
-                              <div className="eduerprice">
-                                {edition.ownerId.username ? `@${edition.ownerId.username}` : edition.ownerId.name}
-                                <div className="mobile-block">{edition.price} BNB</div>
-                              </div>
-                            </FlexDiv>
-                          </td>
-                          <td className="text-center desktop-block">{edition.price} BNB</td>
-                          <td>
-                            <CustomRadio1>
-                              <label className="radio-container">
-                                {edition.isBurned ?
-                                  <FormattedMessage id="burned" defaultMessage="Burned" /> :
-                                  <FormattedMessage id="select" defaultMessage="Select" />
-                                }
-                                <input
-                                  type="radio"
-                                  name="category"
-                                  value="art"
-                                  disabled={edition.isBurned}
-                                  onClick={() => {
-                                    props.setEditionnumber(edition.number);
-                                    props.toggle(10);
-                                  }}
-                                />
-                                <span className="checkmark"></span>
-                              </label>
-                            </CustomRadio1>
-                          </td>
-                        </tr>
-                      )
-                    })
-                    : `No result found`
-                  }
+                  {editions.length !== 0
+                    ? editions.map((edition, key) => {
+                        return (
+                          <tr key={key}>
+                            <td>{edition.number}</td>
+                            <td>
+                              <FlexDiv className="JCFS">
+                                <div className="table-Img">
+                                  <img
+                                    src={
+                                      edition.ownerId.profile
+                                        ? edition.ownerId.profile
+                                        : UserIcon
+                                    }
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="eduerprice">
+                                  {edition.ownerId.username
+                                    ? `@${edition.ownerId.username}`
+                                    : edition.ownerId.name}
+                                  <div className="mobile-block">
+                                    {+edition.price < 0.001
+                                      ? +edition.price
+                                          .toFixed(5)
+                                          .toLocaleString()
+                                      : Number(edition.price).toLocaleString(
+                                          undefined,
+                                          4
+                                        )}{" "}
+                                    BNB
+                                  </div>
+                                </div>
+                              </FlexDiv>
+                            </td>
+                            <td className="text-center desktop-block">
+                              {edition.price} BNB
+                            </td>
+                            <td>
+                              <CustomRadio1>
+                                <label className="radio-container">
+                                  {edition.isBurned ? (
+                                    <FormattedMessage
+                                      id="burned"
+                                      defaultMessage="Burned"
+                                    />
+                                  ) : (
+                                    <FormattedMessage
+                                      id="select"
+                                      defaultMessage="Select"
+                                    />
+                                  )}
+                                  <input
+                                    type="radio"
+                                    name="category"
+                                    value="art"
+                                    disabled={edition.isBurned}
+                                    onClick={() => {
+                                      props.setEditionnumber(edition.number);
+                                      props.toggle(10);
+                                    }}
+                                  />
+                                  <span className="checkmark"></span>
+                                </label>
+                              </CustomRadio1>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : `No result found`}
                 </tbody>
               </table>
             </EditionTable>
           </CustomScrollbars>
         </WhiteBX0D2>
       </BlackWrap>
-    </>);
+    </>
+  );
 }
 
 const FlexDiv = styled.div`
@@ -371,10 +428,10 @@ const Htitle = styled.div`
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
-  ${Media.sm}{
-    width:100%;
-    margin:0px 0px 10px;
-  } 
+  ${Media.sm} {
+    width: 100%;
+    margin: 0px 0px 10px;
+  }
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -425,9 +482,9 @@ const FilterBAR = styled(FlexDiv)`
     border: 1px solid #00babc;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
   }
-  ${Media.sm}{
-    max-width:100%;
-  } 
+  ${Media.sm} {
+    max-width: 100%;
+  }
 `;
 
 const DDContainer = styled(FlexDiv)`
@@ -450,9 +507,9 @@ const DDContainer = styled(FlexDiv)`
 const FilterMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: space-between;
-  ${Media.sm}{
-    display:block;
-  } 
+  ${Media.sm} {
+    display: block;
+  }
 `;
 const EditionTable = styled.div`
   width: 100%;
@@ -466,27 +523,23 @@ const EditionTable = styled.div`
     .text-right {
       text-align: right;
     }
-    .eduerprice
-    {
-      .mobile-block
-      {
-        width:100%;
+    .eduerprice {
+      .mobile-block {
+        width: 100%;
       }
     }
-    ${Media.sm}{
+    ${Media.sm} {
       border-spacing: 10px 25px;
-    } 
-    .mobile-block
-    {
-      display:none;
+    }
+    .mobile-block {
+      display: none;
       ${Media.sm} {
-        display:block;
+        display: block;
       }
     }
-    .desktop-block
-    {
+    .desktop-block {
       ${Media.sm} {
-        display:none;
+        display: none;
       }
     }
     thead {
@@ -497,9 +550,8 @@ const EditionTable = styled.div`
         font-size: 12px;
         font-weight: 600;
         text-align: left;
-        span.mobile-block
-        {
-          display:inline-block;
+        span.mobile-block {
+          display: inline-block;
         }
         ${Media.sm} {
           font-size: 10px;
@@ -512,14 +564,14 @@ const EditionTable = styled.div`
         font-size: 18px;
         font-weight: 600;
         letter-spacing: -0.9px;
-        ${Media.sm}{
+        ${Media.sm} {
           font-size: 12px;
-        } 
+        }
         .JCFS {
           justify-content: flex-start;
-          ${Media.sm}{
-            flex-wrap:initial;
-          } 
+          ${Media.sm} {
+            flex-wrap: initial;
+          }
         }
         .table-Img {
           width: 32px;
@@ -556,7 +608,7 @@ const CustomRadio1 = styled(FlexDiv)`
     }
     ${Media.sm} {
       padding: 6px 20px;
-      font-size:10px;
+      font-size: 10px;
     }
   }
   .radio-container input {
