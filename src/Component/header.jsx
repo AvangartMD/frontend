@@ -626,6 +626,7 @@ const HeadMBX = styled(FlexDiv)`
     min-height: 80px;
   }
   &.gradient-header {
+    background-color:transparent;
     box-shadow: none;
     .avangart-Logo {
       background: url(${LogoImgWhite}) no-repeat;
