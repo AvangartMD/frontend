@@ -96,7 +96,7 @@ class Header extends Component {
         this.setState({ userDetails: authData.data });
       }
     }
-    
+
   }
 
   checkMetamaskLock = () => {
@@ -215,7 +215,7 @@ class Header extends Component {
     } = this.state;
     const value = this.props.location.pathname;
     const parts = value.split('/');
-    const useGradient = parts[1] === "creator" || parts[2] === "profile"?"gradient-header": null;
+    const useGradient = parts[1] === "creator" || parts[2] === "profile" ? "gradient-header" : null;
     return (
       <>
         <HeadMBX className={useGradient}>
@@ -620,6 +620,7 @@ const HeadMBX = styled(FlexDiv)`
   min-height: 100px;
   position: absolute;
   z-index: 100;
+  background-color:#fff;
   box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
   ${Media.md} {
     min-height: 80px;
