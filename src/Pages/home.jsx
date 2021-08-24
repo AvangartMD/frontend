@@ -56,7 +56,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <Gs.MainSection>
+            <Gs.MainSection className="mt-0">
                 {this.props.dashboard ?
                     this.props.dashboard.map((data, index) => {
                         if (data.name === 'Banner' && data.isActive) {
@@ -82,7 +82,7 @@ class Home extends React.Component {
 }
 
 Gs.MainSection = styled(Gs.MainSection)`
-  {
+  &.mt-0{
     margin-top:0px;
   }
 `;
