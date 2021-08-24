@@ -576,8 +576,9 @@ class NftDetail extends React.Component {
                       width="100%"
                       controls={true}
                       url={NFTDetails?.image.compressed}
-                      playing={false}
+                      playing={true}
                       playIcon={<></>}
+                      loop={true}
                       // light={
                       //   ""
                       // }
@@ -592,9 +593,7 @@ class NftDetail extends React.Component {
               <NFTDrightcontainer>
                 <NFTDRtopbar>
                   <NFTDrtitle>
-                    {NFTDetails?.title
-                      ? NFTDetails?.title
-                      : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+                    {NFTDetails?.title ? NFTDetails?.title : ""}
                   </NFTDrtitle>
                   <NFTtopbarright>
                     {NFTDetails?.unlockContent && (

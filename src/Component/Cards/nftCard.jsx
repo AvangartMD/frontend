@@ -13,7 +13,7 @@ import Timer from "../timer";
 import { getFileType } from "../../helper/functions";
 
 function NFTCard({
-  edit=false,
+  edit = false,
   nftSold,
   name,
   nftId,
@@ -28,15 +28,15 @@ function NFTCard({
   username,
   previewCard,
 }) {
-
   const ext = getFileType(nftImg);
+  console.log("this is ", ext);
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
-        <Link to={edit?`/user/nftEdit/${nftId}`:`/nftDetails/${nftId}`}>
-        <div className="NFT-home-box">
+        <Link to={edit ? `/user/nftEdit/${nftId}` : `/nftDetails/${nftId}`}>
+          <div className="NFT-home-box">
             <NFTImgBX>
-              {ext === `image` ?
+              {ext === `image` ? (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -44,8 +44,11 @@ function NFTCard({
                   key={nftImg}
                   src={nftImg}
                   exit={{ opacity: 0 }}
-                /> : ``}
-              {ext === 'audio' ?
+                />
+              ) : (
+                ``
+              )}
+              {ext === "audio" ? (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -54,8 +57,10 @@ function NFTCard({
                   src={AudioCover}
                   exit={{ opacity: 0 }}
                 />
-                : ``}
-              {ext === 'video' ?
+              ) : (
+                ``
+              )}
+              {ext === "video" ? (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -64,71 +69,100 @@ function NFTCard({
                   src={VideoCover}
                   exit={{ opacity: 0 }}
                 />
-                : ``}
-            </NFTImgBX>
-          <div className="NFT-home-box-inner">
-            <h4>
-              {title
-                ? title
-                : "Artwork name / title dolor lorem ipsum sit adipiscing"}
-            </h4>
-            <CollectionBar>
-              <p>
-                {edition ? edition : 0} Editions
-                {/* {nftSold} <span>of {edition ? edition : 0}</span> */}
-              </p>
-              {collectionId ? (
-                <p>
-                  <Link to={`/collection-detail/${collectionId}`}>
-                    <FormattedMessage id="see_the_collections" defaultMessage="See the collection" />
-                    <i className="fas fa-angle-right"></i>
-                  </Link>
-                </p>
               ) : (
-                ""
+                ``
               )}
-            </CollectionBar>
-            <Edition className="edition2 JCSB">
-              <div className="ed-box">
-                  <p>{auctionEndDate && auctionEndDate > new Date().getTime() / 1000 ?
-                    <FormattedMessage id="current_bid" defaultMessage="Current bid" />:
-                    <FormattedMessage id="price" defaultMessage="Price" />}</p>
-                <h3>{price} BNB</h3>
-              </div>
-              <div className="ed-box">
-                {previewCard ? (
-                  auctionEndDate ? (
+            </NFTImgBX>
+            <div className="NFT-home-box-inner">
+              <h4>
+                {title
+                  ? title
+                  : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+              </h4>
+              <CollectionBar>
+                <p>
+                  {edition ? edition : 0} Editions
+                  {/* {nftSold} <span>of {edition ? edition : 0}</span> */}
+                </p>
+                {collectionId ? (
+                  <p>
+                    <Link to={`/collection-detail/${collectionId}`}>
+                      <FormattedMessage
+                        id="see_the_collections"
+                        defaultMessage="See the collection"
+                      />
+                      <i className="fas fa-angle-right"></i>
+                    </Link>
+                  </p>
+                ) : (
+                  ""
+                )}
+              </CollectionBar>
+              <Edition className="edition2 JCSB">
+                <div className="ed-box">
+                  <p>
+                    {auctionEndDate &&
+                    auctionEndDate > new Date().getTime() / 1000 ? (
+                      <FormattedMessage
+                        id="current_bid"
+                        defaultMessage="Current bid"
+                      />
+                    ) : (
+                      <FormattedMessage id="price" defaultMessage="Price" />
+                    )}
+                  </p>
+                  <h3>{price} BNB</h3>
+                </div>
+                <div className="ed-box">
+                  {previewCard ? (
+                    auctionEndDate ? (
+                      <>
+                        <p>
+                          <FormattedMessage
+                            id="ending_in"
+                            defaultMessage="Ending in"
+                          />
+                        </p>{" "}
+                        <h3>{auctionEndDate}h 00m 00s</h3>
+                      </>
+                    ) : (
+                      <button>
+                        <FormattedMessage
+                          id="buy_now"
+                          defaultMessage="Buy now"
+                        />
+                      </button>
+                    )
+                  ) : auctionEndDate &&
+                    auctionEndDate > new Date().getTime() / 1000 ? (
                     <>
-                      <p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p> <h3>{auctionEndDate}h 00m 00s</h3>
+                      <p>
+                        <FormattedMessage
+                          id="ending_in"
+                          defaultMessage="Ending in"
+                        />
+                      </p>
+
+                      <h3>
+                        <Timer timeLeft={auctionEndDate} onlyHours={true} />
+                      </h3>
                     </>
+                  ) : nftSold === edition ? (
+                    <button className="disabled" disabled>
+                      <FormattedMessage id="sold" defaultMessage="Sold" />
+                    </button>
                   ) : (
                     <button>
                       <FormattedMessage id="buy_now" defaultMessage="Buy now" />
                     </button>
-                  )
-                ) : auctionEndDate &&
-                  auctionEndDate > new Date().getTime() / 1000 ? (
-                  <>
-                    <p><FormattedMessage id="ending_in" defaultMessage="Ending in" /></p>
-
-                    <h3>
-                      <Timer timeLeft={auctionEndDate} onlyHours={true} />
-                    </h3>
-                  </>
-                    ) : nftSold === edition ? (<button className="disabled" disabled>
-                          <FormattedMessage id="sold" defaultMessage="Sold" />
-                  </button>) : (
-                  <button>
-                    <FormattedMessage id="buy_now" defaultMessage="Buy now" />
-                  </button>
-                )}
-              </div>
-            </Edition>
-            <UserImgName>
-              <img src={userImg ? userImg : UserImg} alt="" />
-              {username ? `@${username}` : name}
-            </UserImgName>
-          </div>
+                  )}
+                </div>
+              </Edition>
+              <UserImgName>
+                <img src={userImg ? userImg : UserImg} alt="" />
+                {username ? `@${username}` : name}
+              </UserImgName>
+            </div>
           </div>
         </Link>
       </Gs.TenpxGutter>
