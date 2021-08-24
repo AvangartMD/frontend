@@ -145,9 +145,12 @@ const FlexDiv = styled.div`
 `;
 
 const HomeBanner = styled.div`
-  max-height: 100vh;
+  min-height: 100vh;
   width: 100%;
   overflow:hidden;
+  ${Media.md}{
+    min-height:auto;
+  }
   ${Media.xs}{
     max-height: 550px;
   }
@@ -156,6 +159,7 @@ const HomeBanner = styled.div`
       width: 100%;
       height:100%;
       object-fit:cover;
+      min-height: 100vh;
       &.desktop-img
       {
         ${Media.xs}{
@@ -168,11 +172,17 @@ const HomeBanner = styled.div`
           display:block;
         }
       }
+      ${Media.md}{
+        min-height:auto;
+      }
     }
   }
   .react-multi-carousel-track
   {
-    max-height: 100vh;
+    height: 100vh;
+    ${Media.md}{
+      height:auto;
+    }
     ${Media.xs}{
       max-height: 550px;
     }
