@@ -145,7 +145,7 @@ const FlexDiv = styled.div`
 `;
 
 const HomeBanner = styled.div`
-  max-height: 660px;
+  max-height: 100vh;
   width: 100%;
   overflow:hidden;
   ${Media.xs}{
@@ -172,7 +172,7 @@ const HomeBanner = styled.div`
   }
   .react-multi-carousel-track
   {
-    max-height: 660px;
+    max-height: 100vh;
     ${Media.xs}{
       max-height: 550px;
     }

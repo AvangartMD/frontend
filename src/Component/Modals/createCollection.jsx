@@ -10,7 +10,25 @@ import { services } from "../../services";
 import { Context } from '../../Component/wrapper';
 import Media from "./../../Theme/media-breackpoint";
 import { capitalizeFirstLetter } from "../../helper/functions";
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 function CreateCollection(props) {
 
@@ -125,6 +143,7 @@ function CreateCollection(props) {
           </>
         ) : (
           <WhiteBX01>
+
             <form onSubmit={(e) => onFormSubmit(e)}
               onChange={(e) => formChange(e)}
               ref={(e) => myFormRef = e}
@@ -139,74 +158,80 @@ function CreateCollection(props) {
                 >
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
-                <CCTitle>Create Collection</CCTitle>
+                <CustomScrollbars
+                  autoHide
+                  autoHideTimeout={1000}
+                  style={{ width: "100%", height: "418px", position: "relative" }}
+                >
+                  <CCTitle>Create Collection</CCTitle>
 
-                <NFTForm>
-                  <div className="label-line">
-                    <label>Collection Name</label>
-                  </div>
-                  <input
-                    type="text"
-                    name="name"
-                    className={error.name ? `error` : ``}
-                    placeholder="Type something…"
-                  />
-                </NFTForm>
-                <NFTForm>
-                  <div className="label-line">
-                    <label>About Collection</label>
-                  </div>
-                  <textarea name="description" className={error.description ? `error` : ``} defaultValue="Type something…">
-                  </textarea>
-                </NFTForm>
-                <NFTForm>
-                  <div className="label-line">
-                    <label>Category</label>
-                    <p className={error.category ? `error` : ``}>
-                      Choose category for listing your NFT. You can choose
-                      up to 2.
-                    </p>
-                  </div>
-                  <CustomCheckbox1>
-                    {props.categoryList?.map((category, key) => (
-                      <label className="checkbox-container" key={key}>
-                        <img src={category.image} alt="" />
-                        {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en)}
-                        <input
-                          type="checkbox"
-                          name="category"
-                          value={category._id}
-                        />
-                        <span className="checkmark"></span>
-                      </label>
-                    ))}
-                  </CustomCheckbox1>
-                </NFTForm>
-                <NFTForm>
-                  <div className="label-line">
-                    <label>Collection Cover Image</label>
-                    <FlexDiv className="JCSB">
-                      <p>Upload PNG, GIF, WEBP</p>
-                      <p>
-                        <b>Max 30 mb.</b>
+                  <NFTForm>
+                    <div className="label-line">
+                      <label>Collection Name</label>
+                    </div>
+                    <input
+                      type="text"
+                      name="name"
+                      className={error.name ? `error` : ``}
+                      placeholder="Type something…"
+                    />
+                  </NFTForm>
+                  <NFTForm>
+                    <div className="label-line">
+                      <label>About Collection</label>
+                    </div>
+                    <textarea name="description" className={error.description ? `error` : ``} defaultValue="Type something…">
+                    </textarea>
+                  </NFTForm>
+                  <NFTForm>
+                    <div className="label-line">
+                      <label>Category</label>
+                      <p className={error.category ? `error` : ``}>
+                        Choose category for listing your NFT. You can choose
+                        up to 2.
                       </p>
-                    </FlexDiv>
-                  </div>
-                  <FileuploadBox className={error.logo ? `error` : ``} >
-                    <label className="custom-file-upload">
-                      <input type="file" name="logo"
-                        accept="image/png, image/gif, image/jpeg"
-                      />
-                      Choose
-                    </label>
-                  </FileuploadBox>
-                </NFTForm>
-                <CreateItemButton >
-                  <button type="submit" disabled={loading ? true : false} >{loading ? `loading..` : `Create`}</button>
-                </CreateItemButton>
-
+                    </div>
+                    <CustomCheckbox1>
+                      {props.categoryList?.map((category, key) => (
+                        <label className="checkbox-container" key={key}>
+                          <img src={category.image} alt="" />
+                          {capitalizeFirstLetter(context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en)}
+                          <input
+                            type="checkbox"
+                            name="category"
+                            value={category._id}
+                          />
+                          <span className="checkmark"></span>
+                        </label>
+                      ))}
+                    </CustomCheckbox1>
+                  </NFTForm>
+                  <NFTForm>
+                    <div className="label-line">
+                      <label>Collection Cover Image</label>
+                      <FlexDiv className="JCSB">
+                        <p>Upload PNG, GIF, WEBP</p>
+                        <p>
+                          <b>Max 30 mb.</b>
+                        </p>
+                      </FlexDiv>
+                    </div>
+                    <FileuploadBox className={error.logo ? `error` : ``} >
+                      <label className="custom-file-upload">
+                        <input type="file" name="logo"
+                          accept="image/png, image/gif, image/jpeg"
+                        />
+                        Choose
+                      </label>
+                    </FileuploadBox>
+                  </NFTForm>
+                  <CreateItemButton >
+                    <button type="submit" disabled={loading ? true : false} >{loading ? `loading..` : `Create`}</button>
+                  </CreateItemButton>
+                </CustomScrollbars>
               </>
             </form>
+
           </WhiteBX01>
         )}
       </BlackWrap>
@@ -249,13 +274,11 @@ const WhiteBX01 = styled(FlexDiv)`
   }
   form{
     width:100%;
-    ${Media.md}{
-      height:500px;
-      overflow-y:scroll;
-    }
-    ${Media.sm}{
-      height:400px;
-    }
+    // .view{
+    //   width:100%;
+    //   overflow-x:hidden !important;
+    //   overflow-y:auto !important;
+    // }
   }
 `;
 const CloseBTN = styled.button`
