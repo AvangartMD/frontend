@@ -58,10 +58,13 @@ function enableMetamask() {
   return (dispatch) => {
     const response = services.enableMetamask();
     response.then((promise) => {
-      if (promise) {
+      console.log("present");
+      if (!promise.error) {
+        console.log("this is new actions", promise);
         dispatch(setDispatchData(promise, "FETCH_WEB3_DATA"));
       } else {
-        // console.log('error in actions');
+        console.log("i am in error", promise);
+        dispatch(setDispatchData(promise, "FETCH_WEB3_DATA_ERROR"));
       }
     });
   };
@@ -93,56 +96,6 @@ function getNFTContractInstance() {
     });
   };
 }
-
-// function getTokenContractInstance() {
-//   const { tokenContract } = contractAddresses();
-//   return (dispatch) => {
-//     const response = services.getContractInstance(
-//       tokenContractABI,
-//       tokenContract
-//     );
-//     // const response = services.getTokenContractInstance();
-//     response.then((promise) => {
-//       if (promise) {
-//         dispatch(fetchTokenContractInstance(promise));
-//       } else {
-//         console.log("error in actions");
-//       }
-//     });
-//   };
-// }
-// function getLiquidityContractInstance() {
-//   let { liquidity } = contractAddresses();
-//   return (dispatch) => {
-//     const response = services.getContractInstance(
-//       liquidityContractABI,
-//       liquidity
-//     );
-//     response.then((promise) => {
-//       if (promise) {
-//         dispatch(fetchLiquidityContractInstance(promise));
-//       } else {
-//         console.log("error in actions");
-//       }
-//     });
-//   };
-// }
-// function getLiquidityTokenContractInstance() {
-//   let { liquidityTokenContract } = contractAddresses();
-//   return (dispatch) => {
-//     const response = services.getContractInstance(
-//       liquidityTokenContractABI,
-//       liquidityTokenContract
-//     );
-//     response.then((promise) => {
-//       if (promise) {
-//         dispatch(fetchLiquidityTokenContractInstance(promise));
-//       } else {
-//         console.log("error in actions");
-//       }
-//     });
-//   };
-//
 
 export const web3Actions = {
   getNetworkId,

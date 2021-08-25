@@ -52,16 +52,34 @@ async function enabledWalletConnect() {
 async function enableMetamask() {
   try {
     await window.ethereum.send("eth_requestAccounts");
+    console.log("or 1 serv");
     const resp = await getWeb3();
+    console.log("or 2 serv");
     return resp;
   } catch (error) {
+    console.log("i am in catch services", error.code);
     if (error.code === -32002) {
       return {
+        error: true,
+        code: error.code,
+        msg: error.message,
+        isLoggedIn: false,
+        accounts: [],
+      };
+    }
+    if (error.code === 4001) {
+      return {
+        error: true,
+        code: error.code,
+        msg: error.message,
         isLoggedIn: false,
         accounts: [],
       };
     }
     return {
+      error: true,
+      code: error.code,
+      msg: error.message,
       isLoggedIn: false,
       accounts: [],
     };

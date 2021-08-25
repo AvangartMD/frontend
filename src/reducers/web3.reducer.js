@@ -17,13 +17,15 @@ export function fetchNFTContractInstance(state = null, action) {
 
 export function fetchWeb3Data(
   state = {
-    isLoggedIn: localStorage.getItem("avangartAuthToken")?true:false,
+    isLoggedIn: localStorage.getItem("avangartAuthToken") ? true : false,
     accounts: [],
   },
   action
 ) {
   switch (action.type) {
     case "FETCH_WEB3_DATA":
+      return action.data;
+    case "FETCH_WEB3_DATA_ERROR":
       return action.data;
     default:
       return state;

@@ -76,7 +76,7 @@ const saleMethods = {
   noButton: {
     name: "",
     btnName: null,
-    bidDesc: "Resereved Price",
+    bidDesc: "Reserved Price",
   },
   claimAfterAuction: {
     name: "claimAfterAuction",

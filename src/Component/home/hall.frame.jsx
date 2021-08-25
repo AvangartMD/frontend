@@ -1,136 +1,237 @@
-import 'react-multi-carousel/lib/styles.css';
-import 'react-tabs/style/react-tabs.css';
+import "react-multi-carousel/lib/styles.css";
+import "react-tabs/style/react-tabs.css";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { HashLink as Link } from "react-router-hash-link";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { FormattedMessage } from "react-intl";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import styled from 'styled-components';
+import styled from "styled-components";
 import Media from "../../Theme/media-breackpoint";
 
-import NFT2 from '../../Assets/images/nft2.jpg';
+import NFT2 from "../../Assets/images/nft2.jpg";
 import UserIcon from "../../Assets/images/user-img.jpg";
-import HeartIcon from '../../Assets/images/heart-icon.svg';
-import StarIcon from '../../Assets/images/star-icon.svg';
-import RoundIcon from '../../Assets/images/round-icon.svg';
-import Gs from '../../Theme/globalStyles';
+import AudioCover from "../../Assets/images/audio-square.jpg";
+import VideoCover from "../../Assets/images/video-square.jpg";
+import HeartIcon from "../../Assets/images/heart-icon.svg";
+import StarIcon from "../../Assets/images/star-icon.svg";
+import RoundIcon from "../../Assets/images/round-icon.svg";
+import Gs from "../../Theme/globalStyles";
 import LoaderGif from "../../Assets/images/loading.gif";
-
-import { actions } from '../../actions';
-
-
+import { motion } from "framer-motion";
+import { actions } from "../../actions";
+import { getFileType } from "../../helper/functions";
 class HallOfFrame extends Component {
-
   componentDidMount() {
-    const { artists, artworks, collectors } = this.props
+    const { artists, artworks, collectors } = this.props;
     if (!artists) {
-      this.props.getHallOfFrameArtist(`artist`) // fetch hall of frame top artist
+      this.props.getHallOfFrameArtist(`artist`); // fetch hall of frame top artist
     }
     if (!artworks) {
-      this.props.getHallOfFrameArtwork(`artwork`) // fetch hall of frame top artwork
+      this.props.getHallOfFrameArtwork(`artwork`); // fetch hall of frame top artwork
     }
     if (!collectors) {
-      this.props.getHallOfFrameCollector(`collector`) // fetch hall of frame top collector
+      this.props.getHallOfFrameCollector(`collector`); // fetch hall of frame top collector
     }
   }
 
   render() {
-    const { artists, artworks, collectors } = this.props
+    const { artists, artworks, collectors } = this.props;
+
+    const getPreview = (nftLink) => {
+      const ext = getFileType(nftLink);
+      return ext === `image` ? (
+        <motion.img
+          initial={{ opacity: 0.2 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          key={nftLink}
+          src={nftLink}
+          exit={{ opacity: 0 }}
+        />
+      ) : ext === "audio" ? (
+        <motion.img
+          initial={{ opacity: 0.2 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          key={AudioCover}
+          src={AudioCover}
+          exit={{ opacity: 0 }}
+        />
+      ) : ext === "video" ? (
+        <motion.img
+          initial={{ opacity: 0.2 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          key={VideoCover}
+          src={VideoCover}
+          exit={{ opacity: 0 }}
+        />
+      ) : (
+        ``
+      );
+    };
+
     return (
       <>
         <HomeNFTs>
           <Gs.Container>
-            <div className='star-title'>
-              <h3><FormattedMessage id="hall_of_fame" defaultMessage="Hall of Fame" /></h3>
+            <div className="star-title">
+              <h3>
+                <FormattedMessage
+                  id="hall_of_fame"
+                  defaultMessage="Hall of Fame"
+                />
+              </h3>
             </div>
 
             <HomeTabs>
               <Tabs>
                 <TabList>
-                  <Tab><FormattedMessage id="creators" defaultMessage="Creators" /></Tab>
-                  <Tab><FormattedMessage id="nfts" defaultMessage="NFTs" /></Tab>
-                  <Tab><FormattedMessage id="collectors" defaultMessage="Collectors" /></Tab>
+                  <Tab>
+                    <FormattedMessage id="creators" defaultMessage="Creators" />
+                  </Tab>
+                  <Tab>
+                    <FormattedMessage id="nfts" defaultMessage="NFTs" />
+                  </Tab>
+                  <Tab>
+                    <FormattedMessage
+                      id="collectors"
+                      defaultMessage="Collectors"
+                    />
+                  </Tab>
                   {/* <Tab>Our Picks</Tab> */}
                 </TabList>
 
                 <TabPanel>
                   <HomeTabDetail>
-                    {!artists ?
-                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>
-                      : artists.length > 1 ? artists.map((artist, key) => {
-                        return <Gs.W20 key={key}>
-                          <Link to={`/creator/${artist._id}`}>
-                            <Gs.TenpxGutter>
-                              <HallofFameBox>
-                                <div className='HOF-inner'>
-                                  <img src={artist.profile ? artist.profile : UserIcon } alt='' />
-                                  <p className='user-name'>@{artist.username}</p>
-                                  <p className='small'>Total Sale</p>
-                                  <p className='price'>{artist.totalSale} BNB</p>
-                                </div>
-                              </HallofFameBox>
-                            </Gs.TenpxGutter>
-                          </Link>
-                        </Gs.W20>
-                      })
-                        : (<p className="no-found-data">No Creators found</p>)
-                    }
-                  </HomeTabDetail>
-                </TabPanel>
-
-                <TabPanel>
-                  <HomeTabDetail>
-                    {!artworks ?
-                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>
-                      : artworks.length > 1 ? artworks.map((artwork, key) => {
-                        return <Gs.W20 key={key}>
-                          <Link to={`/nftDetails/${artwork._id}`}>
-                            <Gs.TenpxGutter>
-                              <HallofFameBox2>
-                                <div className='HOF-inner'>
-                                  <div className="img-outer">
-                                    <img src={artwork.image?.compressed} alt='' />
+                    {!artists ? (
+                      <LoaderBX>
+                        {" "}
+                        <img src={LoaderGif} alt="" />{" "}
+                      </LoaderBX>
+                    ) : artists.length > 1 ? (
+                      artists.map((artist, key) => {
+                        return (
+                          <Gs.W20 key={key}>
+                            <Link to={`/creator/${artist._id}`}>
+                              <Gs.TenpxGutter>
+                                <HallofFameBox>
+                                  <div className="HOF-inner">
+                                    <img
+                                      src={
+                                        artist.profile
+                                          ? artist.profile
+                                          : UserIcon
+                                      }
+                                      alt=""
+                                    />
+                                    <p className="user-name">
+                                      @{artist.username}
+                                    </p>
+                                    <p className="small">Total Sale</p>
+                                    <p className="price">
+                                      {artist.totalSale} BNB
+                                    </p>
                                   </div>
-                                  <p className='title'>
-                                    {artwork.username}
-                                  </p>
-                                  <p className='small'>Sold for</p>
-                                  <p className='price'>{artwork.totalSale} BNB</p>
-                                </div>
-                              </HallofFameBox2>
-                            </Gs.TenpxGutter>
-                          </Link>
-                        </Gs.W20>
+                                </HallofFameBox>
+                              </Gs.TenpxGutter>
+                            </Link>
+                          </Gs.W20>
+                        );
                       })
-                        : (<p className="no-found-data">No NFTs found</p>)
-                    }
+                    ) : (
+                      <p className="no-found-data">No Creators found</p>
+                    )}
                   </HomeTabDetail>
                 </TabPanel>
 
                 <TabPanel>
                   <HomeTabDetail>
-                    {!collectors ?
-                      <LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>
-                      : collectors.length > 1 ? collectors.map((collector, key) => {
-                        return <Gs.W20 key={key}>
-                          <Link to={`/creator/${collector._id}`}>
-                            <Gs.TenpxGutter>
-                              <HallofFameBox>
-                                <div className='HOF-inner'>
-                                  <img src={collector.profile ? collector.profile : UserIcon} alt='' />
-                                  <p className='user-name'>@{collector.username}</p>
-                                  <p className='small'>Total Sale</p>
-                                  <p className='price'>{collector.totalSale} BNB</p>
-                                </div>
-                              </HallofFameBox>
-                            </Gs.TenpxGutter>
-                          </Link>
-                        </Gs.W20>
+                    {!artworks ? (
+                      <LoaderBX>
+                        {" "}
+                        <img src={LoaderGif} alt="" />{" "}
+                      </LoaderBX>
+                    ) : artworks.length > 1 ? (
+                      artworks.map((artwork, key) => {
+                        return (
+                          <Gs.W20 key={key}>
+                            <Link to={`/nftDetails/${artwork._id}`}>
+                              <Gs.TenpxGutter>
+                                <HallofFameBox2>
+                                  <div className="HOF-inner">
+                                    <div className="img-outer">
+                                      {getPreview(artwork.image?.compressed)}
+
+                                      {/* <img src={artwork.image?.compressed} alt='' /> */}
+                                    </div>
+                                    <p className="title">{artwork.username}</p>
+                                    <p className="small">Sold for</p>
+                                    <p className="price">
+                                      {artwork.totalSale} BNB
+                                    </p>
+                                  </div>
+                                </HallofFameBox2>
+                              </Gs.TenpxGutter>
+                            </Link>
+                          </Gs.W20>
+                        );
                       })
-                        : (<p className="no-found-data">No <FormattedMessage id="collectors" defaultMessage="Collectors" /> found</p>)
-                    }
+                    ) : (
+                      <p className="no-found-data">No NFTs found</p>
+                    )}
+                  </HomeTabDetail>
+                </TabPanel>
+
+                <TabPanel>
+                  <HomeTabDetail>
+                    {!collectors ? (
+                      <LoaderBX>
+                        {" "}
+                        <img src={LoaderGif} alt="" />{" "}
+                      </LoaderBX>
+                    ) : collectors.length > 1 ? (
+                      collectors.map((collector, key) => {
+                        return (
+                          <Gs.W20 key={key}>
+                            <Link to={`/creator/${collector._id}`}>
+                              <Gs.TenpxGutter>
+                                <HallofFameBox>
+                                  <div className="HOF-inner">
+                                    <img
+                                      src={
+                                        collector.profile
+                                          ? collector.profile
+                                          : UserIcon
+                                      }
+                                      alt=""
+                                    />
+                                    <p className="user-name">
+                                      @{collector.username}
+                                    </p>
+                                    <p className="small">Total Sale</p>
+                                    <p className="price">
+                                      {collector.totalSale} BNB
+                                    </p>
+                                  </div>
+                                </HallofFameBox>
+                              </Gs.TenpxGutter>
+                            </Link>
+                          </Gs.W20>
+                        );
+                      })
+                    ) : (
+                      <p className="no-found-data">
+                        No{" "}
+                        <FormattedMessage
+                          id="collectors"
+                          defaultMessage="Collectors"
+                        />{" "}
+                        found
+                      </p>
+                    )}
                   </HomeTabDetail>
                 </TabPanel>
 
@@ -152,7 +253,6 @@ class HallOfFrame extends Component {
                 </TabPanel> */}
               </Tabs>
             </HomeTabs>
-
           </Gs.Container>
         </HomeNFTs>
       </>
@@ -181,7 +281,7 @@ const HomeTabs = styled.div`
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.8px;
-    ${Media.xs}{
+    ${Media.xs} {
       margin: 0px 15px;
     }
   }
@@ -190,21 +290,19 @@ const HomeTabs = styled.div`
     border-bottom: 3px solid #000000;
     color: #000;
   }
-  .react-tabs__tab:focus
-  {
-    box-shadow:none;
-    border:none;
+  .react-tabs__tab:focus {
+    box-shadow: none;
+    border: none;
   }
 `;
 
 const HomeTabDetail = styled(FlexDiv)`
   margin: 0px -10px;
   justify-content: flex-start;
-  p.no-found-data
-  {
-    margin:0px;
-    width:100%;
-    text-align:center;
+  p.no-found-data {
+    margin: 0px;
+    width: 100%;
+    text-align: center;
   }
 `;
 
@@ -213,8 +311,8 @@ const HallofFameBox = styled(FlexDiv)`
   border-radius: 10px;
   text-align: center;
   min-height: 260px;
-  ${Media.md}{
-    margin:0px 0px 20px;
+  ${Media.md} {
+    margin: 0px 0px 20px;
   }
   .HOF-inner {
     img {
@@ -250,22 +348,22 @@ const HallofFameBox2 = styled(FlexDiv)`
   border: 1px solid #dddddd;
   border-radius: 10px;
   text-align: center;
-  ${Media.md}{
-    margin:0px 0px 20px;
+  ${Media.md} {
+    margin: 0px 0px 20px;
   }
   .HOF-inner {
-    width:100%;
-    .img-outer{
+    width: 100%;
+    .img-outer {
       width: 100%;
       height: 200px;
-      overflow:hidden;
+      overflow: hidden;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       margin: 0px 0px 10px;
       img {
         width: 100%;
         height: 100%;
-        object-fit:cover;
+        object-fit: cover;
       }
     }
     p.title {
@@ -308,7 +406,7 @@ const HomeNFTs = styled.div`
       padding-left: 20px;
       letter-spacing: -1px;
       :before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0px;
         top: 12px;
@@ -332,15 +430,17 @@ const mapDipatchToProps = (dispatch) => {
     getHallOfFrameArtist: () => dispatch(actions.getHallOfFrameArtist()),
     getHallOfFrameArtwork: () => dispatch(actions.getHallOfFrameArtwork()),
     getHallOfFrameCollector: () => dispatch(actions.getHallOfFrameCollector()),
-  }
-}
+  };
+};
 
 const mapStateToProps = (state) => {
   return {
     artists: state.fetchHallOfFrameArtist,
     artworks: state.fetchHallOfFrameArtwork,
     collectors: state.fetchHallOfFrameCollector,
-  }
-}
+  };
+};
 
-export default withRouter(connect(mapStateToProps, mapDipatchToProps)(HallOfFrame));
+export default withRouter(
+  connect(mapStateToProps, mapDipatchToProps)(HallOfFrame)
+);

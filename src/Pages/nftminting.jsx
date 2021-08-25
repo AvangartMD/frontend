@@ -211,6 +211,7 @@ class NFTPage extends Component {
       web3.utils.toWei(nftObj.price, "ether"),
       "0",
     ];
+    console.log("this obj", obj);
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
@@ -294,7 +295,7 @@ class NFTPage extends Component {
     else if (!saleState) this.setError("Please select sale state.", true);
     else if (saleState === "AUCTION" && !+auctionTime)
       this.setError("Please select the auction time.", true);
-    else if (!edition || (+edition < 0 || +edition) > 500)
+    else if (!edition || +edition < 1 || +edition > 500)
       this.setError("Edition ranges between 1 to 500", true);
     else if (!+price) this.setError("Please enter the price", true);
     else {
