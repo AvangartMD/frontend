@@ -165,7 +165,10 @@ class HallOfFrame extends Component {
                                     <div className="img-outer">
                                       {getPreview(artwork.image?.compressed)}
 
-                                      {/* <img src={artwork.image?.compressed} alt='' /> */}
+                                      {/* <img
+                                        src={artwork.image?.compressed}
+                                        alt=""
+                                      /> */}
                                     </div>
                                     <p className="title">{artwork.username}</p>
                                     <p className="small">Sold for</p>

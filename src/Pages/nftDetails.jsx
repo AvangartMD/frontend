@@ -28,6 +28,8 @@ import NftOwnerActions from "../Component/Modals/nftOwnerAction";
 import Login from "../Component/Modals/login";
 import getContractAddresses from "../contractData/contractAddress/addresses";
 import Media from "../Theme/media-breackpoint";
+import LoaderGif from "../Assets/images/loading.gif";
+
 // import VideoThumbnail from "react-video-thumbnail";
 const saleMethods = {
   sold: {
@@ -141,6 +143,7 @@ class NftDetail extends React.Component {
       NFTDetails: null,
       ext: null,
       nextMethod: null,
+      loader: true,
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -162,6 +165,7 @@ class NftDetail extends React.Component {
       this.checkUserApproval(web3Data);
     }
     if (this.props.match.params.id) {
+      this.setState({ loader: true });
       // this.props.getSingleNFTDetails(this.props.match.params.id);
       const NFTDetails = await actions.getSingleNFTDetails(
         this.props.match.params.id
@@ -383,6 +387,7 @@ class NftDetail extends React.Component {
       },
       selectedNFTDetails,
     });
+    this.setState({ loader: false });
     this.setNFTBuyMethod(
       bidDetails,
       selectedNFTDetails.isOwner,
@@ -536,10 +541,22 @@ class NftDetail extends React.Component {
       selectedNFTDetails,
       NFTDetails,
       ext,
+      loader,
     } = this.state;
     const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
+    if (loader) {
+      return (
+        <Gs.MainSection>
+          <NFTdetailSection>
+            <LoaderBX>
+              <img src={LoaderGif} alt="" />
+            </LoaderBX>
+          </NFTdetailSection>
+        </Gs.MainSection>
+      );
+    }
 
     return (
       <>
@@ -579,9 +596,9 @@ class NftDetail extends React.Component {
                       playing={true}
                       playIcon={<></>}
                       loop={true}
-                    // light={
-                    //   ""
-                    // }
+                      // light={
+                      //   ""
+                      // }
                     />
                   ) : (
                     ``
@@ -590,199 +607,207 @@ class NftDetail extends React.Component {
               </NFTDleftcontainer>
             </NFTDleft>
             <NFTDright>
-              <NFTDrightcontainer>
-                <NFTDRtopbar>
-                  <NFTDrtitle>
-                    {NFTDetails?.title ? NFTDetails?.title : ""}
-                  </NFTDrtitle>
-                  <NFTtopbarright>
-                    {NFTDetails?.unlockContent && (
-                      <NFTLock>
-                        <img src={Lock} alt="" />
-                      </NFTLock>
-                    )}
-                    <NFTLike
-                      className={
-                        loading || !web3Data?.isLoggedIn ? `disabled` : ``
-                      }
-                      onClick={() => {
-                        this.props.likeToggler(id);
-                        this.setState({ loading: true });
-                      }}
-                    >
-                      <img
-                        src={isLiked.isFollowed ? Redheart : redheartBorder}
-                        alt=""
-                      />
-                      <p>{likesCount.count}</p>
-                    </NFTLike>
-                  </NFTtopbarright>
-                </NFTDRtopbar>
-                {NFTDetails?.description && (
-                  <Decs2>{NFTDetails.description}</Decs2>
-                )}
-                <Historysection>
-                  <UserImgName>
-                    <Link to={`/creator/${NFTDetails?.ownerId.id}`}>
-                      <img src={NFTDetails?.ownerId.profile} alt="" />
-                      {NFTDetails?.ownerId.username
-                        ? `@${NFTDetails.ownerId.username}`
-                        : NFTDetails?.ownerId.name}
-                    </Link>
-                  </UserImgName>
-                  <button onClick={() => this.toggle(9)}>
-                    <FormattedMessage id="history" defaultMessage="History" />
-                  </button>
-                </Historysection>
-                <Edition>
-                  <div className="ed-box">
-                    <div className="ed-left">
-                      <p>
-                        <FormattedMessage
-                          id="edition"
-                          defaultMessage="Edition"
+              {
+                <NFTDrightcontainer>
+                  <NFTDRtopbar>
+                    <NFTDrtitle>
+                      {NFTDetails?.title ? NFTDetails?.title : ""}
+                    </NFTDrtitle>
+                    <NFTtopbarright>
+                      {NFTDetails?.unlockContent && (
+                        <NFTLock>
+                          <img src={Lock} alt="" />
+                        </NFTLock>
+                      )}
+                      <NFTLike
+                        className={
+                          loading || !web3Data?.isLoggedIn ? `disabled` : ``
+                        }
+                        onClick={() => {
+                          this.props.likeToggler(id);
+                          this.setState({ loading: true });
+                        }}
+                      >
+                        <img
+                          src={isLiked.isFollowed ? Redheart : redheartBorder}
+                          alt=""
                         />
-                      </p>
-                      <div className="ed-left-inner">
-                        <h3>{this.state.currentEdition}</h3>
-                        <p className="gray-t">of {NFTDetails?.edition}</p>
-                      </div>
-                    </div>
-                    <button to="#" onClick={() => this.toggle(10)}>
-                      <FormattedMessage
-                        id="select_edition"
-                        defaultMessage="Select edition"
-                      />
+                        <p>{likesCount.count}</p>
+                      </NFTLike>
+                    </NFTtopbarright>
+                  </NFTDRtopbar>
+                  {NFTDetails?.description && (
+                    <Decs2>{NFTDetails.description}</Decs2>
+                  )}
+                  <Historysection>
+                    <UserImgName>
+                      <Link to={`/creator/${NFTDetails?.ownerId.id}`}>
+                        <img src={NFTDetails?.ownerId.profile} alt="" />
+                        {NFTDetails?.ownerId.username
+                          ? `@${NFTDetails.ownerId.username}`
+                          : NFTDetails?.ownerId.name}
+                      </Link>
+                    </UserImgName>
+                    <button onClick={() => this.toggle(9)}>
+                      <FormattedMessage id="history" defaultMessage="History" />
                     </button>
-                  </div>
-                  <div className="ed-box">
-                    <div className="ed-left">
-                      <p>{saleMethod.bidDesc}</p>
-                      <div className="ed-left-inner">
-                        <h3>
-                          {(+selectedNFTDetails?.price)
-                            .toFixed(5)
-                            .toLocaleString()}{" "}
-                          BNB
-                        </h3>
-                        <p className="gray-t">
-                          {/* {
+                  </Historysection>
+                  <Edition>
+                    <div className="ed-box">
+                      <div className="ed-left">
+                        <p>
+                          <FormattedMessage
+                            id="edition"
+                            defaultMessage="Edition"
+                          />
+                        </p>
+                        <div className="ed-left-inner">
+                          <h3>{this.state.currentEdition}</h3>
+                          <p className="gray-t">of {NFTDetails?.edition}</p>
+                        </div>
+                      </div>
+                      <button to="#" onClick={() => this.toggle(10)}>
+                        <FormattedMessage
+                          id="select_edition"
+                          defaultMessage="Select edition"
+                        />
+                      </button>
+                    </div>
+                    <div className="ed-box">
+                      <div className="ed-left">
+                        <p>{saleMethod.bidDesc}</p>
+                        <div className="ed-left-inner">
+                          <h3>
+                            {(+selectedNFTDetails?.price)
+                              .toFixed(5)
+                              .toLocaleString()}{" "}
+                            BNB
+                          </h3>
+                          <p className="gray-t">
+                            {/* {
                             <FormattedMessage id="currency" values={{}} defaultMessage="en">
                               {(lang) => {
                                 return console.log("updated lang ? ", lang);
                               }}
                             </FormattedMessage>
                           } */}
-                          {(
-                            selectedNFTDetails?.price * currentCurrenctyPrice
-                          ).toLocaleString(undefined, 2)}{" "}
-                          <FormattedMessage id="currency" defaultMessage="en" />
-                        </p>
+                            {(
+                              selectedNFTDetails?.price * currentCurrenctyPrice
+                            ).toLocaleString(undefined, 2)}{" "}
+                            <FormattedMessage
+                              id="currency"
+                              defaultMessage="en"
+                            />
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <p className="royalty">
-                      <FormattedMessage
-                        id="nft_price_lable"
-                        defaultMessage="A 10% royalty goes to the creator for future resale"
-                      />
-                    </p>
-                  </div>
-                  {showTimer && (
-                    <div className="ed-box ed-mb-block">
-                      <p>
+                      <p className="royalty">
                         <FormattedMessage
-                          id="ending"
-                          defaultMessage="Ending in"
-                        />
-                        ,
-                      </p>
-                      <FlexDiv className="JCFS">
-                        <Timer
-                          timeLeft={NFTDetails?.auctionEndDate}
-                          onlyHours={true}
-                          isDetailed={true}
-                        />
-                      </FlexDiv>
-                    </div>
-                  )}
-                  {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
-                    <div className="ed-box ed-mb-block">
-                      <p>
-                        <FormattedMessage
-                          id="unlock_content_label"
-                          defaultMessage="Unlockable content message"
+                          id="nft_price_lable"
+                          defaultMessage="A 10% royalty goes to the creator for future resale"
                         />
                       </p>
-                      <SkyNoteBox>
-                        <p className="note-text">{NFTDetails?.digitalKey}</p>
-                      </SkyNoteBox>
                     </div>
-                  ) : (
-                    ``
-                  )}
-                </Edition>
-                <NFTcartButtons>
-                  {saleMethod.btnName ? (
-                    <button
-                      disabled={saleMethod.disable}
-                      onClick={() => {
-                        this.userTransactionHandler();
-                      }}
-                    >
-                      {saleMethod.btnName}
-                    </button>
-                  ) : null}
-                  {selectedNFTDetails?.isOwner &&
+                    {showTimer && (
+                      <div className="ed-box ed-mb-block">
+                        <p>
+                          <FormattedMessage
+                            id="ending"
+                            defaultMessage="Ending in"
+                          />
+                          ,
+                        </p>
+                        <FlexDiv className="JCFS">
+                          <Timer
+                            timeLeft={NFTDetails?.auctionEndDate}
+                            onlyHours={true}
+                            isDetailed={true}
+                          />
+                        </FlexDiv>
+                      </div>
+                    )}
+                    {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
+                      <div className="ed-box ed-mb-block">
+                        <p>
+                          <FormattedMessage
+                            id="unlock_content_label"
+                            defaultMessage="Unlockable content message"
+                          />
+                        </p>
+                        <SkyNoteBox>
+                          <p className="note-text">{NFTDetails?.digitalKey}</p>
+                        </SkyNoteBox>
+                      </div>
+                    ) : (
+                      ``
+                    )}
+                  </Edition>
+                  <NFTcartButtons>
+                    {saleMethod.btnName ? (
+                      <button
+                        disabled={saleMethod.disable}
+                        onClick={() => {
+                          this.userTransactionHandler();
+                        }}
+                      >
+                        {saleMethod.btnName}
+                      </button>
+                    ) : null}
+                    {selectedNFTDetails?.isOwner &&
                     selectedNFTDetails.isOpenForSale &&
                     selectedNFTDetails.secondHand &&
                     !selectedNFTDetails.isBurned ? (
-                    <button
-                      className="bordered"
-                      onClick={() => {
-                        this.setOwnerActions(saleMethods.cancelSaleOrder);
-                      }}
-                    >
-                      Cancel Sale Order
-                    </button>
-                  ) : null}
-                  {NFTDetails?.status === "NOT_MINTED" &&
-                    web3Data.isLoggedIn ? (
-                    <button
-                      onClick={() =>
-                        this.props.history.push(
-                          `/user/nftEdit/${NFTDetails.id}`
-                        )
-                      }
-                    >
-                      Edit{" "}
-                    </button>
-                  ) : selectedNFTDetails?.isOwner &&
-                    !selectedNFTDetails.isOpenForSale &&
-                    !selectedNFTDetails.isBurned ? (
-                    <>
                       <button
                         className="bordered"
                         onClick={() => {
-                          this.setOwnerActions(saleMethods.burn);
+                          this.setOwnerActions(saleMethods.cancelSaleOrder);
                         }}
                       >
-                        <FormattedMessage id="burn" defaultMessage="Transfer" />
+                        Cancel Sale Order
                       </button>
+                    ) : null}
+                    {NFTDetails?.status === "NOT_MINTED" &&
+                    web3Data.isLoggedIn ? (
                       <button
-                        className="bordered"
                         onClick={() =>
-                          this.setOwnerActions(saleMethods.transfer)
+                          this.props.history.push(
+                            `/user/nftEdit/${NFTDetails.id}`
+                          )
                         }
                       >
-                        <FormattedMessage
-                          id="transfer"
-                          defaultMessage="Transfer"
-                        />
+                        Edit{" "}
                       </button>
-                    </>
-                  ) : null}
-                </NFTcartButtons>
-              </NFTDrightcontainer>
+                    ) : selectedNFTDetails?.isOwner &&
+                      !selectedNFTDetails.isOpenForSale &&
+                      !selectedNFTDetails.isBurned ? (
+                      <>
+                        <button
+                          className="bordered"
+                          onClick={() => {
+                            this.setOwnerActions(saleMethods.burn);
+                          }}
+                        >
+                          <FormattedMessage
+                            id="burn"
+                            defaultMessage="Transfer"
+                          />
+                        </button>
+                        <button
+                          className="bordered"
+                          onClick={() =>
+                            this.setOwnerActions(saleMethods.transfer)
+                          }
+                        >
+                          <FormattedMessage
+                            id="transfer"
+                            defaultMessage="Transfer"
+                          />
+                        </button>
+                      </>
+                    ) : null}
+                  </NFTcartButtons>
+                </NFTDrightcontainer>
+              }
             </NFTDright>
           </NFTdetailSection>
           <Collapse
@@ -890,6 +915,7 @@ class NftDetail extends React.Component {
 }
 
 // Common Style Div
+
 const FlexDiv = styled.div`
   display: flex;
   align-items: center;
@@ -899,7 +925,10 @@ const FlexDiv = styled.div`
     justify-content: flex-start;
   }
 `;
-
+const LoaderBX = styled(FlexDiv)`
+  width: 100%;
+  margin: 50px auto;
+`;
 const NFTdetailSection = styled(FlexDiv)`
   justify-content: flex-start;
 `;
