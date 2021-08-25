@@ -255,13 +255,13 @@ class NFTPage extends Component {
       if (!fileType.search("video")) this.setState({ fileType: "video" });
       if (!fileType.search("audio")) this.setState({ fileType: "audio" });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
-      console.log(fileType, !fileType.search("image"));
+      // console.log(fileType, !fileType.search("image"));
       if (
         e.target.files[0].size > 3145728 &&
         !fileType.search("image") &&
         !fileType.includes("gif")
       ) {
-        console.log("yes required");
+        // console.log("yes required");
         nftObj.compressionRequired = true;
       }
     } else {
@@ -314,7 +314,7 @@ class NFTPage extends Component {
       let compressedNFTFile = nftFile;
 
       if (compressionRequired) {
-        console.log("compresses");
+        // console.log("compresses");
         compressedNFTFile = await compressImage(nftFile);
       }
 
