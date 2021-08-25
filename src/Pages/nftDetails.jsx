@@ -579,9 +579,9 @@ class NftDetail extends React.Component {
                       playing={true}
                       playIcon={<></>}
                       loop={true}
-                      // light={
-                      //   ""
-                      // }
+                    // light={
+                    //   ""
+                    // }
                     />
                   ) : (
                     ``
@@ -733,9 +733,9 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {selectedNFTDetails?.isOwner &&
-                  selectedNFTDetails.isOpenForSale &&
-                  selectedNFTDetails.secondHand &&
-                  !selectedNFTDetails.isBurned ? (
+                    selectedNFTDetails.isOpenForSale &&
+                    selectedNFTDetails.secondHand &&
+                    !selectedNFTDetails.isBurned ? (
                     <button
                       className="bordered"
                       onClick={() => {
@@ -746,7 +746,7 @@ class NftDetail extends React.Component {
                     </button>
                   ) : null}
                   {NFTDetails?.status === "NOT_MINTED" &&
-                  web3Data.isLoggedIn ? (
+                    web3Data.isLoggedIn ? (
                     <button
                       onClick={() =>
                         this.props.history.push(
@@ -939,7 +939,7 @@ const NFTDright = styled.div`
 `;
 const NFTDrightcontainer = styled.div`
   width: 100%;
-  max-width: 725px;
+  max-width: 740px;
   margin-right: auto;
   padding: 70px 100px 70px 70px;
   position: relative;
@@ -1079,7 +1079,7 @@ const Edition = styled(FlexDiv)`
       }
     }
     ${Media.lg} {
-      margin-right: 25px;
+      margin-right: 18px;
     }
     ${Media.md} {
       margin: 0px 0px 30px 0px;
@@ -1107,6 +1107,9 @@ const Edition = styled(FlexDiv)`
       margin-right: 0px;
       max-width: 232px;
       width: 100%;
+      ${Media.lg} {
+        max-width: 200px;
+      }
       ${Media.md} {
         max-width: 100%;
       }
