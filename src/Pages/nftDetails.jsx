@@ -316,7 +316,7 @@ class NftDetail extends React.Component {
 
     this.setEditionnumber(index);
   };
-  async fetchNFTDetails(_edition) {
+  fetchNFTDetails = async (_edition) => {
     const { authData, web3Data } = this.props;
     const NFTDetails = this.state.NFTDetails;
     const escrowContractInstance = getContractInstance(true);
@@ -333,6 +333,7 @@ class NftDetail extends React.Component {
     const bidDetails = await escrowContractInstance.methods
       .bid(+tokenID, newEdition)
       .call();
+    console.log("bid details", tokenID, newEdition, bidDetails);
 
     const soldEdition = NFTDetails.editions.find(
       ({ edition }) => edition === newEdition
@@ -396,7 +397,7 @@ class NftDetail extends React.Component {
       selectedNFTDetails.saleState,
       selectedNFTDetails.price
     );
-  }
+  };
   setEditionnumber = (number) => {
     this.setState({ currentEdition: number });
   };
