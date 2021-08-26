@@ -174,7 +174,7 @@ function NftOwnerActions(props) {
               {ownerActionName === 'claimBack' && timeStamp + 86400 > new Date().getTime() / 1000 && (
                 <>
                   <PBtitle className='AStitle'>
-                    <FormattedMessage id='are_you_sure?' />
+                    <FormattedMessage id='attention' />
                   </PBtitle>
                   <PBDesc className='ASDesc'>
                     <FormattedMessage id='claim_back_restriction_lable' />
