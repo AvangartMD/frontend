@@ -152,7 +152,7 @@ function NftOwnerActions(props) {
                   </NFTcartButtons>
                 </>
               )}
-              {ownerActionName === 'claimBack' && timeStamp + 180 < new Date().getTime() / 1000 && (
+              {ownerActionName === 'claimBack' && timeStamp + 180 >= new Date().getTime() / 1000 && (
                 <>
                   <PBtitle className='AStitle'>
                     <FormattedMessage id='are_you_sure?' />
@@ -171,7 +171,7 @@ function NftOwnerActions(props) {
                 </>
               )}
 
-              {ownerActionName === 'claimBack' && timeStamp + 180 >= new Date().getTime() / 1000 && (
+              {ownerActionName === 'claimBack' && timeStamp + 180 < new Date().getTime() / 1000 && (
                 <>
                   <PBtitle className='AStitle'>
                     <FormattedMessage id='attention' />
