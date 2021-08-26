@@ -546,7 +546,6 @@ class NftDetail extends React.Component {
       ext,
       loader,
     } = this.state;
-    console.log('selectedNFTDetails ? ', selectedNFTDetails)
     const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
