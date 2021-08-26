@@ -182,5 +182,6 @@
   "how_to_use_text06_2": "Ayrıca satın aldığınız NFT’leri ücretsiz olarak istediğiniz hesaplara transfer veya hediye edebilirsiniz.",
   "approve_first_time": "Approve Transfer",
   "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
-  "enter_minimum_price_lable": "Enter mnimum price"
+  "enter_minimum_price_lable": "Enter mnimum price",
+  "claim_back_restriction_lable": "You can not claim back for now. You will be perform this action after 24 hours."
 }

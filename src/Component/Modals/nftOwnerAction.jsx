@@ -18,6 +18,7 @@ function NftOwnerActions(props) {
     ownerActionName,
     edition,
     tokenID,
+    timeStamp,
     isApprovedForAll,
     changeOwnerActionName,
     orderNonce,
@@ -164,6 +165,25 @@ function NftOwnerActions(props) {
                       <FormattedMessage id='cancel' defaultMessage='Cancel' />
                     </button>
                     <button className='ani-1' onClick={() => handleAction()}>
+                      Claim Back
+                    </button>
+                  </NFTcartButtons>
+                </>
+              )}
+
+              {ownerActionName === 'claimBack' && timeStamp + 86400 > new Date().getTime() / 1000 && (
+                <>
+                  <PBtitle className='AStitle'>
+                    <FormattedMessage id='are_you_sure?' />
+                  </PBtitle>
+                  <PBDesc className='ASDesc'>
+                    <FormattedMessage id='claim_back_restriction_lable' />
+                  </PBDesc>
+                  <NFTcartButtons>
+                    <button className='ani-1 bordered'>
+                      <FormattedMessage id='cancel' defaultMessage='Cancel' />
+                    </button>
+                    <button className='ani-1' disabled>
                       Claim Back
                     </button>
                   </NFTcartButtons>
