@@ -345,6 +345,7 @@ class NftDetail extends React.Component {
 
     if (soldEdition)
       selectedNFTDetails = {
+        bidTimeStamp: bidDetails.timeStamp,
         isOwner: soldEdition.ownerId.id === authData?.data?.id,
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
@@ -361,6 +362,7 @@ class NftDetail extends React.Component {
       };
     else
       selectedNFTDetails = {
+        bidTimeStamp: bidDetails.timeStamp,
         isOwner: NFTDetails?.ownerId.id === authData?.data?.id,
         ownerId: NFTDetails.ownerId,
         isOpenForSale: true,
@@ -544,6 +546,7 @@ class NftDetail extends React.Component {
       ext,
       loader,
     } = this.state;
+    console.log('selectedNFTDetails ? ', selectedNFTDetails)
     const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
@@ -825,6 +828,7 @@ class NftDetail extends React.Component {
               isApprovedForAll={this.state.isApprovedForAll}
               changeOwnerActionName={this.changeOwnerActionName}
               orderNonce={selectedNFTDetails?.orderNonce}
+              timeStamp={selectedNFTDetails?.bidTimeStamp}
               checkUserApproval={this.checkUserApproval}
               nftDetails={this.getNFTDetails}
               nextMethod={this.state.nextMethod}
