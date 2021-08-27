@@ -1,6 +1,6 @@
-import Gs from "../../Theme/globalStyles";
+import loadable from '@loadable/component'
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -11,9 +11,9 @@ import RoundIcon from "../../Assets/images/round-icon.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
 
 import { actions } from "../../actions";
-import NFTCard from "../Cards/nftCard";
-import BecomeCreator from "../../Component/Modals/become-creator";
-import Media from '../../Theme/media-breackpoint';
+const NFTCard = loadable(() => import('../Cards/nftCard'))
+const Media = loadable(() => import('../../Theme/media-breackpoint'))
+const BecomeCreator = loadable(() => import('../../Component/Modals/become-creator'))
 
 function Collected(props) {
 

@@ -1,22 +1,19 @@
 import React, { Component, useState } from "react";
 import { FormattedMessage } from "react-intl";
+import loadable from '@loadable/component';
 import styled from "styled-components";
-import Gs from "./../Theme/globalStyles";
 import { Link, NavLink } from "react-router-dom";
 import Media from "./../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
-import LogoImg from "../Assets/images/logoWhite.png";
-import NotifiIcon from "../Assets/images/notification.svg";
-import UserIcon from "../Assets/images/userIcon.png";
-import RightArrow from "../Assets/images/rightArrow.svg";
-import DisconnectICO from "../Assets/images/icon-disconnect.svg";
-import Language from "./lang.switch";
 import { actions } from "../actions";
-import Login from "./Modals/login";
-import BecomeCreator from "../Component/Modals/become-creator";
+import LogoImg from "../Assets/images/logoWhite.png";
+
+const Language = loadable(() => import('./lang.switch'))
+const Login = loadable(() => import('./Modals/login'))
+const BecomeCreator = loadable(() => import('../Component/Modals/become-creator'))
+
 
 function Footer(props) {
   

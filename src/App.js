@@ -1,18 +1,20 @@
 import React, { useState, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import loadable from '@loadable/component'
 import Gs from './Theme/globalStyles';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { theme } from './Theme/theme';
-import Header from './Component/header';
-import Footer from './Component/footer';
 import LoaderGif from './Assets/images/loading.gif';
-
-import AuthLayout from './layouts/auth.layout';
-import UserLayout from './layouts/user.layout';
 import { PrivateRoute } from './views/private.route';
 import { PublicRoute } from './views/public.route';
+
+const Header = loadable(() => import('./Component/header'))
+const Footer = loadable(() => import('./Component/footer'))
+const AuthLayout = loadable(() => import('./layouts/auth.layout'))
+const UserLayout = loadable(() => import('./layouts/user.layout'))
+
 
 const FlexDiv = styled.div`
   display: flex;

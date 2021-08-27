@@ -1,18 +1,14 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Gs from "../Theme/globalStyles";
-// import { Link } from 'react-router-dom';
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
 import Media from "../Theme/media-breackpoint";
 import Scrollspy from 'react-scrollspy';
 
-import AdBannerIMG from "../Assets/images/adbanner.jpg";
-import NFT2 from "../Assets/images/nft1.jpg";
 
 class Legal extends Component {
 

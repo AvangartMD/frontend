@@ -1,4 +1,4 @@
-import Gs from '../../Theme/globalStyles';
+import loadable from '@loadable/component'
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
@@ -9,8 +9,8 @@ import LoaderGif from '../../Assets/images/loading.gif';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions } from '../../actions';
-import NFTCard from '../Cards/nftCard';
-import Media from '../../Theme/media-breackpoint';
+
+const NFTCard = loadable(() => import('../Cards/nftCard'))
 
 function Drafts(props) {
   const { userDraftNFT } = props;

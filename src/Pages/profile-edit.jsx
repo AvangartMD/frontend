@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import InstagramLogin from "react-instagram-login";
 import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";

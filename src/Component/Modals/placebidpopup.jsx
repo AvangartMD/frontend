@@ -1,11 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
-import Gs from "../../Theme/globalStyles";
-import { NavLink } from "react-router-dom";
 import Media from "../../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
-import { Link } from "react-router-dom";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import { getContractInstance } from "../../helper/functions";

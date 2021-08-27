@@ -10,7 +10,6 @@ import { withRouter } from "react-router";
 import { motion } from "framer-motion";
 
 import Gs from '../../Theme/globalStyles';
-import NFT2 from '../../Assets/images/nft2.jpg';
 import HeartIcon from '../../Assets/images/heart-icon.svg';
 import LoaderGif from "../../Assets/images/loading.gif";
 

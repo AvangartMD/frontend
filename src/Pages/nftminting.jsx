@@ -4,44 +4,29 @@ import Gs from "../Theme/globalStyles";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { motion } from "framer-motion";
-// import { Link } from 'react-router-dom';
 import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
 import ReactAudioPlayer from "react-audio-player";
 import ReactPlayer from "react-player";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
-// import CreateCollection from "../Component/Modals/createCollection";
 
-import NFT2 from "../Assets/images/nft2.jpg";
 import UserImg from "../Assets/images/user-img.jpg";
 import DDdownA from "../Assets/images/dd-down-arrow.svg";
 import Auction from "../Assets/images/icon-set-auction.svg";
 import Money from "../Assets/images/icon-set-money.svg";
-import Art from "../Assets/images/icon-set-art.svg";
-import Sport from "../Assets/images/icon-set-sport.svg";
-import Celebrity from "../Assets/images/icon-set-celebrity.svg";
-import NFTCard from "../Component/Cards/nftCard";
 import { services } from "../services";
-import { defiActions } from "../actions/defi.action";
 import CreateCollection from "../Component/Modals/createCollection";
 import {
   compressImage,
   capitalizeFirstLetter,
-  getContractInstance,
   getFileType,
 } from "../helper/functions";
-import { LookoutMetrics } from "aws-sdk";
 import { web3 } from "../web3";
 import { actions } from "../actions";
-import { Context } from "../Component/wrapper";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import Autosuggest from "react-autosuggest";
 import Autosuggestion from "../Component/autoSuggestion";
 import MintNFTPopup from "../Component/Modals/mintNFTPopup";
 import NFT3 from "../Assets/images/nft3.jpg";
-import AudioCover from "../Assets/images/audio-square.jpg";
-import VideoCover from "../Assets/images/video-square.jpg";
 
 import Scrollspy from "react-scrollspy";
 

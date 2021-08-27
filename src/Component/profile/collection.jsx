@@ -1,16 +1,14 @@
-import Gs from "../../Theme/globalStyles";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
 import HeartIcon from "../../Assets/images/heart-icon.svg";
 import StarIcon from "../../Assets/images/star-icon.svg";
 import RoundIcon from "../../Assets/images/round-icon.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { actions } from "../../actions";
 import CollectionCard from "../Cards/collectionCard";
-import Media from "../../Theme/media-breackpoint";
 
 function Collection(props) {
   let { collections } = props;

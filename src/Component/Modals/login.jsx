@@ -1,15 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Gs from "./../../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Media from "./../../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import WalletICO01 from "../../Assets/images/walletICO-01.png";
-// import WalletICO02 from "../../Assets/images/walletICO-02.png";
 import WalletICO02 from "../../Assets/images/wallet-connect.svg";
 
 import LoaderGif from "../../Assets/images/loading.gif";

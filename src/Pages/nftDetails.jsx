@@ -14,11 +14,8 @@ import Historypopup from "../Component/historypopup";
 import SelectEdition from "../Component/selectedition";
 import Collapse from "@kunukn/react-collapse";
 import { web3 } from "../web3";
-import NftdLimg from "../Assets/images/nftcard1.jpg";
 import Redheart from "../Assets/images/Redheart.svg";
-import VideoCover from "../Assets/images/video-cover.jpg";
 import Lock from "../Assets/images/icon-set-lock.svg";
-import UserImg from "../Assets/images/user-img.jpg";
 import redheartBorder from "../Assets/images/redheartBorder.svg";
 import { actions } from "../actions";
 import { connect } from "react-redux";
@@ -461,76 +458,6 @@ class NftDetail extends React.Component {
       );
     }
   };
-  // getThumbnail = (url) => {
-  //   var video = document.createElement("video");
-  //   video.controls = "controls";
-  //   video.src = url;
-  //   video.type = "video/mp4";
-  // src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4"
-  //Source 1
-  // var source1 = document.createElement("source");
-  // source1.src = url;
-  // //Append everything
-  // video.appendChild(source1);
-
-  // const video = document.getElementById("video");
-  // const canvas = document.createElement("canvas");
-  // console.log("1", video, video.width);
-  // scale the canvas accordingly
-  // canvas.width = video.videoWidth;
-  // canvas.height = video.videoHeight;
-  // canvas.width = 480;
-  // canvas.height = 480;
-  // draw the video at that frame
-  // canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
-  // const playImage = new Image();
-  // playImage.src = "path to image asset";
-  // // playImage.onload = () => {
-  // const startX = video.videoWidth / 2 - playImage.width / 2;
-  // const startY = video.videoHeight / 2 - playImage.height / 2;
-  // canvas
-  //   .getContext("2d")
-  //   .drawImage(playImage, startX, startY, playImage.width, playImage.height);
-  // return canvas.toDataURL();
-  // console.log("here reached", canvas, canvas.toDataURL());
-  // canvas.toBlob = (blob) => {
-  //   const dataURL = window.URL.createObjectUrl(blob);
-  //   console.log(dataURL);
-  //   return dataURL;
-  // };
-  // };
-
-  //   var canvas = document.createElement("canvas");
-  //   // var video = document.getElementById("video");
-  //   canvas.width = video.videoWidth;
-  //   canvas.height = video.videoHeight;
-  //   canvas
-  //     .getContext("2d")
-  //     .drawImage(video, 0, 0, video.videoWidth, video.videoHeight); // for drawing the video element on the canvas
-
-  //   /** Code to merge image **/
-  //   /** For instance, if I want to merge a play image on center of existing image **/
-  //   const playImage = new Image();
-  //   playImage.src = "path to image asset";
-  //   playImage.onload = () => {
-  //     const startX = video.videoWidth / 2 - playImage.width / 2;
-  //     const startY = video.videoHeight / 2 - playImage.height / 2;
-  //     canvas
-  //       .getContext("2d")
-  //       .drawImage(
-  //         playImage,
-  //         startX,
-  //         startY,
-  //         playImage.width,
-  //         playImage.height
-  //       );
-  //     canvas.toBlob = (blob) => {
-  //       // Canvas element gives a callback to listen to the event after blob is prepared from canvas
-  //       const img = new Image();
-  //       img.src = window.URL.createObjectUrl(blob); // window object with static function of URL class that can be used to get URL from blob
-  //     };
-  //   };
-  // };
 
   render() {
     let id = this.props.match.params.id;
@@ -575,23 +502,19 @@ class NftDetail extends React.Component {
             <NFTDleft>
               <NFTDleftcontainer>
                 <NFTDleftImg>
-                  {ext === `image` ? (
+                  {ext === `image` && (
                     <Link to="#" onClick={() => this.toggle(6)}>
                       <img src={NFTDetails?.image.original} alt="" />{" "}
                     </Link>
-                  ) : (
-                    ``
                   )}
-                  {ext === "audio" ? (
+                  {ext === "audio" && (
                     <ReactAudioPlayer
                       src={NFTDetails?.image.compressed}
                       // autoPlay
                       controls
                     />
-                  ) : (
-                    ``
                   )}
-                  {ext === "video" ? (
+                  {ext === "video" && (
                     <ReactPlayer
                       width="100%"
                       controls={true}
@@ -603,8 +526,6 @@ class NftDetail extends React.Component {
                       //   ""
                       // }
                     />
-                  ) : (
-                    ``
                   )}
                 </NFTDleftImg>
               </NFTDleftcontainer>

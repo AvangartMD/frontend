@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { HashLink as Link } from 'react-router-hash-link';
 import { motion } from 'framer-motion';
+import VideoThumbnail from 'react-video-thumbnail';
 
 import UserImg from '../../Assets/images/user-img.jpg';
 import AudioCover from '../../Assets/images/audio-square.jpg';
@@ -12,6 +13,7 @@ import Gs from '../../Theme/globalStyles';
 import Timer from '../timer';
 import { getFileType } from '../../helper/functions';
 import { FaPlay } from "react-icons/fa";
+
 function NFTCard({
   edit = false,
   nftSold,
@@ -29,14 +31,14 @@ function NFTCard({
   previewCard,
 }) {
   const ext = getFileType(nftImg);
-  // console.log("this is ", ext);
+
   return (
     <Gs.W25V2>
       <Gs.TenpxGutter>
         <Link to={edit ? `/user/nftEdit/${nftId}` : `/nftDetails/${nftId}`}>
           <div className='NFT-home-box'>
             <NFTImgBX>
-              {ext === `image` ? (
+              {ext === `image` && (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -45,10 +47,8 @@ function NFTCard({
                   src={nftImg}
                   exit={{ opacity: 0 }}
                 />
-              ) : (
-                ``
               )}
-              {ext === 'audio' ? (
+              {ext === 'audio' && (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -57,23 +57,13 @@ function NFTCard({
                   src={AudioCover}
                   exit={{ opacity: 0 }}
                 />
-              ) : (
-                ``
               )}
-              {ext === 'video' ? (
-                <motion.img
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  key={VideoCover}
-                  src={VideoCover}
-                  exit={{ opacity: 0 }}
-                />
-
-              ) : (
-                ``
+              {ext === 'video' && (
+                <>
+                  <VideoThumbnail videoUrl={nftImg} cors={true} />
+                  <div className="video-icon"><span><FaPlay /></span></div>
+                </>
               )}
-              <div className="video-icon"><span><FaPlay /></span></div>
             </NFTImgBX>
             <div className='NFT-home-box-inner'>
               <h4>

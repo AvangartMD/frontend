@@ -13,7 +13,6 @@ import LoaderGif from "../Assets/images/loading.gif";
 import UserIcon from "../Assets/images/user-img.jpg";
 import ProfielBack from "../Assets/images/profile-back.jpg";
 import CopyICO from "../Assets/images/icon-copy.svg";
-import PlusICO from "../Assets/images/icon-plus.svg";
 
 import SocialICO01 from "../Assets/images/social-icon01.svg";
 import SocialICO03 from "../Assets/images/social-icon03.svg";

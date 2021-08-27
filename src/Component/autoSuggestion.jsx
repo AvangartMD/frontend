@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import Autosuggest from "react-autosuggest";
-import styled from "styled-components";
 import { services } from "../services";
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters

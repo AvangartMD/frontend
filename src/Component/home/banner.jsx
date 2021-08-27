@@ -109,7 +109,15 @@ class BannerTab extends Component {
             exit={{ opacity: 0 }}
             className="desktop-img"
           />
-          <img src={mob_img} className="mobile-img" alt="" />
+          <motion.img
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            key={index}
+            src={mob_img}
+            exit={{ opacity: 0 }}
+            className="mobile-img"
+          />
         </Link>
       </div >
     )

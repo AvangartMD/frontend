@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";

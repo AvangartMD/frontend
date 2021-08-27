@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import loadable from '@loadable/component'
 import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
 import { NavLink } from "react-router-dom";
 import Media from "../Theme/media-breackpoint";
 import Collapse from "@kunukn/react-collapse";
-import Connect from "./connect";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { actions } from "../actions";
@@ -15,13 +14,7 @@ import NotifiIcon from "../Assets/images/notification.svg";
 import UserIcon from "../Assets/images/user-img.jpg";
 import RightArrow from "../Assets/images/rightArrow.svg";
 import DisconnectICO from "../Assets/images/icon-disconnect.svg";
-import Language from "./lang.switch";
-import Login from "./Modals/login";
 import { web3, walletConnectProvider } from "../web3";
-import BecomeCreator from "./Modals/become-creator";
-import Notifications from "../Component/header/notification";
-import { FaBars } from "react-icons/fa";
-import CloseBTN01 from "../Assets/images/closeBTN01.svg";
 import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
 import IconMenuClose from "../Assets/images/icon-set-close.svg";
 import LogoImgWhite from "../Assets/images/logo-white.png";
@@ -29,6 +22,11 @@ import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
 import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
 import NotifiIconWhite from "../Assets/images/notification-white.svg";
 import { Scrollbars } from "react-custom-scrollbars";
+
+const Language = loadable(() => import('./lang.switch'))
+const Login = loadable(() => import('./Modals/login'))
+const BecomeCreator = loadable(() => import('./Modals/become-creator'))
+const Notifications = loadable(() => import('../Component/header/notification'))
 
 function CustomScrollbars(props) {
   return (

@@ -1,18 +1,20 @@
 import React from 'react';
+import loadable from '@loadable/component'
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import Gs from '../Theme/globalStyles';
-import Banner from '../Component/home/banner';
-import TopNFT from '../Component/home/topNFT';
-import HallOfFrame from '../Component/home/hall.frame';
-import Collections from '../Component/home/collection';
-import Info from '../Component/home/info';
-import HallOfFrameInfo from '../Component/home/hall.frame.info';
 
 import { actions } from '../actions';
 import { expiryTime } from '../config';
 import styled from "styled-components";
+
+const Banner = loadable(() => import('../Component/home/banner'))
+const TopNFT = loadable(() => import('../Component/home/topNFT'))
+const HallOfFrame = loadable(() => import('../Component/home/hall.frame'))
+const Collections = loadable(() => import('../Component/home/collection'))
+const Info = loadable(() => import('../Component/home/info'))
+const HallOfFrameInfo = loadable(() => import('../Component/home/hall.frame.info'))
 
 
 class Home extends React.Component {
