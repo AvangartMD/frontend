@@ -11,7 +11,7 @@ import VideoCover from '../../Assets/images/video-square.jpg';
 import Gs from '../../Theme/globalStyles';
 import Timer from '../timer';
 import { getFileType } from '../../helper/functions';
-
+import { FaPlay } from "react-icons/fa";
 function NFTCard({
   edit = false,
   nftSold,
@@ -69,9 +69,11 @@ function NFTCard({
                   src={VideoCover}
                   exit={{ opacity: 0 }}
                 />
+
               ) : (
                 ``
               )}
+              <div className="video-icon"><span><FaPlay /></span></div>
             </NFTImgBX>
             <div className='NFT-home-box-inner'>
               <h4>
@@ -102,7 +104,7 @@ function NFTCard({
                 <div className='ed-box'>
                   <p>
                     {auctionEndDate &&
-                    auctionEndDate > new Date().getTime() / 1000 ? (
+                      auctionEndDate > new Date().getTime() / 1000 ? (
                       <FormattedMessage
                         id='current_bid'
                         defaultMessage='Current bid'
@@ -213,10 +215,34 @@ const NFTImgBX = styled(FlexDiv)`
   height: 253px;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
+  position:relative;
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .video-icon{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center; 
+    span{
+      background: linear-gradient(to right,#d121d6 0%,#febf11 100%);
+      box-shadow:0px 0px 2px 8px rgb(255 255 255 / 20%);
+      width:45px;
+      height:45px;
+      line-height:53px;
+      text-align:center;
+      border-radius:50%;
+      svg{
+        color:#fff;
+        font-size:20px;
+      }
+    }
   }
 `;
 const UserImgName = styled(FlexDiv)`
