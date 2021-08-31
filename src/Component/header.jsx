@@ -604,7 +604,7 @@ class Header extends Component {
   toggle = (index) => {
     let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-  };
+  }
 }
 const FlexDiv = styled.div`
   display: flex;

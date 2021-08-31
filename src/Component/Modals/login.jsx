@@ -91,20 +91,25 @@ function Login(props) {
             return chainId;
           });
 
-          if (chainId !== 97) {
+          if (chainId !== 97 && chainId !== '0x61') {
             // MetaMask injects the global API into window.ethereum
             try {
-              // check if the chain to connect to is installed
-              const changeRequest = await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x61" }], // chainId must be in hexadecimal numbers
-              });
-              const signature = await web3.eth.personal.sign(
-                web3.utils.utf8ToHex(nonce),
-                web3Data.accounts[0]
-              );
-              authLogin(nonce, signature);
-              refreshStates();
+              if (window.web3) {
+                // check if the chain to connect to is installed
+                const changeRequest = await window.ethereum.request({
+                  method: "wallet_switchEthereumChain",
+                  params: [{ chainId: "0x61" }], // chainId must be in hexadecimal numbers
+                });
+                const signature = await web3.eth.personal.sign(
+                  web3.utils.utf8ToHex(nonce),
+                  web3Data.accounts[0]
+                );
+                authLogin(nonce, signature);
+                refreshStates();
+              } else {
+                setLoader(false);
+                setError({ isError: true, msg: "Wrong Network, please select the correct network" });
+              }
             } catch (error) {
               // console.log('error ')
               // This error code indicates that the chain has not been added to MetaMask
@@ -122,7 +127,8 @@ function Login(props) {
                     ],
                   });
                 } catch (addError) {
-                  // console.error(addError);
+                  setLoader(false);
+                  setError({ isError: true, msg: addError });
                 }
               }
 
