@@ -34,12 +34,12 @@ function Login(props) {
   useEffect(() => {
     if (web3Data.error)
       return setError({ isError: true, msg: "User denied sign in.." });
-    if (web3Data.accounts[0]) {
-      setLoader(true);
-      if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
-      else if (!web3Data.accounts[0])
-        setError({ isError: true, msg: "User denied sign in.." });
-    }
+    // if (web3Data.accounts[0]) {
+    //   setLoader(true);
+    //   if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
+    //   else if (!web3Data.accounts[0])
+    //     setError({ isError: true, msg: "User denied sign in.." });
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Data]);
 

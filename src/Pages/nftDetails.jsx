@@ -602,9 +602,9 @@ class NftDetail extends React.Component {
                         <p>{saleMethod.bidDesc}</p>
                         <div className="ed-left-inner">
                           <h3>
-                            {(+selectedNFTDetails?.price)
-                              .toFixed(5)
-                              .toLocaleString()}{" "}
+                            {parseFloat(
+                              +(selectedNFTDetails?.price).toFixed(5)
+                            )}{" "}
                             BNB
                           </h3>
                           <p className="gray-t">

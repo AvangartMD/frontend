@@ -61,6 +61,8 @@ class NFTPage extends Component {
       fileType: "image",
       error: { isError: false, msg: "", isCocreatorError: false },
       mintNFTStatus: "",
+      currencyUsed: "BNB",
+      bnbUSDPrice: {},
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -165,6 +167,13 @@ class NFTPage extends Component {
         }
       });
     }
+    const string =
+      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry";
+    await fetch(string)
+      .then((resp) => resp.json())
+      .then(async (data) => {
+        this.setState({ bnbUSDPrice: data.binancecoin });
+      });
   }
 
   handleClickOutside(event) {
@@ -181,7 +190,13 @@ class NFTPage extends Component {
 
   mintNFT = async (_tokenURI) => {
     this.setState({ mintNFTStatus: "initiate" });
-    const { web3Data, nftObj, suggestionVAl } = this.state;
+    const {
+      web3Data,
+      nftObj,
+      suggestionVAl,
+      currencyUsed,
+      bnbUSDPrice,
+    } = this.state;
     const obj = [
       nftObj.edition,
       this.props.createdNFTID ? this.props.createdNFTID._id : nftObj.id,
@@ -193,7 +208,14 @@ class NFTPage extends Component {
       suggestionVAl.walletAddress ? Number(nftObj.percentShare) : 0,
       nftObj.saleState === "BUY" ? "0" : "1",
       nftObj.saleState === "BUY" ? 0 : Number(nftObj.auctionTime),
-      web3.utils.toWei(nftObj.price, "ether"),
+      web3.utils.toWei(
+        currencyUsed === "TR"
+          ? (+nftObj.price / bnbUSDPrice.try).toString()
+          : currencyUsed === "USD"
+          ? (+nftObj.price / bnbUSDPrice.usd).toString()
+          : nftObj.price,
+        "ether"
+      ),
       "0",
     ];
     console.log("this obj", obj);
@@ -293,7 +315,7 @@ class NFTPage extends Component {
     const checked = this.checkFormErrors();
     if (checked) {
       this.setState({ mintNFTStatus: "progress1" }, () => this.toggle(3));
-      const { nftObj } = this.state;
+      const { nftObj, currencyUsed, bnbUSDPrice } = this.state;
       const { nftFile, compressionRequired } = this.state.nftObj;
       let image = nftObj.image;
       let compressedNFTFile = nftFile;
@@ -337,7 +359,12 @@ class NFTPage extends Component {
         description: nftObj.description,
         image: image,
         category: nftObj.category,
-        price: nftObj.price,
+        price:
+          currencyUsed === "TR"
+            ? (+nftObj.price / bnbUSDPrice.try).toString()
+            : currencyUsed === "USD"
+            ? (+nftObj.price / bnbUSDPrice.usd).toString()
+            : nftObj.price,
         saleState: nftObj.saleState,
         auctionTime: nftObj.auctionTime,
         edition: nftObj.edition,
@@ -378,9 +405,16 @@ class NFTPage extends Component {
       if (hash === curr) return "active";
       else return "inactive";
     }
-    const { categoryList, collectionList, error, fileType } = this.state;
+    const {
+      categoryList,
+      collectionList,
+      error,
+      fileType,
+      currencyUsed,
+    } = this.state;
     const nftObj = this.state.nftObj;
     let context = this.context;
+    console.log("bnbvbusd", this.state.bnbUSDPrice);
     return (
       <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
@@ -791,7 +825,7 @@ class NFTPage extends Component {
                           ref={this.wrapperRef}
                         >
                           <span>
-                            BNB <img src={DDdownA} alt="" />
+                            {currencyUsed} <img src={DDdownA} alt="" />
                           </span>
                           <Collapse
                             isOpen={this.state.isOpen1}
@@ -802,8 +836,30 @@ class NFTPage extends Component {
                           >
                             <DDContainer className="ver2">
                               <DDBtnbar02>
-                                <button>ETH</button>
-                                <button>BTC</button>
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setState({ currencyUsed: "BNB" });
+                                  }}
+                                >
+                                  BNB
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setState({ currencyUsed: "TR" });
+                                  }}
+                                >
+                                  TR
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setState({ currencyUsed: "USD" });
+                                  }}
+                                >
+                                  USD
+                                </button>
                               </DDBtnbar02>
                             </DDContainer>
                           </Collapse>
