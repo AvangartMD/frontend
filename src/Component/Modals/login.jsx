@@ -17,6 +17,7 @@ import { actions } from "../../actions";
 
 function Login(props) {
   const [loader, setLoader] = useState(false);
+  const [genNonce, setGenNonce] = useState(false);
   const [error, setError] = useState({ isError: false, msg: "" });
   const {
     web3Data,
@@ -34,12 +35,13 @@ function Login(props) {
   useEffect(() => {
     if (web3Data.error)
       return setError({ isError: true, msg: "User denied sign in.." });
-    // if (web3Data.accounts[0]) {
-    //   setLoader(true);
-    //   if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
-    //   else if (!web3Data.accounts[0])
-    //     setError({ isError: true, msg: "User denied sign in.." });
-    // }
+    if (web3Data.accounts[0] && genNonce) {
+      setLoader(true);
+      if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
+      else if (!web3Data.accounts[0])
+        setError({ isError: true, msg: "User denied sign in.." });
+      else if (web3Data.accounts[0] && nonce) signatureRequest(nonce, false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Data]);
 
@@ -58,17 +60,22 @@ function Login(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authData]);
 
-  const connectToWallet = () => {
-    setLoader(true);
-    if (web3Data.accounts[0]) {
-      checkAuthentication(web3Data);
-    } else {
-      if (typeof window.web3 !== "undefined") {
-        console.log("1");
-        enableMetamask();
+  const connectToWallet = (isWalletConnect) => {
+    setGenNonce(true);
+    if (isWalletConnect) props.enabledWalletConnect();
+    else {
+      setLoader(true);
+
+      if (web3Data.accounts[0]) {
+        checkAuthentication(web3Data);
       } else {
-        setLoader(false);
-        setError({ isError: true, msg: "Please download metamask first.!" });
+        if (typeof window.web3 !== "undefined") {
+          console.log("1");
+          enableMetamask();
+        } else {
+          setLoader(false);
+          setError({ isError: true, msg: "Please download metamask first.!" });
+        }
       }
     }
   };
@@ -77,8 +84,9 @@ function Login(props) {
     if (
       !localStorage.getItem("avangartAuthToken") ||
       web3Data.accounts[0] !== localStorage.getItem("userAddress")
-    )
+    ) {
       signatureRequest(undefined, true);
+    }
   };
 
   const signatureRequest = async (nonce, stepOne) => {
@@ -91,20 +99,28 @@ function Login(props) {
             return chainId;
           });
 
-          if (chainId !== 97) {
+          if (chainId !== 97 && chainId !== "0x61") {
             // MetaMask injects the global API into window.ethereum
             try {
-              // check if the chain to connect to is installed
-              const changeRequest = await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x61" }], // chainId must be in hexadecimal numbers
-              });
-              const signature = await web3.eth.personal.sign(
-                web3.utils.utf8ToHex(nonce),
-                web3Data.accounts[0]
-              );
-              authLogin(nonce, signature);
-              refreshStates();
+              if (window.web3) {
+                // check if the chain to connect to is installed
+                const changeRequest = await window.ethereum.request({
+                  method: "wallet_switchEthereumChain",
+                  params: [{ chainId: "0x61" }], // chainId must be in hexadecimal numbers
+                });
+                const signature = await web3.eth.personal.sign(
+                  web3.utils.utf8ToHex(nonce),
+                  web3Data.accounts[0]
+                );
+                authLogin(nonce, signature);
+                refreshStates();
+              } else {
+                setLoader(false);
+                setError({
+                  isError: true,
+                  msg: "Wrong Network, please select the correct network",
+                });
+              }
             } catch (error) {
               // console.log('error ')
               // This error code indicates that the chain has not been added to MetaMask
@@ -122,7 +138,8 @@ function Login(props) {
                     ],
                   });
                 } catch (addError) {
-                  // console.error(addError);
+                  setLoader(false);
+                  setError({ isError: true, msg: addError });
                 }
               }
 
@@ -204,7 +221,7 @@ function Login(props) {
                     </i>
                     MetaMask
                   </button>
-                  <button onClick={() => props.enabledWalletConnect()}>
+                  <button onClick={() => connectToWallet(1)}>
                     <i>
                       <img src={WalletICO02} alt="" />
                     </i>

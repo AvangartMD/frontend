@@ -28,6 +28,27 @@ import Media from "../Theme/media-breackpoint";
 import LoaderGif from "../Assets/images/loading.gif";
 
 // import VideoThumbnail from "react-video-thumbnail";
+import { Scrollbars } from "react-custom-scrollbars";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
+
+
 const saleMethods = {
   sold: {
     name: null,
@@ -504,7 +525,7 @@ class NftDetail extends React.Component {
                 <NFTDleftImg>
                   {ext === `image` && (
                     <Link to="#" onClick={() => this.toggle(6)}>
-                      <img src={NFTDetails?.image.original} alt="" />{" "}
+                      <img src={NFTDetails?.image.original} className="vimg" alt="" />{" "}
                     </Link>
                   )}
                   {ext === "audio" && (
@@ -522,9 +543,9 @@ class NftDetail extends React.Component {
                       playing={true}
                       playIcon={<></>}
                       loop={true}
-                      // light={
-                      //   ""
-                      // }
+                    // light={
+                    //   ""
+                    // }
                     />
                   )}
                 </NFTDleftImg>
@@ -561,7 +582,17 @@ class NftDetail extends React.Component {
                     </NFTtopbarright>
                   </NFTDRtopbar>
                   {NFTDetails?.description && (
-                    <Decs2>{NFTDetails.description}</Decs2>
+
+                    <Decs2>
+                      <CustomScrollbars
+                        autoHide
+                        autoHideTimeout={1000}
+                        style={{ width: "100%", height: "110px", position: "relative" }}
+                      >
+                        {NFTDetails.description}
+                      </CustomScrollbars>
+                    </Decs2>
+
                   )}
                   <Historysection>
                     <UserImgName>
@@ -659,7 +690,13 @@ class NftDetail extends React.Component {
                           />
                         </p>
                         <SkyNoteBox>
-                          <p className="note-text">{NFTDetails?.digitalKey}</p>
+                          <CustomScrollbars
+                            autoHide
+                            autoHideTimeout={1000}
+                            style={{ width: "100%", height: "63px", position: "relative" }}
+                          >
+                            <p className="note-text">{NFTDetails?.digitalKey}</p>
+                          </CustomScrollbars>
                         </SkyNoteBox>
                       </div>
                     ) : (
@@ -678,9 +715,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.isOpenForSale &&
-                    selectedNFTDetails.secondHand &&
-                    !selectedNFTDetails.isBurned ? (
+                      selectedNFTDetails.isOpenForSale &&
+                      selectedNFTDetails.secondHand &&
+                      !selectedNFTDetails.isBurned ? (
                       <button
                         className="bordered"
                         onClick={() => {
@@ -691,7 +728,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === "NOT_MINTED" &&
-                    web3Data.isLoggedIn ? (
+                      web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
@@ -869,12 +906,20 @@ const NFTDleft = styled(FlexDiv)`
 
 const NFTDleftcontainer = styled.div`
   width: 100%;
-  max-width: 515px;
+  // max-width: 515px;
+  max-width: 85%;
   margin: 0 auto;
-  padding: 15px 50px;
+  padding: 50px 25px;
   ${Media.md} {
     margin: 0 auto;
     padding: 70px 43px;
+  }
+  ${Media.xs} {
+    max-width:100%;
+    padding: 50px 25px;
+  }
+  .vimg{
+    max-width:380px;
   }
 `;
 
@@ -883,6 +928,10 @@ const NFTDleftImg = styled.div`
   text-align: center;
   img {
     box-shadow: 30px 30px 25px 10px rgb(0 0 0 / 20%);
+    width:100%;
+    ${Media.xs} {
+      box-shadow:10px 10px 20px 2px rgb(0 0 0 / 20%);
+    }
   }
 `;
 const NFTDright = styled.div`
@@ -1026,7 +1075,7 @@ const Edition = styled(FlexDiv)`
     display: initial;
   }
   .ed-box {
-    margin-right: 48px;
+    margin-right: 45px;
     &.ed-mb-block {
       ${Media.md} {
         display: block;
@@ -1133,6 +1182,7 @@ const SkyNoteBox = styled.div`
   background-color: #eef2f7;
   border-radius: 10px;
   padding: 15px;
+  
   p.note-text {
     color: #000;
     font-size: 12px;

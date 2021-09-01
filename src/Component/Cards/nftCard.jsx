@@ -221,16 +221,17 @@ const NFTImgBX = styled(FlexDiv)`
     align-items:center;
     justify-content:center; 
     span{
-      background: linear-gradient(to right,#d121d6 0%,#febf11 100%);
-      box-shadow:0px 0px 2px 8px rgb(255 255 255 / 20%);
-      width:45px;
-      height:45px;
-      line-height:53px;
-      text-align:center;
+      background: #fff;
+      box-shadow:0px 0px 5px 6px rgb(0 0 0 / 10%);
+      width:44px;
+      height:44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius:50%;
       svg{
-        color:#fff;
-        font-size:20px;
+        color:#999;
+        padding-left: 2px;
       }
     }
   }

@@ -5,11 +5,11 @@ import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
 let web3 = null;
 let walletConnectProvider = new WalletConnectProvider({
   rpc: {
-    0x38: "https://bsc-dataseed.binance.org/", // BSC Mainnet chainId - 56
-    // 0x61: 'https://data-seed-prebsc-1-s1.binance.org:8545/', // BSC Testnet chainId - 97
+    // 0x38: "https://bsc-dataseed.binance.org/", // BSC Mainnet chainId - 56
+    0x61: 'https://data-seed-prebsc-1-s1.binance.org:8545/', // BSC Testnet chainId - 97
   },
-  chainId: 0x38, // BSC Mainnet
-  // chainId: 0x61, // BSC Testnet
+  // chainId: 0x38, // BSC Mainnet
+  chainId: 0x61, // BSC Testnet
   qrcode: false,
 });
 

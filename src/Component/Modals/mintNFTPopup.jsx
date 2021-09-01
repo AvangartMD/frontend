@@ -314,7 +314,7 @@ const OnbTitle01 = styled.div`
   font-weight: 600;
   color: #000;
   margin-bottom: 15px;
-
+  width:100%;
   &.v2 {
     max-width: 220px;
     margin: 0 auto;
