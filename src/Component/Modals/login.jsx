@@ -17,6 +17,7 @@ import { actions } from "../../actions";
 
 function Login(props) {
   const [loader, setLoader] = useState(false);
+  const [genNonce, setGenNonce] = useState(false);
   const [error, setError] = useState({ isError: false, msg: "" });
   const {
     web3Data,
@@ -34,11 +35,12 @@ function Login(props) {
   useEffect(() => {
     if (web3Data.error)
       return setError({ isError: true, msg: "User denied sign in.." });
-    if (web3Data.accounts[0]) {
+    if (web3Data.accounts[0] && genNonce) {
       setLoader(true);
       if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
       else if (!web3Data.accounts[0])
         setError({ isError: true, msg: "User denied sign in.." });
+      else if (web3Data.accounts[0] && nonce) signatureRequest(nonce, false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Data]);
@@ -58,17 +60,22 @@ function Login(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authData]);
 
-  const connectToWallet = () => {
-    setLoader(true);
-    if (web3Data.accounts[0]) {
-      checkAuthentication(web3Data);
-    } else {
-      if (typeof window.web3 !== "undefined") {
-        console.log("1");
-        enableMetamask();
+  const connectToWallet = (isWalletConnect) => {
+    setGenNonce(true)
+    if (isWalletConnect) props.enabledWalletConnect()
+    else {
+      setLoader(true);
+
+      if (web3Data.accounts[0]) {
+        checkAuthentication(web3Data);
       } else {
-        setLoader(false);
-        setError({ isError: true, msg: "Please download metamask first.!" });
+        if (typeof window.web3 !== "undefined") {
+          console.log("1");
+          enableMetamask();
+        } else {
+          setLoader(false);
+          setError({ isError: true, msg: "Please download metamask first.!" });
+        }
       }
     }
   };
@@ -77,8 +84,9 @@ function Login(props) {
     if (
       !localStorage.getItem("avangartAuthToken") ||
       web3Data.accounts[0] !== localStorage.getItem("userAddress")
-    )
+    ) {
       signatureRequest(undefined, true);
+    }
   };
 
   const signatureRequest = async (nonce, stepOne) => {
@@ -210,7 +218,7 @@ function Login(props) {
                     </i>
                     MetaMask
                   </button>
-                  <button onClick={() => props.enabledWalletConnect()}>
+                  <button onClick={() => connectToWallet(1)}>
                     <i>
                       <img src={WalletICO02} alt="" />
                     </i>

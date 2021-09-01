@@ -938,9 +938,8 @@ class NFTPage extends Component {
                                 </h4>
                                 <CollectionBar>
                                   <p>
-                                    {0}{" "}
                                     <span>
-                                      of {nftObj.edition ? nftObj.edition : 0}
+                                      {nftObj.edition ? nftObj.edition : 0} Editions
                                     </span>
                                   </p>
                                   {nftObj.collectionId?._id ? (
