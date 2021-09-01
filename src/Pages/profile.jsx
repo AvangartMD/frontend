@@ -38,6 +38,25 @@ import Liked from "../Component/profile/liked";
 import Drafts from "../Component/profile/drafts";
 import Media from "../Theme/media-breackpoint";
 import { Link, useParams } from "react-router-dom";
+import { Scrollbars } from "react-custom-scrollbars";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 class Profile extends Component {
   static contextType = Context;
@@ -268,7 +287,13 @@ class Profile extends Component {
                       : "username"}
                   </span>
                 </UserDTitle01>
-                <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
+                <CustomScrollbars
+                  autoHide
+                  autoHideTimeout={1000}
+                  style={{ width: "100%", height: "58px", position: "relative" }}
+                >
+                  <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
+                </CustomScrollbars>
                 <UserSocilMBX>
                   {profile ? (
                     profile.portfolio?.website?.url ? (
@@ -654,11 +679,13 @@ const UserDTitle01 = styled.div`
   width: 100%;
   margin-top: 19px;
   margin-bottom: 18px;
+  text-transform:capitalize;
   span {
     font-size: 16px;
     display: block;
     width: 100%;
     margin-top: 6px;
+    text-transform:inherit;
   }
 `;
 const UserDText01 = styled.div`

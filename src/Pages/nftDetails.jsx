@@ -525,7 +525,7 @@ class NftDetail extends React.Component {
                 <NFTDleftImg>
                   {ext === `image` && (
                     <Link to="#" onClick={() => this.toggle(6)}>
-                      <img src={NFTDetails?.image.original} className="vimg" alt="" />{" "}
+                      <img src={NFTDetails?.image.original} alt="" />{" "}
                     </Link>
                   )}
                   {ext === "audio" && (
@@ -587,7 +587,7 @@ class NftDetail extends React.Component {
                       <CustomScrollbars
                         autoHide
                         autoHideTimeout={1000}
-                        style={{ width: "100%", height: "110px", position: "relative" }}
+                        style={{ width: "100%", height: "80px", position: "relative" }}
                       >
                         {NFTDetails.description}
                       </CustomScrollbars>
@@ -693,7 +693,7 @@ class NftDetail extends React.Component {
                           <CustomScrollbars
                             autoHide
                             autoHideTimeout={1000}
-                            style={{ width: "100%", height: "63px", position: "relative" }}
+                            style={{ width: "100%", height: "47px", position: "relative" }}
                           >
                             <p className="note-text">{NFTDetails?.digitalKey}</p>
                           </CustomScrollbars>
@@ -1041,6 +1041,7 @@ const Decs2 = styled.div`
   margin: 0px 0px 20px 0px;
   font-weight: 500;
   line-height: 28px;
+  word-break: break-word;
   ${Media.md} {
     margin: 0px 0px 30px 0px;
     font-size: 14px;
@@ -1189,6 +1190,7 @@ const SkyNoteBox = styled.div`
     line-height: 15px;
     letter-spacing: -0.5px;
     margin: 0px;
+    word-break: break-word;
   }
 `;
 
