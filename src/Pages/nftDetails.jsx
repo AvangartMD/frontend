@@ -180,7 +180,7 @@ class NftDetail extends React.Component {
 
   async componentDidMount() {
     const { web3Data } = this.props;
-    if (web3Data.isLoggedIn) {
+    if (web3Data.accounts.length) {
       this.checkUserApproval(web3Data);
     }
     if (this.props.match.params.id) {
@@ -189,6 +189,7 @@ class NftDetail extends React.Component {
       const NFTDetails = await actions.getSingleNFTDetails(
         this.props.match.params.id
       );
+      console.log(NFTDetails);
       if (NFTDetails) {
         this.setState(
           { NFTDetails, ext: getFileType(NFTDetails.image.compressed) },
@@ -498,6 +499,7 @@ class NftDetail extends React.Component {
     const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
+    console.log("selected nft details", selectedNFTDetails);
     if (loader) {
       return (
         <Gs.MainSection>
@@ -526,11 +528,7 @@ class NftDetail extends React.Component {
                 <NFTDleftImg>
                   {ext === `image` && (
                     <Link to="#" onClick={() => this.toggle(6)}>
-                      <img
-                        src={NFTDetails?.image.original}
-                        className="vimg"
-                        alt=""
-                      />{" "}
+                      <img src={NFTDetails?.image.original} alt="" />{" "}
                     </Link>
                   )}
                   {ext === "audio" && (
@@ -593,7 +591,7 @@ class NftDetail extends React.Component {
                         autoHideTimeout={1000}
                         style={{
                           width: "100%",
-                          height: "110px",
+                          height: "80px",
                           position: "relative",
                         }}
                       >
@@ -702,7 +700,7 @@ class NftDetail extends React.Component {
                             autoHideTimeout={1000}
                             style={{
                               width: "100%",
-                              height: "63px",
+                              height: "47px",
                               position: "relative",
                             }}
                           >
@@ -1054,6 +1052,7 @@ const Decs2 = styled.div`
   margin: 0px 0px 20px 0px;
   font-weight: 500;
   line-height: 28px;
+  word-break: break-word;
   ${Media.md} {
     margin: 0px 0px 30px 0px;
     font-size: 14px;
@@ -1202,6 +1201,7 @@ const SkyNoteBox = styled.div`
     line-height: 15px;
     letter-spacing: -0.5px;
     margin: 0px;
+    word-break: break-word;
   }
 `;
 

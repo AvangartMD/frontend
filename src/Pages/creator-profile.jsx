@@ -28,7 +28,26 @@ import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 
 import Media from "../Theme/media-breackpoint";
+import { Scrollbars } from "react-custom-scrollbars";
 import { _compactAddress } from "../helper/functions";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 class CreatorProfile extends Component {
   constructor(props) {
@@ -522,11 +541,13 @@ const UserDTitle01 = styled.div`
   width: 100%;
   margin-top: 19px;
   margin-bottom: 18px;
+  text-transform: capitalize;
   span {
     font-size: 16px;
     display: block;
     width: 100%;
     margin-top: 6px;
+    text-transform: inherit;
   }
 `;
 const UserDText01 = styled.div`
