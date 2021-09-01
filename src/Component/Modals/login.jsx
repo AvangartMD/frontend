@@ -61,8 +61,8 @@ function Login(props) {
   }, [authData]);
 
   const connectToWallet = (isWalletConnect) => {
-    setGenNonce(true)
-    if (isWalletConnect) props.enabledWalletConnect()
+    setGenNonce(true);
+    if (isWalletConnect) props.enabledWalletConnect();
     else {
       setLoader(true);
 
@@ -99,7 +99,7 @@ function Login(props) {
             return chainId;
           });
 
-          if (chainId !== 97 && chainId !== '0x61') {
+          if (chainId !== 97 && chainId !== "0x61") {
             // MetaMask injects the global API into window.ethereum
             try {
               if (window.web3) {
@@ -116,7 +116,10 @@ function Login(props) {
                 refreshStates();
               } else {
                 setLoader(false);
-                setError({ isError: true, msg: "Wrong Network, please select the correct network" });
+                setError({
+                  isError: true,
+                  msg: "Wrong Network, please select the correct network",
+                });
               }
             } catch (error) {
               // console.log('error ')
