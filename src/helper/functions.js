@@ -1,5 +1,5 @@
 import Compressor from "compressorjs";
-import FileExtension from 'file-extension';
+import FileExtension from "file-extension";
 import nftABI from "../contractData/abis/nft.json";
 import escrowABI from "../contractData/abis/escrow.json";
 import getContractAddresses from "../contractData/contractAddress/addresses";
@@ -44,16 +44,50 @@ export function getContractInstance(isEscrow) {
 }
 
 export function getFileType(url) {
-  const ext = FileExtension(url).toLocaleLowerCase() // get file extension from url
-  if (ext === `mp4` || ext === `mkv` || ext === `webm` || ext === `mov` ||
-    ext === `avi` || ext === `flv` || ext === `mts`)
-    return `video`
-  if (ext === `avi` || ext === `mp1` || ext === `mp2` || ext === `mp3` || ext === `ogg` ||
-    ext === `ogv` || ext === `ogm` || ext === `spx` || ext === `ogx` || ext === `opus` ||
-    ext === `flac` || ext === `wav` || ext === `amr` || ext === `aif` || ext === `ape` ||
-    ext === `ac3` || ext === `m4p` || ext === `m4a` || ext === `m4b`)
-    return `audio`
+  const ext = FileExtension(url).toLocaleLowerCase(); // get file extension from url
+  if (
+    ext === `mp4` ||
+    ext === `mkv` ||
+    ext === `webm` ||
+    ext === `mov` ||
+    ext === `avi` ||
+    ext === `flv` ||
+    ext === `mts`
+  )
+    return `video`;
+  if (
+    ext === `avi` ||
+    ext === `mp1` ||
+    ext === `mp2` ||
+    ext === `mp3` ||
+    ext === `ogg` ||
+    ext === `ogv` ||
+    ext === `ogm` ||
+    ext === `spx` ||
+    ext === `ogx` ||
+    ext === `opus` ||
+    ext === `flac` ||
+    ext === `wav` ||
+    ext === `amr` ||
+    ext === `aif` ||
+    ext === `ape` ||
+    ext === `ac3` ||
+    ext === `m4p` ||
+    ext === `m4a` ||
+    ext === `m4b`
+  )
+    return `audio`;
   if (ext === `png` || ext === `jpeg` || ext === `jpg` || ext === `dmg`)
-    return `image`
-  return `image`
+    return `image`;
+  return `image`;
+}
+export function _compactAddress(address) {
+  const newAddress = address;
+  if (address) {
+    return (
+      newAddress.substring(0, 5) +
+      "...." +
+      newAddress.substring(newAddress.length - 10, newAddress.length)
+    );
+  }
 }

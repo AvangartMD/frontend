@@ -28,6 +28,26 @@ import Media from "../Theme/media-breackpoint";
 import LoaderGif from "../Assets/images/loading.gif";
 
 // import VideoThumbnail from "react-video-thumbnail";
+import { Scrollbars } from "react-custom-scrollbars";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
+
 const saleMethods = {
   sold: {
     name: null,
@@ -85,7 +105,9 @@ const saleMethods = {
   },
   claimBack: {
     name: "claimBack",
-    btnName: <FormattedMessage id="claim_back" defaultMessage="Put on sale " />,
+    btnName: (
+      <FormattedMessage id="cancelMyOffer" defaultMessage="Cancel My Offer" />
+    ),
     bidDesc: "Current bid",
     open: 1,
     checkApproval: false,
@@ -158,7 +180,7 @@ class NftDetail extends React.Component {
 
   async componentDidMount() {
     const { web3Data } = this.props;
-    if (web3Data.isLoggedIn) {
+    if (web3Data.accounts.length) {
       this.checkUserApproval(web3Data);
     }
     if (this.props.match.params.id) {
@@ -167,6 +189,7 @@ class NftDetail extends React.Component {
       const NFTDetails = await actions.getSingleNFTDetails(
         this.props.match.params.id
       );
+      console.log(NFTDetails);
       if (NFTDetails) {
         this.setState(
           { NFTDetails, ext: getFileType(NFTDetails.image.compressed) },
@@ -476,6 +499,7 @@ class NftDetail extends React.Component {
     const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
+    console.log("selected nft details", selectedNFTDetails);
     if (loader) {
       return (
         <Gs.MainSection>
@@ -561,7 +585,19 @@ class NftDetail extends React.Component {
                     </NFTtopbarright>
                   </NFTDRtopbar>
                   {NFTDetails?.description && (
-                    <Decs2>{NFTDetails.description}</Decs2>
+                    <Decs2>
+                      <CustomScrollbars
+                        autoHide
+                        autoHideTimeout={1000}
+                        style={{
+                          width: "100%",
+                          height: "80px",
+                          position: "relative",
+                        }}
+                      >
+                        {NFTDetails.description}
+                      </CustomScrollbars>
+                    </Decs2>
                   )}
                   <Historysection>
                     <UserImgName>
@@ -602,9 +638,9 @@ class NftDetail extends React.Component {
                         <p>{saleMethod.bidDesc}</p>
                         <div className="ed-left-inner">
                           <h3>
-                            {(+selectedNFTDetails?.price)
-                              .toFixed(5)
-                              .toLocaleString()}{" "}
+                            {parseFloat(
+                              +(selectedNFTDetails?.price).toFixed(5)
+                            )}{" "}
                             BNB
                           </h3>
                           <p className="gray-t">
@@ -659,7 +695,19 @@ class NftDetail extends React.Component {
                           />
                         </p>
                         <SkyNoteBox>
-                          <p className="note-text">{NFTDetails?.digitalKey}</p>
+                          <CustomScrollbars
+                            autoHide
+                            autoHideTimeout={1000}
+                            style={{
+                              width: "100%",
+                              height: "47px",
+                              position: "relative",
+                            }}
+                          >
+                            <p className="note-text">
+                              {NFTDetails?.digitalKey}
+                            </p>
+                          </CustomScrollbars>
                         </SkyNoteBox>
                       </div>
                     ) : (
@@ -869,12 +917,20 @@ const NFTDleft = styled(FlexDiv)`
 
 const NFTDleftcontainer = styled.div`
   width: 100%;
-  max-width: 515px;
+  // max-width: 515px;
+  max-width: 85%;
   margin: 0 auto;
-  padding: 15px 50px;
+  padding: 50px 25px;
   ${Media.md} {
     margin: 0 auto;
     padding: 70px 43px;
+  }
+  ${Media.xs} {
+    max-width: 100%;
+    padding: 50px 25px;
+  }
+  .vimg {
+    max-width: 380px;
   }
 `;
 
@@ -883,6 +939,10 @@ const NFTDleftImg = styled.div`
   text-align: center;
   img {
     box-shadow: 30px 30px 25px 10px rgb(0 0 0 / 20%);
+    width: 100%;
+    ${Media.xs} {
+      box-shadow: 10px 10px 20px 2px rgb(0 0 0 / 20%);
+    }
   }
 `;
 const NFTDright = styled.div`
@@ -992,6 +1052,7 @@ const Decs2 = styled.div`
   margin: 0px 0px 20px 0px;
   font-weight: 500;
   line-height: 28px;
+  word-break: break-word;
   ${Media.md} {
     margin: 0px 0px 30px 0px;
     font-size: 14px;
@@ -1026,7 +1087,7 @@ const Edition = styled(FlexDiv)`
     display: initial;
   }
   .ed-box {
-    margin-right: 48px;
+    margin-right: 45px;
     &.ed-mb-block {
       ${Media.md} {
         display: block;
@@ -1133,12 +1194,14 @@ const SkyNoteBox = styled.div`
   background-color: #eef2f7;
   border-radius: 10px;
   padding: 15px;
+
   p.note-text {
     color: #000;
     font-size: 12px;
     line-height: 15px;
     letter-spacing: -0.5px;
     margin: 0px;
+    word-break: break-word;
   }
 `;
 

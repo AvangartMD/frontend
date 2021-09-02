@@ -2,6 +2,25 @@ import React, { Component, useState } from "react";
 import styled from "styled-components";
 import CloseBTN02 from "../../Assets/images/icon-set-exit.svg";
 import Media from "../../Theme/media-breackpoint";
+import { Scrollbars } from "react-custom-scrollbars";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className="track-vertical" />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className="thumb-vertical" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 function Magnifypopup({ toggle, imageURL }) {
   const [hrClass, sethrClass] = useState("");
@@ -12,18 +31,24 @@ function Magnifypopup({ toggle, imageURL }) {
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
         <div className={`vs-box  ${hrClass}`}>
-          <img
-            src={imageURL}
-            alt=""
-            onLoad={(image) => {
-              if (image.target.width > image.target.height) {
-                sethrClass("hr-box");
-              }
-              //  else if (image.target.height > image.target.width) {
-              //   this.setState({ imageClass: "vertical-tnimg" });
-              // }
-            }}
-          />
+          <CustomScrollbars
+            autoHide
+            autoHideTimeout={1000}
+            style={{ width: "100%", height: "100%", position: "relative" }}
+          >
+            <img
+              src={imageURL}
+              alt=""
+              onLoad={(image) => {
+                if (image.target.width > image.target.height) {
+                  sethrClass("hr-box");
+                }
+                //  else if (image.target.height > image.target.width) {
+                //   this.setState({ imageClass: "vertical-tnimg" });
+                // }
+              }}
+            />
+          </CustomScrollbars>
         </div>
       </WhiteWrap>
     </>
