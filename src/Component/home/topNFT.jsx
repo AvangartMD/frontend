@@ -11,6 +11,7 @@ import { withRouter } from 'react-router';
 import Media from '../../Theme/media-breackpoint';
 
 import Redheart from '../../Assets/images/Redheart.svg';
+import Lock from "../../Assets/images/icon-set-lock.svg";
 import UserImg from '../../Assets/images/user-img.jpg';
 import LoaderGif from '../../Assets/images/loading.gif';
 import RoundIcon from '../../Assets/images/round-icon.svg';
@@ -51,6 +52,7 @@ class TopNFT extends Component {
   renderedFirstElement = (nft, likesCount, isLiked) => {
     const { loading } = this.state;
     const ext = getFileType(nft.nftId.image.compressed);
+    console.log('- nft ? ', nft)
     return (
       <>
         <div className='w60'>
@@ -114,6 +116,11 @@ class TopNFT extends Component {
         </div>
         <div className='w40'>
           <NFTfbright>
+            {nft.nftId.unlockContent && (
+              <NFTLock>
+                <img src={Lock} alt="" />
+              </NFTLock>
+            )}
             <NFTLike
               className={loading || !this.props.web3Data?.isLoggedIn ? `disabled` : ``}
               onClick={() => {
@@ -179,7 +186,7 @@ class TopNFT extends Component {
                       onlyHours={true}
                     />
                   </>
-                ) : nft.nftSold === nft.nftId.edition ? (
+                ) : nft.nftId.nftSold === nft.nftId.edition ? (
                   <button className='disabled' disabled>
                     <FormattedMessage id='sold' defaultMessage='Sold' />
                   </button>
@@ -428,6 +435,13 @@ const NFTfbright = styled.div`
       margin: 0px 0px 20px;
     }
   }
+`;
+const NFTLock = styled(FlexDiv)`
+  width: 34px;
+  height: 34px;
+  box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
+  border-radius: 30px;
+  margin-right: 5px;
 `;
 const NFTLike = styled(FlexDiv)`
   width: 56px;

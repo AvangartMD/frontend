@@ -142,6 +142,7 @@ class NftDetail extends React.Component {
       isOpen1: false,
       isOpen4: false,
       isOpen9: false,
+      imgClass : "",
       bnbUSDPrice: {},
       bidDetails: {
         currentBidValue: "0",
@@ -528,7 +529,14 @@ class NftDetail extends React.Component {
                 <NFTDleftImg>
                   {ext === `image` && (
                     <Link to="#" onClick={() => this.toggle(6)}>
-                      <img src={NFTDetails?.image.original} alt="" />{" "}
+                      <img src={NFTDetails?.image.original} alt=""
+                        className={this.state.imgClass}
+                        onLoad={(image) => {
+                          if (image.target.height > image.target.width) {
+                            this.setState({ imgClass: 'vimg' })
+                          }
+                        }}
+                      />{" "}
                     </Link>
                   )}
                   {ext === "audio" && (
