@@ -369,12 +369,13 @@ class NftDetail extends React.Component {
         isOwner: soldEdition.ownerId.id === authData?.data?.id,
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
-        price:
-          soldEdition.saleType.type === "OFFER"
+        price: soldEdition.isOpenForSale
+          ? soldEdition.saleType.type === "OFFER"
             ? +web3.utils.fromWei(bidDetails.bidValue) > 0
               ? +web3.utils.fromWei(bidDetails.bidValue)
               : soldEdition.saleType.price
-            : soldEdition.price,
+            : soldEdition.saleType.price
+          : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: true,
         orderNonce: soldEdition.nonce,
