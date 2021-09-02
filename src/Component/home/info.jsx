@@ -62,10 +62,16 @@ class Info extends Component {
   renderedInfo(info, index) {
     let context = this.context;
     let img = ''
+    let mob_img = ''
+    let button_text = ''
     if (context.locale === 'tr') {
       img = info.banner.tu
+      mob_img = info.mobile.tu
+      button_text = info.button_text.tu
     } else {
       img = info.banner.en
+      mob_img = info.mobile.en
+      button_text = info.button_text.en
     }
     return (
       <AdBanner2 key={index}>
@@ -79,10 +85,10 @@ class Info extends Component {
             exit={{ opacity: 0 }}
             className="desk-img"
           />
-          <img src={MobileAd} className="mobile-img" alt="" />
+          <img src={mob_img} className="mobile-img" alt="" />
         </Link>
         <Link to={info.button_url}>
-          <button className="ani-1">{info.button_text}</button>
+          <button className="ani-1">{button_text}</button>
         </Link>
       </AdBanner2>
     )

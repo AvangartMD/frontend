@@ -535,9 +535,7 @@ class Profile extends Component {
                 <>
                   <TabList>
                     <Tab>Collected</Tab>
-                    <Tab>Collections</Tab>
                     <Tab>Liked</Tab>
-                    <Tab>Drafts</Tab>
                   </TabList>
 
                   <TabPanel>
@@ -546,15 +544,7 @@ class Profile extends Component {
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Collection profile={true} />{" "}
-                  </TabPanel>
-                  <TabPanel>
-                    {" "}
                     <Liked profile={true} />{" "}
-                  </TabPanel>
-                  <TabPanel>
-                    {" "}
-                    <Drafts />{" "}
                   </TabPanel>
                 </>
               )}
