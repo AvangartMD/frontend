@@ -51,11 +51,11 @@ function Drafts(props) {
       {userDraftNFT?.length === 0 ? (
         <CEmpty>
           <h2 className='Bec'>Your draft is empty</h2>
-          <p className='Bec'>
+          {/* <p className='Bec'>
             Lorem ipsum dolor sit amet,
             <br />
             consectetur adipiscing elit.
-          </p>
+          </p> */}
           {props.status ? (
             <button
               className='ani-1'

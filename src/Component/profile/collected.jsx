@@ -79,7 +79,7 @@ function Collected(props) {
             :
             <CEmpty>
               <h2 className="Bec"> Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
-              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
           : ``}
 
@@ -87,7 +87,7 @@ function Collected(props) {
           props.profile ? 
             <CEmpty>
               <h2 className="Bec">Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
-              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
             :
             <CEmpty>

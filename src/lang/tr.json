@@ -184,5 +184,6 @@
   "approve_first_time_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
   "enter_minimum_price_lable": "Enter mnimum price",
   "claim_back_restriction_lable": "You can not claim back for now. You will be perform this action after 24 hours.",
-  "cancelMyOffer": "Cancel My Offer"
+  "cancelMyOffer": "Cancel My Offer",
+  "market_settings_lable": "Eserinizin satış durumunu buradan belirleyebilirsiniz"
 }
