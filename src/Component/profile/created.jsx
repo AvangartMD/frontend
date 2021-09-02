@@ -142,7 +142,7 @@ function Created(props) {
           props.profile ?
             <CEmpty>
               <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
-              <p className="Bec">Lorem ipsum dolor sit assssmet,<br />consectetur adipiscing elit.</p>
+              {/* <p className="Bec">Lorem ipsum dolor sit assssmet,<br />consectetur adipiscing elit.</p> */}
               {props.status ?
                 <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
                   <FormattedMessage id="create" defaultMessage="Create" />
