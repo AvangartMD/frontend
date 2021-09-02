@@ -353,6 +353,7 @@ const NFTfirstbox = styled(FlexDiv)`
     width: 40%;
     ${Media.md} {
       width: 100%;
+      position:relative;
     }
   }
   ${Media.md} {
