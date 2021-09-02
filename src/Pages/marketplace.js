@@ -419,6 +419,7 @@ const NFTfourbox = styled(FlexDiv)`
               display: -webkit-box;
               -webkit-box-orient: vertical;
               min-height:44px;
+              word-break:break-word;
             }
             .edition2
             {
