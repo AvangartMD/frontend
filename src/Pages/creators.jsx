@@ -19,7 +19,25 @@ import LoaderGif from '../Assets/images/loading.gif'
 import UserImg01 from '../Assets/images/userImg.png'
 
 import Media from "./../Theme/media-breackpoint";
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+    return (
+        <Scrollbars
+            renderTrackHorizontal={(props) => (
+                <div {...props} className="track-horizontal" />
+            )}
+            renderThumbHorizontal={(props) => (
+                <div {...props} className="thumb-horizontal" />
+            )}
+            renderView={(props) => <div {...props} className="view" />}
+            autoHide
+            style={props.style}
+        >
+            {props.children}
+        </Scrollbars>
+    );
+}
 
 class Creators extends Component {
 
@@ -115,14 +133,20 @@ class Creators extends Component {
                 <Gs.Container>
                     <FilterMBX>
                         <FilterLbx>
-                            <button className={tabPanel === 'all' ? 'active' : ''} id='all' onClick={() => { this.onCategoryChange('all') }}>
-                                <FormattedMessage id="all" defaultMessage="All" />
-                            </button>
-                            {categories ? categories.map((category, key) => {
-                                return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >
-                                    {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
+                            <CustomScrollbars
+                                autoHide
+                                autoHideTimeout={1000}
+                                style={{ width: "100%", height: "70px", position: "relative" }}
+                            >
+                                <button className={tabPanel === 'all' ? 'active' : ''} id='all' onClick={() => { this.onCategoryChange('all') }}>
+                                    <FormattedMessage id="all" defaultMessage="All" />
                                 </button>
-                            }) : ''}
+                                {categories ? categories.map((category, key) => {
+                                    return <button id={category.id} key={key} className={tabPanel === category.id ? 'active' : ''} onClick={() => { this.onCategoryChange(category.id) }} >
+                                        {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
+                                    </button>
+                                }) : ''}
+                            </CustomScrollbars>
                         </FilterLbx>
 
                         <FilterRbx>
@@ -206,12 +230,11 @@ const FilterMBX = styled(FlexDiv)`
 `
 const FilterLbx = styled(FlexDiv)`
  width:45%; justify-content:flex-start;
- ${Media.md}{
-    overflow-x:auto;
-    overflow-y:hidden;
-    flex-wrap:initial;
-    padding:10px 0px;
-  } 
+ .view{
+    display:flex;
+    align-items:center;
+    padding-right:20px;
+  }
  button{display:inline-block;padding: 10px 25px; font-size:14px; font-weight:600; color:#000000; border-radius: 15px; background-color: #eef2f7; margin:0px 6px 0px 0px;  
   &.active{ background-color:#00babc; color:#fff; } 
   :hover{ background-color:#00babc; color:#fff; box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2); }
@@ -259,40 +282,7 @@ const DDContainer = styled(FlexDiv)`
   & .md-checkbox:hover{ background-color:#D9F5F5;} 
 `
 const CreatorMBX = styled(FlexDiv)`
- margin:40px -10px 40px -10px; justify-content:flex-start; align-items:flex-start; overflow:hidden;
-`
-const CreatSBX01 = styled(FlexDiv)`
-    width:calc(25% - 20px); margin:10px 10px 20px 10px;  border:1px solid #dddddd; border-radius:10px; justify-content:flex-start; align-items:flex-start; 
-    :hover{ box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);}
-`
-const ImgBannerBX = styled(FlexDiv)`
- width:100%; height:100px; border-radius:10px 10px 0 0 ; overflow: hidden; 
- img{ width:100%; height:100%;  object-fit:cover;} 
-`
-const CreatSBX02 = styled(FlexDiv)`
-    width:100%; padding:14px; flex-direction:column;
-`
-const UserImg = styled(FlexDiv)`
-    width:72px; height:72px; border-radius:36px; overflow:hidden; border:solid 1px #eef2f7; margin-top: -50px; 
-    img{ width:100%; height:100%; object-fit: cover;}
-`
-const CretrTitle01 = styled.div`
-    display:block; font-size:18px; font-weight:600; color:#000; margin:10px 0 0 0; text-align:center; 
-    span{ display:block; text-align:center; font-size:12px; } 
-`
-const CretrText01 = styled.div`
-    font-size:10px; text-align:center; line-height:1.6; margin:10px 0 0 0; min-height:52px;
-
-`
-const CretrInfoMBX = styled(FlexDiv)`
-    width:100%; padding:12px; margin:32px 0 18px 0; border:1px solid #dddddd; border-radius: 10px;
-`
-const CretrInfoSBX01 = styled(FlexDiv)`
-    width:33.33%; color:#8e9194; font-size:10px;
-    span{ width:100%; font-weight:600; color:#000; font-size:16px; text-align:center}
-`
-const CretrBTN01 = styled.button`
-    color:#000; border:2px solid #000; display: inline-block; padding:11px 26px; border-radius:15px; font-size:14px; font-weight:600; margin-bottom:15px; 
+ margin:10px -10px 40px -10px; justify-content:flex-start; align-items:flex-start; overflow:hidden;
 `
 
 const DDBTN01 = styled.button`

@@ -10,7 +10,25 @@ import Media from "../Theme/media-breackpoint";
 
 import Blackcross from "../Assets/images/black-cross.svg";
 import Bluecross from "../Assets/images/blue-cross.svg";
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackHorizontal={(props) => (
+        <div {...props} className="track-horizontal" />
+      )}
+      renderThumbHorizontal={(props) => (
+        <div {...props} className="thumb-horizontal" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 const faq_en = require("../helper/faq/faq_en.json")
 const faq_tr = require("../helper/faq/faq_tr.json")
 
@@ -28,7 +46,7 @@ class Faq extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     const { lang } = this.props;
-    this.setState({ list: lang === 'en' ? faq_en.data:faq_tr.data })
+    this.setState({ list: lang === 'en' ? faq_en.data : faq_tr.data })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -36,11 +54,11 @@ class Faq extends Component {
     let { tabPanel, list } = this.state;
     if (tabPanel !== prevState.tabPanel) {
       if (tabPanel === 0) {
-        list = lang === 'en' ? faq_en.data:faq_tr.data 
+        list = lang === 'en' ? faq_en.data : faq_tr.data
       } else {
         list = lang === 'en'
           ? faq_en.data.filter(faq => faq.category === tabPanel).map(faq => faq)
-            : faq_tr.data.filter(faq => faq.category === tabPanel).map(faq => faq)
+          : faq_tr.data.filter(faq => faq.category === tabPanel).map(faq => faq)
       }
       this.setState({ list: list })
     }
@@ -48,11 +66,11 @@ class Faq extends Component {
       if (tabPanel > 0) {
         this.setState({
           list: lang === 'en' ?
-                faq_en.data.filter(faq => faq.category === tabPanel).map(faq => faq)
-              : faq_tr.data.filter(faq => faq.category === tabPanel).map(faq => faq)
+            faq_en.data.filter(faq => faq.category === tabPanel).map(faq => faq)
+            : faq_tr.data.filter(faq => faq.category === tabPanel).map(faq => faq)
         })
       } else {
-        this.setState({ list: lang === 'en' ? faq_en.data:faq_tr.data })
+        this.setState({ list: lang === 'en' ? faq_en.data : faq_tr.data })
       }
     }
   }
@@ -66,34 +84,40 @@ class Faq extends Component {
             <h2>Frequently Asked Questions</h2>
 
             <FilterLbx>
-              <button className={tabPanel === 0 ? `active` : ``}
-                onClick={() => this.setState({ tabPanel: 0 })}>
-                <FormattedMessage id="all" defaultMessage="All" />
-              </button>
-              <button className={tabPanel === 1 ? `active`: ``}
-                onClick={() => this.setState({ tabPanel: 1 })}>
-                Getting Started
-              </button>
-              <button className={tabPanel === 2 ? `active`: ``}
-                onClick={() => this.setState({ tabPanel: 2 })}>
-                Wallet Usage
-              </button>
-              <button className={tabPanel === 3 ? `active`: ``}
-                onClick={() => this.setState({ tabPanel: 3 })}>
-                Buying NFTs
-              </button>
-              <button className={tabPanel === 4 ? `active`: ``}
-                onClick={() => this.setState({ tabPanel: 4 })}>
-                Creating NFTs
-              </button>
-              <button className={tabPanel === 5 ? `active`: ``}
-                onClick={() => this.setState({ tabPanel: 5 })}>
-                Becoming a Creator
-              </button>
-              <button className={tabPanel === 6 ? `active`: ``}
-                onClick={() => this.setState({ tabPanel: 6 })}>
-                Fees & Commissions
-              </button>
+              <CustomScrollbars
+                autoHide
+                autoHideTimeout={1000}
+                style={{ width: "100%", height: "70px", position: "relative" }}
+              >
+                <button className={tabPanel === 0 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 0 })}>
+                  <FormattedMessage id="all" defaultMessage="All" />
+                </button>
+                <button className={tabPanel === 1 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 1 })}>
+                  Getting Started
+                </button>
+                <button className={tabPanel === 2 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 2 })}>
+                  Wallet Usage
+                </button>
+                <button className={tabPanel === 3 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 3 })}>
+                  Buying NFTs
+                </button>
+                <button className={tabPanel === 4 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 4 })}>
+                  Creating NFTs
+                </button>
+                <button className={tabPanel === 5 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 5 })}>
+                  Becoming a Creator
+                </button>
+                <button className={tabPanel === 6 ? `active` : ``}
+                  onClick={() => this.setState({ tabPanel: 6 })}>
+                  Fees & Commissions
+                </button>
+              </CustomScrollbars>
             </FilterLbx>
 
             <FaqAccordian>
@@ -102,7 +126,7 @@ class Faq extends Component {
                 list.map((faq, key) => {
                   return <Collapsible trigger={faq.question} key={key}>
                     <p>{faq.answer}</p>
-                    </Collapsible>
+                  </Collapsible>
                 })
               }
             </FaqAccordian>
@@ -141,11 +165,10 @@ const Faqtitle = styled.div`
 const FilterLbx = styled(FlexDiv)`
   justify-content: flex-start; 
   margin-bottom:40px; 
-  ${Media.md}{
-    overflow-x:auto;
-    overflow-y:hidden;
-    flex-wrap:initial;
-    padding:10px 0px;
+  .view{
+    display:flex;
+    align-items:center;
+    padding-right:20px;
   }
   button {
     display: inline-block;
@@ -156,9 +179,7 @@ const FilterLbx = styled(FlexDiv)`
     border-radius: 15px;
     background-color: #eef2f7;
     margin:0px 8px 8px 0px;
-    ${Media.md}{
-      white-space: pre;
-    }
+    white-space:nowrap;
     &.active {
       background-color: #00babc;
       color: #fff;

@@ -467,12 +467,6 @@ const FilterLbx = styled(FlexDiv)`
     align-items:center;
     padding-right:20px;
   }
-  // ${Media.md}{
-  //   overflow-x:auto;
-  //   overflow-y:hidden;
-  //   flex-wrap:initial;
-  //   padding:10px 0px;
-  // }
   button {
     display: inline-block;
     padding: 10px 25px;

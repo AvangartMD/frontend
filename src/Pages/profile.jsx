@@ -675,7 +675,7 @@ const UserDTitle01 = styled.div`
     display: block;
     width: 100%;
     margin-top: 6px;
-    text-transform:inherit;
+    text-transform:initial;
   }
 `;
 const UserDText01 = styled.div`
