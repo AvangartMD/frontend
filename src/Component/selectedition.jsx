@@ -120,7 +120,9 @@ function SelectEdition(props) {
               saleState: soldEdition.saleType.type
                 ? soldEdition.saleType.type
                 : "SOLD",
-              price: soldEdition.price,
+              price: soldEdition.isOpenForSale
+                ? soldEdition.saleType.price
+                : soldEdition.price,
               isBurned: soldEdition.isBurned,
             });
           } else {
