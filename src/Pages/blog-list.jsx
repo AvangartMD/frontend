@@ -10,7 +10,25 @@ import Media from "../Theme/media-breackpoint";
 
 import SerICON from '../Assets/images/searchICO.svg';
 import NFT2 from "../Assets/images/nft1.jpg";
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackHorizontal={(props) => (
+        <div {...props} className="track-horizontal" />
+      )}
+      renderThumbHorizontal={(props) => (
+        <div {...props} className="thumb-horizontal" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 class BlogList extends Component {
 
   constructor(props) {
@@ -31,10 +49,16 @@ class BlogList extends Component {
           <BlogListtitle>Avangart Blog</BlogListtitle>
           <FilterMBX>
             <FilterLbx>
-              <button className="active" id="all">All</button>
-              <button className="">Art</button>
-              <button className="">Celebrity</button>
-              <button className="">Sport</button>
+              <CustomScrollbars
+                autoHide
+                autoHideTimeout={1000}
+                style={{ width: "100%", height: "70px", position: "relative" }}
+              >
+                <button className="active" id="all">All</button>
+                <button className="">Art</button>
+                <button className="">Celebrity</button>
+                <button className="">Sport</button>
+              </CustomScrollbars>
             </FilterLbx>
             <FilterRbx>
               <FilterInputBX>
@@ -362,7 +386,7 @@ const FilterMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: space-between;
   max-width: 1080px;
-  margin: 30px auto 40px;
+  margin: 30px auto 20px;
   ${Media.lg}{
     max-width:100%;
   }
@@ -370,11 +394,10 @@ const FilterMBX = styled(FlexDiv)`
 
 const FilterLbx = styled(FlexDiv)`
   width:45%; justify-content: flex-start;
-  ${Media.md}{
-    overflow-x:auto;
-    overflow-y:hidden;
-    flex-wrap:initial;
-    padding:10px 0px;
+  .view{
+    display:flex;
+    align-items:center;
+    padding-right:20px;
   }
   button {
     display: inline-block;

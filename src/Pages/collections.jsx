@@ -14,7 +14,25 @@ import LoaderGif from "../Assets/images/loading.gif";
 import SerICON from "../Assets/images/searchICO.svg";
 
 import Media from '../Theme/media-breackpoint';
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackHorizontal={(props) => (
+        <div {...props} className="track-horizontal" />
+      )}
+      renderThumbHorizontal={(props) => (
+        <div {...props} className="thumb-horizontal" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 class Collection extends Component {
 
@@ -87,31 +105,37 @@ class Collection extends Component {
         <Gs.Container>
           <FilterMBX>
             <FilterLbx>
-              <button
-                className={tabPanel === 'all' ? 'active' : ''}
-                id='all'
-                onClick={() => {
-                  this.onCategoryChange('all');
-                }}
+              <CustomScrollbars
+                autoHide
+                autoHideTimeout={1000}
+                style={{ width: "100%", height: "70px", position: "relative" }}
               >
-                <FormattedMessage id="all" defaultMessage="All" />
-              </button>
-              {categories
-                ? categories.map((category, key) => {
-                  return (
-                    <button
-                      id={category.id}
-                      key={key}
-                      className={tabPanel === category.id ? 'active' : ''}
-                      onClick={() => {
-                        this.onCategoryChange(category.id);
-                      }}
-                    >
-                      {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
-                    </button>
-                  );
-                })
-                : ''}
+                <button
+                  className={tabPanel === 'all' ? 'active' : ''}
+                  id='all'
+                  onClick={() => {
+                    this.onCategoryChange('all');
+                  }}
+                >
+                  <FormattedMessage id="all" defaultMessage="All" />
+                </button>
+                {categories
+                  ? categories.map((category, key) => {
+                    return (
+                      <button
+                        id={category.id}
+                        key={key}
+                        className={tabPanel === category.id ? 'active' : ''}
+                        onClick={() => {
+                          this.onCategoryChange(category.id);
+                        }}
+                      >
+                        {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
+                      </button>
+                    );
+                  })
+                  : ''}
+              </CustomScrollbars>
             </FilterLbx>
 
             <FilterRbx>
@@ -201,11 +225,10 @@ const FilterMBX = styled(FlexDiv)`
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
   justify-content: flex-start;
-  ${Media.md}{
-    overflow-x:auto;
-    overflow-y:hidden;
-    flex-wrap:initial;
-    padding:10px 0px;
+  .view{
+    display:flex;
+    align-items:center;
+    padding-right:20px;
   }
   button {
     display: inline-block;
@@ -281,9 +304,9 @@ const SearchICO = styled(FlexDiv)`
 `;
 
 const CollectionBoxes = styled.div`
-  margin:40px -10px 120px;
+  margin:20px -10px 120px;
   ${Media.md}{
-    margin:40px -10px 60px;
+    margin:20px -10px 60px;
   }
 `;
 

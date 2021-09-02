@@ -102,9 +102,8 @@ class CreatorProfile extends Component {
 
             <ProMBannerBX
               style={{
-                backgroundImage: `url(${
-                  profile.cover ? profile.cover : ProfielBack
-                })`,
+                backgroundImage: `url(${profile.cover ? profile.cover : ProfielBack
+                  })`,
               }}
             >
               <ProMBX01>
@@ -123,9 +122,15 @@ class CreatorProfile extends Component {
                       {profile ? profile.name : "User Name"}
                       <span>@{profile ? profile.username : "username"}</span>
                     </UserDTitle01>
-                    <UserDText01>
-                      {profile ? profile.bio : "user bio"}
-                    </UserDText01>
+                    <CustomScrollbars
+                      autoHide
+                      autoHideTimeout={1000}
+                      style={{ width: "100%", height: "58px", position: "relative" }}
+                    >
+                      <UserDText01>
+                        {profile ? profile.bio : "user bio"}
+                      </UserDText01>
+                    </CustomScrollbars>
                     <UserSocilMBX>
                       {profile ? (
                         profile.portfolio?.website?.url ? (
@@ -223,9 +228,9 @@ class CreatorProfile extends Component {
                       <span>
                         {profile
                           ? dateFormat(
-                              new Date(profile.createdAt).toString(),
-                              "dd mmmm yyyy"
-                            )
+                            new Date(profile.createdAt).toString(),
+                            "dd mmmm yyyy"
+                          )
                           : "join date"}
                       </span>
                     </UserDText02>
@@ -280,15 +285,15 @@ class CreatorProfile extends Component {
                       <span>
                         {profile
                           ? dateFormat(
-                              new Date(profile.createdAt).toString(),
-                              "dd mmmm yyyy"
-                            )
+                            new Date(profile.createdAt).toString(),
+                            "dd mmmm yyyy"
+                          )
                           : "join date"}
                       </span>
                     </UserDText02>
 
                     {web3Data.isLoggedIn &&
-                    authData?.data.id !== profile?.id ? (
+                      authData?.data.id !== profile?.id ? (
                       <EditPrBTN
                         className={loading ? `disabled` : ``}
                         onClick={() => this.followToggler(profile.id)}
@@ -312,7 +317,7 @@ class CreatorProfile extends Component {
                     )}
 
                     {web3Data.isLoggedIn &&
-                    authData?.data.id === profile?.id ? (
+                      authData?.data.id === profile?.id ? (
                       <EditPrBTN
                         onClick={() =>
                           this.props.history.push("/user/edit-profile")
@@ -547,7 +552,7 @@ const UserDTitle01 = styled.div`
     display: block;
     width: 100%;
     margin-top: 6px;
-    text-transform: inherit;
+    text-transform: initial;
   }
 `;
 const UserDText01 = styled.div`

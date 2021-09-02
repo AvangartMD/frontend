@@ -12,7 +12,7 @@ import LoaderGif from "../Assets/images/loading.gif";
 import NFTCard from "../Component/Cards/nftCard";
 import { actions } from "../actions";
 import Media from '../Theme/media-breackpoint';
-
+import { Link, useParams } from "react-router-dom";
 
 class CollectionDetail extends Component {
 
@@ -67,10 +67,12 @@ class CollectionDetail extends Component {
               <CreatorInfo>
                 <CreatorILeft>
                   <div className="CIbox">
-                    <img src={collection.ownerId?.profile} alt="" />
+                    <Link to={`/creator/${collection?.ownerId.id}`}>
+                      <img src={collection.ownerId?.profile} alt="" />
+                    </Link>
                   </div>
                   <div className="CNbox">
-                    <p className="title">{collection.ownerId?.name}</p>
+                    <p className="title"><Link to={`/creator/${collection?.ownerId.id}`}>{collection.ownerId?.name}</Link></p>
                     <p className="by">@{collection.ownerId?.username}</p>
                   </div>
                 </CreatorILeft>
@@ -207,6 +209,10 @@ const CreatorILeft = styled(FlexDiv)`
       color:#000;
       font-weight:700;
       margin:0px 0px 5px;
+      text-transform:capitalize;
+      a{
+        color:#000;
+      }
       ${Media.sm}{
        font-size:18px;
        margin:0px 0px 2px;

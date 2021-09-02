@@ -82,6 +82,11 @@ const WhiteWrap = styled(FlexDiv)`
     &.hr-box {
       width: min(100vw - 50px);
     }
+    .view{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
   }
 `;
 

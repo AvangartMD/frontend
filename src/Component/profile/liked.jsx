@@ -66,7 +66,7 @@ function Liked(props) {
           props.profile ?
             <CEmpty>
               <h2 className="Bec">Your <FormattedMessage id="liked" defaultMessage="Liked" /> is empty</h2>
-              <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+              {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
             :
             <CEmpty>

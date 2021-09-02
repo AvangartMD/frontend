@@ -535,9 +535,7 @@ class Profile extends Component {
                 <>
                   <TabList>
                     <Tab>Collected</Tab>
-                    <Tab>Collections</Tab>
                     <Tab>Liked</Tab>
-                    <Tab>Drafts</Tab>
                   </TabList>
 
                   <TabPanel>
@@ -546,15 +544,7 @@ class Profile extends Component {
                   </TabPanel>
                   <TabPanel>
                     {" "}
-                    <Collection profile={true} />{" "}
-                  </TabPanel>
-                  <TabPanel>
-                    {" "}
                     <Liked profile={true} />{" "}
-                  </TabPanel>
-                  <TabPanel>
-                    {" "}
-                    <Drafts />{" "}
                   </TabPanel>
                 </>
               )}
@@ -685,7 +675,7 @@ const UserDTitle01 = styled.div`
     display: block;
     width: 100%;
     margin-top: 6px;
-    text-transform:inherit;
+    text-transform:initial;
   }
 `;
 const UserDText01 = styled.div`

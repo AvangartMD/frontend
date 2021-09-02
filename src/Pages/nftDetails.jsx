@@ -142,6 +142,7 @@ class NftDetail extends React.Component {
       isOpen1: false,
       isOpen4: false,
       isOpen9: false,
+      imgClass: "",
       bnbUSDPrice: {},
       bidDetails: {
         currentBidValue: "0",
@@ -529,7 +530,14 @@ class NftDetail extends React.Component {
                 <NFTDleftImg>
                   {ext === `image` && (
                     <Link to="#" onClick={() => this.toggle(6)}>
-                      <img src={NFTDetails?.image.original} alt="" />{" "}
+                      <img src={NFTDetails?.image.original} alt=""
+                        className={this.state.imgClass}
+                        onLoad={(image) => {
+                          if (image.target.height > image.target.width) {
+                            this.setState({ imgClass: 'vimg' })
+                          }
+                        }}
+                      />{" "}
                     </Link>
                   )}
                   {ext === "audio" && (
@@ -547,9 +555,9 @@ class NftDetail extends React.Component {
                       playing={true}
                       playIcon={<></>}
                       loop={true}
-                      // light={
-                      //   ""
-                      // }
+                    // light={
+                    //   ""
+                    // }
                     />
                   )}
                 </NFTDleftImg>
@@ -688,7 +696,7 @@ class NftDetail extends React.Component {
                       </div>
                     )}
                     {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
-                      <div className="ed-box ed-mb-block">
+                      <div className="ed-box ed-ulock ed-mb-block">
                         <p>
                           <FormattedMessage
                             id="unlock_content_label"
@@ -727,9 +735,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.isOpenForSale &&
-                    selectedNFTDetails.secondHand &&
-                    !selectedNFTDetails.isBurned ? (
+                      selectedNFTDetails.isOpenForSale &&
+                      selectedNFTDetails.secondHand &&
+                      !selectedNFTDetails.isBurned ? (
                       <button
                         className="bordered"
                         onClick={() => {
@@ -740,7 +748,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === "NOT_MINTED" &&
-                    web3Data.isLoggedIn ? (
+                      web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
@@ -1084,6 +1092,9 @@ const Edition = styled(FlexDiv)`
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0px 0px 50px;
+  ${Media.lg}{
+    justify-content: space-between;
+  }
   ${Media.md} {
     display: initial;
   }
@@ -1123,8 +1134,13 @@ const Edition = styled(FlexDiv)`
       margin-right: 0px;
       max-width: 232px;
       width: 100%;
-      ${Media.lg} {
-        max-width: 200px;
+      &.ed-ulock{
+        ${Media.lg} {
+          max-width: 200px;
+        }
+        ${Media.md} {
+          max-width: 100%;
+        }
       }
       ${Media.md} {
         max-width: 100%;

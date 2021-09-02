@@ -11,6 +11,7 @@ import { withRouter } from 'react-router';
 import Media from '../../Theme/media-breackpoint';
 
 import Redheart from '../../Assets/images/Redheart.svg';
+import Lock from "../../Assets/images/icon-set-lock.svg";
 import UserImg from '../../Assets/images/user-img.jpg';
 import LoaderGif from '../../Assets/images/loading.gif';
 import RoundIcon from '../../Assets/images/round-icon.svg';
@@ -51,6 +52,7 @@ class TopNFT extends Component {
   renderedFirstElement = (nft, likesCount, isLiked) => {
     const { loading } = this.state;
     const ext = getFileType(nft.nftId.image.compressed);
+    console.log('- nft ? ', nft)
     return (
       <>
         <div className='w60'>
@@ -113,7 +115,12 @@ class TopNFT extends Component {
           </Link>
         </div>
         <div className='w40'>
-          <NFTfbright>
+          <NFTtopbarright>
+            {nft.nftId.unlockContent && (
+              <NFTLock>
+                <img src={Lock} alt="" />
+              </NFTLock>
+            )}
             <NFTLike
               className={loading || !this.props.web3Data?.isLoggedIn ? `disabled` : ``}
               onClick={() => {
@@ -129,6 +136,8 @@ class TopNFT extends Component {
               />
               <p>{likesCount.count}</p>
             </NFTLike>
+          </NFTtopbarright>
+          <NFTfbright>
             <h3>{nft.nftId.title}</h3>
             <p>{nft.nftId.description}</p>
             {nft.nftId.collectionId?.id ? (
@@ -179,7 +188,7 @@ class TopNFT extends Component {
                       onlyHours={true}
                     />
                   </>
-                ) : nft.nftSold === nft.nftId.edition ? (
+                ) : nft.nftId.nftSold === nft.nftId.edition ? (
                   <button className='disabled' disabled>
                     <FormattedMessage id='sold' defaultMessage='Sold' />
                   </button>
@@ -344,6 +353,7 @@ const NFTfirstbox = styled(FlexDiv)`
     width: 40%;
     ${Media.md} {
       width: 100%;
+      position:relative;
     }
   }
   ${Media.md} {
@@ -429,19 +439,31 @@ const NFTfbright = styled.div`
     }
   }
 `;
-const NFTLike = styled(FlexDiv)`
-  width: 56px;
-  height: 34px;
+const NFTtopbarright = styled(FlexDiv)`
   position: absolute;
   right: 20px;
   top: 20px;
+  ${Media.lg} {
+    right: 10px;
+  }
+  ${Media.md} {
+    top: 10px;
+  }
+`;
+
+const NFTLock = styled(FlexDiv)`
+  width: 34px;
+  height: 34px;
+  box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
+  border-radius: 30px;
+  margin-right: 5px;
+`;
+const NFTLike = styled(FlexDiv)`
+  width: 56px;
+  height: 34px;
   box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 10%);
   border-radius: 30px;
   cursor: pointer;
-  &.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
   p {
     color: #ff2a44;
     font-size: 12px;
@@ -453,6 +475,10 @@ const NFTLike = styled(FlexDiv)`
     width: 15px;
     height: 15px;
     margin: 0px 4px 0px 0px;
+  }
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
   }
 `;
 

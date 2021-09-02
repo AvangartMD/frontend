@@ -13,7 +13,25 @@ import LoaderGif from "../../Assets/images/loading.gif";
 
 import { actions } from "../../actions";
 import Media from '../../Theme/media-breackpoint';
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackHorizontal={(props) => (
+        <div {...props} className="track-horizontal" />
+      )}
+      renderThumbHorizontal={(props) => (
+        <div {...props} className="thumb-horizontal" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 const NFTCard = loadable(() => import('../Cards/nftCard'))
 
 
@@ -45,45 +63,51 @@ function Created(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          <button
-            className={tabPanel === "ALL" ? "active" : ""}
-            id="all"
-            onClick={() => {
-              setTaPanel("ALL");
-            }}
+          <CustomScrollbars
+            autoHide
+            autoHideTimeout={1000}
+            style={{ width: "100%", height: "70px", position: "relative" }}
           >
-            <FormattedMessage id="all" defaultMessage="All" />
-          </button>
+            <button
+              className={tabPanel === "ALL" ? "active" : ""}
+              id="all"
+              onClick={() => {
+                setTaPanel("ALL");
+              }}
+            >
+              <FormattedMessage id="all" defaultMessage="All" />
+            </button>
 
-          <button
-            className={tabPanel === "SOLD" ? "active" : ""}
-            id="sold"
-            onClick={() => {
-              setTaPanel("SOLD");
-            }}
-          >
-            <FormattedMessage id="sold" defaultMessage="Sold" />
-          </button>
+            <button
+              className={tabPanel === "SOLD" ? "active" : ""}
+              id="sold"
+              onClick={() => {
+                setTaPanel("SOLD");
+              }}
+            >
+              <FormattedMessage id="sold" defaultMessage="Sold" />
+            </button>
 
-          <button
-            className={tabPanel === "AUCTION" ? "active" : ""}
-            id="liveauction"
-            onClick={() => {
-              setTaPanel("AUCTION");
-            }}
-          >
-            <FormattedMessage id="live_acution" defaultMessage="Live auction" />
-          </button>
+            <button
+              className={tabPanel === "AUCTION" ? "active" : ""}
+              id="liveauction"
+              onClick={() => {
+                setTaPanel("AUCTION");
+              }}
+            >
+              <FormattedMessage id="live_acution" defaultMessage="Live auction" />
+            </button>
 
-          <button
-            className={tabPanel === "BUY" ? "active" : ""}
-            id="buynow"
-            onClick={() => {
-              setTaPanel("BUY");
-            }}
-          >
-            <FormattedMessage id="buy_now" defaultMessage="Buy now" />
-          </button>
+            <button
+              className={tabPanel === "BUY" ? "active" : ""}
+              id="buynow"
+              onClick={() => {
+                setTaPanel("BUY");
+              }}
+            >
+              <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+            </button>
+          </CustomScrollbars>
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
@@ -118,14 +142,14 @@ function Created(props) {
           props.profile ?
             <CEmpty>
               <h2 className="Bec">Your <FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
-              <p className="Bec">Lorem ipsum dolor sit assssmet,<br />consectetur adipiscing elit.</p>
+              {/* <p className="Bec">Lorem ipsum dolor sit assssmet,<br />consectetur adipiscing elit.</p> */}
               {props.status ?
                 <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
                   <FormattedMessage id="create" defaultMessage="Create" />
                 </button>
                 : ``}
             </CEmpty>
-          : <CEmpty>
+            : <CEmpty>
               <h2 className="Bec"><FormattedMessage id="created" defaultMessage="Created" /> is empty</h2>
             </CEmpty>
           : ``
@@ -193,7 +217,7 @@ const LoaderBX = styled(FlexDiv)`
 
 const HomeNFTs = styled.div`
   width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
   .home-title {
     border-bottom: 1px solid #dddddd;
     text-align: left;
@@ -277,10 +301,10 @@ const FilterMBX = styled(FlexDiv)`
 const FilterLbx = styled(FlexDiv)`
   width: 100%;
   justify-content: flex-start;
-  ${Media.sm}{
-    overflow-x:auto;
-    overflow-y:hidden;
-    flex-wrap:initial;
+  .view{
+    display:flex;
+    align-items:center;
+    padding-right:20px;
   }
   button {
     display: inline-block;
