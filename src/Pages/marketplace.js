@@ -23,7 +23,25 @@ import NFTCard from '../Component/Cards/nftCard';
 import { actions } from '../actions';
 import { Context } from '../Component/wrapper';
 import Media from "./../Theme/media-breackpoint";
+import { Scrollbars } from "react-custom-scrollbars";
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackHorizontal={(props) => (
+        <div {...props} className="track-horizontal" />
+      )}
+      renderThumbHorizontal={(props) => (
+        <div {...props} className="thumb-horizontal" />
+      )}
+      renderView={(props) => <div {...props} className="view" />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 class MarketPlace extends Component {
 
   static contextType = Context;
@@ -127,6 +145,11 @@ class MarketPlace extends Component {
         <Gs.Container>
         <FilterMBX>
           <FilterLbx>
+          <CustomScrollbars 
+            autoHide
+            autoHideTimeout={1000}
+            style={{ width: "100%", height: "70px", position: "relative" }}
+          >
             <button
               className={tabPanel === 'all' ? 'active' : ''}
               id='all'
@@ -152,6 +175,7 @@ class MarketPlace extends Component {
                   );
                 })
               : ''}
+              </CustomScrollbars>
           </FilterLbx>
 
           <FilterRbx>
@@ -311,7 +335,7 @@ const LoaderBX = styled(FlexDiv)`
 
 const HomeNFTs = styled.div`
   width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
   .home-title {
     border-bottom: 1px solid #dddddd;
     text-align: left;
@@ -437,13 +461,18 @@ const FilterMBX = styled(FlexDiv)`
 
 const FilterLbx = styled(FlexDiv)`
   width: 45%;
-  justify-content: flex-start;
-  ${Media.md}{
-    overflow-x:auto;
-    overflow-y:hidden;
-    flex-wrap:initial;
-    padding:10px 0px;
+  justify-content: flex-start; 
+  .view{
+    display:flex;
+    align-items:center;
+    padding-right:20px;
   }
+  // ${Media.md}{
+  //   overflow-x:auto;
+  //   overflow-y:hidden;
+  //   flex-wrap:initial;
+  //   padding:10px 0px;
+  // }
   button {
     display: inline-block;
     padding: 10px 25px;
@@ -453,6 +482,7 @@ const FilterLbx = styled(FlexDiv)`
     border-radius: 15px;
     background-color: #eef2f7;
     margin:0px 6px 0px 0px;
+    height:37px;
     &.active {
       background-color: #00babc;
       color: #fff;
