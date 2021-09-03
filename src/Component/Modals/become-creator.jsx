@@ -117,12 +117,10 @@ class BecomeCreator extends Component {
       bio,
       category,
     } = this.state
-    var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (type) {
       let errors = { ...this.state.errors, name: false, email: false, bio: false }
       if (!name) errors.name = true
       if (!email) errors.email = true;
-       else if(!email.match(pattern)) errors.email = true;
       if (!bio) errors.bio = true
       if (!errors.name && !errors.email && !errors.bio) this.setState({ isOpen2: true })
       this.setState({ errors: errors })

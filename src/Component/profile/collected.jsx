@@ -21,7 +21,7 @@ function Collected(props) {
   const params = useParams();
 
   useEffect(() => {
-    props.getNFTs(params.id ? params.id : null);
+    if (!NFTs) props.getNFTs(params.id ? params.id : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [NFTs]);
 
