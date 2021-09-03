@@ -705,10 +705,6 @@ class NFTPage extends Component {
                           id='market_settings_lable'
                           defaultMessage='Please choose the sale status for your creation'
                         />
-                        <p className='mb-30'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </p>
                       </NFTtitle>
                       <NFTForm>
                         <div className='label-line'>
