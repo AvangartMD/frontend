@@ -11,18 +11,18 @@ import { withRouter } from 'react-router';
 import Media from '../../Theme/media-breackpoint';
 
 import Redheart from '../../Assets/images/Redheart.svg';
-import Lock from "../../Assets/images/icon-set-lock.svg";
+import Lock from '../../Assets/images/icon-set-lock.svg';
 import UserImg from '../../Assets/images/user-img.jpg';
 import LoaderGif from '../../Assets/images/loading.gif';
 import RoundIcon from '../../Assets/images/round-icon.svg';
 import redheartBorder from '../../Assets/images/redheartBorder.svg';
-import AudioCover from "../../Assets/images/audio-square.jpg";
-import VideoCover from "../../Assets/images/video-square.jpg";
+import AudioCover from '../../Assets/images/audio-square.jpg';
+import VideoCover from '../../Assets/images/video-square.jpg';
 import Gs from '../../Theme/globalStyles';
 
 import { actions } from '../../actions';
 import Timer from '../timer';
-import { getFileType } from "../../helper/functions";
+import { getFileType } from '../../helper/functions';
 import NFTCard from '../../Component/Cards/nftCard';
 
 class TopNFT extends Component {
@@ -52,13 +52,13 @@ class TopNFT extends Component {
   renderedFirstElement = (nft, likesCount, isLiked) => {
     const { loading } = this.state;
     const ext = getFileType(nft.nftId.image.compressed);
-    console.log('- nft ? ', nft)
+    // console.log('- nft ? ', nft)
     return (
       <>
         <div className='w60'>
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
-              {ext === `image` ?
+              {ext === `image` ? (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -69,13 +69,16 @@ class TopNFT extends Component {
                   exit={{ opacity: 0 }}
                   onLoad={(image) => {
                     if (image.target.width > image.target.height) {
-                      this.setState({ imageClass: 'horizontal-tnimg' })
+                      this.setState({ imageClass: 'horizontal-tnimg' });
                     } else if (image.target.height > image.target.width) {
-                      this.setState({ imageClass: 'vertical-tnimg' })
+                      this.setState({ imageClass: 'vertical-tnimg' });
                     }
                   }}
-                /> : ``}
-              {ext === 'audio' ?
+                />
+              ) : (
+                ``
+              )}
+              {ext === 'audio' ? (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -86,14 +89,16 @@ class TopNFT extends Component {
                   exit={{ opacity: 0 }}
                   onLoad={(image) => {
                     if (image.target.width > image.target.height) {
-                      this.setState({ imageClass: 'horizontal-tnimg' })
+                      this.setState({ imageClass: 'horizontal-tnimg' });
                     } else if (image.target.height > image.target.width) {
-                      this.setState({ imageClass: 'vertical-tnimg' })
+                      this.setState({ imageClass: 'vertical-tnimg' });
                     }
                   }}
                 />
-                : ``}
-              {ext === 'video' ?
+              ) : (
+                ``
+              )}
+              {ext === 'video' ? (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -104,13 +109,15 @@ class TopNFT extends Component {
                   exit={{ opacity: 0 }}
                   onLoad={(image) => {
                     if (image.target.width > image.target.height) {
-                      this.setState({ imageClass: 'horizontal-tnimg' })
+                      this.setState({ imageClass: 'horizontal-tnimg' });
                     } else if (image.target.height > image.target.width) {
-                      this.setState({ imageClass: 'vertical-tnimg' })
+                      this.setState({ imageClass: 'vertical-tnimg' });
                     }
                   }}
                 />
-                : ``}
+              ) : (
+                ``
+              )}
             </NFTfbleft>
           </Link>
         </div>
@@ -118,20 +125,20 @@ class TopNFT extends Component {
           <NFTtopbarright>
             {nft.nftId.unlockContent && (
               <NFTLock>
-                <img src={Lock} alt="" />
+                <img src={Lock} alt='' />
               </NFTLock>
             )}
             <NFTLike
-              className={loading || !this.props.web3Data?.isLoggedIn ? `disabled` : ``}
+              className={
+                loading || !this.props.web3Data?.isLoggedIn ? `disabled` : ``
+              }
               onClick={() => {
                 this.props.likeToggler(nft.nftId.id);
                 this.setState({ loading: true });
               }}
             >
               <img
-                src={
-                  isLiked.isFollowed ? Redheart : redheartBorder
-                }
+                src={isLiked.isFollowed ? Redheart : redheartBorder}
                 alt=''
               />
               <p>{likesCount.count}</p>
@@ -160,7 +167,7 @@ class TopNFT extends Component {
               <div className='ed-box'>
                 <p>
                   {nft.nftId.auctionEndDate &&
-                    nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
+                  nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
                     <FormattedMessage
                       id='current_bid'
                       defaultMessage='Current bid'
@@ -175,7 +182,7 @@ class TopNFT extends Component {
               </div>
               <div className='ed-box'>
                 {nft.nftId.auctionEndDate &&
-                  nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
+                nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
                   <>
                     <p>
                       <FormattedMessage
@@ -193,7 +200,11 @@ class TopNFT extends Component {
                     <FormattedMessage id='sold' defaultMessage='Sold' />
                   </button>
                 ) : (
-                  <button onClick={() => this.props.history.push(`/nftDetails/${nft.nftId.id}`)}>
+                  <button
+                    onClick={() =>
+                      this.props.history.push(`/nftDetails/${nft.nftId.id}`)
+                    }
+                  >
                     <FormattedMessage id='buy_now' defaultMessage='Buy now' />
                   </button>
                 )}
@@ -230,7 +241,10 @@ class TopNFT extends Component {
           <Gs.Container>
             <div className='home-title'>
               <h3>
-                <FormattedMessage id='top_nfts' defaultMessage='Top Creations' />
+                <FormattedMessage
+                  id='top_nfts'
+                  defaultMessage='Top Creations'
+                />
               </h3>
             </div>
 
@@ -353,7 +367,7 @@ const NFTfirstbox = styled(FlexDiv)`
     width: 40%;
     ${Media.md} {
       width: 100%;
-      position:relative;
+      position: relative;
     }
   }
   ${Media.md} {
@@ -371,21 +385,21 @@ const NFTfbleft = styled(FlexDiv)`
   border-bottom-left-radius: 10px;
   img {
     box-shadow: 20px 20px 40px 1px rgb(0 0 0 /30%);
-    max-width:300px;
+    max-width: 300px;
     ${Media.sm} {
       box-shadow: 0px 5px 10px 1px rgb(0 0 0 /30%);
     }
     ${Media.xs} {
       max-width: -webkit-fill-available;
     }
-    &.horizontal-tnimg{
-      max-width:500px;
+    &.horizontal-tnimg {
+      max-width: 500px;
       ${Media.xs} {
         max-width: -webkit-fill-available;
       }
     }
-    &.vertical-tnimg{
-      max-width:288px;
+    &.vertical-tnimg {
+      max-width: 288px;
       ${Media.xs} {
         max-width: -webkit-fill-available;
       }
@@ -578,7 +592,7 @@ const NFTfourbox = styled(FlexDiv)`
         -webkit-line-clamp: 2;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        min-height:44px;
+        min-height: 44px;
       }
       .edition2 {
         justify-content: flex-start;

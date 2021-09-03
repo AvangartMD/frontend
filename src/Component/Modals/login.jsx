@@ -1,24 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
-import Media from "./../../Theme/media-breackpoint";
+import React from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+import Media from './../../Theme/media-breackpoint';
 
-import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
-import WalletICO01 from "../../Assets/images/walletICO-01.png";
-import WalletICO02 from "../../Assets/images/wallet-connect.svg";
+import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
+import WalletICO01 from '../../Assets/images/walletICO-01.png';
+import WalletICO02 from '../../Assets/images/wallet-connect.svg';
 
-import LoaderGif from "../../Assets/images/loading.gif";
-import { useEffect } from "react";
-import { useState } from "react";
-import { connect } from "react-redux";
-import { web3 } from "../../web3";
-import { actions } from "../../actions";
+import LoaderGif from '../../Assets/images/loading.gif';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { web3 } from '../../web3';
+import { actions } from '../../actions';
 
 function Login(props) {
   const [loader, setLoader] = useState(false);
   const [genNonce, setGenNonce] = useState(false);
-  const [error, setError] = useState({ isError: false, msg: "" });
+  const [error, setError] = useState({ isError: false, msg: '' });
   const {
     web3Data,
     generateNonce,
@@ -34,12 +34,12 @@ function Login(props) {
   }, []);
   useEffect(() => {
     if (web3Data.error)
-      return setError({ isError: true, msg: "User denied sign in.." });
+      return setError({ isError: true, msg: 'User denied sign in..' });
     if (web3Data.accounts[0] && genNonce) {
       setLoader(true);
       if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
       else if (!web3Data.accounts[0])
-        setError({ isError: true, msg: "User denied sign in.." });
+        setError({ isError: true, msg: 'User denied sign in..' });
       else if (web3Data.accounts[0] && nonce) signatureRequest(nonce, false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,12 +69,12 @@ function Login(props) {
       if (web3Data.accounts[0]) {
         checkAuthentication(web3Data);
       } else {
-        if (typeof window.web3 !== "undefined") {
-          console.log("1");
+        if (typeof window.web3 !== 'undefined') {
+          // console.log("1");
           enableMetamask();
         } else {
           setLoader(false);
-          setError({ isError: true, msg: "Please download metamask first.!" });
+          setError({ isError: true, msg: 'Please download metamask first.!' });
         }
       }
     }
@@ -82,8 +82,8 @@ function Login(props) {
 
   const checkAuthentication = (web3Data) => {
     if (
-      !localStorage.getItem("avangartAuthToken") ||
-      web3Data.accounts[0] !== localStorage.getItem("userAddress")
+      !localStorage.getItem('avangartAuthToken') ||
+      web3Data.accounts[0] !== localStorage.getItem('userAddress')
     ) {
       signatureRequest(undefined, true);
     }
@@ -99,14 +99,14 @@ function Login(props) {
             return chainId;
           });
 
-          if (chainId !== 97 && chainId !== "0x61") {
+          if (chainId !== 97 && chainId !== '0x61') {
             // MetaMask injects the global API into window.ethereum
             try {
               if (window.web3) {
                 // check if the chain to connect to is installed
                 const changeRequest = await window.ethereum.request({
-                  method: "wallet_switchEthereumChain",
-                  params: [{ chainId: "0x61" }], // chainId must be in hexadecimal numbers
+                  method: 'wallet_switchEthereumChain',
+                  params: [{ chainId: '0x61' }], // chainId must be in hexadecimal numbers
                 });
                 const signature = await web3.eth.personal.sign(
                   web3.utils.utf8ToHex(nonce),
@@ -118,7 +118,7 @@ function Login(props) {
                 setLoader(false);
                 setError({
                   isError: true,
-                  msg: "Wrong Network, please select the correct network",
+                  msg: 'Wrong Network, please select the correct network',
                 });
               }
             } catch (error) {
@@ -128,12 +128,12 @@ function Login(props) {
               if (error.code === 4902) {
                 try {
                   await window.ethereum.request({
-                    method: "wallet_addEthereumChain",
+                    method: 'wallet_addEthereumChain',
                     params: [
                       {
-                        chainId: "0x61",
+                        chainId: '0x61',
                         rpcUrl:
-                          "https://data-seed-prebsc-1-s1.binance.org:8545/",
+                          'https://data-seed-prebsc-1-s1.binance.org:8545/',
                       },
                     ],
                   });
@@ -167,7 +167,7 @@ function Login(props) {
 
   const refreshStates = () => {
     localStorage.clear();
-    setError({ isError: false, msg: "" });
+    setError({ isError: false, msg: '' });
     setLoader(false);
     toggle(4);
     props.web3Logout();
@@ -178,12 +178,12 @@ function Login(props) {
       <BlackWrap>
         <WhiteBX01>
           <CloseBTN
-            className="ani-1"
+            className='ani-1'
             onClick={() => {
               refreshStates();
             }}
           >
-            <img src={CloseBTN01} alt="" />
+            <img src={CloseBTN01} alt='' />
           </CloseBTN>
           {!error.isError ? (
             !loader ? (
@@ -191,23 +191,23 @@ function Login(props) {
                 <OnbTitle01>Connect your wallet</OnbTitle01>
                 <OnbText01>
                   <FormattedMessage
-                    id="connect_wallet"
-                    defaultMessage="By connecting your wallet,
-                      you agree to our {termLink} and our {privacyLink}."
+                    id='connect_wallet'
+                    defaultMessage='By connecting your wallet,
+                      you agree to our {termLink} and our {privacyLink}.'
                     values={{
                       termLink: (
-                        <NavLink to="/legal">
+                        <NavLink to='/legal'>
                           <FormattedMessage
-                            id="term_of_service"
-                            defaultMessage="Term of Service"
+                            id='term_of_service'
+                            defaultMessage='Term of Service'
                           />
                         </NavLink>
                       ),
                       privacyLink: (
-                        <NavLink to="/legal">
+                        <NavLink to='/legal'>
                           <FormattedMessage
-                            id="privacy_policy"
-                            defaultMessage="Privacy Policy"
+                            id='privacy_policy'
+                            defaultMessage='Privacy Policy'
                           />
                         </NavLink>
                       ),
@@ -217,13 +217,13 @@ function Login(props) {
                 <OnBTNBar>
                   <button onClick={() => connectToWallet()}>
                     <i>
-                      <img src={WalletICO01} alt="" />
+                      <img src={WalletICO01} alt='' />
                     </i>
                     MetaMask
                   </button>
                   <button onClick={() => connectToWallet(1)}>
                     <i>
-                      <img src={WalletICO02} alt="" />
+                      <img src={WalletICO02} alt='' />
                     </i>
                     WalletConnect
                   </button>
@@ -231,27 +231,27 @@ function Login(props) {
               </>
             ) : (
               <>
-                <OnbTitle01 className="v2">
+                <OnbTitle01 className='v2'>
                   <FormattedMessage
-                    id="follow_the_instructions"
-                    defaultMessage="Please follow the instructions on your wallet"
+                    id='follow_the_instructions'
+                    defaultMessage='Please follow the instructions on your wallet'
                   />
                 </OnbTitle01>
                 <LoaderBX>
-                  <img src={LoaderGif} alt="" />
+                  <img src={LoaderGif} alt='' />
                 </LoaderBX>
               </>
             )
           ) : (
             <>
-              <OnbTitle01 className="v2">
-                <FormattedMessage id="attention" defaultMessage="Attention.!" />
+              <OnbTitle01 className='v2'>
+                <FormattedMessage id='attention' defaultMessage='Attention.!' />
               </OnbTitle01>
-              <OnbText01 className="text-center">{error.msg}</OnbText01>
-              {error.msg === "Please download metamask first.!" ? (
+              <OnbText01 className='text-center'>{error.msg}</OnbText01>
+              {error.msg === 'Please download metamask first.!' ? (
                 <InstallBtn
-                  className="ani-1"
-                  onClick={() => window.open("https://metamask.io/", "_blank")}
+                  className='ani-1'
+                  onClick={() => window.open('https://metamask.io/', '_blank')}
                 >
                   Go to MetaMask's website
                 </InstallBtn>
@@ -401,10 +401,10 @@ const mapDipatchToProps = (dispatch) => {
       dispatch(actions.authLogin(nonce, signature)),
     authenticateUser: () => dispatch(actions.authenticateUser()),
     getUserDetails: () => dispatch(actions.getUserDetails()),
-    authLogout: () => dispatch({ type: "AUTH_LOGOUT", data: null }),
+    authLogout: () => dispatch({ type: 'AUTH_LOGOUT', data: null }),
     web3Logout: () =>
       dispatch({
-        type: "FETCH_WEB3_DATA",
+        type: 'FETCH_WEB3_DATA',
         data: { isLoggedIn: false, accounts: [] },
       }),
   };
