@@ -10,7 +10,25 @@ import { actions } from "../../actions";
 import { Context } from '../../Component/wrapper';
 import { services } from "../../services";
 import Media from "./../../Theme/media-breackpoint";
+import { Scrollbars } from 'react-custom-scrollbars';
 
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className='track-vertical' />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className='thumb-vertical' />
+      )}
+      renderView={(props) => <div {...props} className='view' />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 class BecomeCreator extends Component {
   static contextType = Context;
@@ -285,33 +303,43 @@ class BecomeCreator extends Component {
                       </p>
                       {errors.category ?
                         <p className="error-text">Please select atleast one category</p>
-                      :``}
+                        : ``}
                     </div>
-                    <CustomCheckbox1>
-                      {categories
-                        ? categories.map((category, index) => {
-                          return (
-                            <label className="checkbox-container">
-                              <img
-                                src={category.image}
-                                alt=""
-                                style={{
-                                  maxWidth: "32px",
-                                  maxHeight: "32px",
-                                }}
-                              />
-                              {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value={category.id}
-                              />
-                              <span className="checkmark"></span>
-                            </label>
-                          );
-                        })
-                        : ""}
-                    </CustomCheckbox1>
+                    <CustomScrollbars
+                      autoHide
+                      autoHideTimeout={1000}
+                      style={{
+                        width: '100%',
+                        height: '233px',
+                        position: 'relative',
+                      }}
+                    >
+                      <CustomCheckbox1>
+                        {categories
+                          ? categories.map((category, index) => {
+                            return (
+                              <label className="checkbox-container">
+                                <img
+                                  src={category.image}
+                                  alt=""
+                                  style={{
+                                    maxWidth: "32px",
+                                    maxHeight: "32px",
+                                  }}
+                                />
+                                {context.locale === 'tr' ? category.categoryName.tu : category.categoryName.en}
+                                <input
+                                  type="checkbox"
+                                  name="category"
+                                  value={category.id}
+                                />
+                                <span className="checkmark"></span>
+                              </label>
+                            );
+                          })
+                          : ""}
+                      </CustomCheckbox1>
+                    </CustomScrollbars>
                   </NFTForm>
                   <CreateItemButton>
                     <button
@@ -631,6 +659,9 @@ const BACRight = styled.div`
 
 const NFTForm = styled.div`
   position: relative;
+  // .view{
+  //   width:100%;
+  // }
   .label-line {
     margin: 0px 0px 6px;
     label {
@@ -736,7 +767,7 @@ const CreateItemButton = styled.div`
 
 const CustomCheckbox1 = styled(FlexDiv)`
   justify-content: flex-start;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   .checkbox-container {
     display: flex;
     align-items: center;
