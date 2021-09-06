@@ -168,6 +168,10 @@ const HomeBanner = styled.div`
       height:100%;
       object-fit:cover;
       min-height: 100vh;
+      margin-top:100px;
+      ${Media.md}{
+        
+      }
       &.desktop-img
       {
         ${Media.xs}{
@@ -182,6 +186,7 @@ const HomeBanner = styled.div`
       }
       ${Media.md}{
         min-height:auto;
+        margin-top:80px;
       }
     }
   }

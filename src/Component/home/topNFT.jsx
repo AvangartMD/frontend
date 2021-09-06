@@ -167,7 +167,7 @@ class TopNFT extends Component {
               <div className='ed-box'>
                 <p>
                   {nft.nftId.auctionEndDate &&
-                  nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
+                    nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
                     <FormattedMessage
                       id='current_bid'
                       defaultMessage='Current bid'
@@ -182,7 +182,7 @@ class TopNFT extends Component {
               </div>
               <div className='ed-box'>
                 {nft.nftId.auctionEndDate &&
-                nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
+                  nft.nftId.auctionEndDate > new Date().getTime() / 1000 ? (
                   <>
                     <p>
                       <FormattedMessage
@@ -428,6 +428,9 @@ const NFTfbright = styled.div`
     letter-spacing: -0.83px;
     margin: 0px 0px 10px;
     line-height: normal;
+    ${Media.xs} {
+      margin: 40px 0px 10px;
+    }
   }
   p {
     color: #000000;
