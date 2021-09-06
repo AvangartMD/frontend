@@ -218,7 +218,7 @@ class NFTPage extends Component {
       ),
       "0",
     ];
-    console.log("this obj", obj);
+    // console.log("this obj", obj);
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
@@ -414,7 +414,7 @@ class NFTPage extends Component {
     } = this.state;
     const nftObj = this.state.nftObj;
     let context = this.context;
-    console.log("bnbvbusd", this.state.bnbUSDPrice);
+    // console.log('bnbvbusd', this.state.bnbUSDPrice);
     return (
       <Gs.MainSection>
         <div style={{ minHeight: "100vh", width: "100%" }}>
