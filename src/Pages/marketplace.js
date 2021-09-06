@@ -461,7 +461,7 @@ const FilterMBX = styled(FlexDiv)`
 `;
 
 const FilterLbx = styled(FlexDiv)`
-  width: 45%;
+  width: 55%;
   justify-content: flex-start; 
   .view{
     display:flex;
@@ -495,13 +495,19 @@ const FilterLbx = styled(FlexDiv)`
       padding: 10px 19px;
     }
   }
+  ${Media.lg}{
+    width:45%;
+  }
   ${Media.md}{
     width:100%;
   }
 `;
 const FilterRbx = styled(FlexDiv)`
-  width: 55%;
+  width: 45%;
   justify-content: flex-end;
+  ${Media.lg}{
+    width:55%;
+  }
   ${Media.md}{
     width:100%;
     justify-content: space-between;
