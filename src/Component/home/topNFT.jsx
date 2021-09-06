@@ -24,6 +24,25 @@ import { actions } from '../../actions';
 import Timer from '../timer';
 import { getFileType } from '../../helper/functions';
 import NFTCard from '../../Component/Cards/nftCard';
+import { Scrollbars } from 'react-custom-scrollbars';
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      renderTrackVertical={(props) => (
+        <div {...props} className='track-vertical' />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className='thumb-vertical' />
+      )}
+      renderView={(props) => <div {...props} className='view' />}
+      autoHide
+      style={props.style}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
 
 class TopNFT extends Component {
   constructor(props) {
@@ -146,7 +165,19 @@ class TopNFT extends Component {
           </NFTtopbarright>
           <NFTfbright>
             <h3>{nft.nftId.title}</h3>
-            <p>{nft.nftId.description}</p>
+            <p>
+              <CustomScrollbars
+                autoHide
+                autoHideTimeout={1000}
+                style={{
+                  width: '100%',
+                  height: '59px',
+                  position: 'relative',
+                }}
+              >
+                {nft.nftId.description}
+              </CustomScrollbars>
+            </p>
             {nft.nftId.collectionId?.id ? (
               <Link to={`collection-detail/${nft.nftId.collectionId.id}`}>
                 See the collection <i className='fas fa-angle-right'></i>
@@ -426,7 +457,7 @@ const NFTfbright = styled.div`
     color: #000000;
     font-size: 22px;
     letter-spacing: -0.83px;
-    margin: 0px 0px 10px;
+    margin: 40px 0px 10px;
     line-height: normal;
     ${Media.xs} {
       margin: 40px 0px 10px;
