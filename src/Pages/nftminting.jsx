@@ -702,13 +702,9 @@ class NFTPage extends Component {
                       <NFTtitle id="marketplace">
                         <h4 className="mt-30">Marketplace Settings</h4>
                         <FormattedMessage
-                              id="market_settings_lable"
-                              defaultMessage="Please choose the sale status for your creation"
-                            />
-                        <p className="mb-30">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </p>
+                          id="market_settings_lable"
+                          defaultMessage="Please choose the sale status for your creation"
+                        />
                       </NFTtitle>
                       <NFTForm>
                         <div className="label-line">
@@ -999,7 +995,8 @@ class NFTPage extends Component {
                                 <CollectionBar>
                                   <p>
                                     <span>
-                                      {nftObj.edition ? nftObj.edition : 0} Editions
+                                      {nftObj.edition ? nftObj.edition : 0}{" "}
+                                      Editions
                                     </span>
                                   </p>
                                   {nftObj.collectionId?._id ? (
