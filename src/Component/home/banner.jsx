@@ -158,6 +158,7 @@ const HomeBanner = styled.div`
   overflow:hidden;
   ${Media.md}{
     min-height:auto;
+    margin-top:80px;
   }
   ${Media.xs}{
     max-height: 550px;
@@ -186,7 +187,7 @@ const HomeBanner = styled.div`
       }
       ${Media.md}{
         min-height:auto;
-        margin-top:80px;
+        margin-top:0px;
       }
     }
   }
