@@ -628,6 +628,7 @@ const HeadMBX = styled(FlexDiv)`
     box-shadow: none;
     .avangart-Logo {
       background: url(${LogoImgWhite}) no-repeat;
+      background-size: contain;
     }
     .desktop-menu a {
       color: #fff;
@@ -742,8 +743,12 @@ const Logo = styled(FlexDiv)`
   .avangart-Logo {
     background: url(${LogoImg}) no-repeat;
     background-size: contain;
-    width: 150px;
-    height: 35px;
+    width: 140px;
+    height: 52px;
+    ${Media.md} {
+      width: 100px;
+      height: 37px;
+    }
   }
 `;
 

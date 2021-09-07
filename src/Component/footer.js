@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/logoWhite.png";
+import LogoImg from "../Assets/images/logo-white-footer.png";
 
 const Language = loadable(() => import('./lang.switch'))
 const Login = loadable(() => import('./Modals/login'))
