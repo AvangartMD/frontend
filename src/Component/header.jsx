@@ -220,7 +220,7 @@ class Header extends Component {
           <HeadMBX02>
             <HeadSbx01 className="mobile-logo">
               <Logo>
-                <Link to="/" className="carny-Logo">
+                <Link to="/" className="avangart-Logo">
                   {/* <img src={LogoImg} alt="" /> */}
                 </Link>
               </Logo>
@@ -743,8 +743,8 @@ const Logo = styled(FlexDiv)`
   .avangart-Logo {
     background: url(${LogoImg}) no-repeat;
     background-size: contain;
-    width: 140px;
-    height: 52px;
+    width: 100px;
+    height: 37px;
     ${Media.md} {
       width: 100px;
       height: 37px;
