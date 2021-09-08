@@ -220,7 +220,7 @@ class Header extends Component {
           <HeadMBX02>
             <HeadSbx01 className="mobile-logo">
               <Logo>
-                <Link to="/" className="avangart-Logo">
+                <Link to="/" className="carny-Logo">
                   {/* <img src={LogoImg} alt="" /> */}
                 </Link>
               </Logo>
