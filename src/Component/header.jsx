@@ -743,8 +743,8 @@ const Logo = styled(FlexDiv)`
   .avangart-Logo {
     background: url(${LogoImg}) no-repeat;
     background-size: contain;
-    width: 140px;
-    height: 52px;
+    width: 100px;
+    height: 37px;
     ${Media.md} {
       width: 100px;
       height: 37px;
