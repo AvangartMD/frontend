@@ -7,6 +7,7 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { services } from "../../services";
+import ipfs from '../../config/ipfs';
 import { Context } from '../../Component/wrapper';
 import Media from "./../../Theme/media-breackpoint";
 import { capitalizeFirstLetter } from "../../helper/functions";
@@ -36,6 +37,7 @@ function CreateCollection(props) {
   const context = useContext(Context);
   const [collectionAdded, setCollectionAdded] = useState(false);
   const [loading, setLoader] = useState(false);
+  const [buffer, setBuffer] = useState(null);
   const [params, setParams] = useState({ name: null, description: null, logo: null, category: [] })
   const [error, setError] = useState({ name: false, description: false, logo: false, category: false })
   const msg1 = {
@@ -84,14 +86,15 @@ function CreateCollection(props) {
     const checked = checkErrors();
     if (checked) {
       setLoader(true); // start loader
-      const logoLink = await services.uploadFileOnBucket(
-        e.target.logo.files[0],
-        "collctionLogos"
-      )
+      let ipfsHash = await ipfs.add(buffer, { // get buffer IPFS hash
+        pin: true, progress: (bytes) => {
+          // console.log("File upload progress ", Math.floor(bytes * 100 / (params.logo.size)))
+        }
+      })
       const obj = {
         name: params.name,
         description: params.description,
-        logo: logoLink,
+        logo: ipfsHash.path,
         category: params.category
       }
       props.createCollection(obj); // create collection
@@ -120,10 +123,23 @@ function CreateCollection(props) {
         category.push(e.target.value);
       }
       setParams({ ...params, category: category })
+    } else if (name === "logo") {
+      let file = e.target.files[0];
+      let reader = new window.FileReader()
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = () => convertToBuffer(reader)
+      setParams({ ...params, [name]: e.target.files[0] })
     } else {
       setParams({ ...params, [name]: value })
     }
   }
+
+  const convertToBuffer = async (reader) => {
+    //file is converted to a buffer to prepare for uploading to IPFS`
+    const buffer = await Buffer.from(reader.result);
+    //set this buffer -using es6 syntax
+    setBuffer(buffer);
+  };
 
   return (
     <>

@@ -25,11 +25,12 @@ import SocialICO04 from "../Assets/images/social-icon04.svg";
 import SocialICO05 from "../Assets/images/social-icon05.svg";
 import SocialICO06 from "../Assets/images/social-icon06.svg";
 
+import ipfs from '../config/ipfs';
 import { actions } from "../actions";
 import { services } from "../services";
 import { Context } from "../Component/wrapper";
 import { expiryTime } from "../config";
-import { compressImage } from "../helper/functions";
+import { compressImage, getBufferFile, ipfsHashURL } from "../helper/functions";
 
 import Created from "../Component/profile/created";
 import Collected from "../Component/profile/collected";
@@ -72,8 +73,8 @@ class Profile extends Component {
     this.walletAddress = React.createRef();
 
     this.state = {
-      profile: { file: null, url: null },
-      cover: { file: null, url: null },
+      profile: { file: null, url: null, buffer: null },
+      cover: { file: null, url: null, buffer: null },
       profile_banner: false,
       dashboard: cookies.get("dashboard") || null,
       profileInfo: cookies.get("profileInfo") || null,
@@ -100,7 +101,7 @@ class Profile extends Component {
     this.props.getProfile(); // fetch profile
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     let { updated, dashboard, cookies, profileInfo, authData } = this.props;
     if (updated !== prevProps.updated) {
       this.props.getUserDetails(); // fetch user updated details
@@ -118,6 +119,14 @@ class Profile extends Component {
     if (profileInfo && !cookies.get("profileInfo")) {
       this.setCookie("profileInfo", profileInfo); // set profile info in cookie
     }
+
+    let { profile, cover } = this.state;
+    if (profile.buffer !== prevState.profile.buffer) {
+      this.updateProfileFile();
+    }
+    if (cover.buffer !== prevState.cover.buffer) {
+      this.updateCoverFile();
+    }
   }
 
   setCookie = (name, dashboard) => {
@@ -126,17 +135,40 @@ class Profile extends Component {
     cookies.set(name, dashboard, { path: "/", expires: expire });
   };
 
+  convertToBuffer = async (reader, cover = false) => {
+    //file is converted to a buffer to prepare for uploading to IPFS`
+    const buffer = await Buffer.from(reader.result);
+    //set this buffer -using es6 syntax
+    if (cover)
+      this.setState({ cover: { ...this.state.cover, buffer: buffer } });
+    else
+      this.setState({ profile: { ...this.state.profile, buffer: buffer } });
+  };
+
   profileFileChange = async () => {
     this.setState({ loading: true }); // start the loader
     let file = this.profileInput.current.files[0];
     let url = URL.createObjectURL(file);
-    this.setState({ profile: { url: url, file: file } });
+    this.setState({ profile: { ...this.state.profile, url: url, file: file } });
     if (file.size > 3145728) {
       // check file size
       file = await compressImage(file); // compress image
     }
-    const profile_src = await services.uploadFileOnBucket(file, "profile");
-    let userObj = { profile: profile_src };
+    let reader = new window.FileReader()
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => this.convertToBuffer(reader, false)
+  };
+
+  updateProfileFile = async () => {
+    let profile_hash = this.props.profile.profile.substring(this.props.profile.profile.lastIndexOf('/') + 1)
+    if (this.props.profile.profile) await ipfs.pin.rm(profile_hash)
+    let { profile } = this.state;
+    let ipfsHash = await ipfs.add(profile.buffer, { // get buffer IPFS hash
+      pin: true, progress: (bytes) => {
+        // console.log("File upload progress ", Math.floor(bytes * 100 / (profile.file.size)))
+      }
+    })
+    let userObj = { profile: ipfsHash.path };
     this.props.updateProfile(userObj); // update profile
   };
 
@@ -144,13 +176,26 @@ class Profile extends Component {
     this.setState({ loading: true }); // start the loader
     let file = this.profileCoverInput.current.files[0];
     let url = URL.createObjectURL(file);
-    this.setState({ cover: { url: url, file: file } });
+    this.setState({ cover: { ...this.state.cover, url: url, file: file } });
     if (file.size > 3145728) {
       // check file size
       file = await compressImage(file); // compress image
     }
-    const cover_src = await services.uploadFileOnBucket(file, "cover");
-    let userObj = { cover: cover_src };
+    let reader = new window.FileReader()
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => this.convertToBuffer(reader, true)
+  };
+
+  updateCoverFile = async () => {
+    let cover_hash = this.props.profile.cover.substring(this.props.profile.cover.lastIndexOf('/') + 1)
+    if (this.props.profile.cover) await ipfs.pin.rm(cover_hash)
+    let { cover } = this.state;
+    let ipfsHash = await ipfs.add(cover.buffer, { // get buffer IPFS hash
+      pin: true, progress: (bytes) => {
+        // console.log("File upload progress ", Math.floor(bytes * 100 / (cover.file.size)))
+      }
+    })
+    let userObj = { cover: ipfsHash.path };
     this.props.updateProfile(userObj); // update profile
   };
 
