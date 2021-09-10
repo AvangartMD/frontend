@@ -65,7 +65,9 @@ function Liked(props) {
         {NFTs?.length === 0 ?
           props.profile ?
             <CEmpty>
-              <h2 className="Bec">Your <FormattedMessage id="liked" defaultMessage="Liked" /> is empty</h2>
+              <h2 className="Bec">
+                <FormattedMessage id="your_liked_is_empty" defaultMessage="Your liked is empty" />
+              </h2>
               {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
             :
@@ -257,6 +259,9 @@ const CEmpty = styled.div`
     color:#000;
     margin:0px 0px 10px;
     font-weight:600;
+  }
+  span{
+    text-transform: lowercase;
   }
   p{ 
     font-size:16px;

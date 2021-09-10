@@ -65,9 +65,9 @@ function Collected(props) {
         {NFTs && !params.id && NFTs.length === 0 ?
           props.role !== 'creator' ?
             <CEmpty>
-              <h2 className="Bec">
+              {/* <h2 className="Bec">
                 <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
-              </h2>
+              </h2> */}
               <p className="Bec">
                 <FormattedMessage id="become_creator_label" defaultMessage="Only approved creators can mint NFTs. Apply for becoming one."
                   values={{ br: <br /> }}
@@ -78,7 +78,7 @@ function Collected(props) {
             </CEmpty>
             :
             <CEmpty>
-              <h2 className="Bec"> Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
+              <h2 className="Bec"> Your <span> <FormattedMessage id="collected" defaultMessage="Collected" /> </span> is empty</h2>
               {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
           : ``}
@@ -279,6 +279,9 @@ const CEmpty = styled.div`
     margin:0px 0px 10px;
     font-weight:600;
     text-align:center;
+  }
+  span {
+    text-transform: lowercase;
   }
   p.Bec{ 
     font-size:16px;

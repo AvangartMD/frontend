@@ -977,7 +977,7 @@ class NFTPage extends Component {
                         <p>
                           <FormattedMessage
                             id='preview_label'
-                            defaultMessage='Your NFT look like that on Marketplace'
+                            defaultMessage='Your NFT looks like that on Marketplace'
                           />
                         </p>
                       </NFTtitle>

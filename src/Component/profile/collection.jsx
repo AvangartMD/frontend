@@ -53,17 +53,14 @@ function Collection(props) {
               <CEmpty>
                 <h2>
                   Your{" "}
-                  <FormattedMessage
-                    id="collection_empty"
-                    defaultMessage="collection is empty"
-                  />
+                  <span><FormattedMessage id="collection_empty" defaultMessage="collection is empty" /></span>
                 </h2>
                 <p>
-                  <FormattedMessage
+                  {/* <FormattedMessage
                     id="start_collection_lable"
                     defaultMessage="Start building your collection by placing bids on creations."
                     values={{ br: <br /> }}
-                  />
+                  /> */}
                 </p>
                 {/* <button className="ani-1">
                   <FormattedMessage id="explore_creations" defaultMessage="Explore creations" />
@@ -227,6 +224,9 @@ const CEmpty = styled.div`
     color: #000;
     margin: 0px 0px 10px;
     font-weight: 600;
+  }
+  span {
+    text-transform: lowercase;
   }
   p {
     font-size: 16px;

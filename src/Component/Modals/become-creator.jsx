@@ -140,6 +140,7 @@ class BecomeCreator extends Component {
       if (!name) errors.name = true
       if (!email) errors.email = true;
       if (!bio) errors.bio = true
+      if (!/.+@.+\.[A-Za-z]+$/.test(email)) errors.email = true;
       if (!errors.name && !errors.email && !errors.bio) this.setState({ isOpen2: true })
       this.setState({ errors: errors })
     } else {

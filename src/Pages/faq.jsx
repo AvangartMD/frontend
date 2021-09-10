@@ -81,7 +81,7 @@ class Faq extends Component {
       <Gs.MainSection>
         <FaqContainer>
           <Faqtitle>
-            <h2>Frequently Asked Questions</h2>
+            <h2><FormattedMessage id="faq_label" defaultMessage="Frequently Asked Questions" /></h2>
 
             <FilterLbx>
               <CustomScrollbars
@@ -95,27 +95,27 @@ class Faq extends Component {
                 </button>
                 <button className={tabPanel === 1 ? `active` : ``}
                   onClick={() => this.setState({ tabPanel: 1 })}>
-                  Getting Started
+                  <FormattedMessage id="getting_started" defaultMessage="Getting Started" />
                 </button>
                 <button className={tabPanel === 2 ? `active` : ``}
                   onClick={() => this.setState({ tabPanel: 2 })}>
-                  Wallet Usage
+                  <FormattedMessage id="wallet_usage" defaultMessage="Wallet Usage" />
                 </button>
                 <button className={tabPanel === 3 ? `active` : ``}
                   onClick={() => this.setState({ tabPanel: 3 })}>
-                  Buying NFTs
+                  <FormattedMessage id="buying_nfts" defaultMessage="Buying NFTs" />
                 </button>
                 <button className={tabPanel === 4 ? `active` : ``}
                   onClick={() => this.setState({ tabPanel: 4 })}>
-                  Creating NFTs
+                  <FormattedMessage id="creating_nfts" defaultMessage="Creating NFTs" />
                 </button>
                 <button className={tabPanel === 5 ? `active` : ``}
                   onClick={() => this.setState({ tabPanel: 5 })}>
-                  Becoming a Creator
+                  <FormattedMessage id="becoming_creator" defaultMessage="Becoming a Creator" />
                 </button>
                 <button className={tabPanel === 6 ? `active` : ``}
                   onClick={() => this.setState({ tabPanel: 6 })}>
-                  Fees & Commissions
+                  <FormattedMessage id="fees_&_commissions" defaultMessage="Fees & Commissions" />
                 </button>
               </CustomScrollbars>
             </FilterLbx>
