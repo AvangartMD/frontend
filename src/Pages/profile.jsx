@@ -27,10 +27,9 @@ import SocialICO06 from "../Assets/images/social-icon06.svg";
 
 import ipfs from '../config/ipfs';
 import { actions } from "../actions";
-import { services } from "../services";
 import { Context } from "../Component/wrapper";
 import { expiryTime } from "../config";
-import { compressImage, getBufferFile, ipfsHashURL } from "../helper/functions";
+import { compressImage } from "../helper/functions";
 
 import Created from "../Component/profile/created";
 import Collected from "../Component/profile/collected";
@@ -38,7 +37,7 @@ import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 import Drafts from "../Component/profile/drafts";
 import Media from "../Theme/media-breackpoint";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 
 function CustomScrollbars(props) {
@@ -160,8 +159,14 @@ class Profile extends Component {
   };
 
   updateProfileFile = async () => {
-    let profile_hash = this.props.profile.profile.substring(this.props.profile.profile.lastIndexOf('/') + 1)
-    if (this.props.profile.profile) await ipfs.pin.rm(profile_hash)
+    if (this.props.profile.profile) {
+      let profile_hash = this.props.profile.profile.substring(this.props.profile.profile.lastIndexOf('/') + 1)
+      try {
+        await ipfs.pin.rm(profile_hash)
+      } catch (e) {
+        // console.log(e)
+      }
+    }
     let { profile } = this.state;
     let ipfsHash = await ipfs.add(profile.buffer, { // get buffer IPFS hash
       pin: true, progress: (bytes) => {
@@ -187,8 +192,14 @@ class Profile extends Component {
   };
 
   updateCoverFile = async () => {
-    let cover_hash = this.props.profile.cover.substring(this.props.profile.cover.lastIndexOf('/') + 1)
-    if (this.props.profile.cover) await ipfs.pin.rm(cover_hash)
+    if (this.props.profile.cover) {
+      let cover_hash = this.props.profile.cover.substring(this.props.profile.cover.lastIndexOf('/') + 1)
+      try {
+        await ipfs.pin.rm(cover_hash)
+      } catch (e) {
+        // console.log(e)
+      }
+    }
     let { cover } = this.state;
     let ipfsHash = await ipfs.add(cover.buffer, { // get buffer IPFS hash
       pin: true, progress: (bytes) => {

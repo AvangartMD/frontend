@@ -1,5 +1,4 @@
 import Compressor from "compressorjs";
-import FileExtension from "file-extension";
 import toStream from 'it-to-stream';
 import FileType from 'file-type';
 import nftABI from "../contractData/abis/nft.json";

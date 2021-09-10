@@ -21,7 +21,6 @@
     "file-extension": "^4.0.5",
     "file-type": "^16.5.3",
     "framer-motion": "^4.1.17",
-    "ipfs-api": "^26.1.2",
     "ipfs-http-client": "^52.0.3",
     "it-to-stream": "^1.0.0",
     "react": "^17.0.2",
