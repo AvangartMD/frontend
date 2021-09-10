@@ -9,6 +9,7 @@ import Gs from "../Theme/globalStyles";
 
 import { actions } from "../actions";
 import { services } from "../services";
+import ipfs from '../config/ipfs';
 import { compressImage } from "../helper/functions";
 import SuccessPopup from "../Component/Modals/sucessPopup";
 import UserImg from "../Assets/images/user-img.jpg";
@@ -25,6 +26,7 @@ class CollectionEdit extends Component {
     this.state = {
       id: this.props.match.params.id,
       collection: { name: null, file: null, description: null, logo: null, nftId: [] },
+      buffer: null,
       formChange: false,
       loading: false,
       updated: false,
@@ -43,7 +45,7 @@ class CollectionEdit extends Component {
     this.props.getCollectionDetails({ id: id }) // fetch collection details
   }
 
-  formChange = (e) => {
+  formChange = async (e) => {
     const { collection } = this.state;
     let name = e.target.name;
     let value = e.target.value;
@@ -54,6 +56,13 @@ class CollectionEdit extends Component {
         collection: { ...collection, [name]: value, 'file': file },
         formChange: true,
       });
+      if (file.size > 3145728) {
+        // check file size
+        file = await compressImage(file); // compress image
+      };
+      let reader = new window.FileReader()
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = () => this.convertToBuffer(reader)
     } else {
       this.setState({
         formChange: true,
@@ -61,6 +70,13 @@ class CollectionEdit extends Component {
       });
     }
   }
+
+  convertToBuffer = async (reader) => {
+    //file is converted to a buffer to prepare for uploading to IPFS`
+    const buffer = await Buffer.from(reader.result);
+    //set this buffer -using es6 syntax
+    this.setState({ buffer: buffer })
+  };
 
   categoryChecked = (e, id) => {
     e.preventDefault();
@@ -75,18 +91,21 @@ class CollectionEdit extends Component {
     let { file, logo, name, description, nftId } = this.state.collection;
     const { collection } = this.props;
     this.setState({ loading: true }); // start loader
+    let ipfsHash = null
     if (logo && file) {
-      if (file.size > 3145728) {
-        // check file size
-        file = await compressImage(file); // compress image
-      }
-      logo = await services.uploadFileOnBucket(file, "collections");
+      let logo_hash = collection.logo.substring(collection.logo.lastIndexOf('/') + 1)
+      if (logo_hash) await ipfs.pin.rm(logo_hash)
+      ipfsHash = await ipfs.add(this.state.buffer, { // get buffer IPFS hash
+        pin: true, progress: (bytes) => {
+          // console.log("File upload progress ", Math.floor(bytes * 100 / (file.size)))
+        }
+      })
     }
     let params = {
       'id': collection.id,
       'name': name ? name : collection.name,
       'description': description ? description : collection.description,
-      'logo': logo ? logo : collection.logo,
+      'logo': this.state.buffer ? ipfsHash.path : collection.logo,
       'nftId': nftId,
     }
     this.props.updateCollection(params); // call update collection api

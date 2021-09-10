@@ -1,7 +1,7 @@
 import axios from 'axios';
 // staging server
 export default axios.create({
-  baseURL: 'https://api.52.28.101.213.nip.io/api/v1',
+  baseURL: 'https://ipfs.52.28.101.213.nip.io/api/v1',
 });
 
 // // Local

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { HashLink as Link } from 'react-router-hash-link';
@@ -14,7 +14,7 @@ import Timer from '../timer';
 import { getFileType } from '../../helper/functions';
 import { FaPlay } from "react-icons/fa";
 
-function NFTCard({
+const NFTCard = ({
   edit = false,
   nftSold,
   name,
@@ -28,9 +28,20 @@ function NFTCard({
   auctionTime,
   userImg,
   username,
-  previewCard,
-}) {
-  const ext = getFileType(nftImg);
+  previewCard, }) => {
+
+  const [ext, setExt] = useState(null);
+
+  useEffect(() => {
+    function getExtenstion() {
+      let ext = getFileType(nftImg);
+      ext.then(function (result) {
+        setExt(result)
+      })
+    }
+    getExtenstion();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Gs.W25V2>
@@ -38,7 +49,7 @@ function NFTCard({
         <Link to={edit ? `/user/nftEdit/${nftId}` : `/nftDetails/${nftId}`}>
           <div className='NFT-home-box'>
             <NFTImgBX>
-              {ext === `image` && (
+              {ext && ext === `image` && (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -48,7 +59,7 @@ function NFTCard({
                   exit={{ opacity: 0 }}
                 />
               )}
-              {ext === 'audio' && (
+              {ext && ext === 'audio' && (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -58,7 +69,7 @@ function NFTCard({
                   exit={{ opacity: 0 }}
                 />
               )}
-              {ext === 'video' && (
+              {ext && ext === 'video' && (
                 <>
                   <VideoThumbnail videoUrl={nftImg} cors={true} />
                   <div className="video-icon"><span><FaPlay /></span></div>

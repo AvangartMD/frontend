@@ -1,8 +1,9 @@
-{ "data" : [
+{
+    "data": [
         {
             "category": 1,
-            "question": "Avangart nedir?",
-            "answer": "Avangart; sanat, celebrity ve spor gibi farklı kategorilerde alanının en iyi üreticilerini bir araya getiren bir NFT marketplace'tir. Daha fazla bilgi için \"Hakkımızda\" kısmına göz atabilirsiniz."
+            "question": "Carny nedir?",
+            "answer": "Carny; sanat, celebrity ve spor gibi farklı kategorilerde alanının en iyi üreticilerini bir araya getiren bir NFT marketplace'tir. Daha fazla bilgi için \"Hakkımızda\" kısmına göz atabilirsiniz."
         },
         {
             "category": 1,
@@ -16,33 +17,33 @@
         },
         {
             "category": 1,
-            "question": "Avangart hangi blockchain üzerinde çalışıyor?",
-            "answer": "Avangart, düşük işlem ücretleri sebebi ile Binance Smart Chain üzerinde çalışmaktadır."
+            "question": "Carny hangi blockchain üzerinde çalışıyor?",
+            "answer": "Carny, düşük işlem ücretleri sebebi ile Binance Smart Chain üzerinde çalışmaktadır."
         },
         {
             "category": 1,
-            "question": "Avangart'ı kullanmak için neye ihtiyacım var?",
-            "answer": "Avangart mobil ve masaüstü cihazlardan erişilebilen bir web servisi sunmaktadır. Servisten faydalanmak için kullanacağınız kripto cüzdana ait browser eklentisini veya uygulamayı indirmeniz yeterli olacaktır. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
+            "question": "Carny'ı kullanmak için neye ihtiyacım var?",
+            "answer": "Carny mobil ve masaüstü cihazlardan erişilebilen bir web servisi sunmaktadır. Servisten faydalanmak için kullanacağınız kripto cüzdana ait browser eklentisini veya uygulamayı indirmeniz yeterli olacaktır. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
         },
         {
             "category": 1,
             "question": "Nasıl kullanmaya başlayabilirim?",
-            "answer": "Avangart'a giriş yapmak ve kullanmaya başlamak için kripto cüzdanınızı sisteme entegre etmeniz yeterli olacaktır. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
+            "answer": "Carny'a giriş yapmak ve kullanmaya başlamak için kripto cüzdanınızı sisteme entegre etmeniz yeterli olacaktır. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
         },
         {
             "category": 2,
             "question": "Kripto cüzdan nedir?",
-            "answer": "Kripto cüzdanlar kripto varlıklarınızı güvenle saklamanızı ve transfer etmenizi sağlayan elektronik cüzdanlardır. Avangart'ta satın aldığınız NFT'leri saklamak için bir kripto cüzdan kullanmanız gerekmektedir."
+            "answer": "Kripto cüzdanlar kripto varlıklarınızı güvenle saklamanızı ve transfer etmenizi sağlayan elektronik cüzdanlardır. Carny'ta satın aldığınız NFT'leri saklamak için bir kripto cüzdan kullanmanız gerekmektedir."
         },
         {
             "category": 2,
-            "question": "Avangart'ta işlem yapabilmek için hangi kripto cüzdanları kullanabilirim?",
-            "answer": "Avangart'ta yapacağınız NFT işlemleri için MetaMask ve TrustWallet cüzdanlarınızı kullanabilirsiniz."
+            "question": "Carny'ta işlem yapabilmek için hangi kripto cüzdanları kullanabilirim?",
+            "answer": "Carny'ta yapacağınız NFT işlemleri için MetaMask ve TrustWallet cüzdanlarınızı kullanabilirsiniz."
         },
         {
             "category": 2,
-            "question": "Cüzdanımı nasıl Avangart'a bağlayabilirim?",
-            "answer": "Avangart'a giriş yapmak ve cüzdanınızı bağlamak için sağ üst köşede gördüğünüz \"Giriş Yap\" butonunu kullanabilirsiniz. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
+            "question": "Cüzdanımı nasıl Carny'a bağlayabilirim?",
+            "answer": "Carny'a giriş yapmak ve cüzdanınızı bağlamak için sağ üst köşede gördüğünüz \"Giriş Yap\" butonunu kullanabilirsiniz. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
         },
         {
             "category": 2,
@@ -51,7 +52,7 @@
         },
         {
             "category": 2,
-            "question": "Avangart'ta işlem yapabilmek için cüzdanımda hangi kripto para birimleri bulunmalı?",
+            "question": "Carny'ta işlem yapabilmek için cüzdanımda hangi kripto para birimleri bulunmalı?",
             "answer": "Şu an platformda kabul edilen tek ödeme yöntemi Binance Smart Chain'in kripto para birimi olan BNB'dir."
         },
         {
@@ -61,33 +62,33 @@
         },
         {
             "category": 2,
-            "question": "Aldığım BNB'leri nasıl Avangart'ta kullanacağım cüzdanıma aktarabilirim?",
+            "question": "Aldığım BNB'leri nasıl Carny'ta kullanacağım cüzdanıma aktarabilirim?",
             "answer": "Binance gibi kripto borsalarından aldığınız BNB'leri cüzdan adresinizi kullanarak, bugünkü geleneksel para transferi akışına benzer bir şekilde, MetaMask veya TrustWallet cüzdanınıza aktarabilirsiniz. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
         },
         {
             "category": 2,
             "question": "Kripto cüzdan kullanmam için ödemem gereken bir ücret var mı?",
-            "answer": "Avangart'ta kullanabileceğiniz kripto cüzdanlar açılış veya hesap işletim ücreti almamaktadır. Ancak yaptığınız her işlem için değişen oranlarda komisyon almak cüzdan sağlayıcılarının inisiyatifindedir."
+            "answer": "Carny'ta kullanabileceğiniz kripto cüzdanlar açılış veya hesap işletim ücreti almamaktadır. Ancak yaptığınız her işlem için değişen oranlarda komisyon almak cüzdan sağlayıcılarının inisiyatifindedir."
         },
         {
             "category": 2,
-            "question": "Avangart'ta kullandığım cüzdanımda kripto paralarım kimin kontrolünde?",
-            "answer": "Avangart'ta kullanmak üzere cüzdanlarınıza aktardığınız fonlar, kripto cüzdanınız aracılığı ile, tamamen sizin kontrolünüzdedir. Avangart hesabınızdaki kripto varlıklara erişim yetkisine sahip değildir."
+            "question": "Carny'ta kullandığım cüzdanımda kripto paralarım kimin kontrolünde?",
+            "answer": "Carny'ta kullanmak üzere cüzdanlarınıza aktardığınız fonlar, kripto cüzdanınız aracılığı ile, tamamen sizin kontrolünüzdedir. Carny hesabınızdaki kripto varlıklara erişim yetkisine sahip değildir."
         },
         {
             "category": 3,
             "question": "Nasıl NFT alabilirim?",
-            "answer": "Avangart NFT satışları için üç ayrı işlem şekli sunmaktadır. \"Hemen Al\" olarak satışa konan ürünler sabit fiyatla satın alınabilirken, \"Müzayede\" eserlerinde belirlenen süre sonunda en yüksek teklifi veren kullanıcı eseri satın almaya hak kazanmaktadır. Yalnızca ikinci el satışlarda mevcut olan \"Tekliflere Açık\" fonksiyonu ile alıcılar fiyatı önceden belirlenmemiş eserler için teklif verip, teklifin kabul edilmesi durumunda eseri satın alabilirler. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
+            "answer": "Carny NFT satışları için üç ayrı işlem şekli sunmaktadır. \"Hemen Al\" olarak satışa konan ürünler sabit fiyatla satın alınabilirken, \"Müzayede\" eserlerinde belirlenen süre sonunda en yüksek teklifi veren kullanıcı eseri satın almaya hak kazanmaktadır. Yalnızca ikinci el satışlarda mevcut olan \"Tekliflere Açık\" fonksiyonu ile alıcılar fiyatı önceden belirlenmemiş eserler için teklif verip, teklifin kabul edilmesi durumunda eseri satın alabilirler. Konuyla ilgili ayrıntılı video anlatımı izlemek için \"Nasıl Kullanılır?\" kısmını ziyaret edebilirsiniz."
         },
         {
             "category": 3,
             "question": "NFT almak için herhangi bir ücret ödemem gerekir mi?",
-            "answer": "Avangart NFT alımlarında komisyon ücreti almamaktadır. Fakat platformdan bağımsız olarak blockchain ağı her işlem için küçük bir komisyon uygulamaktadır. Bu sebeple alım yaparken cüzdan bakiyenizin alacağınız NFT ile birlikte potansiyel işlem ücretlerini de kapsayacak miktarda olmasını tavsiye ederiz."
+            "answer": "Carny NFT alımlarında komsiyon ücreti almamaktadır. Fakat platformdan bağımsız olarak blockchain ağı her işlem için küçük bir komisyon uygulamaktadır. Bu sebeple alım yaparken cüzdan bakiyenizin alacağınız NFT ile birlikte potansiyel işlem ücretlerini de kapsayacak miktarda olmasını tavsiye ederiz."
         },
         {
             "category": 3,
             "question": "NFT alırken hangi ödeme yöntemlerini kullanabilirim?",
-            "answer": "Şu an Avangart'ta NFT almak için yalnızca kripto paralar ile ödeme yapabilirsiniz. Avangart ekibi kullanıcı deneyimini iyileştirmek adına alternatif ödeme yöntemleri üzerine çalışmaktadır."
+            "answer": "Şu an Carny'ta NFT almak için yalnızca kripto paralar ile ödeme yapabilirsiniz. Carny ekibi kullanıcı deneyimini iyileştirmek adına alternatif ödeme yöntemleri üzerine çalışmaktadır."
         },
         {
             "category": 3,
@@ -97,7 +98,7 @@
         {
             "category": 3,
             "question": "Aldığım NFT'ler nerede saklanıyor?",
-            "answer": "Satın aldığınız NFT'ler kripto paralarınız ile beraber kullandığınız kripto cüzdanınızda saklanır. Avangart'ın alınan NFT'lerin saklanması konusunda bir rolü bulunmamaktadır."
+            "answer": "Satın aldığınız NFT'ler kripto paralarınız ile beraber kullandığınız kripto cüzdanınızda saklanır. Carny'ın alınan NFT'lerin saklanması konusunda bir rolü bulunmamaktadır."
         },
         {
             "category": 3,
@@ -121,8 +122,8 @@
         },
         {
             "category": 4,
-            "question": "Avangart'ta kimler NFT mint edebilir? ",
-            "answer": "Avangart yalnızca platform tarafından seçilen kullanıcıların üretim yapmasına izin vermektedir."
+            "question": "Carny'ta kimler NFT mint edebilir? ",
+            "answer": "Carny yalnızca platform tarafından seçilen kullanıcıların üretim yapmasına izin vermektedir."
         },
         {
             "category": 4,
@@ -137,12 +138,12 @@
         {
             "category": 4,
             "question": "Ürettiğim NFT'leri kim saklıyor?",
-            "answer": "Ürettiğiniz NFT'ler kripto paralarınız ile beraber kullandığınız kripto cüzdanınızda saklanır. Avangart'ın alınan NFT'lerin saklanması konusunda bir rolü bulunmamaktadır."
+            "answer": "Ürettiğiniz NFT'ler kripto paralarınız ile beraber kullandığınız kripto cüzdanınızda saklanır. Carny'ın alınan NFT'lerin saklanması konusunda bir rolü bulunmamaktadır."
         },
         {
             "category": 4,
             "question": "NFT ile beraber eserimin ticari haklarını da devrediyor muyum?",
-            "answer": "Avangart ile ayrı bir sözleşmeniz bulunmaması durumunda platformda ürettiğiniz tüm NFT'ler için satılan edisyonun ticari olmayan kullanım ve gösterim haklarını devretmiş olursunuz. Aynı zamanda alıcı bahsedilen edisyon için ikinci el pazarda satış yapma hakkına da sahip olacaktır."
+            "answer": "Carny ile ayrı bir sözleşmeniz bulunmaması durumunda platformda ürettiğiniz tüm NFT'ler için satılan edisyonun ticari olmayan kullanım ve gösterim haklarını devretmiş olursunuz. Aynı zamanda alıcı bahsedilen edisyon için ikinci el pazarda satış yapma hakkına da sahip olacaktır."
         },
         {
             "category": 4,
@@ -152,12 +153,12 @@
         {
             "category": 4,
             "question": "NFT'ler için edisyon ne demektir?",
-            "answer": "Avangart'ta ürettiğiniz her NFT için bir edisyon sayısı seçebilirsiniz. Sistemde üretilen her edisyon numaralandırılmış şekilde birbirinden ayrışmaktadır. Her edisyonun değeri market tarafından ayrı ayrı belirlendiğinden farklı edisyonlar farklı fiyatlara sahip olabilir."
+            "answer": "Carny'ta ürettiğiniz her NFT için bir edisyon sayısı seçebilirsiniz. Sistemde üretilen her edisyon numaralandırılmış şekilde birbirinden ayrışmaktadır. Her edisyonun değeri market tarafından ayrı ayrı belirlendiğinden farklı edisyonlar farklı fiyatlara sahip olabilir."
         },
         {
             "category": 4,
             "question": "Bir eser için en fazla kaç edisyon üretebilirim?",
-            "answer": "Avangart her NFT için üretilebilecek edisyon sayısı konusunda üreticilere esneklik tanımaktadır. Ancak ürettiğiniz NFT'ler için edisyon sayısını optimum noktada tutmanızı tavsiye ederiz, fazla üretim NFT'lerinizin market değerini etkileyecektir."
+            "answer": "Carny her NFT için üretilebilecek edisyon sayısı konusunda üreticilere esneklik tanımaktadır. Ancak ürettiğiniz NFT'ler için edisyon sayısını optimum noktada tutmanızı tavsiye ederiz, fazla üretim NFT'lerinizin market değerini etkileyecektir."
         },
         {
             "category": 4,
@@ -178,7 +179,7 @@
         {
             "category": 4,
             "question": "Satılan NFT'lerim için ödemeyi nasıl alırım?",
-            "answer": "Sattığınız NFT'ler için işlem gerçekleştikten sonra ücretiniz kripto para olarak cüzdanınıza aktarılacaktır. Ödemeler smart contract (akıllı sözleşme) tarafından otomatik olarak işleme konmaktadır. Avangart platform ödemeler üzerinde bir kontrol veya yetkiye sahip değildir."
+            "answer": "Sattığınız NFT'ler için işlem gerçekleştikten sonra ücretiniz kripto para olarak cüzdanınıza aktarılacaktır. Ödemeler smart contract (akıllı sözleşme) tarafından otomatik olarak işleme konmaktadır. Carny platform ödemeler üzerinde bir kontrol veya yetkiye sahip değildir."
         },
         {
             "category": 4,
@@ -187,7 +188,7 @@
         },
         {
             "category": 5,
-            "question": "Avangart'ta üretici olmak için nasıl başvurabilirim?",
+            "question": "Carny'ta üretici olmak için nasıl başvurabilirim?",
             "answer": "Üretici olarak platformda yer almak için \"Üretici Başvurusu\" formunu doldurabilirsiniz. Başvurunuzun doğru değerlendirilebilmesi için formu tam olarak doldurmanız önem arz etmektedir."
         },
         {
@@ -202,8 +203,8 @@
         },
         {
             "category": 6,
-            "question": "Avangart'ı kullanmak için bir üyelik ücreti ödemem gerekir mi?",
-            "answer": "Avangart kullanıcılarından herhangi bir üyelik ücreti almamaktadır."
+            "question": "Carny'ı kullanmak için bir üyelik ücreti ödemem gerekir mi?",
+            "answer": "Carny kullanıcılarından herhangi bir üyelik ücreti almamaktadır."
         },
         {
             "category": 6,
@@ -212,13 +213,13 @@
         },
         {
             "category": 6,
-            "question": "NFT satın almak için Avangart'a bir ücret ödemem gerekir mi?",
-            "answer": "Avangart birinci veya ikinci el satış işlemlerinde alıcı için bir komisyon uygulamamaktadır."
+            "question": "NFT satın almak için Carny'a bir ücret ödemem gerekir mi?",
+            "answer": "Carny birinci veya ikinci el satış işlemlerinde alıcı için bir komisyon uygulamamaktadır."
         },
         {
             "category": 6,
             "question": "Platform ücreti haricinde ödemem gereken bir ücret veya komisyon var mı?",
-            "answer": "NFT üretmek, teklif vermek veya NFT satın almak gibi her işlem için blockchain ağına ödemeniz gereken küçük bir işlem ücreti bulunmaktadır. Bu ücretlerin belirlenmesi ve tahsili Avangart'ın kontrolü altında değildir."
+            "answer": "NFT üretmek, teklif vermek veya NFT satın almak gibi her işlem için blockchain ağına ödemeniz gereken küçük bir işlem ücreti bulunmaktadır. Bu ücretlerin belirlenmesi ve tahsili Carny'ın kontrolü altında değildir."
         }
     ]
 }

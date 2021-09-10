@@ -70,8 +70,11 @@ class TopNFT extends Component {
 
   renderedFirstElement = (nft, likesCount, isLiked) => {
     const { loading } = this.state;
-    const ext = getFileType(nft.nftId.image.compressed);
-    // console.log('- nft ? ', nft)
+    let ext = false;
+    let extension = getFileType(nft.nftId.image.compressed);
+    extension.then(function (result) {
+      ext = result;
+    })
     return (
       <>
         <div className='w60'>
