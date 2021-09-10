@@ -499,10 +499,18 @@ class Profile extends Component {
                     <Tab>
                       <FormattedMessage id="created" defaultMessage="Created" />
                     </Tab>
-                    <Tab>Collected</Tab>
-                    <Tab>Collections</Tab>
-                    <Tab>Liked</Tab>
-                    <Tab>Drafts</Tab>
+                    <Tab>
+                      <FormattedMessage id="collected" defaultMessage="Collected" />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id="collections" defaultMessage="Collections" />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id="liked" defaultMessage="Liked" />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                    </Tab>
                   </TabList>
 
                   <TabPanel>
@@ -534,8 +542,8 @@ class Profile extends Component {
               ) : (
                 <>
                   <TabList>
-                    <Tab>Collected</Tab>
-                    <Tab>Liked</Tab>
+                    <Tab><FormattedMessage id="collected" defaultMessage="Collected" /></Tab>
+                    <Tab><FormattedMessage id="liked" defaultMessage="Liked" /></Tab>
                   </TabList>
 
                   <TabPanel>

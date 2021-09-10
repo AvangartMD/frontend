@@ -73,7 +73,7 @@ function NFTCard({
               </h4>
               <CollectionBar>
                 <p>
-                  {edition ? edition : 0} Editions
+                  {edition ? edition : 0} <FormattedMessage id='editions' defaultMessage='Editions' />
                   {/* {nftSold} <span>of {edition ? edition : 0}</span> */}
                 </p>
                 {collectionId ? (

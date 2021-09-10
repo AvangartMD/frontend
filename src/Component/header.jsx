@@ -566,7 +566,7 @@ class Header extends Component {
                               alt=""
                             />
                           </i>{" "}
-                          View your profile{" "}
+                            <FormattedMessage id="view_your_profile" defaultMessage="View your profile" />
                           <span>
                             {" "}
                             <img src={RightArrow} alt="" />
@@ -581,7 +581,7 @@ class Header extends Component {
                             {" "}
                             <img src={DisconnectICO} alt="" />
                           </i>
-                          Disconnect{" "}
+                          <FormattedMessage id="disconnect" defaultMessage="Disconnect" />
                           {/* <span>
                             {" "}
                             <img src={RightArrow} alt="" />

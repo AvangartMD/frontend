@@ -381,7 +381,7 @@ class CreatorProfile extends Component {
                           />{" "}
                         </Tab>
                         <Tab>
-                          <FormattedMessage id="liked" defaultMessage="Liked" />{" "}
+                          <FormattedMessage id="liked" defaultMessage="Liked" />
                         </Tab>
                       </TabList>
 
@@ -405,9 +405,17 @@ class CreatorProfile extends Component {
                   ) : (
                     <>
                       <TabList>
-                        <Tab>Collected</Tab>
-                        <Tab>Collections</Tab>
-                        <Tab>Liked</Tab>
+                        <Tab><FormattedMessage
+                            id="collected"
+                            defaultMessage="Collected"
+                          />{" "}
+                        </Tab>
+                        <Tab><FormattedMessage
+                            id="collections"
+                            defaultMessage="Collections"
+                          />{" "}
+                        </Tab>
+                        <Tab><FormattedMessage id="liked" defaultMessage="Liked" /></Tab>
                       </TabList>
 
                       <TabPanel>
