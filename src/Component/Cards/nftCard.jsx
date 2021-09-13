@@ -217,6 +217,12 @@ const NFTImgBX = styled(FlexDiv)`
   border-radius: 10px 10px 0 0;
   overflow: hidden;
   position:relative;
+  .react-thumbnail-generator{
+    width:100%;
+    canvas{
+      width:100%;
+    }
+  }
   img {
     width: 100%;
     height: 100%;
