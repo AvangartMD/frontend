@@ -94,7 +94,13 @@ class CollectionEdit extends Component {
     let ipfsHash = null
     if (logo && file) {
       let logo_hash = collection.logo.substring(collection.logo.lastIndexOf('/') + 1)
-      if (logo_hash) await ipfs.pin.rm(logo_hash)
+      if (logo_hash) {
+        try {
+          await ipfs.pin.rm(logo_hash)
+        } catch (e) {
+          // console.log(e)
+        }
+      }
       ipfsHash = await ipfs.add(this.state.buffer, { // get buffer IPFS hash
         pin: true, progress: (bytes) => {
           // console.log("File upload progress ", Math.floor(bytes * 100 / (file.size)))
