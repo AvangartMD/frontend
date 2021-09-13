@@ -205,5 +205,11 @@
   "fees_&_commissions": "Ücret & komisyonlar",
   "rank": "Sırala",
   "by_username": "Kullanıcı adına göre",
-  "by_follower": "Takipçiye görer"
+  "by_follower": "Takipçiye görer",
+  "about_us_01": "Tanıdığınız ve sevdiğiniz üreticilerden orijinal içerikler",
+  "about_us_02": "Carny seçilmiş üreticilerin orijinal içeriklerini sergilediği bir NFT pazaryeridir. Platform hem üreticilerin hem de koleksiyonerlerin daha uygun komisyonlarla işlem yapabilmesi için Binance Smart Chain altyapısını kullanmaktadır.",
+  "about_us_03": "Üreticiler için Carny",
+  "about_us_04": "Carny tüm üreticilere seçkin içeriklerle yan yana gelecekleri bir platform sunar. Üreticiler Carny’de düşük işlem ücretleri öderler ve her ikinci el satıştan %10 oranında telif ücreti kazanırlar. Ayrıca paylaştıkları içerikler merkezi olmayan blockchain depolama sistemlerinde saklanarak güvence altına alınır.",
+  "about_us_05": "Koleksiyonerler için Carny",
+  "about_us_06": "Carny’de sergilenen tüm koleksiyon ürünleri ve sanat eserleri sahipleri tarafından imzalı, orijinal ürünlerdir. Carny’de kolektörler, pek çok platformun aksine, alıcı komisyonu ödemezler. Kolektörler favori içerik üreticileri tarafından sunulan hediye içerikleri toplayabilir ve aldıkları eserleri ikinci el piyasada satışa çıkarabilirler."
 }

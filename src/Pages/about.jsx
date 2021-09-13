@@ -1,15 +1,32 @@
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import Gs from "../Theme/globalStyles";
-import { Link } from "react-router-dom";
-import Collapse from "@kunukn/react-collapse";
+import { FormattedMessage } from "react-intl";
 import Media from '../Theme/media-breackpoint';
 
-import AdBannerIMG from "../Assets/images/adbanner.jpg";
+import AboutMainBanner from "../Assets/images/about_us/about_main_banner.png";
 import NFT2 from "../Assets/images/nft1.jpg";
+import AboutFeatureENG01 from "..//Assets/images/about_us/about_feature_ENG_01.png";
+import AboutFeatureENG02 from "..//Assets/images/about_us/about_feature_ENG_02.png";
+import AboutFeatureENG03 from "..//Assets/images/about_us/about_feature_ENG_03.png";
+import AboutFeatureENG04 from "..//Assets/images/about_us/about_feature_ENG_04.png";
+import AboutFeatureENG05 from "..//Assets/images/about_us/about_feature_ENG_05.png";
+import AboutFeatureENG06 from "..//Assets/images/about_us/about_feature_ENG_06.png";
+import AboutFeatureENG07 from "..//Assets/images/about_us/about_feature_ENG_07.png";
+import AboutFeatureENG08 from "..//Assets/images/about_us/about_feature_ENG_08.png";
+
+import AboutFeatureTR01 from "..//Assets/images/about_us/about_feature_TR_01.png";
+import AboutFeatureTR02 from "..//Assets/images/about_us/about_feature_TR_02.png";
+import AboutFeatureTR03 from "..//Assets/images/about_us/about_feature_TR_03.png";
+import AboutFeatureTR04 from "..//Assets/images/about_us/about_feature_TR_04.png";
+import AboutFeatureTR05 from "..//Assets/images/about_us/about_feature_TR_05.png";
+import AboutFeatureTR06 from "..//Assets/images/about_us/about_feature_TR_06.png";
+import AboutFeatureTR07 from "..//Assets/images/about_us/about_feature_TR_07.png";
+import AboutFeatureTR08 from "..//Assets/images/about_us/about_feature_TR_08.png";
+
 
 class About extends Component {
 
@@ -29,80 +46,89 @@ class About extends Component {
   }
 
   render() {
+    let { lng } = this.props;
+    console.log('lng ? ', lng)
     return (
       <Gs.MainSection>
         <AboutMain>
-          <h1>Lorem ipsum dolor sit consectetur adipiscing elit</h1>
-          <p className="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo.</p>
+          <h1><FormattedMessage id="about_us_01" /></h1>
+          <p className="desc"><FormattedMessage id="about_us_02" /></p>
           <div className="about-banner">
-            <img src={AdBannerIMG} alt="" />
+            <img src={AboutMainBanner} alt="" />
           </div>
-          <p className="small">Aenean tincidunt nunc quis pharetra finibus. Maecenas nunc tortor, ultrices in aliquam eu, fermentum id mauris. Pellentesque finibus urna sed enim interdum, non lobortis leo pharetra. Phasellus vitae leo ut elit imperdiet placerat. Suspendisse tincidunt risus semper finibus interdum. Sed sit amet diam nec libero vestibulum feugiat quis ac lectus. Phasellus non eros aliquet, sodales arcu eu, ullamcorper sem. Maecenas quam nunc, tincidunt eget metus eget, dictum cursus mi. Cras a nunc augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
         </AboutMain>
         <Gs.Container>
           <Aboutfourpart>
-            <h3>Lorem ipsum</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. </p>
+            <h3><FormattedMessage id="about_us_03" /></h3>
+            <p><FormattedMessage id="about_us_04" /></p>
             <AboutboxImg>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG01} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR01} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG02} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR02} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG03} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR03} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG04} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR04} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
             </AboutboxImg>
           </Aboutfourpart>
           <Aboutfourpart className="mb-120">
-            <h3>Lorem ipsum</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. </p>
+            <h3><FormattedMessage id="about_us_05" /></h3>
+            <p><FormattedMessage id="about_us_06" /></p>
             <AboutboxImg>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG05} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR05} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG06} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR06} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG07} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR07} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
               <Gs.W25V2>
                 <Gs.TenpxGutter>
                   <div className="ab-img-outer">
-                    <img src={NFT2} alt="" />
+                    {lng === 'en' && <img src={AboutFeatureENG08} alt="" />}
+                    {lng === 'tr' && <img src={AboutFeatureTR08} alt="" /> }
                   </div>
                 </Gs.TenpxGutter>
               </Gs.W25V2>
@@ -219,4 +245,9 @@ Gs.TenpxGutter = styled(Gs.TenpxGutter)`
   }
 `;
 
-export default About;
+const mapStateToProps = (state) => {
+  return {
+    lng: state.fetchLanguage,
+  };
+};
+export default connect(mapStateToProps, null)(About);

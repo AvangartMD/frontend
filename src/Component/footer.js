@@ -96,10 +96,10 @@ function Footer(props) {
             </NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="">Instagram</NavLink>
-            <NavLink to="">Twitter</NavLink>
-            <NavLink to="">Discord</NavLink>
-            <NavLink to="blog-list"><FormattedMessage
+            <NavLink to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</NavLink>
+            <NavLink to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</NavLink>
+            <NavLink to={{ pathname: "https://discordapp.com/users/carny.io/" }} target="_blank">Discord</NavLink>
+            <NavLink to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"><FormattedMessage
                 id="blog"
                 defaultMessage="Blog"
               /></NavLink>
@@ -112,11 +112,18 @@ function Footer(props) {
             <NavLink to="/faq"><FormattedMessage
                 id="faq"
                 defaultMessage="FAQ"
-              /></NavLink>
-            <NavLink to=""><FormattedMessage
+            /></NavLink>
+            <a href="mailto:admin@carny.io">
+              <FormattedMessage
                 id="support"
                 defaultMessage="Support"
-              /></NavLink>
+              />
+            </a>
+            {/* <NavLink to="">
+              <FormattedMessage
+                id="support"
+                defaultMessage="Support"
+              /></NavLink> */}
           </FooterSSbx02>
 
           <FooterSSbx03>
