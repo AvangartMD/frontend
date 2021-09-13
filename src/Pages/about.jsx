@@ -56,7 +56,8 @@ class About extends Component {
             <FormattedMessage id='about_us_02' />
           </p>
           <div className='about-banner'>
-            <img src={AboutMainBanner} alt='' />
+            <img src={AboutMainBanner} className="desk-img" alt='' />
+            <img src={AboutMainBanner} className="mobile-img" alt='' />
           </div>
         </AboutMain>
         <Gs.Container>
@@ -161,7 +162,7 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 const AboutMain = styled.div`
-  margin: 120px 0px 80px;
+  margin: 120px 20px 80px;
   text-align: center;
   h1 {
     font-size: 72px;
@@ -217,6 +218,19 @@ const AboutMain = styled.div`
       height: 100%;
       object-fit: cover;
       border-radius: 10px;
+      &.desk-img
+      {
+        ${Media.xs}{
+          display:none;
+        }
+      }
+      &.mobile-img
+      {
+        display:none;
+        ${Media.xs}{
+          display:block;
+        }
+      }
       ${Media.md} {
         object-fit: contain;
       }
@@ -233,7 +247,7 @@ const AboutMain = styled.div`
     }
   }
   ${Media.sm} {
-    margin: 60px 10px 50px;
+    margin: 60px 20px 50px;
   }
 `;
 

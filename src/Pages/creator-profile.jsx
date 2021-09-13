@@ -406,14 +406,14 @@ class CreatorProfile extends Component {
                     <>
                       <TabList>
                         <Tab><FormattedMessage
-                            id="collected"
-                            defaultMessage="Collected"
-                          />{" "}
+                          id="collected"
+                          defaultMessage="Collected"
+                        />{" "}
                         </Tab>
                         <Tab><FormattedMessage
-                            id="collections"
-                            defaultMessage="Collections"
-                          />{" "}
+                          id="collections"
+                          defaultMessage="Collections"
+                        />{" "}
                         </Tab>
                         <Tab><FormattedMessage id="liked" defaultMessage="Liked" /></Tab>
                       </TabList>
@@ -461,10 +461,11 @@ const ProMBannerBX = styled(FlexDiv)`
   background-position: 50% 50%;
   position: relative;
   ${Media.md} {
-    margin-bottom: 180px;
+    margin-bottom: 250px;
+    height:180px;
   }
   ${Media.sm} {
-    margin-bottom: 450px;
+    margin-bottom: 550px;
   }
 `;
 const ProMBX01 = styled(FlexDiv)`
@@ -485,7 +486,7 @@ const ProMBX01 = styled(FlexDiv)`
     min-height: 200px;
   }
   ${Media.sm} {
-    margin-bottom: -500px;
+    margin-bottom: -600px;
   }
 `;
 const ProSBX01 = styled(FlexDiv)`

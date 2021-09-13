@@ -9,7 +9,7 @@ import Collapse from "@kunukn/react-collapse";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/logo.png";
+import LogoImg from "../Assets/images/logo.svg";
 import NotifiIcon from "../Assets/images/notification.svg";
 import UserIcon from "../Assets/images/user-img.jpg";
 import RightArrow from "../Assets/images/rightArrow.svg";
@@ -17,7 +17,7 @@ import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import { web3, walletConnectProvider } from "../web3";
 import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
 import IconMenuClose from "../Assets/images/icon-set-close.svg";
-import LogoImgWhite from "../Assets/images/logo-white.png";
+import LogoImgWhite from "../Assets/images/logo-white.svg";
 import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
 import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
 import NotifiIconWhite from "../Assets/images/notification-white.svg";
@@ -566,7 +566,7 @@ class Header extends Component {
                               alt=""
                             />
                           </i>{" "}
-                            <FormattedMessage id="view_your_profile" defaultMessage="View your profile" />
+                          <FormattedMessage id="view_your_profile" defaultMessage="View your profile" />
                           <span>
                             {" "}
                             <img src={RightArrow} alt="" />

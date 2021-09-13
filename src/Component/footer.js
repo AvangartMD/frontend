@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/logo-white-footer.png";
+import LogoImg from "../Assets/images/logo-white.svg";
 
 const Language = loadable(() => import('./lang.switch'))
 const Login = loadable(() => import('./Modals/login'))
@@ -46,7 +46,7 @@ function Footer(props) {
         <FooterSbx01>
           <FooterSSbx01>
             <Link to="/">
-              <img src={LogoImg} alt="" />
+              <img src={LogoImg} alt="" className="footer-logo" />
             </Link>
             <p>
               <FormattedMessage id="footer_text" />
@@ -194,6 +194,10 @@ const FooterSSbx01 = styled(FlexDiv)`
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+  img.footer-logo{
+    width:80px;
+    height:34px;
+  }
   ${Media.sm}{
     width:50%;
   }

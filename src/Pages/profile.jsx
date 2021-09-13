@@ -231,7 +231,9 @@ class Profile extends Component {
           key={index}
           src={img}
           exit={{ opacity: 0 }}
+          className="desk-img"
         />
+        <img src={AdBannerIMG} className="mobile-img" alt="" />
       </Link>
     );
   }
@@ -640,9 +642,10 @@ const ProMBannerBX = styled(FlexDiv)`
   position: relative;
   ${Media.md} {
     margin-bottom: 180px;
+    height:180px;
   }
   ${Media.sm} {
-    margin-bottom: 450px;
+    margin-bottom: 550px;
   }
 `;
 const ProMBX01 = styled(FlexDiv)`
@@ -663,7 +666,7 @@ const ProMBX01 = styled(FlexDiv)`
     min-height: 200px;
   }
   ${Media.sm} {
-    margin-bottom: -500px;
+    margin-bottom: -600px;
   }
 `;
 const ProSBX01 = styled(FlexDiv)`
@@ -1021,12 +1024,28 @@ const ADBannerMBX = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    &.desk-img
+    {
+      ${Media.xs}{
+        display:none;
+      }
+    }
+    &.mobile-img
+    {
+      display:none;
+      ${Media.xs}{
+        display:block;
+      }
+    }
   }
   ${Media.md} {
     margin: 50px 15px;
   }
   ${Media.sm} {
     margin: 0px 0px 40px;
+  }
+  ${Media.xs} {
+    height:350px;
   }
 `;
 
