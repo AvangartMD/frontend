@@ -185,25 +185,30 @@ const AdBanner = styled.div`
   height:406px;
   position:relative;
   ${Media.sm}{
-    height:400px;
+    margin: 30px 0px 60px;
+  }
+  ${Media.xs}{
+    height:auto;
   }
   a{
     img{width: 100%; height: 100%; object-fit: cover; border-radius:20px;
-      ${Media.sm}{
-        object-fit:cover;
-      }
       &.desk-img
       {
-        ${Media.sm}{
+        ${Media.xs}{
           display:none;
         }
       }
       &.mobile-img
       {
         display:none;
-        ${Media.sm}{
+        ${Media.xs}{
           display:block;
         }
+      }
+      ${Media.xs}{
+        width:auto;
+        height:auto;
+        object-fit:initial;
       }
     }
   }
@@ -224,7 +229,10 @@ const AdBanner = styled.div`
       box-shadow: 2px 5px 10px 0px rgb(0 0 0 / 30%);
     }
     ${Media.sm}{
-      bottom:70px;
+      bottom:20px;
+    }
+    ${Media.sm}{
+      bottom:50px;
     }
   }
 `;
