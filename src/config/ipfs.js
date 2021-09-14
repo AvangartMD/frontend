@@ -3,6 +3,8 @@
 // const ipfs = ipfsApi('ipfs.18.192.53.115.nip.io'); // stagging IPFS server
 
 const ipfsHttpClient = require('ipfs-http-client');
-const ipfs = ipfsHttpClient.create({ url: 'https://ipfs.18.192.53.115.nip.io' });
+const ipfs = ipfsHttpClient.create({
+  url: 'https://ipfs.35.156.213.205.nip.io',
+});
 
 export default ipfs;
