@@ -216,11 +216,13 @@ class Profile extends Component {
 
   renderedProfileInfo(profile, index) {
     let context = this.context;
-    let img = "";
+    let img = "", mobImg = "";
     if (context.locale === "tr") {
       img = profile.banner.tu;
+      mobImg = profile.mobile.tu;
     } else {
       img = profile.banner.en;
+      mobImg = profile.mobile.en;
     }
     return (
       <Link to={profile.url} key={index}>
@@ -233,7 +235,7 @@ class Profile extends Component {
           exit={{ opacity: 0 }}
           className="desk-img"
         />
-        <img src={AdBannerIMG} className="mobile-img" alt="" />
+        <img src={mobImg} className="mobile-img" alt="" />
       </Link>
     );
   }
