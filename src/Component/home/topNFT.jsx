@@ -51,6 +51,7 @@ class TopNFT extends Component {
       like_fetched: false,
       loding: false,
       imageClass: '',
+      ext: null,
     };
   }
 
@@ -61,20 +62,21 @@ class TopNFT extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { likesCount } = this.props;
+  async componentDidUpdate(prevProps, prevState) {
+    const { likesCount, nfts } = this.props;
     if (likesCount !== prevProps.likesCount) {
       this.setState({ like_fetched: true, loading: false });
+    }
+    if (nfts !== prevProps.nfts) {
+      if (nfts[0]) {
+        let ext = await getFileType(nfts[0].nftId.image.compressed)
+        this.setState({ ext: ext })
+      }
     }
   }
 
   renderedFirstElement = (nft, likesCount, isLiked) => {
-    const { loading } = this.state;
-    let ext = false;
-    let extension = getFileType(nft.nftId.image.compressed);
-    extension.then(function (result) {
-      ext = result;
-    })
+    const { loading, ext } = this.state;
     return (
       <>
         <div className='w60'>
