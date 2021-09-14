@@ -433,6 +433,13 @@ class NFTPage extends Component {
             original: ipfsHash.path,
             compressed: ipfsCompHash.path,
           };
+        } else {
+          let ipfsHash = this.state.image.original.substring(this.state.image.original.lastIndexOf('/') + 1)
+          let ipfsCompHash = this.state.image.compressed.substring(this.state.image.compressed.lastIndexOf('/') + 1)
+          dataObj.image = {
+            original: ipfsHash,
+            compressed: ipfsCompHash,
+          };
         }
         this.props.updateNFT(dataObj); // update nft api called
       } else {
