@@ -243,9 +243,14 @@ class NFTPage extends Component {
     //file is converted to a buffer to prepare for uploading to IPFS`
     const buffer = await Buffer.from(reader.result);
     //set this buffer -using es6 syntax
-    if (original)
-      this.setState({ image: { ...this.state.image, original: buffer } });
-    else this.setState({ image: { ...this.state.image, compressed: buffer } });
+    this.setState({ image: { ...this.state.image, original: buffer, compressed: buffer } });
+  };
+
+  convertToCompBuffer = async (reader) => {
+    //file is converted to a buffer to prepare for uploading to IPFS`
+    const buffer = await Buffer.from(reader.result);
+    //set this buffer -using es6 syntax
+    this.setState({ image: { ...this.state.image, compressed: buffer } });
   };
 
   formchange = async (e) => {
@@ -273,9 +278,7 @@ class NFTPage extends Component {
     } else if (e.target.name === "nftFile") {
       nftObj[e.target.name] = e.target.files[0];
 
-      let reader = new window.FileReader();
-      reader.readAsArrayBuffer(e.target.files[0]);
-      reader.onloadend = () => this.convertToBuffer(reader, true);
+      this.setState({ original_size : e.target.files[0].size, compressed_size : e.target.files[0].size }) // store the file size 
 
       let fileType = e.target.files[0].type;
       if (!fileType.search("image")) this.setState({ fileType: "image" });
@@ -297,12 +300,12 @@ class NFTPage extends Component {
 
 
         let reader = new window.FileReader();
-        reader.readAsArrayBuffer(compressedNFTFile);
-        reader.onloadend = () => this.convertToBuffer(reader, false);
+        reader.readAsArrayBuffer(e.target.files[0]);
+        reader.onloadend = () => this.convertToBuffer(reader)
       } else {
         let reader = new window.FileReader();
         reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onloadend = () => this.convertToBuffer(reader, false);
+        reader.onloadend = () => this.convertToBuffer(reader)
       }
     } else {
       nftObj[e.target.name] = e.target.value;
@@ -389,18 +392,27 @@ class NFTPage extends Component {
 
       if (this.props.match.params.id) {
         if (nftFile) {
-          const ipfsHash = await ipfs.add(this.state.image.original, {
-            pin: true,
-            progress: (bytes) => {
-              // console.log("File upload progress ", Math.floor(bytes * 100 / (nftFile.size)))
-            },
-          });
-          const ipfsCompHash = await ipfs.add(this.state.image.compressed, {
-            pin: true,
-            progress: (bytes) => {
-              // console.log("File upload progress ", Math.floor(bytes * 100 / (compressedNFTFile.size)))
-            },
-          });
+          let { original_size, compressed_size } = this.state;
+          let ipfsHash, ipfsCompHash = null;
+          if (original_size !== compressed_size) {
+            ipfsHash = await ipfs.add(this.state.image.original, {
+              pin: true, progress: (bytes) => {
+                console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              }
+            })
+            ipfsCompHash = await ipfs.add(this.state.image.compressed, {
+              pin: true, progress: (bytes) => {
+                console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+              }
+            })
+          } else {
+            ipfsHash = await ipfs.add(this.state.image.original, {
+              pin: true, progress: (bytes) => {
+                console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              }
+            })
+            ipfsCompHash = ipfsHash
+          }
           dataObj.image = {
             original: ipfsHash.path,
             compressed: ipfsCompHash.path,
@@ -408,18 +420,27 @@ class NFTPage extends Component {
         }
         this.props.updateNFT(dataObj); // update nft api called
       } else {
-        const ipfsHash = await ipfs.add(this.state.image.original, {
-          pin: true,
-          progress: (bytes) => {
-            // console.log("File upload progress ", Math.floor(bytes * 100 / (nftFile.size)))
-          },
-        });
-        const ipfsCompHash = await ipfs.add(this.state.image.compressed, {
-          pin: true,
-          progress: (bytes) => {
-            // console.log("File upload progress ", Math.floor(bytes * 100 / (compressedNFTFile.size)))
-          },
-        });
+        let { original_size, compressed_size } = this.state;
+        let ipfsHash, ipfsCompHash = null;
+        if (original_size !== compressed_size) {
+          ipfsHash = await ipfs.add(this.state.image.original, {
+            pin: true, progress: (bytes) => {
+              console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+            }
+          })
+          ipfsCompHash = await ipfs.add(this.state.image.compressed, {
+            pin: true, progress: (bytes) => {
+              console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+            }
+          })
+        } else {
+          ipfsHash = await ipfs.add(this.state.image.original, {
+            pin: true, progress: (bytes) => {
+              console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+            }
+          })
+          ipfsCompHash = ipfsHash
+        }
         dataObj.image = {
           original: ipfsHash.path,
           compressed: ipfsCompHash.path,
