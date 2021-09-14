@@ -231,7 +231,7 @@ const AdBanner = styled.div`
     ${Media.sm}{
       bottom:20px;
     }
-    ${Media.sm}{
+    ${Media.xs}{
       bottom:50px;
     }
   }
