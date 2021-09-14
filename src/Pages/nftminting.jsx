@@ -222,7 +222,6 @@ class NFTPage extends Component {
         "ether"
       ),
       "0",
-      "0x0000000000000000000000000000000000000000",
     ];
     // console.log("this obj", obj);
     await this.props.nftContractInstance.methods
