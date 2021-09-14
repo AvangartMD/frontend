@@ -219,8 +219,10 @@ const NFTImgBX = styled(FlexDiv)`
   position:relative;
   .react-thumbnail-generator{
     width:100%;
+    height:253px;
     canvas{
       width:100%;
+      height:-webkit-fill-available;
     }
   }
   img {
