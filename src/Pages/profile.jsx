@@ -162,7 +162,7 @@ class Profile extends Component {
     let { profile } = this.state;
     let ipfsHash = await ipfs.add(profile.buffer, { // get buffer IPFS hash
       pin: true, progress: (bytes) => {
-        // console.log("File upload progress ", Math.floor(bytes * 100 / (profile.file.size)))
+        console.log("File upload progress ", Math.floor(bytes * 100 / (profile.file.size)))
       }
     })
     let userObj = { profile: ipfsHash.path };
@@ -187,7 +187,7 @@ class Profile extends Component {
     let { cover } = this.state;
     let ipfsHash = await ipfs.add(cover.buffer, { // get buffer IPFS hash
       pin: true, progress: (bytes) => {
-        // console.log("File upload progress ", Math.floor(bytes * 100 / (cover.file.size)))
+        console.log("File upload progress ", Math.floor(bytes * 100 / (cover.file.size)))
       }
     })
     let userObj = { cover: ipfsHash.path };
