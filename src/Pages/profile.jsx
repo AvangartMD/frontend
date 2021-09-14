@@ -25,8 +25,8 @@ import SocialICO04 from "../Assets/images/social-icon04.svg";
 import SocialICO05 from "../Assets/images/social-icon05.svg";
 import SocialICO06 from "../Assets/images/social-icon06.svg";
 
+import ipfs from '../config/ipfs';
 import { actions } from "../actions";
-import { services } from "../services";
 import { Context } from "../Component/wrapper";
 import { expiryTime } from "../config";
 import { compressImage } from "../helper/functions";
@@ -37,7 +37,7 @@ import Collection from "../Component/profile/collection";
 import Liked from "../Component/profile/liked";
 import Drafts from "../Component/profile/drafts";
 import Media from "../Theme/media-breackpoint";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 
 function CustomScrollbars(props) {
@@ -72,8 +72,8 @@ class Profile extends Component {
     this.walletAddress = React.createRef();
 
     this.state = {
-      profile: { file: null, url: null },
-      cover: { file: null, url: null },
+      profile: { file: null, url: null, buffer: null },
+      cover: { file: null, url: null, buffer: null },
       profile_banner: false,
       dashboard: cookies.get("dashboard") || null,
       profileInfo: cookies.get("profileInfo") || null,
@@ -100,7 +100,7 @@ class Profile extends Component {
     this.props.getProfile(); // fetch profile
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     let { updated, dashboard, cookies, profileInfo, authData } = this.props;
     if (updated !== prevProps.updated) {
       this.props.getUserDetails(); // fetch user updated details
@@ -118,6 +118,14 @@ class Profile extends Component {
     if (profileInfo && !cookies.get("profileInfo")) {
       this.setCookie("profileInfo", profileInfo); // set profile info in cookie
     }
+
+    let { profile, cover } = this.state;
+    if (profile.buffer !== prevState.profile.buffer) {
+      this.updateProfileFile();
+    }
+    if (cover.buffer !== prevState.cover.buffer) {
+      this.updateCoverFile();
+    }
   }
 
   setCookie = (name, dashboard) => {
@@ -126,17 +134,38 @@ class Profile extends Component {
     cookies.set(name, dashboard, { path: "/", expires: expire });
   };
 
+  convertToBuffer = async (reader, cover = false) => {
+    //file is converted to a buffer to prepare for uploading to IPFS`
+    const buffer = await Buffer.from(reader.result);
+    //set this buffer -using es6 syntax
+    if (cover)
+      this.setState({ cover: { ...this.state.cover, buffer: buffer } });
+    else
+      this.setState({ profile: { ...this.state.profile, buffer: buffer } });
+  };
+
   profileFileChange = async () => {
     this.setState({ loading: true }); // start the loader
     let file = this.profileInput.current.files[0];
     let url = URL.createObjectURL(file);
-    this.setState({ profile: { url: url, file: file } });
+    this.setState({ profile: { ...this.state.profile, url: url, file: file } });
     if (file.size > 3145728) {
       // check file size
       file = await compressImage(file); // compress image
     }
-    const profile_src = await services.uploadFileOnBucket(file, "profile");
-    let userObj = { profile: profile_src };
+    let reader = new window.FileReader()
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => this.convertToBuffer(reader, false)
+  };
+
+  updateProfileFile = async () => {
+    let { profile } = this.state;
+    let ipfsHash = await ipfs.add(profile.buffer, { // get buffer IPFS hash
+      pin: true, progress: (bytes) => {
+        // console.log("File upload progress ", Math.floor(bytes * 100 / (profile.file.size)))
+      }
+    })
+    let userObj = { profile: ipfsHash.path };
     this.props.updateProfile(userObj); // update profile
   };
 
@@ -144,13 +173,24 @@ class Profile extends Component {
     this.setState({ loading: true }); // start the loader
     let file = this.profileCoverInput.current.files[0];
     let url = URL.createObjectURL(file);
-    this.setState({ cover: { url: url, file: file } });
+    this.setState({ cover: { ...this.state.cover, url: url, file: file } });
     if (file.size > 3145728) {
       // check file size
       file = await compressImage(file); // compress image
     }
-    const cover_src = await services.uploadFileOnBucket(file, "cover");
-    let userObj = { cover: cover_src };
+    let reader = new window.FileReader()
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => this.convertToBuffer(reader, true)
+  };
+
+  updateCoverFile = async () => {
+    let { cover } = this.state;
+    let ipfsHash = await ipfs.add(cover.buffer, { // get buffer IPFS hash
+      pin: true, progress: (bytes) => {
+        // console.log("File upload progress ", Math.floor(bytes * 100 / (cover.file.size)))
+      }
+    })
+    let userObj = { cover: ipfsHash.path };
     this.props.updateProfile(userObj); // update profile
   };
 
@@ -160,11 +200,13 @@ class Profile extends Component {
 
   renderedProfileInfo(profile, index) {
     let context = this.context;
-    let img = "";
+    let img = "", mobImg = "";
     if (context.locale === "tr") {
       img = profile.banner.tu;
+      mobImg = profile.mobile.tu;
     } else {
       img = profile.banner.en;
+      mobImg = profile.mobile.en;
     }
     return (
       <Link to={profile.url} key={index}>
@@ -175,7 +217,9 @@ class Profile extends Component {
           key={index}
           src={img}
           exit={{ opacity: 0 }}
+          className="desk-img"
         />
+        <img src={mobImg} className="mobile-img" alt="" />
       </Link>
     );
   }
@@ -499,10 +543,18 @@ class Profile extends Component {
                     <Tab>
                       <FormattedMessage id="created" defaultMessage="Created" />
                     </Tab>
-                    <Tab>Collected</Tab>
-                    <Tab>Collections</Tab>
-                    <Tab>Liked</Tab>
-                    <Tab>Drafts</Tab>
+                    <Tab>
+                      <FormattedMessage id="collected" defaultMessage="Collected" />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id="collections" defaultMessage="Collections" />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id="liked" defaultMessage="Liked" />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                    </Tab>
                   </TabList>
 
                   <TabPanel>
@@ -534,8 +586,8 @@ class Profile extends Component {
               ) : (
                 <>
                   <TabList>
-                    <Tab>Collected</Tab>
-                    <Tab>Liked</Tab>
+                    <Tab><FormattedMessage id="collected" defaultMessage="Collected" /></Tab>
+                    <Tab><FormattedMessage id="liked" defaultMessage="Liked" /></Tab>
                   </TabList>
 
                   <TabPanel>
@@ -576,9 +628,10 @@ const ProMBannerBX = styled(FlexDiv)`
   position: relative;
   ${Media.md} {
     margin-bottom: 180px;
+    height:180px;
   }
   ${Media.sm} {
-    margin-bottom: 450px;
+    margin-bottom: 550px;
   }
 `;
 const ProMBX01 = styled(FlexDiv)`
@@ -599,7 +652,7 @@ const ProMBX01 = styled(FlexDiv)`
     min-height: 200px;
   }
   ${Media.sm} {
-    margin-bottom: -500px;
+    margin-bottom: -600px;
   }
 `;
 const ProSBX01 = styled(FlexDiv)`
@@ -957,6 +1010,24 @@ const ADBannerMBX = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    &.desk-img
+    {
+      ${Media.xs}{
+        display:none;
+      }
+    }
+    &.mobile-img
+    {
+      display:none;
+      ${Media.xs}{
+        display:block;
+      }
+    }
+    ${Media.xs}{
+      object-fit:initial;
+      width:auto;
+      height:auto;
+    }
   }
   ${Media.md} {
     margin: 50px 15px;

@@ -233,7 +233,7 @@ function NftOwnerActions(props) {
                     <PBtitle className='TN-title'>
                       <FormattedMessage
                         id='approve_first_time'
-                        defaultMessage='Approve Transfer'
+                        defaultMessage='Approve The Transfer'
                       />
                     </PBtitle>
                     <PBDesc className='mb-20'>
@@ -260,7 +260,7 @@ function NftOwnerActions(props) {
                     />
                   </PBtitle>
                   <PBDesc className='mb-20'>
-                    <FormattedMessage id='cancel_sale_order_label' />
+                    <FormattedMessage id='cancel_sale_order_lable' />
                   </PBDesc>
 
                   <NFTcartButtons>
@@ -268,7 +268,7 @@ function NftOwnerActions(props) {
                       className='ani-1 bor-large'
                       onClick={() => handleAction()}
                     >
-                      Cancel
+                      <FormattedMessage id='cancel_sale_order_button' />
                     </button>
                   </NFTcartButtons>
                 </>

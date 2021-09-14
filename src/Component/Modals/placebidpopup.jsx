@@ -224,10 +224,12 @@ function PABpopup(props) {
                       className="ani-1 bordered"
                       onClick={() => toggle(8)}
                     >
-                      Cancel
+                      <FormattedMessage id="cancel_button" defaultMessage="Cancel" />
                     </button>
                     <button className="ani-1" onClick={() => placeBid()}>
-                      {method === "buyNow" ? "Buy" : "Claim"}
+                        {method === "buyNow" ? <FormattedMessage id="buy_button" defaultMessage="Buy" />
+                          : <FormattedMessage id="claim_button" defaultMessage="Claim" />
+                        }
                     </button>
                   </NFTcartButtons>
                 </>

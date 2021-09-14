@@ -188,7 +188,9 @@ function Login(props) {
           {!error.isError ? (
             !loader ? (
               <>
-                <OnbTitle01>Connect your wallet</OnbTitle01>
+                <OnbTitle01>
+                  <FormattedMessage id="connect_your_wallet" defaultMessage="Connect your wallet" />
+                </OnbTitle01>
                 <OnbText01>
                   <FormattedMessage
                     id='connect_wallet'

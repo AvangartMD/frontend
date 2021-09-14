@@ -16,6 +16,7 @@ import DDdownA from "../Assets/images/dd-down-arrow.svg";
 import Auction from "../Assets/images/icon-set-auction.svg";
 import Money from "../Assets/images/icon-set-money.svg";
 import { services } from "../services";
+import ipfs from "../config/ipfs";
 import CreateCollection from "../Component/Modals/createCollection";
 import {
   compressImage,
@@ -39,6 +40,10 @@ class NFTPage extends Component {
       web3Data: {
         isLoggedIn: false,
         accounts: [],
+      },
+      image: {
+        original: null,
+        compressed: null,
       },
       nftObj: {
         title: "",
@@ -149,7 +154,7 @@ class NFTPage extends Component {
             image: NFTDetails.image,
           },
         });
-        let fileType = getFileType(NFTDetails.image.compressed);
+        const fileType = await getFileType(NFTDetails.image.compressed);
         this.setState({ fileType: fileType });
       }
     }
@@ -234,7 +239,16 @@ class NFTPage extends Component {
       });
   };
 
-  formchange(e) {
+  convertToBuffer = async (reader, original = false) => {
+    //file is converted to a buffer to prepare for uploading to IPFS`
+    const buffer = await Buffer.from(reader.result);
+    //set this buffer -using es6 syntax
+    if (original)
+      this.setState({ image: { ...this.state.image, original: buffer } });
+    else this.setState({ image: { ...this.state.image, compressed: buffer } });
+  };
+
+  formchange = async (e) => {
     const nftObj = { ...this.state.nftObj };
     if (e.target.name === "coCreatorUserName") {
       // this.setState({ suggestionVAl: e.target.value });
@@ -258,25 +272,36 @@ class NFTPage extends Component {
       // nftObj[e.target.name].push(e.target.value);
     } else if (e.target.name === "nftFile") {
       nftObj[e.target.name] = e.target.files[0];
+
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(e.target.files[0]);
+      reader.onloadend = () => this.convertToBuffer(reader, true);
+
       let fileType = e.target.files[0].type;
       if (!fileType.search("image")) this.setState({ fileType: "image" });
       if (!fileType.search("video")) this.setState({ fileType: "video" });
       if (!fileType.search("audio")) this.setState({ fileType: "audio" });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
-      // console.log(fileType, !fileType.search("image"));
       if (
         e.target.files[0].size > 3145728 &&
         !fileType.search("image") &&
         !fileType.includes("gif")
       ) {
-        // console.log("yes required");
         nftObj.compressionRequired = true;
+        let compressedNFTFile = await compressImage(e.target.files[0]);
+        let reader = new window.FileReader();
+        reader.readAsArrayBuffer(compressedNFTFile);
+        reader.onloadend = () => this.convertToBuffer(reader, false);
+      } else {
+        let reader = new window.FileReader();
+        reader.readAsArrayBuffer(e.target.files[0]);
+        reader.onloadend = () => this.convertToBuffer(reader, false);
       }
     } else {
       nftObj[e.target.name] = e.target.value;
     }
     this.setState({ nftObj });
-  }
+  };
   checkFormErrors() {
     const {
       title,
@@ -314,51 +339,21 @@ class NFTPage extends Component {
   async createNFT(e) {
     e.preventDefault();
     const checked = this.checkFormErrors();
+
     if (checked) {
       this.setState({ mintNFTStatus: "progress1" }, () => this.toggle(3));
       const { nftObj, currencyUsed, bnbUSDPrice } = this.state;
       const { nftFile, compressionRequired } = this.state.nftObj;
-      let image = nftObj.image;
       let compressedNFTFile = nftFile;
-
       if (compressionRequired) {
-        // console.log("compresses");
         compressedNFTFile = await compressImage(nftFile);
-      }
-
-      if (this.props.match.params.id) {
-        if (nftFile) {
-          await services.removeFileOnBucket(nftObj.image.compressed); // remove the previous image
-          await services.removeFileOnBucket(nftObj.image.original); // remove the previous image
-          const url = await services.uploadFileOnBucket(nftFile, "nft"); // upload the image
-          const comUrl = await services.uploadFileOnBucket(
-            compressedNFTFile,
-            "compressedNft",
-            true
-          ); // upload the image
-          image = {
-            original: url,
-            compressed: comUrl,
-          };
-        }
-      } else {
-        const url = await services.uploadFileOnBucket(nftFile, "nft"); // upload the image
-        const comUrl = await services.uploadFileOnBucket(
-          compressedNFTFile,
-          "compressedNft",
-          true
-        ); // upload the image
-        image = {
-          original: url,
-          compressed: comUrl,
-        };
       }
 
       let dataObj = {
         id: nftObj.id,
         title: nftObj.title,
+        image: nftObj.image,
         description: nftObj.description,
-        image: image,
         category: nftObj.category,
         price:
           currencyUsed === "TR"
@@ -386,8 +381,42 @@ class NFTPage extends Component {
       }
 
       if (this.props.match.params.id) {
+        if (nftFile) {
+          const ipfsHash = await ipfs.add(this.state.image.original, {
+            pin: true,
+            progress: (bytes) => {
+              // console.log("File upload progress ", Math.floor(bytes * 100 / (nftFile.size)))
+            },
+          });
+          const ipfsCompHash = await ipfs.add(this.state.image.compressed, {
+            pin: true,
+            progress: (bytes) => {
+              // console.log("File upload progress ", Math.floor(bytes * 100 / (compressedNFTFile.size)))
+            },
+          });
+          dataObj.image = {
+            original: ipfsHash.path,
+            compressed: ipfsCompHash.path,
+          };
+        }
         this.props.updateNFT(dataObj); // update nft api called
       } else {
+        const ipfsHash = await ipfs.add(this.state.image.original, {
+          pin: true,
+          progress: (bytes) => {
+            // console.log("File upload progress ", Math.floor(bytes * 100 / (nftFile.size)))
+          },
+        });
+        const ipfsCompHash = await ipfs.add(this.state.image.compressed, {
+          pin: true,
+          progress: (bytes) => {
+            // console.log("File upload progress ", Math.floor(bytes * 100 / (compressedNFTFile.size)))
+          },
+        });
+        dataObj.image = {
+          original: ipfsHash.path,
+          compressed: ipfsCompHash.path,
+        };
         this.props.addNFT(dataObj); // add new nft api called
       }
     }
@@ -947,7 +976,7 @@ class NFTPage extends Component {
                         <p>
                           <FormattedMessage
                             id="preview_label"
-                            defaultMessage="Your NFT look like that on Marketplace"
+                            defaultMessage="Your NFT looks like that on Marketplace"
                           />
                         </p>
                       </NFTtitle>

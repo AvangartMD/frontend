@@ -50,7 +50,9 @@ function Drafts(props) {
 
       {userDraftNFT?.length === 0 ? (
         <CEmpty>
-          <h2 className='Bec'>Your draft is empty</h2>
+          <h2 className="Bec">
+              <FormattedMessage id="your_draft_is_empty" defaultMessage="Your draft is empty" />
+          </h2>
           {/* <p className='Bec'>
             Lorem ipsum dolor sit amet,
             <br />

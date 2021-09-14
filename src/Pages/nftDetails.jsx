@@ -192,8 +192,9 @@ class NftDetail extends React.Component {
       );
       // console.log(NFTDetails);
       if (NFTDetails) {
+        let ext = await getFileType(NFTDetails.image.compressed);
         this.setState(
-          { NFTDetails, ext: getFileType(NFTDetails.image.compressed) },
+          { NFTDetails, ext: ext },
           () => this.getEditionNumber(NFTDetails, this.state.currentEdition)
         );
       }
@@ -557,9 +558,6 @@ class NftDetail extends React.Component {
                       playing={true}
                       playIcon={<></>}
                       loop={true}
-                      // light={
-                      //   ""
-                      // }
                     />
                   )}
                 </NFTDleftImg>
@@ -737,9 +735,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.isOpenForSale &&
-                    selectedNFTDetails.secondHand &&
-                    !selectedNFTDetails.isBurned ? (
+                      selectedNFTDetails.isOpenForSale &&
+                      selectedNFTDetails.secondHand &&
+                      !selectedNFTDetails.isBurned ? (
                       <button
                         className='bordered'
                         onClick={() => {
@@ -750,7 +748,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === 'NOT_MINTED' &&
-                    web3Data.isLoggedIn ? (
+                      web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(

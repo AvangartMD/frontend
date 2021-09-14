@@ -160,9 +160,9 @@ const HomeBanner = styled.div`
     min-height:auto;
     margin-top:80px;
   }
-  ${Media.xs}{
-    max-height: 550px;
-  }
+  // ${Media.xs}{
+  //   max-height: 550px;
+  // }
   .item {
     img {
       width: 100%;
@@ -170,9 +170,6 @@ const HomeBanner = styled.div`
       object-fit:cover;
       min-height: 100vh;
       margin-top:100px;
-      ${Media.md}{
-        
-      }
       &.desktop-img
       {
         ${Media.xs}{
@@ -197,9 +194,9 @@ const HomeBanner = styled.div`
     ${Media.md}{
       height:auto;
     }
-    ${Media.xs}{
-      max-height: 550px;
-    }
+    // ${Media.xs}{
+    //   max-height: 550px;
+    // }
   }
   .react-multiple-carousel__arrow {
     background: transparent;

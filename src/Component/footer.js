@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/logoWhite.png";
+import LogoImg from "../Assets/images/logo-white.svg";
 
 const Language = loadable(() => import('./lang.switch'))
 const Login = loadable(() => import('./Modals/login'))
@@ -46,7 +46,7 @@ function Footer(props) {
         <FooterSbx01>
           <FooterSSbx01>
             <Link to="/">
-              <img src={LogoImg} alt="" />
+              <img src={LogoImg} alt="" className="footer-logo" />
             </Link>
             <p>
               <FormattedMessage id="footer_text" />
@@ -96,10 +96,10 @@ function Footer(props) {
             </NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="">Instagram</NavLink>
-            <NavLink to="">Twitter</NavLink>
-            <NavLink to="">Discord</NavLink>
-            <NavLink to="blog-list"><FormattedMessage
+            <NavLink to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</NavLink>
+            <NavLink to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</NavLink>
+            <NavLink to={{ pathname: "https://discordapp.com/users/carny.io/" }} target="_blank">Discord</NavLink>
+            <NavLink to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"><FormattedMessage
                 id="blog"
                 defaultMessage="Blog"
               /></NavLink>
@@ -112,11 +112,18 @@ function Footer(props) {
             <NavLink to="/faq"><FormattedMessage
                 id="faq"
                 defaultMessage="FAQ"
-              /></NavLink>
-            <NavLink to=""><FormattedMessage
+            /></NavLink>
+            <a href="mailto:admin@carny.io">
+              <FormattedMessage
                 id="support"
                 defaultMessage="Support"
-              /></NavLink>
+              />
+            </a>
+            {/* <NavLink to="">
+              <FormattedMessage
+                id="support"
+                defaultMessage="Support"
+              /></NavLink> */}
           </FooterSSbx02>
 
           <FooterSSbx03>
@@ -187,6 +194,10 @@ const FooterSSbx01 = styled(FlexDiv)`
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+  img.footer-logo{
+    width:80px;
+    height:34px;
+  }
   ${Media.sm}{
     width:50%;
   }

@@ -151,7 +151,13 @@ class Creators extends Component {
 
                         <FilterRbx>
                             <FilterInputBX>
-                                <input placeholder='Search' onKeyUp={(e) => this.onSearchKeyUp(e)}></input>
+                                 <FormattedMessage id="search" defaultMessage="Search">
+                                    {placeholder=>
+                                    <input
+                                        placeholder={placeholder}
+                                        onKeyUp={(e) => this.onSearchKeyUp(e)}
+                                    />}
+                                </FormattedMessage>
                                 <SearchICO><img src={SerICON} alt="" /> </SearchICO>
                             </FilterInputBX>
                             <FilterBAR
@@ -159,11 +165,16 @@ class Creators extends Component {
                                 className={(this.state.isOpen1 ? 'active' : '')}
                                 ref={this.wrapperRef}
                             >
-                                <FilterICO><img src={FiltICON02} alt="" /></FilterICO> Rank
+                                <FilterICO><img src={FiltICON02} alt="" /></FilterICO>
+                                <FormattedMessage id="rank" defaultMessage="Rank" />
                                 <Collapse isOpen={this.state.isOpen1} className={'app__collapse collapse-css-transition  ' + (this.state.isOpen1 ? 'collapse-active' : '')}>
                                     <DDContainer>
-                                        <DDBTN01 onClick={() => { this.setRank('name') }}>by Username</DDBTN01>
-                                        <DDBTN01 onClick={() => { this.setRank('follower') }}>by Follower</DDBTN01>
+                                        <DDBTN01 onClick={() => { this.setRank('name') }}>
+                                            <FormattedMessage id='by_username' defaultMessage='by Username' />
+                                        </DDBTN01>
+                                        <DDBTN01 onClick={() => { this.setRank('follower') }}>
+                                            <FormattedMessage id='by_follower' defaultMessage='by Follower' />
+                                        </DDBTN01>
                                     </DDContainer>
                                 </Collapse>
                             </FilterBAR>

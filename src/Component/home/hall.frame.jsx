@@ -40,7 +40,12 @@ class HallOfFrame extends Component {
     const { artists, artworks, collectors } = this.props;
 
     const getPreview = (nftLink) => {
-      const ext = getFileType(nftLink);
+      let ext = false;
+      let extension = getFileType(nftLink);
+      extension.then(function (result) {
+        ext = result;
+      })
+
       return ext === `image` ? (
         <motion.img
           initial={{ opacity: 0.2 }}

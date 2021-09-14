@@ -1,9 +1,11 @@
 import Compressor from "compressorjs";
-import FileExtension from "file-extension";
+import toStream from 'it-to-stream';
+import FileType from 'file-type';
 import nftABI from "../contractData/abis/nft.json";
 import escrowABI from "../contractData/abis/escrow.json";
 import getContractAddresses from "../contractData/contractAddress/addresses";
 import { web3 } from "../web3";
+import ipfs from "../config/ipfs";
 
 export async function compressImage(image) {
   return new Promise((resolve, reject) => {
@@ -43,43 +45,10 @@ export function getContractInstance(isEscrow) {
   }
 }
 
-export function getFileType(url) {
-  const ext = FileExtension(url).toLocaleLowerCase(); // get file extension from url
-  if (
-    ext === `mp4` ||
-    ext === `mkv` ||
-    ext === `webm` ||
-    ext === `mov` ||
-    ext === `avi` ||
-    ext === `flv` ||
-    ext === `mts`
-  )
-    return `video`;
-  if (
-    ext === `avi` ||
-    ext === `mp1` ||
-    ext === `mp2` ||
-    ext === `mp3` ||
-    ext === `ogg` ||
-    ext === `ogv` ||
-    ext === `ogm` ||
-    ext === `spx` ||
-    ext === `ogx` ||
-    ext === `opus` ||
-    ext === `flac` ||
-    ext === `wav` ||
-    ext === `amr` ||
-    ext === `aif` ||
-    ext === `ape` ||
-    ext === `ac3` ||
-    ext === `m4p` ||
-    ext === `m4a` ||
-    ext === `m4b`
-  )
-    return `audio`;
-  if (ext === `png` || ext === `jpeg` || ext === `jpg` || ext === `dmg`)
-    return `image`;
-  return `image`;
+export async function getFileType(url) {
+  let ipfsHash = url.substring(url.lastIndexOf('/') + 1) // substract ipfs hash
+  const ext = await getFile(ipfsHash);
+  return ext.substring(0, ext.lastIndexOf('/'))
 }
 export function _compactAddress(address) {
   const newAddress = address;
@@ -90,4 +59,11 @@ export function _compactAddress(address) {
       newAddress.substring(newAddress.length - 10, newAddress.length)
     );
   }
+}
+
+export async function getFile(cid) {
+  const type = await FileType.fromStream(toStream(ipfs.cat(cid, {
+    length: 100 // or however many bytes you need
+  })))
+  return type.mime
 }

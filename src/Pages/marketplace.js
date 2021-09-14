@@ -200,7 +200,7 @@ class MarketPlace extends Component {
               <FilterICO>
                 <img src={FiltICON} alt='' />
               </FilterICO>{' '}
-              <FormattedMessage id="filter" defaultMessage="Filter" />
+              <FormattedMessage id="filter" defaultMessage="Filtre" />
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
