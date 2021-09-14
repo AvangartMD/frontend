@@ -159,14 +159,6 @@ class Profile extends Component {
   };
 
   updateProfileFile = async () => {
-    if (this.props.profile.profile) {
-      let profile_hash = this.props.profile.profile.substring(this.props.profile.profile.lastIndexOf('/') + 1)
-      try {
-        await ipfs.pin.rm(profile_hash)
-      } catch (e) {
-        // console.log(e)
-      }
-    }
     let { profile } = this.state;
     let ipfsHash = await ipfs.add(profile.buffer, { // get buffer IPFS hash
       pin: true, progress: (bytes) => {
@@ -192,14 +184,6 @@ class Profile extends Component {
   };
 
   updateCoverFile = async () => {
-    if (this.props.profile.cover) {
-      let cover_hash = this.props.profile.cover.substring(this.props.profile.cover.lastIndexOf('/') + 1)
-      try {
-        await ipfs.pin.rm(cover_hash)
-      } catch (e) {
-        // console.log(e)
-      }
-    }
     let { cover } = this.state;
     let ipfsHash = await ipfs.add(cover.buffer, { // get buffer IPFS hash
       pin: true, progress: (bytes) => {

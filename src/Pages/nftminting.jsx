@@ -382,21 +382,6 @@ class NFTPage extends Component {
 
       if (this.props.match.params.id) {
         if (nftFile) {
-          // unpin the previous hash
-          let original_hash = nftObj.image.original.substring(nftObj.image.original.lastIndexOf('/') + 1)
-          let compressed_hash = nftObj.image.compressed.substring(nftObj.image.compressed.lastIndexOf('/') + 1)
-          try {
-            await ipfs.pin.rm(original_hash)
-          } catch (e) {
-            // console.log(e)
-          }
-          if (original_hash !== compressed_hash) {
-            try {
-              await ipfs.pin.rm(compressed_hash)
-            } catch (e) {
-              // console.log(e)
-            }
-          }
           const ipfsHash = await ipfs.add(this.state.image.original, {
             pin: true, progress: (bytes) => {
               // console.log("File upload progress ", Math.floor(bytes * 100 / (nftFile.size)))
