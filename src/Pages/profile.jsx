@@ -1023,15 +1023,17 @@ const ADBannerMBX = styled.div`
         display:block;
       }
     }
+    ${Media.xs}{
+      object-fit:initial;
+      width:auto;
+      height:auto;
+    }
   }
   ${Media.md} {
     margin: 50px 15px;
   }
   ${Media.sm} {
     margin: 0px 0px 40px;
-  }
-  ${Media.xs} {
-    height:350px;
   }
 `;
 

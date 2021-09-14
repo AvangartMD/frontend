@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import Media from '../Theme/media-breackpoint';
 
 import AboutMainBanner from '../Assets/images/about_us/about_main_banner.png';
-import AboutMainBannerMobile from '../Assets/images/about_us/about_main_banner.png';
+import AboutMainBannerMobile from '../Assets/images/about_us/about_main_banner.jpg';
 import NFT2 from '../Assets/images/nft1.jpg';
 import AboutFeatureENG01 from '..//Assets/images/about_us/about_feature_ENG_01.png';
 import AboutFeatureENG02 from '..//Assets/images/about_us/about_feature_ENG_02.png';
@@ -232,19 +232,14 @@ const AboutMain = styled.div`
           display:block;
         }
       }
-      ${Media.md} {
-        object-fit: contain;
-      }
-      ${Media.sm} {
-        object-fit: cover;
-      }
+      
     }
     ${Media.md} {
       height: auto;
     }
     ${Media.sm} {
       margin: 0px auto 50px;
-      height: 260px;
+      // height: 260px;
     }
   }
   ${Media.sm} {

@@ -182,31 +182,31 @@ const AdBanner2 = styled.div`
   width:100%;
   overflow:hidden;
   position:relative;
-  ${Media.md}{
-    height:auto;
-  }
+  // ${Media.md}{
+  //   height:auto;
+  // }
   ${Media.sm}{
     height:486px;
   }
   a{
     margin-bottom:-4px; display:block; width:100%; height:100%;
     img{width: 100%; height: 100%; object-fit: cover;
-      ${Media.md}{
-        object-fit:contain;
-      }
+      // ${Media.md}{
+      //   object-fit:contain;
+      // }
       ${Media.sm}{
         object-fit:cover;
       }
       &.desk-img
       {
-        ${Media.sm}{
+        ${Media.xs}{
           display:none;
         }
       }
       &.mobile-img
       {
         display:none;
-        ${Media.sm}{
+        ${Media.xs}{
           display:block;
         }
       }
