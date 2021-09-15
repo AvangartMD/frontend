@@ -81,6 +81,9 @@ const WhiteWrap = styled(FlexDiv)`
     justify-content: center;
     &.hr-box {
       width: min(100vw - 50px);
+      .view{
+        align-items:center;
+      }
     }
     .view{
       display:flex;
