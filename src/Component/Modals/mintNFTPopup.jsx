@@ -79,8 +79,10 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
             <>
               <OnbTitle01 className="v2">
                 <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
-                <a href="/marketplace" >Okay</a>
               </OnbTitle01>
+              <OkayBtn>
+                <a href="/marketplace">Okay</a>
+              </OkayBtn>
             </>
           )}
 
@@ -322,6 +324,24 @@ const OnbTitle01 = styled.div`
     text-align: center;
     line-height: 28px;
   }
+`;
+
+const OkayBtn = styled.div` 
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: transparent;
+    border:1px solid #000;
+    margin:30px auto 0px;
+    padding: 13px 50px;
+    a{
+      font-size: 14px;
+      color: #000;
+      letter-spacing: -0.5px;
+    }
+    :hover {
+      background-color: #000;
+      a{color:#fff;}
+    } 
 `;
 
 const FileuploadBox = styled(FlexDiv)`
