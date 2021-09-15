@@ -336,6 +336,9 @@ const LoaderBX = styled(FlexDiv)`
 const HomeNFTs = styled.div`
   width: 100%;
   margin-top: 20px;
+  ${Media.md}{
+    margin-top: 40px;
+  }
   .home-title {
     border-bottom: 1px solid #dddddd;
     text-align: left;
@@ -458,6 +461,9 @@ const FilterMBX = styled(FlexDiv)`
   ${Media.lg}{
     max-width:100%;
   }
+  ${Media.md}{
+    margin: 40px auto 0 auto;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
@@ -511,7 +517,6 @@ const FilterRbx = styled(FlexDiv)`
   ${Media.md}{
     width:100%;
     justify-content: space-between;
-    margin-top:20px;
   }
 `;
 const FilterInputBX = styled(FlexDiv)`

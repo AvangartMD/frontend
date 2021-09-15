@@ -197,6 +197,10 @@ const FooterSSbx01 = styled(FlexDiv)`
   img.footer-logo{
     width:80px;
     height:34px;
+    ${Media.sm}{
+      width:66px;
+      height:28px;
+    }
   }
   ${Media.sm}{
     width:50%;
@@ -207,6 +211,10 @@ const FooterSSbx01 = styled(FlexDiv)`
     font-size: 12px;
     line-height: 22px;
     font-weight: 400;
+    ${Media.sm}{
+      font-size: 10px;
+      line-height: 20px;
+    }
   }
   button {
     color: #fff;
@@ -286,6 +294,9 @@ const LanBTN = styled(FlexDiv)`
     font-size: 12px;
     font-weight: 400;
     color: #fff;
+  }
+  ${Media.sm}{
+    margin-top: 32px;
   }
 `;
 const DDContainer = styled(FlexDiv)`

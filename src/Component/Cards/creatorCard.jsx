@@ -83,12 +83,14 @@ const CreatSBX01 = styled(FlexDiv)`
     }
     ${Media.xs}{
         width:295px;
-      
-      margin:0px auto 20px;
+        margin:0px auto 20px;
     }
 `
 const ImgBannerBX = styled(FlexDiv)`
- width:100%; height:100px; border-radius:10px 10px 0 0 ; overflow: hidden; 
+ width:100%; height:100px; border-radius:10px 10px 0 0 ; overflow: hidden;
+ ${Media.xs}{
+    height:116px;
+} 
  img{ width:100%; height:100%;  object-fit:cover;} 
 `
 const CreatSBX02 = styled(FlexDiv)`
@@ -116,14 +118,14 @@ const CretrText01 = styled.div`
     -webkit-box-orient: vertical;
 `
 const CretrInfoMBX = styled(FlexDiv)`
-    width:100%; padding:12px; margin:32px 0 18px 0; border:1px solid #dddddd; border-radius: 10px;
+    width:100%; max-width:225px; padding:12px; margin:32px 0 18px 0; border:1px solid #dddddd; border-radius: 10px;
 `
 const CretrInfoSBX01 = styled(FlexDiv)`
     width:33.33%; color:#8e9194; font-size:10px;
     span{ width:100%; font-weight:600; color:#000; font-size:16px; text-align:center}
 `
 const CretrBTN01 = styled.button`
-    color:#000; border:2px solid #000; display: inline-block; padding:11px 26px; border-radius:15px; font-size:14px; font-weight:600; margin-bottom:15px; 
+    color:#000; border:1px solid #000; display: inline-block; padding:11px 26px; border-radius:15px; font-size:14px; font-weight:600; margin-bottom:15px; 
 `
 
 export default CreatorCard;

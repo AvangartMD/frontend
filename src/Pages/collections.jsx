@@ -220,6 +220,9 @@ const FilterMBX = styled(FlexDiv)`
   ${Media.lg}{
     max-width:100%;
   }
+  ${Media.md}{
+    margin:40px auto 0 auto;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`
@@ -272,7 +275,6 @@ const FilterRbx = styled(FlexDiv)`
   ${Media.md}{
     width:100%;
     justify-content: flex-start;
-    margin-top:20px;
   }
 `;
 const FilterInputBX = styled(FlexDiv)`
