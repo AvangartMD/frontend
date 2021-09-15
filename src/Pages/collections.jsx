@@ -276,6 +276,7 @@ const FilterRbx = styled(FlexDiv)`
   ${Media.md}{
     width:100%;
     justify-content: flex-start;
+    margin-top:15px;
   }
 `;
 const FilterInputBX = styled(FlexDiv)`
@@ -315,7 +316,7 @@ const SearchICO = styled(FlexDiv)`
 const CollectionBoxes = styled.div`
   margin:20px -10px 120px;
   ${Media.md}{
-    margin:20px -10px 60px;
+    margin:40px -10px 60px;
   }
 `;
 

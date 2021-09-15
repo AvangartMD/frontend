@@ -556,12 +556,18 @@ const UserDTitle01 = styled.div`
   margin-top: 19px;
   margin-bottom: 18px;
   text-transform: capitalize;
+  ${Media.xs} {
+    font-size: 18px;
+  }
   span {
     font-size: 16px;
     display: block;
     width: 100%;
     margin-top: 6px;
     text-transform: initial;
+    ${Media.xs} {
+      font-size: 12px;
+    }
   }
 `;
 const UserDText01 = styled.div`
@@ -693,6 +699,9 @@ const FollowerMBX = styled(FlexDiv)`
     color: #000;
     font-size: 22px;
     display: block;
+    ${Media.xs} {
+      font-size: 20px;
+    }
   }
   ${Media.sm} {
     font-size: 14px;
@@ -724,6 +733,9 @@ const EditPrBTN = styled.div`
     font-size: 16px;
     margin: 40px auto 0px;
     width: max-content;
+  }
+  ${Media.xs} {
+    font-size: 14px;
   }
 `;
 

@@ -316,7 +316,7 @@ class NftDetail extends React.Component {
     var lowest = Number.POSITIVE_INFINITY;
     let index = 0;
     var tmp;
-    console.log("editions sold", authData);
+    // console.log("editions sold", authData);
     if (editions.length === edition || editions.length === 0)
       return this.setEditionnumber(1);
     if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
