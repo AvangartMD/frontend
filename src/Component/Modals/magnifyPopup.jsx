@@ -41,6 +41,7 @@ function Magnifypopup({ toggle, imageURL }) {
               alt=""
               onLoad={(image) => {
                 if (image.target.width >= image.target.height) {
+                  console.log("this", image.target);
                   sethrClass("hr-box");
                 } else {
                   console.log("this", image.target.width, image.target.height);

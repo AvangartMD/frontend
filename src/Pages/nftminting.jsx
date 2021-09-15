@@ -218,16 +218,16 @@ class NFTPage extends Component {
       nftObj.saleState === "BUY" ? 0 : Number(nftObj.auctionTime),
       web3.utils.toWei(
         currencyUsed === "TR"
-          ? (+nftObj.price / bnbUSDPrice.try).toString()
+          ? (+nftObj.price / bnbUSDPrice.try).toFixed(10).toString()
           : currencyUsed === "USD"
-          ? (+nftObj.price / bnbUSDPrice.usd).toString()
+          ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString()
           : nftObj.price,
         "ether"
       ),
       "0",
       "0x0000000000000000000000000000000000000000",
     ];
-    // console.log("this obj", obj);
+    console.log("this obj", obj);
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
