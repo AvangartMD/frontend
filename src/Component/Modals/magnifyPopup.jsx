@@ -40,12 +40,12 @@ function Magnifypopup({ toggle, imageURL }) {
               src={imageURL}
               alt=""
               onLoad={(image) => {
-                if (image.target.width > image.target.height) {
+                if (image.target.width >= image.target.height) {
+                  console.log("this", image.target);
                   sethrClass("hr-box");
+                } else {
+                  console.log("this", image.target.width, image.target.height);
                 }
-                //  else if (image.target.height > image.target.width) {
-                //   this.setState({ imageClass: "vertical-tnimg" });
-                // }
               }}
             />
           </CustomScrollbars>
@@ -81,14 +81,14 @@ const WhiteWrap = styled(FlexDiv)`
     justify-content: center;
     &.hr-box {
       width: min(100vw - 50px);
-      .view{
-        align-items:center;
+      .view {
+        align-items: center;
       }
     }
-    .view{
-      display:flex;
+    .view {
+      display: flex;
       // align-items:center;
-      justify-content:center;
+      justify-content: center;
     }
   }
 `;
