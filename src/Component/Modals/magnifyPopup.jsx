@@ -1,19 +1,19 @@
-import React, { Component, useState } from "react";
-import styled from "styled-components";
-import CloseBTN02 from "../../Assets/images/icon-set-exit.svg";
-import Media from "../../Theme/media-breackpoint";
-import { Scrollbars } from "react-custom-scrollbars";
+import React, { Component, useState } from 'react';
+import styled from 'styled-components';
+import CloseBTN02 from '../../Assets/images/icon-set-exit.svg';
+import Media from '../../Theme/media-breackpoint';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 function CustomScrollbars(props) {
   return (
     <Scrollbars
       renderTrackVertical={(props) => (
-        <div {...props} className="track-vertical" />
+        <div {...props} className='track-vertical' />
       )}
       renderThumbVertical={(props) => (
-        <div {...props} className="thumb-vertical" />
+        <div {...props} className='thumb-vertical' />
       )}
-      renderView={(props) => <div {...props} className="view" />}
+      renderView={(props) => <div {...props} className='view' />}
       autoHide
       style={props.style}
     >
@@ -23,28 +23,28 @@ function CustomScrollbars(props) {
 }
 
 function Magnifypopup({ toggle, imageURL }) {
-  const [hrClass, sethrClass] = useState("");
+  const [hrClass, sethrClass] = useState('');
   return (
     <>
       <WhiteWrap>
-        <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
-          <img src={CloseBTN02} alt="" />
+        <CloseBTND2 className='ani-1' onClick={() => toggle(6)}>
+          <img src={CloseBTN02} alt='' />
         </CloseBTND2>
         <div className={`vs-box  ${hrClass}`}>
           <CustomScrollbars
             autoHide
             autoHideTimeout={1000}
-            style={{ width: "100%", height: "100%", position: "relative" }}
+            style={{ width: '100%', height: '100%', position: 'relative' }}
           >
             <img
               src={imageURL}
-              alt=""
+              alt=''
               onLoad={(image) => {
                 if (image.target.width >= image.target.height) {
-                  console.log("this", image.target);
-                  sethrClass("hr-box");
+                  // console.log("this", image.target);
+                  sethrClass('hr-box');
                 } else {
-                  console.log("this", image.target.width, image.target.height);
+                  // console.log("this", image.target.width, image.target.height);
                 }
               }}
             />
