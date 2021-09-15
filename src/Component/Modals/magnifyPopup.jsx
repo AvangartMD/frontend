@@ -22,15 +22,16 @@ function CustomScrollbars(props) {
   );
 }
 
-function Magnifypopup({ toggle, imageURL }) {
-  const [hrClass, sethrClass] = useState("");
+function Magnifypopup({ toggle, imageURL, magnifyClass }) {
+  // const hrClass = imgClass == "vimg" ? "hr-box" : " ";
+  // const [hrClass, sethrClass] = useState("");
   return (
     <>
       <WhiteWrap>
         <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
-        <div className={`vs-box  ${hrClass}`}>
+        <div className={`vs-box  ${magnifyClass}`}>
           <CustomScrollbars
             autoHide
             autoHideTimeout={1000}
@@ -39,14 +40,14 @@ function Magnifypopup({ toggle, imageURL }) {
             <img
               src={imageURL}
               alt=""
-              onLoad={(image) => {
-                if (image.target.width >= image.target.height) {
-                  console.log("this", image.target);
-                  sethrClass("hr-box");
-                } else {
-                  console.log("this", image.target.width, image.target.height);
-                }
-              }}
+              // onLoad={(image) => {
+              //   console.log("this", image.target.width, image.target.height);
+
+              //   if (image.target.width > image.target.height) {
+              //     console.log("this", image.target);
+              //     sethrClass("hr-box");
+              //   }
+              // }}
             />
           </CustomScrollbars>
         </div>

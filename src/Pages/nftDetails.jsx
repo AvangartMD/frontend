@@ -164,6 +164,7 @@ class NftDetail extends React.Component {
       ext: null,
       nextMethod: null,
       loader: true,
+      magnifyClass: " ",
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -320,8 +321,8 @@ class NftDetail extends React.Component {
       return this.setEditionnumber(1);
     if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
       return this.setEditionnumber(1);
-    for (var i = editions.length - 1; i >= 0; i--) {
-      if (authData.data.id === editions[i].ownerId.id)
+    for (var i = editions?.length - 1; i >= 0; i--) {
+      if (!editions[i].isBurned && authData.data.id === editions[i].ownerId.id)
         return this.setEditionnumber(editions[i].edition);
       if (editions[i].isOpenForSale && !editions[i].isBurned) {
         tmp = editions[i].saleType.price;
@@ -545,7 +546,8 @@ class NftDetail extends React.Component {
                         onLoad={(image) => {
                           if (image.target.height > image.target.width) {
                             this.setState({ imgClass: "vimg" });
-                          }
+                          } else if (image.target.width > image.target.height)
+                            this.setState({ magnifyClass: "hr-box" });
                         }}
                       />{" "}
                     </Link>
@@ -827,6 +829,7 @@ class NftDetail extends React.Component {
             <Magnifypopup
               toggle={this.toggle}
               imageURL={NFTDetails?.image.original}
+              magnifyClass={this.state.magnifyClass}
             />
           </Collapse>
           <Collapse
