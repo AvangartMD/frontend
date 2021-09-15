@@ -524,28 +524,28 @@ class NFTPage extends Component {
                         to='nftminting#itemDecription'
                         smooth={true}
                       >
-                        Item Description
+                        <FormattedMessage defaultMessage="Item Description" id="item_description" />
                       </Link>
                       <Link
                         className={pointSelect('creator')}
                         to='nftminting#creator'
                         smooth={true}
                       >
-                        Co-Creator
+                        <FormattedMessage defaultMessage="Co-Creator" id="co_creator" />
                       </Link>
                       <Link
                         className={pointSelect('collection')}
                         to='nftminting#collection'
                         smooth={true}
                       >
-                        Category & Collection
+                        <FormattedMessage defaultMessage="Category & Collection" id="category_collection" />
                       </Link>
                       <Link
                         className={pointSelect('marketplace')}
                         to='nftminting#marketplace'
                         smooth={true}
                       >
-                        Marketplace Settings
+                        <FormattedMessage defaultMessage="Marketplace Settings" id="market_settings" />
                       </Link>
                       <Link
                         className={pointSelect('unlockable')}
@@ -578,9 +578,10 @@ class NFTPage extends Component {
                 <Gs.W605px>
                   <NFTMiddle>
                     <NFTtitle id='itemDecription'>
-                      <h4>Item Description</h4>
+                      <h4><FormattedMessage defaultMessage="Item Description" id="item_description" /></h4>
                       <p className='mb-30'>
-                        Please let us know about your creation.
+                        <FormattedMessage defaultMessage="Please let us know about your creation."
+                          id="item_description_label" />
                       </p>
                     </NFTtitle>
                     <form
@@ -596,12 +597,17 @@ class NFTPage extends Component {
                             />
                           </label>
                         </div>
-                        <input
-                          type='text'
-                          name='title'
-                          defaultValue={nftObj.title}
-                          placeholder='Type something…'
-                        />
+
+                        <FormattedMessage id="type_something" defaultMessage="Type something…">
+                        {placeholder=>
+                            <input
+                              type='text'
+                              name='title'
+                              defaultValue={nftObj.title}
+                              placeholder={placeholder}
+                          />}
+                        </FormattedMessage>
+
                       </NFTForm>
                       <NFTForm>
                         <div className='label-line'>
@@ -613,12 +619,16 @@ class NFTPage extends Component {
                           </label>
                           {/* <span><FormattedMessage id="optional" defaultMessage="optional" /></span> */}
                         </div>
-                        <input
-                          type='text'
+
+                        <FormattedMessage id="type_something" defaultMessage="Type something…">
+                        {placeholder=>
+                            <input
+                              type='text'
                           name='description'
                           defaultValue={nftObj.description}
-                          placeholder='Type something…'
-                        />
+                              placeholder={placeholder}
+                          />}
+                        </FormattedMessage>
                       </NFTForm>
                       <NFTForm>
                         <div className='label-line'>
@@ -629,7 +639,8 @@ class NFTPage extends Component {
                             />
                           </label>
                           <FlexDiv className='JCSB'>
-                            <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
+                            <p>
+                              <FormattedMessage id='upload_lable' defaultMessage='Upload PNG, GIF, WEBP, MP4 or MP3 files.' /></p>
                             <p>{/* <b>Max 30 mb.</b> */}</p>
                           </FlexDiv>
                         </div>
@@ -653,7 +664,9 @@ class NFTPage extends Component {
                         </FileuploadBox>
                       </NFTForm>
                       <NFTtitle id='creator'>
-                        <h4 className='mt-30'>Co-Creator</h4>
+                        <h4 className='mt-30'>
+                          <FormattedMessage defaultMessage="Co-Creator" id="co_creator" />
+                        </h4>
                         <p className='mb-30'>
                           <FormattedMessage
                             id='co_creator_label'
@@ -663,7 +676,9 @@ class NFTPage extends Component {
                       </NFTtitle>
                       <NFTForm>
                         <div className='label-line'>
-                          <label>Co-Creator Username</label>
+                          <label>
+                            <FormattedMessage defaultMessage="Co-Creator Username" id="co_creator_username" />
+                          </label>
                         </div>
                         <div
                           className={`iLeft ${
@@ -687,10 +702,11 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className='label-line'>
-                          <label>Percentage</label>
+                          <label>
+                            <FormattedMessage defaultMessage="Percentage" id="percentage" /></label>
                           <p>
                             <FormattedMessage
-                              id='percentage_label'
+                              id='percentage_lable'
                               defaultMessage='Please enter the percentage of sales revenue that should go to the co-creator.'
                             />
                           </p>
@@ -706,16 +722,21 @@ class NFTPage extends Component {
                         </div>
                       </NFTForm>
                       <NFTtitle id='collection'>
-                        <h4 className='mt-30'>Category & Collection</h4>
+                        <h4 className='mt-30'>
+                          <FormattedMessage defaultMessage="Category & Collection" id="category_collection" />
+                        </h4>
                         <p className='mb-30'>
-                          Please choose the category and collection of your
-                          creation.
+                          <FormattedMessage defaultMessage="Please choose the category and collection of your creation." id="category_collection_label" />
                         </p>
                       </NFTtitle>
                       <NFTForm>
                         <div className='label-line'>
-                          <label>Category</label>
-                          <p>Choose category for listing your NFT.</p>
+                          <label>
+                            <FormattedMessage defaultMessage="Category" id="category_nftminting" />
+                          </label>
+                          <p>
+                            <FormattedMessage defaultMessage="Choose category for listing your NFT." id="category_collection_label" />
+                          </p>
                         </div>
                         <CustomCheckbox1>
                           {categoryList?.map((category, key) => (
@@ -765,12 +786,16 @@ class NFTPage extends Component {
                       </NFTForm>
                       <NFTForm>
                         <div className='label-line'>
-                          <label>Collection</label>
+                          <label>
+                            <FormattedMessage id="collection_nftminting" defaultMessage="Collection" />
+                          </label>
                         </div>
                         <CollectionSelect>
                           <Gs.W80>
                             <select name='collection' value={nftObj.collection}>
-                              <option>Select or Create</option>
+                              <option>
+                                Select or Create
+                              </option>
                               {collectionList?.map((collection, key) => (
                                 <option value={collection._id} key={key}>
                                   {capitalizeFirstLetter(collection.name)}
@@ -780,13 +805,14 @@ class NFTPage extends Component {
                           </Gs.W80>
                           <Gs.W20>
                             <button onClick={() => this.toggle(2)}>
-                              + Create
+                              + <FormattedMessage defaultMessage="Create" id="create_collection" />
                             </button>
                           </Gs.W20>
                         </CollectionSelect>
                       </NFTForm>
                       <NFTtitle id='marketplace'>
-                        <h4 className='mt-30'>Marketplace Settings</h4>
+                        <h4 className='mt-30'>
+                          <FormattedMessage defaultMessage="Marketplace Settings" id="market_settings" /></h4>
                         <FormattedMessage
                           id='market_settings_lable'
                           defaultMessage='Please choose the sale status for your creation'
@@ -803,7 +829,8 @@ class NFTPage extends Component {
                         </div>
                         <CustomRadio1>
                           <label className='radio-container'>
-                            <img src={Auction} alt='' /> Auction
+                            <img src={Auction} alt='' />
+                            <FormattedMessage defaultMessage="Auction" id="auction" />
                             <input
                               type='radio'
                               name='saleState'
@@ -815,7 +842,8 @@ class NFTPage extends Component {
                             <span className='checkmark'></span>
                           </label>
                           <label className='radio-container'>
-                            <img src={Money} alt='' /> Buy now
+                            <img src={Money} alt='' />
+                            <FormattedMessage defaultMessage="Buy now" id="buy_now" />
                             <input
                               type='radio'
                               name='saleState'
@@ -831,11 +859,12 @@ class NFTPage extends Component {
                       {nftObj?.saleState !== `BUY` ? (
                         <NFTForm>
                           <div className='label-line'>
-                            <label>Auction Time</label>
+                            <label>
+                              <FormattedMessage defaultMessage="Auction Time" id="auction_time" /></label>
                           </div>
                           <CustomRadio1>
                             <label className='radio-container'>
-                              12 hours
+                              12 <FormattedMessage defaultMessage="hours" id="hours" />
                               <input
                                 type='radio'
                                 name='auctionTime'
@@ -845,7 +874,7 @@ class NFTPage extends Component {
                               <span className='checkmark'></span>
                             </label>
                             <label className='radio-container'>
-                              24 hours
+                              24 <FormattedMessage defaultMessage="hours" id="hours" />
                               <input
                                 type='radio'
                                 name='auctionTime'
@@ -855,7 +884,7 @@ class NFTPage extends Component {
                               <span className='checkmark'></span>
                             </label>
                             <label className='radio-container'>
-                              48 hours
+                              48 <FormattedMessage defaultMessage="hours" id="hours" />
                               <input
                                 type='radio'
                                 name='auctionTime'
@@ -960,7 +989,7 @@ class NFTPage extends Component {
                         </h4>
                         <p className='mb-30'>
                           <FormattedMessage
-                            id='content_label'
+                            id='unlock_lable'
                             defaultMessage='Your text below will be shared with the buyer of the NFT only.'
                           />
                         </p>
@@ -969,17 +998,20 @@ class NFTPage extends Component {
                         <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id='key_label'
+                              id='unlock_lable_desc'
                               defaultMessage='You can use this area for private messages, promo codes, links, etc.'
                             />
                           </label>
                         </div>
-                        <input
-                          type='text'
-                          placeholder='Type something…'
-                          name='digitalKey'
-                          defaultValue={nftObj?.digitalKey}
-                        />
+                        <FormattedMessage id="type_something" defaultMessage="Type something…">
+                        {placeholder=>
+                            <input
+                              type='text'
+                              name='digitalKey'
+                              defaultValue={nftObj?.digitalKey}
+                              placeholder={placeholder}
+                          />}
+                        </FormattedMessage>
                       </NFTForm>
 
                       {/* <NFTtitle id="admins">
@@ -1009,7 +1041,7 @@ class NFTPage extends Component {
                           type='submit'
                           className={error.isError ? `` : `all-field-required`}
                         >
-                          {nftObj?.id ? `Update` : `Create`} Item
+                          {nftObj?.id ? `Update Item` : <FormattedMessage id="create_item" defaultMessage="Create Item" />} 
                         </button>
                       </CreateItemButton>
                     </form>
@@ -1082,7 +1114,7 @@ class NFTPage extends Component {
                                   <p>
                                     <span>
                                       {nftObj.edition ? nftObj.edition : 0}{' '}
-                                      Editions
+                                      <FormattedMessage id="edition" defaultMessage="Editions" />
                                     </span>
                                   </p>
                                   {nftObj.collectionId?._id ? (
