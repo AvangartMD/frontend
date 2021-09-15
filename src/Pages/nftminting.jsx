@@ -1,35 +1,35 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-import { motion } from "framer-motion";
-import Media from "../Theme/media-breackpoint";
-import Collapse from "@kunukn/react-collapse";
-import ReactAudioPlayer from "react-audio-player";
-import ReactPlayer from "react-player";
-import { HashLink as Link } from "react-router-hash-link";
-import Sticky from "react-sticky-el";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { motion } from 'framer-motion';
+import Media from '../Theme/media-breackpoint';
+import Collapse from '@kunukn/react-collapse';
+import ReactAudioPlayer from 'react-audio-player';
+import ReactPlayer from 'react-player';
+import { HashLink as Link } from 'react-router-hash-link';
+import Sticky from 'react-sticky-el';
 
-import UserImg from "../Assets/images/user-img.jpg";
-import DDdownA from "../Assets/images/dd-down-arrow.svg";
-import Auction from "../Assets/images/icon-set-auction.svg";
-import Money from "../Assets/images/icon-set-money.svg";
-import { services } from "../services";
-import ipfs from "../config/ipfs";
-import CreateCollection from "../Component/Modals/createCollection";
+import UserImg from '../Assets/images/user-img.jpg';
+import DDdownA from '../Assets/images/dd-down-arrow.svg';
+import Auction from '../Assets/images/icon-set-auction.svg';
+import Money from '../Assets/images/icon-set-money.svg';
+import { services } from '../services';
+import ipfs from '../config/ipfs';
+import CreateCollection from '../Component/Modals/createCollection';
 import {
   compressImage,
   capitalizeFirstLetter,
   getFileType,
-} from "../helper/functions";
-import { web3 } from "../web3";
-import { actions } from "../actions";
-import Autosuggestion from "../Component/autoSuggestion";
-import MintNFTPopup from "../Component/Modals/mintNFTPopup";
-import NFT3 from "../Assets/images/nft3.jpg";
+} from '../helper/functions';
+import { web3 } from '../web3';
+import { actions } from '../actions';
+import Autosuggestion from '../Component/autoSuggestion';
+import MintNFTPopup from '../Component/Modals/mintNFTPopup';
+import NFT3 from '../Assets/images/nft3.jpg';
 
-import Scrollspy from "react-scrollspy";
+import Scrollspy from 'react-scrollspy';
 
 class NFTPage extends Component {
   constructor(props) {
@@ -46,27 +46,27 @@ class NFTPage extends Component {
         compressed: null,
       },
       nftObj: {
-        title: "",
-        description: "",
-        coCreatorUserName: "",
+        title: '',
+        description: '',
+        coCreatorUserName: '',
         percentShare: 0,
         category: [],
-        collection: "",
-        saleState: "",
-        auctionTime: "0",
+        collection: '',
+        saleState: '',
+        auctionTime: '0',
         edition: 0,
-        price: "0.00",
-        digitalKey: "",
+        price: '0.00',
+        digitalKey: '',
         nftFile: undefined,
         imgSrc: NFT3,
         categoryList: null,
         collectionList: [],
       },
       suggestionVAl: [],
-      fileType: "image",
-      error: { isError: false, msg: "", isCocreatorError: false },
-      mintNFTStatus: "",
-      currencyUsed: "BNB",
+      fileType: 'image',
+      error: { isError: false, msg: '', isCocreatorError: false },
+      mintNFTStatus: '',
+      currencyUsed: 'BNB',
       bnbUSDPrice: {},
     };
   }
@@ -103,19 +103,19 @@ class NFTPage extends Component {
     if (categoryList !== prevProps.categoryList)
       this.setState({ categoryList });
     if (createdNFTID !== prevProps.createdNFTID) {
-      this.setState({ mintNFTStatus: "" });
+      this.setState({ mintNFTStatus: '' });
     }
     if (updatedNFTID !== prevProps.updatedNFTID) {
       if (!updatedNFTID.status) {
-        this.setState({ mintNFTStatus: "error" });
+        this.setState({ mintNFTStatus: 'error' });
       } else {
-        this.setState({ mintNFTStatus: "" });
+        this.setState({ mintNFTStatus: '' });
       }
     }
   }
 
   async componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
     let {
       web3Data,
       categoryList,
@@ -144,17 +144,18 @@ class NFTPage extends Component {
               : [],
             collection: NFTDetails.collectionId
               ? NFTDetails.collectionId.id
-              : "",
+              : '',
             saleState: `${NFTDetails.saleState}`,
             auctionTime: `${NFTDetails.auctionTime}`,
             edition: `${NFTDetails.edition}`,
             price: `${NFTDetails.price}`,
-            digitalKey: NFTDetails.unlockContent ? NFTDetails.digitalKey : "",
+            digitalKey: NFTDetails.unlockContent ? NFTDetails.digitalKey : '',
             imgSrc: NFTDetails.image.compressed,
             image: NFTDetails.image,
           },
         });
-        const fileType = await getFileType(NFTDetails.image.compressed);
+        let ipfsHash = NFTDetails.image.compressed.substring(NFTDetails.image.compressed.lastIndexOf('/') + 1)
+        const fileType = await getFileType(ipfsHash);
         this.setState({ fileType: fileType });
       }
     }
@@ -173,7 +174,7 @@ class NFTPage extends Component {
       });
     }
     const string =
-      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry";
+      'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry';
     await fetch(string)
       .then((resp) => resp.json())
       .then(async (data) => {
@@ -194,7 +195,7 @@ class NFTPage extends Component {
   }
 
   mintNFT = async (_tokenURI) => {
-    this.setState({ mintNFTStatus: "initiate" });
+    this.setState({ mintNFTStatus: 'initiate' });
     const {
       web3Data,
       nftObj,
@@ -208,34 +209,33 @@ class NFTPage extends Component {
       web3Data.accounts[0],
       suggestionVAl.walletAddress
         ? suggestionVAl.walletAddress
-        : "0x0000000000000000000000000000000000000000",
+        : '0x0000000000000000000000000000000000000000',
       suggestionVAl.walletAddress ? Number(100 - nftObj.percentShare) : 100,
       suggestionVAl.walletAddress ? Number(nftObj.percentShare) : 0,
-      nftObj.saleState === "BUY" ? "0" : "1",
-      nftObj.saleState === "BUY" ? 0 : Number(nftObj.auctionTime),
+      nftObj.saleState === 'BUY' ? '0' : '1',
+      nftObj.saleState === 'BUY' ? 0 : Number(nftObj.auctionTime),
       web3.utils.toWei(
-        currencyUsed === "TR"
+        currencyUsed === 'TR'
           ? (+nftObj.price / bnbUSDPrice.try).toString()
-          : currencyUsed === "USD"
+          : currencyUsed === 'USD'
           ? (+nftObj.price / bnbUSDPrice.usd).toString()
           : nftObj.price,
-        "ether"
+        'ether'
       ),
-      "0",
-      "0x0000000000000000000000000000000000000000",
+      '0',
     ];
     // console.log("this obj", obj);
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
-      .on("transactionHash", (hash) => {
-        this.setState({ mintNFTStatus: "progress" });
+      .on('transactionHash', (hash) => {
+        this.setState({ mintNFTStatus: 'progress' });
       })
-      .on("receipt", (receipt) => {
-        this.setState({ mintNFTStatus: "complete" });
+      .on('receipt', (receipt) => {
+        this.setState({ mintNFTStatus: 'complete' });
       })
-      .on("error", (error) => {
-        this.setState({ mintNFTStatus: "error" });
+      .on('error', (error) => {
+        this.setState({ mintNFTStatus: 'error' });
       });
   };
 
@@ -243,7 +243,9 @@ class NFTPage extends Component {
     //file is converted to a buffer to prepare for uploading to IPFS`
     const buffer = await Buffer.from(reader.result);
     //set this buffer -using es6 syntax
-    this.setState({ image: { ...this.state.image, original: buffer, compressed: buffer } });
+    this.setState({
+      image: { ...this.state.image, original: buffer, compressed: buffer },
+    });
   };
 
   convertToCompBuffer = async (reader) => {
@@ -255,57 +257,59 @@ class NFTPage extends Component {
 
   formchange = async (e) => {
     const nftObj = { ...this.state.nftObj };
-    if (e.target.name === "coCreatorUserName") {
+    if (e.target.name === 'coCreatorUserName') {
       // this.setState({ suggestionVAl: e.target.value });
       if (e.target.value.length >= 3) {
         // console.log("t", e.target.value);
       }
-    } else if (e.target.name === "category") {
-      const exists = nftObj["category"].includes(e.target.value);
+    } else if (e.target.name === 'category') {
+      const exists = nftObj['category'].includes(e.target.value);
       if (exists) {
         // nftObj["category"].filter((c) => {
         //   return c !== e.target.value;
         // });
-        const index = nftObj["category"].indexOf(e.target.value);
+        const index = nftObj['category'].indexOf(e.target.value);
         if (index > -1) {
-          nftObj["category"].splice(index, 1);
+          nftObj['category'].splice(index, 1);
         }
       } else {
-        nftObj["category"].push(e.target.value);
+        nftObj['category'].push(e.target.value);
       }
 
       // nftObj[e.target.name].push(e.target.value);
-    } else if (e.target.name === "nftFile") {
+    } else if (e.target.name === 'nftFile') {
       nftObj[e.target.name] = e.target.files[0];
 
-      this.setState({ original_size : e.target.files[0].size, compressed_size : e.target.files[0].size }) // store the file size 
+      this.setState({
+        original_size: e.target.files[0].size,
+        compressed_size: e.target.files[0].size,
+      }); // store the file size
 
       let fileType = e.target.files[0].type;
-      if (!fileType.search("image")) this.setState({ fileType: "image" });
-      if (!fileType.search("video")) this.setState({ fileType: "video" });
-      if (!fileType.search("audio")) this.setState({ fileType: "audio" });
+      if (!fileType.search('image')) this.setState({ fileType: 'image' });
+      if (!fileType.search('video')) this.setState({ fileType: 'video' });
+      if (!fileType.search('audio')) this.setState({ fileType: 'audio' });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
 
       if (
         e.target.files[0].size > 3145728 &&
-        !fileType.search("image") &&
-        !fileType.includes("gif")
+        !fileType.search('image') &&
+        !fileType.includes('gif')
       ) {
         nftObj.compressionRequired = true;
         let compressedNFTFile = await compressImage(e.target.files[0]);
-        this.setState({ compressed_size : compressedNFTFile.size }) // store the file size 
+        this.setState({ compressed_size: compressedNFTFile.size }); // store the file size
         let compReader = new window.FileReader();
         compReader.readAsArrayBuffer(compressedNFTFile);
-        compReader.onloadend = () => this.convertToCompBuffer(compReader)
-
+        compReader.onloadend = () => this.convertToCompBuffer(compReader);
 
         let reader = new window.FileReader();
         reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onloadend = () => this.convertToBuffer(reader)
+        reader.onloadend = () => this.convertToBuffer(reader);
       } else {
         let reader = new window.FileReader();
         reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onloadend = () => this.convertToBuffer(reader)
+        reader.onloadend = () => this.convertToBuffer(reader);
       }
     } else {
       nftObj[e.target.name] = e.target.value;
@@ -325,24 +329,24 @@ class NFTPage extends Component {
       description,
     } = this.state.nftObj;
     window.scrollTo(0, 0);
-    if (!title) this.setError("Please enter the Title", true);
+    if (!title) this.setError('Please enter the Title', true);
     // if (!description) this.setError("Please enter the description", true);
     else if (!nftFile && !this.props.match.params.id)
-      this.setError("Please select your file", true);
+      this.setError('Please select your file', true);
     else if (this.state.suggestionVAl.length && !percentShare)
-      this.setError("Please set the percent share of your Co-creator", true);
+      this.setError('Please set the percent share of your Co-creator', true);
     else if (!category.length)
-      this.setError("Please select atleast 1 category.", true);
+      this.setError('Please select atleast 1 category.', true);
     // else if (category.length >= 3)
     //   this.setError("You can choose up to 2 category.", true);
-    else if (!saleState) this.setError("Please select sale state.", true);
-    else if (saleState === "AUCTION" && !+auctionTime)
-      this.setError("Please select the auction time.", true);
+    else if (!saleState) this.setError('Please select sale state.', true);
+    else if (saleState === 'AUCTION' && !+auctionTime)
+      this.setError('Please select the auction time.', true);
     else if (!edition || +edition < 1 || +edition > 500)
-      this.setError("Edition ranges between 1 to 500", true);
-    else if (!+price) this.setError("Please enter the price", true);
+      this.setError('Edition ranges between 1 to 500', true);
+    else if (!+price) this.setError('Please enter the price', true);
     else {
-      this.setError("", false);
+      this.setError('', false);
       return true;
     }
   }
@@ -351,7 +355,7 @@ class NFTPage extends Component {
     const checked = this.checkFormErrors();
 
     if (checked) {
-      this.setState({ mintNFTStatus: "progress1" }, () => this.toggle(3));
+      this.setState({ mintNFTStatus: 'progress1' }, () => this.toggle(3));
       const { nftObj, currencyUsed, bnbUSDPrice } = this.state;
       const { nftFile, compressionRequired } = this.state.nftObj;
       let compressedNFTFile = nftFile;
@@ -366,9 +370,9 @@ class NFTPage extends Component {
         description: nftObj.description,
         category: nftObj.category,
         price:
-          currencyUsed === "TR"
+          currencyUsed === 'TR'
             ? (+nftObj.price / bnbUSDPrice.try).toString()
-            : currencyUsed === "USD"
+            : currencyUsed === 'USD'
             ? (+nftObj.price / bnbUSDPrice.usd).toString()
             : nftObj.price,
         saleState: nftObj.saleState,
@@ -393,53 +397,77 @@ class NFTPage extends Component {
       if (this.props.match.params.id) {
         if (nftFile) {
           let { original_size, compressed_size } = this.state;
-          let ipfsHash, ipfsCompHash = null;
+          let ipfsHash,
+            ipfsCompHash = null;
           if (original_size !== compressed_size) {
             ipfsHash = await ipfs.add(this.state.image.original, {
-              pin: true, progress: (bytes) => {
-                console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-              }
-            })
+              pin: true,
+              progress: (bytes) => {
+                // console.log(
+                //   'Original File upload progress ',
+                //   Math.floor((bytes * 100) / original_size)
+                // );
+              },
+            });
             ipfsCompHash = await ipfs.add(this.state.image.compressed, {
-              pin: true, progress: (bytes) => {
-                console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
-              }
-            })
+              pin: true,
+              progress: (bytes) => {
+                // console.log(
+                //   'Compressed File upload progress ',
+                //   Math.floor((bytes * 100) / compressed_size)
+                // );
+              },
+            });
           } else {
             ipfsHash = await ipfs.add(this.state.image.original, {
-              pin: true, progress: (bytes) => {
-                console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-              }
-            })
-            ipfsCompHash = ipfsHash
+              pin: true,
+              progress: (bytes) => {
+                // console.log(
+                //   'Original File upload progress ',
+                //   Math.floor((bytes * 100) / original_size)
+                // );
+              },
+            });
+            ipfsCompHash = ipfsHash;
           }
           dataObj.image = {
             original: ipfsHash.path,
             compressed: ipfsCompHash.path,
           };
+        } else {
+          let ipfsHash = nftObj.image.original.substring(nftObj.image.original.lastIndexOf('/') + 1)
+          let ipfsCompHash = nftObj.image.compressed.substring(nftObj.image.compressed.lastIndexOf('/') + 1)
+          dataObj.image = {
+            original: ipfsHash,
+            compressed: ipfsCompHash,
+          };
         }
         this.props.updateNFT(dataObj); // update nft api called
       } else {
         let { original_size, compressed_size } = this.state;
-        let ipfsHash, ipfsCompHash = null;
+        let ipfsHash,
+          ipfsCompHash = null;
         if (original_size !== compressed_size) {
           ipfsHash = await ipfs.add(this.state.image.original, {
-            pin: true, progress: (bytes) => {
-              console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-            }
-          })
+            pin: true,
+            progress: (bytes) => {
+              // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+            },
+          });
           ipfsCompHash = await ipfs.add(this.state.image.compressed, {
-            pin: true, progress: (bytes) => {
-              console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
-            }
-          })
+            pin: true,
+            progress: (bytes) => {
+              // console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+            },
+          });
         } else {
           ipfsHash = await ipfs.add(this.state.image.original, {
-            pin: true, progress: (bytes) => {
-              console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-            }
-          })
-          ipfsCompHash = ipfsHash
+            pin: true,
+            progress: (bytes) => {
+              // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+            },
+          });
+          ipfsCompHash = ipfsHash;
         }
         dataObj.image = {
           original: ipfsHash.path,
@@ -460,8 +488,8 @@ class NFTPage extends Component {
   render() {
     function pointSelect(curr) {
       let hash = window.location.hash.substr(1);
-      if (hash === curr) return "active";
-      else return "inactive";
+      if (hash === curr) return 'active';
+      else return 'inactive';
     }
     const {
       categoryList,
@@ -475,7 +503,7 @@ class NFTPage extends Component {
     // console.log('bnbvbusd', this.state.bnbUSDPrice);
     return (
       <Gs.MainSection>
-        <div style={{ minHeight: "100vh", width: "100%" }}>
+        <div style={{ minHeight: '100vh', width: '100%' }}>
           <Gs.Container>
             <NFTminting>
               <Gs.W200px>
@@ -483,45 +511,45 @@ class NFTPage extends Component {
                   <NFTLeft>
                     <Scrollspy
                       items={[
-                        "itemDecription",
-                        "creator",
-                        "collection",
-                        "marketplace",
-                        "unlockable",
+                        'itemDecription',
+                        'creator',
+                        'collection',
+                        'marketplace',
+                        'unlockable',
                       ]}
-                      currentClassName="active"
+                      currentClassName='active'
                     >
                       <Link
-                        className={pointSelect("itemDecription")}
-                        to="nftminting#itemDecription"
+                        className={pointSelect('itemDecription')}
+                        to='nftminting#itemDecription'
                         smooth={true}
                       >
                         Item Description
                       </Link>
                       <Link
-                        className={pointSelect("creator")}
-                        to="nftminting#creator"
+                        className={pointSelect('creator')}
+                        to='nftminting#creator'
                         smooth={true}
                       >
                         Co-Creator
                       </Link>
                       <Link
-                        className={pointSelect("collection")}
-                        to="nftminting#collection"
+                        className={pointSelect('collection')}
+                        to='nftminting#collection'
                         smooth={true}
                       >
                         Category & Collection
                       </Link>
                       <Link
-                        className={pointSelect("marketplace")}
-                        to="nftminting#marketplace"
+                        className={pointSelect('marketplace')}
+                        to='nftminting#marketplace'
                         smooth={true}
                       >
                         Marketplace Settings
                       </Link>
                       <Link
-                        className={pointSelect("unlockable")}
-                        to="nftminting#unlockable"
+                        className={pointSelect('unlockable')}
+                        to='nftminting#unlockable'
                         smooth={true}
                       >
                         Unlockable Content
@@ -537,7 +565,7 @@ class NFTPage extends Component {
                   </NFTLeft>
                 </Sticky>
               </Gs.W200px>
-              <Gs.W880px className="displayflex block">
+              <Gs.W880px className='displayflex block'>
                 {error.isError && !error.isCocreatorError && (
                   <Gs.W605px>
                     <NFTMiddle>
@@ -549,9 +577,9 @@ class NFTPage extends Component {
                 )}
                 <Gs.W605px>
                   <NFTMiddle>
-                    <NFTtitle id="itemDecription">
+                    <NFTtitle id='itemDecription'>
                       <h4>Item Description</h4>
-                      <p className="mb-30">
+                      <p className='mb-30'>
                         Please let us know about your creation.
                       </p>
                     </NFTtitle>
@@ -560,88 +588,88 @@ class NFTPage extends Component {
                       onSubmit={(e) => this.createNFT(e)}
                     >
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="title"
-                              defaultMessage="Title"
+                              id='title'
+                              defaultMessage='Title'
                             />
                           </label>
                         </div>
                         <input
-                          type="text"
-                          name="title"
+                          type='text'
+                          name='title'
                           defaultValue={nftObj.title}
-                          placeholder="Type something…"
+                          placeholder='Type something…'
                         />
                       </NFTForm>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="description"
-                              defaultMessage="Description"
+                              id='description'
+                              defaultMessage='Description'
                             />
                           </label>
                           {/* <span><FormattedMessage id="optional" defaultMessage="optional" /></span> */}
                         </div>
                         <input
-                          type="text"
-                          name="description"
+                          type='text'
+                          name='description'
                           defaultValue={nftObj.description}
-                          placeholder="Type something…"
+                          placeholder='Type something…'
                         />
                       </NFTForm>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="upload_file"
-                              defaultMessage="Upload File"
+                              id='upload_file'
+                              defaultMessage='Upload File'
                             />
                           </label>
-                          <FlexDiv className="JCSB">
+                          <FlexDiv className='JCSB'>
                             <p>Upload PNG, GIF, WEBP, MP4 or MP3 files.</p>
                             <p>{/* <b>Max 30 mb.</b> */}</p>
                           </FlexDiv>
                         </div>
                         <FileuploadBox>
-                          <label className="custom-file-upload">
+                          <label className='custom-file-upload'>
                             <input
-                              type="file"
-                              name="nftFile"
-                              accept="video/*, image/*, audio/*"
+                              type='file'
+                              name='nftFile'
+                              accept='video/*, image/*, audio/*'
                             />
                             <FormattedMessage
-                              id="choose"
-                              defaultMessage="Choose"
+                              id='choose'
+                              defaultMessage='Choose'
                             />
                           </label>
                           <input
-                            type="file"
-                            placeholder="Choose"
-                            accept="video/*, image/*, audio/*"
+                            type='file'
+                            placeholder='Choose'
+                            accept='video/*, image/*, audio/*'
                           />
                         </FileuploadBox>
                       </NFTForm>
-                      <NFTtitle id="creator">
-                        <h4 className="mt-30">Co-Creator</h4>
-                        <p className="mb-30">
+                      <NFTtitle id='creator'>
+                        <h4 className='mt-30'>Co-Creator</h4>
+                        <p className='mb-30'>
                           <FormattedMessage
-                            id="co_creator_label"
-                            defaultMessage="You can share the revenue streams from the NFT with a collaborator"
+                            id='co_creator_label'
+                            defaultMessage='You can share the revenue streams from the NFT with a collaborator'
                           />
                         </p>
                       </NFTtitle>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>Co-Creator Username</label>
                         </div>
                         <div
                           className={`iLeft ${
                             error.isError &&
                             error.isCocreatorError &&
-                            "errorinput"
+                            'errorinput'
                           }`}
                         >
                           <i>@</i>
@@ -653,54 +681,54 @@ class NFTPage extends Component {
                             }
                           />
                           {error.isError && error.isCocreatorError && (
-                            <p className="error">user doesn’t exist</p>
+                            <p className='error'>user doesn’t exist</p>
                           )}
                         </div>
                       </NFTForm>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>Percentage</label>
                           <p>
                             <FormattedMessage
-                              id="percentage_label"
-                              defaultMessage="Please enter the percentage of sales revenue that should go to the co-creator."
+                              id='percentage_label'
+                              defaultMessage='Please enter the percentage of sales revenue that should go to the co-creator.'
                             />
                           </p>
                         </div>
-                        <div className="iRight">
+                        <div className='iRight'>
                           <input
-                            type="text"
-                            name="percentShare"
-                            placeholder="0"
+                            type='text'
+                            name='percentShare'
+                            placeholder='0'
                             value={nftObj.percentShare}
                           />
                           <i>%</i>
                         </div>
                       </NFTForm>
-                      <NFTtitle id="collection">
-                        <h4 className="mt-30">Category & Collection</h4>
-                        <p className="mb-30">
+                      <NFTtitle id='collection'>
+                        <h4 className='mt-30'>Category & Collection</h4>
+                        <p className='mb-30'>
                           Please choose the category and collection of your
                           creation.
                         </p>
                       </NFTtitle>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>Category</label>
                           <p>Choose category for listing your NFT.</p>
                         </div>
                         <CustomCheckbox1>
                           {categoryList?.map((category, key) => (
-                            <label className="checkbox-container" key={key}>
-                              <img src={category.image} alt="" />
+                            <label className='checkbox-container' key={key}>
+                              <img src={category.image} alt='' />
                               {capitalizeFirstLetter(
-                                context.locale === "tr"
+                                context.locale === 'tr'
                                   ? category.categoryName.tu
                                   : category.categoryName.en
                               )}
                               <input
-                                type="checkbox"
-                                name="category"
+                                type='checkbox'
+                                name='category'
                                 checked={
                                   nftObj.category.filter(
                                     (obj) => obj === category.id
@@ -710,7 +738,7 @@ class NFTPage extends Component {
                                 }
                                 value={category._id}
                               />
-                              <span className="checkmark"></span>
+                              <span className='checkmark'></span>
                             </label>
                           ))}
                           {/* <label className="checkbox-container">
@@ -736,12 +764,12 @@ class NFTPage extends Component {
                         </CustomCheckbox1>
                       </NFTForm>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>Collection</label>
                         </div>
                         <CollectionSelect>
                           <Gs.W80>
-                            <select name="collection" value={nftObj.collection}>
+                            <select name='collection' value={nftObj.collection}>
                               <option>Select or Create</option>
                               {collectionList?.map((collection, key) => (
                                 <option value={collection._id} key={key}>
@@ -757,84 +785,84 @@ class NFTPage extends Component {
                           </Gs.W20>
                         </CollectionSelect>
                       </NFTForm>
-                      <NFTtitle id="marketplace">
-                        <h4 className="mt-30">Marketplace Settings</h4>
+                      <NFTtitle id='marketplace'>
+                        <h4 className='mt-30'>Marketplace Settings</h4>
                         <FormattedMessage
-                          id="market_settings_lable"
-                          defaultMessage="Please choose the sale status for your creation"
+                          id='market_settings_lable'
+                          defaultMessage='Please choose the sale status for your creation'
                         />
                       </NFTtitle>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="sale_status"
-                              defaultMessage="Sale Status"
+                              id='sale_status'
+                              defaultMessage='Sale Status'
                             />
                           </label>
                         </div>
                         <CustomRadio1>
-                          <label className="radio-container">
-                            <img src={Auction} alt="" /> Auction
+                          <label className='radio-container'>
+                            <img src={Auction} alt='' /> Auction
                             <input
-                              type="radio"
-                              name="saleState"
-                              value="AUCTION"
+                              type='radio'
+                              name='saleState'
+                              value='AUCTION'
                               checked={
-                                nftObj.saleState === "AUCTION" ? true : false
+                                nftObj.saleState === 'AUCTION' ? true : false
                               }
                             />
-                            <span className="checkmark"></span>
+                            <span className='checkmark'></span>
                           </label>
-                          <label className="radio-container">
-                            <img src={Money} alt="" /> Buy now
+                          <label className='radio-container'>
+                            <img src={Money} alt='' /> Buy now
                             <input
-                              type="radio"
-                              name="saleState"
-                              value="BUY"
+                              type='radio'
+                              name='saleState'
+                              value='BUY'
                               checked={
-                                nftObj.saleState === "BUY" ? true : false
+                                nftObj.saleState === 'BUY' ? true : false
                               }
                             />
-                            <span className="checkmark"></span>
+                            <span className='checkmark'></span>
                           </label>
                         </CustomRadio1>
                       </NFTForm>
                       {nftObj?.saleState !== `BUY` ? (
                         <NFTForm>
-                          <div className="label-line">
+                          <div className='label-line'>
                             <label>Auction Time</label>
                           </div>
                           <CustomRadio1>
-                            <label className="radio-container">
+                            <label className='radio-container'>
                               12 hours
                               <input
-                                type="radio"
-                                name="auctionTime"
-                                value="12"
-                                checked={nftObj.auctionTime === "12"}
+                                type='radio'
+                                name='auctionTime'
+                                value='12'
+                                checked={nftObj.auctionTime === '12'}
                               />
-                              <span className="checkmark"></span>
+                              <span className='checkmark'></span>
                             </label>
-                            <label className="radio-container">
+                            <label className='radio-container'>
                               24 hours
                               <input
-                                type="radio"
-                                name="auctionTime"
-                                value="24"
-                                checked={nftObj.auctionTime === "24"}
+                                type='radio'
+                                name='auctionTime'
+                                value='24'
+                                checked={nftObj.auctionTime === '24'}
                               />
-                              <span className="checkmark"></span>
+                              <span className='checkmark'></span>
                             </label>
-                            <label className="radio-container">
+                            <label className='radio-container'>
                               48 hours
                               <input
-                                type="radio"
-                                name="auctionTime"
-                                value="48"
-                                checked={nftObj.auctionTime === "48"}
+                                type='radio'
+                                name='auctionTime'
+                                value='48'
+                                checked={nftObj.auctionTime === '48'}
                               />
-                              <span className="checkmark"></span>
+                              <span className='checkmark'></span>
                             </label>
                           </CustomRadio1>
                         </NFTForm>
@@ -842,40 +870,40 @@ class NFTPage extends Component {
                         ``
                       )}
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="edition"
-                              defaultMessage="EDITION"
+                              id='edition'
+                              defaultMessage='EDITION'
                             />
                           </label>
                           <p>
                             <FormattedMessage
-                              id="edition_label"
-                              defaultMessage="Currently creators can mint up to 500 editions of an NFT."
+                              id='edition_label'
+                              defaultMessage='Currently creators can mint up to 500 editions of an NFT.'
                             />
                           </p>
                         </div>
                         <input
-                          type="text"
-                          placeholder="0"
-                          name="edition"
+                          type='text'
+                          placeholder='0'
+                          name='edition'
                           value={nftObj.edition}
                         />
                       </NFTForm>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="price"
-                              defaultMessage="Price"
+                              id='price'
+                              defaultMessage='Price'
                             />
                           </label>
                         </div>
                         <input
-                          type="text"
-                          placeholder="0.00"
-                          name="price"
+                          type='text'
+                          placeholder='0.00'
+                          name='price'
                           value={nftObj.price}
                         />
                         <AccountBX
@@ -883,21 +911,21 @@ class NFTPage extends Component {
                           ref={this.wrapperRef}
                         >
                           <span>
-                            {currencyUsed} <img src={DDdownA} alt="" />
+                            {currencyUsed} <img src={DDdownA} alt='' />
                           </span>
                           <Collapse
                             isOpen={this.state.isOpen1}
                             className={
-                              "app__collapse collapse-css-transition  " +
-                              (this.state.isOpen1 ? "collapse-active" : "")
+                              'app__collapse collapse-css-transition  ' +
+                              (this.state.isOpen1 ? 'collapse-active' : '')
                             }
                           >
-                            <DDContainer className="ver2">
+                            <DDContainer className='ver2'>
                               <DDBtnbar02>
                                 <button
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    this.setState({ currencyUsed: "BNB" });
+                                    this.setState({ currencyUsed: 'BNB' });
                                   }}
                                 >
                                   BNB
@@ -905,7 +933,7 @@ class NFTPage extends Component {
                                 <button
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    this.setState({ currencyUsed: "TR" });
+                                    this.setState({ currencyUsed: 'TR' });
                                   }}
                                 >
                                   TR
@@ -913,7 +941,7 @@ class NFTPage extends Component {
                                 <button
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    this.setState({ currencyUsed: "USD" });
+                                    this.setState({ currencyUsed: 'USD' });
                                   }}
                                 >
                                   USD
@@ -923,33 +951,33 @@ class NFTPage extends Component {
                           </Collapse>
                         </AccountBX>
                       </NFTForm>
-                      <NFTtitle id="unlockable">
-                        <h4 className="mt-30">
+                      <NFTtitle id='unlockable'>
+                        <h4 className='mt-30'>
                           <FormattedMessage
-                            id="unlock_content_label"
-                            defaultMessage="Unlockable content message"
+                            id='unlock_content_label'
+                            defaultMessage='Unlockable content message'
                           />
                         </h4>
-                        <p className="mb-30">
+                        <p className='mb-30'>
                           <FormattedMessage
-                            id="content_label"
-                            defaultMessage="Your text below will be shared with the buyer of the NFT only."
+                            id='content_label'
+                            defaultMessage='Your text below will be shared with the buyer of the NFT only.'
                           />
                         </p>
                       </NFTtitle>
                       <NFTForm>
-                        <div className="label-line">
+                        <div className='label-line'>
                           <label>
                             <FormattedMessage
-                              id="key_label"
-                              defaultMessage="You can use this area for private messages, promo codes, links, etc."
+                              id='key_label'
+                              defaultMessage='You can use this area for private messages, promo codes, links, etc.'
                             />
                           </label>
                         </div>
                         <input
-                          type="text"
-                          placeholder="Type something…"
-                          name="digitalKey"
+                          type='text'
+                          placeholder='Type something…'
+                          name='digitalKey'
                           defaultValue={nftObj?.digitalKey}
                         />
                       </NFTForm>
@@ -978,7 +1006,7 @@ class NFTPage extends Component {
                       </NFTForm> */}
                       <CreateItemButton>
                         <button
-                          type="submit"
+                          type='submit'
                           className={error.isError ? `` : `all-field-required`}
                         >
                           {nftObj?.id ? `Update` : `Create`} Item
@@ -990,30 +1018,30 @@ class NFTPage extends Component {
                 <Gs.W275px>
                   <Sticky
                     topOffset={30}
-                    boundaryElement=".block"
+                    boundaryElement='.block'
                     hideOnBoundaryHit={true}
                   >
                     <NFTRight>
                       <NFTtitle>
                         <h4>
                           <FormattedMessage
-                            id="preview"
-                            defaultMessage="Preview"
+                            id='preview'
+                            defaultMessage='Preview'
                           />
                         </h4>
                         <p>
                           <FormattedMessage
-                            id="preview_label"
-                            defaultMessage="Your NFT looks like that on Marketplace"
+                            id='preview_label'
+                            defaultMessage='Your NFT looks like that on Marketplace'
                           />
                         </p>
                       </NFTtitle>
-                      <NFTfourbox className="nftnift">
+                      <NFTfourbox className='nftnift'>
                         <Gs.W25V2>
                           <Gs.TenpxGutter>
-                            <div className="NFT-home-box">
+                            <div className='NFT-home-box'>
                               <NFTImgBX>
-                                {fileType === "image" ? (
+                                {fileType === 'image' ? (
                                   <motion.img
                                     initial={{ opacity: 0.2 }}
                                     animate={{ opacity: 1 }}
@@ -1025,7 +1053,7 @@ class NFTPage extends Component {
                                 ) : (
                                   ``
                                 )}
-                                {fileType === "audio" ? (
+                                {fileType === 'audio' ? (
                                   <ReactAudioPlayer
                                     src={nftObj.imgSrc}
                                     autoPlay
@@ -1034,7 +1062,7 @@ class NFTPage extends Component {
                                 ) : (
                                   ``
                                 )}
-                                {fileType === "video" ? (
+                                {fileType === 'video' ? (
                                   <ReactPlayer
                                     controls={true}
                                     url={nftObj.imgSrc}
@@ -1044,16 +1072,16 @@ class NFTPage extends Component {
                                   ``
                                 )}
                               </NFTImgBX>
-                              <div className="NFT-home-box-inner">
+                              <div className='NFT-home-box-inner'>
                                 <h4>
                                   {nftObj.title
                                     ? nftObj.title
-                                    : "Artwork name / title dolor lorem ipsum sit adipiscing"}
+                                    : 'Artwork name / title dolor lorem ipsum sit adipiscing'}
                                 </h4>
                                 <CollectionBar>
                                   <p>
                                     <span>
-                                      {nftObj.edition ? nftObj.edition : 0}{" "}
+                                      {nftObj.edition ? nftObj.edition : 0}{' '}
                                       Editions
                                     </span>
                                   </p>
@@ -1063,52 +1091,52 @@ class NFTPage extends Component {
                                         to={`/collection-detail/${nftObj.collectionId?._id}`}
                                       >
                                         <FormattedMessage
-                                          id="see_the_collections"
-                                          defaultMessage="See the collection"
+                                          id='see_the_collections'
+                                          defaultMessage='See the collection'
                                         />
-                                        <i className="fas fa-angle-right"></i>
+                                        <i className='fas fa-angle-right'></i>
                                       </Link>
                                     </p>
                                   ) : (
-                                    ""
+                                    ''
                                   )}
                                 </CollectionBar>
-                                <Edition className="edition2 JCSB">
-                                  <div className="ed-box">
+                                <Edition className='edition2 JCSB'>
+                                  <div className='ed-box'>
                                     <p>
                                       {nftObj.saleState ===
-                                      "BUY" ? null : nftObj.auctionTime &&
+                                      'BUY' ? null : nftObj.auctionTime &&
                                         nftObj.saleState ===
-                                          "BUY" ? null : nftObj.auctionTime >
+                                          'BUY' ? null : nftObj.auctionTime >
                                         new Date().getTime() / 1000 ? (
                                         <FormattedMessage
-                                          id="current_bid"
-                                          defaultMessage="Current bid"
+                                          id='current_bid'
+                                          defaultMessage='Current bid'
                                         />
                                       ) : (
                                         <FormattedMessage
-                                          id="price"
-                                          defaultMessage="Price"
+                                          id='price'
+                                          defaultMessage='Price'
                                         />
                                       )}
                                     </p>
                                     <h3>{nftObj.price} BNB</h3>
                                   </div>
-                                  <div className="ed-box">
+                                  <div className='ed-box'>
                                     {(
-                                      nftObj.saleState === "BUY"
+                                      nftObj.saleState === 'BUY'
                                         ? null
                                         : nftObj.auctionTime
                                     ) ? (
                                       <>
                                         <p>
                                           <FormattedMessage
-                                            id="ending_in"
-                                            defaultMessage="Ending in"
+                                            id='ending_in'
+                                            defaultMessage='Ending in'
                                           />
-                                        </p>{" "}
+                                        </p>{' '}
                                         <h3>
-                                          {nftObj.saleState === "BUY"
+                                          {nftObj.saleState === 'BUY'
                                             ? null
                                             : nftObj.auctionTime}
                                           h 00m 00s
@@ -1118,9 +1146,9 @@ class NFTPage extends Component {
                                       <>
                                         <button>
                                           <FormattedMessage
-                                            id="buy_now"
-                                            defaultMessage="Buy now"
-                                          />{" "}
+                                            id='buy_now'
+                                            defaultMessage='Buy now'
+                                          />{' '}
                                         </button>
                                       </>
                                     )}
@@ -1133,7 +1161,7 @@ class NFTPage extends Component {
                                         ? this.props.authData?.data.profile
                                         : UserImg
                                     }
-                                    alt=""
+                                    alt=''
                                   />
                                   {this.props.authData?.data.username
                                     ? `@${this.props.authData?.data.username}`
@@ -1154,7 +1182,7 @@ class NFTPage extends Component {
         <Collapse
           isOpen={this.state.isOpen2}
           className={
-            "app__collapse " + (this.state.isOpen2 ? "collapse-active" : "")
+            'app__collapse ' + (this.state.isOpen2 ? 'collapse-active' : '')
           }
         >
           <CreateCollection toggle={this.toggle} />
@@ -1163,7 +1191,7 @@ class NFTPage extends Component {
         <Collapse
           isOpen={this.state.isOpen3}
           className={
-            "app__collapse " + (this.state.isOpen3 ? "collapse-active" : "")
+            'app__collapse ' + (this.state.isOpen3 ? 'collapse-active' : '')
           }
         >
           <MintNFTPopup
@@ -1176,7 +1204,7 @@ class NFTPage extends Component {
     );
   }
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }

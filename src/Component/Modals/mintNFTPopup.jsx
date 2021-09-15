@@ -79,6 +79,7 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
             <>
               <OnbTitle01 className="v2">
                 <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
+                <a href="/marketplace" >Okay</a>
               </OnbTitle01>
             </>
           )}
