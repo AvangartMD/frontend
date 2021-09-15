@@ -62,8 +62,6 @@ export function _compactAddress(address) {
 }
 
 export async function getFile(cid) {
-  const type = await FileType.fromStream(toStream(ipfs.cat(cid, {
-    length: 100 // or however many bytes you need
-  })))
+  const type = await FileType.fromStream(toStream(ipfs.cat(cid, {})))
   return type.mime
 }

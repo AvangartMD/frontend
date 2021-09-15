@@ -154,7 +154,8 @@ class NFTPage extends Component {
             image: NFTDetails.image,
           },
         });
-        const fileType = await getFileType(NFTDetails.image.compressed);
+        let ipfsHash = NFTDetails.image.compressed.substring(NFTDetails.image.compressed.lastIndexOf('/') + 1)
+        const fileType = await getFileType(ipfsHash);
         this.setState({ fileType: fileType });
       }
     }
@@ -396,18 +397,18 @@ class NFTPage extends Component {
           if (original_size !== compressed_size) {
             ipfsHash = await ipfs.add(this.state.image.original, {
               pin: true, progress: (bytes) => {
-                console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+                // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
               }
             })
             ipfsCompHash = await ipfs.add(this.state.image.compressed, {
               pin: true, progress: (bytes) => {
-                console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+                // console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
               }
             })
           } else {
             ipfsHash = await ipfs.add(this.state.image.original, {
               pin: true, progress: (bytes) => {
-                console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+                // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
               }
             })
             ipfsCompHash = ipfsHash
@@ -417,8 +418,8 @@ class NFTPage extends Component {
             compressed: ipfsCompHash.path,
           };
         } else {
-          let ipfsHash = this.state.image.original.substring(this.state.image.original.lastIndexOf('/') + 1)
-          let ipfsCompHash = this.state.image.compressed.substring(this.state.image.compressed.lastIndexOf('/') + 1)
+          let ipfsHash = nftObj.image.original.substring(nftObj.image.original.lastIndexOf('/') + 1)
+          let ipfsCompHash = nftObj.image.compressed.substring(nftObj.image.compressed.lastIndexOf('/') + 1)
           dataObj.image = {
             original: ipfsHash,
             compressed: ipfsCompHash,
@@ -431,18 +432,18 @@ class NFTPage extends Component {
         if (original_size !== compressed_size) {
           ipfsHash = await ipfs.add(this.state.image.original, {
             pin: true, progress: (bytes) => {
-              console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
             }
           })
           ipfsCompHash = await ipfs.add(this.state.image.compressed, {
             pin: true, progress: (bytes) => {
-              console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+              // console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
             }
           })
         } else {
           ipfsHash = await ipfs.add(this.state.image.original, {
             pin: true, progress: (bytes) => {
-              console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
             }
           })
           ipfsCompHash = ipfsHash
