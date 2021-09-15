@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
@@ -81,7 +82,7 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
                 <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
               </OnbTitle01>
               <OkayBtn>
-                <a href="/marketplace">Okay</a>
+                <Link to="/marketplace">Okay</Link>
               </OkayBtn>
             </>
           )}

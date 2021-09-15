@@ -224,7 +224,6 @@ class NFTPage extends Component {
       ),
       '0',
     ];
-    // console.log("this obj", obj);
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
       .send({ from: web3Data.accounts[0] })
@@ -290,9 +289,9 @@ class NFTPage extends Component {
       if (!fileType.search('video')) this.setState({ fileType: 'video' });
       if (!fileType.search('audio')) this.setState({ fileType: 'audio' });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
-
+      // 1572864 1.5 mb
       if (
-        e.target.files[0].size > 3145728 &&
+        e.target.files[0].size > 1572864 &&
         !fileType.search('image') &&
         !fileType.includes('gif')
       ) {

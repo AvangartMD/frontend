@@ -148,7 +148,7 @@ class Profile extends Component {
     let file = this.profileInput.current.files[0];
     let url = URL.createObjectURL(file);
     this.setState({ profile: { ...this.state.profile, url: url, file: file } });
-    if (file.size > 3145728) {
+    if (file.size > 1572864) {
       // check file size
       file = await compressImage(file); // compress image
     }
@@ -175,7 +175,7 @@ class Profile extends Component {
     let file = this.profileCoverInput.current.files[0];
     let url = URL.createObjectURL(file);
     this.setState({ cover: { ...this.state.cover, url: url, file: file } });
-    if (file.size > 3145728) {
+    if (file.size > 1572864) {
       // check file size
       file = await compressImage(file); // compress image
     }

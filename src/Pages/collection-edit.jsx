@@ -61,7 +61,7 @@ class CollectionEdit extends Component {
         collection: { ...collection, [name]: value, file: file },
         formChange: true,
       });
-      if (file.size > 3145728) {
+      if (file.size > 1572864) {
         // check file size
         file = await compressImage(file); // compress image
       }
