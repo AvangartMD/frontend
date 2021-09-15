@@ -303,7 +303,7 @@ class BecomeCreator extends Component {
                         <FormattedMessage id="nft_category_label" defaultMessage="You can choose two categories at most" />
                       </p>
                       {errors.category ?
-                        <p className="error-text">Please select atleast one category</p>
+                        <p className="error-text">Please select at least one category</p>
                         : ``}
                     </div>
                     <CustomScrollbars
