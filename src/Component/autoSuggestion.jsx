@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
 import Autosuggest from "react-autosuggest";
 import { services } from "../services";
+import { FormattedMessage } from 'react-intl';
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -70,10 +72,11 @@ class Autosuggestion extends React.Component {
 
   render() {
     const { value, suggestions } = this.state;
+    const { lng } = this.props;
     const inputProps = {
       value,
       name: "coCreatorUserName",
-      placeholder: "Type something…",
+      placeholder: lng === 'en' ? 'Type something…': 'Bir şey yazın…',
       onChange: this.onChange,
     };
 
@@ -90,4 +93,9 @@ class Autosuggestion extends React.Component {
   }
 }
 
-export default Autosuggestion;
+const mapStateToProps = (state) => {
+  return {
+    lng: state.fetchLanguage,
+  };
+};
+export default connect(mapStateToProps, null)(Autosuggestion);
