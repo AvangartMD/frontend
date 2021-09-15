@@ -13,7 +13,7 @@ function collectionCard({
   creatorName,
 }) {
   return (
-    <OneCollBox>
+    <OneCollBox key={id}>
       <Link to={`/collection-detail/${id}`}>
         <div className="CIbox">
           <motion.img

@@ -74,7 +74,9 @@ const NFTCard = ({
               )}
               {ext && ext === 'video' && (
                 <>
-                  <VideoThumbnail videoUrl={nftImg} cors={true} />
+                  <VideoThumbnail videoUrl={nftImg}
+                    // cors={true}
+                  />
                   <div className="video-icon"><span><FaPlay /></span></div>
                 </>
               )}

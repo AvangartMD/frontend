@@ -171,8 +171,9 @@ class Collection extends Component {
                 >
                   <CollectionBoxesInner>
 
-                    {collections.map((collection) => (
+                    {collections.map((collection, key) => (
                       <CollectionCard
+                        key={key}
                         id={collection.id}
                         collImg={collection.logo}
                         collName={collection.name}
