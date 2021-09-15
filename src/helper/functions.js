@@ -11,7 +11,7 @@ export async function compressImage(image) {
   return new Promise((resolve, reject) => {
     try {
       new Compressor(image, {
-        quality: 0.8, // 0.6 can also be used, but its not recommended to go below.
+        quality: 0.6, // 0.6 can also be used, but its not recommended to go below.
         success: (compressedResult) => {
           resolve(compressedResult);
           // compressedResult has the compressed file.
@@ -64,4 +64,16 @@ export function _compactAddress(address) {
 export async function getFile(cid) {
   const type = await FileType.fromStream(toStream(ipfs.cat(cid, {})))
   return type.mime
+}
+
+
+export function getFileFormat(fileType) {
+  if (fileType.includes('image'))
+    return 'image'
+  else if (fileType.includes('audio'))
+    return 'audio'
+  else if (fileType.includes('video'))
+    return 'video'
+  else
+    return 'image'
 }

@@ -69,7 +69,12 @@ class TopNFT extends Component {
     }
     if (nfts !== prevProps.nfts) {
       if (nfts[0]) {
-        let ext = await getFileType(nfts[0].nftId.image.compressed)
+        let ext;
+        if (!nfts[0].nftId.image.format) {
+          ext = await getFileType(nfts[0].nftId.image.compressed)
+        } else {
+          ext = nfts[0].nftId.image.format
+        }
         this.setState({ ext: ext })
       }
     }
@@ -314,6 +319,7 @@ class TopNFT extends Component {
                         auctionTime={nft.nftId.auctionTime}
                         userImg={nft.nftId.ownerId.profile}
                         username={nft.nftId.ownerId.username}
+                        format={nft.nftId.image.format}
                       />
                     );
                   })}

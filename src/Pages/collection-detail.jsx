@@ -120,6 +120,7 @@ class CollectionDetail extends Component {
                     auctionTime={nft.auctionTime}
                     userImg={nft.ownerId.profile}
                     username={nft.ownerId.username}
+                    format={nft.image.format}
                   />
                 )) : (<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>)}
               </NFTfourbox>

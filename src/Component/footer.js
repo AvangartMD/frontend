@@ -146,10 +146,13 @@ function Footer(props) {
           <FooterSbx01 className="withborder">
             <p>© 2021</p>
             <FooterrightLinks>
-              <Link to='/'>Instagram</Link>
-              <Link to='/'>Twitter</Link>
-              <Link to='/'>Discord</Link>
-              <Link to='/'>Blog</Link>
+              <Link to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</Link>
+              <Link to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</Link>
+              <Link to={{ pathname: "https://discordapp.com/users/carny.io/" }} target="_blank">Discord</Link>
+              <Link to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"><FormattedMessage
+                  id="blog"
+                  defaultMessage="Blog"
+                /></Link>
             </FooterrightLinks>
           </FooterSbx01>
         </FooterBottom>

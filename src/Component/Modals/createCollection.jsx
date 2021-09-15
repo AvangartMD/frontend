@@ -234,8 +234,9 @@ function CreateCollection(props) {
                     </div>
                     <FileuploadBox className={error.logo ? `error` : ``} >
                       <label className="custom-file-upload">
-                        <input type="file" name="logo"
-                          accept="image/png, image/gif, image/jpeg"
+                          <input type="file" name="logo"
+                            accept="image/*"
+                          // accept="image/png, image/gif, image/jpeg"
                         />
                         Choose
                       </label>

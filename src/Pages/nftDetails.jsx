@@ -192,7 +192,12 @@ class NftDetail extends React.Component {
       );
       // console.log(NFTDetails);
       if (NFTDetails) {
-        let ext = await getFileType(NFTDetails.image.compressed);
+        let ext;
+        if (!NFTDetails.image.format) {
+          ext = await getFileType(NFTDetails.image.compressed);
+        } else {
+          ext = NFTDetails.image.format
+        }
         this.setState(
           { NFTDetails, ext: ext },
           () => this.getEditionNumber(NFTDetails, this.state.currentEdition)

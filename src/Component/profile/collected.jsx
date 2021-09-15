@@ -53,6 +53,7 @@ function Collected(props) {
                 auctionTime={nft.auctionTime}
                 userImg={nft.ownerId.profile}
                 username={nft.ownerId.username}
+                format={nft.image.format}
               />
             ))
           ) : (
