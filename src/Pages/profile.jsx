@@ -245,15 +245,14 @@ class Profile extends Component {
       <>
         <ProMBannerBX
           style={{
-            backgroundImage: `url(${
-              this.state.cover.url
-                ? this.state.cover.url
-                : profile
+            backgroundImage: `url(${this.state.cover.url
+              ? this.state.cover.url
+              : profile
                 ? profile.cover
                   ? profile.cover
                   : ProfielBack
                 : ProfielBack
-            })`,
+              })`,
           }}
         >
           <ProMBX01>
@@ -434,9 +433,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                          new Date(profile.createdAt).toString(),
-                          'dd mmmm yyyy'
-                        )
+                        new Date(profile.createdAt).toString(),
+                        'dd mmmm yyyy'
+                      )
                       : 'join date'}
                   </span>
                 </UserDText02>
@@ -484,9 +483,9 @@ class Profile extends Component {
                   <span>
                     {profile
                       ? dateFormat(
-                          new Date(profile.createdAt).toString(),
-                          'dd mmmm yyyy'
-                        )
+                        new Date(profile.createdAt).toString(),
+                        'dd mmmm yyyy'
+                      )
                       : 'join date'}
                   </span>
                 </UserDText02>
@@ -541,8 +540,8 @@ class Profile extends Component {
           <ADBannerMBX>
             {profile_banner && profileInfo
               ? profileInfo.map((info, key) =>
-                  this.renderedProfileInfo(info, key)
-                )
+                this.renderedProfileInfo(info, key)
+              )
               : ``}
           </ADBannerMBX>
 
@@ -747,12 +746,18 @@ const UserDTitle01 = styled.div`
   margin-top: 19px;
   margin-bottom: 18px;
   text-transform: capitalize;
+  ${Media.xs} {
+    font-size: 18px;
+  }
   span {
     font-size: 16px;
     display: block;
     width: 100%;
     margin-top: 6px;
     text-transform: initial;
+    ${Media.xs} {
+      font-size: 12px;
+    }
   }
 `;
 const UserDText01 = styled.div`
@@ -884,6 +889,9 @@ const FollowerMBX = styled(FlexDiv)`
     color: #000;
     font-size: 22px;
     display: block;
+    ${Media.xs} {
+      font-size: 20px;
+    }  
   }
   ${Media.sm} {
     font-size: 14px;
@@ -910,6 +918,9 @@ const EditPrBTN = styled.button`
   ${Media.sm} {
     font-size: 16px;
     margin-top: 40px;
+  }
+  ${Media.xs} {
+    font-size: 14px;
   }
 `;
 

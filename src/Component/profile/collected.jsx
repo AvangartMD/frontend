@@ -85,7 +85,7 @@ function Collected(props) {
           : ``}
 
         {NFTs && params.id && NFTs.length === 0 ?
-          props.profile ? 
+          props.profile ?
             <CEmpty>
               <h2 className="Bec">Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
               {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
@@ -233,7 +233,7 @@ const FilterMBX = styled(FlexDiv)`
   width: 100%;
   justify-content: space-between;
   max-width: 1080px;
-  margin: 30px auto 0 auto;
+  margin: 0px auto 0 auto;
   ${Media.lg}{
     max-width: 100%;
   }

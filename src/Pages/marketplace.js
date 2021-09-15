@@ -518,6 +518,7 @@ const FilterRbx = styled(FlexDiv)`
   ${Media.md}{
     width:100%;
     justify-content: space-between;
+    margin-top:15px;
   }
 `;
 const FilterInputBX = styled(FlexDiv)`
