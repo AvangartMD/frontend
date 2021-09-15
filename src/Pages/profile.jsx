@@ -1,55 +1,55 @@
-import "react-multi-carousel/lib/styles.css";
-import "react-tabs/style/react-tabs.css";
-import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { connect } from "react-redux";
-import { instanceOf } from "prop-types";
-import { withCookies, Cookies } from "react-cookie";
-import { withRouter } from "react-router";
-import dateFormat from "dateformat";
-import { motion } from "framer-motion";
+import 'react-multi-carousel/lib/styles.css';
+import 'react-tabs/style/react-tabs.css';
+import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { connect } from 'react-redux';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+import { withRouter } from 'react-router';
+import dateFormat from 'dateformat';
+import { motion } from 'framer-motion';
 
-import AdBannerIMG from "../Assets/images/adbanner.jpg";
-import LoaderGif from "../Assets/images/loading.gif";
-import UserIcon from "../Assets/images/user-img.jpg";
-import ProfielBack from "../Assets/images/profile-back.jpg";
-import CopyICO from "../Assets/images/icon-copy.svg";
-import PlusICO from "../Assets/images/icon-plus.svg";
+import AdBannerIMG from '../Assets/images/adbanner.jpg';
+import LoaderGif from '../Assets/images/loading.gif';
+import UserIcon from '../Assets/images/user-img.jpg';
+import ProfielBack from '../Assets/images/profile-back.jpg';
+import CopyICO from '../Assets/images/icon-copy.svg';
+import PlusICO from '../Assets/images/icon-plus.svg';
 
-import SocialICO01 from "../Assets/images/social-icon01.svg";
-import SocialICO03 from "../Assets/images/social-icon03.svg";
-import SocialICO04 from "../Assets/images/social-icon04.svg";
-import SocialICO05 from "../Assets/images/social-icon05.svg";
-import SocialICO06 from "../Assets/images/social-icon06.svg";
+import SocialICO01 from '../Assets/images/social-icon01.svg';
+import SocialICO03 from '../Assets/images/social-icon03.svg';
+import SocialICO04 from '../Assets/images/social-icon04.svg';
+import SocialICO05 from '../Assets/images/social-icon05.svg';
+import SocialICO06 from '../Assets/images/social-icon06.svg';
 
 import ipfs from '../config/ipfs';
-import { actions } from "../actions";
-import { Context } from "../Component/wrapper";
-import { expiryTime } from "../config";
-import { compressImage } from "../helper/functions";
+import { actions } from '../actions';
+import { Context } from '../Component/wrapper';
+import { expiryTime } from '../config';
+import { compressImage } from '../helper/functions';
 
-import Created from "../Component/profile/created";
-import Collected from "../Component/profile/collected";
-import Collection from "../Component/profile/collection";
-import Liked from "../Component/profile/liked";
-import Drafts from "../Component/profile/drafts";
-import Media from "../Theme/media-breackpoint";
-import { Link } from "react-router-dom";
-import { Scrollbars } from "react-custom-scrollbars";
+import Created from '../Component/profile/created';
+import Collected from '../Component/profile/collected';
+import Collection from '../Component/profile/collection';
+import Liked from '../Component/profile/liked';
+import Drafts from '../Component/profile/drafts';
+import Media from '../Theme/media-breackpoint';
+import { Link } from 'react-router-dom';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 function CustomScrollbars(props) {
   return (
     <Scrollbars
       renderTrackVertical={(props) => (
-        <div {...props} className="track-vertical" />
+        <div {...props} className='track-vertical' />
       )}
       renderThumbVertical={(props) => (
-        <div {...props} className="thumb-vertical" />
+        <div {...props} className='thumb-vertical' />
       )}
-      renderView={(props) => <div {...props} className="view" />}
+      renderView={(props) => <div {...props} className='view' />}
       autoHide
       style={props.style}
     >
@@ -75,8 +75,8 @@ class Profile extends Component {
       profile: { file: null, url: null, buffer: null },
       cover: { file: null, url: null, buffer: null },
       profile_banner: false,
-      dashboard: cookies.get("dashboard") || null,
-      profileInfo: cookies.get("profileInfo") || null,
+      dashboard: cookies.get('dashboard') || null,
+      profileInfo: cookies.get('profileInfo') || null,
     };
   }
 
@@ -85,17 +85,17 @@ class Profile extends Component {
     if (!this.state.dashboard && !dashboard) {
       this.props.getDashboard(); // fetch dashboard config
     } else {
-      this.props.setDashboard(cookies.get("dashboard"));
+      this.props.setDashboard(cookies.get('dashboard'));
       const isActive = cookies
-        .get("dashboard")
-        .filter((dash) => dash.name === "Profile Info")
+        .get('dashboard')
+        .filter((dash) => dash.name === 'Profile Info')
         .map((data) => data.isActive)[0];
       this.setState({ profile_banner: isActive });
     }
     if (!this.state.profileInfo && !profileInfo) {
       this.props.getProfileInfo(); // fetch profile info list
     } else {
-      this.props.setProfileInfo(cookies.get("profileInfo"));
+      this.props.setProfileInfo(cookies.get('profileInfo'));
     }
     this.props.getProfile(); // fetch profile
   }
@@ -108,15 +108,15 @@ class Profile extends Component {
     if (authData !== prevProps.authData) {
       this.profileUpdated(updated); // profile updated
     }
-    if (dashboard && !cookies.get("dashboard")) {
-      this.setCookie("dashboard", dashboard); // set dashboard data in cookie
+    if (dashboard && !cookies.get('dashboard')) {
+      this.setCookie('dashboard', dashboard); // set dashboard data in cookie
       const isActive = dashboard
-        .filter((dash) => dash.name === "Profile Info")
+        .filter((dash) => dash.name === 'Profile Info')
         .map((data) => data.isActive)[0];
       this.setState({ profile_banner: isActive });
     }
-    if (profileInfo && !cookies.get("profileInfo")) {
-      this.setCookie("profileInfo", profileInfo); // set profile info in cookie
+    if (profileInfo && !cookies.get('profileInfo')) {
+      this.setCookie('profileInfo', profileInfo); // set profile info in cookie
     }
 
     let { profile, cover } = this.state;
@@ -131,7 +131,7 @@ class Profile extends Component {
   setCookie = (name, dashboard) => {
     const { cookies } = this.props;
     const expire = new Date(Date.now() + expiryTime * 60 * 60 * 1000); // cookie will expire after 12 hours
-    cookies.set(name, dashboard, { path: "/", expires: expire });
+    cookies.set(name, dashboard, { path: '/', expires: expire });
   };
 
   convertToBuffer = async (reader, cover = false) => {
@@ -140,8 +140,7 @@ class Profile extends Component {
     //set this buffer -using es6 syntax
     if (cover)
       this.setState({ cover: { ...this.state.cover, buffer: buffer } });
-    else
-      this.setState({ profile: { ...this.state.profile, buffer: buffer } });
+    else this.setState({ profile: { ...this.state.profile, buffer: buffer } });
   };
 
   profileFileChange = async () => {
@@ -153,18 +152,20 @@ class Profile extends Component {
       // check file size
       file = await compressImage(file); // compress image
     }
-    let reader = new window.FileReader()
+    let reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
-    reader.onloadend = () => this.convertToBuffer(reader, false)
+    reader.onloadend = () => this.convertToBuffer(reader, false);
   };
 
   updateProfileFile = async () => {
     let { profile } = this.state;
-    let ipfsHash = await ipfs.add(profile.buffer, { // get buffer IPFS hash
-      pin: true, progress: (bytes) => {
-        console.log("File upload progress ", Math.floor(bytes * 100 / (profile.file.size)))
-      }
-    })
+    let ipfsHash = await ipfs.add(profile.buffer, {
+      // get buffer IPFS hash
+      pin: true,
+      progress: (bytes) => {
+        // console.log("File upload progress ", Math.floor(bytes * 100 / (profile.file.size)))
+      },
+    });
     let userObj = { profile: ipfsHash.path };
     this.props.updateProfile(userObj); // update profile
   };
@@ -178,18 +179,20 @@ class Profile extends Component {
       // check file size
       file = await compressImage(file); // compress image
     }
-    let reader = new window.FileReader()
+    let reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
-    reader.onloadend = () => this.convertToBuffer(reader, true)
+    reader.onloadend = () => this.convertToBuffer(reader, true);
   };
 
   updateCoverFile = async () => {
     let { cover } = this.state;
-    let ipfsHash = await ipfs.add(cover.buffer, { // get buffer IPFS hash
-      pin: true, progress: (bytes) => {
-        console.log("File upload progress ", Math.floor(bytes * 100 / (cover.file.size)))
-      }
-    })
+    let ipfsHash = await ipfs.add(cover.buffer, {
+      // get buffer IPFS hash
+      pin: true,
+      progress: (bytes) => {
+        // console.log("File upload progress ", Math.floor(bytes * 100 / (cover.file.size)))
+      },
+    });
     let userObj = { cover: ipfsHash.path };
     this.props.updateProfile(userObj); // update profile
   };
@@ -200,8 +203,9 @@ class Profile extends Component {
 
   renderedProfileInfo(profile, index) {
     let context = this.context;
-    let img = "", mobImg = "";
-    if (context.locale === "tr") {
+    let img = '',
+      mobImg = '';
+    if (context.locale === 'tr') {
       img = profile.banner.tu;
       mobImg = profile.mobile.tu;
     } else {
@@ -217,9 +221,9 @@ class Profile extends Component {
           key={index}
           src={img}
           exit={{ opacity: 0 }}
-          className="desk-img"
+          className='desk-img'
         />
-        <img src={mobImg} className="mobile-img" alt="" />
+        <img src={mobImg} className='mobile-img' alt='' />
       </Link>
     );
   }
@@ -232,7 +236,7 @@ class Profile extends Component {
       if (address) {
         return (
           newAddress.substring(0, 5) +
-          "...." +
+          '....' +
           newAddress.substring(newAddress.length - 10, newAddress.length)
         );
       }
@@ -241,14 +245,15 @@ class Profile extends Component {
       <>
         <ProMBannerBX
           style={{
-            backgroundImage: `url(${this.state.cover.url
-              ? this.state.cover.url
-              : profile
+            backgroundImage: `url(${
+              this.state.cover.url
+                ? this.state.cover.url
+                : profile
                 ? profile.cover
                   ? profile.cover
                   : ProfielBack
                 : ProfielBack
-              })`,
+            })`,
           }}
         >
           <ProMBX01>
@@ -256,7 +261,7 @@ class Profile extends Component {
               <UserImgBX>
                 <UserImgSB>
                   {this.state.profile.url ? (
-                    <img src={this.state.profile.url} alt="" />
+                    <img src={this.state.profile.url} alt='' />
                   ) : (
                     <motion.img
                       initial={{ opacity: 0.2 }}
@@ -271,15 +276,15 @@ class Profile extends Component {
 
                 <ImgUplBTN>
                   <button>
-                    <img src={PlusICO} alt="" />{" "}
+                    <img src={PlusICO} alt='' />{' '}
                   </button>
-                  <div className="ddMBX">
+                  <div className='ddMBX'>
                     <input
-                      type="file"
-                      accept="image/png, image/gif, image/jpeg"
+                      type='file'
+                      accept='image/png, image/gif, image/jpeg'
                       ref={this.profileInput}
-                      name="profile_pic"
-                      id="profile_file"
+                      name='profile_pic'
+                      id='profile_file'
                       hidden
                       onChange={() => {
                         this.profileFileChange();
@@ -294,11 +299,11 @@ class Profile extends Component {
                     </button>
 
                     <input
-                      type="file"
-                      accept="image/png, image/gif, image/jpeg"
+                      type='file'
+                      accept='image/png, image/gif, image/jpeg'
                       ref={this.profileCoverInput}
-                      name="profileCoverInput"
-                      id="profileCoverInput"
+                      name='profileCoverInput'
+                      id='profileCoverInput'
                       hidden
                       onChange={() => {
                         this.coverFileChange();
@@ -320,84 +325,90 @@ class Profile extends Component {
                   {profile
                     ? profile.name
                       ? profile.name
-                      : "User Name"
-                    : "User Name"}
+                      : 'User Name'
+                    : 'User Name'}
                   <span>
                     @
                     {profile
                       ? profile.username
                         ? profile.username
-                        : "username"
-                      : "username"}
+                        : 'username'
+                      : 'username'}
                   </span>
                 </UserDTitle01>
                 <CustomScrollbars
                   autoHide
                   autoHideTimeout={1000}
-                  style={{ width: "100%", height: "58px", position: "relative" }}
+                  style={{
+                    width: '100%',
+                    height: '58px',
+                    position: 'relative',
+                  }}
                 >
-                  <UserDText01>{profile ? profile.bio : "user bio"}</UserDText01>
+                  <UserDText01>
+                    {profile ? profile.bio : 'user bio'}
+                  </UserDText01>
                 </CustomScrollbars>
                 <UserSocilMBX>
                   {profile ? (
                     profile.portfolio?.website?.url ? (
                       <button
                         onClick={() => {
-                          window.open(profile.portfolio.website.url, "_blank");
+                          window.open(profile.portfolio.website.url, '_blank');
                         }}
                       >
-                        <img src={SocialICO01} alt="" />
+                        <img src={SocialICO01} alt='' />
                       </button>
                     ) : (
-                      ""
+                      ''
                     )
                   ) : (
-                    ""
+                    ''
                   )}
                   {profile ? (
                     profile.portfolio?.facebook?.url ? (
                       <button
                         onClick={() => {
-                          window.open(profile.portfolio.facebook.url, "_blank");
+                          window.open(profile.portfolio.facebook.url, '_blank');
                         }}
                       >
-                        <img src={SocialICO03} alt="" />
+                        <img src={SocialICO03} alt='' />
                       </button>
                     ) : (
-                      ""
+                      ''
                     )
                   ) : (
-                    ""
+                    ''
                   )}
                   {profile ? (
                     profile.portfolio?.twitter?.url ? (
                       <button
                         onClick={() => {
-                          window.open(profile.portfolio.twitter.url, "_blank");
+                          window.open(profile.portfolio.twitter.url, '_blank');
                         }}
                       >
-                        <img src={SocialICO04} alt="" />
+                        <img src={SocialICO04} alt='' />
                       </button>
                     ) : (
-                      ""
+                      ''
                     )
                   ) : (
-                    ""
+                    ''
                   )}
                   {profile ? (
                     profile.portfolio?.youtube?.url ? (
                       <button
                         onClick={() => {
-                          window.open(profile.portfolio.youtube.url, "_blank");
+                          window.open(profile.portfolio.youtube.url, '_blank');
                         }}
                       >
-                        <img src={SocialICO05} alt="" />
+                        <img src={SocialICO05} alt='' />
                       </button>
                     ) : (
-                      ""
+                      ''
                     )
                   ) : (
-                    ""
+                    ''
                   )}
                   {profile ? (
                     profile.portfolio?.instagarm?.url ? (
@@ -405,28 +416,28 @@ class Profile extends Component {
                         onClick={() => {
                           window.open(
                             profile.portfolio.instagarm.url,
-                            "_blank"
+                            '_blank'
                           );
                         }}
                       >
-                        <img src={SocialICO06} alt="" />
+                        <img src={SocialICO06} alt='' />
                       </button>
                     ) : (
-                      ""
+                      ''
                     )
                   ) : (
-                    ""
+                    ''
                   )}
                 </UserSocilMBX>
-                <UserDText02 className="desktop-block">
-                  <FormattedMessage id="joined" defaultMessage="Joined" />
+                <UserDText02 className='desktop-block'>
+                  <FormattedMessage id='joined' defaultMessage='Joined' />
                   <span>
                     {profile
                       ? dateFormat(
-                        new Date(profile.createdAt).toString(),
-                        "dd mmmm yyyy"
-                      )
-                      : "join date"}
+                          new Date(profile.createdAt).toString(),
+                          'dd mmmm yyyy'
+                        )
+                      : 'join date'}
                   </span>
                 </UserDText02>
               </UserDetailBX>
@@ -434,75 +445,75 @@ class Profile extends Component {
 
             <ProSBX02>
               <ProSBX03>
-                <div className="cff-section">
+                <div className='cff-section'>
                   <FollowerMBX>
-                    <FormattedMessage id="created" defaultMessage="Created" />
-                    <span>{profile ? profile.nftCreated : "000"}</span>
+                    <FormattedMessage id='created' defaultMessage='Created' />
+                    <span>{profile ? profile.nftCreated : '000'}</span>
                   </FollowerMBX>
                   <FollowerMBX>
                     <FormattedMessage
-                      id="followers"
-                      defaultMessage="Followers"
+                      id='followers'
+                      defaultMessage='Followers'
                     />
-                    <span>{profile ? profile.followersCount : "000"}</span>
+                    <span>{profile ? profile.followersCount : '000'}</span>
                   </FollowerMBX>
                   <FollowerMBX>
                     <FormattedMessage
-                      id="following"
-                      defaultMessage="Following"
+                      id='following'
+                      defaultMessage='Following'
                     />
-                    <span>{profile ? profile.followingCount : "000"}</span>
+                    <span>{profile ? profile.followingCount : '000'}</span>
                   </FollowerMBX>
                 </div>
-                <ProSBX04 className="mobile-block">
-                  <span>#000000</span>{" "}
-                  <p>{profile ? profile.walletAddress : "xyz...."}</p>
+                <ProSBX04 className='mobile-block'>
+                  <span>#000000</span>{' '}
+                  <p>{profile ? profile.walletAddress : 'xyz....'}</p>
                   <button
-                    title="Copied"
+                    title='Copied'
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        profile ? profile.walletAddress : "xyz...."
+                        profile ? profile.walletAddress : 'xyz....'
                       );
                     }}
                   >
-                    <img src={CopyICO} alt="" />
+                    <img src={CopyICO} alt='' />
                   </button>
                 </ProSBX04>
-                <UserDText02 className="mobile-block">
-                  <FormattedMessage id="joined" defaultMessage="Joined" />
+                <UserDText02 className='mobile-block'>
+                  <FormattedMessage id='joined' defaultMessage='Joined' />
                   <span>
                     {profile
                       ? dateFormat(
-                        new Date(profile.createdAt).toString(),
-                        "dd mmmm yyyy"
-                      )
-                      : "join date"}
+                          new Date(profile.createdAt).toString(),
+                          'dd mmmm yyyy'
+                        )
+                      : 'join date'}
                   </span>
                 </UserDText02>
                 <EditPrBTN
-                  onClick={() => this.props.history.push("/user/edit-profile")}
+                  onClick={() => this.props.history.push('/user/edit-profile')}
                 >
                   <FormattedMessage
-                    id="edit_profile"
-                    defaultMessage="Edit Profile"
+                    id='edit_profile'
+                    defaultMessage='Edit Profile'
                   />
                 </EditPrBTN>
               </ProSBX03>
 
-              <ProSBX04 className="desktop-block">
-                <span>#000000</span>{" "}
+              <ProSBX04 className='desktop-block'>
+                <span>#000000</span>{' '}
                 <p>
-                  {profile ? _compactAddress(profile.walletAddress) : "xyz...."}
+                  {profile ? _compactAddress(profile.walletAddress) : 'xyz....'}
                 </p>
                 <button
-                  title="Copied"
+                  title='Copied'
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      profile ? profile.walletAddress : "xyz...."
+                      profile ? profile.walletAddress : 'xyz....'
                     );
                   }}
                 >
-                  <img src={CopyICO} alt="" />
+                  <img src={CopyICO} alt='' />
                 </button>
               </ProSBX04>
             </ProSBX02>
@@ -514,89 +525,102 @@ class Profile extends Component {
             <>
               <BlackWrap>
                 <WhiteBX01>
-                  <OnbTitle01 className="v2">
+                  <OnbTitle01 className='v2'>
                     Please wait profile is updating
                   </OnbTitle01>
                   <LoaderBX>
-                    <img src={LoaderGif} alt="" />
+                    <img src={LoaderGif} alt='' />
                   </LoaderBX>
                 </WhiteBX01>
               </BlackWrap>
             </>
           ) : (
-            ""
+            ''
           )}
 
           <ADBannerMBX>
             {profile_banner && profileInfo
               ? profileInfo.map((info, key) =>
-                this.renderedProfileInfo(info, key)
-              )
+                  this.renderedProfileInfo(info, key)
+                )
               : ``}
           </ADBannerMBX>
 
           <HomeTabs>
             <Tabs>
-              {profile?.role.roleName === "CREATOR" ? (
+              {profile?.role.roleName === 'CREATOR' ? (
                 <>
                   <TabList>
                     <Tab>
-                      <FormattedMessage id="created" defaultMessage="Created" />
+                      <FormattedMessage id='created' defaultMessage='Created' />
                     </Tab>
                     <Tab>
-                      <FormattedMessage id="collected" defaultMessage="Collected" />
+                      <FormattedMessage
+                        id='collected'
+                        defaultMessage='Collected'
+                      />
                     </Tab>
                     <Tab>
-                      <FormattedMessage id="collections" defaultMessage="Collections" />
+                      <FormattedMessage
+                        id='collections'
+                        defaultMessage='Collections'
+                      />
                     </Tab>
                     <Tab>
-                      <FormattedMessage id="liked" defaultMessage="Liked" />
+                      <FormattedMessage id='liked' defaultMessage='Liked' />
                     </Tab>
                     <Tab>
-                      <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                      <FormattedMessage id='drafts' defaultMessage='Drafts' />
                     </Tab>
                   </TabList>
 
                   <TabPanel>
-                    {" "}
+                    {' '}
                     <Created
-                      status={profile.status === "APPROVED" ? true : false}
+                      status={profile.status === 'APPROVED' ? true : false}
                       profile={true}
-                    />{" "}
+                    />{' '}
                   </TabPanel>
                   <TabPanel>
-                    {" "}
-                    <Collected role="creator" profile={true} />{" "}
+                    {' '}
+                    <Collected role='creator' profile={true} />{' '}
                   </TabPanel>
                   <TabPanel>
-                    {" "}
-                    <Collection profile={true} />{" "}
+                    {' '}
+                    <Collection profile={true} />{' '}
                   </TabPanel>
                   <TabPanel>
-                    {" "}
-                    <Liked profile={true} />{" "}
+                    {' '}
+                    <Liked profile={true} />{' '}
                   </TabPanel>
                   <TabPanel>
-                    {" "}
+                    {' '}
                     <Drafts
-                      status={profile.status === "APPROVED" ? true : false}
-                    />{" "}
+                      status={profile.status === 'APPROVED' ? true : false}
+                    />{' '}
                   </TabPanel>
                 </>
               ) : (
                 <>
                   <TabList>
-                    <Tab><FormattedMessage id="collected" defaultMessage="Collected" /></Tab>
-                    <Tab><FormattedMessage id="liked" defaultMessage="Liked" /></Tab>
+                    <Tab>
+                      <FormattedMessage
+                        id='collected'
+                        defaultMessage='Collected'
+                      />
+                    </Tab>
+                    <Tab>
+                      <FormattedMessage id='liked' defaultMessage='Liked' />
+                    </Tab>
                   </TabList>
 
                   <TabPanel>
-                    {" "}
-                    <Collected role="collector" profile={true} />{" "}
+                    {' '}
+                    <Collected role='collector' profile={true} />{' '}
                   </TabPanel>
                   <TabPanel>
-                    {" "}
-                    <Liked profile={true} />{" "}
+                    {' '}
+                    <Liked profile={true} />{' '}
                   </TabPanel>
                 </>
               )}
@@ -607,7 +631,7 @@ class Profile extends Component {
     );
   }
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -628,7 +652,7 @@ const ProMBannerBX = styled(FlexDiv)`
   position: relative;
   ${Media.md} {
     margin-bottom: 180px;
-    height:180px;
+    height: 180px;
   }
   ${Media.sm} {
     margin-bottom: 550px;
@@ -722,20 +746,20 @@ const UserDTitle01 = styled.div`
   width: 100%;
   margin-top: 19px;
   margin-bottom: 18px;
-  text-transform:capitalize;
+  text-transform: capitalize;
   span {
     font-size: 16px;
     display: block;
     width: 100%;
     margin-top: 6px;
-    text-transform:initial;
+    text-transform: initial;
   }
 `;
 const UserDText01 = styled.div`
   font-size: 12px;
   font-weight: 500;
   color: #000000;
-  width:100%;
+  width: 100%;
   ${Media.xs} {
     font-size: 10px;
     line-height: 14px;
@@ -1010,23 +1034,21 @@ const ADBannerMBX = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    &.desk-img
-    {
-      ${Media.xs}{
-        display:none;
+    &.desk-img {
+      ${Media.xs} {
+        display: none;
       }
     }
-    &.mobile-img
-    {
-      display:none;
-      ${Media.xs}{
-        display:block;
+    &.mobile-img {
+      display: none;
+      ${Media.xs} {
+        display: block;
       }
     }
-    ${Media.xs}{
-      object-fit:initial;
-      width:auto;
-      height:auto;
+    ${Media.xs} {
+      object-fit: initial;
+      width: auto;
+      height: auto;
     }
   }
   ${Media.md} {
@@ -1245,10 +1267,10 @@ const mapDipatchToProps = (dispatch) => {
     updateProfile: (params) => dispatch(actions.updateUserDetails(params)),
     getProfileBanner: () => dispatch(actions.getProfileBanner()),
     getDashboard: () => dispatch(actions.fetchDashboardConfig()),
-    setDashboard: (data) => dispatch({ type: "FETCHED_DASHBOARD", data: data }),
+    setDashboard: (data) => dispatch({ type: 'FETCHED_DASHBOARD', data: data }),
     getProfileInfo: () => dispatch(actions.getProfileInfo()),
     setProfileInfo: (data) =>
-      dispatch({ type: "FETCHED_PROFILE_INFO", data: data }),
+      dispatch({ type: 'FETCHED_PROFILE_INFO', data: data }),
   };
 };
 const mapStateToProps = (state) => {
