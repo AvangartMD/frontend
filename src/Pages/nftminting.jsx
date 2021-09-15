@@ -22,6 +22,7 @@ import {
   compressImage,
   capitalizeFirstLetter,
   getFileType,
+  getFileFormat,
 } from '../helper/functions';
 import { web3 } from '../web3';
 import { actions } from '../actions';
@@ -152,10 +153,16 @@ class NFTPage extends Component {
             digitalKey: NFTDetails.unlockContent ? NFTDetails.digitalKey : '',
             imgSrc: NFTDetails.image.compressed,
             image: NFTDetails.image,
+            format: NFTDetails.image.format
           },
         });
-        let ipfsHash = NFTDetails.image.compressed.substring(NFTDetails.image.compressed.lastIndexOf('/') + 1)
-        const fileType = await getFileType(ipfsHash);
+        let fileType;
+        if (!NFTDetails.image.format) {
+          let ipfsHash = NFTDetails.image.compressed.substring(NFTDetails.image.compressed.lastIndexOf('/') + 1)
+          fileType = await getFileType(ipfsHash);
+        } else {
+          fileType = NFTDetails.image.format
+        }
         this.setState({ fileType: fileType });
       }
     }
@@ -278,6 +285,7 @@ class NFTPage extends Component {
       // nftObj[e.target.name].push(e.target.value);
     } else if (e.target.name === 'nftFile') {
       nftObj[e.target.name] = e.target.files[0];
+      nftObj['format'] = getFileFormat(e.target.files[0].type)
 
       this.setState({
         original_size: e.target.files[0].size,
@@ -432,6 +440,7 @@ class NFTPage extends Component {
           dataObj.image = {
             original: ipfsHash.path,
             compressed: ipfsCompHash.path,
+            format: nftObj.format,
           };
         } else {
           let ipfsHash = nftObj.image.original.substring(nftObj.image.original.lastIndexOf('/') + 1)
@@ -439,6 +448,7 @@ class NFTPage extends Component {
           dataObj.image = {
             original: ipfsHash,
             compressed: ipfsCompHash,
+            format: nftObj.format,
           };
         }
         this.props.updateNFT(dataObj); // update nft api called
@@ -471,6 +481,7 @@ class NFTPage extends Component {
         dataObj.image = {
           original: ipfsHash.path,
           compressed: ipfsCompHash.path,
+          format: nftObj.format,
         };
         this.props.addNFT(dataObj); // add new nft api called
       }

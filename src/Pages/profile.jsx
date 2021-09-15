@@ -281,7 +281,7 @@ class Profile extends Component {
                   <div className='ddMBX'>
                     <input
                       type='file'
-                      accept='image/png, image/gif, image/jpeg'
+                      accept="image/*"
                       ref={this.profileInput}
                       name='profile_pic'
                       id='profile_file'
@@ -300,7 +300,7 @@ class Profile extends Component {
 
                     <input
                       type='file'
-                      accept='image/png, image/gif, image/jpeg'
+                      accept="image/*"
                       ref={this.profileCoverInput}
                       name='profileCoverInput'
                       id='profileCoverInput'

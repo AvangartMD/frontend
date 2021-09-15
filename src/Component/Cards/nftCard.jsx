@@ -28,16 +28,19 @@ const NFTCard = ({
   auctionTime,
   userImg,
   username,
+  format,
   previewCard, }) => {
 
-  const [ext, setExt] = useState(null);
+  const [ext, setExt] = useState(format);
 
   useEffect(() => {
     function getExtenstion() {
-      let ext = getFileType(nftImg);
-      ext.then(function (result) {
-        setExt(result)
-      })
+      if (!format) {
+        let ext = getFileType(nftImg);
+        ext.then(function (result) {
+          setExt(result)
+        })
+      }
     }
     getExtenstion();
     // eslint-disable-next-line react-hooks/exhaustive-deps

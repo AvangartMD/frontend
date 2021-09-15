@@ -263,10 +263,10 @@ class CollectionEdit extends Component {
                     <p>{/* <b>Max 30 mb.</b> */}</p>
                     <FileuploadBox>
                       <label className='custom-file-upload'>
-                        <input type='file' name='logo' />
+                        <input type='file' name='logo' accept="image/*" />
                         <FormattedMessage id='change' defaultMessage='Change' />
                       </label>
-                      <input type='file' placeholder='Choose' />
+                      <input type='file' placeholder='Choose' accept="image/*"/>
                     </FileuploadBox>
                   </div>
                 </FlexDiv>

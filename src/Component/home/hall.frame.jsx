@@ -39,12 +39,13 @@ class HallOfFrame extends Component {
   render() {
     const { artists, artworks, collectors } = this.props;
 
-    const getPreview = (nftLink) => {
-      let ext = false;
-      let extension = getFileType(nftLink);
-      extension.then(function (result) {
-        ext = result;
-      })
+    const getPreview = (nftLink, ext) => {
+      if (!ext) {
+        let extension = getFileType(nftLink);
+        extension.then(function (result) {
+          ext = result;
+        })
+      }
 
       return ext === `image` ? (
         <motion.img
@@ -168,7 +169,7 @@ class HallOfFrame extends Component {
                                 <HallofFameBox2>
                                   <div className="HOF-inner">
                                     <div className="img-outer">
-                                      {getPreview(artwork.image?.compressed)}
+                                      {getPreview(artwork.image?.compressed, artwork.image?.format)}
 
                                       {/* <img
                                         src={artwork.image?.compressed}
