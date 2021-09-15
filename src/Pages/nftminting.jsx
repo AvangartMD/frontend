@@ -793,9 +793,11 @@ class NFTPage extends Component {
                         <CollectionSelect>
                           <Gs.W80>
                             <select name='collection' value={nftObj.collection}>
-                              <option>
-                                Select or Create
-                              </option>
+                                <FormattedMessage id="select_create" defaultMessage="Select or Create">
+                                  {message =>
+                                    <option>{message}</option>
+                                  }
+                                </FormattedMessage>
                               {collectionList?.map((collection, key) => (
                                 <option value={collection._id} key={key}>
                                   {capitalizeFirstLetter(collection.name)}
