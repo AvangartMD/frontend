@@ -61,7 +61,7 @@ class CollectionEdit extends Component {
         collection: { ...collection, [name]: value, file: file },
         formChange: true,
       });
-      if (file.size > 3145728) {
+      if (file.size > 1572864) {
         // check file size
         file = await compressImage(file); // compress image
       }
@@ -263,10 +263,10 @@ class CollectionEdit extends Component {
                     <p>{/* <b>Max 30 mb.</b> */}</p>
                     <FileuploadBox>
                       <label className='custom-file-upload'>
-                        <input type='file' name='logo' />
+                        <input type='file' name='logo' accept="image/*" />
                         <FormattedMessage id='change' defaultMessage='Change' />
                       </label>
-                      <input type='file' placeholder='Choose' />
+                      <input type='file' placeholder='Choose' accept="image/*"/>
                     </FileuploadBox>
                   </div>
                 </FlexDiv>

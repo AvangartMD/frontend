@@ -151,12 +151,12 @@ class Creators extends Component {
 
                         <FilterRbx>
                             <FilterInputBX>
-                                 <FormattedMessage id="search" defaultMessage="Search">
-                                    {placeholder=>
-                                    <input
-                                        placeholder={placeholder}
-                                        onKeyUp={(e) => this.onSearchKeyUp(e)}
-                                    />}
+                                <FormattedMessage id="search" defaultMessage="Search">
+                                    {placeholder =>
+                                        <input
+                                            placeholder={placeholder}
+                                            onKeyUp={(e) => this.onSearchKeyUp(e)}
+                                        />}
                                 </FormattedMessage>
                                 <SearchICO><img src={SerICON} alt="" /> </SearchICO>
                             </FilterInputBX>
@@ -238,6 +238,9 @@ const FilterMBX = styled(FlexDiv)`
   ${Media.lg}{
     max-width:100%;
   }
+  ${Media.md}{
+    margin:40px auto 0 auto;
+  }
 `
 const FilterLbx = styled(FlexDiv)`
  width:55%; justify-content:flex-start;
@@ -269,7 +272,6 @@ const FilterRbx = styled(FlexDiv)`
  ${Media.md}{
     width:100%;
     justify-content: space-between;
-    margin-top:20px;
   } 
 `
 const FilterInputBX = styled(FlexDiv)`
@@ -300,6 +302,9 @@ const DDContainer = styled(FlexDiv)`
 `
 const CreatorMBX = styled(FlexDiv)`
  margin:10px -10px 40px -10px; justify-content:flex-start; align-items:flex-start; overflow:hidden;
+ ${Media.md}{
+    margin:40px -10px 40px -10px;
+  }
 `
 
 const DDBTN01 = styled.button`

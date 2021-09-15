@@ -390,6 +390,9 @@ const FilterMBX = styled(FlexDiv)`
   ${Media.lg}{
     max-width:100%;
   }
+  ${Media.md}{
+    margin:0px auto 20px;
+  }
 `;
 
 const FilterLbx = styled(FlexDiv)`

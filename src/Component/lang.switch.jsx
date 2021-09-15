@@ -145,6 +145,9 @@ const Language = (props) => {
       font-weight: 400;
       color: #fff;
     }
+    ${Media.sm}{
+      margin-top: 32px;
+    }
   `;
   const DDContainerF = styled(FlexDiv)`
     position: absolute;

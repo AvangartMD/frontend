@@ -171,8 +171,9 @@ class Collection extends Component {
                 >
                   <CollectionBoxesInner>
 
-                    {collections.map((collection) => (
+                    {collections.map((collection, key) => (
                       <CollectionCard
+                        key={key}
                         id={collection.id}
                         collImg={collection.logo}
                         collName={collection.name}
@@ -219,6 +220,9 @@ const FilterMBX = styled(FlexDiv)`
   margin: 50px auto 0 auto;
   ${Media.lg}{
     max-width:100%;
+  }
+  ${Media.md}{
+    margin:40px auto 0 auto;
   }
 `;
 
@@ -272,7 +276,6 @@ const FilterRbx = styled(FlexDiv)`
   ${Media.md}{
     width:100%;
     justify-content: flex-start;
-    margin-top:20px;
   }
 `;
 const FilterInputBX = styled(FlexDiv)`

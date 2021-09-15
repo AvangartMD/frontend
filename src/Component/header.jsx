@@ -373,7 +373,7 @@ class Header extends Component {
                             FAQ
                           </NavLink>
                           <NavLink
-                            to=""
+                            to="mailto:admin@carny.io"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
@@ -452,9 +452,9 @@ class Header extends Component {
                       </>
                     )}
                     <FooterrightLinks>
-                      <Link to="/">Instagram</Link>
-                      <Link to="/">Twitter</Link>
-                      <Link to="/">Discord</Link>
+                      <Link to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</Link>
+                      <Link to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</Link>
+                      <Link to={{ pathname: "https://discordapp.com/users/carny.io/" }} target="_blank">Discord</Link>
                     </FooterrightLinks>
                   </MobInner>
                 </Collapse>

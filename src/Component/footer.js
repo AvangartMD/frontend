@@ -146,10 +146,13 @@ function Footer(props) {
           <FooterSbx01 className="withborder">
             <p>© 2021</p>
             <FooterrightLinks>
-              <Link to='/'>Instagram</Link>
-              <Link to='/'>Twitter</Link>
-              <Link to='/'>Discord</Link>
-              <Link to='/'>Blog</Link>
+              <Link to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</Link>
+              <Link to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</Link>
+              <Link to={{ pathname: "https://discordapp.com/users/carny.io/" }} target="_blank">Discord</Link>
+              <Link to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"><FormattedMessage
+                  id="blog"
+                  defaultMessage="Blog"
+                /></Link>
             </FooterrightLinks>
           </FooterSbx01>
         </FooterBottom>
@@ -197,6 +200,10 @@ const FooterSSbx01 = styled(FlexDiv)`
   img.footer-logo{
     width:80px;
     height:34px;
+    ${Media.sm}{
+      width:66px;
+      height:28px;
+    }
   }
   ${Media.sm}{
     width:50%;
@@ -207,6 +214,10 @@ const FooterSSbx01 = styled(FlexDiv)`
     font-size: 12px;
     line-height: 22px;
     font-weight: 400;
+    ${Media.sm}{
+      font-size: 10px;
+      line-height: 20px;
+    }
   }
   button {
     color: #fff;
@@ -286,6 +297,9 @@ const LanBTN = styled(FlexDiv)`
     font-size: 12px;
     font-weight: 400;
     color: #fff;
+  }
+  ${Media.sm}{
+    margin-top: 32px;
   }
 `;
 const DDContainer = styled(FlexDiv)`
