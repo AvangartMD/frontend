@@ -223,6 +223,7 @@ const NFTImgBX = styled(FlexDiv)`
     canvas{
       width:100%;
       height:-webkit-fill-available;
+      object-fit: cover;
     }
   }
   img {
