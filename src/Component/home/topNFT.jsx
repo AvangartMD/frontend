@@ -81,13 +81,16 @@ class TopNFT extends Component {
   }
 
   renderedFirstElement = (nft, likesCount, isLiked) => {
-    const { loading, ext } = this.state;
+    let { loading, ext } = this.state;
+    if (!ext) {
+      ext = nft.nftId.image.format
+    }
     return (
       <>
         <div className='w60'>
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
-              {ext === `image` ? (
+              {ext === `image` && (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -104,10 +107,8 @@ class TopNFT extends Component {
                     }
                   }}
                 />
-              ) : (
-                ``
               )}
-              {ext === 'audio' ? (
+              {ext === 'audio' && (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -124,10 +125,8 @@ class TopNFT extends Component {
                     }
                   }}
                 />
-              ) : (
-                ``
               )}
-              {ext === 'video' ? (
+              {ext === 'video' && (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -144,8 +143,6 @@ class TopNFT extends Component {
                     }
                   }}
                 />
-              ) : (
-                ``
               )}
             </NFTfbleft>
           </Link>
