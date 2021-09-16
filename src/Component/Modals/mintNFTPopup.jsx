@@ -87,10 +87,10 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error, percentage }) {
               <OnbTitle01 className="v2">
                 <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
               </OnbTitle01>
-              <p className="highlight-text">
-                <FormattedMessage id="minting_complete_label" 
-                defaultMessage="Platform affected in sometime" />
-              </p>
+              <HighlightText>
+                <FormattedMessage id="minting_complete_label"
+                  defaultMessage="Platform affected in sometime" />
+              </HighlightText>
               <OkayBtn>
                 <Link to="/marketplace">Okay</Link>
               </OkayBtn>
@@ -437,11 +437,14 @@ const ProcessLoader = styled.div`
       padding-left: 5px;
     }
   }
-  p.highlight-text{
-    font-size:12px;
-    color:red;
-  }
 `;
+
+const HighlightText = styled.div`
+  text-align:center;
+  width:100%;
+  margin-top:20px;
+`;
+
 
 
 export default MintNFTPopup;
