@@ -153,7 +153,7 @@
   "collection_failed": "ekleme başarısız!",
   "profile_updated": "Profil bilgileriniz başarı ile güncellendi",
   "footer_text": "Alanının en iyilerinden otantik ve seçilmiş içerikler. Tanıdığınız ve sevdiğiniz insanların NFT'leri için takipte kalın.",
-  "transaction_in_progress": "Transaction in progress",
+  "transaction_in_progress": "İşlem devam ediyor",
   "submission_in_progress": "Başvurunuz işleme alınmıştır",
   "transaction_complete": "Işlem tamamlandı",
   "transaction_success": "Işlem başarılı",
@@ -232,5 +232,7 @@
   "unlock_lable_desc": "Bu alanı özel mesajlar, promosyon kodları, linkler vb. için kullanabilirsiniz.",
   "create_item": "Eseri yükle",
   "select_create": "Seçin veya yeni koleksiyon ekleyin",
-  "create_collection": "Ekle"
+  "create_collection": "Ekle",
+  "edit_collection": "Koleksiyonu Düzenle",
+  "minting_complete_label": "Platform bir süre etkilenecek"
 }

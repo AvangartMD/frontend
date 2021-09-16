@@ -69,6 +69,7 @@ class NFTPage extends Component {
       mintNFTStatus: "",
       currencyUsed: "BNB",
       bnbUSDPrice: {},
+      uploadedRatio: 0,
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -417,6 +418,7 @@ class NFTPage extends Component {
                 //   'Original File upload progress ',
                 //   Math.floor((bytes * 100) / original_size)
                 // );
+                this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
               },
             });
             ipfsCompHash = await ipfs.add(this.state.image.compressed, {
@@ -426,6 +428,7 @@ class NFTPage extends Component {
                 //   'Compressed File upload progress ',
                 //   Math.floor((bytes * 100) / compressed_size)
                 // );
+                this.setState({uploadedRatio: Math.floor((bytes * 100) / compressed_size)})
               },
             });
           } else {
@@ -436,6 +439,7 @@ class NFTPage extends Component {
                 //   'Original File upload progress ',
                 //   Math.floor((bytes * 100) / original_size)
                 // );
+                this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
               },
             });
             ipfsCompHash = ipfsHash;
@@ -468,12 +472,14 @@ class NFTPage extends Component {
             pin: true,
             progress: (bytes) => {
               // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
             },
           });
           ipfsCompHash = await ipfs.add(this.state.image.compressed, {
             pin: true,
             progress: (bytes) => {
               // console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+              this.setState({uploadedRatio: Math.floor((bytes * 100) / compressed_size)})
             },
           });
         } else {
@@ -481,6 +487,7 @@ class NFTPage extends Component {
             pin: true,
             progress: (bytes) => {
               // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
             },
           });
           ipfsCompHash = ipfsHash;
@@ -1360,6 +1367,7 @@ class NFTPage extends Component {
             mintNFT={this.mintNFT}
             toggle={this.toggle}
             mintNFTStatus={this.state.mintNFTStatus}
+            percentage={this.state.uploadedRatio}
           />
         </Collapse>
       </Gs.MainSection>

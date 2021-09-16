@@ -274,10 +274,10 @@ class CollectionEdit extends Component {
 
               <CardTitle>Artworks</CardTitle>
               <NFTfourbox className='cdetail'>
-                {collection.nft.map((nft) => {
+                {collection.nft.map((nft, key) => {
                   if (!this.state.collection.nftId.includes(nft.id)) {
                     return (
-                      <Gs.W25V2>
+                      <Gs.W25V2 key={key}>
                         <Gs.TenpxGutter>
                           <div className='NFT-home-box'>
                             <NFTImgBX>

@@ -129,7 +129,11 @@ class HowToUse extends Component {
             <button
               onClick={() => this.props.history.push("/faq")}
             ><FormattedMessage id="faq" defaultMessage="FAQ" /></button>
-            <button>  <FormattedMessage id="support" defaultMessage="Support" /> </button>
+            {/* <button>   */}
+              <a href="mailto:admin@carny.io">
+                <FormattedMessage id="support" defaultMessage="Support" /> 
+              </a>
+            {/* </button> */}
           </HUbottombuttons>
         </Gs.Container>
       </Gs.MainSection>

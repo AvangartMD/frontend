@@ -6,7 +6,7 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
 import Media from "./../../Theme/media-breackpoint";
 
-function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
+function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error, percentage }) {
   return (
     <>
       <BlackWrap>
@@ -70,9 +70,15 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
               <OnbTitle01 className="v2">
                 <FormattedMessage id="submission_in_progress" defaultMessage="Submission in progress" />
               </OnbTitle01>
-              <LoaderBX>
+              {/* <LoaderBX>
                 <img src={LoaderGif} alt="" />
-              </LoaderBX>
+              </LoaderBX> */}
+              <ProcessLoader>
+                <div className="loader-outer">
+                  <div class="loader"></div>
+                  <p>{percentage}%</p>
+                </div>
+              </ProcessLoader>
             </>
           )}
 
@@ -81,16 +87,13 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
               <OnbTitle01 className="v2">
                 <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
               </OnbTitle01>
+              <p className="highlight-text">
+                <FormattedMessage id="minting_complete_label" 
+                defaultMessage="Platform affected in sometime" />
+              </p>
               <OkayBtn>
                 <Link to="/marketplace">Okay</Link>
               </OkayBtn>
-              <ProcessLoader>
-                <div className="loader-outer">
-                  <div class="loader"></div>
-                  <p>10%</p>
-                </div>
-                <p className="highlight-text">NFT will be showing in platform in some time</p>
-              </ProcessLoader>
             </>
           )}
 

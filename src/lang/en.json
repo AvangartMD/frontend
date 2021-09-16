@@ -234,5 +234,7 @@
   "unlock_lable": "Your text below will be shared with the buyer of the NFT only.",
   "unlock_lable_desc": "You can use this area for private messages, promo codes, links, etc.",
   "select_create": "Select or Create",
-  "create_collection": "Create"
+  "create_collection": "Create",
+  "edit_collection": "Edit Collection",
+  "minting_complete_label": "Platform affected in sometime"
 }
