@@ -63,51 +63,51 @@ function Created(props) {
     <>
       <FilterMBX>
         <FilterLbx>
-          <CustomScrollbars
+          {/* <CustomScrollbars
             autoHide
             autoHideTimeout={1000}
             style={{ width: "100%", height: "70px", position: "relative" }}
+          > */}
+          <button
+            className={tabPanel === "ALL" ? "active" : ""}
+            id="all"
+            onClick={() => {
+              setTaPanel("ALL");
+            }}
           >
-            <button
-              className={tabPanel === "ALL" ? "active" : ""}
-              id="all"
-              onClick={() => {
-                setTaPanel("ALL");
-              }}
-            >
-              <FormattedMessage id="all" defaultMessage="All" />
-            </button>
+            <FormattedMessage id="all" defaultMessage="All" />
+          </button>
 
-            <button
-              className={tabPanel === "SOLD" ? "active" : ""}
-              id="sold"
-              onClick={() => {
-                setTaPanel("SOLD");
-              }}
-            >
-              <FormattedMessage id="sold" defaultMessage="Sold" />
-            </button>
+          <button
+            className={tabPanel === "SOLD" ? "active" : ""}
+            id="sold"
+            onClick={() => {
+              setTaPanel("SOLD");
+            }}
+          >
+            <FormattedMessage id="sold" defaultMessage="Sold" />
+          </button>
 
-            <button
-              className={tabPanel === "AUCTION" ? "active" : ""}
-              id="liveauction"
-              onClick={() => {
-                setTaPanel("AUCTION");
-              }}
-            >
-              <FormattedMessage id="live_acution" defaultMessage="Live auction" />
-            </button>
+          <button
+            className={tabPanel === "AUCTION" ? "active" : ""}
+            id="liveauction"
+            onClick={() => {
+              setTaPanel("AUCTION");
+            }}
+          >
+            <FormattedMessage id="live_acution" defaultMessage="Live auction" />
+          </button>
 
-            <button
-              className={tabPanel === "BUY" ? "active" : ""}
-              id="buynow"
-              onClick={() => {
-                setTaPanel("BUY");
-              }}
-            >
-              <FormattedMessage id="buy_now" defaultMessage="Buy now" />
-            </button>
-          </CustomScrollbars>
+          <button
+            className={tabPanel === "BUY" ? "active" : ""}
+            id="buynow"
+            onClick={() => {
+              setTaPanel("BUY");
+            }}
+          >
+            <FormattedMessage id="buy_now" defaultMessage="Buy now" />
+          </button>
+          {/* </CustomScrollbars> */}
         </FilterLbx>
       </FilterMBX>
       <HomeNFTs>
@@ -302,11 +302,14 @@ const FilterMBX = styled(FlexDiv)`
 const FilterLbx = styled(FlexDiv)`
   width: 100%;
   justify-content: flex-start;
-  .view{
-    display:flex;
-    align-items:center;
-    padding-right:20px;
-  }
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: initial;
+  // .view{
+  //   display:flex;
+  //   align-items:center;
+  //   padding-right:20px;
+  // }
   button {
     display: inline-block;
     padding: 10px 25px;

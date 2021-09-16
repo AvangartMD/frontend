@@ -227,8 +227,8 @@ class NFTPage extends Component {
         currencyUsed === "TR"
           ? (+nftObj.price / bnbUSDPrice.try).toFixed(10).toString()
           : currencyUsed === "USD"
-          ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString()
-          : nftObj.price,
+            ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString()
+            : nftObj.price,
         "ether"
       ),
       "0",
@@ -383,8 +383,8 @@ class NFTPage extends Component {
           currencyUsed === "TR"
             ? (+nftObj.price / bnbUSDPrice.try).toString()
             : currencyUsed === "USD"
-            ? (+nftObj.price / bnbUSDPrice.usd).toString()
-            : nftObj.price,
+              ? (+nftObj.price / bnbUSDPrice.usd).toString()
+              : nftObj.price,
         saleState: nftObj.saleState,
         auctionTime: nftObj.auctionTime,
         edition: nftObj.edition,
@@ -735,11 +735,10 @@ class NFTPage extends Component {
                           </label>
                         </div>
                         <div
-                          className={`iLeft ${
-                            error.isError &&
+                          className={`iLeft ${error.isError &&
                             error.isCocreatorError &&
                             "errorinput"
-                          }`}
+                            }`}
                         >
                           <i>@</i>
                           <Autosuggestion
@@ -1257,10 +1256,10 @@ class NFTPage extends Component {
                                   <div className="ed-box">
                                     <p>
                                       {nftObj.saleState ===
-                                      "BUY" ? null : nftObj.auctionTime &&
-                                        nftObj.saleState ===
+                                        "BUY" ? null : nftObj.auctionTime &&
+                                          nftObj.saleState ===
                                           "BUY" ? null : nftObj.auctionTime >
-                                        new Date().getTime() / 1000 ? (
+                                            new Date().getTime() / 1000 ? (
                                         <FormattedMessage
                                           id="current_bid"
                                           defaultMessage="Current bid"
@@ -1275,13 +1274,13 @@ class NFTPage extends Component {
                                     <h3>
                                       {currencyUsed === "TR"
                                         ? (+nftObj.price / bnbUSDPrice.try)
-                                            .toFixed(5)
-                                            .toString()
+                                          .toFixed(5)
+                                          .toString()
                                         : currencyUsed === "USD"
-                                        ? (+nftObj.price / bnbUSDPrice.usd)
+                                          ? (+nftObj.price / bnbUSDPrice.usd)
                                             .toFixed(5)
                                             .toString()
-                                        : nftObj.price}{" "}
+                                          : nftObj.price}{" "}
                                       BNB
                                     </h3>
                                   </div>
@@ -1675,6 +1674,7 @@ const CustomRadio1 = styled(FlexDiv)`
     }
     ${Media.sm} {
       width: 100%;
+      margin: 0px 0px 5px 0px;
     }
   }
   .radio-container input {
@@ -1726,6 +1726,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
     }
     ${Media.sm} {
       width: 100%;
+      margin:0px 0px 5px 0px;
     }
   }
   .checkbox-container input {
@@ -1908,6 +1909,9 @@ const AlertNote = styled.div`
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.8px;
+    ${Media.sm} {
+      text-align:center;
+    }
   }
 `;
 const NFTImgBX = styled(FlexDiv)`

@@ -156,6 +156,7 @@ const CloseBTN = styled.button`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
+  line-height:28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
@@ -328,21 +329,23 @@ const OnbTitle01 = styled.div`
 `;
 
 const OkayBtn = styled.div` 
-    cursor: pointer;
-    border-radius: 15px;
-    background-color: transparent;
-    border:1px solid #000;
-    margin:30px auto 0px;
-    padding: 13px 50px;
+  width: 100%;
+  display: grid;
     a{
       font-size: 14px;
       color: #000;
       letter-spacing: -0.5px;
+      cursor: pointer;
+      border-radius: 15px;
+      background-color: transparent;
+      border:1px solid #000;
+      margin:30px auto 0px;
+      padding: 13px 50px;
+      :hover {
+        background-color: #000;
+        color:#fff;
+      } 
     }
-    :hover {
-      background-color: #000;
-      a{color:#fff;}
-    } 
 `;
 
 const FileuploadBox = styled(FlexDiv)`

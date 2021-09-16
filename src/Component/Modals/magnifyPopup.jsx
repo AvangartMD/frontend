@@ -34,7 +34,8 @@ function Magnifypopup({ toggle, imageURL }) {
           <CustomScrollbars
             autoHide
             autoHideTimeout={1000}
-            style={{ width: "100%", height: "100%", position: "relative" }}
+            style={{ width: "100%", height: "100%", position: "relative", textAlign: "center" }}
+
           >
             <img
               src={imageURL}
@@ -74,22 +75,22 @@ const WhiteWrap = styled(FlexDiv)`
   .vs-box {
     height: min(100vw - 50px, 100vh - 50px);
     width: min(100vw - 50px, 100vh - 50px);
-    max-height: calc(100vh - 32px);
-    max-width: calc(100% - 32px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // max-height: calc(100vh - 32px);
+    // max-width: calc(100% - 32px);
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
     &.hr-box {
       width: min(100vw - 50px);
-      .view {
-        align-items: center;
-      }
+      // .view {
+      //   align-items: center;
+      // }
     }
-    .view {
-      display: flex;
-      // align-items:center;
-      justify-content: center;
-    }
+    // .view {
+    //   display: flex;
+    //   // align-items:center;
+    //   justify-content: center;
+    // }
   }
 `;
 

@@ -135,8 +135,11 @@ const ViewallButton = styled.div`
       color: #fff;
     }
   }
-  ${Media.md}{
+  ${Media.md} {
     margin-bottom: 100px;
+  }
+  ${Media.sm} {
+    margin-bottom: 60px;
   }
 `;
 

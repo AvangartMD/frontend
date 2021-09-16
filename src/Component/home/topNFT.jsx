@@ -700,6 +700,9 @@ const ViewallButton = styled.div`
   ${Media.md} {
     margin-bottom: 100px;
   }
+  ${Media.sm} {
+    margin-bottom: 60px;
+  }
 `;
 
 Gs.W25V2 = styled(Gs.W25V2)`

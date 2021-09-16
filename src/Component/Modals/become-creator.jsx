@@ -872,7 +872,7 @@ const OnbTitle01 = styled.div`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
-  line-height:normal;
+  line-height:28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;

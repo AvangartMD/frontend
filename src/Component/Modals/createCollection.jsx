@@ -234,9 +234,9 @@ function CreateCollection(props) {
                     </div>
                     <FileuploadBox className={error.logo ? `error` : ``} >
                       <label className="custom-file-upload">
-                          <input type="file" name="logo"
-                            accept="image/*"
-                          // accept="image/png, image/gif, image/jpeg"
+                        <input type="file" name="logo"
+                          accept="image/*"
+                        // accept="image/png, image/gif, image/jpeg"
                         />
                         Choose
                       </label>
@@ -317,6 +317,7 @@ const CloseBTN = styled.button`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
+  line-height:28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
