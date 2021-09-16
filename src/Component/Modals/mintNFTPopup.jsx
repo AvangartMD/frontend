@@ -11,10 +11,10 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
     <>
       <BlackWrap>
         <WhiteBX01>
-          <CloseBTN className="ani-1" onClick={() => toggle(3)}>
+          {/* <CloseBTN className="ani-1" onClick={() => toggle(3)}>
             {" "}
             <img src={CloseBTN01} alt="" />{" "}
-          </CloseBTN>
+          </CloseBTN> */}
           {mintNFTStatus === "" && (
             <>
               <WGTitle>
