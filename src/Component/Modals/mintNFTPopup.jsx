@@ -84,6 +84,13 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
               <OkayBtn>
                 <Link to="/marketplace">Okay</Link>
               </OkayBtn>
+              <ProcessLoader>
+                <div className="loader-outer">
+                  <div class="loader"></div>
+                  <p>10%</p>
+                </div>
+                <p className="highlight-text">NFT will be showing in platform in some time</p>
+              </ProcessLoader>
             </>
           )}
 
@@ -396,4 +403,42 @@ const OnbText01 = styled.div`
   color: #000;
   letter-spacing: -0.5px;
 `;
+
+const ProcessLoader = styled.div`
+  text-align:center;
+  width:100%;
+  margin:30px 0px 0px;
+  .loader-outer{
+    position:relative;
+    .loader {
+      border: 5px solid #f3f3f3; 
+      border-top: 5px solid #000;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin:0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    p{
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      margin: 0px;
+      line-height: 50px;
+      padding-left: 5px;
+    }
+  }
+  p.highlight-text{
+    font-size:12px;
+    color:red;
+  }
+`;
+
+
 export default MintNFTPopup;
