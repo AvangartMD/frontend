@@ -83,8 +83,10 @@ const WhiteWrap = styled(FlexDiv)`
     }
     .mag-outer{
       display: flex;
-      // align-items: center;
       justify-content: center;
+      ${Media.lg} {
+        align-items:center;
+      }
     }
   }
 `;
