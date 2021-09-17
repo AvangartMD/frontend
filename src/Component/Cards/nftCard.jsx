@@ -60,6 +60,7 @@ const NFTCard = ({
                   key={nftImg}
                   src={nftImg}
                   exit={{ opacity: 0 }}
+                  sizes={'255'}
                 />
               )}
               {ext && ext === 'audio' && (
@@ -70,6 +71,7 @@ const NFTCard = ({
                   key={AudioCover}
                   src={AudioCover}
                   exit={{ opacity: 0 }}
+                  sizes={'255'}
                 />
               )}
               {ext && ext === 'video' && (

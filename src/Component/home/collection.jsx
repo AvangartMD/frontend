@@ -7,6 +7,7 @@ import { FormattedMessage } from "react-intl";
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { withRouter } from "react-router";
+import LazyLoad from "react-lazyload";
 import { motion } from "framer-motion";
 
 import Gs from '../../Theme/globalStyles';
@@ -56,7 +57,7 @@ class Collections extends Component {
   render() {
     const { collections } = this.props
     return (
-      <>
+      <LazyLoad>
         <HomeNFTs>
           <Gs.Container>
             <div className='heart-title'>
@@ -73,7 +74,7 @@ class Collections extends Component {
             </ViewallButton>
           </Gs.Container>
         </HomeNFTs>
-      </>
+      </LazyLoad>
     );
   }
 }

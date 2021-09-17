@@ -7,6 +7,7 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { HashLink as Link } from "react-router-hash-link";
 import styled from 'styled-components';
+import LazyLoad from "react-lazyload";
 import { motion } from "framer-motion";
 
 import HeartIcon from '../../Assets/images/heart-icon.svg';
@@ -97,9 +98,11 @@ class Info extends Component {
   render() {
     return (
       <HomeNFTs>
-        {this.props.infos ?
-          this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
-          : 'loading..'}
+        <LazyLoad>
+          {this.props.infos ?
+            this.props.infos.map((banner, index) => this.renderedInfo(banner, index))
+            : 'loading..'}
+        </LazyLoad>
       </HomeNFTs>
     );
   }
