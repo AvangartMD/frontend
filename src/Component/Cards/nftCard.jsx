@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { HashLink as Link } from 'react-router-hash-link';
 import { motion } from 'framer-motion';
+import LazyLoad from "react-lazyload";
 import VideoThumbnail from 'react-video-thumbnail';
 
 import UserImg from '../../Assets/images/user-img.jpg';
@@ -53,32 +54,36 @@ const NFTCard = ({
           <div className='NFT-home-box'>
             <NFTImgBX>
               {ext && ext === `image` && (
-                <motion.img
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  key={nftImg}
-                  src={nftImg}
-                  exit={{ opacity: 0 }}
-                />
+                <LazyLoad>
+                  <motion.img
+                    initial={{ opacity: 0.2 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    key={nftImg}
+                    src={nftImg}
+                    exit={{ opacity: 0 }}
+                  />
+                </LazyLoad>
               )}
               {ext && ext === 'audio' && (
-                <motion.img
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  key={AudioCover}
-                  src={AudioCover}
-                  exit={{ opacity: 0 }}
-                />
+                <LazyLoad>
+                  <motion.img
+                    initial={{ opacity: 0.2 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    key={AudioCover}
+                    src={AudioCover}
+                    exit={{ opacity: 0 }}
+                  />
+                </LazyLoad>
               )}
               {ext && ext === 'video' && (
-                <>
+                <LazyLoad>
                   <VideoThumbnail videoUrl={nftImg}
                     // cors={true}
                   />
                   <div className="video-icon"><span><FaPlay /></span></div>
-                </>
+                </LazyLoad>
               )}
             </NFTImgBX>
             <div className='NFT-home-box-inner'>
@@ -230,6 +235,10 @@ const NFTImgBX = styled(FlexDiv)`
       height:-webkit-fill-available;
       object-fit: cover;
     }
+  }
+  .lazyload-wrapper{
+    width: 100%;
+    height: 100%;
   }
   img {
     width: 100%;
