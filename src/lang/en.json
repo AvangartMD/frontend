@@ -236,5 +236,6 @@
   "select_create": "Select or Create",
   "create_collection": "Create",
   "edit_collection": "Edit Collection",
-  "minting_complete_label": "Platform affected in sometime"
+  "minting_complete_label": "Platform affected in sometime",
+  "download_metamask": "Go to MetaMask website"
 }

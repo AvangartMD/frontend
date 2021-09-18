@@ -234,5 +234,6 @@
   "select_create": "Seçin veya yeni koleksiyon ekleyin",
   "create_collection": "Ekle",
   "edit_collection": "Koleksiyonu Düzenle",
-  "minting_complete_label": "Platform bir süre etkilenecek"
+  "minting_complete_label": "Platform bir süre etkilenecek",
+  "download_metamask": "MetaMask websitesine git"
 }
