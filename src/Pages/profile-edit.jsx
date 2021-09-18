@@ -225,7 +225,10 @@ class ProfileEdit extends Component {
                         to="#accountSettings"
                         smooth={true}
                       >
-                        Account Settings
+                        <FormattedMessage
+                          id="account_settings"
+                          defaultMessage="Account Settings"
+                        />
                       </Link>
                       <Link
                         className={pointSelect("biography")}
@@ -307,20 +310,27 @@ class ProfileEdit extends Component {
                               />
                             </label>
                           </div>
-                          <input
-                            type="text"
-                            required
-                            name="name"
-                            placeholder="Type something…"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
-                              }
-                            }}
-                            defaultValue={
-                              profile ? (profile.name ? profile.name : "") : ""
-                            }
-                          />
+                          <FormattedMessage
+                            id="type_something"
+                            defaultMessage="Type something…"
+                          >
+                            {(placeholder) => (
+                              <input
+                                type="text"
+                                required
+                                name="name"
+                                onKeyPress={(e) => {
+                                  if (e.key === "Enter") {
+                                    e.preventDefault();
+                                  }
+                                }}
+                                defaultValue={
+                                  profile ? (profile.name ? profile.name : "") : ""
+                                }
+                                placeholder={placeholder}
+                              />
+                            )}
+                          </FormattedMessage>
                         </NFTForm>
                         <NFTForm>
                           <div className="label-line">
@@ -333,24 +343,31 @@ class ProfileEdit extends Component {
                           </div>
                           <div className="iLeft">
                             <i>@</i>
-                            <input
-                              type="text"
-                              required
-                              name="username"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.username
-                                    ? profile.username
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="text"
+                                  required
+                                  name="username"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.username
+                                        ? profile.username
+                                        : ""
+                                      : ""
+                                  }
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                           {/* <div className="iLeft errorinput">
                                                     <i>@</i>
@@ -380,24 +397,31 @@ class ProfileEdit extends Component {
                               </p>
                             </FlexDiv>
                           </div>
-                          <input
-                            type="text"
-                            name="email"
-                            required
-                            placeholder="Type something…"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
-                              }
-                            }}
-                            defaultValue={
-                              profile
-                                ? profile.email
-                                  ? profile.email
-                                  : ""
-                                : ""
-                            }
-                          />
+                          <FormattedMessage
+                            id="type_something"
+                            defaultMessage="Type something…"
+                          >
+                            {(placeholder) => (
+                              <input
+                                type="text"
+                                required
+                                name="email"
+                                onKeyPress={(e) => {
+                                  if (e.key === "Enter") {
+                                    e.preventDefault();
+                                  }
+                                }}
+                                defaultValue={
+                                  profile
+                                    ? profile.email
+                                      ? profile.email
+                                      : ""
+                                    : ""
+                                }
+                                placeholder={placeholder}
+                              />
+                            )}
+                          </FormattedMessage>
                         </NFTForm>
                       </div>
 
@@ -417,19 +441,27 @@ class ProfileEdit extends Component {
                           </p>
                         </NFTtitle>
                         <NFTForm>
-                          <textarea
-                            type="textarea"
-                            name="bio"
-                            placeholder="0"
-                            onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                e.preventDefault();
-                              }
-                            }}
-                            defaultValue={
-                              profile ? (profile.bio ? profile.bio : "") : ""
-                            }
-                          />
+                        <FormattedMessage
+                            id="type_something"
+                            defaultMessage="Type something…"
+                          >
+                            {(placeholder) => (
+                              <textarea
+                                type="textarea"
+                                name="bio"
+                                placeholder="0"
+                                onKeyPress={(e) => {
+                                  if (e.key === "Enter") {
+                                    e.preventDefault();
+                                  }
+                                }}
+                                defaultValue={
+                                  profile ? (profile.bio ? profile.bio : "") : ""
+                                }
+                                placeholder={placeholder}
+                              />
+                            )}
+                          </FormattedMessage>
                         </NFTForm>
                       </div>
                       {/* <div id='verifyProfile'>
@@ -546,23 +578,30 @@ class ProfileEdit extends Component {
                             <i>
                               <img src={CICON03} alt="" />
                             </i>
-                            <input
-                              type="url"
-                              name="website"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.website
-                                    ? profile.portfolio.website.url
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="url"
+                                  name="website"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.portfolio?.website
+                                        ? profile.portfolio.website.url
+                                        : ""
+                                      : ""
+                                  }
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </NFTForm>
                         <NFTForm>
@@ -573,23 +612,30 @@ class ProfileEdit extends Component {
                             <i>
                               <img src={CICON01} alt="" />
                             </i>
-                            <input
-                              type="text"
-                              name="twitter"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.twitter
-                                    ? profile.portfolio.twitter.url
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="url"
+                                  name="twitter"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.portfolio?.twitter
+                                        ? profile.portfolio.twitter.url
+                                        : ""
+                                      : ""
+                                  }
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </NFTForm>
                         <NFTForm>
@@ -600,23 +646,30 @@ class ProfileEdit extends Component {
                             <i>
                               <img src={CICON02} alt="" />
                             </i>
-                            <input
-                              type="text"
-                              name="instagarm"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.instagarm
-                                    ? profile.portfolio.instagarm.url
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="url"
+                                  name="instagarm"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.portfolio?.instagarm
+                                        ? profile.portfolio.instagarm.url
+                                        : ""
+                                      : ""
+                                  }
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </NFTForm>
 
@@ -628,23 +681,30 @@ class ProfileEdit extends Component {
                             <i>
                               <img src={CICON04} alt="" />
                             </i>
-                            <input
-                              type="url"
-                              name="discord"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.discord
-                                    ? profile.portfolio.discord.url
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="url"
+                                  name="discord"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.portfolio?.discord
+                                        ? profile.portfolio.discord.url
+                                        : ""
+                                      : ""
+                                  }
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </NFTForm>
                         <NFTForm>
@@ -660,23 +720,30 @@ class ProfileEdit extends Component {
                             <i>
                               <img src={CICON05} alt="" />
                             </i>
-                            <input
-                              type="url"
-                              name="youtube"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.youtube
-                                    ? profile.portfolio.youtube.url
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="url"
+                                  name="youtube"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.portfolio?.youtube
+                                        ? profile.portfolio.youtube.url
+                                        : ""
+                                      : ""
+                                  }
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </NFTForm>
                         <NFTForm>
@@ -687,23 +754,30 @@ class ProfileEdit extends Component {
                             <i>
                               <img src={CICON06} alt="" />
                             </i>
-                            <input
-                              type="url"
-                              name="facebook"
-                              placeholder="Type something…"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                  e.preventDefault();
-                                }
-                              }}
-                              defaultValue={
-                                profile
-                                  ? profile.portfolio?.facebook
-                                    ? profile.portfolio.facebook.url
-                                    : ""
-                                  : ""
-                              }
-                            />
+                            <FormattedMessage
+                              id="type_something"
+                              defaultMessage="Type something…"
+                            >
+                              {(placeholder) => (
+                                <input
+                                  type="url"
+                                  name="facebook"
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter") {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  defaultValue={
+                                    profile
+                                      ? profile.portfolio?.facebook
+                                        ? profile.portfolio.facebook.url
+                                        : ""
+                                      : ""
+                                  } 
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </NFTForm>
                       </div>

@@ -188,7 +188,7 @@ function SelectEdition(props) {
               <FilterICO>
                 <img src={FiltICON} alt="" />
               </FilterICO>
-              <FormattedMessage id='filter' defaultMessage='Filtre' />
+              <FormattedMessage id='filter' defaultMessage='Filter' />
               <Collapse
                 isOpen={filterPopup === 1}
                 className={

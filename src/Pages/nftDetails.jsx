@@ -52,7 +52,7 @@ function CustomScrollbars(props) {
 const saleMethods = {
   sold: {
     name: null,
-    btnName: "Sold",
+    btnName: <FormattedMessage id="sold" defaultMessage="Sold" />,
     bidDesc: <FormattedMessage id="sold" defaultMessage="Sold" />,
     disable: true,
   },

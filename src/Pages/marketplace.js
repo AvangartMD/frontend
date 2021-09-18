@@ -200,7 +200,7 @@ class MarketPlace extends Component {
               <FilterICO>
                 <img src={FiltICON} alt='' />
               </FilterICO>{' '}
-              <FormattedMessage id="filter" defaultMessage="Filtre" />
+              <FormattedMessage id="filter" defaultMessage="Filter" />
               <Collapse
                 isOpen={this.state.isOpen1}
                 className={
@@ -268,7 +268,7 @@ class MarketPlace extends Component {
             {NFTs ?
               NFTs.length === 0 ?
                 <NoDataFound>
-                  No <FormattedMessage id="nfts" defaultMessage="NFTs" /> Found
+                  <FormattedMessage id="no_nft_found" defaultMessage="No Creations Found" />
                 </NoDataFound>
               :
               <InfiniteScroll className="IScroll"
