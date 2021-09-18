@@ -2,6 +2,7 @@ import React from 'react';
 import loadable from '@loadable/component'
 import { connect } from 'react-redux';
 import { instanceOf } from 'prop-types';
+import LazyLoad from "react-lazyload";
 import { withCookies, Cookies } from 'react-cookie';
 import Gs from '../Theme/globalStyles';
 
@@ -59,25 +60,27 @@ class Home extends React.Component {
     render() {
         return (
             <Gs.MainSection className="mt-0">
-                {this.props.dashboard ?
-                    this.props.dashboard.map((data, index) => {
-                        if (data.name === 'Banner' && data.isActive) {
-                            return <Banner key={index} />
-                        } else if (data.name === 'Top Nft' && data.isActive) {
-                            return <TopNFT key={index} />
-                        } else if (data.name === 'Hall Of Frame' && data.isActive) {
-                            return <HallOfFrame key={index} />
-                        } else if (data.name === 'Hall Of Frame' && !data.isActive) {
-                            return <HallOfFrameInfo key={index} />
-                        } else if (data.name === 'Collections' && data.isActive) {
-                            return <Collections key={index} />
-                        } else if (data.name === 'Info' && data.isActive) {
-                            return <Info key={index} />
-                        } else {
-                            return ''
-                        }
-                    })
-                    : 'loading'}
+                <LazyLoad>
+                    {this.props.dashboard ?
+                        this.props.dashboard.map((data, index) => {
+                            if (data.name === 'Banner' && data.isActive) {
+                                return <Banner key={index} />
+                            } else if (data.name === 'Top Nft' && data.isActive) {
+                                return <TopNFT key={index} />
+                            } else if (data.name === 'Hall Of Frame' && data.isActive) {
+                                return <HallOfFrame key={index} />
+                            } else if (data.name === 'Hall Of Frame' && !data.isActive) {
+                                return <HallOfFrameInfo key={index} />
+                            } else if (data.name === 'Collections' && data.isActive) {
+                                return <Collections key={index} />
+                            } else if (data.name === 'Info' && data.isActive) {
+                                return <Info key={index} />
+                            } else {
+                                return ''
+                            }
+                        })
+                        : 'loading'}
+                </LazyLoad>
             </Gs.MainSection>
         )
     }

@@ -589,7 +589,7 @@ class NFTPage extends Component {
                         to="nftminting#unlockable"
                         smooth={true}
                       >
-                        Unlockable Content
+                        <FormattedMessage id="unlock_content" defaultMessage="Unlockable Content" />
                       </Link>
                       {/* <Link
                       to="nftminting#admins"

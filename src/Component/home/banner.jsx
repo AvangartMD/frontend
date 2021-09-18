@@ -7,6 +7,7 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { HashLink as Link } from "react-router-hash-link";
 import styled from 'styled-components';
+import LazyLoad from "react-lazyload";
 import { motion } from "framer-motion";
 import Media from "../../Theme/media-breackpoint";
 
@@ -131,7 +132,7 @@ class BannerTab extends Component {
 
   render() {
     return (
-      <>
+      <LazyLoad>
         <HomeBanner>
           {this.props.banners ?
             <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
@@ -139,7 +140,7 @@ class BannerTab extends Component {
             </Carousel>
             : 'loading..'}
         </HomeBanner>
-      </>
+      </LazyLoad>
     );
   }
 }

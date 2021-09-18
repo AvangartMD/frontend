@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import LazyLoad from "react-lazyload";
 import styled from "styled-components";
 import Media from "../../Theme/media-breackpoint";
 
@@ -22,6 +23,7 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import { motion } from "framer-motion";
 import { actions } from "../../actions";
 import { getFileType } from "../../helper/functions";
+
 class HallOfFrame extends Component {
   componentDidMount() {
     const { artists, artworks, collectors } = this.props;
@@ -80,7 +82,7 @@ class HallOfFrame extends Component {
     };
 
     return (
-      <>
+      <LazyLoad>
         <HomeNFTs>
           <Gs.Container>
             <div className="star-title">
@@ -264,7 +266,7 @@ class HallOfFrame extends Component {
             </HomeTabs>
           </Gs.Container>
         </HomeNFTs>
-      </>
+      </LazyLoad>
     );
   }
 }

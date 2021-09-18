@@ -255,7 +255,7 @@ function Login(props) {
                   className='ani-1'
                   onClick={() => window.open('https://metamask.io/', '_blank')}
                 >
-                  Go to MetaMask's website
+                  <FormattedMessage id="download_metamask" defaultMessage="Go to MetaMask website" />
                 </InstallBtn>
               ) : (
                 ``
