@@ -524,9 +524,9 @@ class Header extends Component {
                   <span>
                     {accountBalance} BNB
                     <span>{compactUserAddress}</span>
-                  </span>{" "}
+                  </span>
                   <i>
-                    {" "}
+
                     <img
                       src={
                         userDetails
@@ -554,7 +554,7 @@ class Header extends Component {
                           }
                         >
                           <i>
-                            {" "}
+
                             <img
                               src={
                                 userDetails
@@ -565,10 +565,9 @@ class Header extends Component {
                               }
                               alt=""
                             />
-                          </i>{" "}
+                          </i>
                           <FormattedMessage id="view_your_profile" defaultMessage="View your profile" />
                           <span>
-                            {" "}
                             <img src={RightArrow} alt="" />
                           </span>
                         </button>
@@ -578,12 +577,11 @@ class Header extends Component {
                           }}
                         >
                           <i>
-                            {" "}
                             <img src={DisconnectICO} alt="" />
                           </i>
                           <FormattedMessage id="disconnect" defaultMessage="Disconnect" />
                           {/* <span>
-                            {" "}
+                            
                             <img src={RightArrow} alt="" />
                           </span> */}
                         </button>
