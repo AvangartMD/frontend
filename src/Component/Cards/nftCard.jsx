@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import { HashLink as Link } from 'react-router-hash-link';
-import { motion } from 'framer-motion';
-import VideoThumbnail from 'react-video-thumbnail';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
+import { HashLink as Link } from "react-router-hash-link";
+import { motion } from "framer-motion";
+import VideoThumbnail from "react-video-thumbnail";
 
-import UserImg from '../../Assets/images/user-img.jpg';
-import AudioCover from '../../Assets/images/audio-square.jpg';
-import VideoCover from '../../Assets/images/video-square.jpg';
+import UserImg from "../../Assets/images/user-img.jpg";
+import AudioCover from "../../Assets/images/audio-square.jpg";
+import VideoCover from "../../Assets/images/video-square.jpg";
 
-import Gs from '../../Theme/globalStyles';
-import Timer from '../timer';
-import { getFileType } from '../../helper/functions';
+import Gs from "../../Theme/globalStyles";
+import Timer from "../timer";
+import { getFileType } from "../../helper/functions";
 import { FaPlay } from "react-icons/fa";
 
 const NFTCard = ({
@@ -29,8 +29,8 @@ const NFTCard = ({
   userImg,
   username,
   format,
-  previewCard, }) => {
-
+  previewCard,
+}) => {
   const [ext, setExt] = useState(format);
 
   useEffect(() => {
@@ -38,8 +38,8 @@ const NFTCard = ({
       if (!format) {
         let ext = getFileType(nftImg);
         ext.then(function (result) {
-          setExt(result)
-        })
+          setExt(result);
+        });
       }
     }
     getExtenstion();
@@ -50,7 +50,7 @@ const NFTCard = ({
     <Gs.W25V2>
       <Gs.TenpxGutter>
         <Link to={edit ? `/user/nftEdit/${nftId}` : `/nftDetails/${nftId}`}>
-          <div className='NFT-home-box'>
+          <div className="NFT-home-box">
             <NFTImgBX>
               {ext && ext === `image` && (
                 <motion.img
@@ -62,7 +62,7 @@ const NFTCard = ({
                   exit={{ opacity: 0 }}
                 />
               )}
-              {ext && ext === 'audio' && (
+              {ext && ext === "audio" && (
                 <motion.img
                   initial={{ opacity: 0.2 }}
                   animate={{ opacity: 1 }}
@@ -72,72 +72,78 @@ const NFTCard = ({
                   exit={{ opacity: 0 }}
                 />
               )}
-              {ext && ext === 'video' && (
+              {ext && ext === "video" && (
                 <>
-                  <VideoThumbnail videoUrl={nftImg}
+                  <VideoThumbnail
+                    videoUrl={nftImg}
                     // cors={true}
                   />
-                  <div className="video-icon"><span><FaPlay /></span></div>
+                  <div className="video-icon">
+                    <span>
+                      <FaPlay />
+                    </span>
+                  </div>
                 </>
               )}
             </NFTImgBX>
-            <div className='NFT-home-box-inner'>
+            <div className="NFT-home-box-inner">
               <h4>
                 {title
                   ? title
-                  : 'Artwork name / title dolor lorem ipsum sit adipiscing'}
+                  : "Artwork name / title dolor lorem ipsum sit adipiscing"}
               </h4>
               <CollectionBar>
                 <p>
-                  {edition ? edition : 0} <FormattedMessage id='editions' defaultMessage='Editions' />
+                  {edition ? edition : 0}{" "}
+                  <FormattedMessage id="editions" defaultMessage="Editions" />
                   {/* {nftSold} <span>of {edition ? edition : 0}</span> */}
                 </p>
                 {collectionId ? (
                   <p>
                     <Link to={`/collection-detail/${collectionId}`}>
                       <FormattedMessage
-                        id='see_the_collections'
-                        defaultMessage='See the collection'
+                        id="see_the_collections"
+                        defaultMessage="See the collection"
                       />
-                      <i className='fas fa-angle-right'></i>
+                      <i className="fas fa-angle-right"></i>
                     </Link>
                   </p>
                 ) : (
-                  ''
+                  ""
                 )}
               </CollectionBar>
-              <Edition className='edition2 JCSB'>
-                <div className='ed-box'>
+              <Edition className="edition2 JCSB">
+                <div className="ed-box">
                   <p>
                     {auctionEndDate &&
-                      auctionEndDate > new Date().getTime() / 1000 ? (
+                    auctionEndDate > new Date().getTime() / 1000 ? (
                       <FormattedMessage
-                        id='current_bid'
-                        defaultMessage='Current bid'
+                        id="current_bid"
+                        defaultMessage="Current bid"
                       />
                     ) : (
-                      <FormattedMessage id='price' defaultMessage='Price' />
+                      <FormattedMessage id="price" defaultMessage="Price" />
                     )}
                   </p>
-                  <h3>{price} BNB</h3>
+                  <h3>{+price?.toFixed(6)} BNB</h3>
                 </div>
-                <div className='ed-box'>
+                <div className="ed-box">
                   {previewCard ? (
                     auctionEndDate ? (
                       <>
                         <p>
                           <FormattedMessage
-                            id='ending_in'
-                            defaultMessage='Ending in'
+                            id="ending_in"
+                            defaultMessage="Ending in"
                           />
-                        </p>{' '}
+                        </p>{" "}
                         <h3>{auctionEndDate}h 00m 00s</h3>
                       </>
                     ) : (
                       <button>
                         <FormattedMessage
-                          id='buy_now'
-                          defaultMessage='Buy now'
+                          id="buy_now"
+                          defaultMessage="Buy now"
                         />
                       </button>
                     )
@@ -146,8 +152,8 @@ const NFTCard = ({
                     <>
                       <p>
                         <FormattedMessage
-                          id='ending_in'
-                          defaultMessage='Ending in'
+                          id="ending_in"
+                          defaultMessage="Ending in"
                         />
                       </p>
 
@@ -156,18 +162,18 @@ const NFTCard = ({
                       </h3>
                     </>
                   ) : nftSold === edition ? (
-                    <button className='disabled' disabled>
-                      <FormattedMessage id='sold' defaultMessage='Sold' />
+                    <button className="disabled" disabled>
+                      <FormattedMessage id="sold" defaultMessage="Sold" />
                     </button>
                   ) : (
                     <button>
-                      <FormattedMessage id='buy_now' defaultMessage='Buy now' />
+                      <FormattedMessage id="buy_now" defaultMessage="Buy now" />
                     </button>
                   )}
                 </div>
               </Edition>
               <UserImgName>
-                <img src={userImg ? userImg : UserImg} alt='' />
+                <img src={userImg ? userImg : UserImg} alt="" />
                 {username ? `@${username}` : name}
               </UserImgName>
             </div>
@@ -176,7 +182,7 @@ const NFTCard = ({
       </Gs.TenpxGutter>
     </Gs.W25V2>
   );
-}
+};
 const FlexDiv = styled.div`
   display: flex;
   align-items: center;
@@ -221,13 +227,13 @@ const NFTImgBX = styled(FlexDiv)`
   height: 253px;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
-  position:relative;
-  .react-thumbnail-generator{
-    width:100%;
-    height:253px;
-    canvas{
-      width:100%;
-      height:-webkit-fill-available;
+  position: relative;
+  .react-thumbnail-generator {
+    width: 100%;
+    height: 253px;
+    canvas {
+      width: 100%;
+      height: -webkit-fill-available;
       object-fit: cover;
     }
   }
@@ -236,26 +242,26 @@ const NFTImgBX = styled(FlexDiv)`
     height: 100%;
     object-fit: cover;
   }
-  .video-icon{
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:100%;
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center; 
-    span{
+  .video-icon {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
       background: #fff;
-      box-shadow:0px 0px 5px 6px rgb(0 0 0 / 10%);
-      width:44px;
-      height:44px;
+      box-shadow: 0px 0px 5px 6px rgb(0 0 0 / 10%);
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius:50%;
-      svg{
-        color:#999;
+      border-radius: 50%;
+      svg {
+        color: #999;
         padding-left: 2px;
       }
     }
