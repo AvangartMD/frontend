@@ -140,10 +140,13 @@ class Collection extends Component {
 
             <FilterRbx>
               <FilterInputBX>
-                <input
-                  placeholder='Search'
-                  onKeyUp={(e) => this.onSearchKeyUp(e)}
-                ></input>
+                <FormattedMessage id="search" defaultMessage="Search">
+                  {placeholder=>
+                    <input
+                      placeholder={placeholder}
+                      onKeyUp={(e) => this.onSearchKeyUp(e)}
+                    />}
+                </FormattedMessage>
                 <SearchICO>
                   <img src={SerICON} alt="" />
                 </SearchICO>

@@ -52,7 +52,6 @@ function Collection(props) {
             props.profile ? (
               <CEmpty>
                 <h2>
-                  Your{" "}
                   <span><FormattedMessage id="collection_empty" defaultMessage="collection is empty" /></span>
                 </h2>
                 <p>

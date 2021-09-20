@@ -6,15 +6,15 @@ import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import LoaderGif from "../../Assets/images/loading.gif";
 import Media from "./../../Theme/media-breackpoint";
 
-function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
+function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error, percentage }) {
   return (
     <>
       <BlackWrap>
         <WhiteBX01>
-          <CloseBTN className="ani-1" onClick={() => toggle(3)}>
+          {/* <CloseBTN className="ani-1" onClick={() => toggle(3)}>
             {" "}
             <img src={CloseBTN01} alt="" />{" "}
-          </CloseBTN>
+          </CloseBTN> */}
           {mintNFTStatus === "" && (
             <>
               <WGTitle>
@@ -70,9 +70,15 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
               <OnbTitle01 className="v2">
                 <FormattedMessage id="submission_in_progress" defaultMessage="Submission in progress" />
               </OnbTitle01>
-              <LoaderBX>
+              {/* <LoaderBX>
                 <img src={LoaderGif} alt="" />
-              </LoaderBX>
+              </LoaderBX> */}
+              <ProcessLoader>
+                <div className="loader-outer">
+                  <div class="loader"></div>
+                  <p>{percentage}%</p>
+                </div>
+              </ProcessLoader>
             </>
           )}
 
@@ -81,6 +87,10 @@ function MintNFTPopup({ mintNFT, toggle, mintNFTStatus, error }) {
               <OnbTitle01 className="v2">
                 <FormattedMessage id="minting_complete" defaultMessage="Minting Complete" />
               </OnbTitle01>
+              <HighlightText>
+                <FormattedMessage id="minting_complete_label"
+                  defaultMessage="Platform affected in sometime" />
+              </HighlightText>
               <OkayBtn>
                 <Link to="/marketplace">Okay</Link>
               </OkayBtn>
@@ -396,4 +406,45 @@ const OnbText01 = styled.div`
   color: #000;
   letter-spacing: -0.5px;
 `;
+
+const ProcessLoader = styled.div`
+  text-align:center;
+  width:100%;
+  margin:30px 0px 0px;
+  .loader-outer{
+    position:relative;
+    .loader {
+      border: 5px solid #f3f3f3; 
+      border-top: 5px solid #000;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin:0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    p{
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      margin: 0px;
+      line-height: 50px;
+      padding-left: 5px;
+    }
+  }
+`;
+
+const HighlightText = styled.div`
+  text-align:center;
+  width:100%;
+  margin-top:20px;
+`;
+
+
+
 export default MintNFTPopup;

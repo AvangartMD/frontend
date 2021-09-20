@@ -13,7 +13,7 @@ function CustomScrollbars(props) {
       renderThumbVertical={(props) => (
         <div {...props} className="thumb-vertical" />
       )}
-      renderView={(props) => <div {...props} className="view" />}
+      renderView={(props) => <div {...props} className="mag-outer" />}
       autoHide
       style={props.style}
     >
@@ -41,14 +41,14 @@ function Magnifypopup({ toggle, imageURL, magnifyClass }) {
             <img
               src={imageURL}
               alt=""
-              // onLoad={(image) => {
-              //   console.log("this", image.target.width, image.target.height);
+            // onLoad={(image) => {
+            //   console.log("this", image.target.width, image.target.height);
 
-              //   if (image.target.width > image.target.height) {
-              //     console.log("this", image.target);
-              //     sethrClass("hr-box");
-              //   }
-              // }}
+            //   if (image.target.width > image.target.height) {
+            //     console.log("this", image.target);
+            //     sethrClass("hr-box");
+            //   }
+            // }}
             />
           </CustomScrollbars>
         </div>
@@ -76,22 +76,18 @@ const WhiteWrap = styled(FlexDiv)`
   .vs-box {
     height: min(100vw - 50px, 100vh - 50px);
     width: min(100vw - 50px, 100vh - 50px);
-    // max-height: calc(100vh - 32px);
-    // max-width: calc(100% - 32px);
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
+    max-height: calc(100vh - 32px);
+    max-width: calc(100% - 32px);
     &.hr-box {
       width: min(100vw - 50px);
-      // .view {
-      //   align-items: center;
-      // }
     }
-    // .view {
-    //   display: flex;
-    //   // align-items:center;
-    //   justify-content: center;
-    // }
+    .mag-outer{
+      display: flex;
+      justify-content: center;
+      ${Media.lg} {
+        align-items:center;
+      }
+    }
   }
 `;
 

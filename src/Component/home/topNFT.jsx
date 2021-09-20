@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { withRouter } from 'react-router';
+import LazyLoad from "react-lazyload";
 import Media from '../../Theme/media-breackpoint';
 
 import Redheart from '../../Assets/images/Redheart.svg';
@@ -81,13 +82,16 @@ class TopNFT extends Component {
   }
 
   renderedFirstElement = (nft, likesCount, isLiked) => {
-    const { loading, ext } = this.state;
+    let { loading, ext } = this.state;
+    if (!ext) {
+      ext = nft.nftId.image.format
+    }
     return (
       <>
         <div className='w60'>
           <Link to={`/nftDetails/${nft.nftId.id}`}>
             <NFTfbleft>
-              {ext === `image` ? (
+              {ext === `image` && (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -104,10 +108,8 @@ class TopNFT extends Component {
                     }
                   }}
                 />
-              ) : (
-                ``
               )}
-              {ext === 'audio' ? (
+              {ext === 'audio' && (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -124,10 +126,8 @@ class TopNFT extends Component {
                     }
                   }}
                 />
-              ) : (
-                ``
               )}
-              {ext === 'video' ? (
+              {ext === 'video' && (
                 <motion.img
                   className={this.state.imageClass}
                   initial={{ opacity: 0.2 }}
@@ -144,8 +144,6 @@ class TopNFT extends Component {
                     }
                   }}
                 />
-              ) : (
-                ``
               )}
             </NFTfbleft>
           </Link>
@@ -277,7 +275,7 @@ class TopNFT extends Component {
       this.props.getLikesCount(nfts[0].nftId.id); // fetch the likes count for the first NFT
     }
     return (
-      <>
+      <LazyLoad>
         <HomeNFTs>
           <Gs.Container>
             <div className='home-title'>
@@ -343,7 +341,7 @@ class TopNFT extends Component {
             )}
           </Gs.Container>
         </HomeNFTs>
-      </>
+      </LazyLoad>
     );
   }
 }

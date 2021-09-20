@@ -96,40 +96,44 @@ class HowToUse extends Component {
               </Howtoright>
             </HowtoRow>
             <HowtoRow>
-            <Howtoleft>
-              <h3><FormattedMessage id="how_to_use_lable_05" /></h3>
-              <p><FormattedMessage id="how_to_use_text05_1" /></p>
-              <p><FormattedMessage id="how_to_use_text05_2" /></p>
-              <p><FormattedMessage id="how_to_use_text05_3" /></p>
-            </Howtoleft>
-            <Howtoright>
-              <img src={NFT2} alt="" />
-              <div className="overlay">
-                <p>Video Name</p>
-                <Link to='/'><img src={Cshape} alt="" /></Link>
-              </div>
-            </Howtoright>
-          </HowtoRow>
-          <HowtoRow>
-            <Howtoleft>
-              <h3><FormattedMessage id="how_to_use_lable_06" /></h3>
-              <p><FormattedMessage id="how_to_use_text06_1" /></p>
-              <p><FormattedMessage id="how_to_use_text06_2" /></p>
-            </Howtoleft>
-            <Howtoright>
-              <img src={NFT2} alt="" />
-              <div className="overlay">
-                <p>Video Name</p>
-                <Link to='/'><img src={Cshape} alt="" /></Link>
-              </div>
-            </Howtoright>
-          </HowtoRow>
-        </HowToMain>
+              <Howtoleft>
+                <h3><FormattedMessage id="how_to_use_lable_05" /></h3>
+                <p><FormattedMessage id="how_to_use_text05_1" /></p>
+                <p><FormattedMessage id="how_to_use_text05_2" /></p>
+                <p><FormattedMessage id="how_to_use_text05_3" /></p>
+              </Howtoleft>
+              <Howtoright>
+                <img src={NFT2} alt="" />
+                <div className="overlay">
+                  <p>Video Name</p>
+                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                </div>
+              </Howtoright>
+            </HowtoRow>
+            <HowtoRow>
+              <Howtoleft>
+                <h3><FormattedMessage id="how_to_use_lable_06" /></h3>
+                <p><FormattedMessage id="how_to_use_text06_1" /></p>
+                <p><FormattedMessage id="how_to_use_text06_2" /></p>
+              </Howtoleft>
+              <Howtoright>
+                <img src={NFT2} alt="" />
+                <div className="overlay">
+                  <p>Video Name</p>
+                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                </div>
+              </Howtoright>
+            </HowtoRow>
+          </HowToMain>
           <HUbottombuttons>
             <button
               onClick={() => this.props.history.push("/faq")}
             ><FormattedMessage id="faq" defaultMessage="FAQ" /></button>
-            <button>  <FormattedMessage id="support" defaultMessage="Support" /> </button>
+            {/* <button>   */}
+            <a href="mailto:admin@carny.io">
+              <FormattedMessage id="support" defaultMessage="Support" />
+            </a>
+            {/* </button> */}
           </HUbottombuttons>
         </Gs.Container>
       </Gs.MainSection>
@@ -186,7 +190,7 @@ const HUtopButtons = styled(FlexDiv)`
 const HUbottombuttons = styled.div`
   margin:50px 0px 120px;
   justify-content:flex-start;
-  button{
+  button, a{
     display:block;
     width:190px;
     height:44px;
@@ -195,10 +199,11 @@ const HUbottombuttons = styled.div`
     border-radius:15px;
     margin:0px 0px 10px 0px;
     font-size:14px;
-    line-height:22px;
+    line-height:42px;
     color:#000;
     letter-spacing:-0.5px;
     font-weight:500;
+    text-align:center;
     :hover{
       background-color:#000; color:#fff;
     }

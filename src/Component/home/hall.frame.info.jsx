@@ -7,6 +7,7 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
+import LazyLoad from "react-lazyload";
 import styled from 'styled-components';
 
 import Gs from '../../Theme/globalStyles';
@@ -98,9 +99,11 @@ class HallOfFrameInfo extends Component {
     return (
       <HomeNFTs>
         <Gs.Container>
-          {this.props.infos ?
-            this.props.infos.map((info, index) => { return this.renderedInfo(info, index); })
-            : 'loading..'}
+          <LazyLoad>
+            {this.props.infos ?
+              this.props.infos.map((info, index) => { return this.renderedInfo(info, index); })
+              : 'loading..'}
+          </LazyLoad>
         </Gs.Container>
       </HomeNFTs>
     );

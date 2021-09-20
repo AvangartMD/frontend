@@ -79,22 +79,14 @@ function Collected(props) {
             </CEmpty>
             :
             <CEmpty>
-              <h2 className="Bec"> Your <span> <FormattedMessage id="collected" defaultMessage="Collected" /> </span> is empty</h2>
+              <h2 className="Bec"> <FormattedMessage id="collected_empty" defaultMessage="Collected is Empty" /></h2>
               {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
           : ``}
 
         {NFTs && params.id && NFTs.length === 0 ?
-          props.profile ?
-            <CEmpty>
-              <h2 className="Bec">Your <FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
-              {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
-            </CEmpty>
-            :
-            <CEmpty>
-              <h2 className="Bec"><FormattedMessage id="collected" defaultMessage="Collected" /> is empty</h2>
-            </CEmpty>
-          : ``}
+          <h2 className="Bec"> <FormattedMessage id="collected_empty" defaultMessage="Collected is Empty" /></h2>
+        : ``}
 
       </HomeNFTs>
     </>

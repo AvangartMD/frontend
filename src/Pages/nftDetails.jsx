@@ -25,6 +25,7 @@ import NftOwnerActions from "../Component/Modals/nftOwnerAction";
 import Login from "../Component/Modals/login";
 import getContractAddresses from "../contractData/contractAddress/addresses";
 import Media from "../Theme/media-breackpoint";
+import UserImg from "../Assets/images/user-img.jpg";
 import LoaderGif from "../Assets/images/loading.gif";
 
 // import VideoThumbnail from "react-video-thumbnail";
@@ -51,7 +52,7 @@ function CustomScrollbars(props) {
 const saleMethods = {
   sold: {
     name: null,
-    btnName: "Sold",
+    btnName: <FormattedMessage id="sold" defaultMessage="Sold" />,
     bidDesc: <FormattedMessage id="sold" defaultMessage="Sold" />,
     disable: true,
   },
@@ -624,7 +625,7 @@ class NftDetail extends React.Component {
                   <Historysection>
                     <UserImgName>
                       <Link to={`/creator/${NFTDetails?.ownerId.id}`}>
-                        <img src={NFTDetails?.ownerId.profile} alt="" />
+                        <img src={NFTDetails?.ownerId.profile ? NFTDetails.ownerId.profile : UserImg} alt="" />
                         {NFTDetails?.ownerId.username
                           ? `@${NFTDetails.ownerId.username}`
                           : NFTDetails?.ownerId.name}

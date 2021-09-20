@@ -132,7 +132,9 @@ class CollectionDetail extends Component {
                 <EditCollection>
                   <button className="ani-1 disabled"
                     onClick={() => this.props.history.push(`/user/collection-edit/${collection.id}`)}
-                  >Edit Collection</button>
+                  >
+                    <FormattedMessage id="edit_collection" defaultMessage="Edit Collection" />
+                  </button>
                 </EditCollection>
               ) : ("")}
             </>
