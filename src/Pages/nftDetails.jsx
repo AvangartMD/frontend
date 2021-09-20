@@ -323,7 +323,11 @@ class NftDetail extends React.Component {
     if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
       return this.setEditionnumber(1);
     for (var i = editions?.length - 1; i >= 0; i--) {
-      if (!editions[i].isBurned && authData.data.id === editions[i].ownerId.id)
+      if (
+        !editions[i].isBurned &&
+        authData &&
+        authData?.data?.id === editions[i].ownerId.id
+      )
         return this.setEditionnumber(editions[i].edition);
       if (editions[i].isOpenForSale && !editions[i].isBurned) {
         tmp = editions[i].saleType.price;
@@ -745,9 +749,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                      selectedNFTDetails.isOpenForSale &&
-                      selectedNFTDetails.secondHand &&
-                      !selectedNFTDetails.isBurned ? (
+                    selectedNFTDetails.isOpenForSale &&
+                    selectedNFTDetails.secondHand &&
+                    !selectedNFTDetails.isBurned ? (
                       <button
                         className="bordered"
                         onClick={() => {
@@ -758,7 +762,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === "NOT_MINTED" &&
-                      web3Data.isLoggedIn ? (
+                    web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
