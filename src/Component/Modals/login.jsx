@@ -99,14 +99,14 @@ function Login(props) {
             return chainId;
           });
 
-          if (chainId !== 97 && chainId !== '0x61') {
+          if (chainId !== 56 && chainId !== '0x38') {
             // MetaMask injects the global API into window.ethereum
             try {
               if (window.web3) {
                 // check if the chain to connect to is installed
                 const changeRequest = await window.ethereum.request({
                   method: 'wallet_switchEthereumChain',
-                  params: [{ chainId: '0x61' }], // chainId must be in hexadecimal numbers
+                  params: [{ chainId: '0x38' }], // chainId must be in hexadecimal numbers
                 });
                 const signature = await web3.eth.personal.sign(
                   web3.utils.utf8ToHex(nonce),
@@ -131,9 +131,9 @@ function Login(props) {
                     method: 'wallet_addEthereumChain',
                     params: [
                       {
-                        chainId: '0x61',
+                        chainId: '0x38',
                         rpcUrl:
-                          'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                          'https://bsc-dataseed.binance.org/',
                       },
                     ],
                   });
