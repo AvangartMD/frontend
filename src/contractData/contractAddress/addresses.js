@@ -8,18 +8,18 @@ fetchNetworkId();
 function getContractAddresses() {
   if (networkId === "0x4" || +networkId === 4)
     return {
-      nftContractAddress: "0x159c57baD61f16BD70c344694a932454539Ce7F3",
-      escrowContractAddres: "0xa47D11eb746a55f0C9c787cB45420318fea549b0",
+      nftContractAddress: "0xED6a0d87B5E2cC7502d0075eC78939A8437cAea9",
+      escrowContractAddres: "0x52f94Ac6A4C878e7597893D43452F4B41d4A8464",
     };
   else if (+networkId === 1 || networkId === "0x1")
     return {
-      nftContractAddress: "0x159c57baD61f16BD70c344694a932454539Ce7F3",
-      escrowContractAddres: "0xa47D11eb746a55f0C9c787cB45420318fea549b0",
+      nftContractAddress: "0xED6a0d87B5E2cC7502d0075eC78939A8437cAea9",
+      escrowContractAddres: "0x52f94Ac6A4C878e7597893D43452F4B41d4A8464",
     };
   else
     return {
-      nftContractAddress: "0x159c57baD61f16BD70c344694a932454539Ce7F3",
-      escrowContractAddres: "0xa47D11eb746a55f0C9c787cB45420318fea549b0",
+      nftContractAddress: "0xED6a0d87B5E2cC7502d0075eC78939A8437cAea9",
+      escrowContractAddres: "0x52f94Ac6A4C878e7597893D43452F4B41d4A8464",
     };
 }
 export default getContractAddresses;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 // staging server
 export default axios.create({
-  baseURL: 'https://api.52.28.101.213.nip.io/api/v1',
+  baseURL: 'https://api.carny.io/api/v1',
 });
 
 // // Local
@@ -19,4 +19,4 @@ export const expiryTime = 43200000; // 12 hours into miliseconds
 
 // Instragram config 
 export const client_id = '4418122684888051';
-export const redirect_url = 'https://avangrat.52.28.101.213.nip.io/user/edit-profile/';
+export const redirect_url = 'https://api.carny.io/user/edit-profile/';
