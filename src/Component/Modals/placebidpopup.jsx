@@ -22,6 +22,7 @@ function PABpopup(props) {
     currentEdition,
     fetchNFTDetails,
     nftDetails,
+    firstBid,
   } = props;
   const escrowContractInstance = getContractInstance(true);
   const [txnStatus, setTxnStatus] = useState("");
@@ -98,17 +99,25 @@ function PABpopup(props) {
     const _bnbVal = inUSD ? (val / currentCurrency).toString() : val;
     const _usdval = inUSD ? val : val * bnbUSDPrice;
     const _tryVal = inUSD ? val : val * bnbTRYPrice;
+    console.log(firstBid, val, price, price * 1.1);
     if (+_bnbVal <= currentBidValue)
       setError({
         isError: true,
         msg: "Input should be greater than NFT's current bid price ",
       });
-    else if (+_bnbVal <= price)
-      setError({
-        isError: true,
-        msg: "Input amount should be greater than NFT's price ",
-      });
-    else if (+_bnbVal > accountBalance.bnb)
+    else if (firstBid) {
+      if (+_bnbVal <= price)
+        setError({
+          isError: true,
+          msg: "Input amount should be greater than NFT's price ",
+        });
+    } else if (!firstBid) {
+      if (+_bnbVal <= price * 1.1)
+        setError({
+          isError: true,
+          msg: "Input amount should be 10% more than previous bid  ",
+        });
+    } else if (+_bnbVal > accountBalance.bnb)
       setError({
         isError: true,
         msg: "Insufficient Balance",
@@ -224,12 +233,23 @@ function PABpopup(props) {
                       className="ani-1 bordered"
                       onClick={() => toggle(8)}
                     >
-                      <FormattedMessage id="cancel_button" defaultMessage="Cancel" />
+                      <FormattedMessage
+                        id="cancel_button"
+                        defaultMessage="Cancel"
+                      />
                     </button>
                     <button className="ani-1" onClick={() => placeBid()}>
-                        {method === "buyNow" ? <FormattedMessage id="buy_button" defaultMessage="Buy" />
-                          : <FormattedMessage id="claim_button" defaultMessage="Claim" />
-                        }
+                      {method === "buyNow" ? (
+                        <FormattedMessage
+                          id="buy_button"
+                          defaultMessage="Buy"
+                        />
+                      ) : (
+                        <FormattedMessage
+                          id="claim_button"
+                          defaultMessage="Claim"
+                        />
+                      )}
                     </button>
                   </NFTcartButtons>
                 </>

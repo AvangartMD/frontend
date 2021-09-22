@@ -169,7 +169,7 @@ class NftDetail extends React.Component {
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    const { isLiked, web3Data } = this.props;
+    const { isLiked, web3Data, authData } = this.props;
     if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
     }
@@ -178,6 +178,11 @@ class NftDetail extends React.Component {
     }
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.checkUserApproval(web3Data);
+    }
+    if (authData !== prevProps.authData) {
+      if (authData && this.state.NFTDetails) {
+        this.getEditionNumber(this.state.NFTDetails, 0);
+      }
     }
   }
 
@@ -369,7 +374,7 @@ class NftDetail extends React.Component {
       .bid(+tokenID, newEdition)
       .call();
     // console.log("bid details", tokenID, newEdition, bidDetails);
-
+    console.log(bidDetails);
     const soldEdition = NFTDetails.editions.find(
       ({ edition }) => edition === newEdition
     );
@@ -395,6 +400,7 @@ class NftDetail extends React.Component {
         secondHand: true,
         orderNonce: soldEdition.nonce,
         isBurned: soldEdition.isBurned,
+        firstBid: +bidDetails.bidValue ? true : false,
       };
     else
       selectedNFTDetails = {
@@ -417,6 +423,7 @@ class NftDetail extends React.Component {
         secondHand: false,
         orderNonce: NFTDetails.nonce,
         isBurned: false,
+        firstBid: +bidDetails.bidValue ? true : false,
       };
 
     this.setState({
@@ -625,7 +632,14 @@ class NftDetail extends React.Component {
                   <Historysection>
                     <UserImgName>
                       <Link to={`/creator/${NFTDetails?.ownerId.id}`}>
-                        <img src={NFTDetails?.ownerId.profile ? NFTDetails.ownerId.profile : UserImg} alt="" />
+                        <img
+                          src={
+                            NFTDetails?.ownerId.profile
+                              ? NFTDetails.ownerId.profile
+                              : UserImg
+                          }
+                          alt=""
+                        />
                         {NFTDetails?.ownerId.username
                           ? `@${NFTDetails.ownerId.username}`
                           : NFTDetails?.ownerId.name}
@@ -868,6 +882,7 @@ class NftDetail extends React.Component {
               fetchNFTDetails={this.fetchNFTDetails}
               nftDetails={this.getNFTDetails}
               nextMethod={this.state.nextMethod}
+              firstBid={selectedNFTDetails.firstBid}
             />
           </Collapse>
           {this.state.isOpen9 ? (
