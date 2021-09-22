@@ -322,8 +322,8 @@ class NftDetail extends React.Component {
     var lowest = Number.POSITIVE_INFINITY;
     let index = 0;
     var tmp;
-    console.log("editions sold", NFTDetails);
-    // if (NFTDetails.edition === 1) return this.setEditionnumber(1);
+    // console.log("editions sold", NFTDetails);
+    if (NFTDetails.edition === 1) return this.setEditionnumber(1);
     if (editions.length === edition || editions.length === 0)
       return this.setEditionnumber(1);
     if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)
@@ -354,7 +354,7 @@ class NftDetail extends React.Component {
         }
       }
     }
-    console.log("index", index);
+    // console.log("index", index);
 
     this.setEditionnumber(index);
   };
@@ -376,7 +376,7 @@ class NftDetail extends React.Component {
       .bid(+tokenID, newEdition)
       .call();
     // console.log("bid details", tokenID, newEdition, bidDetails);
-    console.log(bidDetails);
+    // console.log(bidDetails);
     const soldEdition = NFTDetails.editions.find(
       ({ edition }) => edition === newEdition
     );
