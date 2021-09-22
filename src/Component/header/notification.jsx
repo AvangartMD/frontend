@@ -3,6 +3,7 @@ import 'react-tabs/style/react-tabs.css';
 
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
@@ -33,13 +34,20 @@ class Notifications extends Component {
           <NotificationSBX01>
 
             <Notificationtitle>Notifications</Notificationtitle>
-            {notifications.map((notification) => {
+            {notifications.length > 0 ? notifications.map((notification) => {
               return <button
-                    key={notification.id}
-                    onClick={() => this.props.history.push(notification.route?notification.route:'/')}>
+                key={notification.id}
+                onClick={() => this.props.history.push(notification.route ? notification.route : '/')}>
                 {notification.text}
               </button>
-            })}
+            }) :
+              <button>
+                <FormattedMessage
+                  id="no_notifications"
+                  defaultMessage="No Notifications Found"
+                />
+              </button>
+            }
 
           </NotificationSBX01>
 

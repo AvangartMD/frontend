@@ -4,7 +4,7 @@
 
 const ipfsHttpClient = require('ipfs-http-client');
 const ipfs = ipfsHttpClient.create({
-  url: 'https://ipfs.35.156.213.205.nip.io',
+  url: 'https://ipfs.carny.io',
 });
 
 export default ipfs;
