@@ -323,7 +323,7 @@ class NftDetail extends React.Component {
     let index = 0;
     var tmp;
     console.log("editions sold", NFTDetails);
-    if (NFTDetails.edition === 1) return this.setEditionnumber(1);
+    // if (NFTDetails.edition === 1) return this.setEditionnumber(1);
     if (editions.length === edition || editions.length === 0)
       return this.setEditionnumber(1);
     if (NFTDetails.auctionEndDate >= new Date().getTime() / 1000)

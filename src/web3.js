@@ -27,8 +27,8 @@ const metamaskConnectInit = () => {
       // order to use the app.
       web3 = new Web3(
         new Web3.providers.HttpProvider(
-          // "https://bsc-dataseed.binance.org/"
-          "https://data-seed-prebsc-1-s1.binance.org:8545/"
+          "https://bsc-dataseed.binance.org/"
+          // "https://data-seed-prebsc-1-s1.binance.org:8545/"
         )
       );
       reject(false);
@@ -42,8 +42,8 @@ const walletConnectInit = () => {
     if (!walletConnectProvider.connector.connected) {
       web3 = new Web3(
         new Web3.providers.HttpProvider(
-          // "https://bsc-dataseed.binance.org/"
-          "https://data-seed-prebsc-1-s1.binance.org:8545/"
+          "https://bsc-dataseed.binance.org/"
+          // "https://data-seed-prebsc-1-s1.binance.org:8545/"
         )
       );
       reject(false);
