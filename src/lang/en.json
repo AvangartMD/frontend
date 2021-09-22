@@ -234,12 +234,13 @@
   "select_create": "Select or Create",
   "create_collection": "Create",
   "edit_collection": "Edit Collection",
-  "minting_complete_label": "Platform affected in sometime",
+  "minting_complete_label": "It will take few seconds to update NFT in the Matketplace",
   "download_metamask": "Go to MetaMask website",
   "no_nft_found": "No Creations Found",
   "creation_empty": "Creation is empty",
   "collection_empty": "Collection is empty",
   "collected_empty": "Collected is Empty",
   "liked_empty": "Liked is empty",
-  "draft_empty": "Draft is empty"
+  "draft_empty": "Draft is empty",
+  "no_notifications": "No Notifications Found"
 }
