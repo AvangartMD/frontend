@@ -78,6 +78,9 @@ const WhiteWrap = styled(FlexDiv)`
     width: min(100vw - 50px, 100vh - 50px);
     max-height: calc(100vh - 32px);
     max-width: calc(100% - 32px);
+    ${Media.lg} {
+      height:100%;
+    }
     &.hr-box {
       width: min(100vw - 50px);
     }

@@ -229,10 +229,12 @@ class TopNFT extends Component {
                         defaultMessage='Ending in'
                       />
                     </p>
-                    <Timer
-                      timeLeft={nft.nftId.auctionEndDate}
-                      onlyHours={true}
-                    />
+                    <h3>
+                      <Timer
+                        timeLeft={nft.nftId.auctionEndDate}
+                        onlyHours={true}
+                      />
+                    </h3>
                   </>
                 ) : nft.nftId.nftSold === nft.nftId.edition ? (
                   <button className='disabled' disabled>
@@ -566,6 +568,9 @@ const Edition = styled(FlexDiv)`
         font-size: 10px;
         font-weight: 300;
         letter-spacing: -0.44px;
+      }
+      ${Media.sm} {
+        font-size: 16px;
       }
     }
     button {

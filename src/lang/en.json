@@ -242,5 +242,6 @@
   "collected_empty": "Collected is Empty",
   "liked_empty": "Liked is empty",
   "draft_empty": "Draft is empty",
-  "no_notifications": "No Notifications Found"
+  "no_notifications": "No Notifications Found",
+  "more": "More"
 }
