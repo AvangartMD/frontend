@@ -27,7 +27,7 @@
   "create": "NFT Üret",
   "all": "Tümü",
   "search": "Ara",
-  "filter": "Filter",
+  "filter": "Filtre",
   "see_the_collections": "Koleksiyonu görüntüle",
   "current_bid": "Güncel Teklif",
   "ending_in": "Kalan süre",
@@ -232,12 +232,14 @@
   "select_create": "Seçin veya yeni koleksiyon ekleyin",
   "create_collection": "Ekle",
   "edit_collection": "Koleksiyonu Düzenle",
-  "minting_complete_label": "Platform bir süre etkilenecek",
+  "minting_complete_label": "Matketplace'te NFT'yi güncellemek birkaç saniye sürecek",
   "download_metamask": "MetaMask websitesine git",
   "no_nft_found": "İçerik Bulanamadı",
   "creation_empty": "Henüz üretilen NFT yok",
   "collection_empty": "Henüz satın alınan NFT yok",
   "collected_empty": "Henüz satın alınan NFT yok",
   "liked_empty": "Henüz beğenilen NFT yok",
-  "draft_empty": "Henüz taslak NFT yok"
+  "draft_empty": "Henüz taslak NFT yok",
+  "no_notifications": "Bildirim Bulunamadı",
+  "more": "Daha fazla"
 }
