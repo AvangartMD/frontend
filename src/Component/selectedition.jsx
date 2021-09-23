@@ -1,25 +1,25 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Scrollbars } from "react-custom-scrollbars";
-import Collapse from "@kunukn/react-collapse";
-import { FormattedMessage } from "react-intl";
-import Media from "../Theme/media-breackpoint";
-import styled from "styled-components";
+import React, { useEffect, useState, useRef } from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
+import Collapse from '@kunukn/react-collapse';
+import { FormattedMessage } from 'react-intl';
+import Media from '../Theme/media-breackpoint';
+import styled from 'styled-components';
 
-import CloseBTN01 from "../Assets/images/closeBTN01.svg";
-import FiltICON from "../Assets/images/filterICO.svg";
-import UserIcon from "../Assets/images/userIcon.png";
-import { web3 } from "../web3";
+import CloseBTN01 from '../Assets/images/closeBTN01.svg';
+import FiltICON from '../Assets/images/filterICO.svg';
+import UserIcon from '../Assets/images/userIcon.png';
+import { web3 } from '../web3';
 
 function CustomScrollbars(props) {
   return (
     <Scrollbars
       renderTrackVertical={(props) => (
-        <div {...props} className="track-vertical" />
+        <div {...props} className='track-vertical' />
       )}
       renderThumbVertical={(props) => (
-        <div {...props} className="thumb-vertical" />
+        <div {...props} className='thumb-vertical' />
       )}
-      renderView={(props) => <div {...props} className="view" />}
+      renderView={(props) => <div {...props} className='view' />}
       autoHide
       style={props.style}
     >
@@ -33,12 +33,12 @@ function SelectEdition(props) {
   const [filterPopup, setFilterPopup] = useState([]);
   const [editions, setEditions] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [tab, setTab] = useState("All");
+  const [tab, setTab] = useState('All');
   const wrapperRef = useRef(null);
   const { NFTDetails, web3Data } = props;
 
   const toggle = (index) => {
-    let tVal = filterPopup === index ? "" : index;
+    let tVal = filterPopup === index ? '' : index;
     setFilterPopup(tVal);
   };
 
@@ -57,17 +57,17 @@ function SelectEdition(props) {
     }
 
     // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [wrapperRef, filterPopup, toggle]);
 
   useEffect(() => {
     const tabEditions = () => {
       let saleEditions = totalEditions
-        .filter((edition) => (tab === "Sale" ? edition.isOpenForSale : edition))
+        .filter((edition) => (tab === 'Sale' ? edition.isOpenForSale : edition))
         .map((edition) => edition);
       setEditions(saleEditions); // set the filtered editions
     };
@@ -78,21 +78,21 @@ function SelectEdition(props) {
   useEffect(() => {
     const filterEditions = () => {
       let saleEditions = [];
-      if (filter === "AUCTION")
+      if (filter === 'AUCTION')
         saleEditions = totalEditions
-          .filter((edition) => edition.saleState === "AUCTION")
+          .filter((edition) => edition.saleState === 'AUCTION')
           .map((edition) => edition);
-      if (filter === "BUY")
+      if (filter === 'BUY')
         saleEditions = totalEditions
-          .filter((edition) => edition.saleState === "BUY")
+          .filter((edition) => edition.saleState === 'BUY')
           .map((edition) => edition);
-      if (filter === "SOLD")
+      if (filter === 'SOLD')
         saleEditions = totalEditions
-          .filter((edition) => edition.saleState === "SOLD")
+          .filter((edition) => edition.saleState === 'SOLD')
           .map((edition) => edition);
-      if (filter === "OFFER")
+      if (filter === 'OFFER')
         saleEditions = totalEditions
-          .filter((edition) => edition.saleState === "OFFER")
+          .filter((edition) => edition.saleState === 'OFFER')
           .map((edition) => edition);
       if (filter.length === 0) saleEditions = totalEditions;
       setEditions(saleEditions); // set the filtered editions
@@ -119,7 +119,7 @@ function SelectEdition(props) {
               isOpenForSale: soldEdition.isOpenForSale,
               saleState: soldEdition.saleType.type
                 ? soldEdition.saleType.type
-                : "SOLD",
+                : 'SOLD',
               price: soldEdition.isOpenForSale
                 ? soldEdition.saleType.price
                 : soldEdition.price,
@@ -132,11 +132,11 @@ function SelectEdition(props) {
               ownerId: NFTDetails?.ownerId,
               isOpenForSale: true,
               saleState:
-                NFTDetails?.saleState === "AUCTION"
+                NFTDetails?.saleState === 'AUCTION'
                   ? NFTDetails?.auctionEndDate > new Date().getTime() / 1000
-                    ? "AUCTION"
-                    : "BUY"
-                  : "BUY",
+                    ? 'AUCTION'
+                    : 'BUY'
+                  : 'BUY',
               price: NFTDetails.price,
               isBurned: false,
             });
@@ -158,74 +158,74 @@ function SelectEdition(props) {
     <>
       <BlackWrap>
         <WhiteBX0D2>
-          <CloseBTN className="ani-1" onClick={() => props.toggle(10)}>
-            <img src={CloseBTN01} alt="" />
+          <CloseBTN className='ani-1' onClick={() => props.toggle(10)}>
+            <img src={CloseBTN01} alt='' />
           </CloseBTN>
 
           <Htitle>
             <FormattedMessage
-              id="select_edition"
-              defaultMessage="Select Edition"
+              id='select_edition'
+              defaultMessage='Select Edition'
             />
           </Htitle>
 
           <FilterMBX>
             <FilterLbx>
               <button
-                className={tab === "All" ? `active` : ``}
-                onClick={() => setTab("All")}
+                className={tab === 'All' ? `active` : ``}
+                onClick={() => setTab('All')}
               >
-                <FormattedMessage id="all" defaultMessage="All" />
+                <FormattedMessage id='all' defaultMessage='All' />
               </button>
               <button
-                className={tab === "Sale" ? `active` : ``}
-                onClick={() => setTab("Sale")}
+                className={tab === 'Sale' ? `active` : ``}
+                onClick={() => setTab('Sale')}
               >
-                <FormattedMessage id="for_sale" defaultMessage="For Sale" />
+                <FormattedMessage id='for_sale' defaultMessage='For Sale' />
               </button>
             </FilterLbx>
             <FilterBAR onClick={() => toggle(1)} ref={wrapperRef}>
               <FilterICO>
-                <img src={FiltICON} alt="" />
+                <img src={FiltICON} alt='' />
               </FilterICO>
               <FormattedMessage id='filter' defaultMessage='Filter' />
               <Collapse
                 isOpen={filterPopup === 1}
                 className={
-                  "app__collapse collapse-css-transition  " +
-                  (filterPopup === 1 ? "collapse-active" : "")
+                  'app__collapse collapse-css-transition  ' +
+                  (filterPopup === 1 ? 'collapse-active' : '')
                 }
               >
                 <DDContainer>
                   {NFTDetails?.auctionEndDate > new Date().getTime() / 1000 ? (
-                    <div className="md-checkbox">
+                    <div className='md-checkbox'>
                       <input
-                        type="checkbox"
-                        id="vehicle1"
-                        name="vehicle1"
-                        checked={filter.includes("AUCTION") ? true : false}
-                        onChange={(e) => changeHandler("AUCTION", e)}
+                        type='checkbox'
+                        id='vehicle1'
+                        name='vehicle1'
+                        checked={filter.includes('AUCTION') ? true : false}
+                        onChange={(e) => changeHandler('AUCTION', e)}
                       />
-                      <label htmlFor="vehicle1">
+                      <label htmlFor='vehicle1'>
                         <FormattedMessage
-                          id="live_acution"
-                          defaultMessage="Live auction"
+                          id='live_acution'
+                          defaultMessage='Live auction'
                         />
                       </label>
                     </div>
                   ) : (
-                    <div className="md-checkbox">
+                    <div className='md-checkbox'>
                       <input
-                        type="checkbox"
-                        id="vehicle2"
-                        name="vehicle1"
-                        checked={filter.includes("OFFER") ? true : false}
-                        onChange={(e) => changeHandler("OFFER", e)}
+                        type='checkbox'
+                        id='vehicle2'
+                        name='vehicle1'
+                        checked={filter.includes('OFFER') ? true : false}
+                        onChange={(e) => changeHandler('OFFER', e)}
                       />
-                      <label htmlFor="vehicle2">
+                      <label htmlFor='vehicle2'>
                         <FormattedMessage
-                          id="accept_offers"
-                          defaultMessage="Accept offers"
+                          id='accept_offers'
+                          defaultMessage='Accept offers'
                         />
                       </label>
                     </div>
@@ -235,30 +235,30 @@ function SelectEdition(props) {
                     ``
                   ) : (
                     <>
-                      <div className="md-checkbox">
+                      <div className='md-checkbox'>
                         <input
-                          type="checkbox"
-                          id="vehicle3"
-                          name="vehicle1"
-                          checked={filter.includes("BUY") ? true : false}
-                          onChange={(e) => changeHandler("BUY", e)}
+                          type='checkbox'
+                          id='vehicle3'
+                          name='vehicle1'
+                          checked={filter.includes('BUY') ? true : false}
+                          onChange={(e) => changeHandler('BUY', e)}
                         />
-                        <label htmlFor="vehicle3">
+                        <label htmlFor='vehicle3'>
                           <FormattedMessage
-                            id="buy_now"
-                            defaultMessage="Buy now"
+                            id='buy_now'
+                            defaultMessage='Buy now'
                           />
                         </label>
                       </div>
-                      <div className="md-checkbox">
+                      <div className='md-checkbox'>
                         <input
-                          type="checkbox"
-                          id="vehicle4"
-                          name="vehicle1"
-                          checked={filter.includes("SOLD") ? true : false}
-                          onChange={(e) => changeHandler("SOLD", e)}
+                          type='checkbox'
+                          id='vehicle4'
+                          name='vehicle1'
+                          checked={filter.includes('SOLD') ? true : false}
+                          onChange={(e) => changeHandler('SOLD', e)}
                         />
-                        <label htmlFor="vehicle4">Sold</label>
+                        <label htmlFor='vehicle4'>Sold</label>
                       </div>
                     </>
                   )}
@@ -269,21 +269,21 @@ function SelectEdition(props) {
           <CustomScrollbars
             autoHide
             autoHideTimeout={1000}
-            style={{ width: "100%", height: "400px", position: "relative" }}
+            style={{ width: '100%', height: '400px', position: 'relative' }}
           >
             <EditionTable>
               <table>
                 <thead>
                   <tr>
                     <th>
-                      <FormattedMessage id="edition" defaultMessage="EDITION" />
+                      <FormattedMessage id='edition' defaultMessage='EDITION' />
                     </th>
                     <th>
-                      <FormattedMessage id="owner" defaultMessage="OWNER" />
+                      <FormattedMessage id='owner' defaultMessage='OWNER' />
                       {/* <span className="mobile-block">/PRICE</span> */}
                     </th>
-                    <th className="text-center desktop-block">
-                      <FormattedMessage id="price" defaultMessage="PRICE" />
+                    <th className='text-center desktop-block'>
+                      <FormattedMessage id='price' defaultMessage='PRICE' />
                     </th>
                     <th></th>
                   </tr>
@@ -295,22 +295,22 @@ function SelectEdition(props) {
                           <tr key={key}>
                             <td>{edition.number}</td>
                             <td>
-                              <FlexDiv className="JCFS">
-                                <div className="table-Img">
+                              <FlexDiv className='JCFS'>
+                                <div className='table-Img'>
                                   <img
                                     src={
                                       edition.ownerId.profile
                                         ? edition.ownerId.profile
                                         : UserIcon
                                     }
-                                    alt=""
+                                    alt=''
                                   />
                                 </div>
-                                <div className="eduerprice">
+                                <div className='eduerprice'>
                                   {edition.ownerId.username
                                     ? `@${edition.ownerId.username}`
                                     : edition.ownerId.name}
-                                  <div className="mobile-block">
+                                  <div className='mobile-block'>
                                     {+edition.price < 0.001
                                       ? +edition.price
                                           .toFixed(5)
@@ -318,40 +318,46 @@ function SelectEdition(props) {
                                       : Number(edition.price).toLocaleString(
                                           undefined,
                                           4
-                                        )}{" "}
+                                        )}{' '}
                                     BNB
                                   </div>
                                 </div>
                               </FlexDiv>
                             </td>
-                            <td className="text-center desktop-block">
-                              {edition.price} BNB
+                            <td className='text-center desktop-block'>
+                              {Number(edition.price)
+                                .toFixed(10)
+                                .replace(
+                                  /([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,
+                                  '$1'
+                                )}{' '}
+                              BNB
                             </td>
                             <td>
                               <CustomRadio1>
-                                <label className="radio-container">
+                                <label className='radio-container'>
                                   {edition.isBurned ? (
                                     <FormattedMessage
-                                      id="burned"
-                                      defaultMessage="Burned"
+                                      id='burned'
+                                      defaultMessage='Burned'
                                     />
                                   ) : (
                                     <FormattedMessage
-                                      id="select"
-                                      defaultMessage="Select"
+                                      id='select'
+                                      defaultMessage='Select'
                                     />
                                   )}
                                   <input
-                                    type="radio"
-                                    name="category"
-                                    value="art"
+                                    type='radio'
+                                    name='category'
+                                    value='art'
                                     disabled={edition.isBurned}
                                     onClick={() => {
                                       props.setEditionnumber(edition.number);
                                       props.toggle(10);
                                     }}
                                   />
-                                  <span className="checkmark"></span>
+                                  <span className='checkmark'></span>
                                 </label>
                               </CustomRadio1>
                             </td>
