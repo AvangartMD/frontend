@@ -62,7 +62,7 @@ function Login(props) {
 
   const connectToWallet = (isWalletConnect) => {
     setGenNonce(true);
-    if (isWalletConnect) props.enabledWalletConnect();
+    if (isWalletConnect) enabledWalletConnect();
     else {
       setLoader(true);
 
@@ -95,10 +95,8 @@ function Login(props) {
     } else {
       try {
         if (!web3Data.isLoggedIn) {
-          const chainId = web3.eth.net.getId().then((chainId) => {
-            return chainId;
-          });
-          console.log("chainid", chainId);
+          const chainId = await web3.eth.net.getId();
+
           if (chainId !== 56 && chainId !== "0x38") {
             // MetaMask injects the global API into window.ethereum
             try {
@@ -138,7 +136,7 @@ function Login(props) {
                   });
                 } catch (addError) {
                   setLoader(false);
-                  setError({ isError: true, msg: addError });
+                  setError({ isError: true, msg: addError.message });
                 }
               }
 
