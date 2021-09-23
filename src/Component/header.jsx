@@ -342,7 +342,7 @@ class Header extends Component {
                         activeClassName="active"
                         onClick={() => this.toggle(12)}
                       >
-                        More
+                        <FormattedMessage id='more' defaultMessage='More' />
                       </NavLink>
                     </div>
                     <Collapse

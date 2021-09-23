@@ -27,7 +27,7 @@
   "create": "NFT Üret",
   "all": "Tümü",
   "search": "Ara",
-  "filter": "Filter",
+  "filter": "Filtre",
   "see_the_collections": "Koleksiyonu görüntüle",
   "current_bid": "Güncel Teklif",
   "ending_in": "Kalan süre",
@@ -240,5 +240,6 @@
   "collected_empty": "Henüz satın alınan NFT yok",
   "liked_empty": "Henüz beğenilen NFT yok",
   "draft_empty": "Henüz taslak NFT yok",
-  "no_notifications": "Bildirim Bulunamadı"
+  "no_notifications": "Bildirim Bulunamadı",
+  "more": "Daha fazla"
 }
