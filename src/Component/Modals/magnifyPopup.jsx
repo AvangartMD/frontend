@@ -80,13 +80,15 @@ const WhiteWrap = styled(FlexDiv)`
     max-width: calc(100% - 32px);
     &.hr-box {
       width: min(100vw - 50px);
+      .mag-outer{
+        ${Media.lg} {
+          align-items:center;
+        }
+      }
     }
     .mag-outer{
       display: flex;
       justify-content: center;
-      ${Media.lg} {
-        align-items:center;
-      }
     }
   }
 `;
