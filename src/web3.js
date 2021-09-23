@@ -8,7 +8,7 @@ let walletConnectProvider = new WalletConnectProvider({
     0x38: "https://bsc-dataseed.binance.org/", // BSC Mainnet chainId - 56
     // 0x61: 'https://data-seed-prebsc-1-s1.binance.org:8545/', // BSC Testnet chainId - 97
   },
-  chainId: 0x38, // BSC Mainnet
+  chainId: 56, // BSC Mainnet
   // chainId: 0x61, // BSC Testnet
   qrcode: false,
 });
@@ -40,12 +40,14 @@ const walletConnectInit = () => {
   // Check if WalleConnect has been conected by the website
   return new Promise((resolve, reject) => {
     if (!walletConnectProvider.connector.connected) {
-      web3 = new Web3(
-        new Web3.providers.HttpProvider(
-          "https://bsc-dataseed.binance.org/"
-          // "https://data-seed-prebsc-1-s1.binance.org:8545/"
-        )
-      );
+      // web3 = new Web3(
+      //   new Web3.providers.HttpProvider(
+      //     "https://bsc-dataseed.binance.org/"
+      //     // "https://data-seed-prebsc-1-s1.binance.org:8545/"
+      //   )
+      // );
+      metamaskConnectInit();
+
       reject(false);
     } else {
       // Use WalletConnect provider.
