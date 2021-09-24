@@ -1,6 +1,7 @@
 import loadable from '@loadable/component'
 import styled from "styled-components";
 import { useEffect } from "react";
+import { withRouter } from 'react-router';
 import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -66,16 +67,17 @@ function Collected(props) {
         {NFTs && !params.id && NFTs.length === 0 ?
           props.role !== 'creator' ?
             <CEmpty>
-              {/* <h2 className="Bec">
-                <FormattedMessage id="become_a_creator" defaultMessage="Become a Creator" />
-              </h2> */}
               <p className="Bec">
-                <FormattedMessage id="become_creator_label" defaultMessage="Only approved creators can mint NFTs. Apply for becoming one."
+                <FormattedMessage id="become_creator_label" defaultMessage="Your collected is empty"
                   values={{ br: <br /> }}
                 /></p>
-              <div className="BecBTN">
-                <BecomeCreator isProfile={true} />
-              </div>
+              <button
+                className='ani-1'
+                onClick={() => props.history.push('/marketplace')}
+              >
+                <FormattedMessage id='marketplace' defaultMessage='Marketplace' />
+              </button>
+              
             </CEmpty>
             :
             <CEmpty>
@@ -265,6 +267,7 @@ const FilterLbx = styled(FlexDiv)`
 
 const CEmpty = styled.div`
   margin-bottom:120px;
+  text-align: center;
   h2.Bec{ 
     font-size:22px;
     letter-spacing:-0.55px;
@@ -289,6 +292,18 @@ const CEmpty = styled.div`
       margin:0 auto;
     }
   }
+  button {
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    color: #000;
+    padding: 13px 44px;
+    border-radius: 15px;
+    border: 1px solid #000;
+    :hover {
+      background-color: #000;
+      color: #fff;
+    }
+  }
 `;
 
 
@@ -304,4 +319,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(Collected);
+export default withRouter(connect(mapStateToProps, mapDipatchToProps)(Collected));
