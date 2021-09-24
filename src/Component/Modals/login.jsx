@@ -110,7 +110,7 @@ function Login(props) {
                   web3.utils.utf8ToHex(nonce),
                   web3Data.accounts[0]
                 );
-                authLogin(nonce, signature);
+                await authLogin(nonce, signature);
                 refreshStates(true);
               } else {
                 setLoader(false);
@@ -151,7 +151,7 @@ function Login(props) {
               web3.utils.utf8ToHex(nonce),
               web3Data.accounts[0]
             );
-            authLogin(nonce, signature);
+            await authLogin(nonce, signature);
             refreshStates(true);
           }
         }
@@ -163,11 +163,13 @@ function Login(props) {
   };
 
   const refreshStates = (clearStorage) => {
-    if (!clearStorage) localStorage.clear();
+    if (!clearStorage) {
+      localStorage.clear();
+      props.web3Logout();
+    }
     setError({ isError: false, msg: "" });
     setLoader(false);
     toggle(4);
-    props.web3Logout();
   };
 
   return (
