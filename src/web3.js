@@ -13,6 +13,7 @@ let walletConnectProvider = new WalletConnectProvider({
   // qrcode: false,
   network: 'binance',
   qrcode: true,
+  pollingInterval: 12000,
   qrcodeModalOptions: {
     mobileLinks: ['metamask', 'trust'],
   },
