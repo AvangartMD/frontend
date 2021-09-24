@@ -122,6 +122,7 @@ class Header extends Component {
     }
 
     if (window.web3) {
+
       window.ethereum.on("accountsChanged", (accounts) => {
         // metamask user address changed
         if (accounts.length > 0 && this.state.web3Data.isLoggedIn && (accounts[0] !== this.state.web3Data.accounts[0])) {
@@ -131,6 +132,17 @@ class Header extends Component {
           this.setState({ isOpen4: true });
         }
       });
+      // window.ethereum.on('chainChanged', (chainId) => {
+      //   // Handle the new chain.
+      //   // Correctly handling chain changes can be complicated.
+      //   // We recommend reloading the page unless you have good reason not to.
+      //   if (chainId !== 56 && chainId !== "0x38") {
+      //     const changeRequest = window.ethereum.request({
+      //       method: "wallet_switchEthereumChain",
+      //       params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
+      //     });
+      //   }
+      // });
     }
     walletConnectProvider.on("accountsChanged", (accounts) => {
       // walletConnect user address changed

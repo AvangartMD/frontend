@@ -252,7 +252,10 @@ class ProfileEdit extends Component {
                         to="#socialLink"
                         smooth={true}
                       >
-                        Social Links
+                        <FormattedMessage
+                          id="social_links"
+                          defaultMessage="Social Links"
+                        />
                       </Link>
                     </Scrollspy>
                   </NFTLeft>
