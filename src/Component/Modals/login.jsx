@@ -147,6 +147,7 @@ function Login(props) {
               // console.error(error);
             }
           } else {
+            window.localStorage.removeItem('WALLETCONNECT_DEEPLINK_CHOICE');
             const signature = await web3.eth.personal.sign(
               web3.utils.utf8ToHex(nonce),
               web3Data.accounts[0]
