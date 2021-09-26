@@ -5,7 +5,7 @@ import LoaderGif from "../../Assets/images/loading.gif";
 import Media from "../../Theme/media-breackpoint";
 
 function TxnStatus(props) {
-  const { status, msg, toggleIndex, toggle, refreshStates } = props;
+  const { status, msg, toggleIndex, toggle, refreshStates, errorMsg } = props;
   return (
     <>
       {status === "initiate" && (
@@ -76,7 +76,7 @@ function TxnStatus(props) {
               defaultMessage="Transaction failed"
             />
           </WGTitle>
-          <WGdescText></WGdescText>
+          <WGdescText>{errorMsg ? errorMsg : ""}</WGdescText>
           <WGBtn
             onClick={() => {
               toggle(toggleIndex);
@@ -192,7 +192,7 @@ const CloseBTN = styled.button`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
-  line-height:28px;
+  line-height: 28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;

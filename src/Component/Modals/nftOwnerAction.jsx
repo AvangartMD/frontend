@@ -1,15 +1,15 @@
-import React, { Component, useState } from 'react';
-import styled from 'styled-components';
+import React, { Component, useState } from "react";
+import styled from "styled-components";
 
-import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
-import { getContractInstance } from '../../helper/functions';
-import { actions } from '../../actions';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import TxnStatus from './txnStatus';
-import Media from './../../Theme/media-breackpoint';
-import getContractAddresses from '../../contractData/contractAddress/addresses';
-import { web3 } from '../../web3';
+import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
+import { getContractInstance } from "../../helper/functions";
+import { actions } from "../../actions";
+import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
+import TxnStatus from "./txnStatus";
+import Media from "./../../Theme/media-breackpoint";
+import getContractAddresses from "../../contractData/contractAddress/addresses";
+import { web3 } from "../../web3";
 
 function NftOwnerActions(props) {
   const {
@@ -25,64 +25,73 @@ function NftOwnerActions(props) {
     checkUserApproval,
     nftDetails,
     nextMethod,
+    accountBalance,
   } = props;
   const succesMsg = {
     burnTokenEdition: (
-      <FormattedMessage id='burn_success' defaultMessage='Burn Successfull' />
+      <FormattedMessage id="burn_success" defaultMessage="Burn Successfull" />
     ),
     transfer: (
       <FormattedMessage
-        id='transfer_success'
-        defaultMessage='Transfer Successfull'
+        id="transfer_success"
+        defaultMessage="Transfer Successfull"
       />
     ),
   };
   const escrowContractInstance = getContractInstance(true);
   const nftContractContractInstance = getContractInstance();
 
-  const [reciever, setReciever] = useState('');
-  const [mintNFTStatus, setNFTStatus] = useState('');
+  const [reciever, setReciever] = useState("");
+  const [mintNFTStatus, setNFTStatus] = useState("");
   const [approved, setApproved] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleAction = async (forApproval) => {
+    if (!accountBalance) {
+      setErrorMsg("You do not have sufficient BNB Balance");
+      setNFTStatus("error");
+      return;
+    }
+
     const { escrowContractAddres } = getContractAddresses();
     let contractInstance = escrowContractInstance;
     setApproved(false);
     // console.log("next method added", nextMethod);
     let params;
-    if (ownerActionName === 'burnTokenEdition') params = [+tokenID, +edition];
-    else if (ownerActionName === 'transfer')
+    if (ownerActionName === "burnTokenEdition") params = [+tokenID, +edition];
+    else if (ownerActionName === "transfer")
       params = [
         web3Data.accounts[0],
         reciever,
         +tokenID,
         +edition,
-        web3.utils.sha3('0xea'),
+        web3.utils.sha3("0xea"),
       ];
-    else if (ownerActionName === 'setApprovalForAll') {
+    else if (ownerActionName === "setApprovalForAll") {
       params = [escrowContractAddres, true];
       contractInstance = nftContractContractInstance;
     } else if (
-      ownerActionName === 'cancelSaleOrder' ||
-      ownerActionName === 'claimBack' ||
-      ownerActionName === 'acceptOffer'
+      ownerActionName === "cancelSaleOrder" ||
+      ownerActionName === "claimBack" ||
+      ownerActionName === "acceptOffer"
     )
       params = [+orderNonce, +edition];
     else return;
     // console.log(params, ownerActionName);
-    setNFTStatus('initiate');
+    setNFTStatus("initiate");
+    setErrorMsg("");
     await contractInstance.methods[ownerActionName](...params)
       .send({
         from: web3Data.accounts[0],
       })
-      .on('transactionHash', (hash) => {
-        setNFTStatus('progress');
+      .on("transactionHash", (hash) => {
+        setNFTStatus("progress");
       })
-      .on('receipt', (receipt) => {
-        if (ownerActionName === 'setApprovalForAll') {
+      .on("receipt", (receipt) => {
+        if (ownerActionName === "setApprovalForAll") {
           setApproved(true);
-          setNFTStatus('');
+          setNFTStatus("");
 
           checkUserApproval(web3Data);
           // console.log("this is next method", nextMethod);
@@ -94,23 +103,23 @@ function NftOwnerActions(props) {
 
         setTimeout(() => {
           // refresh the state
-          if (ownerActionName === 'setApprovalForAll') {
-            setNFTStatus('');
+          if (ownerActionName === "setApprovalForAll") {
+            setNFTStatus("");
             checkUserApproval(web3Data);
           } else {
             nftDetails();
-            setNFTStatus('complete');
+            setNFTStatus("complete");
           }
         }, 5000);
       })
-      .on('error', (error) => {
-        setNFTStatus('error');
+      .on("error", (error) => {
+        setNFTStatus("error");
       });
   };
   const refreshStates = () => {
     setApproved(false);
-    setNFTStatus('');
-    setReciever('');
+    setNFTStatus("");
+    setReciever("");
     setConfirm(false);
   };
   return (
@@ -118,108 +127,111 @@ function NftOwnerActions(props) {
       <BlackWrap>
         <WhiteBX01>
           <CloseBTN
-            className='ani-1'
+            className="ani-1"
             onClick={() => {
               toggle(1);
               refreshStates();
             }}
           >
-            <img src={CloseBTN01} alt='' />
+            <img src={CloseBTN01} alt="" />
           </CloseBTN>
           {approved && (
-            <PBtitle className='AStitle'>
+            <PBtitle className="AStitle">
               User Approved
               {/* <FormattedMessage id="are_you_sure?" /> */}
             </PBtitle>
           )}
           {!mintNFTStatus ? (
             <>
-              {ownerActionName === 'burnTokenEdition' && (
+              {ownerActionName === "burnTokenEdition" && (
                 <>
-                  <PBtitle className='AStitle'>
-                    <FormattedMessage id='are_you_sure?' />
+                  <PBtitle className="AStitle">
+                    <FormattedMessage id="are_you_sure?" />
                   </PBtitle>
-                  <PBDesc className='ASDesc'>
-                    <FormattedMessage id='burn_label' />
+                  <PBDesc className="ASDesc">
+                    <FormattedMessage id="burn_label" />
                   </PBDesc>
                   <NFTcartButtons>
-                    <button className='ani-1 bordered'>
-                      <FormattedMessage id='cancel' defaultMessage='Cancel' />
+                    <button className="ani-1 bordered">
+                      <FormattedMessage id="cancel" defaultMessage="Cancel" />
                     </button>
-                    <button className='ani-1' onClick={() => handleAction()}>
-                      <FormattedMessage id='burn' defaultMessage='Burn' />
+                    <button className="ani-1" onClick={() => handleAction()}>
+                      <FormattedMessage id="burn" defaultMessage="Burn" />
                     </button>
                   </NFTcartButtons>
                 </>
               )}
-              {ownerActionName === 'claimBack' && parseInt(timeStamp, 10) + 180 < new Date().getTime() / 1000 && (
-                <>
-                  <PBtitle className='AStitle'>
-                    <FormattedMessage id='are_you_sure?' />
-                  </PBtitle>
-                  <PBDesc className='ASDesc'>
-                    <FormattedMessage id='are_you_sure_label' />
-                  </PBDesc>
-                  <NFTcartButtons>
-                    <button className='ani-1 bordered'>
-                      <FormattedMessage id='cancel' defaultMessage='Cancel' />
-                    </button>
-                    <button className='ani-1' onClick={() => handleAction()}>
-                      Claim Back
-                    </button>
-                  </NFTcartButtons>
-                </>
-              )}
+              {ownerActionName === "claimBack" &&
+                parseInt(timeStamp, 10) + 180 < new Date().getTime() / 1000 && (
+                  <>
+                    <PBtitle className="AStitle">
+                      <FormattedMessage id="are_you_sure?" />
+                    </PBtitle>
+                    <PBDesc className="ASDesc">
+                      <FormattedMessage id="are_you_sure_label" />
+                    </PBDesc>
+                    <NFTcartButtons>
+                      <button className="ani-1 bordered">
+                        <FormattedMessage id="cancel" defaultMessage="Cancel" />
+                      </button>
+                      <button className="ani-1" onClick={() => handleAction()}>
+                        Claim Back
+                      </button>
+                    </NFTcartButtons>
+                  </>
+                )}
 
-              {ownerActionName === 'claimBack' && parseInt(timeStamp, 10) + 180 >= new Date().getTime() / 1000 && (
-                <>
-                  <PBtitle className='AStitle'>
-                    <FormattedMessage id='attention' />
-                  </PBtitle>
-                  <PBDesc className='ASDesc'>
-                    <FormattedMessage id='claim_back_restriction_lable' />
-                  </PBDesc>
-                  <NFTcartButtons>
-                    <button className='ani-1 bordered'>
-                      <FormattedMessage id='cancel' defaultMessage='Cancel' />
-                    </button>
-                    <button className='ani-1' disabled>
-                      Claim Back
-                    </button>
-                  </NFTcartButtons>
-                </>
-              )}
+              {ownerActionName === "claimBack" &&
+                parseInt(timeStamp, 10) + 180 >=
+                  new Date().getTime() / 1000 && (
+                  <>
+                    <PBtitle className="AStitle">
+                      <FormattedMessage id="attention" />
+                    </PBtitle>
+                    <PBDesc className="ASDesc">
+                      <FormattedMessage id="claim_back_restriction_lable" />
+                    </PBDesc>
+                    <NFTcartButtons>
+                      <button className="ani-1 bordered">
+                        <FormattedMessage id="cancel" defaultMessage="Cancel" />
+                      </button>
+                      <button className="ani-1" disabled>
+                        Claim Back
+                      </button>
+                    </NFTcartButtons>
+                  </>
+                )}
               {
                 // {/* Transfer NFT popup */}
-                ownerActionName === 'transfer' && !confirm && (
+                ownerActionName === "transfer" && !confirm && (
                   <>
-                    <PBtitle className='TN-title'>
-                      <FormattedMessage id='transfer_nft' />
+                    <PBtitle className="TN-title">
+                      <FormattedMessage id="transfer_nft" />
                     </PBtitle>
-                    <PBDesc className='mb-20'>
-                      <FormattedMessage id='transfer_nft_label' />
+                    <PBDesc className="mb-20">
+                      <FormattedMessage id="transfer_nft_label" />
                     </PBDesc>
                     <NFTForm>
-                      <div className='label-line'>
+                      <div className="label-line">
                         <label>
-                          <FormattedMessage id='wallet_address' />
+                          <FormattedMessage id="wallet_address" />
                         </label>
                       </div>
                       <input
-                        type='text'
-                        className='mb-0'
-                        placeholder='Add Wallet Address'
+                        type="text"
+                        className="mb-0"
+                        placeholder="Add Wallet Address"
                         onChange={(e) => setReciever(e.target.value)}
                       />
                     </NFTForm>
                     <NFTcartButtons>
                       <button
-                        className='ani-1 bor-large'
+                        className="ani-1 bor-large"
                         onClick={() => setConfirm(true)}
                       >
                         <FormattedMessage
-                          id='transfer'
-                          defaultMessage='Transfer'
+                          id="transfer"
+                          defaultMessage="Transfer"
                         />
                       </button>
                     </NFTcartButtons>
@@ -228,21 +240,21 @@ function NftOwnerActions(props) {
               }
               {
                 // {/* Transfer NFT popup */}
-                ownerActionName === 'setApprovalForAll' && (
+                ownerActionName === "setApprovalForAll" && (
                   <>
-                    <PBtitle className='TN-title'>
+                    <PBtitle className="TN-title">
                       <FormattedMessage
-                        id='approve_first_time'
-                        defaultMessage='Approve The Transfer'
+                        id="approve_first_time"
+                        defaultMessage="Approve The Transfer"
                       />
                     </PBtitle>
-                    <PBDesc className='mb-20'>
-                      <FormattedMessage id='approve_first_time_label' />
+                    <PBDesc className="mb-20">
+                      <FormattedMessage id="approve_first_time_label" />
                     </PBDesc>
 
                     <NFTcartButtons>
                       <button
-                        className='ani-1 bor-large'
+                        className="ani-1 bor-large"
                         onClick={() => handleAction()}
                       >
                         Approve
@@ -251,43 +263,43 @@ function NftOwnerActions(props) {
                   </>
                 )
               }
-              {ownerActionName === 'cancelSaleOrder' && (
+              {ownerActionName === "cancelSaleOrder" && (
                 <>
-                  <PBtitle className='TN-title'>
+                  <PBtitle className="TN-title">
                     <FormattedMessage
-                      id='cancel_sale_order'
-                      defaultMessage='Cancel Sale Order'
+                      id="cancel_sale_order"
+                      defaultMessage="Cancel Sale Order"
                     />
                   </PBtitle>
-                  <PBDesc className='mb-20'>
-                    <FormattedMessage id='cancel_sale_order_lable' />
+                  <PBDesc className="mb-20">
+                    <FormattedMessage id="cancel_sale_order_lable" />
                   </PBDesc>
 
                   <NFTcartButtons>
                     <button
-                      className='ani-1 bor-large'
+                      className="ani-1 bor-large"
                       onClick={() => handleAction()}
                     >
-                      <FormattedMessage id='cancel_sale_order_button' />
+                      <FormattedMessage id="cancel_sale_order_button" />
                     </button>
                   </NFTcartButtons>
                 </>
               )}
-              {ownerActionName === 'acceptOffer' && (
+              {ownerActionName === "acceptOffer" && (
                 <>
-                  <PBtitle className='TN-title'>
+                  <PBtitle className="TN-title">
                     <FormattedMessage
-                      id='accept_offers'
-                      defaultMessage='Accept offer'
+                      id="accept_offers"
+                      defaultMessage="Accept offer"
                     />
                   </PBtitle>
-                  <PBDesc className='mb-20'>
-                    <FormattedMessage id='accept_offers_label' />
+                  <PBDesc className="mb-20">
+                    <FormattedMessage id="accept_offers_label" />
                   </PBDesc>
 
                   <NFTcartButtons>
                     <button
-                      className='ani-1 bor-large'
+                      className="ani-1 bor-large"
                       onClick={() => handleAction()}
                     >
                       Accept
@@ -297,24 +309,24 @@ function NftOwnerActions(props) {
               )}
               {confirm && (
                 <>
-                  <PBtitle className='AStitle'>
-                    <FormattedMessage id='confirm' defaultMessage='Confirm' />
+                  <PBtitle className="AStitle">
+                    <FormattedMessage id="confirm" defaultMessage="Confirm" />
                   </PBtitle>
-                  <PBDesc className='ASDesc mb-10'>
-                    <FormattedMessage id='confirm_label_transfer' />
+                  <PBDesc className="ASDesc mb-10">
+                    <FormattedMessage id="confirm_label_transfer" />
                   </PBDesc>
                   <SkyWalletAddress>{reciever}</SkyWalletAddress>
                   <NFTcartButtons>
                     <button
-                      className='ani-1 bordered'
+                      className="ani-1 bordered"
                       onClick={() => toggle(1)}
                     >
                       Cancel
                     </button>
-                    <button className='ani-1' onClick={() => handleAction()}>
+                    <button className="ani-1" onClick={() => handleAction()}>
                       <FormattedMessage
-                        id='transfer'
-                        defaultMessage='Transfer'
+                        id="transfer"
+                        defaultMessage="Transfer"
                       />
                     </button>
                   </NFTcartButtons>
@@ -328,6 +340,7 @@ function NftOwnerActions(props) {
               toggleIndex={1}
               toggle={toggle}
               refreshStates={refreshStates}
+              errorMsg={errorMsg}
             />
           )}
         </WhiteBX01>
@@ -614,7 +627,7 @@ const SkyWalletAddress = styled.div`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 24px;
-  line-height:28px;
+  line-height: 28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
