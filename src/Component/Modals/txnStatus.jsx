@@ -205,6 +205,7 @@ const WGdescText = styled.div`
   letter-spacing: -0.7px;
   margin-bottom: 10px;
   text-align: center;
+  width: 100%;
 `;
 
 const WGBtn = styled.button`
