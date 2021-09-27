@@ -373,7 +373,7 @@ class Header extends Component {
                               this.toggle(11);
                             }}
                           >
-                            Avangart Blog
+                            Carny Blog
                           </NavLink>
                           <NavLink
                             to="/faq"
