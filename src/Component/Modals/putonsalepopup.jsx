@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
-import Media from '../../Theme/media-breackpoint';
-import Collapse from '@kunukn/react-collapse';
-import { FormattedMessage } from 'react-intl';
-import { web3 } from '../../web3';
-import CloseBTN01 from '../../Assets/images/closeBTN01.svg';
-import DDdownA from '../../Assets/images/dd-down-arrow.svg';
-import TxnStatus from './txnStatus';
-import { getContractInstance } from '../../helper/functions';
+import React, { useEffect, useState, useRef } from "react";
+import styled from "styled-components";
+import Media from "../../Theme/media-breackpoint";
+import Collapse from "@kunukn/react-collapse";
+import { FormattedMessage } from "react-intl";
+import { web3 } from "../../web3";
+import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
+import DDdownA from "../../Assets/images/dd-down-arrow.svg";
+import TxnStatus from "./txnStatus";
+import { getContractInstance } from "../../helper/functions";
 
 function POSpopup({
   toggle,
@@ -16,45 +16,47 @@ function POSpopup({
   web3Data,
   nftDetails,
   bnbUSDPrice,
+  accountBalance,
 }) {
   const wrapperRef = useRef(null);
   const [isOpen2, setIsOpen2] = useState(false);
-  const [price, setPrice] = useState('');
-  const [txnStatus, setTxnStatus] = useState('');
-  const [method, setMethod] = useState('');
-  const [error, setError] = useState('');
+  const [price, setPrice] = useState("");
+  const [txnStatus, setTxnStatus] = useState("");
+  const [method, setMethod] = useState("");
+  const [error, setError] = useState("");
   const escrowContractInstance = getContractInstance(true);
-  const [currencyUsed, setCurrencyUsed] = useState('BNB');
+  const [currencyUsed, setCurrencyUsed] = useState("BNB");
   const makeTransaction = async () => {
     if (!method) return;
-    if (!+price) return setError('priceError');
+    if (!accountBalance) return setError("noBNB");
+    if (!+price) return setError("priceError");
     let newPrice = price;
-    if (currencyUsed === 'TR') newPrice = (+price / bnbUSDPrice.try).toString();
+    if (currencyUsed === "TR") newPrice = (+price / bnbUSDPrice.try).toString();
 
-    if (currencyUsed === 'USD')
+    if (currencyUsed === "USD")
       newPrice = (+price / bnbUSDPrice.usd).toString();
 
-    setError('');
+    setError("");
     // console.log(method, price);
-    setTxnStatus('initiate');
+    setTxnStatus("initiate");
     await escrowContractInstance.methods[method](
       +tokenId,
       editionNumber,
-      web3.utils.toWei(newPrice, 'ether')
+      web3.utils.toWei(newPrice, "ether")
     )
       .send({ from: web3Data.accounts[0] })
-      .on('transactionHash', (hash) => {
-        setTxnStatus('progress');
+      .on("transactionHash", (hash) => {
+        setTxnStatus("progress");
       })
-      .on('receipt', (receipt) => {
+      .on("receipt", (receipt) => {
         setTimeout(() => {
           // refresh the state
           nftDetails();
-          setTxnStatus('complete');
+          setTxnStatus("complete");
         }, 5000);
       })
-      .on('error', (error) => {
-        setTxnStatus('error');
+      .on("error", (error) => {
+        setTxnStatus("error");
       });
   };
 
@@ -73,90 +75,97 @@ function POSpopup({
     }
 
     // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef, setIsOpen2, isOpen2]);
 
   const refreshStates = () => {
-    setPrice('');
-    setTxnStatus('');
+    setPrice("");
+    setTxnStatus("");
     // toggle(7);
   };
   return (
     <>
       <BlackWrap>
         <WhiteBX0D3>
-          <CloseBTN className='ani-1' onClick={() => toggle(7)}>
-            <img src={CloseBTN01} alt='' />
+          <CloseBTN className="ani-1" onClick={() => toggle(7)}>
+            <img src={CloseBTN01} alt="" />
           </CloseBTN>
 
           {!txnStatus ? (
             <>
-              <PBtitle className='TN-title'>
+              <PBtitle className="TN-title">
                 <FormattedMessage
-                  id='put_on_sale'
-                  defaultMessage='Put on Sale'
+                  id="put_on_sale"
+                  defaultMessage="Put on Sale"
                 />
               </PBtitle>
               <CustomRadio1>
-                <label className='radio-container'>
-                  <FormattedMessage id='buy_now' defaultMessage='Buy now' />
+                <label className="radio-container">
+                  <FormattedMessage id="buy_now" defaultMessage="Buy now" />
                   <input
-                    className={error === 'priceError' ? `error` : ``}
-                    type='radio'
-                    name='category'
-                    value='buy now'
-                    onClick={() => setMethod('putOnSaleBuy')}
+                    className={error === "priceError" ? `error` : ``}
+                    type="radio"
+                    name="category"
+                    value="buy now"
+                    onClick={() => setMethod("putOnSaleBuy")}
                   />
-                  <span className='checkmark'></span>
+                  <span className="checkmark"></span>
                 </label>
-                <label className='radio-container'>
+                <label className="radio-container">
                   <FormattedMessage
-                    id='accept_offers'
-                    defaultMessage='Accept offers'
+                    id="accept_offers"
+                    defaultMessage="Accept offers"
                   />
                   <input
-                    type='radio'
-                    name='category'
-                    value='accept offers'
-                    onClick={() => setMethod('requestOffer')}
+                    type="radio"
+                    name="category"
+                    value="accept offers"
+                    onClick={() => setMethod("requestOffer")}
                   />
-                  <span className='checkmark'></span>
+                  <span className="checkmark"></span>
                 </label>
               </CustomRadio1>
-              <NFTForm className='Custom-piece'>
-                <div className={error === 'priceError' ? 'errorinput' : ''}>
-                  <div className='label-line'>
+              <NFTForm className="Custom-piece">
+                <div className={error === "priceError" ? "errorinput" : ""}>
+                  <div className="label-line">
                     <label>
-                      {method === 'requestOffer' ? (
+                      {method === "requestOffer" ? (
                         <FormattedMessage
-                          id='enter_minimum_price_lable'
-                          defaultMessage='Enter minimum price'
+                          id="enter_minimum_price_lable"
+                          defaultMessage="Enter minimum price"
                         />
                       ) : (
                         <FormattedMessage
-                          id='enter_price_lable'
-                          defaultMessage='Enter price'
+                          id="enter_price_lable"
+                          defaultMessage="Enter price"
                         />
                       )}
                     </label>
                   </div>
                   <input
-                    type='text'
-                    placeholder='0.00'
-                    name='price'
+                    type="text"
+                    placeholder="0.00"
+                    name="price"
                     onChange={(e) => {
                       if (!isNaN(Number(e.target.value)))
                         setPrice(e.target.value);
                     }}
                   />
-                  {error === 'priceError' ? (
-                    <p className='error bottom-text'>Please add valid number</p>
+                  {error === "priceError" ? (
+                    <p className="error bottom-text">Please add valid number</p>
                   ) : (
-                    ''
+                    ""
+                  )}
+                  {error === "noBNB" ? (
+                    <p className="error bottom-text">
+                      You don't have sufficient BNB
+                    </p>
+                  ) : (
+                    ""
                   )}
                 </div>
                 <AccountBX
@@ -164,28 +173,28 @@ function POSpopup({
                   ref={wrapperRef}
                 >
                   <span>
-                    {currencyUsed} <img src={DDdownA} alt='' />
+                    {currencyUsed} <img src={DDdownA} alt="" />
                   </span>
                   <Collapse
                     isOpen={isOpen2}
                     className={
-                      'app__collapse collapse-css-transition  ' +
-                      (isOpen2 ? 'collapse-active' : '')
+                      "app__collapse collapse-css-transition  " +
+                      (isOpen2 ? "collapse-active" : "")
                     }
                   >
-                    <DDContainer className='ver2'>
+                    <DDContainer className="ver2">
                       <DDBtnbar02>
-                        <button onClick={() => setCurrencyUsed('BNB')}>
+                        <button onClick={() => setCurrencyUsed("BNB")}>
                           BNB
                         </button>
                       </DDBtnbar02>
                       <DDBtnbar02>
-                        <button onClick={() => setCurrencyUsed('TR')}>
+                        <button onClick={() => setCurrencyUsed("TR")}>
                           TR
                         </button>
                       </DDBtnbar02>
                       <DDBtnbar02>
-                        <button onClick={() => setCurrencyUsed('USD')}>
+                        <button onClick={() => setCurrencyUsed("USD")}>
                           USD
                         </button>
                       </DDBtnbar02>
@@ -195,10 +204,10 @@ function POSpopup({
               </NFTForm>
               <NFTcartButtons>
                 <button
-                  className='ani-1 bor-large'
+                  className="ani-1 bor-large"
                   onClick={() => makeTransaction()}
                 >
-                  <FormattedMessage id='place' defaultMessage='Place' />
+                  <FormattedMessage id="place" defaultMessage="Place" />
                 </button>
               </NFTcartButtons>
             </>
@@ -217,7 +226,7 @@ function POSpopup({
 }
 
 const toggle = (index) => {
-  let collapse = 'isOpen' + index;
+  let collapse = "isOpen" + index;
   this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
 };
 // }

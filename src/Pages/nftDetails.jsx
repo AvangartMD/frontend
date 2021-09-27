@@ -166,6 +166,7 @@ class NftDetail extends React.Component {
       nextMethod: null,
       loader: true,
       magnifyClass: " ",
+      accountBalance: 0,
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -226,7 +227,10 @@ class NftDetail extends React.Component {
     const isApprovedForAll = await nftContractContractInstance.methods
       .isApprovedForAll(web3Data.accounts[0], escrowContractAddres)
       .call();
-    this.setState({ isApprovedForAll });
+    const accountBalance = Number(
+      web3.utils.fromWei(await web3.eth.getBalance(web3Data.accounts[0]))
+    );
+    this.setState({ isApprovedForAll, accountBalance });
   };
   setNFTBuyMethod = (
     bidDetails,
@@ -520,6 +524,7 @@ class NftDetail extends React.Component {
       NFTDetails,
       ext,
       loader,
+      accountBalance,
     } = this.state;
     const { likesCount, isLiked, authData, web3Data } = this.props;
     let currentCurrenctyPrice =
@@ -839,6 +844,7 @@ class NftDetail extends React.Component {
               checkUserApproval={this.checkUserApproval}
               nftDetails={this.getNFTDetails}
               nextMethod={this.state.nextMethod}
+              accountBalance={accountBalance}
             />
           </Collapse>
           <Collapse
@@ -866,6 +872,7 @@ class NftDetail extends React.Component {
               web3Data={this.props.web3Data}
               nftDetails={this.getNFTDetails}
               bnbUSDPrice={bnbUSDPrice}
+              accountBalance={accountBalance}
             />
           </Collapse>
           <Collapse
@@ -885,6 +892,7 @@ class NftDetail extends React.Component {
               nftDetails={this.getNFTDetails}
               nextMethod={this.state.nextMethod}
               firstBid={selectedNFTDetails.firstBid}
+              accountBalance={accountBalance}
             />
           </Collapse>
           {this.state.isOpen9 ? (

@@ -62,9 +62,15 @@ function PABpopup(props) {
     }
     setAccount();
   }, [web3Data.accounts, bnbUSDPrice]);
-
+  console.log(error);
   const placeBid = async () => {
     const val = method === "buyNow" ? price.toString() : bnbVal;
+    if (!accountBalance.bnb)
+      return setError({
+        isError: true,
+        msg: "You do not have sufficient BNB Balance",
+      });
+    console.log(accountBalance);
     const sendObj = { from: web3Data.accounts[0] };
     if (method !== "claimAfterAuction") {
       if (!val) return;
@@ -72,6 +78,10 @@ function PABpopup(props) {
     }
 
     if (!error.isError) {
+      setError({
+        isError: false,
+        msg: "",
+      });
       setTxnStatus("initiate");
       await escrowContractInstance.methods[method](+nonce, +currentEdition)
         .send(sendObj)
@@ -130,6 +140,10 @@ function PABpopup(props) {
     setUsdVal("");
     setTryVal("");
     setTxnStatus("");
+    setError({
+      isError: false,
+      msg: "",
+    });
   };
 
   return (
@@ -224,7 +238,10 @@ function PABpopup(props) {
                   <NFTcartButtons>
                     <button
                       className="ani-1 bordered"
-                      onClick={() => toggle(8)}
+                      onClick={() => {
+                        toggle(8);
+                        refreshStates();
+                      }}
                     >
                       <FormattedMessage
                         id="cancel_button"
@@ -244,6 +261,9 @@ function PABpopup(props) {
                         />
                       )}
                     </button>
+                    {error.isError ? (
+                      <p className="error">{error.msg}</p>
+                    ) : null}
                   </NFTcartButtons>
                 </>
               )}
