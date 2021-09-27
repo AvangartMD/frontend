@@ -33,7 +33,9 @@ class Notifications extends Component {
 
           <NotificationSBX01>
 
-            <Notificationtitle>Notifications</Notificationtitle>
+            <Notificationtitle>
+              <FormattedMessage id="notifications" defaultMessage="Notifications" />
+            </Notificationtitle>
             {notifications.length > 0 ? notifications.map((notification) => {
               return <button
                 key={notification.id}

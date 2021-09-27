@@ -299,7 +299,7 @@ class Header extends Component {
                           activeClassName="active"
                           onClick={() => this.toggle(11)}
                         >
-                          Profile
+                          <FormattedMessage id="profile" defaultMessage="Profile" />
                         </NavLink>
                       ) : (
                         ``
@@ -373,7 +373,7 @@ class Header extends Component {
                               this.toggle(11);
                             }}
                           >
-                            Avangart Blog
+                            Carny Blog
                           </NavLink>
                           <NavLink
                             to="/faq"
@@ -382,7 +382,7 @@ class Header extends Component {
                               this.toggle(11);
                             }}
                           >
-                            FAQ
+                            <FormattedMessage id="faq" defaultMessage="FAQ" />
                           </NavLink>
                           <NavLink
                             to="mailto:admin@carny.io"
@@ -391,7 +391,7 @@ class Header extends Component {
                               this.toggle(11);
                             }}
                           >
-                            Support
+                            <FormattedMessage id="support" defaultMessage="Support" />
                           </NavLink>
                         </div>
                         <div className="more-parts">
@@ -459,7 +459,7 @@ class Header extends Component {
                             this.toggle(11);
                           }}
                         >
-                          Disconnect
+                          <FormattedMessage id="disconnect" defaultMessage="Disconnect" />
                         </Mobiledisconnect>
                       </>
                     )}
