@@ -305,11 +305,7 @@ const FilterLbx = styled(FlexDiv)`
   overflow-x: auto;
   overflow-y: hidden;
   flex-wrap: initial;
-  // .view{
-  //   display:flex;
-  //   align-items:center;
-  //   padding-right:20px;
-  // }
+  padding:0px 0px 15px;
   button {
     display: inline-block;
     padding: 10px 25px;
