@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import { isMobile } from 'react-device-detect';
 import Media from "./../../Theme/media-breackpoint";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
@@ -220,12 +221,14 @@ function Login(props) {
                   />
                 </OnbText01>
                 <OnBTNBar>
-                  <button onClick={() => connectToWallet()}>
-                    <i>
-                      <img src={WalletICO01} alt="" />
-                    </i>
-                    MetaMask
-                  </button>
+                  {!isMobile &&
+                    <button onClick={() => connectToWallet()}>
+                      <i>
+                        <img src={WalletICO01} alt="" />
+                      </i>
+                      MetaMask
+                    </button>
+                  }
                   <button onClick={() => connectToWallet(1)}>
                     <i>
                       <img src={WalletICO02} alt="" />
