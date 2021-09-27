@@ -241,5 +241,7 @@
   "liked_empty": "Henüz beğenilen NFT yok",
   "draft_empty": "Henüz taslak NFT yok",
   "no_notifications": "Bildirim Bulunamadı",
-  "more": "Daha fazla"
+  "more": "Daha fazla",
+  "profile": "profil",
+  "notifications": "Bildirimler"
 }

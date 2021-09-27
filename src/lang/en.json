@@ -243,5 +243,7 @@
   "liked_empty": "Liked is empty",
   "draft_empty": "Draft is empty",
   "no_notifications": "No Notifications Found",
-  "more": "More"
+  "more": "More",
+  "profile": "profile",
+  "notifications": "Notifications"
 }

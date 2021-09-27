@@ -14,7 +14,7 @@ export const awsIdentityPoolId =
 export const awsBucket = 'avangrat-development';
 
 // set expiry time for the localstorage data
-export const expiryTime = 43200000; // 12 hours into miliseconds
+export const expiryTime = 7200000; // 2 hours into miliseconds
 
 
 // Instragram config 

@@ -281,7 +281,7 @@ class CreatorProfile extends Component {
                       </button>
                     </ProSBX04>
                     <UserDText02 className="mobile-block">
-                      <FormattedMessage id="join" defaultMessage="Joined" />
+                      <FormattedMessage id="joined" defaultMessage="Joined" />
                       <span>
                         {profile
                           ? dateFormat(
