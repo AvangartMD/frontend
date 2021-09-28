@@ -25,10 +25,7 @@ app.get('/nftDetails/:id', (req, res, next) => {
         let url = `https://api.carny.io/api/v1/nft/single/${req.params.id}`
         axios.get(url, { headers: header }).then(ress => {
             // inject meta tags
-            htmlData = htmlData.replace(
-                "<title>Welcome to Carny</title>",
-                `<title>${ress.data.data.title}</title>`
-            )
+            htmlData = htmlData
             .replace('__META_OG_TITLE__', ress.data.data.title)
             .replace('__META_OG_DESCRIPTION__', ress.data.data.description)
             .replace('__META_DESCRIPTION__', ress.data.data.description)
@@ -56,10 +53,7 @@ app.get('/creator/:id', (req, res, next) => {
         let url = `https://api.carny.io/api/v1/user/getSingleUser/${req.params.id}`
         axios.get(url, { headers: header }).then(ress => {
             // inject meta tags
-            htmlData = htmlData.replace(
-                "<title>Welcome to Carny</title>",
-                `<title>${ress.data.data.name}</title>`
-            )
+            htmlData = htmlData
             .replace('__META_OG_TITLE__', ress.data.data.name)
             .replace('__META_OG_DESCRIPTION__', ress.data.data.bio)
             .replace('__META_DESCRIPTION__', ress.data.data.bio)
