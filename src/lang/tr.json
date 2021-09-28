@@ -243,5 +243,6 @@
   "no_notifications": "Bildirim Bulunamadı",
   "more": "Daha fazla",
   "profile": "Profil",
-  "notifications": "Bildirimler"
+  "notifications": "Bildirimler",
+  "not_have_enough_balance": "Yeterli BNB bakiyeniz yok. Lütfen cüzdanınıza transfer edin"
 }

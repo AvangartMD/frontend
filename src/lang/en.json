@@ -245,5 +245,6 @@
   "no_notifications": "No Notifications Found",
   "more": "More",
   "profile": "Profile",
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "not_have_enough_balance": "You do not have sufficient BNB Balance"
 }
