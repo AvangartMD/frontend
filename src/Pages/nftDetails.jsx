@@ -411,7 +411,10 @@ class NftDetail extends React.Component {
           : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: soldEdition.transactionId === "0x" ? false : true,
-        orderNonce: soldEdition.nonce,
+        orderNonce:
+          soldEdition.transactionId === "0x"
+            ? NFTDetails.nonce
+            : soldEdition.nonce,
         isBurned: soldEdition.isBurned,
         firstBid: +bidDetails.bidValue ? true : false,
       };
