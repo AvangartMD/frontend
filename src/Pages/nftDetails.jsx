@@ -388,11 +388,14 @@ class NftDetail extends React.Component {
     //   const oderDetails = await escrowContractInstance.methods.order(1).call();
     // }
     let selectedNFTDetails;
-
+    console.log(soldEdition?.transactionId);
     if (soldEdition)
       selectedNFTDetails = {
         bidTimeStamp: bidDetails.timeStamp,
-        isOwner: soldEdition.ownerId.id === authData?.data?.id,
+        isOwner:
+          soldEdition.transactionId === "0x"
+            ? false
+            : soldEdition.ownerId.id === authData?.data?.id,
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
         price: soldEdition.isOpenForSale
@@ -401,9 +404,13 @@ class NftDetail extends React.Component {
               ? +web3.utils.fromWei(bidDetails.bidValue)
               : soldEdition.saleType.price
             : soldEdition.saleType.price
+          : soldEdition.transactionId === "0x"
+          ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+            ? +web3.utils.fromWei(bidDetails.bidValue)
+            : soldEdition.saleType.price
           : soldEdition.price,
         saleState: soldEdition.saleType.type,
-        secondHand: true,
+        secondHand: soldEdition.transactionId === "0x" ? false : true,
         orderNonce: soldEdition.nonce,
         isBurned: soldEdition.isBurned,
         firstBid: +bidDetails.bidValue ? true : false,
