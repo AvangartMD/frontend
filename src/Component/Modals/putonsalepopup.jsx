@@ -27,7 +27,7 @@ function POSpopup({
   const escrowContractInstance = getContractInstance(true);
   const [currencyUsed, setCurrencyUsed] = useState("BNB");
   const makeTransaction = async () => {
-    if (!method) return;
+    if (!method) return setError("noOption");
     if (!accountBalance) return setError("noBNB");
     if (!+price) return setError("priceError");
     let newPrice = price;
@@ -129,6 +129,12 @@ function POSpopup({
                   <span className="checkmark"></span>
                 </label>
               </CustomRadio1>
+              {error === "noOption" ? (
+                  <p className="error bottom-text">Please select one option</p>
+                ) : (
+                  ""
+              )}
+              
               <NFTForm className="Custom-piece">
                 <div className={error === "priceError" ? "errorinput" : ""}>
                   <div className="label-line">
