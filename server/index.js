@@ -30,6 +30,9 @@ app.get('/nftDetails/:id', (req, res, next) => {
             .replace('__META_OG_DESCRIPTION__', ress.data.data.description)
             .replace('__META_DESCRIPTION__', ress.data.data.description)
             .replace('__META_OG_IMAGE__', ress.data.data.image.compressed)
+            .replace('__META_TWITTER_TITLE__', ress.data.data.title)
+            .replace('__META_TWITTER_DESCRIPTION__', ress.data.data.description)
+            .replace('__META_TWITTER_IMAGE__', ress.data.data.image.compressed)
             return res.send(htmlData);
             
         })
@@ -58,6 +61,9 @@ app.get('/creator/:id', (req, res, next) => {
             .replace('__META_OG_DESCRIPTION__', ress.data.data.bio)
             .replace('__META_DESCRIPTION__', ress.data.data.bio)
             .replace('__META_OG_IMAGE__', ress.data.data.profile)
+            .replace('__META_TWITTER_TITLE__', ress.data.data.name)
+            .replace('__META_TWITTER_DESCRIPTION__', ress.data.data.bio)
+            .replace('__META_TWITTER_IMAGE__', ress.data.data.profile)
             return res.send(htmlData);
             
         })
