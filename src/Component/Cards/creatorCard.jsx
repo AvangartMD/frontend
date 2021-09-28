@@ -4,7 +4,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import { motion } from "framer-motion";
 import { FormattedMessage } from "react-intl";
 
-import ProfielBack from "../../Assets/images/profile-back.jpg";
+import ProfielBack from "../../Assets/images/creator-back.jpg";
 import UserIcon from "../../Assets/images/user-img.jpg";
 
 import Media from "../../Theme/media-breackpoint";
