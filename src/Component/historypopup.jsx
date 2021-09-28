@@ -59,8 +59,18 @@ class Historypopup extends Component {
     if (edition !== prevState.edition) this.props.getHistory(nftId, edition);
   }
 
+  getHistoryText(lng, text) {
+    if (lng === 'tr' && text === 'NFT minted ') {
+      return 'NFT üretildi'
+    } else if (lng === 'tr' && text === 'NFT bought') {
+      return 'NFT alındı'
+    } else {
+      return text
+    }
+  }
+
   render() {
-    const { history } = this.props;
+    const { history, lng } = this.props;
     const { bnbUSDPrice } = this.state;
     return (
       <>
@@ -94,7 +104,7 @@ class Historypopup extends Component {
                         <HDleft>
                           <h3>
                             {history
-                              ? history.text
+                              ? this.getHistoryText(lng, history.text)
                               : "Lorem ipsum dolor sit amet"}
                           </h3>
                           <p className="desktop-block">
@@ -368,6 +378,7 @@ const mapDipatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     history: state.fetchNFTEditionHistory,
+    lng: state.fetchLanguage,
   };
 };
 

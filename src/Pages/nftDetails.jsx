@@ -59,7 +59,7 @@ const saleMethods = {
   buyNow: {
     name: "buyNow",
     btnName: <FormattedMessage id="buy_now" defaultMessage="Buy Now" />,
-    bidDesc: "Price",
+    bidDesc: <FormattedMessage id="price" defaultMessage="Price" />,
     open: 8,
   },
   placeABid: {

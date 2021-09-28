@@ -108,7 +108,7 @@ class Header extends Component {
     }, 1000);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
     let { web3Data } = this.props;
     if (!web3Data.accounts[0]) {
@@ -122,6 +122,13 @@ class Header extends Component {
     }
 
     if (window.web3) {
+      const chainID = await web3.eth.getChainId()
+      if (chainID !== 56 && chainID !== "0x38") {
+        const changeRequest = window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
+        });
+      }
 
       window.ethereum.on("accountsChanged", (accounts) => {
         // metamask user address changed
@@ -132,17 +139,18 @@ class Header extends Component {
           this.setState({ isOpen4: true });
         }
       });
-      // window.ethereum.on('chainChanged', (chainId) => {
-      //   // Handle the new chain.
-      //   // Correctly handling chain changes can be complicated.
-      //   // We recommend reloading the page unless you have good reason not to.
-      //   if (chainId !== 56 && chainId !== "0x38") {
-      //     const changeRequest = window.ethereum.request({
-      //       method: "wallet_switchEthereumChain",
-      //       params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
-      //     });
-      //   }
-      // });
+      window.ethereum.on('chainChanged', (chainId) => {
+        window.location.reload();
+        // Handle the new chain.
+        // Correctly handling chain changes can be complicated.
+        // We recommend reloading the page unless you have good reason not to.
+        // if (chainId !== 56 && chainId !== "0x38") {
+        //   const changeRequest = window.ethereum.request({
+        //     method: "wallet_switchEthereumChain",
+        //     params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
+        //   });
+        // }
+      });
     }
     walletConnectProvider.on("accountsChanged", (accounts) => {
       // walletConnect user address changed
@@ -367,11 +375,7 @@ class Header extends Component {
                       <Moremenu>
                         <div className="more-parts">
                           <NavLink
-                            to="blog-list"
-                            onClick={() => {
-                              this.toggle(12);
-                              this.toggle(11);
-                            }}
+                            to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"
                           >
                             Carny Blog
                           </NavLink>
