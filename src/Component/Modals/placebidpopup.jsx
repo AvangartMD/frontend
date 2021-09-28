@@ -65,10 +65,13 @@ function PABpopup(props) {
   // console.log(error);
   const placeBid = async () => {
     const val = method === 'buyNow' ? price.toString() : bnbVal;
-    if (!accountBalance.bnb)
+    if (!accountBalance.bnb) 
       return setError({
         isError: true,
-        msg: 'You do not have sufficient BNB Balance',
+        msg: <FormattedMessage
+            id="not_have_enough_balance"
+            defaultMessage="You do not have sufficient BNB Balance"
+          />,
       });
     // console.log(accountBalance);
     const sendObj = { from: web3Data.accounts[0] };
