@@ -367,11 +367,7 @@ class Header extends Component {
                       <Moremenu>
                         <div className="more-parts">
                           <NavLink
-                            to="blog-list"
-                            onClick={() => {
-                              this.toggle(12);
-                              this.toggle(11);
-                            }}
+                            to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"
                           >
                             Carny Blog
                           </NavLink>
