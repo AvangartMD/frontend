@@ -27,7 +27,7 @@ function POSpopup({
   const escrowContractInstance = getContractInstance(true);
   const [currencyUsed, setCurrencyUsed] = useState("BNB");
   const makeTransaction = async () => {
-    if (!method) return;
+    if (!method) return setError("noOption");
     if (!accountBalance) return setError("noBNB");
     if (!+price) return setError("priceError");
     let newPrice = price;
@@ -131,9 +131,14 @@ function POSpopup({
               </CustomRadio1>
               <ErrorMsg>
                 <div className="errorinput">
-                  <p className="error bottom-text">Please select one option</p>
+                  {error === "noOption" ? (
+                    <p className="error bottom-text">Please select one option</p>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </ErrorMsg>
+
               <NFTForm className="Custom-piece">
                 <div className={error === "priceError" ? "errorinput" : ""}>
                   <div className="label-line">
@@ -426,7 +431,7 @@ const NFTForm = styled.div`
 
 const CustomRadio1 = styled(FlexDiv)`
   justify-content: flex-start;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   width: 100%;
   .radio-container {
     display: flex;
@@ -544,8 +549,10 @@ const DDBtnbar02 = styled(FlexDiv)`
 `;
 
 const ErrorMsg = styled.div`
+  width:100%;
   .errorinput {
     position: relative;
+    top:-15px;
     input {
       border-color: #ff2a44;
       margin-bottom: 5px;
@@ -561,7 +568,7 @@ const ErrorMsg = styled.div`
       right: 15px;
       &.bottom-text {
         position: initial;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
       }
     }
   }
