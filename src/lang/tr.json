@@ -232,7 +232,7 @@
   "select_create": "Seçin veya yeni koleksiyon ekleyin",
   "create_collection": "Ekle",
   "edit_collection": "Koleksiyonu Düzenle",
-  "minting_complete_label": "Matketplace'te NFT'yi güncellemek birkaç saniye sürecek",
+  "minting_complete_label": "Minting tamamlandı. Sitenin güncellenmesi zaman alabilir, sabrınız için teşekkür ederiz",
   "download_metamask": "MetaMask websitesine git",
   "no_nft_found": "İçerik Bulanamadı",
   "creation_empty": "Henüz üretilen NFT yok",
