@@ -129,12 +129,16 @@ function POSpopup({
                   <span className="checkmark"></span>
                 </label>
               </CustomRadio1>
-              {error === "noOption" ? (
-                  <p className="error bottom-text">Please select one option</p>
-                ) : (
-                  ""
-              )}
-              
+              <ErrorMsg>
+                <div className="errorinput">
+                  {error === "noOption" ? (
+                    <p className="error bottom-text">Please select one option</p>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </ErrorMsg>
+
               <NFTForm className="Custom-piece">
                 <div className={error === "priceError" ? "errorinput" : ""}>
                   <div className="label-line">
@@ -540,6 +544,32 @@ const DDBtnbar02 = styled(FlexDiv)`
     }
     &:hover {
       background-color: #d9f5f5;
+    }
+  }
+`;
+
+const ErrorMsg = styled.div`
+  width:100%;
+  .errorinput {
+    position: relative;
+    top:-15px;
+    input {
+      border-color: #ff2a44;
+      margin-bottom: 5px;
+    }
+    p.error {
+      color: #ff2a44;
+      font-size: 12px;
+      letter-spacing: -0.6px;
+      font-weight: 600;
+      margin: 0px;
+      position: absolute;
+      top: 18px;
+      right: 15px;
+      &.bottom-text {
+        position: initial;
+        margin-bottom: 0px;
+      }
     }
   }
 `;
