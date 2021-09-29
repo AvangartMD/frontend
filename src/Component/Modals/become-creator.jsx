@@ -588,6 +588,8 @@ const WhiteBX02 = styled.div`
   display: flex;
   ${Media.sm}{
     display:block;
+    max-height:500px;
+    overflow-y:auto;
   }
 `;
 
