@@ -252,7 +252,7 @@ class Header extends Component {
                   <NotificationBX onClick={() => this.toggle(3)}>
                     <button className="noti-button-outer">
                       {/* <img src={NotifiIcon} alt="" /> */}
-                      <span className="Notifi-Icon"></span>
+                      <div className="Notifi-Icon"></div>
                       <span className="RedDot"></span>
                     </button>
 
@@ -826,7 +826,7 @@ const NotificationBX = styled(FlexDiv)`
     background-image: url(${NotifiIcon});
     width: 24px;
     height: 24px;
-    background-size:100% 100%;
+    background-size:contain;
     background-repeat:no-repeat;
   }
   & > button {
@@ -1022,7 +1022,6 @@ const MobileMenu = styled(FlexDiv)`
     display: flex;
     position: absolute;
     right: 15px;
-    z-index:9999;
   }
 `;
 
