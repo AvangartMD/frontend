@@ -1020,6 +1020,7 @@ const MobileMenu = styled(FlexDiv)`
     display: flex;
     position: absolute;
     right: 15px;
+    z-index:9999;
   }
 `;
 
