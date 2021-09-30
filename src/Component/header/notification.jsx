@@ -84,12 +84,12 @@ const NotificationSBX01 = styled(FlexDiv)`
     text-align: left;
     padding: 15px;
     border-bottom: 1px solid #eef2f7;
-    :last-child
-    {
-      ${Media.md} {
-        padding-bottom:40px;
-      }
-    }
+    // :last-child
+    // {
+    //   ${Media.md} {
+    //     padding-bottom:40px;
+    //   }
+    // }
     span {
       font-size: 10px;
       font-weight: 400;
