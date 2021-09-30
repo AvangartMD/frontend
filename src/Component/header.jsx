@@ -252,7 +252,7 @@ class Header extends Component {
                   <NotificationBX onClick={() => this.toggle(3)}>
                     <button className="noti-button-outer">
                       {/* <img src={NotifiIcon} alt="" /> */}
-                      <div className="Notifi-Icon"></div>
+                      <span className="Notifi-Icon"></span>
                       <span className="RedDot"></span>
                     </button>
 
@@ -836,6 +836,9 @@ const NotificationBX = styled(FlexDiv)`
     align-items: center;
     justify-content: center;
     border-radius: 15px;
+    &.noti-button-outer{
+      padding:0px;
+    }
     &.active,
     :hover {
       border: 1px solid #d6dde5;
