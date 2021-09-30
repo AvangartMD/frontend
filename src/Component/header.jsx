@@ -823,9 +823,11 @@ const NotificationBX = styled(FlexDiv)`
   position: relative;
   z-index:9999;
   .Notifi-Icon {
-    background: url(${NotifiIcon}) no-repeat;
+    background-image: url(${NotifiIcon});
     width: 24px;
     height: 24px;
+    background-size:100% 100%;
+    background-repeat:no-repeat;
   }
   & > button {
     width: 38px;
