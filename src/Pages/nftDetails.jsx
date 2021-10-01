@@ -583,7 +583,7 @@ class NftDetail extends React.Component {
                   )}
                   {ext === 'audio' && (
                     <ReactAudioPlayer
-                      src={NFTDetails?.image.compressed}
+                      src={NFTDetails?.image.original}
                       // autoPlay
                       controls
                     />
@@ -592,7 +592,7 @@ class NftDetail extends React.Component {
                     <ReactPlayer
                       width='100%'
                       controls={true}
-                      url={NFTDetails?.image.compressed}
+                      url={NFTDetails?.image.original}
                       playing={true}
                       playIcon={<></>}
                       loop={true}
