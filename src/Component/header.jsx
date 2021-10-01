@@ -821,7 +821,6 @@ const AvBTN02 = styled.button`
 const NotificationBX = styled(FlexDiv)`
   margin-left: 8px;
   position: relative;
-  z-index:9999;
   .Notifi-Icon {
     background-image: url(${NotifiIcon});
     width: 24px;
