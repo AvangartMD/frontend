@@ -305,7 +305,6 @@ class NFTPage extends Component {
       let fileType = e.target.files[0].type;
       if (!fileType.search("image")) this.setState({ fileType: "image" });
       if (!fileType.search("video")) {
-        console.log('this.inputRef.current.files[0] ', this.inputRef.current.files[0])
         this.setState({ fileType: "video", videoFile: URL.createObjectURL(this.inputRef.current.files[0]) });
       }
       if (!fileType.search("audio")) this.setState({ fileType: "audio" });
