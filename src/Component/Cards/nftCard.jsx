@@ -4,11 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import { HashLink as Link } from 'react-router-hash-link';
 import { motion } from 'framer-motion';
 import LazyLoad from 'react-lazyload';
-import VideoThumbnail from 'react-video-thumbnail';
 
 import UserImg from '../../Assets/images/user-img.jpg';
 import AudioCover from '../../Assets/images/audio-square.jpg';
-import VideoCover from '../../Assets/images/video-square.jpg';
 
 import Gs from '../../Theme/globalStyles';
 import Timer from '../timer';
@@ -79,9 +77,13 @@ const NFTCard = ({
               )}
               {ext && ext === 'video' && (
                 <LazyLoad>
-                  <VideoThumbnail
-                    videoUrl={nftImg}
-                    // cors={true}
+                  <motion.img
+                    initial={{ opacity: 0.2 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    key={nftImg}
+                    src={nftImg}
+                    exit={{ opacity: 0 }}
                   />
                   <div className='video-icon'>
                     <span>

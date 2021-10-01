@@ -45,7 +45,7 @@
   "collected": "Satın Alınan",
   "edit_profile": "Profili düzenle",
   "apply": "Başvur",
-  "become_creator_label": "Satın alınan NFT youk.",
+  "become_creator_label": "Satın alınan NFT yok.",
   "explore_creations": "Eserleri görüntüle",
   "start_collection_lable": "Üretilen eserleri müzayedelerden veya hemen al seçeneği {br}ile satın alarak koleksiyonunuzu oluşturabilirsiniz.",
   "about_you": "Hakkınızda",
@@ -121,7 +121,7 @@
   "make_an_offer": "Teklif Yap",
   "purchased_at": " Satın Alındı",
   "current_offer": "Current Offer",
-  "cancel_sale_order": "Cancel Sale Order",
+  "cancel_sale_order": "Satış işlemini iptal et",
   "cancel_sale_order_lable": "Satış işlemini iptal etmek istediğiniz emin misiniz?",
   "cancel_sale_order_button": "Onayla",
   "cancel_button": "Vazgeç",
@@ -244,5 +244,8 @@
   "more": "Daha fazla",
   "profile": "Profil",
   "notifications": "Bildirimler",
-  "not_have_enough_balance": "Yeterli BNB bakiyeniz yok. Lütfen cüzdanınıza transfer edin"
+  "not_have_enough_balance": "Yeterli BNB bakiyeniz yok. Lütfen cüzdanınıza transfer edin",
+  "approve": "Onayla",
+  "user_approved": "Emin misinz?",
+  "add_wallet_placeholder": "Cüzdan adresi girin"
 }

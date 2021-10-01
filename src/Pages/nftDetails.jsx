@@ -789,7 +789,10 @@ class NftDetail extends React.Component {
                           this.setOwnerActions(saleMethods.cancelSaleOrder);
                         }}
                       >
-                        Cancel Sale Order
+                        <FormattedMessage
+                          id="cancel_sale_order"
+                          defaultMessage="Cancel Sale Order"
+                        />
                       </button>
                     ) : null}
                     {NFTDetails?.status === 'NOT_MINTED' &&
