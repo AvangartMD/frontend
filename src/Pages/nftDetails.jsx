@@ -81,7 +81,7 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id='put_on_sale' defaultMessage='Put on sale ' />
     ),
-    bidDesc: 'Purchased at',
+    bidDesc: <FormattedMessage id='purchased_at' defaultMessage='Purchased at' />,
     open: 7,
     checkApproval: true,
   },
@@ -96,12 +96,12 @@ const saleMethods = {
   noButton: {
     name: '',
     btnName: null,
-    bidDesc: 'Reserved Price',
+    bidDesc: <FormattedMessage id='price' defaultMessage='Price' />,
   },
   claimAfterAuction: {
     name: 'claimAfterAuction',
     btnName: <FormattedMessage id='claim' defaultMessage='Put on sale ' />,
-    bidDesc: 'Current bid',
+    bidDesc: <FormattedMessage id='current_bid' defaultMessage='Current bid' />,
     open: 8,
   },
   claimBack: {
@@ -109,7 +109,7 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id='cancelMyOffer' defaultMessage='Cancel My Offer' />
     ),
-    bidDesc: 'Current bid',
+    bidDesc: <FormattedMessage id='current_bid' defaultMessage='Current bid' />,
     open: 1,
     checkApproval: false,
   },
@@ -289,7 +289,7 @@ class NftDetail extends React.Component {
     } else {
       if (isOwner) {
         const method = saleMethods.noButton;
-        method.bidDesc = saleState === 'BUY' ? 'Price' : 'Current offer';
+        method.bidDesc = saleState === 'BUY' ? <FormattedMessage id='price' defaultMessage='Price' /> : 'Current offer';
         return this.setState({
           saleMethod: method,
         });

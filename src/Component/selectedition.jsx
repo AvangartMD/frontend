@@ -364,7 +364,7 @@ function SelectEdition(props) {
                           </tr>
                         );
                       })
-                    : `No result found`}
+                    : <FormattedMessage id="no_result_found" defaultMessage="No result found" />}
                 </tbody>
               </table>
             </EditionTable>

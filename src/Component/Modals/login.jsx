@@ -19,7 +19,7 @@ import { actions } from "../../actions";
 function Login(props) {
   const [loader, setLoader] = useState(false);
   const [genNonce, setGenNonce] = useState(false);
-  const [error, setError] = useState({ isError: false, msg: "" });
+  const [error, setError] = useState({ isError: false, msg: "", code: 0 });
   const {
     web3Data,
     generateNonce,
@@ -35,12 +35,12 @@ function Login(props) {
   }, []);
   useEffect(() => {
     if (web3Data.error)
-      return setError({ isError: true, msg: "User denied sign in.." });
+      return setError({ isError: true, msg: "User denied sign in..", code: 1 });
     if (web3Data.accounts[0] && genNonce) {
       setLoader(true);
       if (web3Data.accounts[0] && !nonce) signatureRequest(undefined, true);
       else if (!web3Data.accounts[0])
-        setError({ isError: true, msg: "User denied sign in.." });
+        setError({ isError: true, msg: "User denied sign in..", code: 1 });
       else if (web3Data.accounts[0] && nonce) signatureRequest(nonce, false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +54,7 @@ function Login(props) {
   useEffect(() => {
     if (authData?.status === 401) {
       setLoader(false);
-      setError({ isError: true, msg: authData.data.message });
+      setError({ isError: true, msg: authData.data.message, code: 1 });
     } else if (authData) {
       refreshStates(false);
     }
@@ -75,7 +75,8 @@ function Login(props) {
           enableMetamask();
         } else {
           setLoader(false);
-          setError({ isError: true, msg: "Please download metamask first.!" });
+          let msg = <FormattedMessage id="download_metamask_lable" defaultMessage="Please download metamask first.!" />
+          setError({ isError: true, msg: msg, code: 2 });
         }
       }
     }
@@ -118,6 +119,7 @@ function Login(props) {
                 setError({
                   isError: true,
                   msg: "Wrong Network, please select the correct network",
+                  code: 0,
                 });
               }
             } catch (error) {
@@ -131,19 +133,20 @@ function Login(props) {
                     params: [
                       {
                         chainId: "0x38",
-                        rpcUrl: "https://bsc-dataseed.binance.org/",
+                        chainName: 'Binance Smart Chain',
+                        rpcUrls: ["https://bsc-dataseed2.binance.org/"],
                       },
                     ],
                   });
                 } catch (addError) {
                   setLoader(false);
-                  setError({ isError: true, msg: addError.message });
+                  setError({ isError: true, msg: addError.message, code: 1 });
                 }
               }
 
               if (error.code === 4001) {
                 setLoader(false);
-                setError({ isError: true, msg: error.message });
+                setError({ isError: true, msg: error.message, code: 1 });
               }
               // console.error(error);
             }
@@ -159,7 +162,7 @@ function Login(props) {
         }
       } catch (error) {
         setLoader(false);
-        setError({ isError: true, msg: error.message });
+        setError({ isError: true, msg: error.message, code: 1 });
       }
     }
   };
@@ -169,7 +172,7 @@ function Login(props) {
       localStorage.clear();
       props.web3Logout();
     }
-    setError({ isError: false, msg: "" });
+    setError({ isError: false, msg: "", code: 0 });
     setLoader(false);
     toggle(4);
   };
@@ -256,7 +259,7 @@ function Login(props) {
                 <FormattedMessage id="attention" defaultMessage="Attention.!" />
               </OnbTitle01>
               <OnbText01 className="text-center">{error.msg}</OnbText01>
-              {error.msg === "Please download metamask first.!" ? (
+              {error.code === 2 && (
                 <InstallBtn
                   className="ani-1"
                   onClick={() => window.open("https://metamask.io/", "_blank")}
@@ -266,8 +269,6 @@ function Login(props) {
                     defaultMessage="Go to MetaMask website"
                   />
                 </InstallBtn>
-              ) : (
-                ``
               )}
             </>
           )}

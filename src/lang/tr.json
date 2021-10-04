@@ -1,5 +1,5 @@
 {
-  "waitlist": "Waitlist",
+  "waitlist": "Beklemede",
   "language": "Dil",
   "login": "Giriş Yap",
   "how_to_use?": "Nasıl kullanılır?",
@@ -30,7 +30,7 @@
   "filter": "Filtre",
   "see_the_collections": "Koleksiyonu görüntüle",
   "current_bid": "Güncel Teklif",
-  "ending_in": "Kalan süre",
+  "ending_in": "Bitiş Süresi",
   "live_acution": "Müzayede",
   "buy_now": "Hemen al",
   "sold": "Satıldı",
@@ -119,7 +119,7 @@
   "burn": "Burn",
   "sold_out": "Tükendi",
   "make_an_offer": "Teklif Yap",
-  "purchased_at": " Satın Alındı",
+  "purchased_at": "Alındı",
   "current_offer": "Current Offer",
   "cancel_sale_order": "Satış işlemini iptal et",
   "cancel_sale_order_lable": "Satış işlemini iptal etmek istediğiniz emin misiniz?",
@@ -159,7 +159,7 @@
   "transaction_success": "Işlem başarılı",
   "burn_success": "Başarılı Yakma",
   "transfer_success": "Başarılı Aktarım",
-  "minting_complete": "Darphane Tamamlandı",
+  "minting_complete": "Minting Tamamlandı",
   "nft_can_not_update": "NFT Güncellenemiyor",
   "transaction_failed": "İşlem başarısız",
   "how_to_use_lable_01": "Platforma üye olmak",
@@ -247,5 +247,8 @@
   "not_have_enough_balance": "Yeterli BNB bakiyeniz yok. Lütfen cüzdanınıza transfer edin",
   "approve": "Onayla",
   "user_approved": "Emin misinz?",
-  "add_wallet_placeholder": "Cüzdan adresi girin"
+  "add_wallet_placeholder": "Cüzdan adresi girin",
+  "download_metamask_lable": "Lütfen önce MetaMask uygulamasını indirin.!",
+  "no_result_found": "Sonuç bulunamadı",
+  "view": "Görüntüle"
 }
