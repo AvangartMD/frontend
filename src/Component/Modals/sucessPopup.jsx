@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { withRouter } from "react-router";
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
 import Media from '../../Theme/media-breackpoint';
+import { FormattedMessage } from "react-intl";
 
 
 class SuccessPopup extends Component {
@@ -33,7 +34,9 @@ class SuccessPopup extends Component {
               </CloseBTN>
               <TokenBox >
                 <p >{message}</p>
-                <button onClick={() => this.props.history.push(url)}>View</button>
+                <button onClick={() => this.props.history.push(url)}>
+                  <FormattedMessage id="view" defaultMessage="View" />
+                </button>
               </TokenBox>
             </WhiteBX01>
           </BlackWrap>

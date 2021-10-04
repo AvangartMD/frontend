@@ -55,7 +55,9 @@ class BecomeCreator extends Component {
 
   onFormChange = (event) => {
     if (event.target.name === "category") {
-      if (event.target.checked) this.setState({ category: [...this.state.category, event.target.value] })
+      if (event.target.checked) {
+        this.setState({ category: [...this.state.category, event.target.value] })
+      }
       else this.setState({ category: this.state.category.filter(id => id !== event.target.value) })
     } else this.setState({ [event.target.name]: event.target.value })
   }
@@ -162,6 +164,7 @@ class BecomeCreator extends Component {
       isOpen4,
       errors,
     } = this.state;
+
     const { isProfile, isFooter } = this.props;
     let context = this.context;
     return (
@@ -212,13 +215,18 @@ class BecomeCreator extends Component {
                         <sup>*</sup>
                       </label>
                     </div>
-                    <input
-                      className={errors.name ? `error` : ``}
-                      type="text"
-                      placeholder="Type name…"
-                      name="name"
-                    // required
-                    />
+                    <FormattedMessage
+                      id="type_something"
+                      defaultMessage="Type something…"
+                    >
+                      {(placeholder) => (
+                        <input
+                          className={errors.name ? `error` : ``}
+                          type="text"
+                          placeholder={placeholder}
+                          name="name"
+                        />)}
+                    </FormattedMessage>
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
@@ -227,13 +235,19 @@ class BecomeCreator extends Component {
                         <sup>*</sup>
                       </label>
                     </div>
-                    <input
-                      className={errors.email ? `error` : ``}
-                      type="text"
-                      placeholder="Type email…"
-                      name="email"
-                    // required
-                    />
+                     <FormattedMessage
+                        id="type_something"
+                        defaultMessage="Type something…"
+                      >
+                        {(placeholder) => (
+                          <input
+                            className={errors.email ? `error` : ``}
+                            type="text"
+                            placeholder={placeholder}
+                            name="email"
+                          />
+                        )}
+                      </FormattedMessage>
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
@@ -242,11 +256,18 @@ class BecomeCreator extends Component {
                         <sup>*</sup>
                       </label>
                     </div>
-                    <textarea
-                      placeholder="Type about youself…"
-                      className={errors.bio ? `error` : ``}
-                      name="bio">
-                    </textarea>
+                    <FormattedMessage
+                        id="type_something"
+                        defaultMessage="Type something…"
+                      >
+                      {(placeholder) => (
+                          <textarea
+                            placeholder={placeholder}
+                            className={errors.bio ? `error` : ``}
+                            name="bio">
+                          </textarea>
+                        )}
+                      </FormattedMessage>
                   </NFTForm>
                   <CreateItemButton>
                     <button
@@ -439,7 +460,7 @@ class BecomeCreator extends Component {
                         this.setState({ isOpen2: true, isOpen3: false });
                       }}
                     >
-                      Previous
+                      <FormattedMessage id="previous" defaultMessage="Previous" />
                     </button>
                     <button type="submit" disabled={loading}>
                       {loading ? "loading.." : <FormattedMessage id="submit" defaultMessage="Submit" />}

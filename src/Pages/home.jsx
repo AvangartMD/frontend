@@ -45,9 +45,9 @@ class Home extends React.Component {
 
     componentDidUpdate() {
         const { dashboard, cookies } = this.props
-        if (dashboard && !cookies.get('dashboard')) {
-            this.setCookie(dashboard) // set dashboard data in cookie
-        }
+        // if (dashboard && !cookies.get('dashboard')) {
+        //     this.setCookie(dashboard) // set dashboard data in cookie
+        // }
     }
 
     setCookie = (dashboard) => {
