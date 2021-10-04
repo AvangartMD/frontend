@@ -137,8 +137,7 @@ function NftOwnerActions(props) {
           </CloseBTN>
           {approved && (
             <PBtitle className="AStitle">
-              User Approved
-              {/* <FormattedMessage id="are_you_sure?" /> */}
+              <FormattedMessage id="user_approved" defaultMessage="User Approved" />
             </PBtitle>
           )}
           {!mintNFTStatus ? (
@@ -217,12 +216,15 @@ function NftOwnerActions(props) {
                           <FormattedMessage id="wallet_address" />
                         </label>
                       </div>
-                      <input
-                        type="text"
-                        className="mb-0"
-                        placeholder="Add Wallet Address"
-                        onChange={(e) => setReciever(e.target.value)}
-                      />
+                      <FormattedMessage id="add_wallet_placeholder" defaultMessage="Add Wallet Address">
+                        {placeholder=>
+                          <input
+                            type="text"
+                            className="mb-0"
+                            placeholder={placeholder}
+                            onChange={(e) => setReciever(e.target.value)}
+                          />}
+                      </FormattedMessage>
                     </NFTForm>
                     <NFTcartButtons>
                       <button
@@ -257,7 +259,7 @@ function NftOwnerActions(props) {
                         className="ani-1 bor-large"
                         onClick={() => handleAction()}
                       >
-                        Approve
+                        <FormattedMessage id="approve" defaultMessage="Approve" />
                       </button>
                     </NFTcartButtons>
                   </>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import loadable from '@loadable/component'
+import loadable from "@loadable/component";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Media from "../Theme/media-breackpoint";
@@ -23,10 +23,12 @@ import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
 import NotifiIconWhite from "../Assets/images/notification-white.svg";
 import { Scrollbars } from "react-custom-scrollbars";
 
-const Language = loadable(() => import('./lang.switch'))
-const Login = loadable(() => import('./Modals/login'))
-const BecomeCreator = loadable(() => import('./Modals/become-creator'))
-const Notifications = loadable(() => import('../Component/header/notification'))
+const Language = loadable(() => import("./lang.switch"));
+const Login = loadable(() => import("./Modals/login"));
+const BecomeCreator = loadable(() => import("./Modals/become-creator"));
+const Notifications = loadable(() =>
+  import("../Component/header/notification")
+);
 
 function CustomScrollbars(props) {
   return (
@@ -81,7 +83,7 @@ class Header extends Component {
         this.props.getUserDetails();
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.accounts[0]) {
-          this.checkMetamaskLock() // check metamaks is logged in 
+          this.checkMetamaskLock(); // check metamaks is logged in
           this.fetchTokenBalance(web3Data);
         }
       });
@@ -94,7 +96,6 @@ class Header extends Component {
         this.setState({ userDetails: authData.data });
       }
     }
-
   }
 
   checkMetamaskLock = () => {
@@ -106,7 +107,7 @@ class Header extends Component {
         }
       });
     }, 1000);
-  }
+  };
 
   async componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -122,7 +123,7 @@ class Header extends Component {
     }
 
     if (window.web3) {
-      const chainID = await web3.eth.getChainId()
+      const chainID = await web3.eth.getChainId();
       if (chainID !== 56 && chainID !== "0x38") {
         const changeRequest = window.ethereum.request({
           method: "wallet_switchEthereumChain",
@@ -132,14 +133,18 @@ class Header extends Component {
 
       window.ethereum.on("accountsChanged", (accounts) => {
         // metamask user address changed
-        if (accounts.length > 0 && this.state.web3Data.isLoggedIn && (accounts[0] !== this.state.web3Data.accounts[0])) {
+        if (
+          accounts.length > 0 &&
+          this.state.web3Data.isLoggedIn &&
+          accounts[0] !== this.state.web3Data.accounts[0]
+        ) {
           this.props.clearNonce();
           this.props.authLogout();
           this.props.web3Logout(accounts);
           this.setState({ isOpen4: true });
         }
       });
-      window.ethereum.on('chainChanged', (chainId) => {
+      window.ethereum.on("chainChanged", (chainId) => {
         window.location.reload();
         // Handle the new chain.
         // Correctly handling chain changes can be complicated.
@@ -154,7 +159,11 @@ class Header extends Component {
     }
     walletConnectProvider.on("accountsChanged", (accounts) => {
       // walletConnect user address changed
-      if (accounts.length > 0 && this.state.web3Data.isLoggedIn && (accounts[0] !== this.state.web3Data.accounts[0])) {
+      if (
+        accounts.length > 0 &&
+        this.state.web3Data.isLoggedIn &&
+        accounts[0] !== this.state.web3Data.accounts[0]
+      ) {
         this.props.clearNonce();
         this.props.authLogout();
         this.props.web3Logout(accounts);
@@ -184,8 +193,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-      "...." +
-      newAddress.substring(newAddress.length - 5, newAddress.length)
+        "...." +
+        newAddress.substring(newAddress.length - 5, newAddress.length)
       : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
@@ -225,15 +234,14 @@ class Header extends Component {
   };
 
   render() {
-    const {
-      web3Data,
-      userDetails,
-      accountBalance,
-      compactUserAddress,
-    } = this.state;
+    const { web3Data, userDetails, accountBalance, compactUserAddress } =
+      this.state;
     const value = this.props.location.pathname;
-    const parts = value.split('/');
-    const useGradient = parts[1] === "creator" || parts[2] === "profile" ? "gradient-header" : null;
+    const parts = value.split("/");
+    const useGradient =
+      parts[1] === "creator" || parts[2] === "profile"
+        ? "gradient-header"
+        : null;
     return (
       <>
         <HeadMBX className={useGradient}>
@@ -307,7 +315,10 @@ class Header extends Component {
                           activeClassName="active"
                           onClick={() => this.toggle(11)}
                         >
-                          <FormattedMessage id="profile" defaultMessage="Profile" />
+                          <FormattedMessage
+                            id="profile"
+                            defaultMessage="Profile"
+                          />
                         </NavLink>
                       ) : (
                         ``
@@ -362,7 +373,7 @@ class Header extends Component {
                         activeClassName="active"
                         onClick={() => this.toggle(12)}
                       >
-                        <FormattedMessage id='more' defaultMessage='More' />
+                        <FormattedMessage id="more" defaultMessage="More" />
                       </NavLink>
                     </div>
                     <Collapse
@@ -375,7 +386,8 @@ class Header extends Component {
                       <Moremenu>
                         <div className="more-parts">
                           <NavLink
-                            to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"
+                            to={{ pathname: "https://medium.com/@Carny.io" }}
+                            target="_blank"
                           >
                             Carny Blog
                           </NavLink>
@@ -395,7 +407,10 @@ class Header extends Component {
                               this.toggle(11);
                             }}
                           >
-                            <FormattedMessage id="support" defaultMessage="Support" />
+                            <FormattedMessage
+                              id="support"
+                              defaultMessage="Support"
+                            />
                           </NavLink>
                         </div>
                         <div className="more-parts">
@@ -463,14 +478,34 @@ class Header extends Component {
                             this.toggle(11);
                           }}
                         >
-                          <FormattedMessage id="disconnect" defaultMessage="Disconnect" />
+                          <FormattedMessage
+                            id="disconnect"
+                            defaultMessage="Disconnect"
+                          />
                         </Mobiledisconnect>
                       </>
                     )}
                     <FooterrightLinks>
-                      <Link to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</Link>
-                      <Link to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</Link>
-                      <Link to={{ pathname: "https://discordapp.com/users/carny.io/" }} target="_blank">Discord</Link>
+                      <Link
+                        to={{ pathname: "https://www.instagram.com/carny.io/" }}
+                        target="_blank"
+                      >
+                        Instagram
+                      </Link>
+                      <Link
+                        to={{ pathname: "https://twitter.com/carny_io" }}
+                        target="_blank"
+                      >
+                        Twitter
+                      </Link>
+                      <Link
+                        to={{
+                          pathname: "https://discordapp.com/users/carny.io/",
+                        }}
+                        target="_blank"
+                      >
+                        Discord
+                      </Link>
                     </FooterrightLinks>
                   </MobInner>
                 </Collapse>
@@ -542,7 +577,6 @@ class Header extends Component {
                     <span>{compactUserAddress}</span>
                   </span>
                   <i>
-
                     <img
                       src={
                         userDetails
@@ -570,7 +604,6 @@ class Header extends Component {
                           }
                         >
                           <i>
-
                             <img
                               src={
                                 userDetails
@@ -582,7 +615,10 @@ class Header extends Component {
                               alt=""
                             />
                           </i>
-                          <FormattedMessage id="view_your_profile" defaultMessage="View your profile" />
+                          <FormattedMessage
+                            id="view_your_profile"
+                            defaultMessage="View your profile"
+                          />
                           <span>
                             <img src={RightArrow} alt="" />
                           </span>
@@ -595,7 +631,10 @@ class Header extends Component {
                           <i>
                             <img src={DisconnectICO} alt="" />
                           </i>
-                          <FormattedMessage id="disconnect" defaultMessage="Disconnect" />
+                          <FormattedMessage
+                            id="disconnect"
+                            defaultMessage="Disconnect"
+                          />
                           {/* <span>
                             
                             <img src={RightArrow} alt="" />
@@ -618,7 +657,7 @@ class Header extends Component {
   toggle = (index) => {
     let collapse = "isOpen" + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
-  }
+  };
 }
 const FlexDiv = styled.div`
   display: flex;
@@ -632,13 +671,13 @@ const HeadMBX = styled(FlexDiv)`
   min-height: 100px;
   position: absolute;
   z-index: 100;
-  background-color:#fff;
+  background-color: #fff;
   box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
   ${Media.md} {
     min-height: 80px;
   }
   &.gradient-header {
-    background-color:transparent;
+    background-color: transparent;
     box-shadow: none;
     .avangart-Logo {
       background: url(${LogoImgWhite}) no-repeat;
@@ -822,9 +861,11 @@ const NotificationBX = styled(FlexDiv)`
   margin-left: 8px;
   position: relative;
   .Notifi-Icon {
-    background: url(${NotifiIcon}) no-repeat;
+    background-image: url(${NotifiIcon});
     width: 24px;
     height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   & > button {
     width: 38px;
@@ -833,6 +874,9 @@ const NotificationBX = styled(FlexDiv)`
     align-items: center;
     justify-content: center;
     border-radius: 15px;
+    &.noti-button-outer {
+      padding: 0px;
+    }
     &.active,
     :hover {
       border: 1px solid #d6dde5;

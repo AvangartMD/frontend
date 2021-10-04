@@ -26,7 +26,7 @@ class Notifications extends Component {
   }
 
   render() {
-    let { notifications } = this.props;
+    let { notifications, lng } = this.props;
     return (
       <>
         {notifications ?
@@ -40,7 +40,8 @@ class Notifications extends Component {
               return <button
                 key={notification.id}
                 onClick={() => this.props.history.push(notification.route ? notification.route : '/')}>
-                {notification.text}
+                {lng === 'en' && notification.text.en}
+                {lng === 'tr' && notification.text.tu}
               </button>
             }) :
               <button>
@@ -84,12 +85,12 @@ const NotificationSBX01 = styled(FlexDiv)`
     text-align: left;
     padding: 15px;
     border-bottom: 1px solid #eef2f7;
-    :last-child
-    {
-      ${Media.md} {
-        padding-bottom:40px;
-      }
-    }
+    // :last-child
+    // {
+    //   ${Media.md} {
+    //     padding-bottom:40px;
+    //   }
+    // }
     span {
       font-size: 10px;
       font-weight: 400;
@@ -128,6 +129,7 @@ const mapDipatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     notifications: state.fetchNotifications,
+    lng: state.fetchLanguage,
   }
 }
 

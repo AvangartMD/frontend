@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { isMobile } from 'react-device-detect';
+import { isMobile } from "react-device-detect";
 import Media from "./../../Theme/media-breackpoint";
 
 import CloseBTN01 from "../../Assets/images/closeBTN01.svg";
@@ -102,11 +102,22 @@ function Login(props) {
             // MetaMask injects the global API into window.ethereum
             try {
               if (window.web3) {
-                // check if the chain to connect to is installed
-                const changeRequest = await window.ethereum.request({
-                  method: "wallet_switchEthereumChain",
-                  params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
+                await window.ethereum.request({
+                  method: "wallet_addEthereumChain",
+                  params: [
+                    {
+                      chainId: "0x38",
+                      rpcUrl: "https://bsc-dataseed.binance.org/",
+                    },
+                  ],
                 });
+                console.log("here");
+                // check if the chain to connect to is installed
+                // const changeRequest = await window.ethereum.request({
+                //   method: "wallet_switchEthereumChain",
+                //   params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
+                // });
+                // console.log(changeRequest);
                 const signature = await web3.eth.personal.sign(
                   web3.utils.utf8ToHex(nonce),
                   web3Data.accounts[0]
@@ -148,7 +159,7 @@ function Login(props) {
               // console.error(error);
             }
           } else {
-            window.localStorage.removeItem('WALLETCONNECT_DEEPLINK_CHOICE');
+            window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
             const signature = await web3.eth.personal.sign(
               web3.utils.utf8ToHex(nonce),
               web3Data.accounts[0]
@@ -221,14 +232,14 @@ function Login(props) {
                   />
                 </OnbText01>
                 <OnBTNBar>
-                  {!isMobile &&
+                  {!isMobile && (
                     <button onClick={() => connectToWallet()}>
                       <i>
                         <img src={WalletICO01} alt="" />
                       </i>
                       MetaMask
                     </button>
-                  }
+                  )}
                   <button onClick={() => connectToWallet(1)}>
                     <i>
                       <img src={WalletICO02} alt="" />

@@ -302,6 +302,7 @@ const CollectionDesc = styled.div`
     line-height:24px;
     letter-spacing: -0.8px;
     margin:0px 0px 30px;
+    white-space: pre-wrap;
   }
 `;
 
