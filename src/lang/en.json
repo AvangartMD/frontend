@@ -249,7 +249,7 @@
   "not_have_enough_balance": "You do not have sufficient BNB Balance",
   "approve": "Approve",
   "add_wallet_placeholder": "Add Wallet Address",
-  "download_metamask_lable": "Please download metamask first.!",
+  "download_metamask_lable": "Please download metamask first",
   "no_result_found": "No result found",
   "view": "View"
 }
