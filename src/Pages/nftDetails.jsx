@@ -65,7 +65,7 @@ const saleMethods = {
   placeABid: {
     name: 'placeBid',
     btnName: <FormattedMessage id='place_a_bid' defaultMessage='Place a bid' />,
-    bidDesc: 'Current bid',
+    bidDesc: <FormattedMessage id="current_bid" defaultMessage='Current bid' />,
     open: 8,
   },
   makeAnOffer: {
@@ -73,7 +73,7 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id='make_an_offer' defaultMessage='Place a bid' />
     ),
-    bidDesc: 'Current offer',
+    bidDesc: <FormattedMessage id='current_offer' defaultMessage='Current offer'/>,
     open: 8,
   },
   putOnSale: {
@@ -118,13 +118,13 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id='accpet_offer' defaultMessage='Accept Offer' />
     ),
-    bidDesc: 'Current offer',
+    bidDesc: <FormattedMessage id='current_offer' defaultMessage='Current offer'/>,
     open: 1,
   },
   burn: {
     name: 'burnTokenEdition',
     btnName: <FormattedMessage id='burn' defaultMessage='Burn' />,
-    bidDesc: 'Current offer',
+    bidDesc: <FormattedMessage id='current_offer' defaultMessage='Current offer'/>,
     open: 1,
   },
   transfer: {
@@ -132,7 +132,7 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id='transfer_nft' defaultMessage='Accept Offer' />
     ),
-    bidDesc: 'Current offer',
+    bidDesc: <FormattedMessage id='current_offer' defaultMessage='Current offer'/>,
     open: 1,
   },
 };
@@ -289,7 +289,7 @@ class NftDetail extends React.Component {
     } else {
       if (isOwner) {
         const method = saleMethods.noButton;
-        method.bidDesc = saleState === 'BUY' ? <FormattedMessage id='price' defaultMessage='Price' /> : 'Current offer';
+        method.bidDesc = saleState === 'BUY' ? <FormattedMessage id='price' defaultMessage='Price' /> : <FormattedMessage id='current_offer' defaultMessage='Current offer'/>;
         return this.setState({
           saleMethod: method,
         });
@@ -726,7 +726,7 @@ class NftDetail extends React.Component {
                       <div className='ed-box ed-mb-block'>
                         <p>
                           <FormattedMessage
-                            id='ending'
+                            id='ending_in'
                             defaultMessage='Ending in'
                           />
                           ,
