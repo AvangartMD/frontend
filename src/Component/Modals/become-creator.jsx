@@ -55,7 +55,7 @@ class BecomeCreator extends Component {
 
   onFormChange = (event) => {
     if (event.target.name === "category") {
-      if (event.target.checked) {
+      if (event.target.checked && (this.state.category.length < 2)) {
         this.setState({ category: [...this.state.category, event.target.value] })
       }
       else this.setState({ category: this.state.category.filter(id => id !== event.target.value) })
@@ -353,7 +353,13 @@ class BecomeCreator extends Component {
                                 <input
                                   type="checkbox"
                                   name="category"
+                                  className="single-checkbox"
                                   value={category.id}
+                                  onChange={(event) => {
+                                    if (this.state.category.length > 1) {
+                                      event.target.checked = false;
+                                    }
+                                  }}
                                 />
                                 <span className="checkmark"></span>
                               </label>
