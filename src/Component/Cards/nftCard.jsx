@@ -133,9 +133,9 @@ const NFTCard = ({
                     )}
                   </p>
                   <h3>
-                    {Number(price)
-                      .toFixed(10)
-                      .replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1')}{' '}
+                    {parseFloat(
+                      +(price).toFixed(5)
+                    )}{' '}
                     BNB{' '}
                   </h3>
                 </div>
