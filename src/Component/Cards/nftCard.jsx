@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import { HashLink as Link } from 'react-router-hash-link';
-import { motion } from 'framer-motion';
-import LazyLoad from 'react-lazyload';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
+import { HashLink as Link } from "react-router-hash-link";
+import { motion } from "framer-motion";
+import LazyLoad from "react-lazyload";
 
-import UserImg from '../../Assets/images/user-img.jpg';
-import AudioCover from '../../Assets/images/audio-square.jpg';
+import UserImg from "../../Assets/images/user-img.jpg";
+import AudioCover from "../../Assets/images/audio-square.jpg";
 
 import Gs from "../../Theme/globalStyles";
 import Timer from "../timer";
@@ -86,11 +86,11 @@ const NFTCard = ({
                     src={nftImg}
                     exit={{ opacity: 0 }}
                   />
-                  <div className='video-icon'>
+                  <div className="video-icon">
                     <span>
                       <FaPlay />
                     </span>
-                  </div> 
+                  </div>
                 </LazyLoad>
               )}
             </NFTImgBX>

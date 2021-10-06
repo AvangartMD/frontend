@@ -23,6 +23,7 @@ function PABpopup(props) {
     fetchNFTDetails,
     nftDetails,
     firstBid,
+    secondHand,
   } = props;
   const escrowContractInstance = getContractInstance(true);
   const [txnStatus, setTxnStatus] = useState("");
@@ -63,6 +64,24 @@ function PABpopup(props) {
     setAccount();
   }, [web3Data.accounts, bnbUSDPrice]);
   // console.log(error);
+  Number.prototype.noExponents = function () {
+    var data = String(this).split(/[eE]/);
+    if (data.length == 1) return data[0];
+
+    var z = "",
+      sign = this < 0 ? "-" : "",
+      str = data[0].replace(".", ""),
+      mag = Number(data[1]) + 1;
+
+    if (mag < 0) {
+      z = sign + "0.";
+      while (mag++) z += "0";
+      return z + str.replace(/^-/, "");
+    }
+    mag -= str.length;
+    while (mag--) z += "0";
+    return str + z;
+  };
   const placeBid = async () => {
     const val = method === "buyNow" ? price.toString() : bnbVal;
     if (!accountBalance.bnb)
@@ -77,9 +96,10 @@ function PABpopup(props) {
       });
     // console.log(accountBalance);
     const sendObj = { from: web3Data.accounts[0] };
+    console.log(val);
     if (method !== "claimAfterAuction") {
       if (!val) return;
-      sendObj.value = web3.utils.toWei(val);
+      sendObj.value = web3.utils.toWei(Number(val).noExponents());
     }
 
     if (!error.isError) {
@@ -178,7 +198,11 @@ function PABpopup(props) {
                     />
                   </PBtitle>
                   <PBDesc>
-                    <FormattedMessage id="place_a_bid_label" />
+                    {secondHand ? (
+                      <FormattedMessage id="place_a_bid_label_24hrs" />
+                    ) : (
+                      <FormattedMessage id="place_a_bid_label" />
+                    )}
                   </PBDesc>
                   <BalanceLine>
                     <p className="balance">
