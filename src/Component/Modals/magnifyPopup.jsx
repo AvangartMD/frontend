@@ -31,13 +31,11 @@ function Magnifypopup({ toggle, imageURL, magnifyClass }) {
         <CloseBTND2 className="ani-1" onClick={() => toggle(6)}>
           <img src={CloseBTN02} alt="" />
         </CloseBTND2>
-        <div className={`vs-box  ${magnifyClass}`}>
+        <div className={`vs-box ${magnifyClass}`}>
           <CustomScrollbars
             autoHide
             autoHideTimeout={1000}
-            style={{ width: "100%", height: "100%", position: "relative", textAlign: "center" }}
-
-          >
+            style={{ width: "100%", height: "100%", position: "relative", textAlign: "center" }}>
             <img
               src={imageURL}
               alt=""
@@ -87,9 +85,13 @@ const WhiteWrap = styled(FlexDiv)`
     .mag-outer{
       display: flex;
       justify-content: center;
-      ${Media.lg} {
-        align-items:center;
+      align-items:center;
+      img{
+        margin:auto;
       }
+      // ${Media.lg} {
+      //   align-items:center;
+      // }
     }
   }
 `;

@@ -122,7 +122,10 @@ class Faq extends Component {
 
             <FaqAccordian>
               {list.length === 0 ?
-                `No result found` :
+                <FormattedMessage
+                  id="no_result_found"
+                  defaultMessage="No result found" />
+                :
                 list.map((faq, key) => {
                   return <Collapsible trigger={faq.question} key={key}>
                     <p>{faq.answer}</p>

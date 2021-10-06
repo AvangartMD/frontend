@@ -125,6 +125,16 @@ class Header extends Component {
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
       if (chainID !== 56 && chainID !== "0x38") {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0x38",
+              chainName: 'Binance Smart Chain',
+              rpcUrls: ["https://bsc-dataseed2.binance.org/"],
+            },
+          ],
+        });
         const changeRequest = window.ethereum.request({
           method: "wallet_switchEthereumChain",
           params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers

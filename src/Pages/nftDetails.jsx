@@ -65,7 +65,7 @@ const saleMethods = {
   placeABid: {
     name: "placeBid",
     btnName: <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />,
-    bidDesc: "Current bid",
+    bidDesc: <FormattedMessage id="current_bid" defaultMessage="Current bid" />,
     open: 8,
   },
   makeAnOffer: {
@@ -73,7 +73,9 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id="make_an_offer" defaultMessage="Place a bid" />
     ),
-    bidDesc: "Current offer",
+    bidDesc: (
+      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+    ),
     open: 8,
   },
   putOnSale: {
@@ -81,7 +83,9 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id="put_on_sale" defaultMessage="Put on sale " />
     ),
-    bidDesc: "Purchased at",
+    bidDesc: (
+      <FormattedMessage id="purchased_at" defaultMessage="Purchased at" />
+    ),
     open: 7,
     checkApproval: true,
   },
@@ -96,12 +100,12 @@ const saleMethods = {
   noButton: {
     name: "",
     btnName: null,
-    bidDesc: "Reserved Price",
+    bidDesc: <FormattedMessage id="price" defaultMessage="Price" />,
   },
   claimAfterAuction: {
     name: "claimAfterAuction",
     btnName: <FormattedMessage id="claim" defaultMessage="Put on sale " />,
-    bidDesc: "Current bid",
+    bidDesc: <FormattedMessage id="current_bid" defaultMessage="Current bid" />,
     open: 8,
   },
   claimBack: {
@@ -109,7 +113,7 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id="cancelMyOffer" defaultMessage="Cancel My Offer" />
     ),
-    bidDesc: "Current bid",
+    bidDesc: <FormattedMessage id="current_bid" defaultMessage="Current bid" />,
     open: 1,
     checkApproval: false,
   },
@@ -118,13 +122,17 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id="accpet_offer" defaultMessage="Accept Offer" />
     ),
-    bidDesc: "Current offer",
+    bidDesc: (
+      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+    ),
     open: 1,
   },
   burn: {
     name: "burnTokenEdition",
     btnName: <FormattedMessage id="burn" defaultMessage="Burn" />,
-    bidDesc: "Current offer",
+    bidDesc: (
+      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+    ),
     open: 1,
   },
   transfer: {
@@ -132,7 +140,9 @@ const saleMethods = {
     btnName: (
       <FormattedMessage id="transfer_nft" defaultMessage="Accept Offer" />
     ),
-    bidDesc: "Current offer",
+    bidDesc: (
+      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+    ),
     open: 1,
   },
 };
@@ -289,7 +299,15 @@ class NftDetail extends React.Component {
     } else {
       if (isOwner) {
         const method = saleMethods.noButton;
-        method.bidDesc = saleState === "BUY" ? "Price" : "Current offer";
+        method.bidDesc =
+          saleState === "BUY" ? (
+            <FormattedMessage id="price" defaultMessage="Price" />
+          ) : (
+            <FormattedMessage
+              id="current_offer"
+              defaultMessage="Current offer"
+            />
+          );
         return this.setState({
           saleMethod: method,
         });
@@ -744,7 +762,7 @@ class NftDetail extends React.Component {
                       <div className="ed-box ed-mb-block">
                         <p>
                           <FormattedMessage
-                            id="ending"
+                            id="ending_in"
                             defaultMessage="Ending in"
                           />
                           ,
@@ -1311,7 +1329,7 @@ const NFTcartButtons = styled.div`
     ${Media.xs} {
       display: block;
       margin: 0px auto 10px;
-      width: 200px;
+      // width: 200px;
       height: 44px;
       padding: 0px;
     }

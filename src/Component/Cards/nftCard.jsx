@@ -133,12 +133,7 @@ const NFTCard = ({
                       <FormattedMessage id="price" defaultMessage="Price" />
                     )}
                   </p>
-                  <h3>
-                    {Number(price)
-                      .toFixed(10)
-                      .replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, "$1")}{" "}
-                    BNB{" "}
-                  </h3>
+                  <h3>{parseFloat(+price.toFixed(5))} BNB </h3>
                 </div>
                 <div className="ed-box">
                   {previewCard ? (
