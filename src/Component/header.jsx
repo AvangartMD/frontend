@@ -126,12 +126,17 @@ class Header extends Component {
       const chainID = await web3.eth.getChainId();
       if (chainID !== 56 && chainID !== "0x38") {
         await window.ethereum.request({
-          method: "wallet_addEthereumChain",
+          method: 'wallet_addEthereumChain',
           params: [
             {
-              chainId: "0x38",
+              chainId: '0x38',
               chainName: 'Binance Smart Chain',
-              rpcUrls: ["https://bsc-dataseed2.binance.org/"],
+              nativeCurrency: {
+                name: 'Binance Chain Token',
+                symbol: 'BNB',
+                decimals: 18
+              },
+              rpcUrls: ['https://bsc-dataseed2.binance.org/'],
             },
           ],
         });

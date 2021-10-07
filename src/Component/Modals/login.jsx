@@ -113,7 +113,13 @@ function Login(props) {
                   params: [
                     {
                       chainId: '0x38',
-                      rpcUrl: 'https://bsc-dataseed.binance.org/',
+                      chainName: 'Binance Smart Chain',
+                      nativeCurrency: {
+                        name: 'Binance Chain Token',
+                        symbol: 'BNB',
+                        decimals: 18
+                      },
+                      rpcUrls: ['https://bsc-dataseed2.binance.org/'],
                     },
                   ],
                 });
