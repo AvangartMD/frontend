@@ -423,10 +423,10 @@ class NftDetail extends React.Component {
               : soldEdition.saleType.price
             : soldEdition.saleType.price
           : soldEdition.transactionId === "0x"
-          ? +web3.utils.fromWei(bidDetails.bidValue) > 0
-            ? +web3.utils.fromWei(bidDetails.bidValue)
-            : soldEdition.saleType.price
-          : soldEdition.price,
+            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+              ? +web3.utils.fromWei(bidDetails.bidValue)
+              : soldEdition.saleType.price
+            : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: soldEdition.transactionId === "0x" ? false : true,
         orderNonce:
@@ -816,9 +816,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.isOpenForSale &&
-                    selectedNFTDetails.secondHand &&
-                    !selectedNFTDetails.isBurned ? (
+                      selectedNFTDetails.isOpenForSale &&
+                      selectedNFTDetails.secondHand &&
+                      !selectedNFTDetails.isBurned ? (
                       <button
                         className="bordered"
                         onClick={() => {
@@ -832,7 +832,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === "NOT_MINTED" &&
-                    web3Data.isLoggedIn ? (
+                      web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
@@ -1331,7 +1331,7 @@ const NFTcartButtons = styled.div`
       margin: 0px auto 10px;
       // width: 200px;
       height: 44px;
-      padding: 0px;
+      // padding: 0px;
     }
     :hover {
       background-image: linear-gradient(90deg, #d121d6, #febf11);
