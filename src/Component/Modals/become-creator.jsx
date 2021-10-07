@@ -410,7 +410,9 @@ class BecomeCreator extends Component {
                   <img src={CloseBTN01} alt="" />
                 </CloseBTN>
                 <BACLeft>
-                  <BACLtitle>Promote yourself!</BACLtitle>
+                  <BACLtitle>
+                    <FormattedMessage id='promote_yourself' defaultMessage='Promote yourself!' />
+                  </BACLtitle>
                   <BACLdesc>
                     <FormattedMessage id="promote_yourself_lable" defaultMessage="Let us know about your portfolio and social links, which will drastically increase your chance of becoming a creator." />
                   </BACLdesc>
@@ -429,11 +431,18 @@ class BecomeCreator extends Component {
                         <FormattedMessage id="portfolio_website" defaultMessage="Portfolio website" />
                       </label>
                     </div>
-                    <input
-                      type="text"
-                      placeholder="Type your id…"
-                      name="website"
-                    />
+                    <FormattedMessage
+                        id="type_something"
+                        defaultMessage="Type something…"
+                      >
+                        {(placeholder) => (
+                          <input
+                            type="text"
+                            name="website"
+                            placeholder={placeholder}
+                          />
+                        )}
+                      </FormattedMessage>
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
@@ -441,11 +450,18 @@ class BecomeCreator extends Component {
                         <FormattedMessage id="instagram_account" defaultMessage="Instagram account" />
                       </label>
                     </div>
-                    <input
-                      type="text"
-                      placeholder="Type your id…"
-                      name="instagram"
-                    />
+                    <FormattedMessage
+                        id="type_something"
+                        defaultMessage="Type something…"
+                      >
+                        {(placeholder) => (
+                          <input
+                            type="text"
+                            name="instagram"
+                            placeholder={placeholder}
+                          />
+                        )}
+                    </FormattedMessage>
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
@@ -453,11 +469,18 @@ class BecomeCreator extends Component {
                         <FormattedMessage id="twitter_account" defaultMessage="Twitter account" />
                       </label>
                     </div>
-                    <input
-                      type="text"
-                      placeholder="Type your id…"
-                      name="twitter"
-                    />
+                    <FormattedMessage
+                        id="type_something"
+                        defaultMessage="Type something…"
+                      >
+                        {(placeholder) => (
+                          <input
+                            type="text"
+                            name="twitter"
+                            placeholder={placeholder}
+                          />
+                        )}
+                    </FormattedMessage>
                   </NFTForm>
                   <CreateItemButton>
                     <button

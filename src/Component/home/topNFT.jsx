@@ -188,7 +188,11 @@ class TopNFT extends Component {
             </p>
             {nft.nftId.collectionId?.id ? (
               <Link to={`collection-detail/${nft.nftId.collectionId.id}`}>
-                See the collection <i className='fas fa-angle-right'></i>
+                  <FormattedMessage
+                    id="see_the_collections"
+                    defaultMessage="See the collection"
+                  />
+                 <i className='fas fa-angle-right'></i>
               </Link>
             ) : (
               ''
