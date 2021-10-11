@@ -67,6 +67,7 @@ class Header extends Component {
       userDetails: null,
       accountBalance: 0,
       compactUserAddress: "00000000000",
+      networkError: false
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -125,6 +126,7 @@ class Header extends Component {
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
       if (chainID !== 56 && chainID !== "0x38") {
+        this.setState({ networkError: true }) // ask user to switch to the BSC Network
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [
@@ -144,6 +146,8 @@ class Header extends Component {
           method: "wallet_switchEthereumChain",
           params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
         });
+      } else {
+        this.setState({ networkError: false }) 
       }
 
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -249,7 +253,7 @@ class Header extends Component {
   };
 
   render() {
-    const { web3Data, userDetails, accountBalance, compactUserAddress } =
+    const { web3Data, userDetails, accountBalance, compactUserAddress, networkError } =
       this.state;
     const value = this.props.location.pathname;
     const parts = value.split("/");
@@ -259,6 +263,15 @@ class Header extends Component {
         : null;
     return (
       <>
+        {networkError &&
+          <BlackWrap>
+            <WhiteBX01>
+              <WGTitle>
+                <FormattedMessage id="network_warning" defaultMessage="Please switch to a supported network: BSC" />
+              </WGTitle>
+            </WhiteBX01>
+          </BlackWrap>
+        }
         <HeadMBX className={useGradient}>
           <HeadMBX02>
             <HeadSbx01 className="mobile-logo">
@@ -1191,6 +1204,50 @@ const Moremenu = styled(FlexDiv)`
     }
   }
 `;
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 15px;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
+  form{
+    width:100%;
+    // .view{
+    //   width:100%;
+    //   overflow-x:hidden !important;
+    //   overflow-y:auto !important;
+    // }
+  }
+`;
+const WGTitle = styled.div`
+  color: #000000;
+  font-size: 24px;
+  line-height:28px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+`;
+
 
 const mapDipatchToProps = (dispatch) => {
   return {

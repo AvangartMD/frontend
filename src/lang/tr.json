@@ -260,5 +260,6 @@
   "collection_cover_form": "Koleksiyon fotoğrafı",
   "collection_cover_label": "JPEG, PNG, GIF ve WEBP dosyaları yükleyebilirsiniz",
   "collection_choose": "Seç",
-  "collection_create": "Oluştur"
+  "collection_create": "Oluştur",
+  "network_warning": "Lütfen desteklenen bir ağa geçin: BSC"
 }

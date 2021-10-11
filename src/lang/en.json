@@ -263,5 +263,6 @@
   "collection_cover_form": "Collection Cover Image",
   "collection_cover_label": "Upload PNG, JPEG, GIF, WEBP",
   "collection_choose": "Choose",
-  "collection_create": "Create"
+  "collection_create": "Create",
+  "network_warning": "Please switch to a supported network: BSC"
 }
