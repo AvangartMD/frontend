@@ -147,7 +147,7 @@ class Header extends Component {
           params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
         });
       } else {
-        this.setState({ networkError: false }) 
+        this.setState({ networkError: false })
       }
 
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -212,8 +212,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-        "...." +
-        newAddress.substring(newAddress.length - 5, newAddress.length)
+      "...." +
+      newAddress.substring(newAddress.length - 5, newAddress.length)
       : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
@@ -1239,7 +1239,7 @@ const WhiteBX01 = styled(FlexDiv)`
 `;
 const WGTitle = styled.div`
   color: #000000;
-  font-size: 24px;
+  font-size: 20px;
   line-height:28px;
   font-weight: 700;
   letter-spacing: -0.6px;
