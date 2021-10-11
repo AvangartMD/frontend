@@ -177,9 +177,10 @@ class NftDetail extends React.Component {
       loader: true,
       magnifyClass: " ",
       accountBalance: 0,
+      networkError: false
     };
   }
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const { isLiked, web3Data, authData } = this.props;
     if (this.state.currentEdition !== prevState.currentEdition) {
       this.fetchNFTDetails(this.state.currentEdition);
@@ -193,6 +194,15 @@ class NftDetail extends React.Component {
     if (authData !== prevProps.authData) {
       if (authData && this.state.NFTDetails) {
         this.getEditionNumber(this.state.NFTDetails, 0);
+      }
+    }
+
+    if (web3Data !== prevProps.web3Data) {
+      if (window.web3) {
+        const chainID = await web3.eth.getChainId();
+        if (chainID === 56 || chainID === "0x38") {
+          this.setState({ networkError: false })
+        }
       }
     }
   }
@@ -230,6 +240,14 @@ class NftDetail extends React.Component {
       .then(async (data) => {
         this.setState({ bnbUSDPrice: data.binancecoin });
       });
+    
+    
+    if (window.web3) {
+      const chainID = await web3.eth.getChainId();
+      if (chainID !== 56 && chainID !== "0x38") {
+        this.setState({ networkError: true })
+      }
+    }
   }
   checkUserApproval = async (web3Data) => {
     const nftContractContractInstance = getContractInstance();
@@ -551,20 +569,33 @@ class NftDetail extends React.Component {
       ext,
       loader,
       accountBalance,
+      networkError,
     } = this.state;
     const { likesCount, isLiked, authData, web3Data } = this.props;
+    console.log('networkError ? ', networkError)
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
     // console.log("selected nft details", selectedNFTDetails);
     if (loader) {
       return (
-        <Gs.MainSection>
-          <NFTdetailSection>
-            <LoaderBX>
-              <img src={LoaderGif} alt="" />
-            </LoaderBX>
-          </NFTdetailSection>
-        </Gs.MainSection>
+        <>
+          <Gs.MainSection>
+            <NFTdetailSection>
+              <LoaderBX>
+                <img src={LoaderGif} alt="" />
+              </LoaderBX>
+            </NFTdetailSection>
+          </Gs.MainSection>
+          {networkError &&
+            <BlackWrap>
+              <WhiteBX01>
+                <WGTitle>
+                  <FormattedMessage id="network_warning" defaultMessage="Please switch to a supported network: BSC" />
+                </WGTitle>
+              </WhiteBX01>
+            </BlackWrap>
+          }
+        </>
       );
     }
     Number.prototype.noExponents = function () {
@@ -1354,6 +1385,49 @@ const NFTcartButtons = styled.div`
       }
     }
   }
+`;
+const BlackWrap = styled(FlexDiv)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 101;
+  backdrop-filter: blur(2px);
+`;
+const WhiteBX01 = styled(FlexDiv)`
+  width: 100%;
+  position: relative;
+  max-width: 400px;
+  margin: 0 15px;
+  min-height: 418px;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 30px;
+  justify-content: flex-start;
+  align-content: center;
+  ${Media.xs}{
+    padding:50px 25px;
+  }
+  form{
+    width:100%;
+    // .view{
+    //   width:100%;
+    //   overflow-x:hidden !important;
+    //   overflow-y:auto !important;
+    // }
+  }
+`;
+const WGTitle = styled.div`
+  color: #000000;
+  font-size: 20px;
+  line-height:28px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
 `;
 
 const mapDipatchToProps = (dispatch) => {

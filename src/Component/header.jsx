@@ -67,7 +67,7 @@ class Header extends Component {
       userDetails: null,
       accountBalance: 0,
       compactUserAddress: "00000000000",
-      networkError: false
+      // networkError: false
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -126,7 +126,7 @@ class Header extends Component {
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
       if (chainID !== 56 && chainID !== "0x38") {
-        this.setState({ networkError: true }) // ask user to switch to the BSC Network
+        // this.setState({ networkError: true }) // ask user to switch to the BSC Network
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [
@@ -147,7 +147,7 @@ class Header extends Component {
           params: [{ chainId: "0x38" }], // chainId must be in hexadecimal numbers
         });
       } else {
-        this.setState({ networkError: false })
+        // this.setState({ networkError: false })
       }
 
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -253,7 +253,9 @@ class Header extends Component {
   };
 
   render() {
-    const { web3Data, userDetails, accountBalance, compactUserAddress, networkError } =
+    const { web3Data, userDetails, accountBalance, compactUserAddress,
+      // networkError
+    } =
       this.state;
     const value = this.props.location.pathname;
     const parts = value.split("/");
@@ -263,7 +265,7 @@ class Header extends Component {
         : null;
     return (
       <>
-        {networkError &&
+        {/* {networkError &&
           <BlackWrap>
             <WhiteBX01>
               <WGTitle>
@@ -271,7 +273,7 @@ class Header extends Component {
               </WGTitle>
             </WhiteBX01>
           </BlackWrap>
-        }
+        } */}
         <HeadMBX className={useGradient}>
           <HeadMBX02>
             <HeadSbx01 className="mobile-logo">
