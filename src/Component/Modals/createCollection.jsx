@@ -119,7 +119,7 @@ function CreateCollection(props) {
         if (index > -1) {
           category.splice(index, 1);
         }
-      } else {
+      } else if(params.category.length < 2){
         category.push(e.target.value);
       }
       setParams({ ...params, category: category })
@@ -179,32 +179,52 @@ function CreateCollection(props) {
                   autoHideTimeout={1000}
                   style={{ width: "100%", height: "418px", position: "relative" }}
                 >
-                  <CCTitle>Create Collection</CCTitle>
+                  <CCTitle>
+                    <FormattedMessage id="create_collection_form" defaultMessage="Create Collection" />
+                  </CCTitle>
 
                   <NFTForm>
                     <div className="label-line">
-                      <label>Collection Name</label>
+                        <label>
+                          <FormattedMessage id="collection_name_form" defaultMessage="Collection Name" />
+                        </label>
                     </div>
-                    <input
-                      type="text"
-                      name="name"
-                      className={error.name ? `error` : ``}
-                      placeholder="Type something…"
-                    />
+                    <FormattedMessage
+                        id="type_something"
+                        defaultMessage="Type something…"
+                      >
+                        {(placeholder) => (
+                          <input
+                            type="text"
+                            name="name"
+                            className={error.name ? `error` : ``}
+                            placeholder={placeholder}
+                          />
+                      )}
+                    </FormattedMessage>
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
-                      <label>About Collection</label>
-                    </div>
-                    <textarea name="description" className={error.description ? `error` : ``} defaultValue="Type something…">
-                    </textarea>
+                        <label>
+                          <FormattedMessage id="about_collection_form" defaultMessage="About Collection" />
+                      </label>
+                      </div>
+                      <FormattedMessage
+                          id="type_something"
+                          defaultMessage="Type something…"
+                        >
+                        {(placeholder) => (
+                          <textarea name="description" className={error.description ? `error` : ``} defaultValue={placeholder}></textarea>
+                        )}
+                      </FormattedMessage>
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
-                      <label>Category</label>
-                      <p className={error.category ? `error` : ``}>
-                        Choose category for listing your NFT. You can choose
-                        up to 2.
+                        <label>
+                          <FormattedMessage id="category" defaultMessage="Category" />
+                      </label>
+                        <p className={error.category ? `error` : ``}>
+                          <FormattedMessage id="category_label" defaultMessage="Choose category for listing your NFT. You can choose up to 2." />
                       </p>
                     </div>
                     <CustomCheckbox1>
@@ -216,6 +236,11 @@ function CreateCollection(props) {
                             type="checkbox"
                             name="category"
                             value={category._id}
+                            onChange={(event) => {
+                              if (params.category.length > 1) {
+                                event.target.checked = false;
+                              }
+                            }}
                           />
                           <span className="checkmark"></span>
                         </label>
@@ -224,12 +249,16 @@ function CreateCollection(props) {
                   </NFTForm>
                   <NFTForm>
                     <div className="label-line">
-                      <label>Collection Cover Image</label>
+                        <label>
+                          <FormattedMessage id="collection_cover_form" defaultMessage="Collection Cover Image" />
+                      </label>
                       <FlexDiv className="JCSB">
-                        <p>Upload PNG, GIF, WEBP</p>
-                        <p>
+                          <p>
+                            <FormattedMessage id="collection_cover_label" defaultMessage="Upload PNG, JPEG, GIF, WEBP" />
+                          </p>
+                        {/* <p>
                           <b>Max 30 mb.</b>
-                        </p>
+                        </p> */}
                       </FlexDiv>
                     </div>
                     <FileuploadBox className={error.logo ? `error` : ``} >
@@ -238,12 +267,14 @@ function CreateCollection(props) {
                           accept="image/*"
                         // accept="image/png, image/gif, image/jpeg"
                         />
-                        Choose
+                          
+                          <FormattedMessage id="choose" defaultMessage="Choose" />
                       </label>
                     </FileuploadBox>
                   </NFTForm>
                   <CreateItemButton >
-                    <button type="submit" disabled={loading ? true : false} >{loading ? `loading..` : `Create`}</button>
+                      <button type="submit" disabled={loading ? true : false} >{loading ? `loading..` : 
+                    <FormattedMessage id="collection_create" defaultMessage="Create" />}</button>
                   </CreateItemButton>
                 </CustomScrollbars>
               </>

@@ -515,7 +515,7 @@ class Header extends Component {
                       </Link>
                       <Link
                         to={{
-                          pathname: "https://discordapp.com/users/carny.io/",
+                          pathname: "https://discord.com/invite/SkPAgNz4",
                         }}
                         target="_blank"
                       >

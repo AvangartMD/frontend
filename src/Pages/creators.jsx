@@ -189,9 +189,9 @@ class Creators extends Component {
                             </NoDataFound>
                             :
                             <InfiniteScroll className="IScroll"
-                                dataLength={pagination.totalRecords}
+                                dataLength={creators.length}
                                 next={this.fetchMore}
-                                hasMore={page < pagination.totalPages}
+                                hasMore={pagination.pageNo < pagination.totalPages}
                                 loader={<LoaderBX> <img src={LoaderGif} alt="" /> </LoaderBX>}
                             // endMessage={<p>You have seen it all.!</p>}
                             >

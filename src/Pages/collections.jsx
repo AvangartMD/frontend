@@ -161,9 +161,9 @@ class Collection extends Component {
                 </NoDataFound>
                 :
                 <InfiniteScroll
-                  dataLength={pagination.totalRecords}
+                  dataLength={collections.length}
                   next={this.fetchMore}
-                  hasMore={page < pagination.totalPages}
+                  hasMore={pagination.pageNo < pagination.totalPages}
                   loader={
                     <LoaderBX>
                       {' '}

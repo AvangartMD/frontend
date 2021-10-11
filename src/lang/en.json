@@ -254,5 +254,14 @@
   "download_metamask_lable": "Please download metamask first",
   "no_result_found": "No result found",
   "view": "View",
-  "promote_yourself": "Promote yourself!"
+  "promote_yourself": "Promote yourself!",
+  "create_collection_form": "Create Collection",
+  "collection_name_form": "Collection Name",
+  "about_collection_form": "About Collection",
+  "category": "Category",
+  "category_label": "Choose category for listing your NFT. You can choose up to 2.",
+  "collection_cover_form": "Collection Cover Image",
+  "collection_cover_label": "Upload PNG, JPEG, GIF, WEBP",
+  "collection_choose": "Choose",
+  "collection_create": "Create"
 }

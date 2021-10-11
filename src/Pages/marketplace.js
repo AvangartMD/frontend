@@ -84,6 +84,7 @@ class MarketPlace extends Component {
 
   fetchMore = () => {
     const { searched, filter, tabPanel, page } = this.state;
+    const { pagination } = this.props;
     this.setState({ page: page + 1 });
     let params = {
       page: page + 1,
@@ -91,6 +92,7 @@ class MarketPlace extends Component {
       filter: filter ? filter : null,
       category: tabPanel !== 'all' ? tabPanel : [],
     };
+    console.log('- fetchMore ', params)
     this.props.getMoreMarketPlaceNFT(params); // fetch more market place NFTs
   };
 
@@ -272,12 +274,11 @@ class MarketPlace extends Component {
                 </NoDataFound>
               :
               <InfiniteScroll className="IScroll"
-                dataLength={pagination.totalRecords}
+                dataLength={NFTs.length}
                 next={this.fetchMore}
-                hasMore={page < pagination.totalPages}
+                hasMore={pagination.pageNo < pagination.totalPages}
                 loader={
                   <LoaderBX>
-                    {' '}
                     <img src={LoaderGif} alt='' />{' '}
                   </LoaderBX>
                 }
@@ -308,8 +309,8 @@ class MarketPlace extends Component {
               </InfiniteScroll>
             : (
               <LoaderBX>
-                {' '}
-                <img src={LoaderGif} alt='' />{' '}
+                {' loading '}
+                {/* <img src={LoaderGif} alt='' />{' '} */}
               </LoaderBX>
             )}
         </HomeNFTs>
