@@ -62,6 +62,8 @@ class Creators extends Component {
         const { creators, categories } = this.props;
         if (!creators) {
             this.props.getCreators() // fetch creators
+        } else {
+            this.setState({ creators: creators })
         }
         if (!categories) {
             this.props.getCategories() // fetch categories

@@ -53,6 +53,8 @@ class Collection extends Component {
     const { categories, collections } = this.props;
     if (!collections) {
       this.props.getCollections() // fetch collections
+    } else {
+      this.setState({ collections: collections })
     }
     if (!categories) {
       this.props.getCategories() // fetch categories

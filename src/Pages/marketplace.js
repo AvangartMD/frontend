@@ -65,6 +65,8 @@ class MarketPlace extends Component {
     const { categories, NFTs } = this.props;
     if (!NFTs) {
       this.props.getMarketPlaceNFT(); // fetch market place nft's
+    } else {
+      this.setState({ NFTs: NFTs })
     }
     if (!categories) {
       this.props.getCategories(); // fetch categories
