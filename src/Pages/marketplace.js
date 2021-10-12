@@ -55,6 +55,7 @@ class MarketPlace extends Component {
       searched: false,
       filter: [],
       page: 1,
+      NFTs: [],
     };
   }
 
@@ -67,6 +68,16 @@ class MarketPlace extends Component {
     }
     if (!categories) {
       this.props.getCategories(); // fetch categories
+    }
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    const { NFTs, moreNFTs } = this.props;
+    if (moreNFTs !== prevProps.moreNFTs) {
+      this.setState({ NFTs: this.state.NFTs.concat(moreNFTs) })
+    }
+    if (NFTs !== prevProps.NFTs) {
+      this.setState({ NFTs: NFTs })
     }
   }
 
@@ -84,7 +95,6 @@ class MarketPlace extends Component {
 
   fetchMore = () => {
     const { searched, filter, tabPanel, page } = this.state;
-    const { pagination } = this.props;
     this.setState({ page: page + 1 });
     let params = {
       page: page + 1,
@@ -92,7 +102,6 @@ class MarketPlace extends Component {
       filter: filter ? filter : null,
       category: tabPanel !== 'all' ? tabPanel : [],
     };
-    console.log('- fetchMore ', params)
     this.props.getMoreMarketPlaceNFT(params); // fetch more market place NFTs
   };
 
@@ -136,11 +145,8 @@ class MarketPlace extends Component {
   };
 
   render() {
-    let { NFTs, moreNFTs, categories, pagination } = this.props;
-    const { tabPanel, page, filter } = this.state;
-    if (moreNFTs) {
-      NFTs = NFTs.concat(moreNFTs);
-    }
+    const { categories, pagination } = this.props;
+    const { tabPanel, page, filter, NFTs } = this.state;
     let context = this.context;
     return (
       <Gs.MainSection>

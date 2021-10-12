@@ -52,6 +52,7 @@ class Creators extends Component {
             searched: false,
             ranked: false,
             page: 1,
+            creators: [],
         }
     }
 
@@ -64,6 +65,16 @@ class Creators extends Component {
         }
         if (!categories) {
             this.props.getCategories() // fetch categories
+        }
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        const { creators, moreCreators } = this.props;
+        if (moreCreators !== prevProps.moreCreators) {
+        this.setState({ creators: this.state.creators.concat(moreCreators) })
+        }
+        if (creators !== prevProps.creators) {
+        this.setState({ creators: creators })
         }
     }
 
@@ -122,11 +133,8 @@ class Creators extends Component {
     }
 
     render() {
-        let { creators, moreCreators, categories, pagination } = this.props;
-        const { tabPanel, page } = this.state;
-        if (moreCreators) {
-            creators = creators.concat(moreCreators)
-        }
+        const { categories, pagination } = this.props;
+        const { tabPanel, page, creators } = this.state;
         let context = this.context;
         return (
             <Gs.MainSection>

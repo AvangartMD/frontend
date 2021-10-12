@@ -44,6 +44,7 @@ class Collection extends Component {
       tabPanel: 'all',
       searched: false,
       page: 1,
+      collections: [],
     };
   }
 
@@ -55,6 +56,16 @@ class Collection extends Component {
     }
     if (!categories) {
       this.props.getCategories() // fetch categories
+    }
+  }
+
+   async componentDidUpdate(prevProps, prevState) {
+    const { collections, moreCollections } = this.props;
+    if (moreCollections !== prevProps.moreCollections) {
+      this.setState({ collections: this.state.collections.concat(moreCollections) })
+    }
+    if (collections !== prevProps.collections) {
+      this.setState({ collections: collections })
     }
   }
 
@@ -94,11 +105,8 @@ class Collection extends Component {
   };
 
   render() {
-    let { collections, moreCollections, pagination, categories } = this.props;
-    const { tabPanel, page } = this.state;
-    if (moreCollections) {
-      collections = collections.concat(moreCollections);
-    }
+    const { pagination, categories } = this.props;
+    const { tabPanel, page, collections } = this.state;
     let context = this.context;
     return (
       <Gs.MainSection>
