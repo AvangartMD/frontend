@@ -167,7 +167,7 @@ class Collection extends Component {
             {collections ?
               collections.length === 0 ?
                 <NoDataFound>
-                  No <FormattedMessage id="collections" defaultMessage="Collections" /> Found
+                  <FormattedMessage id="coll_empty" defaultMessage="No Collections Found" />
                 </NoDataFound>
                 :
                 <InfiniteScroll

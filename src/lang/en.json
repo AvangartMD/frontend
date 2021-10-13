@@ -264,5 +264,6 @@
   "collection_cover_label": "Upload PNG, JPEG, GIF, WEBP",
   "collection_choose": "Choose",
   "collection_create": "Create",
-  "network_warning": "Please switch to a supported network: BSC"
+  "network_warning": "Please switch to a supported network: BSC",
+  "coll_empty": "No Collections Found"
 }

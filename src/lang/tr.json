@@ -202,7 +202,7 @@
   "fees_&_commissions": "Ücret & komisyonlar",
   "rank": "Sırala",
   "by_username": "Kullanıcı adına göre",
-  "by_follower": "Takipçiye görer",
+  "by_follower": "Takipçiye göre",
   "about_us_01": "Tanıdığınız ve sevdiğiniz üreticilerden orijinal içerikler",
   "about_us_02": "Carny seçilmiş üreticilerin orijinal içeriklerini sergilediği bir NFT pazaryeridir. Platform hem üreticilerin hem de koleksiyonerlerin daha uygun komisyonlarla işlem yapabilmesi için Binance Smart Chain altyapısını kullanmaktadır.",
   "about_us_03": "Üreticiler için Carny",
@@ -236,8 +236,8 @@
   "download_metamask": "MetaMask websitesine git",
   "no_nft_found": "İçerik Bulanamadı",
   "creation_empty": "Henüz üretilen NFT yok",
-  "collection_empty": "Henüz satın alınan NFT yok",
-  "collected_empty": "Henüz satın alınan NFT yok",
+  "collection_empty": "Henüz koleksiyon yok",
+  "collected_empty": "Henüz koleksiyon yok",
   "liked_empty": "Henüz beğenilen NFT yok",
   "draft_empty": "Henüz taslak NFT yok",
   "no_notifications": "Bildirim Bulunamadı",
@@ -261,5 +261,6 @@
   "collection_cover_label": "JPEG, PNG, GIF ve WEBP dosyaları yükleyebilirsiniz",
   "collection_choose": "Seç",
   "collection_create": "Oluştur",
-  "network_warning": "Lütfen desteklenen bir ağa geçin: BSC"
+  "network_warning": "Lütfen desteklenen bir ağa geçin: BSC",
+  "coll_empty": "Koleksiyon bulunamadı"
 }
