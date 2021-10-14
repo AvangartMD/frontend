@@ -8,6 +8,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
 import Media from "../Theme/media-breackpoint";
 import Scrollspy from 'react-scrollspy';
+import { FaFileDownload } from "react-icons/fa";
 
 
 class Legal extends Component {
@@ -41,9 +42,9 @@ class Legal extends Component {
                       smooth={true}
                     >
                       <FormattedMessage
-                          id="term_of_service"
-                          defaultMessage="Terms of Service"
-                        />
+                        id="term_of_service"
+                        defaultMessage="Terms of Service"
+                      />
                     </Link>
                     <Link
                       to="#privacy"
@@ -90,6 +91,7 @@ class Legal extends Component {
                     id="term_service.download"
                   />
                 </p>
+                <LegalButton className="ani-1"><FaFileDownload /> Please download the full text here.</LegalButton>
               </div>
               <div id="privacy">
                 <h3>Privacy Policy</h3>
@@ -108,6 +110,7 @@ class Legal extends Component {
                     id="privacy_policy.download"
                   />
                 </p>
+                <LegalButton className="ani-1"><FaFileDownload /> Please download the full text here.</LegalButton>
               </div>
               <div id="cookie">
                 <h3>Cookie Policy</h3>
@@ -131,6 +134,7 @@ class Legal extends Component {
                     id="privacy_policy.download"
                   />
                 </p>
+                <LegalButton className="ani-1"><FaFileDownload /> Please download the full text here.</LegalButton>
               </div>
             </Legalright>
           </NFTminting>
@@ -225,5 +229,20 @@ const Legalright = styled.div`
   }
         `;
 
+const LegalButton = styled.button`
+  background-color: #000;
+  border-radius: 15px;
+  margin: 0px 0px 30px 0px;
+  font-size: 14px;
+  line-height: normal;
+  color: #fff;
+  letter-spacing: -0.5px;
+  font-weight: 500;
+  text-align: center;
+  padding:15px 20px;
+  svg{
+    margin-right:7px;
+  }
+`;
 
 export default Legal;
