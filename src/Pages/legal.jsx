@@ -90,8 +90,8 @@ class Legal extends Component {
                   />
                 </p>
                 <p>
-                  <LegalButton className="ani-1">
-                    <Link to={`/legal/${lng === 'en' ? `Terms_of_Service_English.pdf`: `Terms_of_Service_Turkish.pdf`}`} target="_blank" download>
+                  <LegalButton>
+                    <Link to={`/legal/${lng === 'en' ? `Terms_of_Service_English.pdf` : `Terms_of_Service_Turkish.pdf`}`} target="_blank" download>
                       <FaFileDownload />
                       <FormattedMessage
                         id="policy.download"
@@ -118,8 +118,8 @@ class Legal extends Component {
                   />
                 </p>
                 <p>
-                  <LegalButton className="ani-1">
-                    <Link to={`/legal/${lng === 'en' ? `Privacy_Policy_English.pdf`: `Privacy_Policy_Turkish.pdf`}`} target="_blank" download>
+                  <LegalButton>
+                    <Link to={`/legal/${lng === 'en' ? `Privacy_Policy_English.pdf` : `Privacy_Policy_Turkish.pdf`}`} target="_blank" download>
                       <FaFileDownload />
                       <FormattedMessage
                         id="policy.download"
@@ -146,7 +146,7 @@ class Legal extends Component {
                   />
                 </p>
                 <p>
-                  <LegalButton className="ani-1">
+                  <LegalButton>
                     <Link to={`/legal/${lng === 'en' ? `Cookie_Policy_English.pdf` : `Cookie_Policy_Turkish.pdf`}`} target="_blank" download>
                       <FaFileDownload />
                       <FormattedMessage
@@ -249,19 +249,22 @@ const Legalright = styled.div`
   }
         `;
 
-const LegalButton = styled.button`
-  background-color: #000;
-  border-radius: 15px;
+const LegalButton = styled.div`
   margin: 0px 0px 30px 0px;
-  font-size: 14px;
-  line-height: normal;
-  color: #fff;
-  letter-spacing: -0.5px;
-  font-weight: 500;
-  text-align: center;
-  padding:15px 20px;
-  svg{
-    margin-right:7px;
+  a{
+    background-color: #000;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: normal;
+    color: #fff;
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    text-align: center;
+    padding:15px 20px;
+    display:inline-block;
+    svg{
+      margin-right:7px;
+    }
   }
 `;
 
