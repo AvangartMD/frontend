@@ -3,6 +3,8 @@ import "react-tabs/style/react-tabs.css";
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import Gs from "../Theme/globalStyles";
 import { HashLink as Link } from "react-router-hash-link";
 import Sticky from "react-sticky-el";
@@ -29,6 +31,7 @@ class Legal extends Component {
   }
 
   render() {
+    let { lng } = this.props;
     return (
       <Gs.MainSection>
         <Gs.Container>
@@ -87,11 +90,15 @@ class Legal extends Component {
                   />
                 </p>
                 <p>
-                  <FormattedMessage
-                    id="term_service.download"
-                  />
+                  <LegalButton className="ani-1">
+                    <Link to={`/legal/${lng === 'en' ? `Terms_of_Service_English.pdf`: `Terms_of_Service_Turkish.pdf`}`} target="_blank" download>
+                      <FaFileDownload />
+                      <FormattedMessage
+                        id="policy.download"
+                      />
+                    </Link>
+                  </LegalButton>
                 </p>
-                <LegalButton className="ani-1"><FaFileDownload /> Please download the full text here.</LegalButton>
               </div>
               <div id="privacy">
                 <h3>Privacy Policy</h3>
@@ -107,10 +114,19 @@ class Legal extends Component {
                 </p>
                 <p>
                   <FormattedMessage
-                    id="privacy_policy.download"
+                    id="privacy_policy.03"
                   />
                 </p>
-                <LegalButton className="ani-1"><FaFileDownload /> Please download the full text here.</LegalButton>
+                <p>
+                  <LegalButton className="ani-1">
+                    <Link to={`/legal/${lng === 'en' ? `Privacy_Policy_English.pdf`: `Privacy_Policy_Turkish.pdf`}`} target="_blank" download>
+                      <FaFileDownload />
+                      <FormattedMessage
+                        id="policy.download"
+                      />
+                    </Link>
+                  </LegalButton>
+                </p>
               </div>
               <div id="cookie">
                 <h3>Cookie Policy</h3>
@@ -130,11 +146,15 @@ class Legal extends Component {
                   />
                 </p>
                 <p>
-                  <FormattedMessage
-                    id="privacy_policy.download"
-                  />
+                  <LegalButton className="ani-1">
+                    <Link to={`/legal/${lng === 'en' ? `Cookie_Policy_English.pdf` : `Cookie_Policy_Turkish.pdf`}`} target="_blank" download>
+                      <FaFileDownload />
+                      <FormattedMessage
+                        id="policy.download"
+                      />
+                    </Link>
+                  </LegalButton>
                 </p>
-                <LegalButton className="ani-1"><FaFileDownload /> Please download the full text here.</LegalButton>
               </div>
             </Legalright>
           </NFTminting>
@@ -245,4 +265,10 @@ const LegalButton = styled.button`
   }
 `;
 
-export default Legal;
+const mapStateToProps = (state) => {
+  return {
+    lng: state.fetchLanguage,
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(Legal));
