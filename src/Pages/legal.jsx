@@ -70,40 +70,67 @@ class Legal extends Component {
             <Legalright>
               <div id="terms">
                 <h3>Terms of Service</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit. Maecenas eu arcu vel ligula tincidunt fermentum a lobortis erat. Vivamus augue nulla, sodales a egestas ac, rutrum sed diam. Quisque posuere at lorem vitae faucibus. Suspendisse nunc turpis, porta lacinia iaculis et, tincidunt a nulla. Nullam vestibulum sagittis nisi in egestas. Aliquam erat volutpat. Integer a ante sit amet odio tincidunt sollicitudin faucibus a tellus.</p>
-
-                <p>Suspendisse aliquam nisl neque. Nam scelerisque ornare mi, a hendrerit tellus convallis id. Praesent ut ultricies turpis. Nullam scelerisque egestas lectus, ac malesuada lorem tincidunt in. Nam rutrum hendrerit congue. Ut condimentum massa non eros dictum aliquet. Praesent laoreet purus eu sodales tempus. Quisque placerat ipsum vel dui lobortis aliquam. Mauris feugiat pulvinar nibh sed sodales. In vel sem dui.</p>
-
-                <p>Aenean tincidunt nunc quis pharetra finibus. Maecenas nunc tortor, ultrices in aliquam eu, fermentum id mauris. Pellentesque finibus urna sed enim interdum, non lobortis leo pharetra. Phasellus vitae leo ut elit imperdiet placerat. Suspendisse tincidunt risus semper finibus interdum. Sed sit amet diam nec libero vestibulum feugiat quis ac lectus. Phasellus non eros aliquet, sodales arcu eu, ullamcorper sem. Maecenas quam nunc, tincidunt eget metus eget, dictum cursus mi. Cras a nunc augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. Nullam ultricies mi nec auctor tincidunt. Ut pulvinar consequat lacinia. Nullam aliquet pharetra ante at aliquet. Sed mattis nibh ante, vitae tincidunt ante ornare congue. Suspendisse velit nisi, dignissim id fringilla ut, fringilla vel erat. Duis id lacus ut nibh efficitur interdum a a sem. Curabitur eu lacinia dolor. Nunc euismod venenatis turpis a lobortis.</p>
-                <p>Suspendisse aliquam nisl neque. Nam scelerisque ornare mi, a hendrerit tellus convallis id. Praesent ut ultricies turpis. Nullam scelerisque egestas lectus, ac malesuada lorem tincidunt in. Nam rutrum hendrerit congue. Ut condimentum massa non eros dictum aliquet. Praesent laoreet purus eu sodales tempus. Quisque placerat ipsum vel dui lobortis aliquam. Mauris feugiat pulvinar nibh sed sodales. In vel sem dui.</p>
-
-                <p>Aenean tincidunt nunc quis pharetra finibus. Maecenas nunc tortor, ultrices in aliquam eu, fermentum id mauris. Pellentesque finibus urna sed enim interdum, non lobortis leo pharetra. Phasellus vitae leo ut elit imperdiet placerat. Suspendisse tincidunt risus semper finibus interdum. Sed sit amet diam nec libero vestibulum feugiat quis ac lectus. Phasellus non eros aliquet, sodales arcu eu, ullamcorper sem. Maecenas quam nunc, tincidunt eget metus eget, dictum cursus mi. Cras a nunc augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                <p>
+                  <FormattedMessage
+                    id="term_service.01"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="term_service.02"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="term_service.03"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="term_service.download"
+                  />
+                </p>
               </div>
               <div id="privacy">
                 <h3>Privacy Policy</h3>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit. Maecenas eu arcu vel ligula tincidunt fermentum a lobortis erat. Vivamus augue nulla, sodales a egestas ac, rutrum sed diam. Quisque posuere at lorem vitae faucibus. Suspendisse nunc turpis, porta lacinia iaculis et, tincidunt a nulla. Nullam vestibulum sagittis nisi in egestas. Aliquam erat volutpat. Integer a ante sit amet odio tincidunt sollicitudin faucibus a tellus.</p>
-
-                <p>Suspendisse aliquam nisl neque. Nam scelerisque ornare mi, a hendrerit tellus convallis id. Praesent ut ultricies turpis. Nullam scelerisque egestas lectus, ac malesuada lorem tincidunt in. Nam rutrum hendrerit congue. Ut condimentum massa non eros dictum aliquet. Praesent laoreet purus eu sodales tempus. Quisque placerat ipsum vel dui lobortis aliquam. Mauris feugiat pulvinar nibh sed sodales. In vel sem dui.</p>
-                <p>Suspendisse aliquam nisl neque. Nam scelerisque ornare mi, a hendrerit tellus convallis id. Praesent ut ultricies turpis. Nullam scelerisque egestas lectus, ac malesuada lorem tincidunt in. Nam rutrum hendrerit congue. Ut condimentum massa non eros dictum aliquet. Praesent laoreet purus eu sodales tempus. Quisque placerat ipsum vel dui lobortis aliquam. Mauris feugiat pulvinar nibh sed sodales. In vel sem dui.</p>
-
-                <p>Aenean tincidunt nunc quis pharetra finibus. Maecenas nunc tortor, ultrices in aliquam eu, fermentum id mauris. Pellentesque finibus urna sed enim interdum, non lobortis leo pharetra. Phasellus vitae leo ut elit imperdiet placerat. Suspendisse tincidunt risus semper finibus interdum. Sed sit amet diam nec libero vestibulum feugiat quis ac lectus. Phasellus non eros aliquet, sodales arcu eu, ullamcorper sem. Maecenas quam nunc, tincidunt eget metus eget, dictum cursus mi. Cras a nunc augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-
-                <p>Aenean tincidunt nunc quis pharetra finibus. Maecenas nunc tortor, ultrices in aliquam eu, fermentum id mauris. Pellentesque finibus urna sed enim interdum, non lobortis leo pharetra. Phasellus vitae leo ut elit imperdiet placerat. Suspendisse tincidunt risus semper finibus interdum. Sed sit amet diam nec libero vestibulum feugiat quis ac lectus. Phasellus non eros aliquet, sodales arcu eu, ullamcorper sem. Maecenas quam nunc, tincidunt eget metus eget, dictum cursus mi. Cras a nunc augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. Nullam ultricies mi nec auctor tincidunt. Ut pulvinar consequat lacinia. Nullam aliquet pharetra ante at aliquet. Sed mattis nibh ante, vitae tincidunt ante ornare congue. Suspendisse velit nisi, dignissim id fringilla ut, fringilla vel erat. Duis id lacus ut nibh efficitur interdum a a sem. Curabitur eu lacinia dolor. Nunc euismod venenatis turpis a lobortis.</p>
+                <p>
+                  <FormattedMessage
+                    id="privacy_policy.01"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="privacy_policy.02"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="privacy_policy.download"
+                  />
+                </p>
               </div>
               <div id="cookie">
                 <h3>Cookie Policy</h3>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium tortor quis risus ullamcorper, efficitur congue odio luctus. Quisque varius, neque sed ultricies sollicitudin, ante neque tristique leo, euismod efficitur massa lorem vitae augue. Aliquam sit amet nibh a nunc rutrum vulputate. In hendrerit auctor suscipit. Maecenas eu arcu vel ligula tincidunt fermentum a lobortis erat. Vivamus augue nulla, sodales a egestas ac, rutrum sed diam. Quisque posuere at lorem vitae faucibus. Suspendisse nunc turpis, porta lacinia iaculis et, tincidunt a nulla. Nullam vestibulum sagittis nisi in egestas. Aliquam erat volutpat. Integer a ante sit amet odio tincidunt sollicitudin faucibus a tellus.</p>
-
-                <p>Suspendisse aliquam nisl neque. Nam scelerisque ornare mi, a hendrerit tellus convallis id. Praesent ut ultricies turpis. Nullam scelerisque egestas lectus, ac malesuada lorem tincidunt in. Nam rutrum hendrerit congue. Ut condimentum massa non eros dictum aliquet. Praesent laoreet purus eu sodales tempus. Quisque placerat ipsum vel dui lobortis aliquam. Mauris feugiat pulvinar nibh sed sodales. In vel sem dui.</p>
-
-                <p>Aenean tincidunt nunc quis pharetra finibus. Maecenas nunc tortor, ultrices in aliquam eu, fermentum id mauris. Pellentesque finibus urna sed enim interdum, non lobortis leo pharetra. Phasellus vitae leo ut elit imperdiet placerat. Suspendisse tincidunt risus semper finibus interdum. Sed sit amet diam nec libero vestibulum feugiat quis ac lectus. Phasellus non eros aliquet, sodales arcu eu, ullamcorper sem. Maecenas quam nunc, tincidunt eget metus eget, dictum cursus mi. Cras a nunc augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                <p>Aliquam erat volutpat. Duis maximus quis risus sed lobortis. Cras non magna eu mi auctor aliquet. Donec eu orci vel mi gravida tincidunt. Aenean id lacinia metus. Fusce nec dapibus dolor, sit amet sodales ipsum. Nullam ultricies mi nec auctor tincidunt. Ut pulvinar consequat lacinia. Nullam aliquet pharetra ante at aliquet. Sed mattis nibh ante, vitae tincidunt ante ornare congue. Suspendisse velit nisi, dignissim id fringilla ut, fringilla vel erat. Duis id lacus ut nibh efficitur interdum a a sem. Curabitur eu lacinia dolor. Nunc euismod venenatis turpis a lobortis.</p>
+                <p>
+                  <FormattedMessage
+                    id="cookie_policy.01"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="cookie_policy.02"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="cookie_policy.03"
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="privacy_policy.download"
+                  />
+                </p>
               </div>
             </Legalright>
           </NFTminting>
