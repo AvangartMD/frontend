@@ -15,6 +15,7 @@ import ProfielBack from "../Assets/images/profile-back.jpg";
 import CopyICO from "../Assets/images/icon-copy.svg";
 
 import SocialICO01 from "../Assets/images/social-icon01.svg";
+import SocialICO02 from '../Assets/images/social-icon02.svg';
 import SocialICO03 from "../Assets/images/social-icon03.svg";
 import SocialICO04 from "../Assets/images/social-icon04.svg";
 import SocialICO05 from "../Assets/images/social-icon05.svg";
@@ -150,6 +151,16 @@ class CreatorProfile extends Component {
                       ) : (
                         ""
                       )}
+                      {profile?.portfolio?.discord?.url && (
+                          <button
+                            onClick={() => {
+                              window.open(profile.portfolio.discord.url, '_blank');
+                            }}
+                          >
+                            <img src={SocialICO02} alt='' />
+                          </button>
+                        )
+                      }
                       {profile ? (
                         profile.portfolio?.facebook?.url ? (
                           <button
