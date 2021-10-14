@@ -73,7 +73,12 @@ class Legal extends Component {
             </Legalleft>
             <Legalright>
               <div id="terms">
-                <h3>Terms of Service</h3>
+                <h3>
+                  <FormattedMessage
+                    id="term_of_service"
+                    defaultMessage="Terms of Service"
+                  />
+                </h3>
                 <p>
                   <FormattedMessage
                     id="term_service.01"
@@ -101,7 +106,12 @@ class Legal extends Component {
                 </p>
               </div>
               <div id="privacy">
-                <h3>Privacy Policy</h3>
+                <h3>
+                  <FormattedMessage
+                    id="privacy_policy"
+                    defaultMessage="Privacy Policy"
+                  />
+                </h3>
                 <p>
                   <FormattedMessage
                     id="privacy_policy.01"
@@ -129,7 +139,12 @@ class Legal extends Component {
                 </p>
               </div>
               <div id="cookie">
-                <h3>Cookie Policy</h3>
+                <h3>  
+                  <FormattedMessage
+                    id="cookie_policy"
+                    defaultMessage="Cookie Policy"
+                  />
+                </h3>
                 <p>
                   <FormattedMessage
                     id="cookie_policy.01"
