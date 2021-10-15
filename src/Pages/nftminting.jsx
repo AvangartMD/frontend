@@ -1228,29 +1228,6 @@ class NFTPage extends Component {
                           )}
                         </FormattedMessage>
                       </NFTForm>
-
-                      {/* <NFTtitle id="admins">
-                        <h4 className="mt-30 text-till-blue">for Admins</h4>
-                        <p className="mb-30">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </p>
-                      </NFTtitle> */}
-                      {/* <NFTForm>
-                        <div className="label-line">
-                          <label>Wallet Address</label>
-                        </div>
-                        <input type="text" placeholder="Type something…" />
-                      </NFTForm> */}
-                      {/* <NFTForm>
-                        <div className="label-line">
-                          <label>First Hand Fee</label>
-                        </div>
-                        <div className="iRight">
-                          <input type="text" placeholder="Type something…" />
-                          <i>%</i>
-                        </div>
-                      </NFTForm> */}
                       <CreateItemButton>
                         <button
                           type="submit"
