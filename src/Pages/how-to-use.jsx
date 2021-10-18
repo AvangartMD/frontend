@@ -48,8 +48,10 @@ class HowToUse extends Component {
               <Howtoright>
                 <img src={NFT2} alt="" />
                 <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                  <p>
+                    <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                  </p>
+                  <Link to='/how-to-use'><img src={Cshape} alt="" /></Link>
                 </div>
               </Howtoright>
             </HowtoRow>
@@ -62,8 +64,10 @@ class HowToUse extends Component {
               <Howtoright>
                 <img src={NFT2} alt="" />
                 <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                  <p>
+                    <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                  </p>
+                  <Link to='/how-to-use'><img src={Cshape} alt="" /></Link>
                 </div>
               </Howtoright>
             </HowtoRow>
@@ -76,8 +80,10 @@ class HowToUse extends Component {
               <Howtoright>
                 <img src={NFT2} alt="" />
                 <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                  <p>
+                    <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                  </p>
+                  <Link to='/how-to-use'><img src={Cshape} alt="" /></Link>
                 </div>
               </Howtoright>
             </HowtoRow>
@@ -90,8 +96,10 @@ class HowToUse extends Component {
               <Howtoright>
                 <img src={NFT2} alt="" />
                 <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                  <p>
+                    <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                  </p>
+                  <Link to='/how-to-use'><img src={Cshape} alt="" /></Link>
                 </div>
               </Howtoright>
             </HowtoRow>
@@ -105,8 +113,10 @@ class HowToUse extends Component {
               <Howtoright>
                 <img src={NFT2} alt="" />
                 <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                  <p>
+                    <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                  </p>
+                  <Link to='/how-to-use'><img src={Cshape} alt="" /></Link>
                 </div>
               </Howtoright>
             </HowtoRow>
@@ -119,8 +129,10 @@ class HowToUse extends Component {
               <Howtoright>
                 <img src={NFT2} alt="" />
                 <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
+                  <p>
+                    <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                  </p>
+                  <Link to='/how-to-use'><img src={Cshape} alt="" /></Link>
                 </div>
               </Howtoright>
             </HowtoRow>
