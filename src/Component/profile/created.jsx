@@ -115,6 +115,7 @@ function Created(props) {
         <NFTfourbox>
           {NFTs ? (
             NFTs.map((nft, key) => (
+              nft.isActive &&
               <NFTCard
                 key={key}
                 nftSold={nft.nftSold}

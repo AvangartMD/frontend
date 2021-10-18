@@ -40,6 +40,7 @@ function Liked(props) {
         <NFTfourbox>
           {NFTs ? (
             NFTs.map((nft) => (
+              nft.isActive &&
               <NFTCard
                 nftSold={nft.nftSold}
                 name={nft.ownerId.name}
