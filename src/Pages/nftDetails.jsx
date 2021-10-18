@@ -1,46 +1,46 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import Gs from "../Theme/globalStyles";
-import { Link, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import { FormattedMessage } from "react-intl";
-import { withRouter } from "react-router";
-import ReactAudioPlayer from "react-audio-player";
-import ReactPlayer from "react-player";
-import Magnifypopup from "../Component/Modals/magnifyPopup";
-import POSpopup from "../Component/Modals/putonsalepopup";
-import PABpopup from "../Component/Modals/placebidpopup";
-import Historypopup from "../Component/historypopup";
-import SelectEdition from "../Component/selectedition";
-import Collapse from "@kunukn/react-collapse";
-import { web3 } from "../web3";
-import Redheart from "../Assets/images/Redheart.svg";
-import Lock from "../Assets/images/icon-set-lock.svg";
-import redheartBorder from "../Assets/images/redheartBorder.svg";
-import { actions } from "../actions";
-import { connect } from "react-redux";
-import Timer from "../Component/timer";
-import { getContractInstance, getFileType } from "../helper/functions";
-import NftOwnerActions from "../Component/Modals/nftOwnerAction";
-import Login from "../Component/Modals/login";
-import getContractAddresses from "../contractData/contractAddress/addresses";
-import Media from "../Theme/media-breackpoint";
-import UserImg from "../Assets/images/user-img.jpg";
-import LoaderGif from "../Assets/images/loading.gif";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Gs from '../Theme/globalStyles';
+import { Link, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
+import ReactAudioPlayer from 'react-audio-player';
+import ReactPlayer from 'react-player';
+import Magnifypopup from '../Component/Modals/magnifyPopup';
+import POSpopup from '../Component/Modals/putonsalepopup';
+import PABpopup from '../Component/Modals/placebidpopup';
+import Historypopup from '../Component/historypopup';
+import SelectEdition from '../Component/selectedition';
+import Collapse from '@kunukn/react-collapse';
+import { web3 } from '../web3';
+import Redheart from '../Assets/images/Redheart.svg';
+import Lock from '../Assets/images/icon-set-lock.svg';
+import redheartBorder from '../Assets/images/redheartBorder.svg';
+import { actions } from '../actions';
+import { connect } from 'react-redux';
+import Timer from '../Component/timer';
+import { getContractInstance, getFileType } from '../helper/functions';
+import NftOwnerActions from '../Component/Modals/nftOwnerAction';
+import Login from '../Component/Modals/login';
+import getContractAddresses from '../contractData/contractAddress/addresses';
+import Media from '../Theme/media-breackpoint';
+import UserImg from '../Assets/images/user-img.jpg';
+import LoaderGif from '../Assets/images/loading.gif';
 
 // import VideoThumbnail from "react-video-thumbnail";
-import { Scrollbars } from "react-custom-scrollbars";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 function CustomScrollbars(props) {
   return (
     <Scrollbars
       renderTrackVertical={(props) => (
-        <div {...props} className="track-vertical" />
+        <div {...props} className='track-vertical' />
       )}
       renderThumbVertical={(props) => (
-        <div {...props} className="thumb-vertical" />
+        <div {...props} className='thumb-vertical' />
       )}
-      renderView={(props) => <div {...props} className="view" />}
+      renderView={(props) => <div {...props} className='view' />}
       autoHide
       style={props.style}
     >
@@ -52,96 +52,96 @@ function CustomScrollbars(props) {
 const saleMethods = {
   sold: {
     name: null,
-    btnName: <FormattedMessage id="sold" defaultMessage="Sold" />,
-    bidDesc: <FormattedMessage id="sold" defaultMessage="Sold" />,
+    btnName: <FormattedMessage id='sold' defaultMessage='Sold' />,
+    bidDesc: <FormattedMessage id='sold' defaultMessage='Sold' />,
     disable: true,
   },
   buyNow: {
-    name: "buyNow",
-    btnName: <FormattedMessage id="buy_now" defaultMessage="Buy Now" />,
-    bidDesc: <FormattedMessage id="price" defaultMessage="Price" />,
+    name: 'buyNow',
+    btnName: <FormattedMessage id='buy_now' defaultMessage='Buy Now' />,
+    bidDesc: <FormattedMessage id='price' defaultMessage='Price' />,
     open: 8,
   },
   placeABid: {
-    name: "placeBid",
-    btnName: <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />,
-    bidDesc: <FormattedMessage id="current_bid" defaultMessage="Current bid" />,
+    name: 'placeBid',
+    btnName: <FormattedMessage id='place_a_bid' defaultMessage='Place a bid' />,
+    bidDesc: <FormattedMessage id='current_bid' defaultMessage='Current bid' />,
     open: 8,
   },
   makeAnOffer: {
-    name: "placeBid",
+    name: 'placeBid',
     btnName: (
-      <FormattedMessage id="make_an_offer" defaultMessage="Place a bid" />
+      <FormattedMessage id='make_an_offer' defaultMessage='Place a bid' />
     ),
     bidDesc: (
-      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+      <FormattedMessage id='current_offer' defaultMessage='Current offer' />
     ),
     open: 8,
   },
   putOnSale: {
     name: null,
     btnName: (
-      <FormattedMessage id="put_on_sale" defaultMessage="Put on sale " />
+      <FormattedMessage id='put_on_sale' defaultMessage='Put on sale ' />
     ),
     bidDesc: (
-      <FormattedMessage id="purchased_at" defaultMessage="Purchased at" />
+      <FormattedMessage id='purchased_at' defaultMessage='Purchased at' />
     ),
     open: 7,
     checkApproval: true,
   },
   cancelSaleOrder: {
-    name: "cancelSaleOrder",
+    name: 'cancelSaleOrder',
     btnName: (
-      <FormattedMessage id="cancel_sale_order" defaultMessage="Put on sale " />
+      <FormattedMessage id='cancel_sale_order' defaultMessage='Put on sale ' />
     ),
-    bidDesc: "",
+    bidDesc: '',
     open: 1,
   },
   noButton: {
-    name: "",
+    name: '',
     btnName: null,
-    bidDesc: <FormattedMessage id="price" defaultMessage="Price" />,
+    bidDesc: <FormattedMessage id='price' defaultMessage='Price' />,
   },
   claimAfterAuction: {
-    name: "claimAfterAuction",
-    btnName: <FormattedMessage id="claim" defaultMessage="Put on sale " />,
-    bidDesc: <FormattedMessage id="current_bid" defaultMessage="Current bid" />,
+    name: 'claimAfterAuction',
+    btnName: <FormattedMessage id='claim' defaultMessage='Put on sale ' />,
+    bidDesc: <FormattedMessage id='current_bid' defaultMessage='Current bid' />,
     open: 8,
   },
   claimBack: {
-    name: "claimBack",
+    name: 'claimBack',
     btnName: (
-      <FormattedMessage id="cancelMyOffer" defaultMessage="Cancel My Offer" />
+      <FormattedMessage id='cancelMyOffer' defaultMessage='Cancel My Offer' />
     ),
-    bidDesc: <FormattedMessage id="current_bid" defaultMessage="Current bid" />,
+    bidDesc: <FormattedMessage id='current_bid' defaultMessage='Current bid' />,
     open: 1,
     checkApproval: false,
   },
   acceptOffer: {
-    name: "acceptOffer",
+    name: 'acceptOffer',
     btnName: (
-      <FormattedMessage id="accpet_offer" defaultMessage="Accept Offer" />
+      <FormattedMessage id='accpet_offer' defaultMessage='Accept Offer' />
     ),
     bidDesc: (
-      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+      <FormattedMessage id='current_offer' defaultMessage='Current offer' />
     ),
     open: 1,
   },
   burn: {
-    name: "burnTokenEdition",
-    btnName: <FormattedMessage id="burn" defaultMessage="Burn" />,
+    name: 'burnTokenEdition',
+    btnName: <FormattedMessage id='burn' defaultMessage='Burn' />,
     bidDesc: (
-      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+      <FormattedMessage id='current_offer' defaultMessage='Current offer' />
     ),
     open: 1,
   },
   transfer: {
-    name: "transfer",
+    name: 'transfer',
     btnName: (
-      <FormattedMessage id="transfer_nft" defaultMessage="Accept Offer" />
+      <FormattedMessage id='transfer_nft' defaultMessage='Accept Offer' />
     ),
     bidDesc: (
-      <FormattedMessage id="current_offer" defaultMessage="Current offer" />
+      <FormattedMessage id='current_offer' defaultMessage='Current offer' />
     ),
     open: 1,
   },
@@ -153,18 +153,18 @@ class NftDetail extends React.Component {
       isOpen1: false,
       isOpen4: false,
       isOpen9: false,
-      imgClass: "",
+      imgClass: '',
       bnbUSDPrice: {},
       bidDetails: {
-        currentBidValue: "0",
-        bidder: "0x0000000000000000000000000000000000000000",
+        currentBidValue: '0',
+        bidder: '0x0000000000000000000000000000000000000000',
       },
-      ownerActionName: "",
+      ownerActionName: '',
       currentEdition: 0,
       saleMethod: {
-        name: "placeBid",
+        name: 'placeBid',
         btnName: (
-          <FormattedMessage id="place_a_bid" defaultMessage="Place a bid" />
+          <FormattedMessage id='place_a_bid' defaultMessage='Place a bid' />
         ),
       },
       showTimer: false,
@@ -175,9 +175,9 @@ class NftDetail extends React.Component {
       ext: null,
       nextMethod: null,
       loader: true,
-      magnifyClass: " ",
+      magnifyClass: ' ',
       accountBalance: 0,
-      networkError: false
+      networkError: false,
     };
   }
   async componentDidUpdate(prevProps, prevState) {
@@ -200,8 +200,8 @@ class NftDetail extends React.Component {
     if (web3Data !== prevProps.web3Data) {
       if (window.web3) {
         const chainID = await web3.eth.getChainId();
-        if (chainID === 56 || chainID === "0x38") {
-          this.setState({ networkError: false })
+        if (chainID === 56 || chainID === '0x38') {
+          this.setState({ networkError: false });
         }
       }
     }
@@ -234,18 +234,17 @@ class NftDetail extends React.Component {
       this.props.getIsLiked(this.props.match.params.id);
     }
     const string =
-      "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry";
+      'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd%2Ctry';
     await fetch(string)
       .then((resp) => resp.json())
       .then(async (data) => {
         this.setState({ bnbUSDPrice: data.binancecoin });
       });
-    
-    
+
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
-      if (chainID !== 56 && chainID !== "0x38") {
-        this.setState({ networkError: true })
+      if (chainID !== 56 && chainID !== '0x38') {
+        this.setState({ networkError: true });
       }
     }
   }
@@ -276,7 +275,7 @@ class NftDetail extends React.Component {
     if (secondHand) {
       if (isOwner) {
         if (isOpenForSale) {
-          if (saleState === "OFFER" && +bidDetails.bidValue > price) {
+          if (saleState === 'OFFER' && +bidDetails.bidValue > price) {
             this.setState({
               saleMethod: saleMethods.acceptOffer,
             });
@@ -291,7 +290,7 @@ class NftDetail extends React.Component {
         }
       } else {
         if (isOpenForSale) {
-          if (saleState === "BUY") {
+          if (saleState === 'BUY') {
             this.setState({ saleMethod: saleMethods.buyNow });
           } else {
             if (
@@ -318,12 +317,12 @@ class NftDetail extends React.Component {
       if (isOwner) {
         const method = saleMethods.noButton;
         method.bidDesc =
-          saleState === "BUY" ? (
-            <FormattedMessage id="price" defaultMessage="Price" />
+          saleState === 'BUY' ? (
+            <FormattedMessage id='price' defaultMessage='Price' />
           ) : (
             <FormattedMessage
-              id="current_offer"
-              defaultMessage="Current offer"
+              id='current_offer'
+              defaultMessage='Current offer'
             />
           );
         return this.setState({
@@ -429,26 +428,26 @@ class NftDetail extends React.Component {
       selectedNFTDetails = {
         bidTimeStamp: bidDetails.timeStamp,
         isOwner:
-          soldEdition.transactionId === "0x"
+          soldEdition.transactionId === '0x'
             ? false
             : soldEdition.ownerId.id === authData?.data?.id,
         ownerId: soldEdition.ownerId,
         isOpenForSale: soldEdition.isOpenForSale,
         price: soldEdition.isOpenForSale
-          ? soldEdition.saleType.type === "OFFER"
+          ? soldEdition.saleType.type === 'OFFER'
             ? +web3.utils.fromWei(bidDetails.bidValue) > 0
               ? +web3.utils.fromWei(bidDetails.bidValue)
               : soldEdition.saleType.price
             : soldEdition.saleType.price
-          : soldEdition.transactionId === "0x"
-            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
-              ? +web3.utils.fromWei(bidDetails.bidValue)
-              : soldEdition.saleType.price
-            : soldEdition.price,
+          : soldEdition.transactionId === '0x'
+          ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+            ? +web3.utils.fromWei(bidDetails.bidValue)
+            : soldEdition.saleType.price
+          : soldEdition.price,
         saleState: soldEdition.saleType.type,
-        secondHand: soldEdition.transactionId === "0x" ? false : true,
+        secondHand: soldEdition.transactionId === '0x' ? false : true,
         orderNonce:
-          soldEdition.transactionId === "0x"
+          soldEdition.transactionId === '0x'
             ? NFTDetails.nonce
             : soldEdition.nonce,
         isBurned: soldEdition.isBurned,
@@ -460,17 +459,17 @@ class NftDetail extends React.Component {
         ownerId: NFTDetails.ownerId,
         isOpenForSale: true,
         price:
-          NFTDetails.saleState === "AUCTION"
+          NFTDetails.saleState === 'AUCTION'
             ? +web3.utils.fromWei(bidDetails.bidValue) > 0
               ? +web3.utils.fromWei(bidDetails.bidValue)
               : NFTDetails.price
             : NFTDetails.price,
         saleState:
-          NFTDetails.saleState === "AUCTION"
+          NFTDetails.saleState === 'AUCTION'
             ? NFTDetails.auctionEndDate > new Date().getTime() / 1000
-              ? "AUCTION"
-              : "BUY"
-            : "BUY",
+              ? 'AUCTION'
+              : 'BUY'
+            : 'BUY',
         secondHand: false,
         orderNonce: NFTDetails.nonce,
         isBurned: false,
@@ -518,7 +517,7 @@ class NftDetail extends React.Component {
     if (!isApprovedForAll) {
       this.setState(
         {
-          ownerActionName: "setApprovalForAll",
+          ownerActionName: 'setApprovalForAll',
           nextMethod: saleMethod,
         },
         () => this.toggle(1)
@@ -572,9 +571,9 @@ class NftDetail extends React.Component {
       networkError,
     } = this.state;
     const { likesCount, isLiked, authData, web3Data } = this.props;
-    console.log('networkError ? ', networkError)
+    // console.log('networkError ? ', networkError)
     let currentCurrenctyPrice =
-      this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
+      this.props.lng === 'en' ? bnbUSDPrice.usd : bnbUSDPrice.try;
     // console.log("selected nft details", selectedNFTDetails);
     if (loader) {
       return (
@@ -582,19 +581,22 @@ class NftDetail extends React.Component {
           <Gs.MainSection>
             <NFTdetailSection>
               <LoaderBX>
-                <img src={LoaderGif} alt="" />
+                <img src={LoaderGif} alt='' />
               </LoaderBX>
             </NFTdetailSection>
           </Gs.MainSection>
-          {networkError &&
+          {networkError && (
             <BlackWrap>
               <WhiteBX01>
                 <WGTitle>
-                  <FormattedMessage id="network_warning" defaultMessage="Please switch to a supported network: BSC" />
+                  <FormattedMessage
+                    id='network_warning'
+                    defaultMessage='Please switch to a supported network: BSC'
+                  />
                 </WGTitle>
               </WhiteBX01>
             </BlackWrap>
-          }
+          )}
         </>
       );
     }
@@ -602,27 +604,27 @@ class NftDetail extends React.Component {
       var data = String(this).split(/[eE]/);
       if (data.length == 1) return data[0];
 
-      var z = "",
-        sign = this < 0 ? "-" : "",
-        str = data[0].replace(".", ""),
+      var z = '',
+        sign = this < 0 ? '-' : '',
+        str = data[0].replace('.', ''),
         mag = Number(data[1]) + 1;
 
       if (mag < 0) {
-        z = sign + "0.";
-        while (mag++) z += "0";
-        return z + str.replace(/^-/, "");
+        z = sign + '0.';
+        while (mag++) z += '0';
+        return z + str.replace(/^-/, '');
       }
       mag -= str.length;
-      while (mag--) z += "0";
+      while (mag--) z += '0';
       return str + z;
     };
     return (
       <>
         <Helmet>
-          <meta property="og:url" content={window.location.href} />
-          <meta property="og:title" content={NFTDetails?.title} />
-          <meta property="og:image" content={NFTDetails?.image.compressed} />
-          <meta property="og:description" content={NFTDetails?.description} />
+          <meta property='og:url' content={window.location.href} />
+          <meta property='og:title' content={NFTDetails?.title} />
+          <meta property='og:image' content={NFTDetails?.image.compressed} />
+          <meta property='og:description' content={NFTDetails?.description} />
         </Helmet>
 
         <Gs.MainSection>
@@ -631,30 +633,30 @@ class NftDetail extends React.Component {
               <NFTDleftcontainer>
                 <NFTDleftImg>
                   {ext === `image` && (
-                    <Link to="#" onClick={() => this.toggle(6)}>
+                    <Link to='#' onClick={() => this.toggle(6)}>
                       <img
                         src={NFTDetails?.image.original}
-                        alt=""
+                        alt=''
                         className={this.state.imgClass}
                         onLoad={(image) => {
                           if (image.target.height > image.target.width) {
-                            this.setState({ imgClass: "vimg" });
+                            this.setState({ imgClass: 'vimg' });
                           } else if (image.target.width > image.target.height)
-                            this.setState({ magnifyClass: "hr-box" });
+                            this.setState({ magnifyClass: 'hr-box' });
                         }}
-                      />{" "}
+                      />{' '}
                     </Link>
                   )}
-                  {ext === "audio" && (
+                  {ext === 'audio' && (
                     <ReactAudioPlayer
                       src={NFTDetails?.image.original}
                       // autoPlay
                       controls
                     />
                   )}
-                  {ext === "video" && (
+                  {ext === 'video' && (
                     <ReactPlayer
-                      width="100%"
+                      width='100%'
                       controls={true}
                       url={NFTDetails?.image.original}
                       playing={true}
@@ -670,12 +672,12 @@ class NftDetail extends React.Component {
                 <NFTDrightcontainer>
                   <NFTDRtopbar>
                     <NFTDrtitle>
-                      {NFTDetails?.title ? NFTDetails?.title : ""}
+                      {NFTDetails?.title ? NFTDetails?.title : ''}
                     </NFTDrtitle>
                     <NFTtopbarright>
                       {NFTDetails?.unlockContent && (
                         <NFTLock>
-                          <img src={Lock} alt="" />
+                          <img src={Lock} alt='' />
                         </NFTLock>
                       )}
                       <NFTLike
@@ -689,7 +691,7 @@ class NftDetail extends React.Component {
                       >
                         <img
                           src={isLiked.isFollowed ? Redheart : redheartBorder}
-                          alt=""
+                          alt=''
                         />
                         <p>{likesCount.count}</p>
                       </NFTLike>
@@ -701,9 +703,9 @@ class NftDetail extends React.Component {
                         autoHide
                         autoHideTimeout={1000}
                         style={{
-                          width: "100%",
-                          height: "80px",
-                          position: "relative",
+                          width: '100%',
+                          height: '80px',
+                          position: 'relative',
                         }}
                       >
                         {NFTDetails.description}
@@ -719,7 +721,7 @@ class NftDetail extends React.Component {
                               ? NFTDetails.ownerId.profile
                               : UserImg
                           }
-                          alt=""
+                          alt=''
                         />
                         {NFTDetails?.ownerId.username
                           ? `@${NFTDetails.ownerId.username}`
@@ -727,44 +729,44 @@ class NftDetail extends React.Component {
                       </Link>
                     </UserImgName>
                     <button onClick={() => this.toggle(9)}>
-                      <FormattedMessage id="history" defaultMessage="History" />
+                      <FormattedMessage id='history' defaultMessage='History' />
                     </button>
                   </Historysection>
                   <Edition>
-                    <div className="ed-box">
-                      <div className="ed-left">
+                    <div className='ed-box'>
+                      <div className='ed-left'>
                         <p>
                           <FormattedMessage
-                            id="edition"
-                            defaultMessage="Edition"
+                            id='edition'
+                            defaultMessage='Edition'
                           />
                         </p>
-                        <div className="ed-left-inner">
+                        <div className='ed-left-inner'>
                           <h3>{this.state.currentEdition}</h3>
-                          <p className="gray-t">of {NFTDetails?.edition}</p>
+                          <p className='gray-t'>of {NFTDetails?.edition}</p>
                         </div>
                       </div>
-                      <button to="#" onClick={() => this.toggle(10)}>
+                      <button to='#' onClick={() => this.toggle(10)}>
                         <FormattedMessage
-                          id="select_edition"
-                          defaultMessage="Select edition"
+                          id='select_edition'
+                          defaultMessage='Select edition'
                         />
                       </button>
                     </div>
-                    <div className="ed-box">
-                      <div className="ed-left">
+                    <div className='ed-box'>
+                      <div className='ed-left'>
                         <p>{saleMethod.bidDesc}</p>
-                        <div className="ed-left-inner">
+                        <div className='ed-left-inner'>
                           <h3>
                             {Number(selectedNFTDetails?.price)
                               .noExponents()
                               .replace(
                                 /([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,
-                                "$1"
-                              )}{" "}
+                                '$1'
+                              )}{' '}
                             BNB
                           </h3>
-                          <p className="gray-t">
+                          <p className='gray-t'>
                             {/* {
                             <FormattedMessage id="currency" values={{}} defaultMessage="en">
                               {(lang) => {
@@ -774,31 +776,31 @@ class NftDetail extends React.Component {
                           } */}
                             {(
                               selectedNFTDetails?.price * currentCurrenctyPrice
-                            ).toLocaleString(undefined, 2)}{" "}
+                            ).toLocaleString(undefined, 2)}{' '}
                             <FormattedMessage
-                              id="currency"
-                              defaultMessage="en"
+                              id='currency'
+                              defaultMessage='en'
                             />
                           </p>
                         </div>
                       </div>
-                      <p className="royalty">
+                      <p className='royalty'>
                         <FormattedMessage
-                          id="nft_price_lable"
-                          defaultMessage="A 10% royalty goes to the creator for future resale"
+                          id='nft_price_lable'
+                          defaultMessage='A 10% royalty goes to the creator for future resale'
                         />
                       </p>
                     </div>
                     {showTimer && (
-                      <div className="ed-box ed-mb-block">
+                      <div className='ed-box ed-mb-block'>
                         <p>
                           <FormattedMessage
-                            id="ending_in"
-                            defaultMessage="Ending in"
+                            id='ending_in'
+                            defaultMessage='Ending in'
                           />
                           ,
                         </p>
-                        <FlexDiv className="JCFS">
+                        <FlexDiv className='JCFS'>
                           <Timer
                             timeLeft={NFTDetails?.auctionEndDate}
                             onlyHours={true}
@@ -808,11 +810,11 @@ class NftDetail extends React.Component {
                       </div>
                     )}
                     {NFTDetails?.unlockContent && NFTDetails?.digitalKey ? (
-                      <div className="ed-box ed-ulock ed-mb-block">
+                      <div className='ed-box ed-ulock ed-mb-block'>
                         <p>
                           <FormattedMessage
-                            id="unlock_content_label"
-                            defaultMessage="Unlockable content message"
+                            id='unlock_content_label'
+                            defaultMessage='Unlockable content message'
                           />
                         </p>
                         <SkyNoteBox>
@@ -820,12 +822,12 @@ class NftDetail extends React.Component {
                             autoHide
                             autoHideTimeout={1000}
                             style={{
-                              width: "100%",
-                              height: "47px",
-                              position: "relative",
+                              width: '100%',
+                              height: '47px',
+                              position: 'relative',
                             }}
                           >
-                            <p className="note-text">
+                            <p className='note-text'>
                               {NFTDetails?.digitalKey}
                             </p>
                           </CustomScrollbars>
@@ -847,23 +849,23 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                      selectedNFTDetails.isOpenForSale &&
-                      selectedNFTDetails.secondHand &&
-                      !selectedNFTDetails.isBurned ? (
+                    selectedNFTDetails.isOpenForSale &&
+                    selectedNFTDetails.secondHand &&
+                    !selectedNFTDetails.isBurned ? (
                       <button
-                        className="bordered"
+                        className='bordered'
                         onClick={() => {
                           this.setOwnerActions(saleMethods.cancelSaleOrder);
                         }}
                       >
                         <FormattedMessage
-                          id="cancel_sale_order"
-                          defaultMessage="Cancel Sale Order"
+                          id='cancel_sale_order'
+                          defaultMessage='Cancel Sale Order'
                         />
                       </button>
                     ) : null}
-                    {NFTDetails?.status === "NOT_MINTED" &&
-                      web3Data.isLoggedIn ? (
+                    {NFTDetails?.status === 'NOT_MINTED' &&
+                    web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
@@ -871,32 +873,32 @@ class NftDetail extends React.Component {
                           )
                         }
                       >
-                        Edit{" "}
+                        Edit{' '}
                       </button>
                     ) : selectedNFTDetails?.isOwner &&
                       !selectedNFTDetails.isOpenForSale &&
                       !selectedNFTDetails.isBurned ? (
                       <>
                         <button
-                          className="bordered"
+                          className='bordered'
                           onClick={() => {
                             this.setOwnerActions(saleMethods.burn);
                           }}
                         >
                           <FormattedMessage
-                            id="burn"
-                            defaultMessage="Transfer"
+                            id='burn'
+                            defaultMessage='Transfer'
                           />
                         </button>
                         <button
-                          className="bordered"
+                          className='bordered'
                           onClick={() =>
                             this.setOwnerActions(saleMethods.transfer)
                           }
                         >
                           <FormattedMessage
-                            id="transfer"
-                            defaultMessage="Transfer"
+                            id='transfer'
+                            defaultMessage='Transfer'
                           />
                         </button>
                       </>
@@ -909,7 +911,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen1}
             className={
-              "app__collapse " + (this.state.isOpen1 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen1 ? 'collapse-active' : '')
             }
           >
             <NftOwnerActions
@@ -930,7 +932,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen6}
             className={
-              "app__collapse " + (this.state.isOpen6 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen6 ? 'collapse-active' : '')
             }
           >
             <Magnifypopup
@@ -942,7 +944,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen7}
             className={
-              "app__collapse " + (this.state.isOpen7 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen7 ? 'collapse-active' : '')
             }
           >
             <POSpopup
@@ -958,7 +960,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen8}
             className={
-              "app__collapse " + (this.state.isOpen8 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen8 ? 'collapse-active' : '')
             }
           >
             <PABpopup
@@ -979,7 +981,7 @@ class NftDetail extends React.Component {
             <Collapse
               isOpen={this.state.isOpen9}
               className={
-                "app__collapse " + (this.state.isOpen9 ? "collapse-active" : "")
+                'app__collapse ' + (this.state.isOpen9 ? 'collapse-active' : '')
               }
             >
               <Historypopup
@@ -994,7 +996,7 @@ class NftDetail extends React.Component {
           <Collapse
             isOpen={this.state.isOpen10}
             className={
-              "app__collapse " + (this.state.isOpen10 ? "collapse-active" : "")
+              'app__collapse ' + (this.state.isOpen10 ? 'collapse-active' : '')
             }
           >
             <SelectEdition
@@ -1011,7 +1013,7 @@ class NftDetail extends React.Component {
     );
   }
   toggle = (index) => {
-    let collapse = "isOpen" + index;
+    let collapse = 'isOpen' + index;
     this.setState((prevState) => ({ [collapse]: !prevState[collapse] }));
   };
 }
@@ -1407,11 +1409,11 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
-  form{
-    width:100%;
+  form {
+    width: 100%;
     // .view{
     //   width:100%;
     //   overflow-x:hidden !important;
@@ -1422,7 +1424,7 @@ const WhiteBX01 = styled(FlexDiv)`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 20px;
-  line-height:28px;
+  line-height: 28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;

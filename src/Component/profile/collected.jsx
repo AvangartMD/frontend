@@ -82,7 +82,6 @@ function Collected(props) {
             :
             <CEmpty>
               <h2 className="Bec"> <FormattedMessage id="collected_empty" defaultMessage="Collected is Empty" /></h2>
-              {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
             </CEmpty>
           : ``}
 
