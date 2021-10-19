@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
       .replace('__META_OG_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_OG_IMAGE__',
-        'https://ipfs.carny.io/ipfs/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg')
+        'https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png')
       .replace('__META_TWITTER_TITLE__', `Welcome to Carny`)
       .replace('__META_TWITTER_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_TWITTER_IMAGE__',
-        'https://ipfs.carny.io/ipfs/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg');
+        'https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png');
     return res.send(htmlData);
   });
 });
@@ -115,11 +115,11 @@ app.get('/*', (req, res, next) => {
       .replace('__META_OG_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_OG_IMAGE__',
-        'https://ipfs.carny.io/ipfs/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg')
+        'https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png')
       .replace('__META_TWITTER_TITLE__', `Welcome to Carny`)
       .replace('__META_TWITTER_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_TWITTER_IMAGE__',
-        'https://ipfs.carny.io/ipfs/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg');
+        'https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png');
     return res.send(htmlData);
   });
 });
@@ -135,11 +135,11 @@ app.get('/', (req, res, next) => {
       .replace('__META_OG_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_OG_IMAGE__',
-        'https://ipfs.carny.io/ipfs/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg')
+        'https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png')
       .replace('__META_TWITTER_TITLE__', `Welcome to Carny`)
       .replace('__META_TWITTER_DESCRIPTION__', `Welcome to Carny`)
       .replace('__META_TWITTER_IMAGE__',
-        'https://ipfs.carny.io/ipfs/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg');
+        'https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png');
     return res.send(htmlData);
   });
 });
