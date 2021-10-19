@@ -325,12 +325,13 @@ function SelectEdition(props) {
                             </FlexDiv>
                           </td>
                           <td className='text-center desktop-block'>
-                            {Number(edition.price)
+                            {parseFloat(+(edition.price).toFixed(5))}{' '}
+                            {/* {Number(edition.price)
                               .toFixed(10)
                               .replace(
                                 /([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,
                                 '$1'
-                              )}{' '}
+                              )}{' '} */}
                             BNB
                           </td>
                           <td>
