@@ -152,14 +152,14 @@ class CreatorProfile extends Component {
                         ""
                       )}
                       {profile?.portfolio?.discord?.url && (
-                          <button
-                            onClick={() => {
-                              window.open(profile.portfolio.discord.url, '_blank');
-                            }}
-                          >
-                            <img src={SocialICO02} alt='' />
-                          </button>
-                        )
+                        <button
+                          onClick={() => {
+                            window.open(profile.portfolio.discord.url, '_blank');
+                          }}
+                        >
+                          <img src={SocialICO02} alt='' />
+                        </button>
+                      )
                       }
                       {profile ? (
                         profile.portfolio?.facebook?.url ? (
@@ -471,6 +471,15 @@ const ProMBannerBX = styled(FlexDiv)`
   background-size: cover;
   background-position: 50% 50%;
   position: relative;
+  :after{
+    content: '';
+    position: absolute;
+    top: 0px;
+    background: linear-gradient(#000, transparent);
+    width: 100%;
+    height: 178px;
+    z-index: 0;
+  }
   ${Media.md} {
     margin-bottom: 250px;
     height:180px;
@@ -489,6 +498,7 @@ const ProMBX01 = styled(FlexDiv)`
   margin-bottom: -291px;
   box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
   align-items: stretch;
+  z-index:1;
   ${Media.lg} {
     max-width: 94%;
   }
