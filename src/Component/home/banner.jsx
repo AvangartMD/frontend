@@ -67,22 +67,22 @@ class BannerTab extends Component {
     const { cookies } = props;
     this.state = {
       loading: false,
-      banners: cookies.get('banners') || null,
+      banners: this.getCookie() || null,
     }
   }
 
   async componentDidMount() {
-    const { banners, cookies } = this.props
+    const { banners } = this.props
     if (!this.state.banners && !banners) {
       this.props.getBanners() // fetch banner list
     } else {
-      this.props.setBanners(cookies.get('banners'))
+      this.props.setBanners(this.getCookie())
     }
   }
 
   componentDidUpdate() {
-    const { banners, cookies } = this.props
-    if (banners && !cookies.get('banners')) {
+    const { banners } = this.props
+    if (banners && !this.getCookie()) {
       this.setCookie(banners) // set banners in cookie
     }
   }
@@ -125,9 +125,22 @@ class BannerTab extends Component {
   }
 
   setCookie = (banners) => {
-    const { cookies } = this.props;
-    const expire = new Date(Date.now() + (expiryTime * 60 * 60 * 1000)) // cookie will expire after 12 hours
-    cookies.set('banners', banners, { path: '/', expires: expire });
+    let oneHour = new Date()
+    oneHour.setHours(oneHour.getHours() + Number(expiryTime)); //two hour from now
+    // oneHour.setMinutes(oneHour.getMinutes() + 1); //one minute from now
+    localStorage.setItem('banners', JSON.stringify({ 'banners': banners, 'stamp': oneHour }))
+  }
+
+  getCookie = () => {
+    let banners = localStorage.getItem('banners')
+    let bannersObj = JSON.parse(banners)
+    if (bannersObj && (new Date(bannersObj.stamp) < new Date())) {
+      return false
+    } else if (bannersObj) {
+      return bannersObj.banners
+    } else {
+      return null
+    }
   }
 
   render() {
