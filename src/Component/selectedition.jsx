@@ -291,79 +291,79 @@ function SelectEdition(props) {
                 <tbody>
                   {editions.length !== 0
                     ? editions.map((edition, key) => {
-                        return (
-                          <tr key={key}>
-                            <td>{edition.number}</td>
-                            <td>
-                              <FlexDiv className='JCFS'>
-                                <div className='table-Img'>
-                                  <img
-                                    src={
-                                      edition.ownerId.profile
-                                        ? edition.ownerId.profile
-                                        : UserIcon
-                                    }
-                                    alt=''
-                                  />
+                      return (
+                        <tr key={key}>
+                          <td>{edition.number}</td>
+                          <td>
+                            <FlexDiv className='JCFS'>
+                              <div className='table-Img'>
+                                <img
+                                  src={
+                                    edition.ownerId.profile
+                                      ? edition.ownerId.profile
+                                      : UserIcon
+                                  }
+                                  alt=''
+                                />
+                              </div>
+                              <div className='eduerprice'>
+                                {edition.ownerId.username
+                                  ? `@${edition.ownerId.username}`
+                                  : edition.ownerId.name}
+                                <div className='mobile-block'>
+                                  {+edition.price < 0.001
+                                    ? +edition.price
+                                      .toFixed(5)
+                                      .toLocaleString()
+                                    : Number(edition.price).toLocaleString(
+                                      undefined,
+                                      4
+                                    )}{' '}
+                                  BNB
                                 </div>
-                                <div className='eduerprice'>
-                                  {edition.ownerId.username
-                                    ? `@${edition.ownerId.username}`
-                                    : edition.ownerId.name}
-                                  <div className='mobile-block'>
-                                    {+edition.price < 0.001
-                                      ? +edition.price
-                                          .toFixed(5)
-                                          .toLocaleString()
-                                      : Number(edition.price).toLocaleString(
-                                          undefined,
-                                          4
-                                        )}{' '}
-                                    BNB
-                                  </div>
-                                </div>
-                              </FlexDiv>
-                            </td>
-                            <td className='text-center desktop-block'>
-                              {Number(edition.price)
-                                .toFixed(10)
-                                .replace(
-                                  /([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,
-                                  '$1'
-                                )}{' '}
-                              BNB
-                            </td>
-                            <td>
-                              <CustomRadio1>
-                                <label className='radio-container'>
-                                  {edition.isBurned ? (
-                                    <FormattedMessage
-                                      id='burned'
-                                      defaultMessage='Burned'
-                                    />
-                                  ) : (
-                                    <FormattedMessage
-                                      id='select'
-                                      defaultMessage='Select'
-                                    />
-                                  )}
-                                  <input
-                                    type='radio'
-                                    name='category'
-                                    value='art'
-                                    disabled={edition.isBurned}
-                                    onClick={() => {
-                                      props.setEditionnumber(edition.number);
-                                      props.toggle(10);
-                                    }}
+                              </div>
+                            </FlexDiv>
+                          </td>
+                          <td className='text-center desktop-block'>
+                            {Number(edition.price)
+                              .toFixed(10)
+                              .replace(
+                                /([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/,
+                                '$1'
+                              )}{' '}
+                            BNB
+                          </td>
+                          <td>
+                            <CustomRadio1>
+                              <label className='radio-container'>
+                                {edition.isBurned ? (
+                                  <FormattedMessage
+                                    id='burned'
+                                    defaultMessage='Burned'
                                   />
-                                  <span className='checkmark'></span>
-                                </label>
-                              </CustomRadio1>
-                            </td>
-                          </tr>
-                        );
-                      })
+                                ) : (
+                                  <FormattedMessage
+                                    id='select'
+                                    defaultMessage='Select'
+                                  />
+                                )}
+                                <input
+                                  type='radio'
+                                  name='category'
+                                  value='art'
+                                  disabled={edition.isBurned}
+                                  onClick={() => {
+                                    props.setEditionnumber(edition.number);
+                                    props.toggle(10);
+                                  }}
+                                />
+                                <span className='checkmark'></span>
+                              </label>
+                            </CustomRadio1>
+                          </td>
+                        </tr>
+                      );
+                    })
                     : <FormattedMessage id="no_result_found" defaultMessage="No result found" />}
                 </tbody>
               </table>
@@ -584,6 +584,7 @@ const EditionTable = styled.div`
         .table-Img {
           width: 32px;
           height: 32px;
+          min-width:32px;
           border-radius: 50%;
           margin-right: 10px;
           img {
