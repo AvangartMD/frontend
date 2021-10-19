@@ -439,10 +439,10 @@ class NftDetail extends React.Component {
               : soldEdition.saleType.price
             : soldEdition.saleType.price
           : soldEdition.transactionId === "0x"
-          ? +web3.utils.fromWei(bidDetails.bidValue) > 0
-            ? +web3.utils.fromWei(bidDetails.bidValue)
-            : soldEdition.saleType.price
-          : soldEdition.price,
+            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+              ? +web3.utils.fromWei(bidDetails.bidValue)
+              : soldEdition.saleType.price
+            : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: soldEdition.transactionId === "0x" ? false : true,
         orderNonce:
@@ -849,9 +849,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                    selectedNFTDetails.isOpenForSale &&
-                    selectedNFTDetails.secondHand &&
-                    !selectedNFTDetails.isBurned ? (
+                      selectedNFTDetails.isOpenForSale &&
+                      selectedNFTDetails.secondHand &&
+                      !selectedNFTDetails.isBurned ? (
                       <button
                         className="bordered"
                         onClick={() => {
@@ -865,7 +865,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === "NOT_MINTED" &&
-                    web3Data.isLoggedIn ? (
+                      web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
@@ -1207,6 +1207,12 @@ const Historysection = styled(FlexDiv)`
       background-color: #000;
       color: #fff;
     }
+    ${Media.xs} {
+      margin:0px;
+    }
+  }
+  ${Media.xs} {
+    justify-content: space-between;
   }
 `;
 
