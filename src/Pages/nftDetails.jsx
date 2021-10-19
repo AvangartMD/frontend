@@ -50,6 +50,12 @@ function CustomScrollbars(props) {
 }
 
 const saleMethods = {
+  disabled: {
+    name: null,
+    btnName: "Disabled",
+    bidDesc: "Price",
+    disable: true,
+  },
   sold: {
     name: null,
     btnName: <FormattedMessage id="sold" defaultMessage="Sold" />,
@@ -177,7 +183,7 @@ class NftDetail extends React.Component {
       loader: true,
       magnifyClass: " ",
       accountBalance: 0,
-      networkError: false
+      networkError: false,
     };
   }
   async componentDidUpdate(prevProps, prevState) {
@@ -201,7 +207,7 @@ class NftDetail extends React.Component {
       if (window.web3) {
         const chainID = await web3.eth.getChainId();
         if (chainID === 56 || chainID === "0x38") {
-          this.setState({ networkError: false })
+          this.setState({ networkError: false });
         }
       }
     }
@@ -240,12 +246,11 @@ class NftDetail extends React.Component {
       .then(async (data) => {
         this.setState({ bnbUSDPrice: data.binancecoin });
       });
-    
-    
+
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
       if (chainID !== 56 && chainID !== "0x38") {
-        this.setState({ networkError: true })
+        this.setState({ networkError: true });
       }
     }
   }
@@ -266,13 +271,18 @@ class NftDetail extends React.Component {
     secondHand,
     isOpenForSale,
     saleState,
-    price
+    price,
+    isActive
   ) => {
     const { web3Data } = this.props;
     const NFTDetails = this.state.NFTDetails;
     const isAuction = secondHand
       ? false
       : NFTDetails.auctionEndDate > new Date().getTime() / 1000;
+    if (!isActive)
+      return this.setState({
+        saleMethod: saleMethods.disabled,
+      });
     if (secondHand) {
       if (isOwner) {
         if (isOpenForSale) {
@@ -405,24 +415,12 @@ class NftDetail extends React.Component {
 
     const tokenID = NFTDetails.tokenId;
     let newEdition = _edition;
-
-    // const secondHand = await escrowContractInstance.methods
-    //   .secondHand(+tokenID, newEdition)
-    //   .call();
-    // const currentHolder = await escrowContractInstance.methods
-    //   .currentHolder(+tokenID, newEdition)
-    //   .call();
     const bidDetails = await escrowContractInstance.methods
       .bid(+tokenID, newEdition)
       .call();
-    // console.log("bid details", tokenID, newEdition, bidDetails);
-    // console.log(bidDetails);
     const soldEdition = NFTDetails.editions.find(
       ({ edition }) => edition === newEdition
     );
-    // if (false) {
-    //   const oderDetails = await escrowContractInstance.methods.order(1).call();
-    // }
     let selectedNFTDetails;
     // console.log(soldEdition?.transactionId);
     if (soldEdition)
@@ -441,10 +439,10 @@ class NftDetail extends React.Component {
               : soldEdition.saleType.price
             : soldEdition.saleType.price
           : soldEdition.transactionId === "0x"
-            ? +web3.utils.fromWei(bidDetails.bidValue) > 0
-              ? +web3.utils.fromWei(bidDetails.bidValue)
-              : soldEdition.saleType.price
-            : soldEdition.price,
+          ? +web3.utils.fromWei(bidDetails.bidValue) > 0
+            ? +web3.utils.fromWei(bidDetails.bidValue)
+            : soldEdition.saleType.price
+          : soldEdition.price,
         saleState: soldEdition.saleType.type,
         secondHand: soldEdition.transactionId === "0x" ? false : true,
         orderNonce:
@@ -490,7 +488,8 @@ class NftDetail extends React.Component {
       selectedNFTDetails.secondHand,
       selectedNFTDetails.isOpenForSale,
       selectedNFTDetails.saleState,
-      selectedNFTDetails.price
+      selectedNFTDetails.price,
+      NFTDetails.isActive
     );
   };
   setEditionnumber = (number) => {
@@ -572,7 +571,7 @@ class NftDetail extends React.Component {
       networkError,
     } = this.state;
     const { likesCount, isLiked, authData, web3Data } = this.props;
-    console.log('networkError ? ', networkError)
+    // console.log('networkError ? ', networkError)
     let currentCurrenctyPrice =
       this.props.lng === "en" ? bnbUSDPrice.usd : bnbUSDPrice.try;
     // console.log("selected nft details", selectedNFTDetails);
@@ -586,15 +585,18 @@ class NftDetail extends React.Component {
               </LoaderBX>
             </NFTdetailSection>
           </Gs.MainSection>
-          {networkError &&
+          {networkError && (
             <BlackWrap>
               <WhiteBX01>
                 <WGTitle>
-                  <FormattedMessage id="network_warning" defaultMessage="Please switch to a supported network: BSC" />
+                  <FormattedMessage
+                    id="network_warning"
+                    defaultMessage="Please switch to a supported network: BSC"
+                  />
                 </WGTitle>
               </WhiteBX01>
             </BlackWrap>
-          }
+          )}
         </>
       );
     }
@@ -847,9 +849,9 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {selectedNFTDetails?.isOwner &&
-                      selectedNFTDetails.isOpenForSale &&
-                      selectedNFTDetails.secondHand &&
-                      !selectedNFTDetails.isBurned ? (
+                    selectedNFTDetails.isOpenForSale &&
+                    selectedNFTDetails.secondHand &&
+                    !selectedNFTDetails.isBurned ? (
                       <button
                         className="bordered"
                         onClick={() => {
@@ -863,7 +865,7 @@ class NftDetail extends React.Component {
                       </button>
                     ) : null}
                     {NFTDetails?.status === "NOT_MINTED" &&
-                      web3Data.isLoggedIn ? (
+                    web3Data.isLoggedIn ? (
                       <button
                         onClick={() =>
                           this.props.history.push(
@@ -1407,11 +1409,11 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
-  form{
-    width:100%;
+  form {
+    width: 100%;
     // .view{
     //   width:100%;
     //   overflow-x:hidden !important;
@@ -1422,7 +1424,7 @@ const WhiteBX01 = styled(FlexDiv)`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 20px;
-  line-height:28px;
+  line-height: 28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;

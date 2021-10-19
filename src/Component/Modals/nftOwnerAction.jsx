@@ -174,7 +174,7 @@ function NftOwnerActions(props) {
                         <FormattedMessage id="cancel" defaultMessage="Cancel" />
                       </button>
                       <button className="ani-1" onClick={() => handleAction()}>
-                        Claim Back
+                        <FormattedMessage id="claim_back" defaultMessage="Claim Back" />
                       </button>
                     </NFTcartButtons>
                   </>
@@ -195,7 +195,7 @@ function NftOwnerActions(props) {
                         <FormattedMessage id="cancel" defaultMessage="Cancel" />
                       </button>
                       <button className="ani-1" disabled>
-                        Claim Back
+                        <FormattedMessage id="claim_back" defaultMessage="Claim Back" />
                       </button>
                     </NFTcartButtons>
                   </>
@@ -304,7 +304,7 @@ function NftOwnerActions(props) {
                       className="ani-1 bor-large"
                       onClick={() => handleAction()}
                     >
-                      Accept
+                      <FormattedMessage id="accept" defaultMessage="Accept" />
                     </button>
                   </NFTcartButtons>
                 </>

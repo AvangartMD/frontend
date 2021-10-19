@@ -9,8 +9,7 @@ import Collapse from "@kunukn/react-collapse";
 import { FormattedMessage } from "react-intl";
 import Media from '../Theme/media-breackpoint';
 
-
-import NFT2 from "../Assets/images/nft2.jpg";
+import NFT2 from "../Assets/images/how-to-use.jpg"
 import Cshape from "../Assets/images/combined-shape.svg";
 
 class HowToUse extends Component {
@@ -46,11 +45,14 @@ class HowToUse extends Component {
                 <p><FormattedMessage id="how_to_use_text01_2" /></p>
               </Howtoleft>
               <Howtoright>
-                <img src={NFT2} alt="" />
-                <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
-                </div>
+                <Link to='/how-to-use'>
+                  <img src={NFT2} alt="" />
+                  <div className="overlay">
+                      <p>
+                        <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                      </p>
+                  </div>
+                </Link>
               </Howtoright>
             </HowtoRow>
             <HowtoRow>
@@ -60,11 +62,14 @@ class HowToUse extends Component {
                 <p><FormattedMessage id="how_to_use_text02_2" /></p>
               </Howtoleft>
               <Howtoright>
-                <img src={NFT2} alt="" />
-                <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
-                </div>
+                <Link to='/how-to-use'>
+                  <img src={NFT2} alt="" />
+                  <div className="overlay">
+                      <p>
+                        <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                      </p>
+                  </div>
+                </Link>
               </Howtoright>
             </HowtoRow>
             <HowtoRow>
@@ -74,11 +79,14 @@ class HowToUse extends Component {
                 <p><FormattedMessage id="how_to_use_text03_2" /></p>
               </Howtoleft>
               <Howtoright>
-                <img src={NFT2} alt="" />
-                <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
-                </div>
+                <Link to='/how-to-use'>
+                  <img src={NFT2} alt="" />
+                  <div className="overlay">
+                      <p>
+                        <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                      </p>
+                  </div>
+                </Link>
               </Howtoright>
             </HowtoRow>
             <HowtoRow>
@@ -88,11 +96,14 @@ class HowToUse extends Component {
                 <p><FormattedMessage id="how_to_use_text04_2" /></p>
               </Howtoleft>
               <Howtoright>
-                <img src={NFT2} alt="" />
-                <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
-                </div>
+                <Link to='/how-to-use'>
+                  <img src={NFT2} alt="" />
+                  <div className="overlay">
+                      <p>
+                        <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                      </p>
+                  </div>
+                </Link>
               </Howtoright>
             </HowtoRow>
             <HowtoRow>
@@ -103,11 +114,14 @@ class HowToUse extends Component {
                 <p><FormattedMessage id="how_to_use_text05_3" /></p>
               </Howtoleft>
               <Howtoright>
-                <img src={NFT2} alt="" />
-                <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
-                </div>
+                <Link to='/how-to-use'>
+                  <img src={NFT2} alt="" />
+                  <div className="overlay">
+                      <p>
+                        <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                      </p>
+                  </div>
+                </Link>
               </Howtoright>
             </HowtoRow>
             <HowtoRow>
@@ -117,11 +131,14 @@ class HowToUse extends Component {
                 <p><FormattedMessage id="how_to_use_text06_2" /></p>
               </Howtoleft>
               <Howtoright>
-                <img src={NFT2} alt="" />
-                <div className="overlay">
-                  <p>Video Name</p>
-                  <Link to='/'><img src={Cshape} alt="" /></Link>
-                </div>
+                <Link to='/how-to-use'>
+                  <img src={NFT2} alt="" />
+                  <div className="overlay">
+                      <p>
+                        <FormattedMessage id="comming_soon" defaultMessage="Coming Soon" />
+                      </p>
+                  </div>
+                </Link>
               </Howtoright>
             </HowtoRow>
           </HowToMain>

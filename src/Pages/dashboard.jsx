@@ -568,15 +568,7 @@ class Dashboard extends Component {
                 </TabPanel>
               </Tabs>
             </HomeTabs>
-            {/* <AdBanner>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus at dui imperdiet, eleifend lacus gravida, accumsan
-                arcu. Sed consequat arcu finibus augue, eu pellentesque quam
-                fermentum.{' '}
-              </p>
-              <button>Lorem ipsum</button>
-            </AdBanner> */}
+            
             <AdBanner>
               <a target="_blank" rel="noopener noreferrer" href="">
                 <img src={AdBannerIMG} alt="" />

@@ -115,6 +115,7 @@ function Created(props) {
         <NFTfourbox>
           {NFTs ? (
             NFTs.map((nft, key) => (
+              nft.isActive &&
               <NFTCard
                 key={key}
                 nftSold={nft.nftSold}
@@ -143,7 +144,6 @@ function Created(props) {
           props.profile ?
             <CEmpty>
               <h2 className="Bec"><FormattedMessage id="creation_empty" defaultMessage="Creation is empty" /></h2>
-              {/* <p className="Bec">Lorem ipsum dolor sit assssmet,<br />consectetur adipiscing elit.</p> */}
               {props.status ?
                 <button className="ani-1" onClick={() => props.history.push("/user/nftminting")}>
                   <FormattedMessage id="create" defaultMessage="Create" />

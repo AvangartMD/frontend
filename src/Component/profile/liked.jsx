@@ -40,6 +40,7 @@ function Liked(props) {
         <NFTfourbox>
           {NFTs ? (
             NFTs.map((nft) => (
+              nft.isActive &&
               <NFTCard
                 nftSold={nft.nftSold}
                 name={nft.ownerId.name}
@@ -66,7 +67,6 @@ function Liked(props) {
         {NFTs?.length === 0 ?
           <CEmpty>
             <h2 className="Bec"> <FormattedMessage id="liked_empty" defaultMessage="Liked is empty" /> </h2>
-            {/* <p className="Bec">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p> */}
           </CEmpty>
         : ``}
 

@@ -100,7 +100,8 @@
   "key_label": "You can use this area for private messages, promo codes, links, etc.",
   "put_on_sale": "Put on Sale",
   "accept_offers": "Accept offers",
-  "accept_offers_label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sapien faucibus, ornare arcu et, bibendum risus. Nam ultricies urna sed lectus pulvinar, at iaculis ipsum cursus.",
+  "accpet_offer": "Accept Offer",
+  "accept_offers_label": "Are you sure that you want to accept the offer?",
   "enter_price_lable": "Enter price",
   "place": "Place",
   "history": "History",
@@ -264,7 +265,7 @@
   "collection_cover_label": "Upload PNG, JPEG, GIF, WEBP",
   "collection_choose": "Choose",
   "collection_create": "Create",
-  "network_warning": "Please switch to a supported network: BSC",
+  "network_warning": "Please go to your MetaMask & switch to a supported network: BSC",
   "coll_empty": "No Collections Found",
   "term_service.01": "This Carny User Agreement (“Agreement”) is an agreement executed by and between each registered or unregistered end user (each, a “User”, “you” or “your”) and Carny Teknoloji Anonim Şirketi (“Carny”, “Company”, “we” or “us”) registered in Teşvikiye Mahallesi Hüsrev Gerede Caddesi Çamlı Apt. No:90 Daire 11 Kat 4 Şişli/İstanbul. This Agreement governs the terms and conditions (“Terms”) for your use of the products and services offered on Carny Platform (“Platform”), including without limitation, the access to and use of Carny’s websites and mobile applications and the creation (mint), listing, purchase, sale, hold of NFTs. ",
   "term_service.02": "These Terms constitute the entire Agreement between you and us in relation to the products and services we will provide you. You can access these documents on our website, mobile application or you can directly request them from us. By approving this Agreement electronically via our website or the mobile application, and accessing and using Platform, you are deemed to have read, accepted, executed and agreed to be bound by these Terms.",
@@ -275,5 +276,7 @@
   "privacy_policy.03": "This Privacy Policy (“Policy”) aims to explain how we collect, use, store, share, dispose of and protect personal data you have chosen to share with us when you access our website or any pages or any tablet or mobile phone applications bearing 'Carny' brand that we are owned and/or operated by us or whenever we otherwise connect with you. By means of this Privacy Policy, we fulfil our obligation under Articles 13 and 14 GDPR to provide information on our processing activities to the relevant data subjects.",
   "cookie_policy.01": "To ensure the proper functioning of our website https://carny.io/ and to provide the most relevant services to our visitors and members (“user(s)” or “you”), we place some cookies on your device. This Cookie Policy aims to inform you about the cookies and how to control them for this website.",
   "cookie_policy.02": "Cookies are small text files containing small amounts of information that are saved on your computer, smartphone or other electronic devices with internet access when you visit our website. Cookies may be useful since they allow a website to recognize a user’s device and preferences and generally help to improve the online experience. In addition to these text files, other trackers such as web bugs, beacons, pixels or tracking tags will be considered as cookies in this Cookie Policy. ",
-  "cookie_policy.03": "Cookies set by the website owner (in this case Carny) are called “first party cookies”. Cookies set by parties other than the website owner are called “third-party cookies.” Third-party cookies allow third-party features or functions to be provided on or through website (such as advertising, interactive content and analytics). The parties that set third party cookies can recognize your computer or device both when it visits the website in question and also when it visits certain other websites."
+  "cookie_policy.03": "Cookies set by the website owner (in this case Carny) are called “first party cookies”. Cookies set by parties other than the website owner are called “third-party cookies.” Third-party cookies allow third-party features or functions to be provided on or through website (such as advertising, interactive content and analytics). The parties that set third party cookies can recognize your computer or device both when it visits the website in question and also when it visits certain other websites.",
+  "accept": "Accept",
+  "comming_soon": "Coming Soon"
 }
