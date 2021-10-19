@@ -77,16 +77,18 @@ class Profile extends Component {
       cover: { file: null, url: null, buffer: null },
       profile_banner: false,
       dashboard: cookies.get('dashboard') || null,
-      profileInfo: cookies.get('profileInfo') || null,
+      profileInfo: null,
     };
   }
 
   async componentDidMount() {
-    const { dashboard, profileInfo, cookies } = this.props;
+    const { dashboard, profileInfo,
+      cookies
+    } = this.props;
     if (!this.state.dashboard && !dashboard) {
       this.props.getDashboard(); // fetch dashboard config
-    } else {
-      this.props.setDashboard(cookies.get('dashboard'));
+    }
+    else {
       const isActive = cookies
         .get('dashboard')
         .filter((dash) => dash.name === 'Profile Info')
@@ -95,31 +97,18 @@ class Profile extends Component {
     }
     if (!this.state.profileInfo && !profileInfo) {
       this.props.getProfileInfo(); // fetch profile info list
-    } else {
-      this.props.setProfileInfo(cookies.get('profileInfo'));
     }
     this.props.getProfile(); // fetch profile
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    let { updated, dashboard, cookies, profileInfo, authData } = this.props;
+    let { updated, authData } = this.props;
     if (updated !== prevProps.updated) {
       this.props.getUserDetails(); // fetch user updated details
     }
     if (authData !== prevProps.authData) {
       this.profileUpdated(updated); // profile updated
     }
-    if (dashboard && !cookies.get('dashboard')) {
-      this.setCookie('dashboard', dashboard); // set dashboard data in cookie
-      const isActive = dashboard
-        .filter((dash) => dash.name === 'Profile Info')
-        .map((data) => data.isActive)[0];
-      this.setState({ profile_banner: isActive });
-    }
-    if (profileInfo && !cookies.get('profileInfo')) {
-      this.setCookie('profileInfo', profileInfo); // set profile info in cookie
-    }
-
     let { profile, cover } = this.state;
     if (profile.buffer !== prevState.profile.buffer) {
       this.updateProfileFile();
@@ -128,12 +117,6 @@ class Profile extends Component {
       this.updateCoverFile();
     }
   }
-
-  setCookie = (name, dashboard) => {
-    const { cookies } = this.props;
-    const expire = new Date(Date.now() + expiryTime * 60 * 60 * 1000); // cookie will expire after 12 hours
-    cookies.set(name, dashboard, { path: '/', expires: expire });
-  };
 
   convertToBuffer = async (reader, cover = false) => {
     //file is converted to a buffer to prepare for uploading to IPFS`
