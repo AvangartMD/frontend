@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Collapse from "@kunukn/react-collapse";
 import Media from "../Theme/media-breackpoint";
 
-import SerICON from '../Assets/images/searchICO.svg';
+import SerICON from "../Assets/images/searchICO.svg";
 import NFT2 from "../Assets/images/nft1.jpg";
 import { Scrollbars } from "react-custom-scrollbars";
 
@@ -30,12 +30,11 @@ function CustomScrollbars(props) {
   );
 }
 class BlogList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isOpen1: false,
-      tabPanel: 'all',
+      tabPanel: "all",
       searched: false,
       filter: [],
       page: 1,
@@ -46,7 +45,7 @@ class BlogList extends Component {
     return (
       <Gs.MainSection>
         <Gs.Container>
-          <BlogListtitle>Carny Blog</BlogListtitle>
+          <BlogListtitle>MDProduct Blog</BlogListtitle>
           <FilterMBX>
             <FilterLbx>
               <CustomScrollbars
@@ -54,7 +53,9 @@ class BlogList extends Component {
                 autoHideTimeout={1000}
                 style={{ width: "100%", height: "70px", position: "relative" }}
               >
-                <button className="active" id="all">All</button>
+                <button className="active" id="all">
+                  All
+                </button>
                 <button className="">Art</button>
                 <button className="">Celebrity</button>
                 <button className="">Sport</button>
@@ -62,9 +63,9 @@ class BlogList extends Component {
             </FilterLbx>
             <FilterRbx>
               <FilterInputBX>
-                <input placeholder='Search' />
+                <input placeholder="Search" />
                 <SearchICO>
-                  <img src={SerICON} alt='' />
+                  <img src={SerICON} alt="" />
                 </SearchICO>
               </FilterInputBX>
             </FilterRbx>
@@ -72,7 +73,7 @@ class BlogList extends Component {
           <NFTfourbox>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -81,7 +82,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -90,7 +95,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -99,7 +104,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -108,7 +117,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -117,7 +126,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -126,7 +139,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -135,7 +148,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -144,7 +161,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -153,7 +170,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -162,7 +183,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -171,7 +192,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -180,7 +205,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -189,7 +214,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -198,7 +227,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -207,7 +236,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -216,7 +249,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -225,7 +258,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -234,7 +271,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -243,7 +280,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -252,7 +293,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -261,7 +302,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -270,7 +315,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -279,7 +324,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -288,7 +337,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -297,7 +346,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -306,7 +359,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -315,7 +368,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -324,7 +381,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -333,7 +390,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -342,7 +403,7 @@ class BlogList extends Component {
             </Gs.W25V2>
             <Gs.W25V2>
               <Gs.TenpxGutter>
-                <Link to='/'>
+                <Link to="/">
                   <div className="NFT-home-box">
                     <ImgOuter>
                       <img src={NFT2} alt="" />
@@ -351,7 +412,11 @@ class BlogList extends Component {
                       <h4>
                         Content name / title dolor lorem ipsum sit adipiscing
                       </h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur ascing elit. Phasellus at dui imperdiet, eleifend lacus gravida, accumsan arcu.</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur ascing elit.
+                        Phasellus at dui imperdiet, eleifend lacus gravida,
+                        accumsan arcu.
+                      </p>
                       <p className="date">13.07.2021</p>
                     </div>
                   </div>
@@ -376,9 +441,13 @@ const LoaderBX = styled(FlexDiv)`
   margin: 50px auto;
 `;
 const BlogListtitle = styled.div`
-  font-size:32px; letter-spacing:-1.52px; font-weight:700; color:#000; margin:60px 0px 20px;
-  ${Media.sm}{
-    font-size:24px;
+  font-size: 32px;
+  letter-spacing: -1.52px;
+  font-weight: 700;
+  color: #000;
+  margin: 60px 0px 20px;
+  ${Media.sm} {
+    font-size: 24px;
   }
 `;
 
@@ -387,20 +456,21 @@ const FilterMBX = styled(FlexDiv)`
   justify-content: space-between;
   max-width: 1080px;
   margin: 30px auto 20px;
-  ${Media.lg}{
-    max-width:100%;
+  ${Media.lg} {
+    max-width: 100%;
   }
-  ${Media.md}{
-    margin:0px auto 20px;
+  ${Media.md} {
+    margin: 0px auto 20px;
   }
 `;
 
 const FilterLbx = styled(FlexDiv)`
-  width:45%; justify-content: flex-start;
-  .view{
-    display:flex;
-    align-items:center;
-    padding-right:20px;
+  width: 45%;
+  justify-content: flex-start;
+  .view {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
   }
   button {
     display: inline-block;
@@ -410,7 +480,7 @@ const FilterLbx = styled(FlexDiv)`
     color: #000000;
     border-radius: 15px;
     background-color: #eef2f7;
-    margin:0px 6px 0px 0px;
+    margin: 0px 6px 0px 0px;
     &.active {
       background-color: #00babc;
       color: #fff;
@@ -420,25 +490,24 @@ const FilterLbx = styled(FlexDiv)`
       color: #fff;
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
-    :last-child
-    {
-      margin:0px;
+    :last-child {
+      margin: 0px;
     }
-    ${Media.sm}{
+    ${Media.sm} {
       padding: 10px 19px;
     }
   }
-  ${Media.md}{
-    width:100%;
+  ${Media.md} {
+    width: 100%;
   }
 `;
 const FilterRbx = styled(FlexDiv)`
   width: 55%;
   justify-content: flex-end;
-  ${Media.md}{
-    width:100%;
+  ${Media.md} {
+    width: 100%;
     justify-content: flex-start;
-    margin-top:20px;
+    margin-top: 20px;
   }
 `;
 const FilterInputBX = styled(FlexDiv)`
@@ -461,9 +530,9 @@ const FilterInputBX = styled(FlexDiv)`
       box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
     }
   }
-  ${Media.md}{
-    max-width:100%;
-    margin-right:0px;
+  ${Media.md} {
+    max-width: 100%;
+    margin-right: 0px;
   }
 `;
 const SearchICO = styled(FlexDiv)`
@@ -474,25 +543,25 @@ const SearchICO = styled(FlexDiv)`
   top: 9px;
 `;
 const ImgOuter = styled.div`
-  width:100%;
-  height:255px;
-  border-top-left-radius:10px;
-  border-top-right-radius:10px;
-  overflow:hidden;
+  width: 100%;
+  height: 255px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
   img {
     width: 100%;
-    height:100%;
-    object-fit:cover;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
 const NFTfourbox = styled(FlexDiv)`
-  justify-content:flex-start;
+  justify-content: flex-start;
   margin: 0px -10px 120px;
   .row {
     margin: 0px -10px;
   }
-  a{
+  a {
     .NFT-home-box {
       border-radius: 10px;
       border: 1px solid #dddddd;
@@ -510,9 +579,9 @@ const NFTfourbox = styled(FlexDiv)`
           -webkit-line-clamp: 2;
           display: -webkit-box;
           -webkit-box-orient: vertical;
-          min-height:44px;
+          min-height: 44px;
         }
-        p{
+        p {
           margin: 0px 0px 20px;
           font-size: 12px;
           color: #000000;
@@ -523,18 +592,20 @@ const NFTfourbox = styled(FlexDiv)`
           -webkit-line-clamp: 3;
           display: -webkit-box;
           -webkit-box-orient: vertical;
-          min-height:48px;
-          &.date{
-            font-weight:600; color:#8e9194; margin:0px; min-height:auto;
+          min-height: 48px;
+          &.date {
+            font-weight: 600;
+            color: #8e9194;
+            margin: 0px;
+            min-height: auto;
           }
         }
       }
-      :hover{
-        box-shadow:0 10px 10px 0 rgb(0 0 0 / 20%);
+      :hover {
+        box-shadow: 0 10px 10px 0 rgb(0 0 0 / 20%);
       }
     }
   }
- 
 `;
 
 export default BlogList;

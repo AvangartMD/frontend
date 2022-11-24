@@ -9,7 +9,7 @@ import Collapse from "@kunukn/react-collapse";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/logo.svg";
+import LogoImg from "../Assets/images/logo2.png";
 import NotifiIcon from "../Assets/images/notification.svg";
 import UserIcon from "../Assets/images/user-img.jpg";
 import RightArrow from "../Assets/images/rightArrow.svg";
@@ -17,7 +17,7 @@ import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import { web3, walletConnectProvider } from "../web3";
 import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
 import IconMenuClose from "../Assets/images/icon-set-close.svg";
-import LogoImgWhite from "../Assets/images/logo-white.svg";
+import LogoImgWhite from "../Assets/images/logo2.png";
 import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
 import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
 import NotifiIconWhite from "../Assets/images/notification-white.svg";
@@ -128,17 +128,17 @@ class Header extends Component {
       if (chainID !== 56 && chainID !== "0x38") {
         // this.setState({ networkError: true }) // ask user to switch to the BSC Network
         await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
+          method: "wallet_addEthereumChain",
           params: [
             {
-              chainId: '0x38',
-              chainName: 'Binance Smart Chain',
+              chainId: "0x38",
+              chainName: "Binance Smart Chain",
               nativeCurrency: {
-                name: 'Binance Chain Token',
-                symbol: 'BNB',
-                decimals: 18
+                name: "Binance Chain Token",
+                symbol: "BNB",
+                decimals: 18,
               },
-              rpcUrls: ['https://bsc-dataseed2.binance.org/'],
+              rpcUrls: ["https://bsc-dataseed2.binance.org/"],
             },
           ],
         });
@@ -212,8 +212,8 @@ class Header extends Component {
     const newAddress = web3Data.accounts[0];
     const compactUserAddress = newAddress
       ? newAddress.substring(0, 5) +
-      "...." +
-      newAddress.substring(newAddress.length - 5, newAddress.length)
+        "...." +
+        newAddress.substring(newAddress.length - 5, newAddress.length)
       : "00000000000";
 
     this.setState({ accountBalance, compactUserAddress });
@@ -253,10 +253,13 @@ class Header extends Component {
   };
 
   render() {
-    const { web3Data, userDetails, accountBalance, compactUserAddress,
+    const {
+      web3Data,
+      userDetails,
+      accountBalance,
+      compactUserAddress,
       // networkError
-    } =
-      this.state;
+    } = this.state;
     const value = this.props.location.pathname;
     const parts = value.split("/");
     const useGradient =
@@ -1227,11 +1230,11 @@ const WhiteBX01 = styled(FlexDiv)`
   border-radius: 30px;
   justify-content: flex-start;
   align-content: center;
-  ${Media.xs}{
-    padding:50px 25px;
+  ${Media.xs} {
+    padding: 50px 25px;
   }
-  form{
-    width:100%;
+  form {
+    width: 100%;
     // .view{
     //   width:100%;
     //   overflow-x:hidden !important;
@@ -1242,14 +1245,13 @@ const WhiteBX01 = styled(FlexDiv)`
 const WGTitle = styled.div`
   color: #000000;
   font-size: 20px;
-  line-height:28px;
+  line-height: 28px;
   font-weight: 700;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
   text-align: center;
   width: 100%;
 `;
-
 
 const mapDipatchToProps = (dispatch) => {
   return {

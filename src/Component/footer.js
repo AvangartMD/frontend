@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import loadable from '@loadable/component';
+import loadable from "@loadable/component";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import Media from "./../Theme/media-breackpoint";
@@ -8,15 +8,15 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/logo-white.svg";
+import LogoImg from "../Assets/images/logo2.png";
 
-const Language = loadable(() => import('./lang.switch'))
-const Login = loadable(() => import('./Modals/login'))
-const BecomeCreator = loadable(() => import('../Component/Modals/become-creator'))
-
+const Language = loadable(() => import("./lang.switch"));
+const Login = loadable(() => import("./Modals/login"));
+const BecomeCreator = loadable(() =>
+  import("../Component/Modals/become-creator")
+);
 
 function Footer(props) {
-  
   const { web3Data, authData: userDetails } = props;
 
   const checkRole = (user) => {
@@ -24,16 +24,18 @@ function Footer(props) {
       return <BecomeCreator isFooter={true} />;
     } else if (user.role.roleName === "CREATOR" && user.status === "APPROVED") {
       return (
-      <AvBTN01 className='createButton'>
+        <AvBTN01 className="createButton">
           <Link to="/user/nftminting">
             <FormattedMessage id="create" defaultMessage="Create" />
           </Link>
         </AvBTN01>
       );
     } else if (user.role.roleName === "CREATOR" && user.status !== "APPROVED") {
-      return <AvBTN01 className='createButton'>
-        <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
-      </AvBTN01>;
+      return (
+        <AvBTN01 className="createButton">
+          <FormattedMessage id="waitlist" defaultMessage="Waitlist" />
+        </AvBTN01>
+      );
     }
   };
   const toggle = (index) => {
@@ -96,28 +98,40 @@ function Footer(props) {
             </NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</NavLink>
-            <NavLink to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</NavLink>
-            <NavLink to={{ pathname: "https://discord.com/invite/SkPAgNz4" }} target="_blank">Discord</NavLink>
-            <NavLink to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"><FormattedMessage
-                id="blog"
-                defaultMessage="Blog"
-              /></NavLink>
+            <NavLink
+              to={{ pathname: "https://www.instagram.com/carny.io/" }}
+              target="_blank"
+            >
+              Instagram
+            </NavLink>
+            <NavLink
+              to={{ pathname: "https://twitter.com/carny_io" }}
+              target="_blank"
+            >
+              Twitter
+            </NavLink>
+            <NavLink
+              to={{ pathname: "https://discord.com/invite/SkPAgNz4" }}
+              target="_blank"
+            >
+              Discord
+            </NavLink>
+            <NavLink
+              to={{ pathname: "https://medium.com/@Carny.io" }}
+              target="_blank"
+            >
+              <FormattedMessage id="blog" defaultMessage="Blog" />
+            </NavLink>
           </FooterSSbx02>
           <FooterSSbx02>
-            <NavLink to="/how-to-use"><FormattedMessage
-                id="how_to_use?"
-                defaultMessage="How to use"
-              /></NavLink>
-            <NavLink to="/faq"><FormattedMessage
-                id="faq"
-                defaultMessage="FAQ"
-            /></NavLink>
+            <NavLink to="/how-to-use">
+              <FormattedMessage id="how_to_use?" defaultMessage="How to use" />
+            </NavLink>
+            <NavLink to="/faq">
+              <FormattedMessage id="faq" defaultMessage="FAQ" />
+            </NavLink>
             <a href="mailto:admin@carny.io">
-              <FormattedMessage
-                id="support"
-                defaultMessage="Support"
-              />
+              <FormattedMessage id="support" defaultMessage="Support" />
             </a>
             {/* <NavLink to="">
               <FormattedMessage
@@ -132,7 +146,6 @@ function Footer(props) {
                 <AvBTN01 onClick={() => toggle()}>
                   <FormattedMessage id="login" defaultMessage="Login" />
                 </AvBTN01>
-               
               </>
             ) : userDetails && userDetails.status === true ? (
               checkRole(userDetails.data)
@@ -146,18 +159,35 @@ function Footer(props) {
           <FooterSbx01 className="withborder">
             <p>© 2021</p>
             <FooterrightLinks>
-              <Link to={{ pathname: "https://www.instagram.com/carny.io/" }} target="_blank">Instagram</Link>
-              <Link to={{ pathname: "https://twitter.com/carny_io" }} target="_blank">Twitter</Link>
-              <Link to={{ pathname: "https://discord.com/invite/SkPAgNz4" }} target="_blank">Discord</Link>
-              <Link to={{ pathname: "https://medium.com/@Carny.io" }} target="_blank"><FormattedMessage
-                  id="blog"
-                  defaultMessage="Blog"
-                /></Link>
+              <Link
+                to={{ pathname: "https://www.instagram.com/carny.io/" }}
+                target="_blank"
+              >
+                Instagram
+              </Link>
+              <Link
+                to={{ pathname: "https://twitter.com/carny_io" }}
+                target="_blank"
+              >
+                Twitter
+              </Link>
+              <Link
+                to={{ pathname: "https://discord.com/invite/SkPAgNz4" }}
+                target="_blank"
+              >
+                Discord
+              </Link>
+              <Link
+                to={{ pathname: "https://medium.com/@Carny.io" }}
+                target="_blank"
+              >
+                <FormattedMessage id="blog" defaultMessage="Blog" />
+              </Link>
             </FooterrightLinks>
           </FooterSbx01>
         </FooterBottom>
       </FooterMBX>
-      {isOpen4?<Login toggle={toggle} />:``}
+      {isOpen4 ? <Login toggle={toggle} /> : ``}
     </>
   );
 }
@@ -181,15 +211,14 @@ const FooterSbx01 = styled(FlexDiv)`
   margin: 0 auto;
   align-items: flex-start;
   justify-content: flex-start;
-  ${Media.sm}{
+  ${Media.sm} {
     justify-content: space-between;
   }
-  &.withborder
-  {
-    border-top:1px solid #fff;
-    margin:30px auto 0px;
-    justify-content:space-between;
-    padding:15px 0px 0px;
+  &.withborder {
+    border-top: 1px solid #fff;
+    margin: 30px auto 0px;
+    justify-content: space-between;
+    padding: 15px 0px 0px;
   }
 `;
 const FooterSSbx01 = styled(FlexDiv)`
@@ -197,16 +226,16 @@ const FooterSSbx01 = styled(FlexDiv)`
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  img.footer-logo{
-    width:80px;
-    height:34px;
-    ${Media.sm}{
-      width:66px;
-      height:28px;
+  img.footer-logo {
+    width: 80px;
+    height: 34px;
+    ${Media.sm} {
+      width: 66px;
+      height: 28px;
     }
   }
-  ${Media.sm}{
-    width:50%;
+  ${Media.sm} {
+    width: 50%;
   }
   p {
     color: #fff;
@@ -214,7 +243,7 @@ const FooterSSbx01 = styled(FlexDiv)`
     font-size: 12px;
     line-height: 22px;
     font-weight: 400;
-    ${Media.sm}{
+    ${Media.sm} {
       font-size: 10px;
       line-height: 20px;
     }
@@ -249,8 +278,8 @@ const FooterSSbx02 = styled(FlexDiv)`
       text-decoration: underline;
     }
   }
-  ${Media.sm}{
-    display:none;
+  ${Media.sm} {
+    display: none;
   }
 `;
 const FooterSSbx03 = styled(FlexDiv)`
@@ -259,9 +288,9 @@ const FooterSSbx03 = styled(FlexDiv)`
   align-items: flex-end;
   flex-direction: column;
   padding-top: 48px;
-  ${Media.sm}{
-    width:50%;
-    padding-top:0px;
+  ${Media.sm} {
+    width: 50%;
+    padding-top: 0px;
   }
 `;
 
@@ -270,21 +299,21 @@ const AvBTN01 = styled.button`
   color: #fff;
   background-color: #000;
   border-radius: 15px;
-  font-size:14px;
+  font-size: 14px;
   :hover {
     background-color: #d121d6;
     -webkit-box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
     box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.08);
   }
-  &.createButton{
-    a{
-      color:#fff;
+  &.createButton {
+    a {
+      color: #fff;
     }
   }
-  ${Media.md}{
+  ${Media.md} {
     padding: 9px 20px;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     padding: 9px 15px;
   }
 `;
@@ -298,7 +327,7 @@ const LanBTN = styled(FlexDiv)`
     font-weight: 400;
     color: #fff;
   }
-  ${Media.sm}{
+  ${Media.sm} {
     margin-top: 32px;
   }
 `;
@@ -348,38 +377,34 @@ const DDBtnbar01 = styled(FlexDiv)`
 `;
 
 const FooterBottom = styled.div`
-  display:none;
-  p
-  {
-    font-size:12px;
-    color:#fff;
-    letter-spacing:-0.6px;
-    font-weight:500;
-    margin:0px;
+  display: none;
+  p {
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: -0.6px;
+    font-weight: 500;
+    margin: 0px;
   }
-  ${Media.sm}{
-    display:block;
+  ${Media.sm} {
+    display: block;
   }
 `;
 
 const FooterrightLinks = styled(FlexDiv)`
-  a{
-    font-size:12px;
-    color:#fff;
-    letter-spacing:-0.6px;
-    font-weight:500;
-    margin:0px 20px 0px 0px;
-    :hover
-    {
-      color:#f40058;
+  a {
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: -0.6px;
+    font-weight: 500;
+    margin: 0px 20px 0px 0px;
+    :hover {
+      color: #f40058;
     }
-    :last-child
-    {
-      margin-right:0px;
+    :last-child {
+      margin-right: 0px;
     }
   }
 `;
-
 
 const mapDipatchToProps = (dispatch) => {
   return {
