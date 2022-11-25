@@ -16,15 +16,15 @@ app.get("/", (req, res) => {
     }
 
     htmlData = htmlData
-      .replace("__META_OG_TITLE__", `Welcome to NFTM`)
-      .replace("__META_OG_DESCRIPTION__", `Welcome to NFTM`)
-      .replace("__META_DESCRIPTION__", `Welcome to NFTM`)
+      .replace("__META_OG_TITLE__", `Welcome to Carny`)
+      .replace("__META_OG_DESCRIPTION__", `Welcome to Carny`)
+      .replace("__META_DESCRIPTION__", `Welcome to Carny`)
       .replace(
         "__META_OG_IMAGE__",
         "https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png"
       )
-      .replace("__META_TWITTER_TITLE__", `Welcome to NFTM`)
-      .replace("__META_TWITTER_DESCRIPTION__", `Welcome to NFTM`)
+      .replace("__META_TWITTER_TITLE__", `Welcome to Carny`)
+      .replace("__META_TWITTER_DESCRIPTION__", `Welcome to Carny`)
       .replace(
         "__META_TWITTER_IMAGE__",
         "https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png"
@@ -46,14 +46,14 @@ app.get("/nftDetails/:id", (req, res, next) => {
     }
     /* axios api call */
     let header = { "content-type": "application/json" };
-    let url = `https://api.nftm.io/api/v1/nft/single/${req.params.id}`;
+    let url = `https://api.carny.io/api/v1/nft/single/${req.params.id}`;
     axios
       .get(url, { headers: header })
       .then((ress) => {
         // inject meta tags
         htmlData = htmlData
           .replace(
-            "<title>Welcome to NFTM</title>",
+            "<title>Welcome to Carny</title>",
             `<title>${ress.data.data.title}</title>`
           )
           .replace("__META_OG_TITLE__", ress.data.data.title)
@@ -81,14 +81,14 @@ app.get("/creator/:id", (req, res, next) => {
     }
     /* axios api call */
     let header = { "content-type": "application/json" };
-    let url = `https://api.nftm.io/api/v1/user/getSingleUser/${req.params.id}`;
+    let url = `https://api.carny.io/api/v1/user/getSingleUser/${req.params.id}`;
     axios
       .get(url, { headers: header })
       .then((ress) => {
         // inject meta tags
         htmlData = htmlData
           .replace(
-            "<title>Welcome to NFTM</title>",
+            "<title>Welcome to Carny</title>",
             `<title>${ress.data.data.name}</title>`
           )
           .replace("__META_OG_TITLE__", ress.data.data.name)
@@ -115,15 +115,15 @@ app.get("/*", (req, res, next) => {
       return res.status(404).end();
     }
     htmlData = htmlData
-      .replace("__META_OG_TITLE__", `Welcome to NFTM`)
-      .replace("__META_OG_DESCRIPTION__", `Welcome to NFTM`)
-      .replace("__META_DESCRIPTION__", `Welcome to NFTM`)
+      .replace("__META_OG_TITLE__", `Welcome to Carny`)
+      .replace("__META_OG_DESCRIPTION__", `Welcome to Carny`)
+      .replace("__META_DESCRIPTION__", `Welcome to Carny`)
       .replace(
         "__META_OG_IMAGE__",
         "https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png"
       )
-      .replace("__META_TWITTER_TITLE__", `Welcome to NFTM`)
-      .replace("__META_TWITTER_DESCRIPTION__", `Welcome to NFTM`)
+      .replace("__META_TWITTER_TITLE__", `Welcome to Carny`)
+      .replace("__META_TWITTER_DESCRIPTION__", `Welcome to Carny`)
       .replace(
         "__META_TWITTER_IMAGE__",
         "https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png"
@@ -139,15 +139,15 @@ app.get("/", (req, res, next) => {
       return res.status(404).end();
     }
     htmlData = htmlData
-      .replace("__META_OG_TITLE__", `Welcome to NFTM`)
-      .replace("__META_OG_DESCRIPTION__", `Welcome to NFTM`)
-      .replace("__META_DESCRIPTION__", `Welcome to NFTM`)
+      .replace("__META_OG_TITLE__", `Welcome to Carny`)
+      .replace("__META_OG_DESCRIPTION__", `Welcome to Carny`)
+      .replace("__META_DESCRIPTION__", `Welcome to Carny`)
       .replace(
         "__META_OG_IMAGE__",
         "https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png"
       )
-      .replace("__META_TWITTER_TITLE__", `Welcome to NFTM`)
-      .replace("__META_TWITTER_DESCRIPTION__", `Welcome to NFTM`)
+      .replace("__META_TWITTER_TITLE__", `Welcome to Carny`)
+      .replace("__META_TWITTER_DESCRIPTION__", `Welcome to Carny`)
       .replace(
         "__META_TWITTER_IMAGE__",
         "https://res.cloudinary.com/deprlpgnl/image/upload/v1634626495/QmcsUU4qcanaS41gpXSJNUYboct61zFa8QKKoySq8E3Fcg_cu35sq_w5xrhp.png"
