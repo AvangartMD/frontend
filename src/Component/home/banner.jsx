@@ -1,23 +1,22 @@
-import 'react-multi-carousel/lib/styles.css';
-import 'react-tabs/style/react-tabs.css';
-import React, { Component } from 'react';
-import Carousel from 'react-multi-carousel';
-import { connect } from 'react-redux';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import "react-multi-carousel/lib/styles.css";
+import "react-tabs/style/react-tabs.css";
+import React, { Component } from "react";
+import Carousel from "react-multi-carousel";
+import { connect } from "react-redux";
+import { instanceOf } from "prop-types";
+import { withCookies, Cookies } from "react-cookie";
 import { HashLink as Link } from "react-router-hash-link";
-import styled from 'styled-components';
+import styled from "styled-components";
 import LazyLoad from "react-lazyload";
 import { motion } from "framer-motion";
 import Media from "../../Theme/media-breackpoint";
 
-import LArrow from '../../Assets/images/banner-larrow.svg';
-import RArrow from '../../Assets/images/banner-rarrow.svg';
+import LArrow from "../../Assets/images/banner-larrow.svg";
+import RArrow from "../../Assets/images/banner-rarrow.svg";
 
-import { actions } from '../../actions';
-import { Context } from '../wrapper';
-import { expiryTime } from '../../config';
-
+import { actions } from "../../actions";
+import { Context } from "../wrapper";
+import { expiryTime } from "../../config";
 
 const responsive = {
   desktop: {
@@ -47,7 +46,7 @@ const CustomDot = ({ onClick, ...rest }) => {
   const carouselItems = [1, 2, 3, 4, 5, 6];
   return (
     <button
-      className={active ? 'active' : 'inactive'}
+      className={active ? "active" : "inactive"}
       onClick={() => onClick()}
     >
       {React.Children.toArray(carouselItems)[index]}
@@ -56,11 +55,10 @@ const CustomDot = ({ onClick, ...rest }) => {
 };
 
 class BannerTab extends Component {
-
   static contextType = Context;
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  }
+    cookies: instanceOf(Cookies).isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -68,38 +66,38 @@ class BannerTab extends Component {
     this.state = {
       loading: false,
       banners: this.getCookie() || null,
-    }
+    };
   }
 
   async componentDidMount() {
-    const { banners } = this.props
+    const { banners } = this.props;
     if (!this.state.banners && !banners) {
-      this.props.getBanners() // fetch banner list
+      this.props.getBanners(); // fetch banner list
     } else {
-      this.props.setBanners(this.getCookie())
+      this.props.setBanners(this.getCookie());
     }
   }
 
   componentDidUpdate() {
-    const { banners } = this.props
+    const { banners } = this.props;
     if (banners && !this.getCookie()) {
-      this.setCookie(banners) // set banners in cookie
+      this.setCookie(banners); // set banners in cookie
     }
   }
 
   renderedBanner(banner, index) {
     let context = this.context;
-    let img = ''
-    let mob_img = ''
-    if (context.locale === 'tr') {
-      img = banner.banner.tu
-      mob_img = banner.mobile.tu
+    let img = "";
+    let mob_img = "";
+    if (context.locale === "tr") {
+      img = banner.banner.tu;
+      mob_img = banner.mobile.tu;
     } else {
-      img = banner.banner.en
-      mob_img = banner.mobile.en
+      img = banner.banner.en;
+      mob_img = banner.mobile.en;
     }
     return (
-      <div className='item' key={index}>
+      <div className="item" key={index}>
         <Link to={banner.url}>
           <motion.img
             initial={{ opacity: 0.2 }}
@@ -120,44 +118,55 @@ class BannerTab extends Component {
             className="mobile-img"
           />
         </Link>
-      </div >
-    )
+      </div>
+    );
   }
 
   setCookie = (banners) => {
-    let oneHour = new Date()
+    let oneHour = new Date();
     oneHour.setHours(oneHour.getHours() + Number(expiryTime)); //two hour from now
     // oneHour.setMinutes(oneHour.getMinutes() + 1); //one minute from now
-    localStorage.setItem('banners', JSON.stringify({ 'banners': banners, 'stamp': oneHour }))
-  }
+    localStorage.setItem(
+      "banners",
+      JSON.stringify({ banners: banners, stamp: oneHour })
+    );
+  };
 
   getCookie = () => {
-    let banners = localStorage.getItem('banners')
-    let bannersObj = JSON.parse(banners)
-    if (bannersObj && (new Date(bannersObj.stamp) < new Date())) {
-      return false
+    let banners = localStorage.getItem("banners");
+    let bannersObj = JSON.parse(banners);
+    if (bannersObj && new Date(bannersObj.stamp) < new Date()) {
+      return false;
     } else if (bannersObj) {
-      return bannersObj.banners
+      return bannersObj.banners;
     } else {
-      return null
+      return null;
     }
-  }
+  };
 
   render() {
     return (
       <LazyLoad>
         <HomeBanner>
-          {this.props.banners ?
-            <Carousel responsive={responsive} showDots infinite={true} customDot={<CustomDot />}>
-              {this.props.banners.map((banner, index) => this.renderedBanner(banner, index))}
+          {this.props.banners ? (
+            <Carousel
+              responsive={responsive}
+              showDots
+              infinite={true}
+              customDot={<CustomDot />}
+            >
+              {this.props.banners.map((banner, index) =>
+                this.renderedBanner(banner, index)
+              )}
             </Carousel>
-            : 'loading..'}
+          ) : (
+            "loading.."
+          )}
         </HomeBanner>
       </LazyLoad>
     );
   }
 }
-
 
 const FlexDiv = styled.div`
   display: flex;
@@ -169,10 +178,10 @@ const FlexDiv = styled.div`
 const HomeBanner = styled.div`
   min-height: calc(100vh - 100px);
   width: 100%;
-  overflow:hidden;
-  ${Media.md}{
-    min-height:auto;
-    margin-top:80px;
+  overflow: hidden;
+  ${Media.md} {
+    min-height: auto;
+    margin-top: 80px;
   }
   // ${Media.xs}{
   //   max-height: 550px;
@@ -180,33 +189,31 @@ const HomeBanner = styled.div`
   .item {
     img {
       width: 100%;
-      height:100%;
-      object-fit:cover;
+      height: 100%;
+      object-fit: cover;
       min-height: 100vh;
       // margin-top:100px;
-      &.desktop-img
-      {
-        ${Media.xs}{
-          display:none;
+      &.desktop-img {
+        ${Media.xs} {
+          display: none;
         }
       }
-      &.mobile-img
-      { display:none;
-        ${Media.xs}{
-          display:block;
+      &.mobile-img {
+        display: none;
+        ${Media.xs} {
+          display: block;
         }
       }
-      ${Media.md}{
-        min-height:auto;
-        margin-top:0px;
+      ${Media.md} {
+        min-height: auto;
+        margin-top: 0px;
       }
     }
   }
-  .react-multi-carousel-track
-  {
+  .react-multi-carousel-track {
     height: 100vh;
-    ${Media.md}{
-      height:auto;
+    ${Media.md} {
+      height: auto;
     }
     // ${Media.xs}{
     //   max-height: 550px;
@@ -218,7 +225,7 @@ const HomeBanner = styled.div`
     min-height: 20px;
     padding: 0px;
     border-radius: 0px;
-    z-index:1;
+    z-index: 1;
     :hover {
       background: transparent;
     }
@@ -255,13 +262,13 @@ const HomeBanner = styled.div`
         color: #000;
       }
       :before {
-        content: '0';
+        content: "0";
         position: absolute;
         left: 0px;
       }
     }
-    ${Media.sm}{
-      width:300px;
+    ${Media.sm} {
+      width: 300px;
     }
   }
 `;
@@ -269,14 +276,16 @@ const HomeBanner = styled.div`
 const mapDipatchToProps = (dispatch) => {
   return {
     getBanners: () => dispatch(actions.fetchBanners()),
-    setBanners: (data) => dispatch({ type: 'FETCHED_NFT_BANNERS', data: data })
-  }
-}
+    setBanners: (data) => dispatch({ type: "FETCHED_NFT_BANNERS", data: data }),
+  };
+};
 
 const mapStateToProps = (state) => {
   return {
     banners: state.fetchDashboardBanners,
-  }
-}
+  };
+};
 
-export default withCookies(connect(mapStateToProps, mapDipatchToProps)(BannerTab));
+export default withCookies(
+  connect(mapStateToProps, mapDipatchToProps)(BannerTab)
+);

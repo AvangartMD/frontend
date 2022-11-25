@@ -45,7 +45,7 @@ class BlogList extends Component {
     return (
       <Gs.MainSection>
         <Gs.Container>
-          <BlogListtitle>MDProduct Blog</BlogListtitle>
+          <BlogListtitle>NFTM Blog</BlogListtitle>
           <FilterMBX>
             <FilterLbx>
               <CustomScrollbars

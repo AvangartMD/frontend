@@ -9,7 +9,7 @@ import Collapse from "@kunukn/react-collapse";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/dummyLogo.png";
+import LogoImg from "../Assets/images/nftm-logo.png";
 import NotifiIcon from "../Assets/images/notification.svg";
 import UserIcon from "../Assets/images/user-img.jpg";
 import RightArrow from "../Assets/images/rightArrow.svg";
@@ -17,7 +17,7 @@ import DisconnectICO from "../Assets/images/icon-disconnect.svg";
 import { web3, walletConnectProvider } from "../web3";
 import IconMenuOpen from "../Assets/images/icon-set-menu.svg";
 import IconMenuClose from "../Assets/images/icon-set-close.svg";
-import LogoImgWhite from "../Assets/images/dummyLogo.png";
+import LogoImgWhite from "../Assets/images/nftm-logo.png";
 import IconMenuOpenWhite from "../Assets/images/icon-set-menu-white.svg";
 import IconMenuCloseWhite from "../Assets/images/icon-set-close-white.svg";
 import NotifiIconWhite from "../Assets/images/notification-white.svg";
@@ -420,11 +420,11 @@ class Header extends Component {
                         <div className="more-parts">
                           <NavLink
                             to={{
-                              pathname: "https://medium.com/@MDProduct.io",
+                              pathname: "https://medium.com/@NFTM.io",
                             }}
                             target="_blank"
                           >
-                            MDProduct Blog
+                            NFTM Blog
                           </NavLink>
                           <NavLink
                             to="/faq"
@@ -436,7 +436,7 @@ class Header extends Component {
                             <FormattedMessage id="faq" defaultMessage="FAQ" />
                           </NavLink>
                           <NavLink
-                            to="mailto:admin@MDProduct.io"
+                            to="mailto:admin@NFTM.io"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
@@ -523,14 +523,14 @@ class Header extends Component {
                     <FooterrightLinks>
                       <Link
                         to={{
-                          pathname: "https://www.instagram.com/MDProduct.io/",
+                          pathname: "https://www.instagram.com/NFTM.io/",
                         }}
                         target="_blank"
                       >
                         Instagram
                       </Link>
                       <Link
-                        to={{ pathname: "https://twitter.com/MDProduct_io" }}
+                        to={{ pathname: "https://twitter.com/NFTM_io" }}
                         target="_blank"
                       >
                         Twitter

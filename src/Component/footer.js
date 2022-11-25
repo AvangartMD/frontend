@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import { actions } from "../actions";
-import LogoImg from "../Assets/images/dummyLogo.png";
+import LogoImg from "../Assets/images/nftm-logo.png";
 
 const Language = loadable(() => import("./lang.switch"));
 const Login = loadable(() => import("./Modals/login"));
@@ -99,13 +99,13 @@ function Footer(props) {
           </FooterSSbx02>
           <FooterSSbx02>
             <NavLink
-              to={{ pathname: "https://www.instagram.com/MDProduct.io/" }}
+              to={{ pathname: "https://www.instagram.com/NFTM.io/" }}
               target="_blank"
             >
               Instagram
             </NavLink>
             <NavLink
-              to={{ pathname: "https://twitter.com/MDProduct_io" }}
+              to={{ pathname: "https://twitter.com/NFTM_io" }}
               target="_blank"
             >
               Twitter
@@ -114,7 +114,7 @@ function Footer(props) {
               Discord
             </NavLink>
             <NavLink
-              to={{ pathname: "https://medium.com/@MDProduct.io" }}
+              to={{ pathname: "https://medium.com/@NFTM.io" }}
               target="_blank"
             >
               <FormattedMessage id="blog" defaultMessage="Blog" />
@@ -127,7 +127,7 @@ function Footer(props) {
             <NavLink to="/faq">
               <FormattedMessage id="faq" defaultMessage="FAQ" />
             </NavLink>
-            <a href="mailto:admin@MDProduct.io">
+            <a href="mailto:admin@NFTM.io">
               <FormattedMessage id="support" defaultMessage="Support" />
             </a>
             {/* <NavLink to="">
@@ -157,13 +157,13 @@ function Footer(props) {
             <p>© 2021</p>
             <FooterrightLinks>
               <Link
-                to={{ pathname: "https://www.instagram.com/MDProduct.io/" }}
+                to={{ pathname: "https://www.instagram.com/NFTM.io/" }}
                 target="_blank"
               >
                 Instagram
               </Link>
               <Link
-                to={{ pathname: "https://twitter.com/MDProduct_io" }}
+                to={{ pathname: "https://twitter.com/NFTM_io" }}
                 target="_blank"
               >
                 Twitter
@@ -172,7 +172,7 @@ function Footer(props) {
                 Discord
               </Link>
               <Link
-                to={{ pathname: "https://medium.com/@MDProduct.io" }}
+                to={{ pathname: "https://medium.com/@NFTM.io" }}
                 target="_blank"
               >
                 <FormattedMessage id="blog" defaultMessage="Blog" />

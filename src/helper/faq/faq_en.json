@@ -2,8 +2,8 @@
   "data": [
     {
       "category": 1,
-      "question": "What is MDProduct?",
-      "answer": "MDProduct is a curated NFT marketplace which aims to host best-in-class creators from different verticals like art, celebrities & sport. Please see the \"About Us\" page for more details."
+      "question": "What is NFTM?",
+      "answer": "NFTM is a curated NFT marketplace which aims to host best-in-class creators from different verticals like art, celebrities & sport. Please see the \"About Us\" page for more details."
     },
     {
       "category": 1,
@@ -17,18 +17,18 @@
     },
     {
       "category": 1,
-      "question": "On which blockchain does MDProduct run its operations?",
-      "answer": "MDProduct is running on Binance Smart Chain mainly due to low transactions fees for both creators and collectors."
+      "question": "On which blockchain does NFTM run its operations?",
+      "answer": "NFTM is running on Binance Smart Chain mainly due to low transactions fees for both creators and collectors."
     },
     {
       "category": 1,
-      "question": "What do I need to use MDProduct?",
-      "answer": "MDProduct is a web-based solution that can be accessed over both desktop and mobile. The only thing you will need is the browser add-ins or mobile apps of third-party cryptocurrency wallets that you will connect to MDProduct. Please visit the \"How To Use?\" section to access our video guides on this issue."
+      "question": "What do I need to use NFTM?",
+      "answer": "NFTM is a web-based solution that can be accessed over both desktop and mobile. The only thing you will need is the browser add-ins or mobile apps of third-party cryptocurrency wallets that you will connect to NFTM. Please visit the \"How To Use?\" section to access our video guides on this issue."
     },
     {
       "category": 1,
       "question": "How do I get started?",
-      "answer": "To use MDProduct, you need to connect your third-party cryptocurrency wallet. Please visit the \"How To Use?\" section to access our video guides on this issue."
+      "answer": "To use NFTM, you need to connect your third-party cryptocurrency wallet. Please visit the \"How To Use?\" section to access our video guides on this issue."
     },
     {
       "category": 2,
@@ -38,12 +38,12 @@
     },
     {
       "category": 2,
-      "question": "Which options are available for using MDProduct?",
-      "answer": "Currently, you can connect to MDProduct with third-party wallets Metamask & TrustWallet."
+      "question": "Which options are available for using NFTM?",
+      "answer": "Currently, you can connect to NFTM with third-party wallets Metamask & TrustWallet."
     },
     {
       "category": 2,
-      "question": "How can I connect my crypto wallet to MDProduct?",
+      "question": "How can I connect my crypto wallet to NFTM?",
       "answer": "You can use the \"Login\" button on the top right corner to choose which third-party wallet you would like to connect to. Please visit the \"How To Use?\" section to access our video guides on this issue."
     },
     {
@@ -53,8 +53,8 @@
     },
     {
       "category": 2,
-      "question": "Which cryptocurrencies should I store to make purchases in MDProduct?",
-      "answer": "Currently only accepted cryptocurrency in MDProduct is BNB, which is the native coin of Binance Smart Chain."
+      "question": "Which cryptocurrencies should I store to make purchases in NFTM?",
+      "answer": "Currently only accepted cryptocurrency in NFTM is BNB, which is the native coin of Binance Smart Chain."
     },
     {
       "category": 2,
@@ -74,7 +74,7 @@
     {
       "category": 2,
       "question": "Who controls my crypto account balance?",
-      "answer": "You have full ownership of your balance through the third-party wallet service you use; MDProduct does not hold your balance on your behalf."
+      "answer": "You have full ownership of your balance through the third-party wallet service you use; NFTM does not hold your balance on your behalf."
     },
     {
       "category": 3,
@@ -85,7 +85,7 @@
     {
       "category": 3,
       "question": "Do I need to pay any fees to buy an NFT?",
-      "answer": "Although MDProduct does not charge any buyer fees, you need to pay a small transaction fee to the blockchain network independent from MDProduct. So, before trying to buy an NFT, please make sure that your balance is enough to cover the NFT price along with the transaction fee."
+      "answer": "Although NFTM does not charge any buyer fees, you need to pay a small transaction fee to the blockchain network independent from NFTM. So, before trying to buy an NFT, please make sure that your balance is enough to cover the NFT price along with the transaction fee."
     },
     {
       "category": 3,
@@ -100,7 +100,7 @@
     {
       "category": 3,
       "question": "Where do I keep my NFTs?",
-      "answer": "Your NFTs are transferred to your third-party crypto wallet upon purchase. So you have full ownership of the NFTs while the creation files uploaded are stored in a secure location by MDProduct."
+      "answer": "Your NFTs are transferred to your third-party crypto wallet upon purchase. So you have full ownership of the NFTs while the creation files uploaded are stored in a secure location by NFTM."
     },
     {
       "category": 3,
@@ -125,12 +125,12 @@
     },
     {
       "category": 4,
-      "question": "Who can mint NFTs in MDProduct?",
-      "answer": "MDProduct is a curated marketplace. Only approved creators in each vertical are entitled to create NFTs in MDProduct platform."
+      "question": "Who can mint NFTs in NFTM?",
+      "answer": "NFTM is a curated marketplace. Only approved creators in each vertical are entitled to create NFTs in NFTM platform."
     },
     {
       "category": 4,
-      "question": "How can I mint NFTs on MDProduct?",
+      "question": "How can I mint NFTs on NFTM?",
       "answer": "After you are approved as creator, you will have access to the \"NFT Minting\" page.  Please visit the \"How To Use?\" section to access our video guides on this issue."
     },
     {
@@ -141,12 +141,12 @@
     {
       "category": 4,
       "question": "Who owns my NFTs?",
-      "answer": "NFTs are stored in your third-party wallet. MDProduct, or your third-party wallet, does not have access to your NFTs."
+      "answer": "NFTs are stored in your third-party wallet. NFTM, or your third-party wallet, does not have access to your NFTs."
     },
     {
       "category": 4,
       "question": "What am I selling exactly?",
-      "answer": "Unless you have a special agreement with MDProduct, the buyer of an edition will be given the right to use and display that specific edition for non-commercial purposes only, along with the right of reselling that particular edition in the second-hand market."
+      "answer": "Unless you have a special agreement with NFTM, the buyer of an edition will be given the right to use and display that specific edition for non-commercial purposes only, along with the right of reselling that particular edition in the second-hand market."
     },
     {
       "category": 4,
@@ -161,7 +161,7 @@
     {
       "category": 4,
       "question": "How many editions can I create for an NFT?",
-      "answer": "MDProduct provides complete control to the creator on the number of editions. However, we strongly suggest the creators limit their creations strategically as the actual value of an NFT comes from being limited."
+      "answer": "NFTM provides complete control to the creator on the number of editions. However, we strongly suggest the creators limit their creations strategically as the actual value of an NFT comes from being limited."
     },
     {
       "category": 4,
@@ -181,7 +181,7 @@
     {
       "category": 4,
       "question": "How do I get paid for my sold NFTs?",
-      "answer": "Once your creation is sold, your amount will be automatically debited to your crypto wallet. Payments are facilitated automatically by the system over smart contracts, so MDProduct does not have any control on funds transferred upon payments."
+      "answer": "Once your creation is sold, your amount will be automatically debited to your crypto wallet. Payments are facilitated automatically by the system over smart contracts, so NFTM does not have any control on funds transferred upon payments."
     },
     {
       "category": 4,
@@ -207,8 +207,8 @@
     {
       "category": 6,
       "Tab": "Fees & Commissions",
-      "question": "Does MDProduct have a membership fee?",
-      "answer": "No, MDProduct does not charge any membership fees."
+      "question": "Does NFTM have a membership fee?",
+      "answer": "No, NFTM does not charge any membership fees."
     },
     {
       "category": 6,
@@ -218,12 +218,12 @@
     {
       "category": 6,
       "question": "Do I need to pay any fees for buying NFTs?",
-      "answer": "MDProduct does not charge any buyer fees in both first and second-hand sales."
+      "answer": "NFTM does not charge any buyer fees in both first and second-hand sales."
     },
     {
       "category": 6,
       "question": "Do I need to pay any other fees for buying or selling NFTs besides platform fees?",
-      "answer": "For each transaction, from minting an NFT to bidding for it, you will need to pay a small amount to the blockchain network. These fees are not controlled or owned by MDProduct."
+      "answer": "For each transaction, from minting an NFT to bidding for it, you will need to pay a small amount to the blockchain network. These fees are not controlled or owned by NFTM."
     }
   ]
 }
