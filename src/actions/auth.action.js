@@ -109,9 +109,12 @@ function getMoreCreators(params={}) {
 }
 
 function getMarketPlaceNFT(params={}) {
+
   return async (dispatch) => {
     const response = services.post(`nft/listMarketPlace`, params);
+    
     response.then((promise) => {
+      console.log('Calling list nftsssssssss', response)
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MARKETPLACE", promise.data.data));

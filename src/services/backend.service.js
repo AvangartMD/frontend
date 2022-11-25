@@ -1,5 +1,5 @@
-import axios from '../config';
-import { web3 } from '../web3';
+import axios from "../config";
+import { web3 } from "../web3";
 // import userBalancesContract from "../contracts/userBalances/userBalances";
 // import tokens from "../tokens.json";
 // import { param } from "jquery";
@@ -11,15 +11,16 @@ export const backendServices = {
 };
 
 async function post(url, params) {
-  const token = localStorage.getItem('avangartAuthToken');
+  const token = localStorage.getItem("avangartAuthToken");
   const header = token
-    ? { 'content-type': 'application/json', 'x-auth-token': token }
+    ? { "content-type": "application/json", "x-auth-token": token }
     : {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       };
   // console.log("this", header);
   try {
     const response = await axios.post(url, params, { headers: header });
+    console.log("Value returned n axios", url);
     return response;
   } catch (error) {
     // console.log("new", error.response);
@@ -28,11 +29,11 @@ async function post(url, params) {
 }
 
 async function get(url, isAuthenticated) {
-  const token = localStorage.getItem('avangartAuthToken');
+  const token = localStorage.getItem("avangartAuthToken");
   const header = isAuthenticated
-    ? { 'x-auth-token': token, 'content-type': 'application/json' }
+    ? { "x-auth-token": token, "content-type": "application/json" }
     : {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       };
   try {
     const response = await axios.get(url, { headers: header });
@@ -43,11 +44,11 @@ async function get(url, isAuthenticated) {
 }
 
 async function put(url, parameters) {
-  const token = localStorage.getItem('avangartAuthToken');
+  const token = localStorage.getItem("avangartAuthToken");
   const header = token
-    ? { 'x-auth-token': token }
+    ? { "x-auth-token": token }
     : {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       };
   try {
     const response = await axios.put(url, parameters, { headers: header });

@@ -99,25 +99,22 @@ function Footer(props) {
           </FooterSSbx02>
           <FooterSSbx02>
             <NavLink
-              to={{ pathname: "https://www.instagram.com/carny.io/" }}
+              to={{ pathname: "https://www.instagram.com/MDProduct.io/" }}
               target="_blank"
             >
               Instagram
             </NavLink>
             <NavLink
-              to={{ pathname: "https://twitter.com/carny_io" }}
+              to={{ pathname: "https://twitter.com/MDProduct_io" }}
               target="_blank"
             >
               Twitter
             </NavLink>
-            <NavLink
-              to={{ pathname: "https://discord.com/invite/SkPAgNz4" }}
-              target="_blank"
-            >
+            <NavLink to={{ pathname: "https://discord.com/" }} target="_blank">
               Discord
             </NavLink>
             <NavLink
-              to={{ pathname: "https://medium.com/@Carny.io" }}
+              to={{ pathname: "https://medium.com/@MDProduct.io" }}
               target="_blank"
             >
               <FormattedMessage id="blog" defaultMessage="Blog" />
@@ -130,7 +127,7 @@ function Footer(props) {
             <NavLink to="/faq">
               <FormattedMessage id="faq" defaultMessage="FAQ" />
             </NavLink>
-            <a href="mailto:admin@carny.io">
+            <a href="mailto:admin@MDProduct.io">
               <FormattedMessage id="support" defaultMessage="Support" />
             </a>
             {/* <NavLink to="">
@@ -160,25 +157,22 @@ function Footer(props) {
             <p>© 2021</p>
             <FooterrightLinks>
               <Link
-                to={{ pathname: "https://www.instagram.com/carny.io/" }}
+                to={{ pathname: "https://www.instagram.com/MDProduct.io/" }}
                 target="_blank"
               >
                 Instagram
               </Link>
               <Link
-                to={{ pathname: "https://twitter.com/carny_io" }}
+                to={{ pathname: "https://twitter.com/MDProduct_io" }}
                 target="_blank"
               >
                 Twitter
               </Link>
-              <Link
-                to={{ pathname: "https://discord.com/invite/SkPAgNz4" }}
-                target="_blank"
-              >
+              <Link to={{ pathname: "https://discord.com/" }} target="_blank">
                 Discord
               </Link>
               <Link
-                to={{ pathname: "https://medium.com/@Carny.io" }}
+                to={{ pathname: "https://medium.com/@MDProduct.io" }}
                 target="_blank"
               >
                 <FormattedMessage id="blog" defaultMessage="Blog" />

@@ -125,13 +125,13 @@ class Header extends Component {
 
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
-      if (chainID !== 56 && chainID !== "0x38") {
+      if (chainID !== 97 && chainID !== "0x61") {
         // this.setState({ networkError: true }) // ask user to switch to the BSC Network
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
           params: [
             {
-              chainId: "0x38",
+              chainId: "0x61",
               chainName: "Binance Smart Chain",
               nativeCurrency: {
                 name: "Binance Chain Token",
@@ -419,10 +419,12 @@ class Header extends Component {
                       <Moremenu>
                         <div className="more-parts">
                           <NavLink
-                            to={{ pathname: "https://medium.com/@Carny.io" }}
+                            to={{
+                              pathname: "https://medium.com/@MDProduct.io",
+                            }}
                             target="_blank"
                           >
-                            Carny Blog
+                            MDProduct Blog
                           </NavLink>
                           <NavLink
                             to="/faq"
@@ -434,7 +436,7 @@ class Header extends Component {
                             <FormattedMessage id="faq" defaultMessage="FAQ" />
                           </NavLink>
                           <NavLink
-                            to="mailto:admin@carny.io"
+                            to="mailto:admin@MDProduct.io"
                             onClick={() => {
                               this.toggle(12);
                               this.toggle(11);
@@ -520,20 +522,22 @@ class Header extends Component {
                     )}
                     <FooterrightLinks>
                       <Link
-                        to={{ pathname: "https://www.instagram.com/carny.io/" }}
+                        to={{
+                          pathname: "https://www.instagram.com/MDProduct.io/",
+                        }}
                         target="_blank"
                       >
                         Instagram
                       </Link>
                       <Link
-                        to={{ pathname: "https://twitter.com/carny_io" }}
+                        to={{ pathname: "https://twitter.com/MDProduct_io" }}
                         target="_blank"
                       >
                         Twitter
                       </Link>
                       <Link
                         to={{
-                          pathname: "https://discord.com/invite/SkPAgNz4",
+                          pathname: "https://discord.com/",
                         }}
                         target="_blank"
                       >
