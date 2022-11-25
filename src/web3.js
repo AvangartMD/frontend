@@ -5,11 +5,11 @@ import WalletConnectQRCodeModal from '@walletconnect/qrcode-modal';
 let web3 = null;
 let walletConnectProvider = new WalletConnectProvider({
   rpc: {
-    0x38: 'https://speedy-nodes-nyc.moralis.io/5be1af5bcc43ff8e4432ee14/bsc/mainnet/archive', // BSC Mainnet chainId - 56
-    // 0x61: 'https://data-seed-prebsc-1-s1.binance.org:8545/', // BSC Testnet chainId - 97
+    //0x38: 'https://speedy-nodes-nyc.moralis.io/5be1af5bcc43ff8e4432ee14/bsc/mainnet/archive', // BSC Mainnet chainId - 56
+    0x61: 'https://data-seed-prebsc-1-s1.binance.org:8545/', // BSC Testnet chainId - 97
   },
-  chainId: 56, // BSC Mainnet
-  // chainId: 0x61, // BSC Testnet
+  //chainId: 56, // BSC Mainnet
+  chainId: 0x61, // BSC Testnet
   qrcode: false,
 });
 
@@ -27,8 +27,8 @@ const metamaskConnectInit = () => {
       // order to use the app.
       web3 = new Web3(
         new Web3.providers.HttpProvider(
-          'https://bsc-dataseed.binance.org/'
-          // "https://data-seed-prebsc-1-s1.binance.org:8545/"
+          //'https://bsc-dataseed.binance.org/'
+           "https://data-seed-prebsc-1-s1.binance.org:8545/"
         )
       );
       reject(false);

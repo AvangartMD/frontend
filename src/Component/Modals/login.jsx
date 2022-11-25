@@ -104,7 +104,7 @@ function Login(props) {
         if (!web3Data.isLoggedIn) {
           const chainId = await web3.eth.net.getId();
 
-          if (chainId !== 56 && chainId !== '0x38') {
+          if (chainId !== 97 && chainId !== '0x61') {
             // MetaMask injects the global API into window.ethereum
             try {
               if (window.web3) {

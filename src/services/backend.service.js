@@ -20,6 +20,7 @@ async function post(url, params) {
   // console.log("this", header);
   try {
     const response = await axios.post(url, params, { headers: header });
+    console.log('Value returned n axios', url)
     return response;
   } catch (error) {
     // console.log("new", error.response);

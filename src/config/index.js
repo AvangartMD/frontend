@@ -1,11 +1,11 @@
 import axios from 'axios';
 // staging server
 export default axios.create({
-  baseURL: 'https://api.carny.io/api/v1',
+  baseURL: 'http://127.0.0.1:4000/api/v1',
 });
 
 // // Local
-// export const server_url = "http://127.0.0.1:4000/";
+export const server_url = "http://127.0.0.1:4000/";
 
 // aws s3 bucket confiurations
 export const awsRegion = 'eu-central-1';
@@ -19,4 +19,4 @@ export const expiryTime = 2; // 2 hours
 
 // Instragram config 
 export const client_id = '4418122684888051';
-export const redirect_url = 'https://api.carny.io/user/edit-profile/';
+export const redirect_url = 'http://127.0.0.1:4000/user/edit-profile/';

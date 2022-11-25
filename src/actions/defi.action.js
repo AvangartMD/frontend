@@ -52,8 +52,10 @@ function authLogin(nonce, signature) {
 }
 function generateNonce(address) {
   return async (dispatch) => {
+    console.log('address at line 55 is', address)
     const url = `user/genrateNonce/${address}`;
     const response = services.get(url);
+    console.log('Response at line ', response)
     response.then((promise) => {
       if (promise.status === 200) {
         dispatch(setData(promise.data.data.nonce, "GENERATE_NONCE"));

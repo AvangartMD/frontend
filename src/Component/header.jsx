@@ -125,13 +125,13 @@ class Header extends Component {
 
     if (window.web3) {
       const chainID = await web3.eth.getChainId();
-      if (chainID !== 56 && chainID !== "0x38") {
+      if (chainID !== 97 && chainID !== "0x61") {
         // this.setState({ networkError: true }) // ask user to switch to the BSC Network
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainId: '0x38',
+              chainId: '0x61',
               chainName: 'Binance Smart Chain',
               nativeCurrency: {
                 name: 'Binance Chain Token',
