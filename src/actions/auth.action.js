@@ -59,7 +59,7 @@ function fetcHallFrameInfo() {
     const response = services.get(`/admin/hall-frame-info/list`);
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData('FETCHED_HALL_FRAME_INFO', promise.data.data));
+        dispatch(fetchedData("FETCHED_HALL_FRAME_INFO", promise.data.data));
       } else {
         // console.log('error in fetcHallFrameInfo actions');
       }
@@ -80,7 +80,7 @@ function fetchDashboardConfig() {
   };
 }
 
-function getCreators(params={}) {
+function getCreators(params = {}) {
   return async (dispatch) => {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
@@ -94,7 +94,7 @@ function getCreators(params={}) {
   };
 }
 
-function getMoreCreators(params={}) {
+function getMoreCreators(params = {}) {
   return async (dispatch) => {
     const response = services.post(`user/listVerifiefCreator`, params);
     response.then((promise) => {
@@ -108,13 +108,12 @@ function getMoreCreators(params={}) {
   };
 }
 
-function getMarketPlaceNFT(params={}) {
-
+function getMarketPlaceNFT(params = {}) {
   return async (dispatch) => {
     const response = services.post(`nft/listMarketPlace`, params);
-    
+
     response.then((promise) => {
-      console.log('Calling list nftsssssssss', response)
+      // console.log('Calling list nftsssssssss', response)
       if (promise.status === 200) {
         dispatch(fetchedData("FETCHED_PAGINATION", promise.data.pagination));
         dispatch(fetchedData("FETCHED_MARKETPLACE", promise.data.data));
@@ -125,7 +124,7 @@ function getMarketPlaceNFT(params={}) {
   };
 }
 
-function getMoreMarketPlaceNFT(params={}) {
+function getMoreMarketPlaceNFT(params = {}) {
   return async (dispatch) => {
     const response = services.post(`nft/listMarketPlace`, params);
     response.then((promise) => {
@@ -139,7 +138,7 @@ function getMoreMarketPlaceNFT(params={}) {
   };
 }
 
-function getCollections(params={}) {
+function getCollections(params = {}) {
   return async (dispatch) => {
     const response = services.post(`nft/listCollections`, params);
     response.then((promise) => {
@@ -153,7 +152,7 @@ function getCollections(params={}) {
   };
 }
 
-function getMoreCollections(params={}) {
+function getMoreCollections(params = {}) {
   return async (dispatch) => {
     const response = services.post(`nft/listCollections`, params);
     response.then((promise) => {
@@ -167,7 +166,7 @@ function getMoreCollections(params={}) {
   };
 }
 
-function getCollectionDetails(params={}) {
+function getCollectionDetails(params = {}) {
   return async (dispatch) => {
     const response = services.get(`nft/getCollectionInfo/${params.id}`, true);
     response.then((promise) => {
@@ -237,7 +236,9 @@ function getHallOfFrameArtist() {
     const response = services.get(`/hallOfFrame/list/artist`);
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("FETCHED_HALL_OF_FRAMES_ARTIST", promise.data.data));
+        dispatch(
+          fetchedData("FETCHED_HALL_OF_FRAMES_ARTIST", promise.data.data)
+        );
       } else {
         // console.log("error");
       }
@@ -250,7 +251,9 @@ function getHallOfFrameArtwork() {
     const response = services.get(`/hallOfFrame/list/artwork`);
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("FETCHED_HALL_OF_FRAMES_ARTWORK", promise.data.data));
+        dispatch(
+          fetchedData("FETCHED_HALL_OF_FRAMES_ARTWORK", promise.data.data)
+        );
       } else {
         // console.log("error");
       }
@@ -263,7 +266,9 @@ function getHallOfFrameCollector() {
     const response = services.get(`/hallOfFrame/list/collector`);
     return response.then((promise) => {
       if (promise.data) {
-        dispatch(fetchedData("FETCHED_HALL_OF_FRAMES_COLLECTOR", promise.data.data));
+        dispatch(
+          fetchedData("FETCHED_HALL_OF_FRAMES_COLLECTOR", promise.data.data)
+        );
       } else {
         // console.log("error");
       }
