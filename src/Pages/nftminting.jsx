@@ -31,6 +31,7 @@ import MintNFTPopup from "../Component/Modals/mintNFTPopup";
 import NFT3 from "../Assets/images/nft3.jpg";
 
 import Scrollspy from "react-scrollspy";
+import { storeNFT } from "../config/storage";
 
 class NFTPage extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class NFTPage extends Component {
       bnbUSDPrice: {},
       uploadedRatio: 0,
       videoFile: null,
-      videoFileSrc: '',
+      videoFileSrc: "",
       thumbnailFile: null,
     };
   }
@@ -83,13 +84,8 @@ class NFTPage extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    let {
-      web3Data,
-      createdNFTID,
-      updatedNFTID,
-      collectionList,
-      categoryList,
-    } = this.props;
+    let { web3Data, createdNFTID, updatedNFTID, collectionList, categoryList } =
+      this.props;
 
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data }, () => {
@@ -123,12 +119,8 @@ class NFTPage extends Component {
 
   async componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
-    let {
-      web3Data,
-      categoryList,
-      collectionList,
-      nftContractInstance,
-    } = this.props;
+    let { web3Data, categoryList, collectionList, nftContractInstance } =
+      this.props;
     if (this.props.match.params.id) {
       // this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the single nft details
       const NFTDetails = await actions.getSingleNFTDetails(
@@ -136,7 +128,7 @@ class NFTPage extends Component {
       );
       if (NFTDetails) {
         // this.setState({ NFTDetails: NFTDetails })
-        this.setState({ videoFile: NFTDetails.image.original })
+        this.setState({ videoFile: NFTDetails.image.original });
         this.setState({
           nftObj: {
             ...this.state.nftObj,
@@ -212,13 +204,8 @@ class NFTPage extends Component {
 
   mintNFT = async (_tokenURI) => {
     this.setState({ mintNFTStatus: "initiate" });
-    const {
-      web3Data,
-      nftObj,
-      suggestionVAl,
-      currencyUsed,
-      bnbUSDPrice,
-    } = this.state;
+    const { web3Data, nftObj, suggestionVAl, currencyUsed, bnbUSDPrice } =
+      this.state;
     const obj = [
       nftObj.edition,
       this.props.createdNFTID ? this.props.createdNFTID._id : nftObj.id,
@@ -234,8 +221,8 @@ class NFTPage extends Component {
         currencyUsed === "TR"
           ? (+nftObj.price / bnbUSDPrice.try).toFixed(10).toString()
           : currencyUsed === "USD"
-            ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString()
-            : nftObj.price,
+          ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString()
+          : nftObj.price,
         "ether"
       ),
       "0",
@@ -257,16 +244,17 @@ class NFTPage extends Component {
 
   convertToBuffer = async (reader) => {
     //file is converted to a buffer to prepare for uploading to IPFS`
-    const buffer = await Buffer.from(reader.result);
+    // const buffer = await Buffer.from(reader.result);
     //set this buffer -using es6 syntax
     this.setState({
-      image: { ...this.state.image, original: buffer, compressed: buffer },
+      image: { ...this.state.image, original: reader, compressed: reader },
     });
   };
 
   convertToCompBuffer = async (reader) => {
     //file is converted to a buffer to prepare for uploading to IPFS`
-    const buffer = await Buffer.from(reader.result);
+    // const buffer = await Buffer.from(reader.result);
+    const buffer = reader;
     //set this buffer -using es6 syntax
     this.setState({ image: { ...this.state.image, compressed: buffer } });
   };
@@ -305,7 +293,10 @@ class NFTPage extends Component {
       let fileType = e.target.files[0].type;
       if (!fileType.search("image")) this.setState({ fileType: "image" });
       if (!fileType.search("video")) {
-        this.setState({ fileType: "video", videoFile: URL.createObjectURL(this.inputRef.current.files[0]) });
+        this.setState({
+          fileType: "video",
+          videoFile: URL.createObjectURL(this.inputRef.current.files[0]),
+        });
       }
       if (!fileType.search("audio")) this.setState({ fileType: "audio" });
       nftObj.imgSrc = URL.createObjectURL(e.target.files[0]);
@@ -319,16 +310,18 @@ class NFTPage extends Component {
         let compressedNFTFile = await compressImage(e.target.files[0]);
         this.setState({ compressed_size: compressedNFTFile.size }); // store the file size
         let compReader = new window.FileReader();
-        compReader.readAsArrayBuffer(compressedNFTFile);
-        compReader.onloadend = () => this.convertToCompBuffer(compReader);
+        // compReader.readAsArrayBuffer(compressedNFTFile);
+        // compReader.onloadend = () =>
+        this.convertToCompBuffer(compressedNFTFile);
 
         let reader = new window.FileReader();
         reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onloadend = () => this.convertToBuffer(reader);
+        reader.onloadend = () => this.convertToBuffer(e.target.files[0]);
       } else {
         let reader = new window.FileReader();
-        reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onloadend = () => this.convertToBuffer(reader);
+        this.convertToBuffer(e.target.files[0]);
+        // reader.readAsArrayBuffer(e.target.files[0]);
+        // reader.onloadend = () => this.convertToBuffer(reader);
       }
     } else {
       nftObj[e.target.name] = e.target.value;
@@ -392,8 +385,8 @@ class NFTPage extends Component {
           currencyUsed === "TR"
             ? (+nftObj.price / bnbUSDPrice.try).toString()
             : currencyUsed === "USD"
-              ? (+nftObj.price / bnbUSDPrice.usd).toString()
-              : nftObj.price,
+            ? (+nftObj.price / bnbUSDPrice.usd).toString()
+            : nftObj.price,
         saleState: nftObj.saleState,
         auctionTime: nftObj.auctionTime,
         edition: nftObj.edition,
@@ -413,13 +406,16 @@ class NFTPage extends Component {
         dataObj.digitalKey = nftObj.digitalKey;
       }
 
-      if (this.props.match.params.id) { // update NFT 
-        if (nftFile) { // uploaded new file
+      if (this.props.match.params.id) {
+        // update NFT
+        if (nftFile) {
+          // uploaded new file
           let { original_size, compressed_size } = this.state;
           let ipfsHash,
             ipfsCompHash = null;
-          
-          if (this.state.fileType === "video") { // generate thumbnail image from uploaded video
+
+          if (this.state.fileType === "video") {
+            // generate thumbnail image from uploaded video
             ipfsHash = await ipfs.add(this.state.image.original, {
               pin: true,
               progress: (bytes) => {
@@ -427,74 +423,105 @@ class NFTPage extends Component {
                 //   'Original File upload progress ',
                 //   Math.floor((bytes * 100) / original_size)
                 // );
-                this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
+                this.setState({
+                  uploadedRatio: Math.floor((bytes * 100) / original_size),
+                });
               },
             });
-            
+
             const canvas = document.createElement("canvas");
             canvas.width = this.videoRef.current.videoWidth;
             canvas.height = this.videoRef.current.videoHeight;
-            canvas.getContext("2d").drawImage(this.videoRef.current, 0, 0,
-              this.videoRef.current.videoWidth,
-              this.videoRef.current.videoHeight);
+            canvas
+              .getContext("2d")
+              .drawImage(
+                this.videoRef.current,
+                0,
+                0,
+                this.videoRef.current.videoWidth,
+                this.videoRef.current.videoHeight
+              );
             this.setState({ videoFileSrc: canvas.toDataURL() }, () => {
               fetch(this.state.videoFileSrc)
-              .then((res) => res.blob())
-              .then(async (blob) => {
-                let thumbnailFile = new File([blob], "video_thumbnail", {
-                  type: "image/png"
+                .then((res) => res.blob())
+                .then(async (blob) => {
+                  let thumbnailFile = new File([blob], "video_thumbnail", {
+                    type: "image/png",
+                  });
+                  this.setState({ thumbnailFile: thumbnailFile });
+                  ipfsCompHash = await ipfs.add(thumbnailFile, {
+                    pin: true,
+                    progress: (bytes) => {
+                      // console.log("Original File upload progress ", Math.floor(bytes * 100 / (thumbnailFile.size)))
+                      this.setState({
+                        uploadedRatio: Math.floor(
+                          (bytes * 100) / thumbnailFile.size
+                        ),
+                      });
+                    },
+                  });
+                  if (ipfsCompHash && ipfsHash) {
+                    dataObj.image = {
+                      original: ipfsHash.path,
+                      compressed: ipfsCompHash.path,
+                      format: nftObj.format,
+                    };
+                    this.props.updateNFT(dataObj); // update nft api called
+                  }
                 });
-                this.setState({ thumbnailFile : thumbnailFile })
-                ipfsCompHash = await ipfs.add(thumbnailFile, {
-                  pin: true,
-                  progress: (bytes) => {
-                    // console.log("Original File upload progress ", Math.floor(bytes * 100 / (thumbnailFile.size)))
-                    this.setState({uploadedRatio: Math.floor((bytes * 100) / thumbnailFile.size)})
-                  },
-                });
-                if (ipfsCompHash && ipfsHash) {
-                  dataObj.image = {
-                    original: ipfsHash.path,
-                    compressed: ipfsCompHash.path,
-                    format: nftObj.format,
-                  };
-                  this.props.updateNFT(dataObj); // update nft api called
-                }
-              });
-            })
+            });
           } else {
             if (original_size !== compressed_size) {
-              ipfsHash = await ipfs.add(this.state.image.original, {
-                pin: true,
-                progress: (bytes) => {
-                  // console.log(
-                  //   'Original File upload progress ',
-                  //   Math.floor((bytes * 100) / original_size)
-                  // );
-                  this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
-                },
-              });
-              ipfsCompHash = await ipfs.add(this.state.image.compressed, {
-                pin: true,
-                progress: (bytes) => {
-                  // console.log(
-                  //   'Compressed File upload progress ',
-                  //   Math.floor((bytes * 100) / compressed_size)
-                  // );
-                  this.setState({uploadedRatio: Math.floor((bytes * 100) / compressed_size)})
-                },
-              });
+              console.log("called here");
+              ipfsHash = await storeNFT(
+                this.state.image.original,
+                nftObj.title,
+                nftObj.description
+              );
+              ipfsCompHash = await storeNFT(
+                this.state.image.compressed,
+                nftObj.title,
+                nftObj.description
+              );
+              // ipfsHash = await ipfs.add(this.state.image.original, {
+              //   pin: true,
+              //   progress: (bytes) => {
+              //     // console.log(
+              //     //   'Original File upload progress ',
+              //     //   Math.floor((bytes * 100) / original_size)
+              //     // );
+              //     this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
+              //   },
+              // });
+              // ipfsCompHash = await ipfs.add(this.state.image.compressed, {
+              //   pin: true,
+              //   progress: (bytes) => {
+              //     // console.log(
+              //     //   'Compressed File upload progress ',
+              //     //   Math.floor((bytes * 100) / compressed_size)
+              //     // );
+              //     this.setState({uploadedRatio: Math.floor((bytes * 100) / compressed_size)})
+              //   },
+              // });
             } else {
-              ipfsHash = await ipfs.add(this.state.image.original, {
-                pin: true,
-                progress: (bytes) => {
-                  // console.log(
-                  //   'Original File upload progress ',
-                  //   Math.floor((bytes * 100) / original_size)
-                  // );
-                  this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
-                },
-              });
+              console.log("and may be here");
+              ipfsHash = await storeNFT(
+                this.state.image.original,
+                nftObj.title,
+                nftObj.description
+              );
+              // ipfsHash = await ipfs.add(this.state.image.original, {
+              //   pin: true,
+              //   progress: (bytes) => {
+              //     // console.log(
+              //     //   'Original File upload progress ',
+              //     //   Math.floor((bytes * 100) / original_size)
+              //     // );
+              //     this.setState({
+              //       uploadedRatio: Math.floor((bytes * 100) / original_size),
+              //     });
+              //   },
+              // });
               ipfsCompHash = ipfsHash;
             }
             dataObj.image = {
@@ -522,71 +549,107 @@ class NFTPage extends Component {
         let { original_size, compressed_size } = this.state;
         let ipfsHash,
           ipfsCompHash = null;
-        
-        if (this.state.videoFile && this.state.fileType === "video") { // generate thumbnail image from uploaded video
+
+        if (this.state.videoFile && this.state.fileType === "video") {
+          // generate thumbnail image from uploaded video
           ipfsHash = await ipfs.add(this.state.image.original, {
-              pin: true,
-              progress: (bytes) => {
-                // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-                this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
-              },
+            pin: true,
+            progress: (bytes) => {
+              // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+              this.setState({
+                uploadedRatio: Math.floor((bytes * 100) / original_size),
+              });
+            },
           });
-          
+
           const canvas = document.createElement("canvas");
           canvas.width = this.videoRef.current.videoWidth;
           canvas.height = this.videoRef.current.videoHeight;
-          canvas.getContext("2d").drawImage(this.videoRef.current, 0, 0,
-            this.videoRef.current.videoWidth,
-            this.videoRef.current.videoHeight);
+          canvas
+            .getContext("2d")
+            .drawImage(
+              this.videoRef.current,
+              0,
+              0,
+              this.videoRef.current.videoWidth,
+              this.videoRef.current.videoHeight
+            );
           this.setState({ videoFileSrc: canvas.toDataURL() }, () => {
             fetch(this.state.videoFileSrc)
-            .then((res) => res.blob())
-            .then(async (blob) => {
-              let thumbnailFile = new File([blob], "video_thumbnail", {
-                type: "image/png"
+              .then((res) => res.blob())
+              .then(async (blob) => {
+                let thumbnailFile = new File([blob], "video_thumbnail", {
+                  type: "image/png",
+                });
+                this.setState({ thumbnailFile: thumbnailFile });
+                ipfsCompHash = await ipfs.add(thumbnailFile, {
+                  pin: true,
+                  progress: (bytes) => {
+                    // console.log("Original File upload progress ", Math.floor(bytes * 100 / (thumbnailFile.size)))
+                    this.setState({
+                      uploadedRatio: Math.floor(
+                        (bytes * 100) / thumbnailFile.size
+                      ),
+                    });
+                  },
+                });
+                if (ipfsCompHash && ipfsHash) {
+                  dataObj.image = {
+                    original: ipfsHash.path,
+                    compressed: ipfsCompHash.path,
+                    format: nftObj.format,
+                  };
+                  console.log("final data obj", dataObj.image);
+                  this.props.addNFT(dataObj); // add new nft api called
+                }
               });
-              this.setState({ thumbnailFile : thumbnailFile })
-              ipfsCompHash = await ipfs.add(thumbnailFile, {
-                pin: true,
-                progress: (bytes) => {
-                  // console.log("Original File upload progress ", Math.floor(bytes * 100 / (thumbnailFile.size)))
-                  this.setState({uploadedRatio: Math.floor((bytes * 100) / thumbnailFile.size)})
-                },
-              });
-              if (ipfsCompHash && ipfsHash) {
-                dataObj.image = {
-                  original: ipfsHash.path,
-                  compressed: ipfsCompHash.path,
-                  format: nftObj.format,
-                };
-                this.props.addNFT(dataObj); // add new nft api called
-              }
-            });
-          })
+          });
         } else {
           if (original_size !== compressed_size) {
-            ipfsHash = await ipfs.add(this.state.image.original, {
-              pin: true,
-              progress: (bytes) => {
-                // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-                this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
-              },
-            });
-            ipfsCompHash = await ipfs.add(this.state.image.compressed, {
-              pin: true,
-              progress: (bytes) => {
-                // console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
-                this.setState({uploadedRatio: Math.floor((bytes * 100) / compressed_size)})
-              },
-            });
+            ipfsHash = await storeNFT(
+              this.state.image.original,
+              nftObj.title,
+              nftObj.description
+            );
+            ipfsCompHash = await storeNFT(
+              this.state.image.compressed,
+              nftObj.title,
+              nftObj.description
+            );
+            // ipfsHash = await ipfs.add(this.state.image.original, {
+            //   pin: true,
+            //   progress: (bytes) => {
+            //     // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+            //     this.setState({
+            //       uploadedRatio: Math.floor((bytes * 100) / original_size),
+            //     });
+            //   },
+            // });
+            // ipfsCompHash = await ipfs.add(this.state.image.compressed, {
+            //   pin: true,
+            //   progress: (bytes) => {
+            //     // console.log("Compressed File upload progress ", Math.floor(bytes * 100 / (compressed_size)))
+            //     this.setState({
+            //       uploadedRatio: Math.floor((bytes * 100) / compressed_size),
+            //     });
+            //   },
+            // });
           } else {
-            ipfsHash = await ipfs.add(this.state.image.original, {
-              pin: true,
-              progress: (bytes) => {
-                // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
-                this.setState({uploadedRatio: Math.floor((bytes * 100) / original_size)})
-              },
-            });
+            console.log("618 line", this.state.image.original);
+            ipfsHash = await storeNFT(
+              this.state.image.original,
+              nftObj.title,
+              nftObj.description
+            );
+            // ipfsHash = await ipfs.add(this.state.image.original, {
+            //   pin: true,
+            //   progress: (bytes) => {
+            //     // console.log("Original File upload progress ", Math.floor(bytes * 100 / (original_size)))
+            //     this.setState({
+            //       uploadedRatio: Math.floor((bytes * 100) / original_size),
+            //     });
+            //   },
+            // });
             ipfsCompHash = ipfsHash;
           }
           dataObj.image = {
@@ -687,7 +750,10 @@ class NFTPage extends Component {
                         to="nftminting#unlockable"
                         smooth={true}
                       >
-                        <FormattedMessage id="unlock_content" defaultMessage="Unlockable Content" />
+                        <FormattedMessage
+                          id="unlock_content"
+                          defaultMessage="Unlockable Content"
+                        />
                       </Link>
                       {/* <Link
                       to="nftminting#admins"
@@ -841,10 +907,11 @@ class NFTPage extends Component {
                           </label>
                         </div>
                         <div
-                          className={`iLeft ${error.isError &&
+                          className={`iLeft ${
+                            error.isError &&
                             error.isCocreatorError &&
                             "errorinput"
-                            }`}
+                          }`}
                         >
                           <i>@</i>
                           <Autosuggestion
@@ -1340,10 +1407,10 @@ class NFTPage extends Component {
                                   <div className="ed-box">
                                     <p>
                                       {nftObj.saleState ===
-                                        "BUY" ? null : nftObj.auctionTime &&
-                                          nftObj.saleState ===
+                                      "BUY" ? null : nftObj.auctionTime &&
+                                        nftObj.saleState ===
                                           "BUY" ? null : nftObj.auctionTime >
-                                            new Date().getTime() / 1000 ? (
+                                        new Date().getTime() / 1000 ? (
                                         <FormattedMessage
                                           id="current_bid"
                                           defaultMessage="Current bid"
@@ -1358,13 +1425,13 @@ class NFTPage extends Component {
                                     <h3>
                                       {currencyUsed === "TR"
                                         ? (+nftObj.price / bnbUSDPrice.try)
-                                          .toFixed(5)
-                                          .toString()
-                                        : currencyUsed === "USD"
-                                          ? (+nftObj.price / bnbUSDPrice.usd)
                                             .toFixed(5)
                                             .toString()
-                                          : nftObj.price}{" "}
+                                        : currencyUsed === "USD"
+                                        ? (+nftObj.price / bnbUSDPrice.usd)
+                                            .toFixed(5)
+                                            .toString()
+                                        : nftObj.price}{" "}
                                       BNB
                                     </h3>
                                   </div>
@@ -1811,7 +1878,7 @@ const CustomCheckbox1 = styled(FlexDiv)`
     }
     ${Media.sm} {
       width: 100%;
-      margin:0px 0px 5px 0px;
+      margin: 0px 0px 5px 0px;
     }
   }
   .checkbox-container input {
@@ -1995,7 +2062,7 @@ const AlertNote = styled.div`
     font-weight: 600;
     letter-spacing: -0.8px;
     ${Media.sm} {
-      text-align:center;
+      text-align: center;
     }
   }
 `;
