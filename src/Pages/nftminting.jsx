@@ -96,12 +96,6 @@ class NFTPage extends Component {
     } = this.props;
     if (fetchListToken !== prevProps.fetchListToken) {
       this.setState({ paymentTokenDetails: fetchListToken });
-      console.log("fetchListToken", fetchListToken);
-      // this.setState({ web3Data: web3Data }, () => {
-      //   if (web3Data.isLoggedIn) {
-      //     this.props.getCollectionList();
-      //   }
-      // });
     }
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data }, () => {

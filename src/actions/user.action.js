@@ -382,7 +382,6 @@ function getListToken() {
     const response = services.get(`/nft/listToken`);
     const promise = await response;
     if (promise.data) {
-      console.log("Token List", promise.data.data);
       dispatch(fetchedData("FETCHED_LIST_TOKEN", promise.data.data));
     } else {
       // console.log('error in fetchCategories actions');
