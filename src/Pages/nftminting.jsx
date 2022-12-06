@@ -76,6 +76,8 @@ class NFTPage extends Component {
       videoFile: null,
       videoFileSrc: "",
       thumbnailFile: null,
+      paymentTokenDetails: [],
+      currentPaymentTokenAddress: "0x0000000000000000000000000000000000000000",
     };
   }
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -84,9 +86,23 @@ class NFTPage extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    let { web3Data, createdNFTID, updatedNFTID, collectionList, categoryList } =
-      this.props;
-
+    let {
+      web3Data,
+      createdNFTID,
+      updatedNFTID,
+      collectionList,
+      categoryList,
+      fetchListToken,
+    } = this.props;
+    if (fetchListToken !== prevProps.fetchListToken) {
+      this.setState({ paymentTokenDetails: fetchListToken });
+      console.log("fetchListToken", fetchListToken);
+      // this.setState({ web3Data: web3Data }, () => {
+      //   if (web3Data.isLoggedIn) {
+      //     this.props.getCollectionList();
+      //   }
+      // });
+    }
     if (web3Data.isLoggedIn !== prevProps.web3Data.isLoggedIn) {
       this.setState({ web3Data: web3Data }, () => {
         if (web3Data.isLoggedIn) {
@@ -119,13 +135,20 @@ class NFTPage extends Component {
 
   async componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
-    let { web3Data, categoryList, collectionList, nftContractInstance } =
-      this.props;
+    let {
+      web3Data,
+      categoryList,
+      collectionList,
+      nftContractInstance,
+      fetchListToken,
+    } = this.props;
+    await this.props.getListToken();
     if (this.props.match.params.id) {
       // this.props.getSingleNFTDetails(this.props.match.params.id); // fetch the single nft details
       const NFTDetails = await actions.getSingleNFTDetails(
         this.props.match.params.id
       );
+
       if (NFTDetails) {
         // this.setState({ NFTDetails: NFTDetails })
         this.setState({ videoFile: NFTDetails.image.original });
@@ -204,8 +227,14 @@ class NFTPage extends Component {
 
   mintNFT = async (_tokenURI) => {
     this.setState({ mintNFTStatus: "initiate" });
-    const { web3Data, nftObj, suggestionVAl, currencyUsed, bnbUSDPrice } =
-      this.state;
+    const {
+      web3Data,
+      nftObj,
+      suggestionVAl,
+      currencyUsed,
+      bnbUSDPrice,
+      currentPaymentTokenAddress,
+    } = this.state;
     const obj = [
       nftObj.edition,
       this.props.createdNFTID ? this.props.createdNFTID._id : nftObj.id,
@@ -218,15 +247,15 @@ class NFTPage extends Component {
       nftObj.saleState === "BUY" ? "0" : "1",
       nftObj.saleState === "BUY" ? 0 : Number(nftObj.auctionTime),
       web3.utils.toWei(
-        currencyUsed === "TR"
-          ? (+nftObj.price / bnbUSDPrice.try).toFixed(10).toString()
-          : currencyUsed === "USD"
-          ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString()
-          : nftObj.price,
+        // currencyUsed === "TR"
+        //   ? (+nftObj.price / bnbUSDPrice.try).toFixed(10).toString()
+        //   : currencyUsed === "USD"
+        //   ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString():
+        nftObj.price,
         "ether"
       ),
       "0",
-      "0x0000000000000000000000000000000000000000",
+      currentPaymentTokenAddress,
     ];
     await this.props.nftContractInstance.methods
       .mintToken(...obj)
@@ -382,11 +411,11 @@ class NFTPage extends Component {
         description: nftObj.description,
         category: nftObj.category,
         price:
-          currencyUsed === "TR"
-            ? (+nftObj.price / bnbUSDPrice.try).toString()
-            : currencyUsed === "USD"
-            ? (+nftObj.price / bnbUSDPrice.usd).toString()
-            : nftObj.price,
+          // currencyUsed === "TR"
+          //   ? (+nftObj.price / bnbUSDPrice.try).toFixed(10).toString()
+          //   : currencyUsed === "USD"
+          //   ? (+nftObj.price / bnbUSDPrice.usd).toFixed(10).toString():
+          nftObj.price,
         saleState: nftObj.saleState,
         auctionTime: nftObj.auctionTime,
         edition: nftObj.edition,
@@ -683,6 +712,7 @@ class NFTPage extends Component {
       fileType,
       currencyUsed,
       bnbUSDPrice,
+      paymentTokenDetails,
     } = this.state;
     const nftObj = this.state.nftObj;
     let context = this.context;
@@ -1229,7 +1259,38 @@ class NFTPage extends Component {
                           >
                             <DDContainer className="ver2">
                               <DDBtnbar02>
-                                <button
+                                {/* {[
+                                  {
+                                    tokenAddress:
+                                      "0x0000000000000000000000000000000000000000",
+                                    symbol: "BNB",
+                                  },
+                                  {
+                                    tokenAddress:
+                                      "0x0000000000000000000000000000000000000000",
+                                    symbol: "BUSD",
+                                  },
+                                  {
+                                    tokenAddress:
+                                      "0x0000000000000000000000000000000000000000",
+                                    symbol: "SNFT",
+                                  },
+                                ]?.map((token) => ( */}
+                                {paymentTokenDetails?.map((token) => (
+                                  <button
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      this.setState({
+                                        currencyUsed: token.symbol,
+                                        currentPaymentTokenAddress:
+                                          token.tokenAddress,
+                                      });
+                                    }}
+                                  >
+                                    {token.symbol}
+                                  </button>
+                                ))}
+                                {/* <button
                                   onClick={(e) => {
                                     e.preventDefault();
                                     this.setState({ currencyUsed: "BNB" });
@@ -1252,7 +1313,7 @@ class NFTPage extends Component {
                                   }}
                                 >
                                   USD
-                                </button>
+                                </button> */}
                               </DDBtnbar02>
                             </DDContainer>
                           </Collapse>
@@ -1423,16 +1484,15 @@ class NFTPage extends Component {
                                       )}
                                     </p>
                                     <h3>
-                                      {currencyUsed === "TR"
+                                      {/* {currencyUsed === "TR"
                                         ? (+nftObj.price / bnbUSDPrice.try)
                                             .toFixed(5)
                                             .toString()
                                         : currencyUsed === "USD"
                                         ? (+nftObj.price / bnbUSDPrice.usd)
                                             .toFixed(5)
-                                            .toString()
-                                        : nftObj.price}{" "}
-                                      BNB
+                                            .toString():  */}
+                                      {nftObj.price} {currencyUsed}
                                     </h3>
                                   </div>
                                   <div className="ed-box">
@@ -2155,7 +2215,7 @@ const mapDipatchToProps = (dispatch) => {
     getCollectionList: () => dispatch(actions.getCollectionList()),
     getCategoryList: () => dispatch(actions.getCategoryList()),
     getNFTContractInstance: () => dispatch(actions.getNFTContractInstance()),
-
+    getListToken: () => dispatch(actions.getListToken()),
     updateNFT: (obj) => dispatch(actions.updateNFT(obj)),
     getSingleNFTDetails: (id) => dispatch(actions.getSingleNFTDetails(id)),
   };
@@ -2170,7 +2230,7 @@ const mapStateToProps = (state) => {
     collectionList: state.fetchCollectionList,
     authData: state.fetchAuthData,
     nftContractInstance: state.fetchNFTContractInstance,
-
+    fetchListToken: state.fetchListToken,
     NFTDetails: state.fetchSingleNFTDetails,
     updatedNFTID: state.fetchUpdatedNFTId,
   };

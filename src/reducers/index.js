@@ -56,6 +56,7 @@ import {
   verified_by_instagram,
   fetch_twitter_access_token,
   verified_by_twitter,
+  fetchListToken,
 } from "./user.reducer";
 
 const rootReducer = combineReducers({
@@ -109,6 +110,7 @@ const rootReducer = combineReducers({
   verified_by_instagram,
   fetch_twitter_access_token,
   verified_by_twitter,
+  fetchListToken,
 });
 
 export default rootReducer;

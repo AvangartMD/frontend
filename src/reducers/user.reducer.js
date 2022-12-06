@@ -179,3 +179,13 @@ export function verified_by_twitter(state = null, action) {
       return state;
   }
 }
+
+export function fetchListToken(state = [], action) {
+  switch (action.type) {
+    case "FETCHED_LIST_TOKEN":
+      console.log("action", action.data);
+      return action.data;
+    default:
+      return state;
+  }
+}
